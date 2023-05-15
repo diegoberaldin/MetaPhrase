@@ -1,0 +1,34 @@
+[
+  {
+    "key": "lang",
+    "value": "it"
+  },
+  {
+    "key": "app_name",
+    "value": "MetaPhrase"
+  },
+  {
+    "key": "app_intro_title",
+    "value": "Grazie per utilizzare MetaPhrase!"
+  },
+  {
+    "key": "app_intro",
+    "value": "Progetti recenti:"
+  },
+  {
+    "key": "app_intro_empty",
+    "value": "Sembra che tu non abbia ancora nessun progetto.\nPuoi crearne uno utilizzando il menu \"Project > New…\" per iniziare."
+  },
+  {
+    "key": "button_ok",
+    "value": "OK"
+  },
+  {
+    "key": "button_cancel",
+    "value": "Annulla"
+  },
+  {
+    "key": "button_close",
+    "value": "Chiudi"
+  }
+]

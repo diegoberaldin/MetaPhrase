@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="corretto-18" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+  <component name="SbtLocalSettings">
+    <option name="modificationStamps">
+      <map>
+        <entry key="$PROJECT_DIR$/../../Java/amsi-ws" value="1447487531000" />
+        <entry key="$PROJECT_DIR$/../../Java/ecs-webapp" value="1443251572000" />
+        <entry key="$PROJECT_DIR$/../../Java/ecs-ws" value="1442433954000" />
+        <entry key="$PROJECT_DIR$/../../Java/foursteps-webapp" value="1450905128000" />
+        <entry key="$PROJECT_DIR$/../../Java/foursteps-ws" value="1449694354000" />
+        <entry key="$PROJECT_DIR$/../../Java/myetraining-webapp" value="1448311032000" />
+        <entry key="$PROJECT_DIR$/../../Java/openlearning-ws" value="1443558376000" />
+        <entry key="$PROJECT_DIR$/../../Scala/test" value="1446904958000" />
+        <entry key="$PROJECT_DIR$/../../Scala/testAndroid" value="1446936873000" />
+      </map>
+    </option>
+    <option name="externalProjectsViewState">
+      <projects_view />
+    </option>
+  </component>
+</project>
