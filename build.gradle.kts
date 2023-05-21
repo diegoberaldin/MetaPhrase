@@ -23,11 +23,18 @@ kotlin {
         val jvmMain by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)
-                implementation(libs.essenty.instancekeeper)
+                implementation(compose.foundation)
                 implementation(libs.koin)
+                implementation(libs.decompose)
+                implementation(libs.decompose.extensions)
 
                 implementation(projects.coreCommon)
                 implementation(projects.coreLocalization)
+                implementation(projects.coreData)
+                implementation(projects.corePersistence)
+                implementation(projects.coreRepository)
+
+                implementation(projects.featureMain)
             }
         }
         val jvmTest by getting

@@ -12,7 +12,7 @@ object L10n {
                 break
             }
             trySend(get("lang"))
-            delay(1000)
+            delay(1_000)
         }
     }
 

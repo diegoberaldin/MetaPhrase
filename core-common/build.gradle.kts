@@ -24,9 +24,10 @@ kotlin {
                 implementation(compose.desktop.currentOs)
 
                 implementation(libs.koin)
-                implementation(libs.essenty.instancekeeper)
                 implementation(libs.androidx.datastore)
+                implementation(libs.kotlinx.coroutines)
                 implementation(libs.bundles.log4j)
+                implementation(libs.decompose)
             }
         }
         val jvmTest by getting

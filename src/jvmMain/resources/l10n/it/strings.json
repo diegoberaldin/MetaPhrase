@@ -8,16 +8,136 @@
     "value": "MetaPhrase"
   },
   {
+    "key": "language_english",
+    "value": "English"
+  },
+  {
+    "key": "language_italian",
+    "value": "Italiano"
+  },
+  {
+    "key": "language_spanish",
+    "value": "Español"
+  },
+  {
+    "key": "language_french",
+    "value": "Français"
+  },
+  {
+    "key": "language_german",
+    "value": "Deutsch"
+  },
+  {
+    "key": "language_greek",
+    "value": "Ελληνικά"
+  },
+  {
+    "key": "language_romanian",
+    "value": "Română"
+  },
+  {
+    "key": "language_dutch",
+    "value": "Nederlands"
+  },
+  {
+    "key": "language_danish",
+    "value": "Dansk"
+  },
+  {
+    "key": "language_portuguese",
+    "value": "Português"
+  },
+  {
+    "key": "language_finnish",
+    "value": "Suomi"
+  },
+  {
+    "key": "language_swedish",
+    "value": "Svenska"
+  },
+  {
+    "key": "language_czech",
+    "value": "Čeština"
+  },
+  {
+    "key": "language_estonian",
+    "value": "Eesti"
+  },
+  {
+    "key": "language_hungarian",
+    "value": "Magyar"
+  },
+  {
+    "key": "language_latvian",
+    "value": "Latviešu"
+  },
+  {
+    "key": "language_lithuanian",
+    "value": "Lietuvių"
+  },
+  {
+    "key": "language_maltese",
+    "value": "Malti"
+  },
+  {
+    "key": "language_polish",
+    "value": "Polski"
+  },
+  {
+    "key": "language_slovak",
+    "value": "Slovenčina"
+  },
+  {
+    "key": "language_slovenian",
+    "value": "Slovenščina"
+  },
+  {
+    "key": "language_bulgarian",
+    "value": "Вългарски"
+  },
+  {
+    "key": "language_irish",
+    "value": "Gaeilge"
+  },
+  {
+    "key": "language_croatian",
+    "value": "Hrvatski"
+  },
+  {
+    "key": "tooltip_move_to_previous",
+    "value": "Vai al precedente"
+  },
+  {
+    "key": "tooltip_move_to_next",
+    "value": "Vai al successivo"
+  },
+  {
+    "key": "tooltip_add",
+    "value": "Add"
+  },
+  {
+    "key": "tooltip_delete",
+    "value": "Delete"
+  },
+  {
+    "key": "tooltip_copy_base",
+    "value": "Copia da lingua base"
+  },
+  {
+    "key": "tooltip_validate",
+    "value": "Convalida"
+  },
+  {
     "key": "app_intro_title",
     "value": "Grazie per utilizzare MetaPhrase!"
   },
   {
     "key": "app_intro",
-    "value": "Progetti recenti:"
+    "value": "Apri un progetto selezionando una delle voci corrispondenti."
   },
   {
     "key": "app_intro_empty",
-    "value": "Sembra che tu non abbia ancora nessun progetto.\nPuoi crearne uno utilizzando il menu \"Project > New…\" per iniziare."
+    "value": "Sembra che tu non abbia ancora nessun progetto.\nPuoi crearne uno utilizzando il menu \"Progetto > Nuovo…\" per iniziare."
   },
   {
     "key": "button_ok",
@@ -30,5 +150,101 @@
   {
     "key": "button_close",
     "value": "Chiudi"
+  },
+  {
+    "key": "menu_project",
+    "value": "Progetto"
+  },
+  {
+    "key": "menu_project_new",
+    "value": "Nuovo…"
+  },
+  {
+    "key": "menu_project_edit",
+    "value": "Modifica…"
+  },
+  {
+    "key": "menu_project_close",
+    "value": "Chiudi"
+  },
+  {
+    "key": "menu_project_import",
+    "value": "Importa"
+  },
+  {
+    "key": "menu_project_export",
+    "value": "Esporta"
+  },
+  {
+    "key": "menu_project_import",
+    "value": "Import segments"
+  },
+  {
+    "key": "menu_project_import_android",
+    "value": "Android XML…"
+  },
+  {
+    "key": "menu_project_import_ios",
+    "value": "iOS stringtable…"
+  },
+  {
+    "key": "menu_segment",
+    "value": "Segmento"
+  },
+  {
+    "key": "menu_segment_previous",
+    "value": "Precedente"
+  },
+  {
+    "key": "menu_segment_next",
+    "value": "Successivo"
+  },
+  {
+    "key": "menu_segment_end_edit",
+    "value": "Termina modifica"
+  },
+  {
+    "key": "status_bar_project",
+    "value": "progetto: "
+  },
+  {
+    "key": "status_bar_units",
+    "value": "unità: "
+  },
+  {
+    "key": "dialog_title_create_project",
+    "value": "Nuovo progetto"
+  },
+  {
+    "key": "create_project_field_name",
+    "value": "Nome"
+  },
+  {
+    "key": "create_project_languages",
+    "value": "Lingue"
+  },
+  {
+    "key": "create_project_languages_subtitle",
+    "value": "Ogni progetto deve contenere esattametne una lingua base (o default)"
+  },
+  {
+    "key": "unit_filter_all",
+    "value": "Tutti"
+  },
+  {
+    "key": "unit_filter_untranslated",
+    "value": "Da tradurre"
+  },
+  {
+    "key": "unit_filter_translatable",
+    "value": "Traducibili"
+  },
+  {
+    "key": "toolbar_search_placeholder",
+    "value": "Cerca…"
+  },
+  {
+    "key": "dialog_title_open_file",
+    "value": "Seleziona file"
   }
 ]

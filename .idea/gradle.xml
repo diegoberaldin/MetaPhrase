@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
@@ -8,7 +9,16 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/core-common" />
+            <option value="$PROJECT_DIR$/core-data" />
             <option value="$PROJECT_DIR$/core-localization" />
+            <option value="$PROJECT_DIR$/core-persistence" />
+            <option value="$PROJECT_DIR$/core-repository" />
+            <option value="$PROJECT_DIR$/feature-intro" />
+            <option value="$PROJECT_DIR$/feature-main" />
+            <option value="$PROJECT_DIR$/feature-projects" />
+            <option value="$PROJECT_DIR$/feature-projects/create" />
+            <option value="$PROJECT_DIR$/feature-projects/list" />
+            <option value="$PROJECT_DIR$/feature-translate" />
           </set>
         </option>
       </GradleProjectSettings>

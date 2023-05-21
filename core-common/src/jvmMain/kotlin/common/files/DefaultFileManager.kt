@@ -5,7 +5,7 @@ import java.util.*
 
 object DefaultFileManager : common.files.FileManager {
 
-    private const val DIR_NAME = "MetaLine"
+    private const val DIR_NAME = "MetaPhrase"
     private val separator = System.getProperty("file.separator")
 
     private lateinit var dirPath: String
@@ -15,13 +15,16 @@ object DefaultFileManager : common.files.FileManager {
     }
 
     override fun getFilePath(vararg components: String): String {
-        return common.files.DefaultFileManager.dirPath + common.files.DefaultFileManager.separator + components.joinToString(separator = common.files.DefaultFileManager.separator)
+        return common.files.DefaultFileManager.dirPath + common.files.DefaultFileManager.separator + components.joinToString(
+            separator = common.files.DefaultFileManager.separator,
+        )
     }
 
     private fun ensureAppDirectory() {
         val os = System.getProperty("os.name").uppercase(Locale.getDefault())
         if (os.contains("WIN")) {
-            common.files.DefaultFileManager.dirPath = System.getenv("APPDATA") + common.files.DefaultFileManager.separator + common.files.DefaultFileManager.DIR_NAME
+            common.files.DefaultFileManager.dirPath =
+                System.getenv("APPDATA") + common.files.DefaultFileManager.separator + common.files.DefaultFileManager.DIR_NAME
         }
         if (os.contains("MAC")) {
             common.files.DefaultFileManager.dirPath =
@@ -29,7 +32,8 @@ object DefaultFileManager : common.files.FileManager {
                 "${common.files.DefaultFileManager.separator}Library" + "${common.files.DefaultFileManager.separator}Application Support${common.files.DefaultFileManager.separator}" + common.files.DefaultFileManager.DIR_NAME
         }
         if (os.contains("NUX")) {
-            common.files.DefaultFileManager.dirPath = System.getProperty("user.dir") + common.files.DefaultFileManager.separator + ".${common.files.DefaultFileManager.DIR_NAME}"
+            common.files.DefaultFileManager.dirPath =
+                System.getProperty("user.dir") + common.files.DefaultFileManager.separator + ".${common.files.DefaultFileManager.DIR_NAME}"
         }
 
         val directory = File(common.files.DefaultFileManager.dirPath)

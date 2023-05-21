@@ -20,6 +20,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.TextFieldValue
@@ -33,6 +34,8 @@ fun CustomTextField(
     label: String = "",
     hint: String = "",
     labelColor: Color = Color.White,
+    backgroundColor: Color = Color.White,
+    textColor: Color = Color.Black,
     labelExtraSpacing: Dp = 0.dp,
     labelStyle: TextStyle = MaterialTheme.typography.caption,
     value: String,
@@ -41,7 +44,7 @@ fun CustomTextField(
     endButton: @Composable (() -> Unit)? = null,
 ) {
     Column(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier,
     ) {
         if (label.isNotEmpty()) {
             Text(
@@ -62,19 +65,22 @@ fun CustomTextField(
             if (textFieldValue.text.isEmpty() && value.isNotEmpty() && initial) {
                 initial = false
                 textFieldValue = TextFieldValue(value)
+            } else if (value.isEmpty()) {
+                textFieldValue = TextFieldValue(value)
             }
         }
         BasicTextField(
             modifier = Modifier.fillMaxWidth()
                 .weight(1f)
-                .background(color = Color.White, shape = RoundedCornerShape(4.dp))
+                .background(color = backgroundColor, shape = RoundedCornerShape(4.dp))
                 .padding(horizontal = Spacing.xs, vertical = Spacing.xs),
             value = textFieldValue,
             onValueChange = {
                 textFieldValue = it.copy(selection = TextRange(it.text.length))
                 onValueChange(it.text)
             },
-            textStyle = MaterialTheme.typography.caption,
+            cursorBrush = SolidColor(textColor),
+            textStyle = MaterialTheme.typography.caption.copy(color = textColor),
             singleLine = singleLine,
             decorationBox = { innerTextField ->
                 Box(
