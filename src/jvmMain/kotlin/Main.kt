@@ -133,6 +133,7 @@ private fun MenuBarScope.makeMenus(
         Item(
             text = "menu_project_close".localized(),
             enabled = activeProject != null,
+            shortcut = KeyShortcut(Key.W, meta = true),
         ) {
             rootComponent.closeCurrentProject()
         }
