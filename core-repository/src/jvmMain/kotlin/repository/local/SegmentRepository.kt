@@ -1,6 +1,7 @@
 package repository.local
 
 import data.SegmentModel
+import data.TranslationUnitTypeFilter
 import persistence.dao.SegmentDao
 
 class SegmentRepository(
@@ -14,9 +15,15 @@ class SegmentRepository(
 
     suspend fun getAll(languageId: Int) = dao.getAll(languageId)
 
-    suspend fun getAllTranslatable(languageId: Int) = dao.getAllTranslatable(languageId)
-
-    suspend fun getAllUntranslated(languageId: Int) = dao.getAllUntranslated(languageId)
+    suspend fun search(
+        languageId: Int,
+        filter: TranslationUnitTypeFilter = TranslationUnitTypeFilter.ALL,
+        search: String? = null
+    ) = dao.search(
+        languageId = languageId,
+        filter = filter,
+        search = search,
+    )
 
     suspend fun getById(id: Int) = dao.getById(id)
 

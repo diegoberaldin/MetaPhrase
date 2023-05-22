@@ -145,13 +145,18 @@ internal class DefaultTranslateComponent(
                         }.launchIn(this)
                     toolbarComponent.events.onEach { evt ->
                         when (evt) {
-                            // TODO: process events
+                            // TODO: process other events
                             TranslateToolbarComponent.Events.MoveToPrevious -> {
                                 moveToPrevious()
                             }
 
                             TranslateToolbarComponent.Events.MoveToNext -> {
                                 moveToNext()
+                            }
+
+                            is TranslateToolbarComponent.Events.Search -> {
+                                val searchText = evt.text
+                                messageListComponent.search(searchText)
                             }
 
                             else -> Unit

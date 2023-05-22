@@ -4,7 +4,7 @@ import com.arkivanov.decompose.ComponentContext
 import common.utils.getByInjection
 import data.LanguageModel
 import kotlinx.coroutines.flow.StateFlow
-import translate.ui.toolbar.TranslationUnitTypeFilter
+import data.TranslationUnitTypeFilter
 import kotlin.coroutines.CoroutineContext
 
 interface MessageListComponent {
@@ -12,6 +12,8 @@ interface MessageListComponent {
     val uiState: StateFlow<MessageListUiState>
 
     fun reloadMessages(language: LanguageModel, filter: TranslationUnitTypeFilter, projectId: Int)
+
+    fun search(text: String)
 
     fun startEditing(index: Int)
 
