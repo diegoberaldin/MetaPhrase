@@ -5,6 +5,7 @@ import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import common.coroutines.CoroutineDispatcherProvider
 import data.LanguageModel
+import data.TranslationUnitTypeFilter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
@@ -19,7 +20,6 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import repository.local.LanguageRepository
 import repository.local.SegmentRepository
-import data.TranslationUnitTypeFilter
 import kotlin.coroutines.CoroutineContext
 
 internal class DefaultMessageListComponent(
@@ -165,7 +165,9 @@ internal class DefaultMessageListComponent(
             val segment = units.value[index].segment.let {
                 if (it.text.isBlank()) {
                     it.copy(text = "")
-                } else it
+                } else {
+                    it
+                }
             }
             segmentRepository.update(segment)
         }
@@ -185,7 +187,7 @@ internal class DefaultMessageListComponent(
         val index = editingIndex.value ?: return
         editingIndex.value = null
         viewModelScope.launch(dispatchers.io) {
-            delay(250)// to update textfield value
+            delay(250) // to update textfield value
             units.getAndUpdate { oldList ->
                 oldList.mapIndexed { idx, unit ->
                     if (idx == index) {

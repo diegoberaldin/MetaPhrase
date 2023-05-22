@@ -2,9 +2,17 @@ package persistence.dao
 
 import data.SegmentModel
 import data.TranslationUnitTypeFilter
-import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.LikePattern
+import org.jetbrains.exposed.sql.Op
+import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
+import org.jetbrains.exposed.sql.and
+import org.jetbrains.exposed.sql.deleteWhere
+import org.jetbrains.exposed.sql.insertIgnore
+import org.jetbrains.exposed.sql.or
+import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
+import org.jetbrains.exposed.sql.update
 import persistence.entities.SegmentEntity
 import persistence.entities.SegmentEntity.id
 import persistence.entities.SegmentEntity.key
@@ -33,13 +41,15 @@ class SegmentDao {
     }
 
     suspend fun getAll(languageId: Int): List<SegmentModel> = newSuspendedTransaction {
-        SegmentEntity.select { SegmentEntity.languageId eq languageId }.map { it.toModel() }
+        SegmentEntity.select { SegmentEntity.languageId eq languageId }
+            .orderBy(key)
+            .map { it.toModel() }
     }
 
     suspend fun search(
         languageId: Int,
         filter: TranslationUnitTypeFilter = TranslationUnitTypeFilter.ALL,
-        search: String? = null
+        search: String? = null,
     ): List<SegmentModel> = newSuspendedTransaction {
         SegmentEntity.select {
             val conditions = mutableListOf<Op<Boolean>>()
@@ -60,7 +70,9 @@ class SegmentDao {
                 conditions += (text like pattern) or (key like pattern)
             }
             conditions.fold<Op<Boolean>, Op<Boolean>>(Op.TRUE) { acc, it -> acc.and(it) }
-        }.map { it.toModel() }
+        }
+            .orderBy(key)
+            .map { it.toModel() }
     }
 
     suspend fun getById(id: Int): SegmentModel? = newSuspendedTransaction {

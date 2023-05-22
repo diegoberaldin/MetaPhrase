@@ -18,7 +18,7 @@ class SegmentRepository(
     suspend fun search(
         languageId: Int,
         filter: TranslationUnitTypeFilter = TranslationUnitTypeFilter.ALL,
-        search: String? = null
+        search: String? = null,
     ) = dao.search(
         languageId = languageId,
         filter = filter,
