@@ -3,6 +3,7 @@ package repository.usecase
 import data.SegmentModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.redundent.kotlin.xml.PrintOptions
 import org.redundent.kotlin.xml.xml
 import java.io.File
 import java.io.FileWriter
@@ -41,6 +42,6 @@ class ExportAndroidResourcesUseCase {
                 }
             }
         }
-        return root.toString(true)
+        return root.toString(PrintOptions(pretty = true, singleLineTextElements = true, useCharacterReference = true))
     }
 }
