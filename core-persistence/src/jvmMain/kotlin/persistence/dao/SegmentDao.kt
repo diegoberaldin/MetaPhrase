@@ -1,6 +1,7 @@
 package persistence.dao
 
 import data.SegmentModel
+import data.TranslationUnitTypeFilter
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
@@ -35,14 +36,31 @@ class SegmentDao {
         SegmentEntity.select { SegmentEntity.languageId eq languageId }.map { it.toModel() }
     }
 
-    suspend fun getAllTranslatable(languageId: Int): List<SegmentModel> = newSuspendedTransaction {
-        SegmentEntity.select { (SegmentEntity.languageId eq languageId) and (translatable eq true) }
-            .map { it.toModel() }
-    }
+    suspend fun search(
+        languageId: Int,
+        filter: TranslationUnitTypeFilter = TranslationUnitTypeFilter.ALL,
+        search: String? = null
+    ): List<SegmentModel> = newSuspendedTransaction {
+        SegmentEntity.select {
+            val conditions = mutableListOf<Op<Boolean>>()
+            conditions += SegmentEntity.languageId eq languageId
+            when (filter) {
+                TranslationUnitTypeFilter.TRANSLATABLE -> {
+                    conditions += (translatable eq true)
+                }
 
-    suspend fun getAllUntranslated(languageId: Int): List<SegmentModel> = newSuspendedTransaction {
-        SegmentEntity.select { (SegmentEntity.languageId eq languageId) and (text eq "") }
-            .map { it.toModel() }
+                TranslationUnitTypeFilter.UNTRANSLATED -> {
+                    conditions += (text eq "")
+                }
+
+                else -> Unit
+            }
+            if (!search.isNullOrBlank()) {
+                val pattern = LikePattern("%$search%")
+                conditions += (text like pattern) or (key like pattern)
+            }
+            conditions.fold<Op<Boolean>, Op<Boolean>>(Op.TRUE) { acc, it -> acc.and(it) }
+        }.map { it.toModel() }
     }
 
     suspend fun getById(id: Int): SegmentModel? = newSuspendedTransaction {

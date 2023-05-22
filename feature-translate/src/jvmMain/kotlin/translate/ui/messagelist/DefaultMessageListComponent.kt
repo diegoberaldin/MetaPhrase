@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import repository.local.LanguageRepository
 import repository.local.SegmentRepository
-import translate.ui.toolbar.TranslationUnitTypeFilter
+import data.TranslationUnitTypeFilter
 import kotlin.coroutines.CoroutineContext
 
 internal class DefaultMessageListComponent(
@@ -36,6 +36,10 @@ internal class DefaultMessageListComponent(
     private lateinit var _uiState: StateFlow<MessageListUiState>
     private lateinit var viewModelScope: CoroutineScope
     private var saveJob: Job? = null
+    private var lastLanguage: LanguageModel? = null
+    private var lastFilter = TranslationUnitTypeFilter.ALL
+    private var lastSearch: String = ""
+    private var projectId: Int = 0
 
     override val uiState: StateFlow<MessageListUiState>
         get() = _uiState
@@ -66,40 +70,59 @@ internal class DefaultMessageListComponent(
         }
     }
 
+    override fun search(text: String) {
+        if (lastSearch == text) return
+        lastSearch = text
+        viewModelScope.launch(dispatchers.io) {
+            innerReload()
+        }
+    }
+
     override fun reloadMessages(language: LanguageModel, filter: TranslationUnitTypeFilter, projectId: Int) {
         if (!this::viewModelScope.isInitialized) return
+        if (lastLanguage == language && lastFilter == filter && this.projectId == projectId) return
 
-        units.value = emptyList()
-        editingIndex.value = null
+        lastLanguage = language
+        lastFilter = filter
+        this.projectId = projectId
 
         viewModelScope.launch(dispatchers.io) {
-            val languageId = language.id
-            isBaseLanguage.value = language.isBase
-            val baseLanguageId = if (language.isBase) {
-                languageId
+            innerReload()
+        }
+    }
+
+    private suspend fun innerReload() {
+        val language = lastLanguage ?: return
+        val search = lastSearch.takeIf { it.isNotBlank() }
+        editingIndex.value = null
+        units.value = emptyList()
+
+        val languageId = language.id
+        isBaseLanguage.value = language.isBase
+        val baseLanguageId = if (language.isBase) {
+            languageId
+        } else {
+            languageRepository.getAll(projectId).firstOrNull { it.isBase }?.id ?: 0
+        }
+
+        val segments = segmentRepository.search(
+            languageId = languageId,
+            filter = lastFilter,
+            search = search,
+        )
+
+        units.value = segments.map { segment ->
+            if (isBaseLanguage.value) {
+                TranslationUnit(
+                    segment = segment,
+                )
             } else {
-                languageRepository.getAll(projectId).firstOrNull { it.isBase }?.id ?: 0
-            }
-
-            val segments = when (filter) {
-                TranslationUnitTypeFilter.TRANSLATABLE -> segmentRepository.getAllTranslatable(languageId = languageId)
-                TranslationUnitTypeFilter.UNTRANSLATED -> segmentRepository.getAllUntranslated(languageId = languageId)
-                else -> segmentRepository.getAll(languageId = languageId)
-            }
-
-            units.value = segments.map { segment ->
-                if (isBaseLanguage.value) {
-                    TranslationUnit(
-                        segment = segment,
-                    )
-                } else {
-                    val key = segment.key
-                    val original = segmentRepository.getByKey(key = key, languageId = baseLanguageId)
-                    TranslationUnit(
-                        segment = segment,
-                        original = original,
-                    )
-                }
+                val key = segment.key
+                val original = segmentRepository.getByKey(key = key, languageId = baseLanguageId)
+                TranslationUnit(
+                    segment = segment,
+                    original = original,
+                )
             }
         }
     }
