@@ -44,6 +44,7 @@ import translate.ui.messagelist.MessageListComponent
 import translate.ui.toolbar.TranslateToolbarComponent
 import kotlin.coroutines.CoroutineContext
 
+@OptIn(ExperimentalCoroutinesApi::class)
 internal class DefaultTranslateComponent(
     componentContext: ComponentContext,
     coroutineContext: CoroutineContext,
@@ -77,7 +78,7 @@ internal class DefaultTranslateComponent(
         get() = _uiState
 
     override val toolbar: Value<ChildSlot<ToolbarConfig, TranslateToolbarComponent>> =
-        childSlot<ToolbarConfig, TranslateToolbarComponent>(
+        childSlot(
             source = toolbarNavigation,
             key = KEY_TOOLBAR_SLOT,
             childFactory = { _, context ->
@@ -89,7 +90,7 @@ internal class DefaultTranslateComponent(
         )
 
     override val messageList: Value<ChildSlot<MessageListConfig, MessageListComponent>> =
-        childSlot<MessageListConfig, MessageListComponent>(
+        childSlot(
             source = messageListNavigation,
             key = KEY_MESSAGE_LIST_SLOT,
             childFactory = { _, context ->
@@ -132,10 +133,15 @@ internal class DefaultTranslateComponent(
                     val toolbarComponent = observeChildSlot<TranslateToolbarComponent>(toolbar).first()
                     val messageListComponent = observeChildSlot<MessageListComponent>(messageList).first()
                     toolbarComponent.projectId = projectId
-                    toolbarComponent.uiState.mapLatest { it.currentLanguage }.distinctUntilChanged()
-                        .onEach { language ->
+                    toolbarComponent.uiState.mapLatest { it.currentLanguage to it.currentTypeFilter }
+                        .distinctUntilChanged()
+                        .onEach { (language, filter) ->
                             if (language == null) return@onEach
-                            messageListComponent.loadLanguage(language = language, projectId = projectId)
+                            messageListComponent.reloadMessages(
+                                language = language,
+                                filter = filter,
+                                projectId = projectId
+                            )
                         }.launchIn(this)
                     toolbarComponent.events.onEach { evt ->
                         when (evt) {
@@ -186,8 +192,9 @@ internal class DefaultTranslateComponent(
 
     override fun import(path: String, type: ResourceFileType) {
         viewModelScope.launch(dispatchers.io) {
-            val language = observeChildSlot<TranslateToolbarComponent>(toolbar).first().uiState.value.currentLanguage
-                ?: return@launch
+            val toolbarState = observeChildSlot<TranslateToolbarComponent>(toolbar).first().uiState.value
+            val language = toolbarState.currentLanguage ?: return@launch
+            val filter = toolbarState.currentTypeFilter
             when (type) {
                 ResourceFileType.ANDROID_XML -> {
                     val segments = parseAndroidResources(path = path)
@@ -198,7 +205,7 @@ internal class DefaultTranslateComponent(
                     )
                     updateUnitCount()
                     val messageListComponent = observeChildSlot<MessageListComponent>(messageList).first()
-                    messageListComponent.loadLanguage(language = language, projectId = projectId)
+                    messageListComponent.reloadMessages(language = language, filter = filter, projectId = projectId)
                 }
 
                 ResourceFileType.IOS_STRINGS -> {
@@ -210,7 +217,7 @@ internal class DefaultTranslateComponent(
                     )
                     updateUnitCount()
                     val messageListComponent = observeChildSlot<MessageListComponent>(messageList).first()
-                    messageListComponent.loadLanguage(language = language, projectId = projectId)
+                    messageListComponent.reloadMessages(language = language, filter = filter, projectId = projectId)
                 }
 
                 else -> Unit

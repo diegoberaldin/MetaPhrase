@@ -1,14 +1,9 @@
 package persistence.dao
 
 import data.SegmentModel
-import org.jetbrains.exposed.sql.ResultRow
+import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
-import org.jetbrains.exposed.sql.and
-import org.jetbrains.exposed.sql.deleteWhere
-import org.jetbrains.exposed.sql.insertIgnore
-import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
-import org.jetbrains.exposed.sql.update
 import persistence.entities.SegmentEntity
 import persistence.entities.SegmentEntity.id
 import persistence.entities.SegmentEntity.key
@@ -38,6 +33,16 @@ class SegmentDao {
 
     suspend fun getAll(languageId: Int): List<SegmentModel> = newSuspendedTransaction {
         SegmentEntity.select { SegmentEntity.languageId eq languageId }.map { it.toModel() }
+    }
+
+    suspend fun getAllTranslatable(languageId: Int): List<SegmentModel> = newSuspendedTransaction {
+        SegmentEntity.select { (SegmentEntity.languageId eq languageId) and (translatable eq true) }
+            .map { it.toModel() }
+    }
+
+    suspend fun getAllUntranslated(languageId: Int): List<SegmentModel> = newSuspendedTransaction {
+        SegmentEntity.select { (SegmentEntity.languageId eq languageId) and (text eq "") }
+            .map { it.toModel() }
     }
 
     suspend fun getById(id: Int): SegmentModel? = newSuspendedTransaction {

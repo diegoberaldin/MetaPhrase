@@ -19,6 +19,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import repository.local.LanguageRepository
 import repository.local.SegmentRepository
+import translate.ui.toolbar.TranslationUnitTypeFilter
 import kotlin.coroutines.CoroutineContext
 
 internal class DefaultMessageListComponent(
@@ -65,7 +66,7 @@ internal class DefaultMessageListComponent(
         }
     }
 
-    override fun loadLanguage(language: LanguageModel, projectId: Int) {
+    override fun reloadMessages(language: LanguageModel, filter: TranslationUnitTypeFilter, projectId: Int) {
         if (!this::viewModelScope.isInitialized) return
 
         units.value = emptyList()
@@ -80,7 +81,11 @@ internal class DefaultMessageListComponent(
                 languageRepository.getAll(projectId).firstOrNull { it.isBase }?.id ?: 0
             }
 
-            val segments = segmentRepository.getAll(languageId)
+            val segments = when (filter) {
+                TranslationUnitTypeFilter.TRANSLATABLE -> segmentRepository.getAllTranslatable(languageId = languageId)
+                TranslationUnitTypeFilter.UNTRANSLATED -> segmentRepository.getAllUntranslated(languageId = languageId)
+                else -> segmentRepository.getAll(languageId = languageId)
+            }
 
             units.value = segments.map { segment ->
                 if (isBaseLanguage.value) {
@@ -134,7 +139,11 @@ internal class DefaultMessageListComponent(
         saveJob?.cancel()
         saveJob = viewModelScope.launch(dispatchers.io) {
             delay(1000)
-            val segment = units.value[index].segment
+            val segment = units.value[index].segment.let {
+                if (it.text.isBlank()) {
+                    it.copy(text = "")
+                } else it
+            }
             segmentRepository.update(segment)
         }
     }

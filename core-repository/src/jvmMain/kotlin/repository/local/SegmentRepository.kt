@@ -14,6 +14,11 @@ class SegmentRepository(
 
     suspend fun getAll(languageId: Int) = dao.getAll(languageId)
 
+    suspend fun getAllTranslatable(languageId: Int) = dao.getAllTranslatable(languageId)
+
+    suspend fun getAllUntranslated(languageId: Int) = dao.getAllUntranslated(languageId)
+
     suspend fun getById(id: Int) = dao.getById(id)
+
     suspend fun getByKey(key: String, languageId: Int) = dao.getByKey(key = key, languageId = languageId)
 }
