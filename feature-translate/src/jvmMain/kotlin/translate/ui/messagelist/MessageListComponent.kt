@@ -25,6 +25,8 @@ interface MessageListComponent {
 
     fun setSegmentText(text: String)
 
+    fun copyBase()
+
     object Factory {
         fun create(
             componentContext: ComponentContext,

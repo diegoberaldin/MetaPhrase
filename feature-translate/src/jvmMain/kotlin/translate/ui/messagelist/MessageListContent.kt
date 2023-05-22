@@ -59,7 +59,7 @@ fun MessageListContent(
                     }
                 }
             }
-            var value by remember(unit.segment.id) {
+            var value by remember(key1 = unit.segment.id, key2 = uiState.editingIndex == idx) {
                 mutableStateOf(
                     TextFieldValue(
                         text = unit.segment.text,

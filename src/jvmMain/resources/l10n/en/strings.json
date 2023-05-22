@@ -200,6 +200,10 @@
     "value": "End edit"
   },
   {
+    "key": "menu_segment_copy_base",
+    "value": "Copy base"
+  },
+  {
     "key": "status_bar_project",
     "value": "project: "
   },

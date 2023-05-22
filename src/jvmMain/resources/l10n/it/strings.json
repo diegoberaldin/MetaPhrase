@@ -204,6 +204,10 @@
     "value": "Termina modifica"
   },
   {
+    "key": "menu_segment_copy_base",
+    "value": "Copia base"
+  },
+  {
     "key": "status_bar_project",
     "value": "progetto: "
   },

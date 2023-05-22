@@ -180,4 +180,24 @@ internal class DefaultMessageListComponent(
         val index = editingIndex.value ?: return
         editingIndex.value = (index + 1).coerceAtMost(units.value.lastIndex)
     }
+
+    override fun copyBase() {
+        val index = editingIndex.value ?: return
+        editingIndex.value = null
+        viewModelScope.launch(dispatchers.io) {
+            delay(250)// to update textfield value
+            units.getAndUpdate { oldList ->
+                oldList.mapIndexed { idx, unit ->
+                    if (idx == index) {
+                        val baseText = unit.original?.text ?: unit.segment.text
+                        unit.copy(segment = unit.segment.copy(text = baseText))
+                    } else {
+                        unit
+                    }
+                }
+            }
+            saveCurrentSegmentDebounced(index)
+            editingIndex.value = index
+        }
+    }
 }

@@ -6,6 +6,7 @@ import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
 import common.utils.getByInjection
+import data.LanguageModel
 import data.ResourceFileType
 import kotlinx.coroutines.flow.StateFlow
 import translate.ui.messagelist.MessageListComponent
@@ -19,12 +20,14 @@ interface TranslateComponent {
     val uiState: StateFlow<TranslateUiState>
     var projectId: Int
     val isEditing: StateFlow<Boolean>
+    val currentLanguage: StateFlow<LanguageModel?>
 
     fun import(path: String, type: ResourceFileType)
     fun export(path: String, type: ResourceFileType)
     fun moveToPrevious()
     fun moveToNext()
     fun endEditing()
+    fun copyBase()
 
     object Factory {
         fun create(

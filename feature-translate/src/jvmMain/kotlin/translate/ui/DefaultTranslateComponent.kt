@@ -11,6 +11,7 @@ import com.arkivanov.essenty.lifecycle.doOnDestroy
 import com.arkivanov.essenty.lifecycle.doOnStart
 import common.coroutines.CoroutineDispatcherProvider
 import common.utils.observeChildSlot
+import data.LanguageModel
 import data.ProjectModel
 import data.ResourceFileType
 import kotlinx.coroutines.CoroutineScope
@@ -108,6 +109,12 @@ internal class DefaultTranslateComponent(
             .map { it.editingIndex != null }
             .stateIn(viewModelScope, initialValue = false, started = SharingStarted.WhileSubscribed(5000))
 
+    override val currentLanguage: StateFlow<LanguageModel?>
+        get() = observeChildSlot<TranslateToolbarComponent>(toolbar).flatMapLatest { it.uiState }
+            .distinctUntilChanged()
+            .map { it.currentLanguage }
+            .stateIn(viewModelScope, initialValue = null, started = SharingStarted.WhileSubscribed(5000))
+
     init {
         with(lifecycle) {
             doOnCreate {
@@ -157,6 +164,10 @@ internal class DefaultTranslateComponent(
                             is TranslateToolbarComponent.Events.Search -> {
                                 val searchText = evt.text
                                 messageListComponent.search(searchText)
+                            }
+
+                            TranslateToolbarComponent.Events.CopyBase -> {
+                                messageListComponent.copyBase()
                             }
 
                             else -> Unit
@@ -270,6 +281,12 @@ internal class DefaultTranslateComponent(
     override fun endEditing() {
         viewModelScope.launch(dispatchers.io) {
             observeChildSlot<MessageListComponent>(messageList).first().endEditing()
+        }
+    }
+
+    override fun copyBase() {
+        viewModelScope.launch(dispatchers.io) {
+            observeChildSlot<MessageListComponent>(messageList).first().copyBase()
         }
     }
 
