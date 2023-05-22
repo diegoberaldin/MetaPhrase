@@ -32,6 +32,8 @@ interface RootComponent {
     fun moveToNextSegment()
     fun endEditing()
     fun copyBase()
+    fun addSegment()
+    fun deleteSegment()
 
     object Factory {
         fun create(componentContext: ComponentContext, coroutineContext: CoroutineContext): RootComponent =

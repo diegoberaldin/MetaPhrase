@@ -33,7 +33,6 @@ internal class DefaultMessageListComponent(
     private val units = MutableStateFlow<List<TranslationUnit>>(emptyList())
     private val editingIndex = MutableStateFlow<Int?>(null)
     private val isBaseLanguage = MutableStateFlow(false)
-    private lateinit var _uiState: StateFlow<MessageListUiState>
     private lateinit var viewModelScope: CoroutineScope
     private var saveJob: Job? = null
     private var lastLanguage: LanguageModel? = null
@@ -41,14 +40,13 @@ internal class DefaultMessageListComponent(
     private var lastSearch: String = ""
     private var projectId: Int = 0
 
-    override val uiState: StateFlow<MessageListUiState>
-        get() = _uiState
+    override lateinit var uiState: StateFlow<MessageListUiState>
 
     init {
         with(lifecycle) {
             doOnCreate {
                 viewModelScope = CoroutineScope(coroutineContext + SupervisorJob())
-                _uiState = combine(
+                uiState = combine(
                     units,
                     editingIndex,
                     isBaseLanguage,
@@ -86,6 +84,10 @@ internal class DefaultMessageListComponent(
         lastFilter = filter
         this.projectId = projectId
 
+        refresh()
+    }
+
+    override fun refresh() {
         viewModelScope.launch(dispatchers.io) {
             innerReload()
         }
@@ -200,6 +202,31 @@ internal class DefaultMessageListComponent(
             }
             saveCurrentSegmentDebounced(index)
             editingIndex.value = index
+        }
+    }
+
+    override fun deleteSegment() {
+        val index = editingIndex.value ?: return
+        viewModelScope.launch(dispatchers.io) {
+            val toDelete = units.value[index].segment
+            val key = toDelete.key
+            segmentRepository.delete(toDelete)
+
+            // remove segments with the same key in other languages too
+            lastLanguage?.also { language ->
+                val otherLanguages = languageRepository.getAll(projectId).filter { it.code != language.code }
+                for (lang in otherLanguages) {
+                    val existing = segmentRepository.getByKey(key = key, languageId = lang.id)
+                    if (existing != null) {
+                        segmentRepository.delete(existing)
+                    }
+                }
+            }
+
+            editingIndex.value = null
+            units.getAndUpdate { oldList ->
+                oldList.filterIndexed { idx, _ -> idx != index }
+            }
         }
     }
 }

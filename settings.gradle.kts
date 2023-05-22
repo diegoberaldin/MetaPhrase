@@ -30,4 +30,5 @@ include(
     ":feature-projects:list",
     ":feature-projects:create",
     ":feature-translate",
+    ":feature-translate:newsegment",
 )

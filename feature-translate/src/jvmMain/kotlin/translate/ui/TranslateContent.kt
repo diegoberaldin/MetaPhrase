@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -12,8 +13,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
+import common.ui.theme.Spacing
 import translate.ui.messagelist.MessageListContent
 import translate.ui.toolbar.TranslateToolbar
+import translatenewsegment.ui.NewSegmentComponent
+import translatenewsegment.ui.NewSegmentDialog
 
 @Composable
 fun TranslateContent(
@@ -21,7 +25,7 @@ fun TranslateContent(
 ) {
     val uiState by component.uiState.collectAsState()
 
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier.fillMaxSize().padding(vertical = Spacing.xs, horizontal = Spacing.xxs)) {
         val toolbar by component.toolbar.subscribeAsState()
         (toolbar.child?.instance)?.also {
             TranslateToolbar(
@@ -51,5 +55,22 @@ fun TranslateContent(
                 )
             }
         }
+    }
+
+    val dialogConfig by component.dialog.subscribeAsState()
+    val child = dialogConfig.child
+    when (child?.configuration) {
+        TranslateComponent.DialogConfig.NewSegment -> {
+            val language by component.currentLanguage.collectAsState()
+            val projectId = uiState.project?.id ?: 0
+            val childComponent = child.instance as NewSegmentComponent
+            language?.also {
+                childComponent.language = it
+            }
+            childComponent.projectId = projectId
+            NewSegmentDialog(component = childComponent)
+        }
+
+        else -> Unit
     }
 }

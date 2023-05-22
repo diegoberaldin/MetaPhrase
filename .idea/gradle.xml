@@ -19,6 +19,7 @@
             <option value="$PROJECT_DIR$/feature-projects/create" />
             <option value="$PROJECT_DIR$/feature-projects/list" />
             <option value="$PROJECT_DIR$/feature-translate" />
+            <option value="$PROJECT_DIR$/feature-translate/newsegment" />
           </set>
         </option>
       </GradleProjectSettings>

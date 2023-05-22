@@ -7,8 +7,8 @@ import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
 import common.utils.getByInjection
 import data.LanguageModel
-import data.ResourceFileType
 import data.ProjectModel
+import data.ResourceFileType
 import kotlinx.coroutines.flow.StateFlow
 import kotlin.coroutines.CoroutineContext
 
@@ -25,6 +25,8 @@ interface ProjectsComponent {
     fun moveToNext()
     fun endEditing()
     fun copyBase()
+    fun addSegment()
+    fun deleteSegment()
 
     object Factory {
         fun create(componentContext: ComponentContext, coroutineContext: CoroutineContext): ProjectsComponent =

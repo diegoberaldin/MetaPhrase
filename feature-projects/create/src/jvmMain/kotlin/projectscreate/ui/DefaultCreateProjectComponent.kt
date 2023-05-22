@@ -45,20 +45,16 @@ internal class DefaultCreateProjectComponent(
     private val languagesError = MutableStateFlow("")
     private lateinit var viewModelScope: CoroutineScope
 
-    private lateinit var _uiState: StateFlow<CreateProjectUiState>
-    private lateinit var _languagesUiState: StateFlow<CreateProjectLanguagesUiState>
     private val _done = MutableSharedFlow<Int?>()
-    override val uiState: StateFlow<CreateProjectUiState>
-        get() = _uiState
-    override val languagesUiState: StateFlow<CreateProjectLanguagesUiState>
-        get() = _languagesUiState
+    override lateinit var uiState: StateFlow<CreateProjectUiState>
+    override lateinit var languagesUiState: StateFlow<CreateProjectLanguagesUiState>
     override val done: SharedFlow<Int?> = _done
 
     init {
         with(lifecycle) {
             doOnCreate {
                 viewModelScope = CoroutineScope(coroutineContext + SupervisorJob())
-                _uiState = combine(
+                uiState = combine(
                     name,
                     nameError,
                 ) { name, nameError ->
@@ -71,7 +67,7 @@ internal class DefaultCreateProjectComponent(
                     started = SharingStarted.WhileSubscribed(5_000),
                     initialValue = CreateProjectUiState(),
                 )
-                _languagesUiState = combine(
+                languagesUiState = combine(
                     availableLanguages,
                     languages,
                     languagesError,

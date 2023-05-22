@@ -51,11 +51,9 @@ internal class DefaultTranslateToolbarComponent(
     private val currentSearch = MutableStateFlow("")
     private val isEditing = MutableStateFlow(false)
     private lateinit var viewModelScope: CoroutineScope
-    private lateinit var _uiState: StateFlow<TranslateToolbarUiState>
     private var _events = MutableSharedFlow<TranslateToolbarComponent.Events>()
 
-    override val uiState: StateFlow<TranslateToolbarUiState>
-        get() = _uiState
+    override lateinit var uiState: StateFlow<TranslateToolbarUiState>
 
     override val events: SharedFlow<TranslateToolbarComponent.Events> = _events.asSharedFlow()
 
@@ -63,7 +61,7 @@ internal class DefaultTranslateToolbarComponent(
         with(lifecycle) {
             doOnCreate {
                 viewModelScope = CoroutineScope(coroutineContext + SupervisorJob())
-                _uiState = combine(
+                uiState = combine(
                     currentLanguage,
                     currentTypeFilter,
                     availableLanguages,
