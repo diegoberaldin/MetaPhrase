@@ -102,7 +102,7 @@ fun TranslateToolbar(
                 modifier = buttonModifier.onClick { component.removeUnit() },
                 imageVector = Icons.Default.RemoveCircle,
                 contentDescription = null,
-                tint = MaterialTheme.colors.primary,
+                tint = if (uiState.isEditing) MaterialTheme.colors.primary else Color.Gray,
             )
         }
         CustomTooltipArea(

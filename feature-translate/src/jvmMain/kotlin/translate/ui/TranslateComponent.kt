@@ -17,6 +17,7 @@ interface TranslateComponent {
 
     val toolbar: Value<ChildSlot<ToolbarConfig, TranslateToolbarComponent>>
     val messageList: Value<ChildSlot<MessageListConfig, MessageListComponent>>
+    val dialog: Value<ChildSlot<DialogConfig, *>>
     val uiState: StateFlow<TranslateUiState>
     var projectId: Int
     val isEditing: StateFlow<Boolean>
@@ -28,6 +29,8 @@ interface TranslateComponent {
     fun moveToNext()
     fun endEditing()
     fun copyBase()
+    fun addSegment()
+    fun deleteSegment()
 
     object Factory {
         fun create(
@@ -53,4 +56,12 @@ interface TranslateComponent {
 
     @Parcelize
     object MessageListConfig : Parcelable
+
+    sealed interface DialogConfig : Parcelable {
+        @Parcelize
+        object None : DialogConfig
+
+        @Parcelize
+        object NewSegment : DialogConfig
+    }
 }

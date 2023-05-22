@@ -10,7 +10,10 @@
 	<string name="create_project_field_name">Nome</string>
 	<string name="create_project_languages">Lingue</string>
 	<string name="create_project_languages_subtitle">Ogni progetto deve avere esattamente una lingua base (o di default)</string>
+	<string name="create_segment_key">Chiave</string>
+	<string name="create_segment_text">Testo</string>
 	<string name="dialog_title_create_project">Nuovo progetto</string>
+	<string name="dialog_title_create_segment">Nuovo segmento</string>
 	<string name="dialog_title_open_file">Scegli file</string>
 	<string name="lang">it</string>
 	<string name="language_bulgarian">Вългарски</string>
@@ -47,9 +50,13 @@
 	<string name="menu_project_new">Nuovo…</string>
 	<string name="menu_segment">Segmento</string>
 	<string name="menu_segment_copy_base">Copia base</string>
+	<string name="menu_segment_delete">Elimina</string>
 	<string name="menu_segment_end_edit">Termina modifica</string>
+	<string name="menu_segment_new">Nuovo</string>
 	<string name="menu_segment_next">Successivo</string>
 	<string name="menu_segment_previous">Precedente</string>
+	<string name="message_duplicate_key">Esiste già un segmento con la stessa chiave</string>
+	<string name="message_missing_field">Campo obbligatorio</string>
 	<string name="status_bar_project">progetto: </string>
 	<string name="status_bar_units">unità: </string>
 	<string name="toolbar_search_placeholder">Cerca…</string>

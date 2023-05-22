@@ -74,6 +74,7 @@ fun CreateProjectDialog(
                         },
                     )
                     Text(
+                        modifier = Modifier.padding(top = Spacing.xxs, start = Spacing.xxs),
                         text = uiState.nameError,
                         color = MaterialTheme.colors.error,
                         style = MaterialTheme.typography.caption,
@@ -140,6 +141,7 @@ fun CreateProjectDialog(
                         }
                     }
                     Text(
+                        modifier = Modifier.padding(top = Spacing.xxs, start = Spacing.xxs),
                         text = languagesUiState.languagesError,
                         color = MaterialTheme.colors.error,
                         style = MaterialTheme.typography.caption,

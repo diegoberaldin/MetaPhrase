@@ -16,8 +16,8 @@ import common.keystore.TemporaryKeyStore
 import common.utils.observeChildStack
 import common.utils.observeNullableChildStack
 import data.LanguageModel
-import data.ResourceFileType
 import data.ProjectModel
+import data.ResourceFileType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
@@ -52,8 +52,6 @@ internal class DefaultProjectsComponent(
 ) : ProjectsComponent, ComponentContext by componentContext {
 
     private val _activeProject = MutableStateFlow<ProjectModel?>(null)
-    private lateinit var _isEditing: StateFlow<Boolean>
-    private lateinit var _currentLanguage: StateFlow<LanguageModel?>
     private val navigation = StackNavigation<ProjectsComponent.Config>()
     private lateinit var viewModelScope: CoroutineScope
     private var observeProjectToOpenJob: Job? = null
@@ -67,8 +65,8 @@ internal class DefaultProjectsComponent(
 
     override val childStack: Value<ChildStack<ProjectsComponent.Config, *>> = _childStack
     override val activeProject = _activeProject.asStateFlow()
-    override val isEditing get() = _isEditing
-    override val currentLanguage: StateFlow<LanguageModel?> get() = _currentLanguage
+    override lateinit var isEditing: StateFlow<Boolean>
+    override lateinit var currentLanguage: StateFlow<LanguageModel?>
 
     init {
         with(lifecycle) {
@@ -78,14 +76,14 @@ internal class DefaultProjectsComponent(
                     .onEach { project ->
                         openProject(project.id)
                     }.launchIn(viewModelScope)
-                _isEditing = observeNullableChildStack<TranslateComponent>(childStack).flatMapLatest {
+                isEditing = observeNullableChildStack<TranslateComponent>(childStack).flatMapLatest {
                     it?.isEditing ?: snapshotFlow { false }
                 }.stateIn(
                     scope = viewModelScope,
                     started = SharingStarted.WhileSubscribed(5_000),
                     initialValue = false,
                 )
-                _currentLanguage = observeNullableChildStack<TranslateComponent>(childStack).flatMapLatest {
+                currentLanguage = observeNullableChildStack<TranslateComponent>(childStack).flatMapLatest {
                     it?.currentLanguage ?: snapshotFlow { null }
                 }.stateIn(
                     scope = viewModelScope,
@@ -215,6 +213,18 @@ internal class DefaultProjectsComponent(
     override fun copyBase() {
         viewModelScope.launch(dispatchers.io) {
             observeChildStack<TranslateComponent>(_childStack).firstOrNull()?.copyBase()
+        }
+    }
+
+    override fun addSegment() {
+        viewModelScope.launch(dispatchers.io) {
+            observeChildStack<TranslateComponent>(_childStack).firstOrNull()?.addSegment()
+        }
+    }
+
+    override fun deleteSegment() {
+        viewModelScope.launch(dispatchers.io) {
+            observeChildStack<TranslateComponent>(_childStack).firstOrNull()?.deleteSegment()
         }
     }
 }

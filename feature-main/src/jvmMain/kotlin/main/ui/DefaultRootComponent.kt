@@ -71,33 +71,30 @@ internal class DefaultRootComponent(
         childFactory = ::createDialogChild,
     )
 
-    private lateinit var _activeProject: StateFlow<ProjectModel?>
-    private lateinit var _isEditing: StateFlow<Boolean>
-    private lateinit var _currentLanguage: StateFlow<LanguageModel?>
-    override val activeProject get() = _activeProject
-    override val isEditing: StateFlow<Boolean> get() = _isEditing
-    override val currentLanguage: StateFlow<LanguageModel?> get() = _currentLanguage
+    override lateinit var activeProject: StateFlow<ProjectModel?>
+    override lateinit var isEditing: StateFlow<Boolean>
+    override lateinit var currentLanguage: StateFlow<LanguageModel?>
     private var observeProjectsJob: Job? = null
 
     init {
         with(lifecycle) {
             doOnCreate {
                 viewModelScope = CoroutineScope(coroutineContext + SupervisorJob())
-                _activeProject = observeNullableChildSlot<ProjectsComponent>(main).flatMapLatest {
+                activeProject = observeNullableChildSlot<ProjectsComponent>(main).flatMapLatest {
                     it?.activeProject ?: snapshotFlow { null }
                 }.stateIn(
                     scope = viewModelScope,
                     started = SharingStarted.WhileSubscribed(5_000),
                     initialValue = null,
                 )
-                _isEditing = observeNullableChildSlot<ProjectsComponent>(main).flatMapLatest {
+                isEditing = observeNullableChildSlot<ProjectsComponent>(main).flatMapLatest {
                     it?.isEditing ?: snapshotFlow { false }
                 }.stateIn(
                     scope = viewModelScope,
                     started = SharingStarted.WhileSubscribed(5_000),
                     initialValue = false,
                 )
-                _currentLanguage = observeNullableChildSlot<ProjectsComponent>(main).flatMapLatest {
+                currentLanguage = observeNullableChildSlot<ProjectsComponent>(main).flatMapLatest {
                     it?.currentLanguage ?: snapshotFlow { null }
                 }.stateIn(
                     scope = viewModelScope,
@@ -244,6 +241,18 @@ internal class DefaultRootComponent(
     override fun copyBase() {
         viewModelScope.launch(dispatchers.io) {
             observeChildSlot<ProjectsComponent>(main).firstOrNull()?.copyBase()
+        }
+    }
+
+    override fun addSegment() {
+        viewModelScope.launch(dispatchers.io) {
+            observeChildSlot<ProjectsComponent>(main).firstOrNull()?.addSegment()
+        }
+    }
+
+    override fun deleteSegment() {
+        viewModelScope.launch(dispatchers.io) {
+            observeChildSlot<ProjectsComponent>(main).firstOrNull()?.deleteSegment()
         }
     }
 }

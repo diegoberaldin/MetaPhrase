@@ -30,19 +30,17 @@ internal class DefaultProjectListComponent(
 
     private val projects = MutableStateFlow<List<ProjectModel>>(emptyList())
     private lateinit var viewModelScope: CoroutineScope
-    private lateinit var _uiState: StateFlow<ProjectListUiState>
     private var observeProjectsJob: Job? = null
     private val _projectSelected = MutableSharedFlow<ProjectModel>()
 
-    override val uiState
-        get() = _uiState
+    override lateinit var uiState: StateFlow<ProjectListUiState>
     override val projectSelected = _projectSelected
 
     init {
         with(lifecycle) {
             doOnCreate {
                 viewModelScope = CoroutineScope(coroutineContext + SupervisorJob())
-                _uiState = projects.map {
+                uiState = projects.map {
                     ProjectListUiState(projects = it)
                 }.stateIn(
                     scope = viewModelScope,
