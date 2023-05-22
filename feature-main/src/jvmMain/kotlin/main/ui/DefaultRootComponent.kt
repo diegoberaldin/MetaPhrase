@@ -16,6 +16,7 @@ import common.coroutines.CoroutineDispatcherProvider
 import common.keystore.TemporaryKeyStore
 import common.utils.observeChildSlot
 import common.utils.observeNullableChildSlot
+import data.LanguageModel
 import data.ProjectModel
 import data.ResourceFileType
 import intro.ui.IntroComponent
@@ -72,8 +73,10 @@ internal class DefaultRootComponent(
 
     private lateinit var _activeProject: StateFlow<ProjectModel?>
     private lateinit var _isEditing: StateFlow<Boolean>
+    private lateinit var _currentLanguage: StateFlow<LanguageModel?>
     override val activeProject get() = _activeProject
     override val isEditing: StateFlow<Boolean> get() = _isEditing
+    override val currentLanguage: StateFlow<LanguageModel?> get() = _currentLanguage
     private var observeProjectsJob: Job? = null
 
     init {
@@ -93,6 +96,13 @@ internal class DefaultRootComponent(
                     scope = viewModelScope,
                     started = SharingStarted.WhileSubscribed(5_000),
                     initialValue = false,
+                )
+                _currentLanguage = observeNullableChildSlot<ProjectsComponent>(main).flatMapLatest {
+                    it?.currentLanguage ?: snapshotFlow { null }
+                }.stateIn(
+                    scope = viewModelScope,
+                    started = SharingStarted.WhileSubscribed(5_000),
+                    initialValue = null,
                 )
             }
             doOnStart {
@@ -228,6 +238,12 @@ internal class DefaultRootComponent(
     override fun endEditing() {
         viewModelScope.launch(dispatchers.io) {
             observeChildSlot<ProjectsComponent>(main).firstOrNull()?.endEditing()
+        }
+    }
+
+    override fun copyBase() {
+        viewModelScope.launch(dispatchers.io) {
+            observeChildSlot<ProjectsComponent>(main).firstOrNull()?.copyBase()
         }
     }
 }

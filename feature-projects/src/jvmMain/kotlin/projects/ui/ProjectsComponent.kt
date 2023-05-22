@@ -6,6 +6,7 @@ import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
 import common.utils.getByInjection
+import data.LanguageModel
 import data.ResourceFileType
 import data.ProjectModel
 import kotlinx.coroutines.flow.StateFlow
@@ -15,6 +16,7 @@ interface ProjectsComponent {
     val activeProject: StateFlow<ProjectModel?>
     val childStack: Value<ChildStack<Config, *>>
     val isEditing: StateFlow<Boolean>
+    val currentLanguage: StateFlow<LanguageModel?>
 
     fun closeCurrentProject()
     fun import(path: String, type: ResourceFileType)
@@ -22,6 +24,7 @@ interface ProjectsComponent {
     fun moveToPrevious()
     fun moveToNext()
     fun endEditing()
+    fun copyBase()
 
     object Factory {
         fun create(componentContext: ComponentContext, coroutineContext: CoroutineContext): ProjectsComponent =

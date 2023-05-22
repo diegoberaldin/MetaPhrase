@@ -169,6 +169,7 @@ private fun MenuBarScope.makeMenus(
         }
     }
     val isEditing by rootComponent.isEditing.collectAsState()
+    val currentLanguage by rootComponent.currentLanguage.collectAsState()
     Menu(
         text = "menu_segment".localized(),
     ) {
@@ -187,6 +188,13 @@ private fun MenuBarScope.makeMenus(
             rootComponent.moveToNextSegment()
         }
         Separator()
+        Item(
+            text = "menu_segment_copy_base".localized(),
+            shortcut = KeyShortcut(Key.B, meta = true, shift = true),
+            enabled = isEditing && currentLanguage?.isBase == false,
+        ) {
+            rootComponent.copyBase()
+        }
         Item(
             text = "menu_segment_end_edit".localized(),
             shortcut = KeyShortcut(Key.Escape),

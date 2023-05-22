@@ -15,6 +15,7 @@ import common.coroutines.CoroutineDispatcherProvider
 import common.keystore.TemporaryKeyStore
 import common.utils.observeChildStack
 import common.utils.observeNullableChildStack
+import data.LanguageModel
 import data.ResourceFileType
 import data.ProjectModel
 import kotlinx.coroutines.CoroutineScope
@@ -52,6 +53,7 @@ internal class DefaultProjectsComponent(
 
     private val _activeProject = MutableStateFlow<ProjectModel?>(null)
     private lateinit var _isEditing: StateFlow<Boolean>
+    private lateinit var _currentLanguage: StateFlow<LanguageModel?>
     private val navigation = StackNavigation<ProjectsComponent.Config>()
     private lateinit var viewModelScope: CoroutineScope
     private var observeProjectToOpenJob: Job? = null
@@ -66,6 +68,7 @@ internal class DefaultProjectsComponent(
     override val childStack: Value<ChildStack<ProjectsComponent.Config, *>> = _childStack
     override val activeProject = _activeProject.asStateFlow()
     override val isEditing get() = _isEditing
+    override val currentLanguage: StateFlow<LanguageModel?> get() = _currentLanguage
 
     init {
         with(lifecycle) {
@@ -81,6 +84,13 @@ internal class DefaultProjectsComponent(
                     scope = viewModelScope,
                     started = SharingStarted.WhileSubscribed(5_000),
                     initialValue = false,
+                )
+                _currentLanguage = observeNullableChildStack<TranslateComponent>(childStack).flatMapLatest {
+                    it?.currentLanguage ?: snapshotFlow { null }
+                }.stateIn(
+                    scope = viewModelScope,
+                    started = SharingStarted.WhileSubscribed(5_000),
+                    initialValue = null,
                 )
             }
             doOnStart {
@@ -199,6 +209,12 @@ internal class DefaultProjectsComponent(
     override fun endEditing() {
         viewModelScope.launch(dispatchers.io) {
             observeChildStack<TranslateComponent>(_childStack).firstOrNull()?.endEditing()
+        }
+    }
+
+    override fun copyBase() {
+        viewModelScope.launch(dispatchers.io) {
+            observeChildStack<TranslateComponent>(_childStack).firstOrNull()?.copyBase()
         }
     }
 }
