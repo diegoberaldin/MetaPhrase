@@ -1,6 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="newsegment-jvm-1.0-SNAPSHOT">
-    <output-path>$PROJECT_DIR$/feature-translate/newsegment/build/libs</output-path>
-    <root id="archive" name="newsegment-jvm-1.0-SNAPSHOT.jar" />
-  </artifact>
-</component>

@@ -135,6 +135,14 @@ internal class DefaultRootComponent(
                                 is ProjectsComponent -> {
                                     child.open(projectId)
                                 }
+
+                                is IntroComponent -> {
+                                    withContext(dispatchers.main) {
+                                        mainNavigation.activate(RootComponent.Config.Projects)
+                                    }
+                                    delay(100)
+                                    observeChildSlot<ProjectsComponent>(main).firstOrNull()?.open(projectId)
+                                }
                             }
                         }
                     }.launchIn(viewModelScope)
