@@ -61,7 +61,7 @@ fun TranslateContent(
 
     val dialogConfig by component.dialog.subscribeAsState()
     val child = dialogConfig.child
-    when (child?.configuration) {
+    when (val config = child?.configuration) {
         TranslateComponent.DialogConfig.NewSegment -> {
             val language by component.currentLanguage.collectAsState()
             val projectId = uiState.project?.id ?: 0
@@ -77,6 +77,19 @@ fun TranslateContent(
             CustomDialog(
                 title = "dialog_title_generic_message".localized(),
                 message = "message_validation_valid".localized(),
+                closeButtonText = "button_close".localized(),
+                onClose = {
+                    component.closeDialog()
+                }
+            )
+        }
+
+        is TranslateComponent.DialogConfig.PlaceholderInvalid -> {
+            val keys = config.keys.joinToString(", ")
+            // TODO: custom dialog with the ability to navigate to segments
+            CustomDialog(
+                title = "dialog_title_generic_message".localized(),
+                message = "message_validation_invalid".localized() + "\n" + keys,
                 closeButtonText = "button_close".localized(),
                 onClose = {
                     component.closeDialog()

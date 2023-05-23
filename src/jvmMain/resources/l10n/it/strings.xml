@@ -58,6 +58,7 @@
 	<string name="menu_segment_previous">Precedente</string>
 	<string name="message_duplicate_key">Esiste già un segmento con la stessa chiave</string>
 	<string name="message_missing_field">Campo obbligatorio</string>
+	<string name="message_validation_invalid">Ci sono alcuni messggi non validi:</string>
 	<string name="message_validation_valid">Tutti i segmenti contengono placeholder validi</string>
 	<string name="status_bar_project">progetto: </string>
 	<string name="status_bar_units">unità: </string>

@@ -22,8 +22,6 @@ kotlin {
             dependencies {
                 implementation(compose.desktop.currentOs)
 
-                implementation(libs.decompose)
-
                 implementation(projects.coreLocalization)
             }
         }

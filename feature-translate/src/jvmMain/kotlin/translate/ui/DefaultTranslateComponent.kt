@@ -339,8 +339,8 @@ internal class DefaultTranslateComponent(
 
                 is ValidatePlaceholdersUseCase.Output.Invalid -> {
                     withContext(dispatchers.main) {
-                        val references = result.references
-                        dialogNavigation.activate(DialogConfig.PlaceholderInvalid(references))
+                        val invalidKeys = result.keys
+                        dialogNavigation.activate(DialogConfig.PlaceholderInvalid(invalidKeys))
                     }
                 }
             }

@@ -6,7 +6,6 @@ import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
 import common.utils.getByInjection
-import data.InvalidPlaceholderReferenceModel
 import data.LanguageModel
 import data.ResourceFileType
 import kotlinx.coroutines.flow.StateFlow
@@ -71,6 +70,6 @@ interface TranslateComponent {
         object PlaceholderValid : DialogConfig
 
         @Parcelize
-        data class PlaceholderInvalid(val references: List<InvalidPlaceholderReferenceModel>) : DialogConfig
+        data class PlaceholderInvalid(val keys: List<String>) : DialogConfig
     }
 }
