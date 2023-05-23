@@ -2,40 +2,21 @@ package main.ui
 
 import androidx.compose.runtime.snapshotFlow
 import com.arkivanov.decompose.ComponentContext
-import com.arkivanov.decompose.router.slot.ChildSlot
-import com.arkivanov.decompose.router.slot.SlotNavigation
-import com.arkivanov.decompose.router.slot.activate
-import com.arkivanov.decompose.router.slot.child
-import com.arkivanov.decompose.router.slot.childSlot
+import com.arkivanov.decompose.router.slot.*
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import com.arkivanov.essenty.lifecycle.doOnStart
 import com.arkivanov.essenty.lifecycle.doOnStop
 import common.coroutines.CoroutineDispatcherProvider
-import common.keystore.TemporaryKeyStore
 import common.utils.observeChildSlot
 import common.utils.observeNullableChildSlot
 import data.LanguageModel
 import data.ProjectModel
 import data.ResourceFileType
 import intro.ui.IntroComponent
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.*
 import projects.ui.ProjectsComponent
 import projectscreate.ui.CreateProjectComponent
 import repository.local.ProjectRepository
@@ -47,7 +28,6 @@ internal class DefaultRootComponent(
     private val coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,
     projectRepository: ProjectRepository,
-    private val keyStore: TemporaryKeyStore,
 ) : RootComponent, ComponentContext by componentContext {
 
     companion object {
@@ -60,12 +40,12 @@ internal class DefaultRootComponent(
     private val mainNavigation = SlotNavigation<RootComponent.Config>()
     private val dialogNavigation = SlotNavigation<RootComponent.DialogConfig>()
 
-    override val main: Value<ChildSlot<RootComponent.Config, *>> = childSlot<RootComponent.Config, Any>(
+    override val main: Value<ChildSlot<RootComponent.Config, *>> = childSlot(
         source = mainNavigation,
         key = KEY_MAIN_SLOT,
         childFactory = ::createMainChild,
     )
-    override val dialog: Value<ChildSlot<RootComponent.DialogConfig, *>> = childSlot<RootComponent.DialogConfig, Any>(
+    override val dialog: Value<ChildSlot<RootComponent.DialogConfig, *>> = childSlot(
         source = dialogNavigation,
         key = KEY_DIALOG_SLOT,
         childFactory = ::createDialogChild,
@@ -147,11 +127,23 @@ internal class DefaultRootComponent(
                     coroutineContext = coroutineContext,
                 ).apply {
                     done.onEach { projectId ->
-                        if (projectId != null) {
-                            keyStore.save("newProjectToOpen", projectId)
-                        }
                         withContext(dispatchers.main) {
                             closeDialog()
+                        }
+                        if (projectId != null) {
+                            when (val child = observeChildSlot<Any>(main).first()) {
+                                is ProjectsComponent -> {
+                                    child.open(projectId)
+                                }
+
+                                is IntroComponent -> {
+                                    withContext(dispatchers.main) {
+                                        mainNavigation.activate(RootComponent.Config.Projects)
+                                    }
+                                    delay(100)
+                                    observeChildSlot<ProjectsComponent>(main).firstOrNull()?.open(projectId)
+                                }
+                            }
                         }
                     }.launchIn(viewModelScope)
                 }

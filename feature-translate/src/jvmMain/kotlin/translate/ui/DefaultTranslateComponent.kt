@@ -14,23 +14,8 @@ import common.utils.observeChildSlot
 import data.LanguageModel
 import data.ProjectModel
 import data.ResourceFileType
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.mapLatest
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.*
 import repository.local.LanguageRepository
 import repository.local.ProjectRepository
 import repository.local.SegmentRepository
@@ -189,10 +174,8 @@ internal class DefaultTranslateComponent(
                             }
 
                             TranslateToolbarComponent.Events.ValidateUnits -> {
-                                // TODO: implement
+                                // TODO: implement validation
                             }
-
-                            else -> Unit
                         }
                     }.launchIn(this)
                     messageListComponent.uiState.map { it.editingIndex }.distinctUntilChanged().onEach {
@@ -205,8 +188,7 @@ internal class DefaultTranslateComponent(
                             }
                             if (newSegment != null) {
                                 updateUnitCount()
-                                val messageListComponent = observeChildSlot<MessageListComponent>(messageList).first()
-                                messageListComponent.refresh()
+                                observeChildSlot<MessageListComponent>(messageList).firstOrNull()?.refresh()
                             }
                         }.launchIn(this)
                     }.launchIn(this)
@@ -265,9 +247,9 @@ internal class DefaultTranslateComponent(
 
                 else -> Unit
             }
+            delay(100)
             updateUnitCount()
-            val messageListComponent = observeChildSlot<MessageListComponent>(messageList).first()
-            messageListComponent.refresh()
+            observeChildSlot<MessageListComponent>(messageList).firstOrNull()?.refresh()
         }
     }
 

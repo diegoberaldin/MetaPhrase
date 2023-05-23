@@ -18,6 +18,7 @@ interface ProjectsComponent {
     val isEditing: StateFlow<Boolean>
     val currentLanguage: StateFlow<LanguageModel?>
 
+    fun open(projectId: Int)
     fun closeCurrentProject()
     fun import(path: String, type: ResourceFileType)
     fun export(path: String, type: ResourceFileType)
