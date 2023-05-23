@@ -1,14 +1,11 @@
 package repository.usecase
 
+import data.Constants
 import data.SegmentModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class ValidatePlaceholdersUseCase {
-
-    companion object {
-        private val PLACEHOLDER_REGEX = Regex("%(?:\\d+\\\$)?[dfsu]")
-    }
 
     sealed interface Output {
         object Valid : Output
@@ -22,8 +19,8 @@ class ValidatePlaceholdersUseCase {
         val invalidKeys = mutableListOf<String>()
 
         for ((source, target) in pairs) {
-            val sourcePlaceholders = PLACEHOLDER_REGEX.findAll(source.text).map { it.value }
-            val targetPlaceholders = PLACEHOLDER_REGEX.findAll(target.text).map { it.value }
+            val sourcePlaceholders = Constants.PlaceholderRegex.findAll(source.text).map { it.value }
+            val targetPlaceholders = Constants.PlaceholderRegex.findAll(target.text).map { it.value }
             val exceeding = (targetPlaceholders - sourcePlaceholders.toSet()).toList()
             val missing = (sourcePlaceholders - targetPlaceholders.toSet()).toList()
             if (missing.isNotEmpty() || exceeding.isNotEmpty()) {

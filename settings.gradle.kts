@@ -31,4 +31,5 @@ include(
     ":feature-projects:create",
     ":feature-translate",
     ":feature-translate:newsegment",
+    ":feature-translate:invalidsegments",
 )

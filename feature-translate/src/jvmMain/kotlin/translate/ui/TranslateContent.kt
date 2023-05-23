@@ -18,6 +18,8 @@ import common.ui.theme.Spacing
 import localized
 import translate.ui.messagelist.MessageListContent
 import translate.ui.toolbar.TranslateToolbar
+import translate.ui.toolbar.TranslateToolbarUiState
+import translateinvalidsegments.ui.InvalidSegmentComponent
 import translatenewsegment.ui.NewSegmentComponent
 import translatenewsegment.ui.NewSegmentDialog
 
@@ -26,9 +28,9 @@ fun TranslateContent(
     component: TranslateComponent,
 ) {
     val uiState by component.uiState.collectAsState()
+    val toolbar by component.toolbar.subscribeAsState()
 
     Column(modifier = Modifier.fillMaxSize().padding(vertical = Spacing.xs, horizontal = Spacing.xxs)) {
-        val toolbar by component.toolbar.subscribeAsState()
         (toolbar.child?.instance)?.also {
             TranslateToolbar(
                 component = it,
@@ -80,21 +82,17 @@ fun TranslateContent(
                 closeButtonText = "button_close".localized(),
                 onClose = {
                     component.closeDialog()
-                }
+                },
             )
         }
 
         is TranslateComponent.DialogConfig.PlaceholderInvalid -> {
-            val keys = config.keys.joinToString(", ")
-            // TODO: custom dialog with the ability to navigate to segments
-            CustomDialog(
-                title = "dialog_title_generic_message".localized(),
-                message = "message_validation_invalid".localized() + "\n" + keys,
-                closeButtonText = "button_close".localized(),
-                onClose = {
-                    component.closeDialog()
-                }
-            )
+            val childComponent = child.instance as InvalidSegmentComponent
+            val toolbarState = toolbar.child?.instance?.uiState?.collectAsState(TranslateToolbarUiState())
+            childComponent.languageId = toolbarState?.value?.currentLanguage?.id ?: 0
+            childComponent.projectId = uiState.project?.id ?: 0
+            childComponent.invalidKeys = config.keys
+            // TODO: dialog
         }
 
         else -> Unit
