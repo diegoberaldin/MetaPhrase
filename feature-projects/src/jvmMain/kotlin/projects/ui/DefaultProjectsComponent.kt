@@ -54,7 +54,6 @@ internal class DefaultProjectsComponent(
     private val _activeProject = MutableStateFlow<ProjectModel?>(null)
     private val navigation = StackNavigation<ProjectsComponent.Config>()
     private lateinit var viewModelScope: CoroutineScope
-    private var observeProjectToOpenJob: Job? = null
 
     private val _childStack = childStack(
         source = navigation,
@@ -98,40 +97,26 @@ internal class DefaultProjectsComponent(
                         openProject(lastOpenedProjectId)
                     }
                 }
-                if (observeProjectToOpenJob == null) {
-                    observeProjectToOpenJob = viewModelScope.launch {
-                        channelFlow {
-                            while (true) {
-                                if (!isActive) {
-                                    break
-                                }
-                                val projectId = keyStore.get("newProjectToOpen", 0)
-                                if (projectId > 0) {
-                                    trySend(projectId)
-                                }
-                                delay(1_000)
-                            }
-                        }.collect {
-                            keyStore.save("newProjectToOpen", 0)
-
-                            when (val conf = childStack.value.active.configuration) {
-                                is ProjectsComponent.Config.Detail -> {
-                                    val childComp = (childStack.value.active.instance as TranslateComponent)
-                                    if (childComp.projectId != conf.projectId) {
-                                        childComp.projectId = conf.projectId
-                                    }
-                                }
-
-                                else -> {
-                                    openProject(it)
-                                }
-                            }
-                        }
-                    }
-                }
             }
             doOnDestroy {
                 viewModelScope.cancel()
+            }
+        }
+    }
+
+    override fun open(projectId: Int) {
+        when (val conf = childStack.value.active.configuration) {
+            is ProjectsComponent.Config.Detail -> {
+                val childComp = (childStack.value.active.instance as TranslateComponent)
+                if (childComp.projectId != conf.projectId) {
+                    childComp.projectId = conf.projectId
+                }
+            }
+
+            else -> {
+                viewModelScope.launch(dispatchers.io) {
+                    openProject(projectId)
+                }
             }
         }
     }
