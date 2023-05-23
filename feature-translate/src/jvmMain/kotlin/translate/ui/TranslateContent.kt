@@ -13,7 +13,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
+import common.ui.components.CustomDialog
 import common.ui.theme.Spacing
+import localized
 import translate.ui.messagelist.MessageListContent
 import translate.ui.toolbar.TranslateToolbar
 import translatenewsegment.ui.NewSegmentComponent
@@ -69,6 +71,17 @@ fun TranslateContent(
             }
             childComponent.projectId = projectId
             NewSegmentDialog(component = childComponent)
+        }
+
+        TranslateComponent.DialogConfig.PlaceholderValid -> {
+            CustomDialog(
+                title = "dialog_title_generic_message".localized(),
+                message = "message_validation_valid".localized(),
+                closeButtonText = "button_close".localized(),
+                onClose = {
+                    component.closeDialog()
+                }
+            )
         }
 
         else -> Unit

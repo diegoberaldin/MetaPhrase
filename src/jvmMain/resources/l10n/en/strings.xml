@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
 	<string name="app_intro">Please open a project by selecting one of the following items.</string>
-	<string name="app_intro_empty">It seems like you don\'t have any projects.\nYou can create a new one using the Project > New… menu.</string>
+	<string name="app_intro_empty">It seems like you don&#39;t have any projects.\nYou can create a new one using the Project &#62; New… menu.</string>
 	<string name="app_intro_title">Thank you for using MetaPhrase!</string>
 	<string name="app_name">MetaPhrase</string>
 	<string name="button_cancel">Cancel</string>
@@ -14,6 +14,7 @@
 	<string name="create_segment_text">Text</string>
 	<string name="dialog_title_create_project">New project</string>
 	<string name="dialog_title_create_segment">New segment</string>
+	<string name="dialog_title_generic_message">Info</string>
 	<string name="dialog_title_open_file">Choose file</string>
 	<string name="lang">en</string>
 	<string name="language_bulgarian">Вългарски</string>
@@ -57,6 +58,7 @@
 	<string name="menu_segment_previous">Previous</string>
 	<string name="message_duplicate_key">A segment with the same key already exists</string>
 	<string name="message_missing_field">Missing field</string>
+	<string name="message_validation_valid">All segments contain valid placeholders</string>
 	<string name="status_bar_project">project:</string>
 	<string name="status_bar_units">units:</string>
 	<string name="toolbar_search_placeholder">Search…</string>

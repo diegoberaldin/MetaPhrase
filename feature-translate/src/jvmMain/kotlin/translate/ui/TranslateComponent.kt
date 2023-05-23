@@ -6,6 +6,7 @@ import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
 import common.utils.getByInjection
+import data.InvalidPlaceholderReferenceModel
 import data.LanguageModel
 import data.ResourceFileType
 import kotlinx.coroutines.flow.StateFlow
@@ -31,6 +32,7 @@ interface TranslateComponent {
     fun copyBase()
     fun addSegment()
     fun deleteSegment()
+    fun closeDialog()
 
     object Factory {
         fun create(
@@ -48,6 +50,7 @@ interface TranslateComponent {
             importSegments = getByInjection(),
             exportAndroidResources = getByInjection(),
             exportIosResources = getByInjection(),
+            validatePlaceholders = getByInjection()
         )
     }
 
@@ -63,5 +66,11 @@ interface TranslateComponent {
 
         @Parcelize
         object NewSegment : DialogConfig
+
+        @Parcelize
+        object PlaceholderValid : DialogConfig
+
+        @Parcelize
+        data class PlaceholderInvalid(val references: List<InvalidPlaceholderReferenceModel>) : DialogConfig
     }
 }

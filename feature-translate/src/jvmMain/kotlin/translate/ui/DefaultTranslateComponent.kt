@@ -14,16 +14,13 @@ import common.utils.observeChildSlot
 import data.LanguageModel
 import data.ProjectModel
 import data.ResourceFileType
+import data.SegmentModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import repository.local.LanguageRepository
 import repository.local.ProjectRepository
 import repository.local.SegmentRepository
-import repository.usecase.ExportAndroidResourcesUseCase
-import repository.usecase.ExportIosResourcesUseCase
-import repository.usecase.ImportSegmentsUseCase
-import repository.usecase.ParseAndroidResourcesUseCase
-import repository.usecase.ParseIosResourcesUseCase
+import repository.usecase.*
 import translate.ui.TranslateComponent.*
 import translate.ui.messagelist.MessageListComponent
 import translate.ui.toolbar.TranslateToolbarComponent
@@ -43,6 +40,7 @@ internal class DefaultTranslateComponent(
     private val importSegments: ImportSegmentsUseCase,
     private val exportAndroidResources: ExportAndroidResourcesUseCase,
     private val exportIosResources: ExportIosResourcesUseCase,
+    private val validatePlaceholders: ValidatePlaceholdersUseCase,
 ) : TranslateComponent, ComponentContext by componentContext {
 
     private val project = MutableStateFlow<ProjectModel?>(null)
@@ -174,7 +172,7 @@ internal class DefaultTranslateComponent(
                             }
 
                             TranslateToolbarComponent.Events.ValidateUnits -> {
-                                // TODO: implement validation
+                                startValidation()
                             }
                         }
                     }.launchIn(this)
@@ -183,7 +181,7 @@ internal class DefaultTranslateComponent(
                     }.launchIn(this)
                     observeChildSlot<NewSegmentComponent>(dialog).onEach {
                         it.done.onEach { newSegment ->
-                            viewModelScope.launch(dispatchers.main) {
+                            withContext(dispatchers.main) {
                                 dialogNavigation.activate(DialogConfig.None)
                             }
                             if (newSegment != null) {
@@ -219,6 +217,12 @@ internal class DefaultTranslateComponent(
         if (baseLanguage != null) {
             val baseSegments = segmentRepository.getAll(baseLanguage.id)
             unitCount.value = baseSegments.size
+        }
+    }
+
+    override fun closeDialog() {
+        viewModelScope.launch(dispatchers.main) {
+            dialogNavigation.activate(DialogConfig.None)
         }
     }
 
@@ -311,6 +315,35 @@ internal class DefaultTranslateComponent(
     override fun deleteSegment() {
         viewModelScope.launch(dispatchers.io) {
             observeChildSlot<MessageListComponent>(messageList).first().deleteSegment()
+        }
+    }
+
+    private fun startValidation() {
+        val projectId = project.value?.id ?: return
+        viewModelScope.launch(dispatchers.io) {
+            val toolbarState = observeChildSlot<TranslateToolbarComponent>(toolbar).first().uiState.value
+            val language = toolbarState.currentLanguage ?: return@launch
+            val baseLanguage = languageRepository.getAll(projectId).firstOrNull { it.isBase } ?: return@launch
+            val segmentPairs = segmentRepository.getAll(language.id).map {
+                val key = it.key
+                val original = segmentRepository.getByKey(key = key, languageId = baseLanguage.id) ?: SegmentModel()
+                it to original
+            }
+
+            when (val result = validatePlaceholders(segmentPairs)) {
+                ValidatePlaceholdersUseCase.Output.Valid -> {
+                    withContext(dispatchers.main) {
+                        dialogNavigation.activate(DialogConfig.PlaceholderValid)
+                    }
+                }
+
+                is ValidatePlaceholdersUseCase.Output.Invalid -> {
+                    withContext(dispatchers.main) {
+                        val references = result.references
+                        dialogNavigation.activate(DialogConfig.PlaceholderInvalid(references))
+                    }
+                }
+            }
         }
     }
 
