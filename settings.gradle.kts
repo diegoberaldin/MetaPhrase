@@ -26,9 +26,12 @@ include(
 
     ":feature-main",
     ":feature-intro",
+
     ":feature-projects",
     ":feature-projects:list",
     ":feature-projects:create",
+    ":feature-projects:statistics",
+
     ":feature-translate",
     ":feature-translate:newsegment",
     ":feature-translate:invalidsegments",

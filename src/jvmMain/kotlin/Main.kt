@@ -139,6 +139,13 @@ private fun MenuBarScope.makeMenus(
             rootComponent.closeCurrentProject()
         }
         Separator()
+        Item(
+            text = "menu_project_statistics".localized(),
+            enabled = activeProject != null,
+        ) {
+            rootComponent.openStatistics()
+        }
+        Separator()
         Menu(
             text = "menu_project_import".localized(),
             enabled = activeProject != null,

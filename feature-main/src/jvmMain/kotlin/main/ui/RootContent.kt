@@ -1,5 +1,7 @@
 package main.ui
 
+import StatisticsComponent
+import StatisticsDialog
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -99,6 +101,15 @@ fun RootContent(
                     if (path != null) {
                         component.export(path = path, type = type)
                     }
+                },
+            )
+        }
+
+        is RootComponent.DialogConfig.StatisticsDialog -> {
+            StatisticsDialog(
+                component = dialogState.child?.instance as StatisticsComponent,
+                onClose = {
+                    component.closeDialog()
                 },
             )
         }

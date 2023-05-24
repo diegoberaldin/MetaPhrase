@@ -1,8 +1,13 @@
 package main.ui
 
+import StatisticsComponent
 import androidx.compose.runtime.snapshotFlow
 import com.arkivanov.decompose.ComponentContext
-import com.arkivanov.decompose.router.slot.*
+import com.arkivanov.decompose.router.slot.ChildSlot
+import com.arkivanov.decompose.router.slot.SlotNavigation
+import com.arkivanov.decompose.router.slot.activate
+import com.arkivanov.decompose.router.slot.child
+import com.arkivanov.decompose.router.slot.childSlot
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
@@ -15,8 +20,24 @@ import data.LanguageModel
 import data.ProjectModel
 import data.ResourceFileType
 import intro.ui.IntroComponent
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import projects.ui.ProjectsComponent
 import projectscreate.ui.CreateProjectComponent
 import repository.local.ProjectRepository
@@ -154,12 +175,21 @@ internal class DefaultRootComponent(
                     componentContext = componentContext,
                     coroutineContext = coroutineContext,
                 ).apply {
-                    projectId = config.projectId
+                    projectId = activeProject.value?.id ?: 0
                     done.onEach {
                         withContext(dispatchers.main) {
                             closeDialog()
                         }
                     }.launchIn(viewModelScope)
+                }
+            }
+
+            is RootComponent.DialogConfig.StatisticsDialog -> {
+                StatisticsComponent.Factory.create(
+                    componentContext = componentContext,
+                    coroutineContext = coroutineContext,
+                ).apply {
+                    projectId = activeProject.value?.id ?: 0
                 }
             }
 
@@ -169,8 +199,7 @@ internal class DefaultRootComponent(
     override fun openEditProject() {
         val projectId = activeProject.value?.id
         if (projectId != null) {
-            val configuration = RootComponent.DialogConfig.EditDialog(projectId = projectId)
-            dialogNavigation.activate(configuration)
+            dialogNavigation.activate(RootComponent.DialogConfig.EditDialog)
         }
     }
 
@@ -246,5 +275,9 @@ internal class DefaultRootComponent(
         viewModelScope.launch(dispatchers.io) {
             observeChildSlot<ProjectsComponent>(main).firstOrNull()?.deleteSegment()
         }
+    }
+
+    override fun openStatistics() {
+        dialogNavigation.activate(RootComponent.DialogConfig.StatisticsDialog)
     }
 }
