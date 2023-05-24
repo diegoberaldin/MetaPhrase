@@ -1,4 +1,4 @@
-package translate.ui.messagelist
+package translatemessages.ui
 
 import data.SegmentModel
 

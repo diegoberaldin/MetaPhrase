@@ -26,6 +26,14 @@
           </set>
         </option>
       </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/feature-translate/messages" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/feature-translate/messages" />
+          </set>
+        </option>
+      </GradleProjectSettings>
     </option>
   </component>
 </project>

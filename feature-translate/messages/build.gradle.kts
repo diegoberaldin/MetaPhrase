@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.compose")
 }
 
-group = "feature.translate"
+group = "feature.translate.messages"
 version = libs.versions.appVersion.get()
 
 repositories {
@@ -31,10 +31,6 @@ kotlin {
                 implementation(projects.coreLocalization)
                 implementation(projects.coreData)
                 implementation(projects.coreRepository)
-
-                implementation(projects.featureTranslate.messages)
-                implementation(projects.featureTranslate.newsegment)
-                implementation(projects.featureTranslate.invalidsegments)
             }
         }
     }

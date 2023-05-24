@@ -45,9 +45,9 @@ import repository.usecase.ParseAndroidResourcesUseCase
 import repository.usecase.ParseIosResourcesUseCase
 import repository.usecase.ValidatePlaceholdersUseCase
 import translate.ui.TranslateComponent.*
-import translate.ui.messagelist.MessageListComponent
 import translate.ui.toolbar.TranslateToolbarComponent
 import translateinvalidsegments.ui.InvalidSegmentComponent
+import translatemessages.ui.MessageListComponent
 import translatenewsegment.ui.NewSegmentComponent
 import kotlin.coroutines.CoroutineContext
 
