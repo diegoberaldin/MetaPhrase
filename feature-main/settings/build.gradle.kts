@@ -1,12 +1,10 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
 }
 
-group = "it.meta.phrase"
-version = libs.versions.appVersion
+group = "feature.main.settings"
+version = libs.versions.appVersion.get()
 
 repositories {
     google()
@@ -23,7 +21,8 @@ kotlin {
         val jvmMain by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)
-                implementation(compose.foundation)
+                implementation(compose.materialIconsExtended)
+
                 implementation(libs.koin)
                 implementation(libs.decompose)
                 implementation(libs.decompose.extensions)
@@ -31,26 +30,8 @@ kotlin {
                 implementation(projects.coreCommon)
                 implementation(projects.coreLocalization)
                 implementation(projects.coreData)
-                implementation(projects.corePersistence)
                 implementation(projects.coreRepository)
-
-                implementation(projects.featureMain)
-                implementation(projects.featureMain.settings)
             }
-        }
-        val jvmTest by getting
-    }
-}
-
-compose.desktop {
-    application {
-        mainClass = "MainKt"
-        nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "MetaPhrase"
-            packageVersion = libs.versions.appVersion.get().substring(0, 5)
-            version = libs.versions.buildNumber.get()
-            includeAllModules = true
         }
     }
 }

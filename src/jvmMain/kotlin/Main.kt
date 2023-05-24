@@ -145,6 +145,12 @@ private fun MenuBarScope.makeMenus(
         ) {
             rootComponent.openStatistics()
         }
+        Item(
+            text = "menu_project_settings".localized(),
+            shortcut = KeyShortcut(Key.Comma, meta = true),
+        ) {
+            rootComponent.openSettings()
+        }
         Separator()
         Menu(
             text = "menu_project_import".localized(),

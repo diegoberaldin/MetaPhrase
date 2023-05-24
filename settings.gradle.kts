@@ -25,6 +25,7 @@ include(
     ":core-repository",
 
     ":feature-main",
+    ":feature-main:settings",
     ":feature-intro",
 
     ":feature-projects",
