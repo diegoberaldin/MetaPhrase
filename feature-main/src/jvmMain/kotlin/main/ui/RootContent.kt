@@ -15,6 +15,8 @@ import data.ResourceFileType
 import intro.ui.IntroComponent
 import intro.ui.MainEmptyContent
 import localized
+import mainsettings.ui.SettingsComponent
+import mainsettings.ui.SettingsDialog
 import projects.ui.ProjectsComponent
 import projects.ui.ProjectsContent
 import projectscreate.ui.CreateProjectComponent
@@ -108,6 +110,15 @@ fun RootContent(
         is RootComponent.DialogConfig.StatisticsDialog -> {
             StatisticsDialog(
                 component = dialogState.child?.instance as StatisticsComponent,
+                onClose = {
+                    component.closeDialog()
+                },
+            )
+        }
+
+        is RootComponent.DialogConfig.SettingsDialog -> {
+            SettingsDialog(
+                component = dialogState.child?.instance as SettingsComponent,
                 onClose = {
                     component.closeDialog()
                 },

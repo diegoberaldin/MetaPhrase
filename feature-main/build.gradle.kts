@@ -36,6 +36,7 @@ kotlin {
                 implementation(projects.featureProjects)
                 implementation(projects.featureProjects.create)
                 implementation(projects.featureProjects.statistics)
+                implementation(projects.featureMain.settings)
             }
         }
     }

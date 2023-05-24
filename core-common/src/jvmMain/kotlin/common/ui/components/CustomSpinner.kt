@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.onClick
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -27,11 +28,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import common.ui.theme.Spacing
 
@@ -40,7 +41,8 @@ import common.ui.theme.Spacing
 fun CustomSpinner(
     values: List<String>,
     current: String?,
-    modifier: Modifier = Modifier.width(150.dp).height(20.dp),
+    modifier: Modifier = Modifier,
+    size: DpSize = DpSize(width = 150.dp, height = 20.dp),
     onValueChanged: ((Int) -> Unit)? = null,
     valueColor: Color = Color.Black,
 ) {
@@ -49,7 +51,7 @@ fun CustomSpinner(
     }
 
     Box(
-        modifier = modifier,
+        modifier = modifier.size(size),
     ) {
         BasicTextField(
             modifier = Modifier.matchParentSize(),
@@ -72,7 +74,7 @@ fun CustomSpinner(
             },
         )
         DropdownMenu(
-            modifier = Modifier.width(150.dp)
+            modifier = Modifier.width(size.width)
                 .background(Color.White)
                 .border(
                     width = Dp.Hairline,
@@ -91,7 +93,7 @@ fun CustomSpinner(
                 DropdownMenuItem(
                     modifier = Modifier
                         .background(color = if (value == hoveredValue) Color.Blue else Color.Transparent)
-                        .fillMaxWidth().height(20.dp)
+                        .fillMaxWidth().height(24.dp)
                         .onPointerEvent(PointerEventType.Enter) { hoveredValue = value }
                         .onPointerEvent(PointerEventType.Exit) { hoveredValue = null }
                         .padding(horizontal = Spacing.xs, vertical = Spacing.xxs),

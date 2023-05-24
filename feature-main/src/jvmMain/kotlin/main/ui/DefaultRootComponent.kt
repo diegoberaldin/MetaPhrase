@@ -38,6 +38,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import mainsettings.ui.SettingsComponent
 import projects.ui.ProjectsComponent
 import projectscreate.ui.CreateProjectComponent
 import repository.local.ProjectRepository
@@ -193,6 +194,13 @@ internal class DefaultRootComponent(
                 }
             }
 
+            is RootComponent.DialogConfig.SettingsDialog -> {
+                SettingsComponent.Factory.create(
+                    componentContext = componentContext,
+                    coroutineContext = coroutineContext,
+                )
+            }
+
             else -> Unit
         }
 
@@ -279,5 +287,9 @@ internal class DefaultRootComponent(
 
     override fun openStatistics() {
         dialogNavigation.activate(RootComponent.DialogConfig.StatisticsDialog)
+    }
+
+    override fun openSettings() {
+        dialogNavigation.activate(RootComponent.DialogConfig.SettingsDialog)
     }
 }

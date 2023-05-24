@@ -25,6 +25,7 @@ interface RootComponent {
     fun closeDialog()
     fun closeCurrentProject()
     fun openStatistics()
+    fun openSettings()
     fun openImportDialog(type: ResourceFileType)
     fun openExportDialog(type: ResourceFileType)
     fun import(path: String, type: ResourceFileType)
@@ -73,5 +74,8 @@ interface RootComponent {
 
         @Parcelize
         object StatisticsDialog : DialogConfig
+
+        @Parcelize
+        object SettingsDialog : DialogConfig
     }
 }
