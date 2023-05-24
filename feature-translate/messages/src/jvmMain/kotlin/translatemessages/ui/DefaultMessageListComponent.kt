@@ -5,6 +5,7 @@ import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import common.coroutines.CoroutineDispatcherProvider
 import data.LanguageModel
+import data.SegmentModel
 import data.TranslationUnitTypeFilter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -237,6 +238,46 @@ internal class DefaultMessageListComponent(
             val index = units.value.indexOfFirst { it.segment.key == key }
             if (index >= 0) {
                 selectionEvents.emit(index)
+            }
+        }
+    }
+
+    override fun markAsTranslatable(value: Boolean, key: String) {
+        val index = units.value.indexOfFirst { it.segment.key == key }
+        val segment = units.value[index].segment
+        val currentLanguage = lastLanguage ?: return
+        viewModelScope.launch(dispatchers.io) {
+            val otherLanguages = languageRepository.getAll(projectId).filter { it.code != currentLanguage.code }
+            val toUpdate = segment.copy(translatable = value)
+            segmentRepository.update(toUpdate)
+
+            units.getAndUpdate { oldList ->
+                oldList.mapIndexed { idx, it ->
+                    if (idx != index) {
+                        it
+                    } else {
+                        it.copy(segment = toUpdate)
+                    }
+                }
+            }
+
+            if (!value) {
+                // deletes all the segments in the non-base language
+                for (lang in otherLanguages) {
+                    val existing = segmentRepository.getByKey(key = key, languageId = lang.id)
+                    if (existing != null) {
+                        segmentRepository.delete(existing)
+                    }
+                }
+            } else {
+                for (lang in otherLanguages) {
+                    val existing = segmentRepository.getByKey(key = key, languageId = lang.id)
+                    if (existing != null) {
+                        segmentRepository.update(existing.copy(translatable = true))
+                    } else {
+                        segmentRepository.create(SegmentModel(key = key), languageId = lang.id)
+                    }
+                }
             }
         }
     }

@@ -3,7 +3,6 @@
 	<string name="app_intro">Apri un progetto selezionando una delle seguenti voci.</string>
 	<string name="app_intro_empty">Sembra che non abbia nessun progetto.\nPuoi crearne uno nuovo utilizzando il menu Progetto </string>
 	<string name="app_intro_title">Grazie per utilizzare MetaPhrase!</string>
-	<string name="app_name">MetaPhrase</string>
 	<string name="button_cancel">Annulla</string>
 	<string name="button_close">Chiudi</string>
 	<string name="button_ok">OK</string>
@@ -81,6 +80,8 @@
 	<string name="tooltip_add">Aggiungi</string>
 	<string name="tooltip_copy_base">Copia da lingua base</string>
 	<string name="tooltip_delete">Elimina</string>
+	<string name="tooltip_make_translatable">Rendi tranducibile</string>
+	<string name="tooltip_make_untranslatable">Rendi non traducibile</string>
 	<string name="tooltip_move_to_next">Vai a precedente</string>
 	<string name="tooltip_move_to_previous">Vai a successivo</string>
 	<string name="tooltip_validate">Convalida</string>

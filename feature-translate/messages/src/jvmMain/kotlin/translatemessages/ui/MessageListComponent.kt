@@ -24,6 +24,7 @@ interface MessageListComponent {
     fun copyBase()
     fun deleteSegment()
     fun scrollToMessage(key: String)
+    fun markAsTranslatable(value: Boolean, key: String)
 
     object Factory {
         fun create(

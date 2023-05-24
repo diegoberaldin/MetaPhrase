@@ -22,15 +22,8 @@
             <option value="$PROJECT_DIR$/feature-projects/statistics" />
             <option value="$PROJECT_DIR$/feature-translate" />
             <option value="$PROJECT_DIR$/feature-translate/invalidsegments" />
-            <option value="$PROJECT_DIR$/feature-translate/newsegment" />
-          </set>
-        </option>
-      </GradleProjectSettings>
-      <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/feature-translate/messages" />
-        <option name="modules">
-          <set>
             <option value="$PROJECT_DIR$/feature-translate/messages" />
+            <option value="$PROJECT_DIR$/feature-translate/newsegment" />
           </set>
         </option>
       </GradleProjectSettings>
