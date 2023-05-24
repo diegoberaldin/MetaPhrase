@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.onClick
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -34,6 +35,8 @@ import androidx.compose.ui.unit.dp
 import common.ui.theme.Indigo800
 import common.ui.theme.Purple800
 import common.ui.theme.Spacing
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -42,9 +45,17 @@ fun MessageListContent(
     modifier: Modifier = Modifier,
 ) {
     val uiState by component.uiState.collectAsState()
+    val lazyListState = rememberLazyListState()
+
+    LaunchedEffect(component) {
+        component.selectionEvents.onEach { index ->
+            lazyListState.scrollToItem(index)
+        }.launchIn(this)
+    }
 
     LazyColumn(
         modifier = modifier.fillMaxWidth().padding(vertical = Spacing.s),
+        state = lazyListState,
         verticalArrangement = Arrangement.spacedBy(Spacing.s),
     ) {
         itemsIndexed(items = uiState.units, key = { _, unit -> unit.segment.key }) { idx, unit ->

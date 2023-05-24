@@ -11,7 +11,6 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
@@ -45,10 +44,9 @@ internal class DefaultCreateProjectComponent(
     private val languagesError = MutableStateFlow("")
     private lateinit var viewModelScope: CoroutineScope
 
-    private val _done = MutableSharedFlow<Int?>()
     override lateinit var uiState: StateFlow<CreateProjectUiState>
     override lateinit var languagesUiState: StateFlow<CreateProjectLanguagesUiState>
-    override val done: SharedFlow<Int?> = _done
+    override val done = MutableSharedFlow<Int?>()
 
     init {
         with(lifecycle) {
@@ -188,7 +186,7 @@ internal class DefaultCreateProjectComponent(
                 }
             }
 
-            _done.emit(if (isNew) newProjectId else null)
+            done.emit(if (isNew) newProjectId else null)
         }
     }
 }

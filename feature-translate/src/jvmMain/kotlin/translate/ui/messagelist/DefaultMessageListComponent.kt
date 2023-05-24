@@ -11,6 +11,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -41,6 +42,7 @@ internal class DefaultMessageListComponent(
     private var projectId: Int = 0
 
     override lateinit var uiState: StateFlow<MessageListUiState>
+    override val selectionEvents = MutableSharedFlow<Int>()
 
     init {
         with(lifecycle) {
@@ -226,6 +228,15 @@ internal class DefaultMessageListComponent(
             editingIndex.value = null
             units.getAndUpdate { oldList ->
                 oldList.filterIndexed { idx, _ -> idx != index }
+            }
+        }
+    }
+
+    override fun scrollToMessage(key: String) {
+        viewModelScope.launch {
+            val index = units.value.indexOfFirst { it.segment.key == key }
+            if (index >= 0) {
+                selectionEvents.emit(index)
             }
         }
     }

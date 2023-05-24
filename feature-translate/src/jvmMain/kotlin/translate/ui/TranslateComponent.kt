@@ -31,6 +31,7 @@ interface TranslateComponent {
     fun copyBase()
     fun addSegment()
     fun deleteSegment()
+    fun closeDialog()
 
     object Factory {
         fun create(
@@ -48,6 +49,7 @@ interface TranslateComponent {
             importSegments = getByInjection(),
             exportAndroidResources = getByInjection(),
             exportIosResources = getByInjection(),
+            validatePlaceholders = getByInjection()
         )
     }
 
@@ -63,5 +65,11 @@ interface TranslateComponent {
 
         @Parcelize
         object NewSegment : DialogConfig
+
+        @Parcelize
+        object PlaceholderValid : DialogConfig
+
+        @Parcelize
+        data class PlaceholderInvalid(val keys: List<String>) : DialogConfig
     }
 }

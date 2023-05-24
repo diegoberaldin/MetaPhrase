@@ -13,9 +13,14 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
+import common.ui.components.CustomDialog
 import common.ui.theme.Spacing
+import localized
 import translate.ui.messagelist.MessageListContent
 import translate.ui.toolbar.TranslateToolbar
+import translate.ui.toolbar.TranslateToolbarUiState
+import translateinvalidsegments.ui.InvalidSegmentComponent
+import translateinvalidsegments.ui.InvalidSegmentDialog
 import translatenewsegment.ui.NewSegmentComponent
 import translatenewsegment.ui.NewSegmentDialog
 
@@ -24,9 +29,9 @@ fun TranslateContent(
     component: TranslateComponent,
 ) {
     val uiState by component.uiState.collectAsState()
+    val toolbar by component.toolbar.subscribeAsState()
 
     Column(modifier = Modifier.fillMaxSize().padding(vertical = Spacing.xs, horizontal = Spacing.xxs)) {
-        val toolbar by component.toolbar.subscribeAsState()
         (toolbar.child?.instance)?.also {
             TranslateToolbar(
                 component = it,
@@ -59,7 +64,7 @@ fun TranslateContent(
 
     val dialogConfig by component.dialog.subscribeAsState()
     val child = dialogConfig.child
-    when (child?.configuration) {
+    when (val config = child?.configuration) {
         TranslateComponent.DialogConfig.NewSegment -> {
             val language by component.currentLanguage.collectAsState()
             val projectId = uiState.project?.id ?: 0
@@ -69,6 +74,31 @@ fun TranslateContent(
             }
             childComponent.projectId = projectId
             NewSegmentDialog(component = childComponent)
+        }
+
+        TranslateComponent.DialogConfig.PlaceholderValid -> {
+            CustomDialog(
+                title = "dialog_title_generic_message".localized(),
+                message = "message_validation_valid".localized(),
+                closeButtonText = "button_close".localized(),
+                onClose = {
+                    component.closeDialog()
+                },
+            )
+        }
+
+        is TranslateComponent.DialogConfig.PlaceholderInvalid -> {
+            val childComponent = child.instance as InvalidSegmentComponent
+            val toolbarState = toolbar.child?.instance?.uiState?.collectAsState(TranslateToolbarUiState())
+            childComponent.languageId = toolbarState?.value?.currentLanguage?.id ?: 0
+            childComponent.projectId = uiState.project?.id ?: 0
+            childComponent.invalidKeys = config.keys
+            InvalidSegmentDialog(
+                component = childComponent,
+                onClose = {
+                    component.closeDialog()
+                },
+            )
         }
 
         else -> Unit

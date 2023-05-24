@@ -14,8 +14,27 @@ import common.utils.observeChildSlot
 import data.LanguageModel
 import data.ProjectModel
 import data.ResourceFileType
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.*
+import data.SegmentModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapLatest
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import repository.local.LanguageRepository
 import repository.local.ProjectRepository
 import repository.local.SegmentRepository
@@ -24,9 +43,11 @@ import repository.usecase.ExportIosResourcesUseCase
 import repository.usecase.ImportSegmentsUseCase
 import repository.usecase.ParseAndroidResourcesUseCase
 import repository.usecase.ParseIosResourcesUseCase
+import repository.usecase.ValidatePlaceholdersUseCase
 import translate.ui.TranslateComponent.*
 import translate.ui.messagelist.MessageListComponent
 import translate.ui.toolbar.TranslateToolbarComponent
+import translateinvalidsegments.ui.InvalidSegmentComponent
 import translatenewsegment.ui.NewSegmentComponent
 import kotlin.coroutines.CoroutineContext
 
@@ -43,6 +64,7 @@ internal class DefaultTranslateComponent(
     private val importSegments: ImportSegmentsUseCase,
     private val exportAndroidResources: ExportAndroidResourcesUseCase,
     private val exportIosResources: ExportIosResourcesUseCase,
+    private val validatePlaceholders: ValidatePlaceholdersUseCase,
 ) : TranslateComponent, ComponentContext by componentContext {
 
     private val project = MutableStateFlow<ProjectModel?>(null)
@@ -89,6 +111,11 @@ internal class DefaultTranslateComponent(
         childFactory = { config, context ->
             when (config) {
                 DialogConfig.NewSegment -> NewSegmentComponent.Factory.create(
+                    componentContext = context,
+                    coroutineContext = coroutineContext,
+                )
+
+                is DialogConfig.PlaceholderInvalid -> InvalidSegmentComponent.Factory.create(
                     componentContext = context,
                     coroutineContext = coroutineContext,
                 )
@@ -174,7 +201,7 @@ internal class DefaultTranslateComponent(
                             }
 
                             TranslateToolbarComponent.Events.ValidateUnits -> {
-                                // TODO: implement validation
+                                startValidation()
                             }
                         }
                     }.launchIn(this)
@@ -183,13 +210,19 @@ internal class DefaultTranslateComponent(
                     }.launchIn(this)
                     observeChildSlot<NewSegmentComponent>(dialog).onEach {
                         it.done.onEach { newSegment ->
-                            viewModelScope.launch(dispatchers.main) {
+                            withContext(dispatchers.main) {
                                 dialogNavigation.activate(DialogConfig.None)
                             }
                             if (newSegment != null) {
                                 updateUnitCount()
                                 observeChildSlot<MessageListComponent>(messageList).firstOrNull()?.refresh()
                             }
+                        }.launchIn(this)
+                    }.launchIn(this)
+                    observeChildSlot<InvalidSegmentComponent>(dialog).onEach {
+                        it.selectionEvents.onEach { key ->
+                            val messageListComponent = observeChildSlot<MessageListComponent>(messageList).firstOrNull()
+                            messageListComponent?.scrollToMessage(key)
                         }.launchIn(this)
                     }.launchIn(this)
                 }
@@ -219,6 +252,12 @@ internal class DefaultTranslateComponent(
         if (baseLanguage != null) {
             val baseSegments = segmentRepository.getAll(baseLanguage.id)
             unitCount.value = baseSegments.size
+        }
+    }
+
+    override fun closeDialog() {
+        viewModelScope.launch(dispatchers.main) {
+            dialogNavigation.activate(DialogConfig.None)
         }
     }
 
@@ -311,6 +350,35 @@ internal class DefaultTranslateComponent(
     override fun deleteSegment() {
         viewModelScope.launch(dispatchers.io) {
             observeChildSlot<MessageListComponent>(messageList).first().deleteSegment()
+        }
+    }
+
+    private fun startValidation() {
+        val projectId = project.value?.id ?: return
+        viewModelScope.launch(dispatchers.io) {
+            val toolbarState = observeChildSlot<TranslateToolbarComponent>(toolbar).first().uiState.value
+            val language = toolbarState.currentLanguage ?: return@launch
+            val baseLanguage = languageRepository.getAll(projectId).firstOrNull { it.isBase } ?: return@launch
+            val segmentPairs = segmentRepository.getAll(language.id).map {
+                val key = it.key
+                val original = segmentRepository.getByKey(key = key, languageId = baseLanguage.id) ?: SegmentModel()
+                it to original
+            }
+
+            when (val result = validatePlaceholders(segmentPairs)) {
+                ValidatePlaceholdersUseCase.Output.Valid -> {
+                    withContext(dispatchers.main) {
+                        dialogNavigation.activate(DialogConfig.PlaceholderValid)
+                    }
+                }
+
+                is ValidatePlaceholdersUseCase.Output.Invalid -> {
+                    withContext(dispatchers.main) {
+                        val invalidKeys = result.keys
+                        dialogNavigation.activate(DialogConfig.PlaceholderInvalid(invalidKeys))
+                    }
+                }
+            }
         }
     }
 

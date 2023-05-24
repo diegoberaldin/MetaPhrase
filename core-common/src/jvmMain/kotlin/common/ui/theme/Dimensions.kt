@@ -3,6 +3,7 @@ package common.ui.theme
 import androidx.compose.ui.unit.dp
 
 object Spacing {
+    val xxxs = 1.dp
     val xxs = 2.dp
     val xs = 4.dp
     val s = 8.dp
