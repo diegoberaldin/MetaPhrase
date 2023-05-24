@@ -11,7 +11,6 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
@@ -35,10 +34,9 @@ class DefaultNewSegmentComponent(
     private val key = MutableStateFlow("")
     private val keyError = MutableStateFlow("")
     private lateinit var viewModelScope: CoroutineScope
-    private val _done = MutableSharedFlow<SegmentModel?>()
 
     override lateinit var uiState: StateFlow<NewSegmentUiState>
-    override val done: SharedFlow<SegmentModel?> = _done
+    override val done = MutableSharedFlow<SegmentModel?>()
     override lateinit var language: LanguageModel
     override var projectId = 0
 
@@ -80,7 +78,7 @@ class DefaultNewSegmentComponent(
 
     override fun close() {
         viewModelScope.launch(dispatchers.io) {
-            _done.emit(null)
+            done.emit(null)
         }
     }
 
@@ -124,7 +122,7 @@ class DefaultNewSegmentComponent(
                 }
             }
 
-            _done.emit(res.copy(id = id))
+            done.emit(res.copy(id = id))
         }
     }
 }

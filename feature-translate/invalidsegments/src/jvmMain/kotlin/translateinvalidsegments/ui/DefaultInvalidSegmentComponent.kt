@@ -8,6 +8,7 @@ import data.Constants
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -30,6 +31,7 @@ class DefaultInvalidSegmentComponent(
     private val currentIndex = MutableStateFlow<Int?>(null)
     private lateinit var viewModelScope: CoroutineScope
 
+    override val selectionEvents = MutableSharedFlow<String>()
     override var languageId: Int = 0
     override var projectId: Int = 0
     override var invalidKeys: List<String> = emptyList()
@@ -86,5 +88,9 @@ class DefaultInvalidSegmentComponent(
 
     override fun setCurrentIndex(value: Int) {
         currentIndex.value = value
+        val reference = references.value[value]
+        viewModelScope.launch(dispatchers.io) {
+            selectionEvents.emit(reference.key)
+        }
     }
 }

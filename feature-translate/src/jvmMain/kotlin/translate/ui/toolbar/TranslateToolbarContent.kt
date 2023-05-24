@@ -54,7 +54,7 @@ fun TranslateToolbar(
         horizontalArrangement = Arrangement.spacedBy(Spacing.xs),
     ) {
         // buttons
-        val buttonModifier = Modifier.size(elementHeight).padding(1.dp)
+        val buttonModifier = Modifier.size(elementHeight).padding(Spacing.xxxs)
         CustomTooltipArea(
             text = "tooltip_move_to_previous".localized(),
         ) {

@@ -7,6 +7,9 @@
 	<string name="button_cancel">Cancel</string>
 	<string name="button_close">Close</string>
 	<string name="button_ok">OK</string>
+	<string name="column_invalid_extra">Extra</string>
+	<string name="column_invalid_key">Key</string>
+	<string name="column_invalid_missing">Missing</string>
 	<string name="create_project_field_name">Name</string>
 	<string name="create_project_languages">Languages</string>
 	<string name="create_project_languages_subtitle">Each project must have exactly one base (or default) language</string>
@@ -15,6 +18,7 @@
 	<string name="dialog_title_create_project">New project</string>
 	<string name="dialog_title_create_segment">New segment</string>
 	<string name="dialog_title_generic_message">Info</string>
+	<string name="dialog_title_invalid_segments">Invalid segments</string>
 	<string name="dialog_title_open_file">Choose file</string>
 	<string name="lang">en</string>
 	<string name="language_bulgarian">Вългарски</string>
@@ -58,7 +62,7 @@
 	<string name="menu_segment_previous">Previous</string>
 	<string name="message_duplicate_key">A segment with the same key already exists</string>
 	<string name="message_missing_field">Missing field</string>
-	<string name="message_validation_invalid">There are some invalid messages: %1$s</string>
+	<string name="message_validation_invalid">Some invalid messages were found:</string>
 	<string name="message_validation_valid">All segments contain valid placeholders</string>
 	<string name="status_bar_project">project:</string>
 	<string name="status_bar_units">units:</string>

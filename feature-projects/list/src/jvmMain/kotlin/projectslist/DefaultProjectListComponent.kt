@@ -31,10 +31,9 @@ internal class DefaultProjectListComponent(
     private val projects = MutableStateFlow<List<ProjectModel>>(emptyList())
     private lateinit var viewModelScope: CoroutineScope
     private var observeProjectsJob: Job? = null
-    private val _projectSelected = MutableSharedFlow<ProjectModel>()
 
     override lateinit var uiState: StateFlow<ProjectListUiState>
-    override val projectSelected = _projectSelected
+    override val projectSelected = MutableSharedFlow<ProjectModel>()
 
     init {
         with(lifecycle) {
@@ -69,7 +68,7 @@ internal class DefaultProjectListComponent(
 
     override fun openProject(value: ProjectModel) {
         viewModelScope.launch(dispatchers.io) {
-            _projectSelected.emit(value)
+            projectSelected.emit(value)
         }
     }
 

@@ -51,19 +51,16 @@ internal class DefaultProjectsComponent(
     private val projectRepository: ProjectRepository,
 ) : ProjectsComponent, ComponentContext by componentContext {
 
-    private val _activeProject = MutableStateFlow<ProjectModel?>(null)
     private val navigation = StackNavigation<ProjectsComponent.Config>()
     private lateinit var viewModelScope: CoroutineScope
 
-    private val _childStack = childStack(
+    override val childStack = childStack(
         source = navigation,
         initialConfiguration = ProjectsComponent.Config.List,
         handleBackButton = true,
         childFactory = ::createChild,
     )
-
-    override val childStack: Value<ChildStack<ProjectsComponent.Config, *>> = _childStack
-    override val activeProject = _activeProject.asStateFlow()
+    override val activeProject = MutableStateFlow<ProjectModel?>(null)
     override lateinit var isEditing: StateFlow<Boolean>
     override lateinit var currentLanguage: StateFlow<LanguageModel?>
 
@@ -122,14 +119,14 @@ internal class DefaultProjectsComponent(
     }
 
     private suspend fun openProject(projectId: Int) {
-        if (_activeProject.value?.id == projectId) {
+        if (activeProject.value?.id == projectId) {
             return
         }
 
         withContext(dispatchers.io) {
             keyStore.save("lastOpenedProject", projectId)
         }
-        _activeProject.value = projectRepository.getById(projectId)
+        activeProject.value = projectRepository.getById(projectId)
         withContext(dispatchers.main) {
             navigation.push(ProjectsComponent.Config.Detail(projectId = projectId))
         }
@@ -155,13 +152,13 @@ internal class DefaultProjectsComponent(
         viewModelScope.launch(dispatchers.io) {
             keyStore.save("lastOpenedProject", 0)
         }
-        _activeProject.value = null
+        activeProject.value = null
         navigation.pop()
     }
 
     override fun import(path: String, type: ResourceFileType) {
         viewModelScope.launch(dispatchers.io) {
-            observeChildStack<TranslateComponent>(_childStack).firstOrNull()?.import(
+            observeChildStack<TranslateComponent>(childStack).firstOrNull()?.import(
                 path = path,
                 type = type,
             )
@@ -170,7 +167,7 @@ internal class DefaultProjectsComponent(
 
     override fun export(path: String, type: ResourceFileType) {
         viewModelScope.launch(dispatchers.io) {
-            observeChildStack<TranslateComponent>(_childStack).firstOrNull()?.export(
+            observeChildStack<TranslateComponent>(childStack).firstOrNull()?.export(
                 path = path,
                 type = type,
             )
@@ -179,37 +176,37 @@ internal class DefaultProjectsComponent(
 
     override fun moveToPrevious() {
         viewModelScope.launch(dispatchers.io) {
-            observeChildStack<TranslateComponent>(_childStack).firstOrNull()?.moveToPrevious()
+            observeChildStack<TranslateComponent>(childStack).firstOrNull()?.moveToPrevious()
         }
     }
 
     override fun moveToNext() {
         viewModelScope.launch(dispatchers.io) {
-            observeChildStack<TranslateComponent>(_childStack).firstOrNull()?.moveToNext()
+            observeChildStack<TranslateComponent>(childStack).firstOrNull()?.moveToNext()
         }
     }
 
     override fun endEditing() {
         viewModelScope.launch(dispatchers.io) {
-            observeChildStack<TranslateComponent>(_childStack).firstOrNull()?.endEditing()
+            observeChildStack<TranslateComponent>(childStack).firstOrNull()?.endEditing()
         }
     }
 
     override fun copyBase() {
         viewModelScope.launch(dispatchers.io) {
-            observeChildStack<TranslateComponent>(_childStack).firstOrNull()?.copyBase()
+            observeChildStack<TranslateComponent>(childStack).firstOrNull()?.copyBase()
         }
     }
 
     override fun addSegment() {
         viewModelScope.launch(dispatchers.io) {
-            observeChildStack<TranslateComponent>(_childStack).firstOrNull()?.addSegment()
+            observeChildStack<TranslateComponent>(childStack).firstOrNull()?.addSegment()
         }
     }
 
     override fun deleteSegment() {
         viewModelScope.launch(dispatchers.io) {
-            observeChildStack<TranslateComponent>(_childStack).firstOrNull()?.deleteSegment()
+            observeChildStack<TranslateComponent>(childStack).firstOrNull()?.deleteSegment()
         }
     }
 }

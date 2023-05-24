@@ -20,6 +20,7 @@ import translate.ui.messagelist.MessageListContent
 import translate.ui.toolbar.TranslateToolbar
 import translate.ui.toolbar.TranslateToolbarUiState
 import translateinvalidsegments.ui.InvalidSegmentComponent
+import translateinvalidsegments.ui.InvalidSegmentDialog
 import translatenewsegment.ui.NewSegmentComponent
 import translatenewsegment.ui.NewSegmentDialog
 
@@ -92,7 +93,12 @@ fun TranslateContent(
             childComponent.languageId = toolbarState?.value?.currentLanguage?.id ?: 0
             childComponent.projectId = uiState.project?.id ?: 0
             childComponent.invalidKeys = config.keys
-            // TODO: dialog
+            InvalidSegmentDialog(
+                component = childComponent,
+                onClose = {
+                    component.closeDialog()
+                },
+            )
         }
 
         else -> Unit
