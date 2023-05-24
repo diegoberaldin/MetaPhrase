@@ -24,6 +24,7 @@ interface RootComponent {
     fun openNewDialog()
     fun closeDialog()
     fun closeCurrentProject()
+    fun openStatistics()
     fun openImportDialog(type: ResourceFileType)
     fun openExportDialog(type: ResourceFileType)
     fun import(path: String, type: ResourceFileType)
@@ -62,12 +63,15 @@ interface RootComponent {
         object NewDialog : DialogConfig
 
         @Parcelize
-        data class EditDialog(val projectId: Int) : DialogConfig
+        object EditDialog : DialogConfig
 
         @Parcelize
         data class ImportDialog(val type: ResourceFileType) : DialogConfig
 
         @Parcelize
         data class ExportDialog(val type: ResourceFileType) : DialogConfig
+
+        @Parcelize
+        object StatisticsDialog : DialogConfig
     }
 }

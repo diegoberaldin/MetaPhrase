@@ -1,8 +1,10 @@
 package common.ui.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -30,7 +32,7 @@ fun CustomDialog(
 ) {
     Dialog(
         title = title,
-        state = rememberDialogState(width = 280.dp, height = Dp.Unspecified),
+        state = rememberDialogState(width = 400.dp, height = Dp.Unspecified),
         onCloseRequest = {
             onClose()
         },
@@ -48,18 +50,23 @@ fun CustomDialog(
                 style = MaterialTheme.typography.body2,
                 color = MaterialTheme.colors.onBackground,
             )
-            Spacer(modifier = Modifier.height(Spacing.s))
-            Button(
-                modifier = Modifier.heightIn(max = 25.dp),
-                contentPadding = PaddingValues(0.dp),
-                onClick = {
-                    onClose()
-                },
+            Spacer(modifier = Modifier.height(Spacing.xs))
+            Row(
+                modifier = Modifier.padding(Spacing.s),
+                horizontalArrangement = Arrangement.spacedBy(Spacing.xs),
             ) {
-                Text(
-                    text = closeButtonText,
-                    style = MaterialTheme.typography.button,
-                )
+                Button(
+                    modifier = Modifier.heightIn(max = 25.dp),
+                    contentPadding = PaddingValues(0.dp),
+                    onClick = {
+                        onClose()
+                    },
+                ) {
+                    Text(
+                        text = closeButtonText,
+                        style = MaterialTheme.typography.button,
+                    )
+                }
             }
         }
     }

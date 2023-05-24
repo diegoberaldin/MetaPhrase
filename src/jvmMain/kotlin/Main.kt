@@ -23,6 +23,7 @@ import common.di.commonModule
 import common.keystore.TemporaryKeyStore
 import common.log.LogManager
 import common.ui.theme.MetaPhraseTheme
+import common.utils.getByInjection
 import common.utils.runOnUiThread
 import data.ResourceFileType
 import kotlinx.coroutines.CoroutineScope
@@ -31,7 +32,6 @@ import kotlinx.coroutines.runBlocking
 import main.ui.RootComponent
 import main.ui.RootContent
 import org.koin.core.context.startKoin
-import org.koin.java.KoinJavaComponent
 import persistence.di.persistenceModule
 import repository.di.repositoryModule
 import repository.di.useCaseModule
@@ -53,6 +53,8 @@ fun main() {
     // init DI
     initKoin()
 
+    val log: LogManager = getByInjection()
+
     // init root component in the main thread outside the application lifecycle
     val lifecycle = LifecycleRegistry()
     val mainScope = CoroutineScope(SupervisorJob())
@@ -65,7 +67,7 @@ fun main() {
 
     // init l10n
     runBlocking {
-        val keystore: TemporaryKeyStore by KoinJavaComponent.inject(TemporaryKeyStore::class.java)
+        val keystore: TemporaryKeyStore = getByInjection()
         val systemLanguage = Locale.getDefault().language
         val lang = keystore.get("lang", "")
         L10n.setLanguage(lang.ifEmpty { systemLanguage })
@@ -75,7 +77,6 @@ fun main() {
     }
 
     application {
-        val log: LogManager by KoinJavaComponent.inject(LogManager::class.java)
         log.debug("Application starting")
 
         // ties component lifecycle to the window
@@ -136,6 +137,13 @@ private fun MenuBarScope.makeMenus(
             shortcut = KeyShortcut(Key.W, meta = true),
         ) {
             rootComponent.closeCurrentProject()
+        }
+        Separator()
+        Item(
+            text = "menu_project_statistics".localized(),
+            enabled = activeProject != null,
+        ) {
+            rootComponent.openStatistics()
         }
         Separator()
         Menu(
