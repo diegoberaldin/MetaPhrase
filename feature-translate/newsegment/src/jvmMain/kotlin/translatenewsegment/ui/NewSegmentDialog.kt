@@ -42,7 +42,7 @@ fun NewSegmentDialog(
             },
         ) {
             Surface(
-                modifier = Modifier.size(400.dp, 190.dp).background(MaterialTheme.colors.background),
+                modifier = Modifier.size(400.dp, 200.dp).background(MaterialTheme.colors.background),
             ) {
                 val uiState by component.uiState.collectAsState()
 
