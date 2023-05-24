@@ -1,4 +1,4 @@
-package translate.ui.messagelist
+package translatemessages.ui
 
 import com.arkivanov.decompose.ComponentContext
 import common.utils.getByInjection
@@ -24,6 +24,7 @@ interface MessageListComponent {
     fun copyBase()
     fun deleteSegment()
     fun scrollToMessage(key: String)
+    fun markAsTranslatable(value: Boolean, key: String)
 
     object Factory {
         fun create(

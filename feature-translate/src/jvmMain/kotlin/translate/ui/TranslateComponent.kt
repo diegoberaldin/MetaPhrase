@@ -9,8 +9,8 @@ import common.utils.getByInjection
 import data.LanguageModel
 import data.ResourceFileType
 import kotlinx.coroutines.flow.StateFlow
-import translate.ui.messagelist.MessageListComponent
 import translate.ui.toolbar.TranslateToolbarComponent
+import translatemessages.ui.MessageListComponent
 import kotlin.coroutines.CoroutineContext
 
 interface TranslateComponent {
@@ -49,7 +49,7 @@ interface TranslateComponent {
             importSegments = getByInjection(),
             exportAndroidResources = getByInjection(),
             exportIosResources = getByInjection(),
-            validatePlaceholders = getByInjection()
+            validatePlaceholders = getByInjection(),
         )
     }
 

@@ -3,7 +3,7 @@
 	<string name="app_intro">Please open a project by selecting one of the following items.</string>
 	<string name="app_intro_empty">It seems like you don</string>
 	<string name="app_intro_title">Thank you for using MetaPhrase!</string>
-	<string name="app_name">MetaPhrase</string>
+	<string name="app_name" translatable="false">MetaPhrase</string>
 	<string name="button_cancel">Cancel</string>
 	<string name="button_close">Close</string>
 	<string name="button_ok">OK</string>
@@ -81,6 +81,8 @@
 	<string name="tooltip_add">Add</string>
 	<string name="tooltip_copy_base">Copy from base language</string>
 	<string name="tooltip_delete">Delete</string>
+	<string name="tooltip_make_translatable">Make translatable</string>
+	<string name="tooltip_make_untranslatable">Make untranslatable</string>
 	<string name="tooltip_move_to_next">Move to next</string>
 	<string name="tooltip_move_to_previous">Move to previous</string>
 	<string name="tooltip_validate">Validate</string>
