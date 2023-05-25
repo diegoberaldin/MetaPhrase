@@ -27,7 +27,7 @@ Why should anyone use MetaPhrase, how does it compare with existing alternatives
 - In Android Studio, if editing the XML resource directly the problem is the same as Xcode; if using the translation
   editor all the languages are displayed at the same time making it difficult to keep focus if the project contains a
   large number of languages (and additionally editing the wrong column).
-- There are several open source translation tools out there, maybe the most known are Virtaal GTK-based) and Lokalize (
+- There are several open source translation tools out there, maybe the most known are Virtaal (GTK-based) and Lokalize (
   Qt.based). Unfortunately, as far as I've seen, as far as software localization is concerned, they are PO-centric (PO
   being the standard format for messages used by GNU gettext and similar popular toolkits in open source development).
   But having to convert back and forth to PO from string tables and XML resources is cumbersome and not so
@@ -63,7 +63,7 @@ language is marked with a flag.
 
 ### Translation screen
 
-This is the main application screen, which allows to insert the messages translation. The key of the message is always
+This is the main application screen, which allows to insert the message translation. The key of the message is always
 displayed and can be included in textual queries in the "Search" box. Messages can be filtered by text but also by
 category: All messages, Messages needing translation, Only translatable messages (excluding untranslatable messages).
 
