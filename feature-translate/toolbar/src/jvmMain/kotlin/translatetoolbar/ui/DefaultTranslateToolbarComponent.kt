@@ -99,7 +99,7 @@ internal class DefaultTranslateToolbarComponent(
                 .map { it.map { l -> completeLanguage(l) } }
                 .onEach { projectLanguages ->
                     availableLanguages.value = projectLanguages
-                    val baseLanguage = languageRepository.getBase(projectId)
+                    val baseLanguage = languageRepository.getBase(projectId)?.let { completeLanguage(it) }
                     if (baseLanguage != null && baseLanguage != currentLanguage.value) {
                         setLanguage(baseLanguage)
                     }
