@@ -26,11 +26,11 @@ class ImportSegmentsUseCase(
                 segmentRepository.create(model = segment, languageId = language.id)
             }
 
-            // make sure a segment with the same key is present (albeit empty) for all languages
+            // make sure a segment with the same key is present (albeit empty) for all languages if translatable
             for (lang in otherLanguages) {
-                val existing = segmentRepository.getByKey(key = key, languageId = lang.id)
-                if (existing == null) {
-                    val toInsert = SegmentModel(key = key, translatable = segment.translatable)
+                val otherSegment = segmentRepository.getByKey(key = key, languageId = lang.id)
+                if (otherSegment == null && segment.translatable) {
+                    val toInsert = SegmentModel(key = key)
                     segmentRepository.create(model = toInsert, languageId = lang.id)
                 }
             }

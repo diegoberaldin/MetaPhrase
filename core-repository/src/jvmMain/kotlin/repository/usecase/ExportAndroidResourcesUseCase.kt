@@ -12,7 +12,9 @@ class ExportAndroidResourcesUseCase {
     suspend operator fun invoke(segments: List<SegmentModel>, path: String) {
         val file = File(path)
         if (!file.exists()) {
-            file.createNewFile()
+            runCatching {
+                file.createNewFile()
+            }
         }
         if (!file.canWrite()) {
             return
@@ -42,6 +44,19 @@ class ExportAndroidResourcesUseCase {
                 }
             }
         }
-        return root.toString(PrintOptions(pretty = true, singleLineTextElements = true, useCharacterReference = true))
+        return root.toString(PrintOptions(pretty = true, singleLineTextElements = true, useCharacterReference = false))
+            .sanitize()
+    }
+
+    private fun String.sanitize(): String {
+        val substitutionList = listOf(
+            "&quot;" to "\"",
+            "&apos;" to "\\'",
+            "&gt;" to ">",
+            "&lt;" to "<",
+        )
+        return substitutionList.fold(this) { res, it ->
+            res.replace(it.first, it.second)
+        }
     }
 }

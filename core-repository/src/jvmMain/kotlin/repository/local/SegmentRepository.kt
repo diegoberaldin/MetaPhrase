@@ -15,6 +15,8 @@ class SegmentRepository(
 
     suspend fun getAll(languageId: Int) = dao.getAll(languageId)
 
+    suspend fun getUntranslatable(languageId: Int) = dao.getUntranslatable(languageId)
+
     suspend fun search(
         languageId: Int,
         filter: TranslationUnitTypeFilter = TranslationUnitTypeFilter.ALL,
