@@ -4,7 +4,6 @@ exposed = "0.41.1"
 h2 = "2.1.214"
 koin = "3.2.0"
 kotlinx_coroutines = "1.7.1"
-kotlinx_serialization = "1.5.0"
 log4j = "2.20.0"
 decompose = "2.0.0-alpha-02"
 redundent = "1.9.0"
@@ -36,7 +35,6 @@ exposed_dao = { module = "org.jetbrains.exposed:exposed-dao", version.ref = "exp
 exposed_jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "exposed" }
 
 # serialization
-kotlinx_serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx_serialization" }
 redundent = { module = "org.redundent:kotlin-xml-builder", version.ref = "redundent" }
 
 # logging

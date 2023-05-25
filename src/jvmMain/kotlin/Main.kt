@@ -205,12 +205,14 @@ private fun MenuBarScope.makeMenus(
         Separator()
         Item(
             text = "menu_segment_new".localized(),
+            shortcut = KeyShortcut(Key.Plus, meta = true),
             enabled = activeProject != null,
         ) {
             rootComponent.addSegment()
         }
         Item(
             text = "menu_segment_delete".localized(),
+            shortcut = KeyShortcut(Key.Minus, meta = true),
             enabled = isEditing,
         ) {
             rootComponent.deleteSegment()
