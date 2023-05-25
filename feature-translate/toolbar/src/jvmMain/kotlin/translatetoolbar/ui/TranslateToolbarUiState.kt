@@ -1,4 +1,4 @@
-package translate.ui.toolbar
+package translatetoolbar.ui
 
 import data.LanguageModel
 import data.TranslationUnitTypeFilter

@@ -45,10 +45,10 @@ import repository.usecase.ParseAndroidResourcesUseCase
 import repository.usecase.ParseIosResourcesUseCase
 import repository.usecase.ValidatePlaceholdersUseCase
 import translate.ui.TranslateComponent.*
-import translate.ui.toolbar.TranslateToolbarComponent
 import translateinvalidsegments.ui.InvalidSegmentComponent
 import translatemessages.ui.MessageListComponent
 import translatenewsegment.ui.NewSegmentComponent
+import translatetoolbar.ui.TranslateToolbarComponent
 import kotlin.coroutines.CoroutineContext
 
 @OptIn(ExperimentalCoroutinesApi::class)

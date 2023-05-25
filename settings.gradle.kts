@@ -34,6 +34,7 @@ include(
     ":feature-projects:statistics",
 
     ":feature-translate",
+    ":feature-translate:toolbar",
     ":feature-translate:messages",
     ":feature-translate:newsegment",
     ":feature-translate:invalidsegments",

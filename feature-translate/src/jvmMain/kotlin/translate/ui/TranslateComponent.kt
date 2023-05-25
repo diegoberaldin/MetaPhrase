@@ -9,8 +9,8 @@ import common.utils.getByInjection
 import data.LanguageModel
 import data.ResourceFileType
 import kotlinx.coroutines.flow.StateFlow
-import translate.ui.toolbar.TranslateToolbarComponent
 import translatemessages.ui.MessageListComponent
+import translatetoolbar.ui.TranslateToolbarComponent
 import kotlin.coroutines.CoroutineContext
 
 interface TranslateComponent {

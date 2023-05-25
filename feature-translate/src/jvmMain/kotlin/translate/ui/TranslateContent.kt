@@ -16,13 +16,13 @@ import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import common.ui.components.CustomDialog
 import common.ui.theme.Spacing
 import localized
-import translate.ui.toolbar.TranslateToolbar
-import translate.ui.toolbar.TranslateToolbarUiState
 import translateinvalidsegments.ui.InvalidSegmentComponent
 import translateinvalidsegments.ui.InvalidSegmentDialog
 import translatemessages.ui.MessageListContent
 import translatenewsegment.ui.NewSegmentComponent
 import translatenewsegment.ui.NewSegmentDialog
+import translatetoolbar.ui.TranslateToolbar
+import translatetoolbar.ui.TranslateToolbarUiState
 
 @Composable
 fun TranslateContent(

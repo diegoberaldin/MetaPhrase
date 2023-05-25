@@ -24,6 +24,7 @@
             <option value="$PROJECT_DIR$/feature-translate/invalidsegments" />
             <option value="$PROJECT_DIR$/feature-translate/messages" />
             <option value="$PROJECT_DIR$/feature-translate/newsegment" />
+            <option value="$PROJECT_DIR$/feature-translate/toolbar" />
           </set>
         </option>
       </GradleProjectSettings>
