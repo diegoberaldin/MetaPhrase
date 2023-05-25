@@ -46,6 +46,7 @@ internal class DefaultParseXmlResourceUseCase : ParseXmlResourceUseCase {
     private fun String.sanitize(): String {
         val substitutionList = listOf(
             "\\'" to "'",
+            "\\n" to "\n",
         )
         return substitutionList.fold(this) { res, it ->
             res.replace(it.first, it.second)
