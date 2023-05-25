@@ -1,4 +1,3 @@
-import kotlinx.serialization.ExperimentalSerializationApi
 import java.io.InputStream
 
 internal class DefaultLocalization(

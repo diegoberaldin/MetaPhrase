@@ -85,9 +85,6 @@ internal class DefaultTranslateToolbarComponent(
                     started = SharingStarted.WhileSubscribed(5_000),
                     initialValue = TranslateToolbarUiState(),
                 )
-                doOnStart {
-                    loadLanguages()
-                }
             }
             doOnDestroy {
                 viewModelScope.cancel()
@@ -103,7 +100,6 @@ internal class DefaultTranslateToolbarComponent(
                 .map { it.map { l -> completeLanguage(l) } }
                 .onEach { projectLanguages ->
                     availableLanguages.value = projectLanguages
-                    logManager.debug("Loaded ${projectLanguages.size} available languages")
                     val baseLanguage = projectLanguages.firstOrNull { it.isBase }
                     if (baseLanguage != null && baseLanguage != currentLanguage.value) {
                         setLanguage(baseLanguage)

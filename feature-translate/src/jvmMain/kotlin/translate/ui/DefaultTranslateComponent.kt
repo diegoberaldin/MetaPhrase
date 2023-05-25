@@ -227,10 +227,9 @@ internal class DefaultTranslateComponent(
                 }
             }
             doOnStart {
-                if (project.value == null) {
-                    loadProject()
-                }
                 viewModelScope.launch(dispatchers.io) {
+                    updateUnitCount()
+
                     projectRepository.observeById(projectId).onEach {
                         if (it.name != project.value?.name) {
                             project.value = it
@@ -246,6 +245,7 @@ internal class DefaultTranslateComponent(
 
     private fun loadProject() {
         if (!this::viewModelScope.isInitialized) return
+
         viewModelScope.launch(dispatchers.io) {
             val proj = projectRepository.getById(projectId)
             project.value = proj
