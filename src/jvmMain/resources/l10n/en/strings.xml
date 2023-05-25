@@ -23,38 +23,38 @@
 	<string name="dialog_statistics_item_translatable_messages">Translatable message number</string>
 	<string name="dialog_statistics_section_general">General</string>
 	<string name="dialog_title_create_project">New project</string>
-	<string name="dialog_title_create_segment">New segment</string>
+	<string name="dialog_title_create_segment">New message</string>
 	<string name="dialog_title_edit_project">Edit project</string>
 	<string name="dialog_title_generic_message">Info</string>
-	<string name="dialog_title_invalid_segments">Invalid segments</string>
+	<string name="dialog_title_invalid_segments">Invalid messages</string>
 	<string name="dialog_title_open_file">Choose file</string>
 	<string name="dialog_title_settings">Settings</string>
 	<string name="dialog_title_statistics">Statistics</string>
 	<string name="lang">en</string>
-	<string name="language_bulgarian">Вългарски</string>
-	<string name="language_croatian">Hrvatski</string>
-	<string name="language_czech">Čeština</string>
-	<string name="language_danish">Dansk</string>
-	<string name="language_dutch">Nederlands</string>
-	<string name="language_english">English</string>
-	<string name="language_estonian">Eesti</string>
-	<string name="language_finnish">Suomi</string>
-	<string name="language_french">Français</string>
-	<string name="language_german">Deutsch</string>
-	<string name="language_greek">Ελληνικά</string>
-	<string name="language_hungarian">Magyar</string>
-	<string name="language_irish">Gaeilge</string>
-	<string name="language_italian">Italiano</string>
-	<string name="language_latvian">Latviešu</string>
-	<string name="language_lithuanian">Lietuvių</string>
-	<string name="language_maltese">Malti</string>
-	<string name="language_polish">Polski</string>
-	<string name="language_portuguese">Português</string>
-	<string name="language_romanian">Română</string>
-	<string name="language_slovak">Slovenčina</string>
-	<string name="language_slovenian">Slovenščina</string>
-	<string name="language_spanish">Español</string>
-	<string name="language_swedish">Svenska</string>
+	<string name="language_bulgarian" translatable="false">Вългарски</string>
+	<string name="language_croatian" translatable="false">Hrvatski</string>
+	<string name="language_czech" translatable="false">Čeština</string>
+	<string name="language_danish" translatable="false">Dansk</string>
+	<string name="language_dutch" translatable="false">Nederlands</string>
+	<string name="language_english" translatable="false">English</string>
+	<string name="language_estonian" translatable="false">Eesti</string>
+	<string name="language_finnish" translatable="false">Suomi</string>
+	<string name="language_french" translatable="false">Français</string>
+	<string name="language_german" translatable="false">Deutsch</string>
+	<string name="language_greek" translatable="false">Ελληνικά</string>
+	<string name="language_hungarian" translatable="false">Magyar</string>
+	<string name="language_irish" translatable="false">Gaeilge</string>
+	<string name="language_italian" translatable="false">Italiano</string>
+	<string name="language_latvian" translatable="false">Latviešu</string>
+	<string name="language_lithuanian" translatable="false">Lietuvių</string>
+	<string name="language_maltese" translatable="false">Malti</string>
+	<string name="language_polish" translatable="false">Polski</string>
+	<string name="language_portuguese" translatable="false">Português</string>
+	<string name="language_romanian" translatable="false">Română</string>
+	<string name="language_slovak" translatable="false">Slovenčina</string>
+	<string name="language_slovenian" translatable="false">Slovenščina</string>
+	<string name="language_spanish" translatable="false">Español</string>
+	<string name="language_swedish" translatable="false">Svenska</string>
 	<string name="menu_project">Project</string>
 	<string name="menu_project_close">Close</string>
 	<string name="menu_project_edit">Edit…</string>
@@ -65,17 +65,17 @@
 	<string name="menu_project_new">New…</string>
 	<string name="menu_project_settings">Settings…</string>
 	<string name="menu_project_statistics">Statistics…</string>
-	<string name="menu_segment">Segment</string>
+	<string name="menu_segment">Message</string>
 	<string name="menu_segment_copy_base">Copy base</string>
 	<string name="menu_segment_delete">Delete</string>
 	<string name="menu_segment_end_edit">End edit</string>
-	<string name="menu_segment_new">Nuovo</string>
+	<string name="menu_segment_new">New…</string>
 	<string name="menu_segment_next">Next</string>
 	<string name="menu_segment_previous">Previous</string>
-	<string name="message_duplicate_key">A segment with the same key already exists</string>
+	<string name="message_duplicate_key">A message with the same key already exists</string>
 	<string name="message_missing_field">Missing field</string>
 	<string name="message_validation_invalid">Some invalid messages were found:</string>
-	<string name="message_validation_valid">All segments contain valid placeholders</string>
+	<string name="message_validation_valid">All messages contain valid placeholders</string>
 	<string name="status_bar_project">project:</string>
 	<string name="status_bar_units">units:</string>
 	<string name="toolbar_search_placeholder">Search…</string>
