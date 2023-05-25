@@ -41,8 +41,15 @@ At startup, either a welcome screen is displayed or a screen with the project li
 
 #### Welcome screen
 
+<p align="center">
+  <img src="https://github.com/diegoberaldin/MetaPhrase/assets/2738294/41553c7a-1ce8-41bd-adb4-1c5016f4bd70" />
+</p>
+
 #### Project list
 
+<p align="center">
+  <img src="https://github.com/diegoberaldin/MetaPhrase/assets/2738294/fe286862-1555-41fb-bc67-4e0b83abb708" />
+</p>
 
 ### Create project
 
