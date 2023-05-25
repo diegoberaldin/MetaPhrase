@@ -254,7 +254,7 @@ internal class DefaultTranslateComponent(
     }
 
     private suspend fun updateUnitCount() {
-        val baseLanguage = languageRepository.getAll(projectId).firstOrNull { it.isBase }
+        val baseLanguage = languageRepository.getBase(projectId)
         if (baseLanguage != null) {
             val baseSegments = segmentRepository.getAll(baseLanguage.id)
             unitCount.value = baseSegments.size
@@ -313,7 +313,7 @@ internal class DefaultTranslateComponent(
 
                 ResourceFileType.IOS_STRINGS -> {
                     // for iOS it is needed to copy the base version of all untranslatable segments
-                    val baseLanguage = languageRepository.getAll(projectId).firstOrNull { it.isBase }
+                    val baseLanguage = languageRepository.getBase(projectId)
                     val toExport = if (baseLanguage != null) {
                         val untranslatable = segmentRepository.getUntranslatable(baseLanguage.id)
                         segments + untranslatable
@@ -372,7 +372,7 @@ internal class DefaultTranslateComponent(
         viewModelScope.launch(dispatchers.io) {
             val toolbarState = observeChildSlot<TranslateToolbarComponent>(toolbar).first().uiState.value
             val language = toolbarState.currentLanguage ?: return@launch
-            val baseLanguage = languageRepository.getAll(projectId).firstOrNull { it.isBase } ?: return@launch
+            val baseLanguage = languageRepository.getBase(projectId) ?: return@launch
             val segmentPairs = segmentRepository.getAll(language.id).map {
                 val key = it.key
                 val original = segmentRepository.getByKey(key = key, languageId = baseLanguage.id) ?: SegmentModel()

@@ -60,7 +60,7 @@ class DefaultStatisticsComponent(
         if (!this::viewModelScope.isInitialized) return
         viewModelScope.launch(dispatchers.io) {
             val languages = languageRepository.getAll(projectId).map { completeLanguage(it) }
-            val baseLanguage = languages.firstOrNull { it.isBase } ?: return@launch
+            val baseLanguage = languageRepository.getBase(projectId) ?: return@launch
             items.update {
                 buildList {
                     this += StatisticsItem.Header("dialog_statistics_section_general".localized())

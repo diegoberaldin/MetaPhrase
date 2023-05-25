@@ -40,6 +40,8 @@ class LanguageRepository(
 
     suspend fun getAll(projectId: Int) = dao.getAll(projectId)
 
+    suspend fun getBase(projectId: Int) = dao.getBase(projectId)
+
     fun observeAll(projectId: Int) = channelFlow {
         while (true) {
             if (!isActive) {

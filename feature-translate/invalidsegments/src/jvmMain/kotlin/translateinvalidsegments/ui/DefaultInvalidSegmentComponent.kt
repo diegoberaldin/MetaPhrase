@@ -70,7 +70,7 @@ class DefaultInvalidSegmentComponent(
 
     private fun loadReferences() {
         viewModelScope.launch(dispatchers.io) {
-            val baseLanguage = languageRepository.getAll(projectId).firstOrNull { it.isBase } ?: return@launch
+            val baseLanguage = languageRepository.getBase(projectId) ?: return@launch
             references.value = invalidKeys.mapNotNull { key ->
                 val target = segmentRepository.getByKey(key = key, languageId = languageId) ?: return@mapNotNull null
                 val source =

@@ -8,6 +8,8 @@ class SegmentRepository(
     private val dao: SegmentDao,
 ) {
     suspend fun create(model: SegmentModel, languageId: Int) = dao.create(model = model, languageId = languageId)
+    suspend fun createBatch(models: List<SegmentModel>, languageId: Int) =
+        dao.createBatch(models = models, languageId = languageId)
 
     suspend fun update(model: SegmentModel) = dao.update(model)
 

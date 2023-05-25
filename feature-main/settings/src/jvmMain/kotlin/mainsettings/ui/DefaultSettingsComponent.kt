@@ -64,6 +64,7 @@ class DefaultSettingsComponent(
                 availableLanguages.value = listOf(
                     "en",
                     "it",
+                    "es",
                 ).map {
                     completeLanguage(LanguageModel(code = it))
                 }

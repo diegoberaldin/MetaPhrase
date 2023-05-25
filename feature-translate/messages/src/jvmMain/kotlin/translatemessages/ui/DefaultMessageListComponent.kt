@@ -107,7 +107,7 @@ internal class DefaultMessageListComponent(
         val baseLanguageId = if (language.isBase) {
             languageId
         } else {
-            languageRepository.getAll(projectId).firstOrNull { it.isBase }?.id ?: 0
+            languageRepository.getBase(projectId)?.id ?: 0
         }
 
         val segments = segmentRepository.search(

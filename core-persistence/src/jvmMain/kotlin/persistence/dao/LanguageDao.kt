@@ -33,6 +33,10 @@ class LanguageDao {
         LanguageEntity.deleteWhere { LanguageEntity.id eq model.id }
     }
 
+    suspend fun getBase(projectId: Int): LanguageModel? = newSuspendedTransaction {
+        LanguageEntity.select { (LanguageEntity.projectId eq projectId) and (isBase eq true) }.firstOrNull()?.toModel()
+    }
+
     suspend fun getAll(projectId: Int): List<LanguageModel> = newSuspendedTransaction {
         LanguageEntity.select { LanguageEntity.projectId eq projectId }.map { it.toModel() }
     }
