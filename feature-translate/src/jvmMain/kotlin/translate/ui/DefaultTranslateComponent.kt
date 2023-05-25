@@ -231,6 +231,13 @@ internal class DefaultTranslateComponent(
                 if (project.value == null) {
                     loadProject()
                 }
+                viewModelScope.launch(dispatchers.io) {
+                    projectRepository.observeById(projectId).onEach {
+                        if (it.name != project.value?.name) {
+                            project.value = it
+                        }
+                    }.launchIn(this)
+                }
             }
             doOnDestroy {
                 viewModelScope.cancel()

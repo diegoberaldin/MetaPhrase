@@ -24,6 +24,18 @@ class ProjectRepository(
     }
 
     suspend fun getById(id: Int): ProjectModel? = dao.getById(id)
+    fun observeById(id: Int): Flow<ProjectModel> = channelFlow {
+        while (true) {
+            if (!isActive) {
+                break
+            }
+            val res = getById(id)
+            if (res != null) {
+                trySend(res)
+            }
+            delay(1_000)
+        }
+    }
 
     suspend fun create(model: ProjectModel): Int = dao.create(model)
 
