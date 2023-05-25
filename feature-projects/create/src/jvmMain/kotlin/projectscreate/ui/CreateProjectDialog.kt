@@ -41,15 +41,16 @@ import common.ui.theme.MetaPhraseTheme
 import common.ui.theme.Spacing
 import localized
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CreateProjectDialog(
+    title: String,
     component: CreateProjectComponent,
     onClose: () -> Unit,
 ) {
     MetaPhraseTheme {
         Window(
-            title = "dialog_title_create_project".localized(),
+            title = title,
             state = rememberWindowState(width = Dp.Unspecified, height = Dp.Unspecified),
             resizable = false,
             onCloseRequest = {

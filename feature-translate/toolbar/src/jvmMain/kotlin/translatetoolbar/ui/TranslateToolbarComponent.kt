@@ -1,4 +1,4 @@
-package translate.ui.toolbar
+package translatetoolbar.ui
 
 import com.arkivanov.decompose.ComponentContext
 import common.utils.getByInjection
@@ -46,6 +46,7 @@ interface TranslateToolbarComponent {
             dispatchers = getByInjection(),
             languageRepository = getByInjection(),
             completeLanguage = getByInjection(),
+            logManager = getByInjection(),
         )
     }
 }

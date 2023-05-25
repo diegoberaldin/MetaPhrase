@@ -1,4 +1,4 @@
-package translate.ui.toolbar
+package translatetoolbar.ui
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background

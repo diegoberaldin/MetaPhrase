@@ -11,12 +11,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import repository.local.ProjectRepository
 import kotlin.coroutines.CoroutineContext
@@ -50,9 +45,9 @@ internal class DefaultProjectListComponent(
             doOnStart {
                 if (observeProjectsJob == null) {
                     observeProjectsJob = viewModelScope.launch(dispatchers.io) {
-                        projectRepository.observeAll().collect { values ->
+                        projectRepository.observeAll().onEach { values ->
                             projects.value = values
-                        }
+                        }.launchIn(this)
                     }
                 }
             }

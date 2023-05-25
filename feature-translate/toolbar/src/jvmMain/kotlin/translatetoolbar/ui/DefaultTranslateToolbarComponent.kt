@@ -1,9 +1,11 @@
-package translate.ui.toolbar
+package translatetoolbar.ui
 
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
+import com.arkivanov.essenty.lifecycle.doOnStart
 import common.coroutines.CoroutineDispatcherProvider
+import common.log.LogManager
 import common.utils.combine
 import data.LanguageModel
 import data.TranslationUnitTypeFilter
@@ -31,6 +33,7 @@ internal class DefaultTranslateToolbarComponent(
     private val dispatchers: CoroutineDispatcherProvider,
     private val languageRepository: LanguageRepository,
     private val completeLanguage: GetCompleteLanguageUseCase,
+    private val logManager: LogManager,
 ) : TranslateToolbarComponent, ComponentContext by componentContext {
 
     override var projectId: Int = 0
@@ -82,7 +85,9 @@ internal class DefaultTranslateToolbarComponent(
                     started = SharingStarted.WhileSubscribed(5_000),
                     initialValue = TranslateToolbarUiState(),
                 )
-                loadLanguages()
+                doOnStart {
+                    loadLanguages()
+                }
             }
             doOnDestroy {
                 viewModelScope.cancel()
@@ -93,16 +98,18 @@ internal class DefaultTranslateToolbarComponent(
     private fun loadLanguages() {
         if (!this::viewModelScope.isInitialized) return
 
-        languageRepository.observeAll(projectId)
-            .map { it.map { l -> completeLanguage(l) } }
-            .onEach { projectLanguages ->
-                availableLanguages.value = projectLanguages
-                val baseLanguage = projectLanguages.firstOrNull { it.isBase }
-                if (baseLanguage != null && baseLanguage != currentLanguage.value) {
-                    setLanguage(baseLanguage)
-                }
-            }
-            .launchIn(viewModelScope)
+        viewModelScope.launch(dispatchers.io) {
+            languageRepository.observeAll(projectId)
+                .map { it.map { l -> completeLanguage(l) } }
+                .onEach { projectLanguages ->
+                    availableLanguages.value = projectLanguages
+                    logManager.debug("Loaded ${projectLanguages.size} available languages")
+                    val baseLanguage = projectLanguages.firstOrNull { it.isBase }
+                    if (baseLanguage != null && baseLanguage != currentLanguage.value) {
+                        setLanguage(baseLanguage)
+                    }
+                }.launchIn(this)
+        }
     }
 
     override fun setLanguage(value: LanguageModel) {

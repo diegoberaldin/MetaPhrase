@@ -45,10 +45,10 @@ import repository.usecase.ParseAndroidResourcesUseCase
 import repository.usecase.ParseIosResourcesUseCase
 import repository.usecase.ValidatePlaceholdersUseCase
 import translate.ui.TranslateComponent.*
-import translate.ui.toolbar.TranslateToolbarComponent
 import translateinvalidsegments.ui.InvalidSegmentComponent
 import translatemessages.ui.MessageListComponent
 import translatenewsegment.ui.NewSegmentComponent
+import translatetoolbar.ui.TranslateToolbarComponent
 import kotlin.coroutines.CoroutineContext
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -221,8 +221,7 @@ internal class DefaultTranslateComponent(
                     }.launchIn(this)
                     observeChildSlot<InvalidSegmentComponent>(dialog).onEach {
                         it.selectionEvents.onEach { key ->
-                            val messageListComponent = observeChildSlot<MessageListComponent>(messageList).firstOrNull()
-                            messageListComponent?.scrollToMessage(key)
+                            messageListComponent.scrollToMessage(key)
                         }.launchIn(this)
                     }.launchIn(this)
                 }
@@ -230,6 +229,13 @@ internal class DefaultTranslateComponent(
             doOnStart {
                 if (project.value == null) {
                     loadProject()
+                }
+                viewModelScope.launch(dispatchers.io) {
+                    projectRepository.observeById(projectId).onEach {
+                        if (it.name != project.value?.name) {
+                            project.value = it
+                        }
+                    }.launchIn(this)
                 }
             }
             doOnDestroy {
