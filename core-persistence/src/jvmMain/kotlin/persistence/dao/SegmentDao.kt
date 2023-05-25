@@ -46,6 +46,12 @@ class SegmentDao {
             .map { it.toModel() }
     }
 
+    suspend fun getUntranslatable(languageId: Int): List<SegmentModel> = newSuspendedTransaction {
+        SegmentEntity.select { SegmentEntity.languageId eq languageId }
+            .orderBy(key)
+            .map { it.toModel() }
+    }
+
     suspend fun search(
         languageId: Int,
         filter: TranslationUnitTypeFilter = TranslationUnitTypeFilter.ALL,

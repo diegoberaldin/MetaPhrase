@@ -312,8 +312,16 @@ internal class DefaultTranslateComponent(
                 }
 
                 ResourceFileType.IOS_STRINGS -> {
+                    // for iOS it is needed to copy the base version of all untranslatable segments
+                    val baseLanguage = languageRepository.getAll(projectId).firstOrNull { it.isBase }
+                    val toExport = if (baseLanguage != null) {
+                        val untranslatable = segmentRepository.getUntranslatable(baseLanguage.id)
+                        segments + untranslatable
+                    } else {
+                        segments
+                    }
                     exportIosResources(
-                        segments = segments,
+                        segments = toExport,
                         path = path,
                     )
                 }
