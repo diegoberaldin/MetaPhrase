@@ -35,6 +35,15 @@ Why should anyone use MetaPhrase, how does it compare with existing alternatives
 
 ## Main features
 
+### Intro screens
+
+At startup, either a welcome screen is displayed or a screen with the project list to open an existing project.
+
+#### Welcome screen
+
+#### Project list
+
+
 ### Create project
 
 <p align="center">
@@ -104,6 +113,19 @@ The name "MetaPhrase" comes from the Greek verb μεταφράζω meaning "to t
 applications and translation tools I'm developing: if you are interested please have a look also
 to [MetaTerm](https://github.com/diegoberaldin/MetaTerm) for terminology management
 and [MetaLine](https://github.com/diegoberaldin/MetaLine) for text alignment.
+
+The technology stack is the following:
+- Kotlin multiplatform (JVM flavour)
+- Compose multiplatform for UI
+- Decompose for architecture
+- Koin for DI
+- H2 database as main storage
+- JetBrains Exposed as ORM
+- Redundent for XML generation
+- sl4j and log4j for logging to console and to file
+- AndroidX datastore (preference based) as secondary storage
+
+This is a Gradle project, so please use Gradle to compile and run it. Make sure you have a JDK >= 18.
 
 ## What's next
 
