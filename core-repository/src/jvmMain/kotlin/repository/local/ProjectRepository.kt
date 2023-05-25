@@ -21,7 +21,7 @@ class ProjectRepository(
             trySend(res)
             delay(1_000)
         }
-    }.distinctUntilChanged()
+    }
 
     suspend fun getById(id: Int): ProjectModel? = dao.getById(id)
 
