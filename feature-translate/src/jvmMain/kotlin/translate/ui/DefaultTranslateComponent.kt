@@ -221,8 +221,7 @@ internal class DefaultTranslateComponent(
                     }.launchIn(this)
                     observeChildSlot<InvalidSegmentComponent>(dialog).onEach {
                         it.selectionEvents.onEach { key ->
-                            val messageListComponent = observeChildSlot<MessageListComponent>(messageList).firstOrNull()
-                            messageListComponent?.scrollToMessage(key)
+                            messageListComponent.scrollToMessage(key)
                         }.launchIn(this)
                     }.launchIn(this)
                 }

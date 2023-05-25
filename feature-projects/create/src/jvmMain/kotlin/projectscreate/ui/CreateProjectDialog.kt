@@ -41,7 +41,7 @@ import common.ui.theme.MetaPhraseTheme
 import common.ui.theme.Spacing
 import localized
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CreateProjectDialog(
     title: String,
