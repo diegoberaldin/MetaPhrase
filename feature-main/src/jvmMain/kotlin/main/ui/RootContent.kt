@@ -50,10 +50,19 @@ fun RootContent(
     // dialogs
     val dialogState by component.dialog.subscribeAsState()
     when (val config = dialogState.child?.configuration ?: RootComponent.DialogConfig.None) {
-        RootComponent.DialogConfig.NewDialog,
-        is RootComponent.DialogConfig.EditDialog,
-        -> {
+        RootComponent.DialogConfig.NewDialog -> {
             CreateProjectDialog(
+                title = "dialog_title_create_project".localized(),
+                component = dialogState.child?.instance as CreateProjectComponent,
+                onClose = {
+                    component.closeDialog()
+                },
+            )
+        }
+
+        is RootComponent.DialogConfig.EditDialog -> {
+            CreateProjectDialog(
+                title = "dialog_title_edit_project".localized(),
                 component = dialogState.child?.instance as CreateProjectComponent,
                 onClose = {
                     component.closeDialog()

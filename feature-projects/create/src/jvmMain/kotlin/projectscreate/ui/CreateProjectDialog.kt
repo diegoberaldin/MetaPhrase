@@ -44,12 +44,13 @@ import localized
 @OptIn(ExperimentalFoundationApi::class, ExperimentalComposeUiApi::class)
 @Composable
 fun CreateProjectDialog(
+    title: String,
     component: CreateProjectComponent,
     onClose: () -> Unit,
 ) {
     MetaPhraseTheme {
         Window(
-            title = "dialog_title_create_project".localized(),
+            title = title,
             state = rememberWindowState(width = Dp.Unspecified, height = Dp.Unspecified),
             resizable = false,
             onCloseRequest = {

@@ -23,6 +23,7 @@
 	<string name="dialog_statistics_section_general">Generali</string>
 	<string name="dialog_title_create_project">Nuovo progetto</string>
 	<string name="dialog_title_create_segment">Nuovo segmento</string>
+	<string name="dialog_title_edit_project">Modifica progetto</string>
 	<string name="dialog_title_generic_message">Informazioni</string>
 	<string name="dialog_title_invalid_segments">Segmenti non validi</string>
 	<string name="dialog_title_open_file">Scegli file</string>
