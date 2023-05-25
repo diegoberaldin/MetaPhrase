@@ -3,7 +3,6 @@ package translatetoolbar.ui
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
-import com.arkivanov.essenty.lifecycle.doOnStart
 import common.coroutines.CoroutineDispatcherProvider
 import common.log.LogManager
 import common.utils.combine
@@ -100,7 +99,7 @@ internal class DefaultTranslateToolbarComponent(
                 .map { it.map { l -> completeLanguage(l) } }
                 .onEach { projectLanguages ->
                     availableLanguages.value = projectLanguages
-                    val baseLanguage = projectLanguages.firstOrNull { it.isBase }
+                    val baseLanguage = languageRepository.getBase(projectId)
                     if (baseLanguage != null && baseLanguage != currentLanguage.value) {
                         setLanguage(baseLanguage)
                     }
