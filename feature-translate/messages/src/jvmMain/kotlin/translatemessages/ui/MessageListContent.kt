@@ -35,8 +35,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
@@ -44,6 +46,7 @@ import common.ui.components.CustomTooltipArea
 import common.ui.theme.Indigo800
 import common.ui.theme.Purple800
 import common.ui.theme.Spacing
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import localized
@@ -73,10 +76,13 @@ fun MessageListContent(
             val focusRequester = remember {
                 FocusRequester()
             }
+            val focusManager = LocalFocusManager.current
             LaunchedEffect(uiState.editingIndex) {
-                if (uiState.editingIndex == idx) {
-                    runCatching {
+                runCatching {
+                    if (uiState.editingIndex == idx) {
                         focusRequester.requestFocus()
+                    } else if (uiState.editingIndex == null) {
+                        focusManager.clearFocus()
                     }
                 }
             }
@@ -135,20 +141,18 @@ fun MessageListContent(
                             top = Spacing.xs + Spacing.xxs,
                             end = Spacing.xs,
                             bottom = Spacing.s,
-                        )
-                        .onClick {
-                            if (uiState.isBaseLanguage) {
-                                component.startEditing(idx)
-                            }
-                        },
+                        ),
                 ) {
                     if (uiState.isBaseLanguage) {
                         BasicTextField(
-                            modifier = Modifier.fillMaxWidth().focusRequester(focusRequester),
+                            modifier = Modifier.fillMaxWidth().focusRequester(focusRequester).onFocusChanged {
+                                if (it.hasFocus) {
+                                    component.startEditing(idx)
+                                }
+                            },
                             textStyle = MaterialTheme.typography.caption.copy(color = Color.White),
                             cursorBrush = SolidColor(Color.White),
                             value = value,
-                            enabled = uiState.isBaseLanguage && idx == uiState.editingIndex,
                             onValueChange = {
                                 value = it
                                 component.setSegmentText(it.text)
@@ -177,17 +181,17 @@ fun MessageListContent(
                                 top = Spacing.s,
                                 end = Spacing.xs,
                                 bottom = Spacing.s,
-                            )
-                            .onClick {
-                                component.startEditing(idx)
-                            },
+                            ),
                     ) {
                         BasicTextField(
-                            modifier = Modifier.fillMaxWidth().focusRequester(focusRequester),
+                            modifier = Modifier.fillMaxWidth().focusRequester(focusRequester).onFocusChanged {
+                                if (it.hasFocus) {
+                                    component.startEditing(idx)
+                                }
+                            },
                             textStyle = MaterialTheme.typography.caption.copy(color = Color.White),
                             cursorBrush = SolidColor(Color.White),
                             value = value,
-                            enabled = idx == uiState.editingIndex,
                             onValueChange = {
                                 value = it
                                 component.setSegmentText(it.text)
