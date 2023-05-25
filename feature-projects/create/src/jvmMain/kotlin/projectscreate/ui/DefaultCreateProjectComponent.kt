@@ -19,6 +19,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import repository.local.LanguageRepository
 import repository.local.ProjectRepository
+import repository.local.SegmentRepository
 import repository.usecase.GetCompleteLanguageUseCase
 import kotlin.coroutines.CoroutineContext
 
@@ -28,6 +29,7 @@ internal class DefaultCreateProjectComponent(
     private val dispatchers: CoroutineDispatcherProvider,
     private val languageRepository: LanguageRepository,
     private val projectRepository: ProjectRepository,
+    private val segmentRepository: SegmentRepository,
     private val completeLanguage: GetCompleteLanguageUseCase,
 ) : CreateProjectComponent, ComponentContext by componentContext {
 
@@ -156,18 +158,19 @@ internal class DefaultCreateProjectComponent(
             return
         }
         viewModelScope.launch(dispatchers.io) {
-            var isNew = false
+            val oldBaseLanguage: LanguageModel?
             val newProjectId = if (projectId == 0) {
                 val project = ProjectModel(
                     name = name,
                 )
-                isNew = true
+                oldBaseLanguage = null
                 projectRepository.create(project)
             } else {
                 val project = projectRepository.getById(projectId)
                 if (project != null) {
                     projectRepository.update(project.copy(name = name))
                 }
+                oldBaseLanguage = languageRepository.getBase(projectId)
                 projectId
             }
             for (lang in languages) {
@@ -175,7 +178,16 @@ internal class DefaultCreateProjectComponent(
                 if (existing != null) {
                     languageRepository.update(existing.copy(isBase = lang.isBase))
                 } else {
-                    languageRepository.create(model = lang, projectId = newProjectId)
+                    val newLangId = languageRepository.create(model = lang, projectId = newProjectId)
+                    if (oldBaseLanguage != null) {
+                        // copies all old segments to the new language
+                        val toInsertSegments = segmentRepository.getAll(oldBaseLanguage.id).filter {
+                            // if the new language is the new base language then all should be copied
+                            // otherwise only the translatable ones should be created
+                            lang.isBase || it.translatable
+                        }.map { it.copy(text = "") }
+                        segmentRepository.createBatch(models = toInsertSegments, languageId = newLangId)
+                    }
                 }
             }
             // remove stale languages
@@ -186,6 +198,16 @@ internal class DefaultCreateProjectComponent(
                 }
             }
 
+            val newBaseLanguage = languageRepository.getBase(projectId)
+            if (oldBaseLanguage != null && oldBaseLanguage.code != newBaseLanguage?.code) {
+                // all untranslatable segments from the old base language must be removed
+                val toDeleteSegments = segmentRepository.getUntranslatable(oldBaseLanguage.id)
+                for (segment in toDeleteSegments) {
+                    segmentRepository.delete(segment)
+                }
+            }
+
+            val isNew = oldBaseLanguage == null
             done.emit(if (isNew) newProjectId else null)
         }
     }

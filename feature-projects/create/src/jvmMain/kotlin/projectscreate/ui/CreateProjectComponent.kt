@@ -31,6 +31,7 @@ interface CreateProjectComponent {
             languageRepository = getByInjection(),
             projectRepository = getByInjection(),
             completeLanguage = getByInjection(),
+            segmentRepository = getByInjection(),
         )
     }
 }
