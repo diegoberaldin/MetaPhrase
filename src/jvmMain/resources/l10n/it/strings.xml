@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
 	<string name="app_intro">Apri un progetto selezionando una delle seguenti voci.</string>
-	<string name="app_intro_empty">Sembra che non abbia nessun progetto.\nPuoi crearne uno nuovo utilizzando il menu Progetto </string>
+	<string name="app_intro_empty">Sembra che non abbia nessun progetto.\nPuoi crearne uno nuovo utilizzando il menu "Progetto" > "Nuovo…"</string>
 	<string name="app_intro_title">Grazie per utilizzare MetaPhrase!</string>
 	<string name="button_cancel">Annulla</string>
 	<string name="button_close">Chiudi</string>
