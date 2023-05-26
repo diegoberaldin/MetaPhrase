@@ -8,19 +8,8 @@ import common.notification.NotificationCenter
 import data.LanguageModel
 import data.SegmentModel
 import data.TranslationUnitTypeFilter
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.getAndUpdate
-import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.*
 import repository.local.LanguageRepository
 import repository.local.SegmentRepository
 import kotlin.coroutines.CoroutineContext
@@ -36,10 +25,10 @@ internal class DefaultMessageListComponent(
 
     private val units = MutableStateFlow<List<TranslationUnit>>(emptyList())
     private val editingIndex = MutableStateFlow<Int?>(null)
-    private val isBaseLanguage = MutableStateFlow(false)
+    private val currentLanguage = MutableStateFlow<LanguageModel?>(null)
+    private val editingEnabled = MutableStateFlow(true)
     private lateinit var viewModelScope: CoroutineScope
     private var saveJob: Job? = null
-    private var lastLanguage: LanguageModel? = null
     private var lastFilter = TranslationUnitTypeFilter.ALL
     private var lastSearch: String = ""
     private var projectId: Int = 0
@@ -54,12 +43,14 @@ internal class DefaultMessageListComponent(
                 uiState = combine(
                     units,
                     editingIndex,
-                    isBaseLanguage,
-                ) { units, editingIndex, isBaseLanguage ->
+                    currentLanguage,
+                    editingEnabled,
+                ) { units, editingIndex, currentLanguage, editingEnabled ->
                     MessageListUiState(
                         units = units,
                         editingIndex = editingIndex,
-                        isBaseLanguage = isBaseLanguage,
+                        currentLanguage = currentLanguage,
+                        editingEnabled = editingEnabled,
                     )
                 }.stateIn(
                     scope = viewModelScope,
@@ -73,6 +64,14 @@ internal class DefaultMessageListComponent(
         }
     }
 
+    override fun setEditingEnabled(value: Boolean) {
+        editingEnabled.value = value
+    }
+
+    override fun clearMessages() {
+        units.value = emptyList()
+    }
+
     override fun search(text: String) {
         if (lastSearch == text) return
         lastSearch = text
@@ -83,9 +82,9 @@ internal class DefaultMessageListComponent(
 
     override fun reloadMessages(language: LanguageModel, filter: TranslationUnitTypeFilter, projectId: Int) {
         if (!this::viewModelScope.isInitialized) return
-        if (lastLanguage == language && lastFilter == filter && this.projectId == projectId) return
+        if (currentLanguage.value == language && lastFilter == filter && this.projectId == projectId) return
 
-        lastLanguage = language
+        currentLanguage.value = language
         lastFilter = filter
         this.projectId = projectId
 
@@ -99,13 +98,13 @@ internal class DefaultMessageListComponent(
     }
 
     private suspend fun innerReload() {
-        val language = lastLanguage ?: return
+        val language = currentLanguage.value ?: return
         val search = lastSearch.takeIf { it.isNotBlank() }
         editingIndex.value = null
         notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
 
         val languageId = language.id
-        isBaseLanguage.value = language.isBase
+        currentLanguage.value = language
         val baseLanguageId = if (language.isBase) {
             languageId
         } else {
@@ -119,7 +118,7 @@ internal class DefaultMessageListComponent(
         )
 
         units.value = segments.map { segment ->
-            if (isBaseLanguage.value) {
+            if (language.isBase) {
                 TranslationUnit(
                     segment = segment,
                 )
@@ -136,6 +135,8 @@ internal class DefaultMessageListComponent(
     }
 
     override fun startEditing(index: Int) {
+        if (!editingEnabled.value) return
+
         val oldIndex = editingIndex.value
         editingIndex.value = index
         if (oldIndex != null) {
@@ -147,6 +148,8 @@ internal class DefaultMessageListComponent(
     }
 
     override fun endEditing() {
+        if (!editingEnabled.value) return
+
         editingIndex.value = null
     }
 
@@ -220,7 +223,7 @@ internal class DefaultMessageListComponent(
             segmentRepository.delete(toDelete)
 
             // remove segments with the same key in other languages too
-            lastLanguage?.also { language ->
+            currentLanguage.value?.also { language ->
                 val otherLanguages = languageRepository.getAll(projectId).filter { it.code != language.code }
                 for (lang in otherLanguages) {
                     val existing = segmentRepository.getByKey(key = key, languageId = lang.id)
@@ -250,9 +253,9 @@ internal class DefaultMessageListComponent(
     override fun markAsTranslatable(value: Boolean, key: String) {
         val index = units.value.indexOfFirst { it.segment.key == key }
         val segment = units.value[index].segment
-        val currentLanguage = lastLanguage ?: return
+        val language = currentLanguage.value ?: return
         viewModelScope.launch(dispatchers.io) {
-            val otherLanguages = languageRepository.getAll(projectId).filter { it.code != currentLanguage.code }
+            val otherLanguages = languageRepository.getAll(projectId).filter { it.code != language.code }
             val toUpdate = segment.copy(translatable = value)
             segmentRepository.update(toUpdate)
 

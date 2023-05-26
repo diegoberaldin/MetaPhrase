@@ -169,11 +169,13 @@ internal class DefaultTranslateComponent(
                         .distinctUntilChanged()
                         .onEach { (language, filter) ->
                             if (language == null) return@onEach
+                            messageListComponent.setEditingEnabled(false)
                             messageListComponent.reloadMessages(
                                 language = language,
                                 filter = filter,
                                 projectId = projectId,
                             )
+                            messageListComponent.setEditingEnabled(true)
                         }.launchIn(this)
                     toolbarComponent.events.onEach { evt ->
                         when (evt) {
@@ -274,6 +276,9 @@ internal class DefaultTranslateComponent(
             val toolbarState = observeChildSlot<TranslateToolbarComponent>(toolbar).first().uiState.value
             val language = toolbarState.currentLanguage ?: return@launch
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
+            val messageListComponent = observeChildSlot<MessageListComponent>(messageList).firstOrNull()
+            messageListComponent?.setEditingEnabled(false)
+            messageListComponent?.clearMessages()
             when (type) {
                 ResourceFileType.ANDROID_XML -> {
                     val segments = parseAndroidResources(path = path)
@@ -297,7 +302,8 @@ internal class DefaultTranslateComponent(
             }
             delay(100)
             updateUnitCount()
-            observeChildSlot<MessageListComponent>(messageList).firstOrNull()?.refresh()
+            messageListComponent?.refresh()
+            messageListComponent?.setEditingEnabled(true)
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
         }
     }
