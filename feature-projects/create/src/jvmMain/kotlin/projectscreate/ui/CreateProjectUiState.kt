@@ -5,6 +5,7 @@ import data.LanguageModel
 data class CreateProjectUiState(
     val name: String = "",
     val nameError: String = "",
+    val isLoading: Boolean = false,
 )
 
 data class CreateProjectLanguagesUiState(
