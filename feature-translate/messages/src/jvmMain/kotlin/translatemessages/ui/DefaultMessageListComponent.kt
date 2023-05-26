@@ -4,6 +4,7 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import common.coroutines.CoroutineDispatcherProvider
+import common.notification.NotificationCenter
 import data.LanguageModel
 import data.SegmentModel
 import data.TranslationUnitTypeFilter
@@ -30,6 +31,7 @@ internal class DefaultMessageListComponent(
     private val dispatchers: CoroutineDispatcherProvider,
     private val segmentRepository: SegmentRepository,
     private val languageRepository: LanguageRepository,
+    private val notificationCenter: NotificationCenter,
 ) : MessageListComponent, ComponentContext by componentContext {
 
     private val units = MutableStateFlow<List<TranslationUnit>>(emptyList())
@@ -100,7 +102,7 @@ internal class DefaultMessageListComponent(
         val language = lastLanguage ?: return
         val search = lastSearch.takeIf { it.isNotBlank() }
         editingIndex.value = null
-        units.value = emptyList()
+        notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
 
         val languageId = language.id
         isBaseLanguage.value = language.isBase
@@ -130,6 +132,7 @@ internal class DefaultMessageListComponent(
                 )
             }
         }
+        notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
     }
 
     override fun startEditing(index: Int) {

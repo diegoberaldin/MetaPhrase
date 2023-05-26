@@ -36,6 +36,7 @@ interface MessageListComponent {
             dispatchers = getByInjection(),
             segmentRepository = getByInjection(),
             languageRepository = getByInjection(),
+            notificationCenter = getByInjection(),
         )
     }
 }

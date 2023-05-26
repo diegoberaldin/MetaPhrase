@@ -41,6 +41,7 @@ interface RootComponent {
                 coroutineContext = coroutineContext,
                 projectRepository = getByInjection(),
                 dispatchers = getByInjection(),
+                notificationCenter = getByInjection(),
             )
     }
 

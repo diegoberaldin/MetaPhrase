@@ -14,6 +14,7 @@ import com.arkivanov.essenty.lifecycle.doOnDestroy
 import com.arkivanov.essenty.lifecycle.doOnStart
 import com.arkivanov.essenty.lifecycle.doOnStop
 import common.coroutines.CoroutineDispatcherProvider
+import common.notification.NotificationCenter
 import common.utils.observeChildSlot
 import common.utils.observeNullableChildSlot
 import data.LanguageModel
@@ -31,6 +32,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flatMapLatest
@@ -52,6 +54,7 @@ internal class DefaultRootComponent(
     private val coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,
     projectRepository: ProjectRepository,
+    notificationCenter: NotificationCenter,
 ) : RootComponent, ComponentContext by componentContext {
 
     companion object {
@@ -138,6 +141,15 @@ internal class DefaultRootComponent(
                             }
                         }
                     }
+                }
+                viewModelScope.launch {
+                    notificationCenter.events.filter { it is NotificationCenter.Event.ShowProgress }.onEach { evt ->
+                        when (evt) {
+                            is NotificationCenter.Event.ShowProgress -> {
+                                isLoading.value = evt.visible
+                            }
+                        }
+                    }.launchIn(this)
                 }
             }
             doOnStop {
