@@ -20,8 +20,8 @@ interface CreateProjectComponent {
     fun removeLanguage(value: LanguageModel)
     fun submit()
 
-    object Factory {
-        fun create(
+    companion object {
+        fun newInstance(
             componentContext: ComponentContext,
             coroutineContext: CoroutineContext,
         ): CreateProjectComponent = DefaultCreateProjectComponent(

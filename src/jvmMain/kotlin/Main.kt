@@ -59,7 +59,7 @@ fun main() {
     val lifecycle = LifecycleRegistry()
     val mainScope = CoroutineScope(SupervisorJob())
     val rootComponent = runOnUiThread {
-        RootComponent.Factory.create(
+        RootComponent.newInstance(
             componentContext = DefaultComponentContext(lifecycle = lifecycle),
             coroutineContext = mainScope.coroutineContext,
         )

@@ -90,7 +90,7 @@ internal class DefaultTranslateComponent(
             source = toolbarNavigation,
             key = KEY_TOOLBAR_SLOT,
             childFactory = { _, context ->
-                TranslateToolbarComponent.Factory.create(
+                TranslateToolbarComponent.newInstance(
                     componentContext = context,
                     coroutineContext = coroutineContext,
                 )
@@ -101,7 +101,7 @@ internal class DefaultTranslateComponent(
             source = messageListNavigation,
             key = KEY_MESSAGE_LIST_SLOT,
             childFactory = { _, context ->
-                MessageListComponent.Factory.create(
+                MessageListComponent.newInstance(
                     componentContext = context,
                     coroutineContext = coroutineContext,
                 )
@@ -112,12 +112,12 @@ internal class DefaultTranslateComponent(
         key = KEY_DIALOG_SLOT,
         childFactory = { config, context ->
             when (config) {
-                DialogConfig.NewSegment -> NewSegmentComponent.Factory.create(
+                DialogConfig.NewSegment -> NewSegmentComponent.newInstance(
                     componentContext = context,
                     coroutineContext = coroutineContext,
                 )
 
-                is DialogConfig.PlaceholderInvalid -> InvalidSegmentComponent.Factory.create(
+                is DialogConfig.PlaceholderInvalid -> InvalidSegmentComponent.newInstance(
                     componentContext = context,
                     coroutineContext = coroutineContext,
                 )

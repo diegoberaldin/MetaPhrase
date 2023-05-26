@@ -34,8 +34,8 @@ interface RootComponent {
     fun addSegment()
     fun deleteSegment()
 
-    object Factory {
-        fun create(componentContext: ComponentContext, coroutineContext: CoroutineContext): RootComponent =
+    companion object {
+        fun newInstance(componentContext: ComponentContext, coroutineContext: CoroutineContext): RootComponent =
             DefaultRootComponent(
                 componentContext = componentContext,
                 coroutineContext = coroutineContext,

@@ -2,12 +2,10 @@ package projects.ui
 
 import androidx.compose.runtime.snapshotFlow
 import com.arkivanov.decompose.ComponentContext
-import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.push
-import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import com.arkivanov.essenty.lifecycle.doOnStart
@@ -18,25 +16,8 @@ import common.utils.observeNullableChildStack
 import data.LanguageModel
 import data.ProjectModel
 import data.ResourceFileType
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.channelFlow
-import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.isActive
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.*
 import projectslist.ProjectListComponent
 import repository.local.ProjectRepository
 import translate.ui.TranslateComponent
@@ -133,13 +114,13 @@ internal class DefaultProjectsComponent(
     }
 
     private fun createChild(config: ProjectsComponent.Config, componentContext: ComponentContext): Any = when (config) {
-        is ProjectsComponent.Config.List -> ProjectListComponent.Factory.create(
+        is ProjectsComponent.Config.List -> ProjectListComponent.newInstance(
             componentContext = componentContext,
             coroutineContext = coroutineContext,
         )
 
         is ProjectsComponent.Config.Detail -> {
-            TranslateComponent.Factory.create(
+            TranslateComponent.newInstance(
                 componentContext = componentContext,
                 coroutineContext = coroutineContext,
             ).apply {

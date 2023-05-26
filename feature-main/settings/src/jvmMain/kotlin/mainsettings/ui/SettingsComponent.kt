@@ -12,8 +12,8 @@ interface SettingsComponent {
 
     fun setLanguage(value: LanguageModel)
 
-    object Factory {
-        fun create(
+    companion object {
+        fun newInstance(
             componentContext: ComponentContext,
             coroutineContext: CoroutineContext,
         ) = DefaultSettingsComponent(

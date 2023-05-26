@@ -36,8 +36,8 @@ interface TranslateToolbarComponent {
         object CopyBase : Events
     }
 
-    object Factory {
-        fun create(
+    companion object {
+        fun newInstance(
             componentContext: ComponentContext,
             coroutineContext: CoroutineContext,
         ): TranslateToolbarComponent = DefaultTranslateToolbarComponent(

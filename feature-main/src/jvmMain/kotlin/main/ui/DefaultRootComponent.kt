@@ -163,12 +163,12 @@ internal class DefaultRootComponent(
     }
 
     private fun createMainChild(config: RootComponent.Config, componentContext: ComponentContext): Any = when (config) {
-        RootComponent.Config.Projects -> ProjectsComponent.Factory.create(
+        RootComponent.Config.Projects -> ProjectsComponent.newInstance(
             componentContext = componentContext,
             coroutineContext = coroutineContext,
         )
 
-        else -> IntroComponent.Factory.create(
+        else -> IntroComponent.newInstance(
             componentContext = componentContext,
             coroutineContext = coroutineContext,
         )
@@ -177,7 +177,7 @@ internal class DefaultRootComponent(
     private fun createDialogChild(config: RootComponent.DialogConfig, componentContext: ComponentContext): Any =
         when (config) {
             RootComponent.DialogConfig.NewDialog -> {
-                CreateProjectComponent.Factory.create(
+                CreateProjectComponent.newInstance(
                     componentContext = componentContext,
                     coroutineContext = coroutineContext,
                 ).apply {
@@ -205,7 +205,7 @@ internal class DefaultRootComponent(
             }
 
             is RootComponent.DialogConfig.EditDialog -> {
-                CreateProjectComponent.Factory.create(
+                CreateProjectComponent.newInstance(
                     componentContext = componentContext,
                     coroutineContext = coroutineContext,
                 ).apply {
@@ -219,7 +219,7 @@ internal class DefaultRootComponent(
             }
 
             is RootComponent.DialogConfig.StatisticsDialog -> {
-                StatisticsComponent.Factory.create(
+                StatisticsComponent.newInstance(
                     componentContext = componentContext,
                     coroutineContext = coroutineContext,
                 ).apply {
@@ -228,7 +228,7 @@ internal class DefaultRootComponent(
             }
 
             is RootComponent.DialogConfig.SettingsDialog -> {
-                SettingsComponent.Factory.create(
+                SettingsComponent.newInstance(
                     componentContext = componentContext,
                     coroutineContext = coroutineContext,
                 )

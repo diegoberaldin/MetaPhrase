@@ -26,8 +26,8 @@ interface MessageListComponent {
     fun scrollToMessage(key: String)
     fun markAsTranslatable(value: Boolean, key: String)
 
-    object Factory {
-        fun create(
+    companion object {
+        fun newInstance(
             componentContext: ComponentContext,
             coroutineContext: CoroutineContext,
         ): MessageListComponent = DefaultMessageListComponent(

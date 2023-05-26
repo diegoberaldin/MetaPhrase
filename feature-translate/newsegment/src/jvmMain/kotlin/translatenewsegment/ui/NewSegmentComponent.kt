@@ -20,8 +20,8 @@ interface NewSegmentComponent {
     fun close()
     fun submit()
 
-    object Factory {
-        fun create(
+    companion object {
+        fun newInstance(
             componentContext: ComponentContext,
             coroutineContext: CoroutineContext,
         ): NewSegmentComponent = DefaultNewSegmentComponent(
