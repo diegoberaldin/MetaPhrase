@@ -214,6 +214,7 @@ internal class DefaultMessageListComponent(
     override fun deleteSegment() {
         val index = editingIndex.value ?: return
         viewModelScope.launch(dispatchers.io) {
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
             val toDelete = units.value[index].segment
             val key = toDelete.key
             segmentRepository.delete(toDelete)
@@ -233,6 +234,7 @@ internal class DefaultMessageListComponent(
             units.getAndUpdate { oldList ->
                 oldList.filterIndexed { idx, _ -> idx != index }
             }
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
         }
     }
 
