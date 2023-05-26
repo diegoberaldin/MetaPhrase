@@ -51,8 +51,8 @@
 	<string name="message_missing_field">Campo obbligatorio</string>
 	<string name="message_validation_invalid">Sono stati rilevati alcuni messggi non validi:</string>
 	<string name="message_validation_valid">Tutti i messaggi contengono placeholder validi</string>
-	<string name="status_bar_project">progetto: </string>
-	<string name="status_bar_units">unità: </string>
+	<string name="status_bar_project">progetto: %s</string>
+	<string name="status_bar_units">messaggi: %d</string>
 	<string name="toolbar_search_placeholder">Cerca…</string>
 	<string name="tooltip_add">Aggiungi</string>
 	<string name="tooltip_copy_base">Copia da lingua base</string>

@@ -76,8 +76,8 @@
 	<string name="message_missing_field">Missing field</string>
 	<string name="message_validation_invalid">Some invalid messages were found:</string>
 	<string name="message_validation_valid">All messages contain valid placeholders</string>
-	<string name="status_bar_project">project:</string>
-	<string name="status_bar_units">units:</string>
+	<string name="status_bar_project">project: %s</string>
+	<string name="status_bar_units">messages: %d</string>
 	<string name="toolbar_search_placeholder">Search…</string>
 	<string name="tooltip_add">Add</string>
 	<string name="tooltip_copy_base">Copy from base language</string>
