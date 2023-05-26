@@ -6,6 +6,7 @@ import com.arkivanov.essenty.lifecycle.doOnDestroy
 import com.arkivanov.essenty.lifecycle.doOnStart
 import com.arkivanov.essenty.lifecycle.doOnStop
 import common.coroutines.CoroutineDispatcherProvider
+import common.notification.NotificationCenter
 import data.ProjectModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -21,6 +22,7 @@ internal class DefaultProjectListComponent(
     coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,
     private val projectRepository: ProjectRepository,
+    private val notificationCenter: NotificationCenter,
 ) : ProjectListComponent, ComponentContext by componentContext {
 
     private val projects = MutableStateFlow<List<ProjectModel>>(emptyList())
@@ -69,7 +71,9 @@ internal class DefaultProjectListComponent(
 
     override fun delete(value: ProjectModel) {
         viewModelScope.launch(dispatchers.io) {
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
             projectRepository.delete(value)
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
         }
     }
 }

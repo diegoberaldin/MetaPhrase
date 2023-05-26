@@ -22,6 +22,7 @@ interface ProjectListComponent {
             coroutineContext = coroutineContext,
             dispatchers = getByInjection(),
             projectRepository = getByInjection(),
+            notificationCenter = getByInjection(),
         )
     }
 }
