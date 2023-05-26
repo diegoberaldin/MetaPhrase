@@ -306,6 +306,7 @@ internal class DefaultTranslateComponent(
         viewModelScope.launch(dispatchers.io) {
             val language = observeChildSlot<TranslateToolbarComponent>(toolbar).first().uiState.value.currentLanguage
                 ?: return@launch
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
             val segments = segmentRepository.getAll(language.id)
             when (type) {
                 ResourceFileType.ANDROID_XML -> {
@@ -332,6 +333,7 @@ internal class DefaultTranslateComponent(
 
                 else -> Unit
             }
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
         }
     }
 
