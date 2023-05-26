@@ -33,8 +33,8 @@ interface TranslateComponent {
     fun deleteSegment()
     fun closeDialog()
 
-    object Factory {
-        fun create(
+    companion object {
+        fun newInstance(
             componentContext: ComponentContext,
             coroutineContext: CoroutineContext,
         ): TranslateComponent = DefaultTranslateComponent(
@@ -50,6 +50,7 @@ interface TranslateComponent {
             exportAndroidResources = getByInjection(),
             exportIosResources = getByInjection(),
             validatePlaceholders = getByInjection(),
+            notificationCenter = getByInjection(),
         )
     }
 

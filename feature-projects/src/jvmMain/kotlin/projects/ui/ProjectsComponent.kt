@@ -29,8 +29,8 @@ interface ProjectsComponent {
     fun addSegment()
     fun deleteSegment()
 
-    object Factory {
-        fun create(componentContext: ComponentContext, coroutineContext: CoroutineContext): ProjectsComponent =
+    companion object {
+        fun newInstance(componentContext: ComponentContext, coroutineContext: CoroutineContext): ProjectsComponent =
             DefaultProjectsComponent(
                 componentContext = componentContext,
                 coroutineContext = coroutineContext,

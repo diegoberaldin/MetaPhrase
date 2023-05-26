@@ -6,19 +6,16 @@ import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
 import common.utils.getByInjection
-import data.LanguageModel
-import data.ProjectModel
 import data.ResourceFileType
 import kotlinx.coroutines.flow.StateFlow
 import kotlin.coroutines.CoroutineContext
 
 interface RootComponent {
 
-    val activeProject: StateFlow<ProjectModel?>
     val main: Value<ChildSlot<Config, *>>
     val dialog: Value<ChildSlot<DialogConfig, *>>
-    val isEditing: StateFlow<Boolean>
-    val currentLanguage: StateFlow<LanguageModel?>
+
+    val uiState: StateFlow<RootUiState>
 
     fun openEditProject()
     fun openNewDialog()
@@ -37,13 +34,14 @@ interface RootComponent {
     fun addSegment()
     fun deleteSegment()
 
-    object Factory {
-        fun create(componentContext: ComponentContext, coroutineContext: CoroutineContext): RootComponent =
+    companion object {
+        fun newInstance(componentContext: ComponentContext, coroutineContext: CoroutineContext): RootComponent =
             DefaultRootComponent(
                 componentContext = componentContext,
                 coroutineContext = coroutineContext,
                 projectRepository = getByInjection(),
                 dispatchers = getByInjection(),
+                notificationCenter = getByInjection(),
             )
     }
 

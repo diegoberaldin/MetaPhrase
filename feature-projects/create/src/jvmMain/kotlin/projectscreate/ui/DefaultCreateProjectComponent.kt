@@ -44,6 +44,7 @@ internal class DefaultCreateProjectComponent(
     private val availableLanguages = MutableStateFlow<List<LanguageModel>>(emptyList())
     private val languages = MutableStateFlow<List<LanguageModel>>(emptyList())
     private val languagesError = MutableStateFlow("")
+    private val isLoading = MutableStateFlow(false)
     private lateinit var viewModelScope: CoroutineScope
 
     override lateinit var uiState: StateFlow<CreateProjectUiState>
@@ -57,10 +58,12 @@ internal class DefaultCreateProjectComponent(
                 uiState = combine(
                     name,
                     nameError,
-                ) { name, nameError ->
+                    isLoading,
+                ) { name, nameError, isLoading ->
                     CreateProjectUiState(
                         name = name,
                         nameError = nameError,
+                        isLoading = isLoading,
                     )
                 }.stateIn(
                     scope = viewModelScope,
@@ -158,6 +161,7 @@ internal class DefaultCreateProjectComponent(
             return
         }
         viewModelScope.launch(dispatchers.io) {
+            isLoading.value = true
             val oldBaseLanguage: LanguageModel?
             val newProjectId = if (projectId == 0) {
                 val project = ProjectModel(
@@ -207,6 +211,7 @@ internal class DefaultCreateProjectComponent(
                 }
             }
 
+            isLoading.value = false
             val isNew = oldBaseLanguage == null
             done.emit(if (isNew) newProjectId else null)
         }

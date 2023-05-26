@@ -1,24 +1,15 @@
 package translatenewsegment.ui
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.PointerIcon
+import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
@@ -27,6 +18,7 @@ import common.ui.components.CustomTextField
 import common.ui.theme.MetaPhraseTheme
 import common.ui.theme.Spacing
 import localized
+import java.awt.Cursor
 
 @Composable
 fun NewSegmentDialog(
@@ -45,9 +37,19 @@ fun NewSegmentDialog(
                 modifier = Modifier.size(400.dp, 200.dp).background(MaterialTheme.colors.background),
             ) {
                 val uiState by component.uiState.collectAsState()
+                val pointerIcon by remember(uiState.isLoading) {
+                    if (uiState.isLoading) {
+                        mutableStateOf(PointerIcon(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR)))
+                    } else {
+                        mutableStateOf(PointerIcon(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR)))
+                    }
+                }
 
                 Column(
-                    modifier = Modifier.padding(vertical = Spacing.s, horizontal = Spacing.lHalf),
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .pointerHoverIcon(pointerIcon)
+                        .padding(vertical = Spacing.s, horizontal = Spacing.lHalf),
                 ) {
                     CustomTextField(
                         modifier = Modifier.fillMaxWidth().height(50.dp),

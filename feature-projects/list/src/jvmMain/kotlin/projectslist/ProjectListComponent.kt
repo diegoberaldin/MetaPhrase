@@ -13,8 +13,8 @@ interface ProjectListComponent {
     fun openProject(value: ProjectModel)
     fun delete(value: ProjectModel)
 
-    object Factory {
-        fun create(
+    companion object {
+        fun newInstance(
             componentContext: ComponentContext,
             coroutineContext: CoroutineContext,
         ): ProjectListComponent = DefaultProjectListComponent(
@@ -22,6 +22,7 @@ interface ProjectListComponent {
             coroutineContext = coroutineContext,
             dispatchers = getByInjection(),
             projectRepository = getByInjection(),
+            notificationCenter = getByInjection(),
         )
     }
 }

@@ -15,8 +15,8 @@ interface InvalidSegmentComponent {
     val selectionEvents: SharedFlow<String>
     fun setCurrentIndex(value: Int)
 
-    object Factory {
-        fun create(
+    companion object {
+        fun newInstance(
             componentContext: ComponentContext,
             coroutineContext: CoroutineContext,
         ) = DefaultInvalidSegmentComponent(

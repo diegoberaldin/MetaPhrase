@@ -25,9 +25,11 @@ interface MessageListComponent {
     fun deleteSegment()
     fun scrollToMessage(key: String)
     fun markAsTranslatable(value: Boolean, key: String)
+    fun setEditingEnabled(value: Boolean)
+    fun clearMessages()
 
-    object Factory {
-        fun create(
+    companion object {
+        fun newInstance(
             componentContext: ComponentContext,
             coroutineContext: CoroutineContext,
         ): MessageListComponent = DefaultMessageListComponent(
@@ -36,6 +38,7 @@ interface MessageListComponent {
             dispatchers = getByInjection(),
             segmentRepository = getByInjection(),
             languageRepository = getByInjection(),
+            notificationCenter = getByInjection(),
         )
     }
 }

@@ -33,6 +33,7 @@ class DefaultNewSegmentComponent(
     private val textError = MutableStateFlow("")
     private val key = MutableStateFlow("")
     private val keyError = MutableStateFlow("")
+    private val isLoading = MutableStateFlow(false)
     private lateinit var viewModelScope: CoroutineScope
 
     override lateinit var uiState: StateFlow<NewSegmentUiState>
@@ -49,12 +50,14 @@ class DefaultNewSegmentComponent(
                     keyError,
                     text,
                     textError,
-                ) { key, keyError, text, textError ->
+                    isLoading,
+                ) { key, keyError, text, textError, isLoading ->
                     NewSegmentUiState(
                         key = key,
                         keyError = keyError,
                         text = text,
                         textError = textError,
+                        isLoading = isLoading,
                     )
                 }.stateIn(
                     scope = viewModelScope,
@@ -107,6 +110,7 @@ class DefaultNewSegmentComponent(
                 return@launch
             }
 
+            isLoading.value = true
             val res = SegmentModel(
                 key = key,
                 text = text,
@@ -122,6 +126,7 @@ class DefaultNewSegmentComponent(
                 }
             }
 
+            isLoading.value = false
             done.emit(res.copy(id = id))
         }
     }

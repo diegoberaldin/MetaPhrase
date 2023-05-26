@@ -46,7 +46,6 @@ import common.ui.components.CustomTooltipArea
 import common.ui.theme.Indigo800
 import common.ui.theme.Purple800
 import common.ui.theme.Spacing
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import localized
@@ -71,7 +70,9 @@ fun MessageListContent(
         state = lazyListState,
         verticalArrangement = Arrangement.spacedBy(Spacing.s),
     ) {
-        itemsIndexed(items = uiState.units, key = { _, unit -> unit.segment.key }) { idx, unit ->
+        itemsIndexed(
+            items = uiState.units,
+            key = { _, unit -> unit.segment.key + uiState.currentLanguage?.code.orEmpty() }) { idx, unit ->
             val key = unit.segment.key
             val focusRequester = remember {
                 FocusRequester()
@@ -86,14 +87,7 @@ fun MessageListContent(
                     }
                 }
             }
-            var value by remember(key1 = unit.segment.id, key2 = uiState.editingIndex == idx) {
-                mutableStateOf(
-                    TextFieldValue(
-                        text = unit.segment.text,
-                        selection = TextRange(unit.segment.text.length),
-                    ),
-                )
-            }
+
             Column(modifier = Modifier.fillMaxWidth()) {
                 // Key label
                 Row(
@@ -109,7 +103,7 @@ fun MessageListContent(
                         color = MaterialTheme.colors.onBackground,
                     )
                     // only segments in the base language can be marked as untranslatable
-                    if (uiState.isBaseLanguage) {
+                    if (uiState.currentLanguage?.isBase == true) {
                         Spacer(modifier = Modifier.weight(1f))
                         val isTranslatable = unit.segment.translatable
                         CustomTooltipArea(
@@ -143,13 +137,25 @@ fun MessageListContent(
                             bottom = Spacing.s,
                         ),
                 ) {
-                    if (uiState.isBaseLanguage) {
+                    if (uiState.currentLanguage?.isBase == true) {
+                        var value by remember(
+                            key1 = unit.segment.id,
+                            key2 = uiState.editingIndex == idx,
+                        ) {
+                            mutableStateOf(
+                                TextFieldValue(
+                                    text = unit.segment.text,
+                                    selection = TextRange(unit.original?.text.orEmpty().length),
+                                ),
+                            )
+                        }
                         BasicTextField(
                             modifier = Modifier.fillMaxWidth().focusRequester(focusRequester).onFocusChanged {
                                 if (it.hasFocus) {
                                     component.startEditing(idx)
                                 }
                             },
+                            enabled = uiState.editingEnabled,
                             textStyle = MaterialTheme.typography.caption.copy(color = Color.White),
                             cursorBrush = SolidColor(Color.White),
                             value = value,
@@ -167,7 +173,7 @@ fun MessageListContent(
                     }
                 }
                 // target segment
-                if (!uiState.isBaseLanguage) {
+                if (uiState.currentLanguage?.isBase == false) {
                     Spacer(modifier = Modifier.height(Spacing.xxs))
 
                     Box(
@@ -183,6 +189,17 @@ fun MessageListContent(
                                 bottom = Spacing.s,
                             ),
                     ) {
+                        var value by remember(
+                            key1 = unit.segment.id,
+                            key2 = uiState.editingIndex == idx,
+                        ) {
+                            mutableStateOf(
+                                TextFieldValue(
+                                    text = unit.segment.text,
+                                    selection = TextRange(unit.segment.text.length),
+                                ),
+                            )
+                        }
                         BasicTextField(
                             modifier = Modifier.fillMaxWidth().focusRequester(focusRequester).onFocusChanged {
                                 if (it.hasFocus) {
@@ -192,6 +209,7 @@ fun MessageListContent(
                             textStyle = MaterialTheme.typography.caption.copy(color = Color.White),
                             cursorBrush = SolidColor(Color.White),
                             value = value,
+                            enabled = uiState.editingEnabled,
                             onValueChange = {
                                 value = it
                                 component.setSegmentText(it.text)

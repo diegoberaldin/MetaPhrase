@@ -5,8 +5,13 @@ import StatisticsDialog
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.PointerIcon
+import androidx.compose.ui.input.pointer.pointerHoverIcon
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import common.ui.components.CustomOpenFileDialog
 import common.ui.components.CustomSaveFileDialog
@@ -21,15 +26,30 @@ import projects.ui.ProjectsComponent
 import projects.ui.ProjectsContent
 import projectscreate.ui.CreateProjectComponent
 import projectscreate.ui.CreateProjectDialog
+import java.awt.Cursor
 
 @Composable
 fun RootContent(
     component: RootComponent,
     modifier: Modifier = Modifier,
 ) {
-    Box(modifier = modifier.padding(horizontal = Spacing.s, vertical = Spacing.xs)) {
-        val state by component.main.subscribeAsState()
-        val child = state.child
+    val mainSlot by component.main.subscribeAsState()
+    val uiState by component.uiState.collectAsState()
+
+    val pointerIcon by remember(uiState.isLoading) {
+        if (uiState.isLoading) {
+            mutableStateOf(PointerIcon(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR)))
+        } else {
+            mutableStateOf(PointerIcon(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR)))
+        }
+    }
+
+    Box(
+        modifier = modifier
+            .pointerHoverIcon(pointerIcon)
+            .padding(horizontal = Spacing.s, vertical = Spacing.xs),
+    ) {
+        val child = mainSlot.child
         when (child?.configuration) {
             RootComponent.Config.Projects -> {
                 ProjectsContent(

@@ -10,6 +10,7 @@ import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import com.arkivanov.essenty.lifecycle.doOnStart
 import common.coroutines.CoroutineDispatcherProvider
+import common.notification.NotificationCenter
 import common.utils.observeChildSlot
 import data.LanguageModel
 import data.ProjectModel
@@ -65,6 +66,7 @@ internal class DefaultTranslateComponent(
     private val exportAndroidResources: ExportAndroidResourcesUseCase,
     private val exportIosResources: ExportIosResourcesUseCase,
     private val validatePlaceholders: ValidatePlaceholdersUseCase,
+    private val notificationCenter: NotificationCenter,
 ) : TranslateComponent, ComponentContext by componentContext {
 
     private val project = MutableStateFlow<ProjectModel?>(null)
@@ -88,7 +90,7 @@ internal class DefaultTranslateComponent(
             source = toolbarNavigation,
             key = KEY_TOOLBAR_SLOT,
             childFactory = { _, context ->
-                TranslateToolbarComponent.Factory.create(
+                TranslateToolbarComponent.newInstance(
                     componentContext = context,
                     coroutineContext = coroutineContext,
                 )
@@ -99,7 +101,7 @@ internal class DefaultTranslateComponent(
             source = messageListNavigation,
             key = KEY_MESSAGE_LIST_SLOT,
             childFactory = { _, context ->
-                MessageListComponent.Factory.create(
+                MessageListComponent.newInstance(
                     componentContext = context,
                     coroutineContext = coroutineContext,
                 )
@@ -110,12 +112,12 @@ internal class DefaultTranslateComponent(
         key = KEY_DIALOG_SLOT,
         childFactory = { config, context ->
             when (config) {
-                DialogConfig.NewSegment -> NewSegmentComponent.Factory.create(
+                DialogConfig.NewSegment -> NewSegmentComponent.newInstance(
                     componentContext = context,
                     coroutineContext = coroutineContext,
                 )
 
-                is DialogConfig.PlaceholderInvalid -> InvalidSegmentComponent.Factory.create(
+                is DialogConfig.PlaceholderInvalid -> InvalidSegmentComponent.newInstance(
                     componentContext = context,
                     coroutineContext = coroutineContext,
                 )
@@ -167,11 +169,13 @@ internal class DefaultTranslateComponent(
                         .distinctUntilChanged()
                         .onEach { (language, filter) ->
                             if (language == null) return@onEach
+                            messageListComponent.setEditingEnabled(false)
                             messageListComponent.reloadMessages(
                                 language = language,
                                 filter = filter,
                                 projectId = projectId,
                             )
+                            messageListComponent.setEditingEnabled(true)
                         }.launchIn(this)
                     toolbarComponent.events.onEach { evt ->
                         when (evt) {
@@ -271,6 +275,10 @@ internal class DefaultTranslateComponent(
         viewModelScope.launch(dispatchers.io) {
             val toolbarState = observeChildSlot<TranslateToolbarComponent>(toolbar).first().uiState.value
             val language = toolbarState.currentLanguage ?: return@launch
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
+            val messageListComponent = observeChildSlot<MessageListComponent>(messageList).firstOrNull()
+            messageListComponent?.setEditingEnabled(false)
+            messageListComponent?.clearMessages()
             when (type) {
                 ResourceFileType.ANDROID_XML -> {
                     val segments = parseAndroidResources(path = path)
@@ -294,7 +302,9 @@ internal class DefaultTranslateComponent(
             }
             delay(100)
             updateUnitCount()
-            observeChildSlot<MessageListComponent>(messageList).firstOrNull()?.refresh()
+            messageListComponent?.refresh()
+            messageListComponent?.setEditingEnabled(true)
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
         }
     }
 
@@ -302,6 +312,7 @@ internal class DefaultTranslateComponent(
         viewModelScope.launch(dispatchers.io) {
             val language = observeChildSlot<TranslateToolbarComponent>(toolbar).first().uiState.value.currentLanguage
                 ?: return@launch
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
             val segments = segmentRepository.getAll(language.id)
             when (type) {
                 ResourceFileType.ANDROID_XML -> {
@@ -328,6 +339,7 @@ internal class DefaultTranslateComponent(
 
                 else -> Unit
             }
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
         }
     }
 
@@ -378,8 +390,10 @@ internal class DefaultTranslateComponent(
                 val original = segmentRepository.getByKey(key = key, languageId = baseLanguage.id) ?: SegmentModel()
                 it to original
             }
-
-            when (val result = validatePlaceholders(segmentPairs)) {
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
+            val result = validatePlaceholders(segmentPairs)
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
+            when (result) {
                 ValidatePlaceholdersUseCase.Output.Valid -> {
                     withContext(dispatchers.main) {
                         dialogNavigation.activate(DialogConfig.PlaceholderValid)
