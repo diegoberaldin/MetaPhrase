@@ -5,7 +5,10 @@ import StatisticsDialog
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import common.ui.components.CustomOpenFileDialog
@@ -27,9 +30,11 @@ fun RootContent(
     component: RootComponent,
     modifier: Modifier = Modifier,
 ) {
+    val mainSlot by component.main.subscribeAsState()
+    val uiState by component.uiState.collectAsState()
+
     Box(modifier = modifier.padding(horizontal = Spacing.s, vertical = Spacing.xs)) {
-        val state by component.main.subscribeAsState()
-        val child = state.child
+        val child = mainSlot.child
         when (child?.configuration) {
             RootComponent.Config.Projects -> {
                 ProjectsContent(

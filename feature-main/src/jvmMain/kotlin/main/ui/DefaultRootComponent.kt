@@ -26,8 +26,10 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
@@ -61,6 +63,11 @@ internal class DefaultRootComponent(
 
     private val mainNavigation = SlotNavigation<RootComponent.Config>()
     private val dialogNavigation = SlotNavigation<RootComponent.DialogConfig>()
+    private lateinit var activeProject: StateFlow<ProjectModel?>
+    private lateinit var isEditing: StateFlow<Boolean>
+    private lateinit var currentLanguage: StateFlow<LanguageModel?>
+    private val isLoading = MutableStateFlow(false)
+    private var observeProjectsJob: Job? = null
 
     override val main: Value<ChildSlot<RootComponent.Config, *>> = childSlot(
         source = mainNavigation,
@@ -72,11 +79,7 @@ internal class DefaultRootComponent(
         key = KEY_DIALOG_SLOT,
         childFactory = ::createDialogChild,
     )
-
-    override lateinit var activeProject: StateFlow<ProjectModel?>
-    override lateinit var isEditing: StateFlow<Boolean>
-    override lateinit var currentLanguage: StateFlow<LanguageModel?>
-    private var observeProjectsJob: Job? = null
+    override lateinit var uiState: StateFlow<RootUiState>
 
     init {
         with(lifecycle) {
@@ -102,6 +105,24 @@ internal class DefaultRootComponent(
                     scope = viewModelScope,
                     started = SharingStarted.WhileSubscribed(5_000),
                     initialValue = null,
+                )
+                uiState = combine(
+                    activeProject,
+                    isEditing,
+                    currentLanguage,
+                    isLoading,
+                ) { activeProject, isEditing, currentLanguage, isLoading ->
+                    RootUiState(
+                        activeProject = activeProject,
+                        isEditing = isEditing,
+                        isLoading = isLoading,
+                        currentLanguage = currentLanguage,
+
+                    )
+                }.stateIn(
+                    scope = viewModelScope,
+                    started = SharingStarted.WhileSubscribed(5_000),
+                    initialValue = RootUiState(),
                 )
             }
             doOnStart {

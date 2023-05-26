@@ -116,7 +116,7 @@ fun main() {
 private fun MenuBarScope.makeMenus(
     rootComponent: RootComponent,
 ) {
-    val activeProject by rootComponent.activeProject.collectAsState()
+    val rootUiState by rootComponent.uiState.collectAsState()
 
     Menu(text = "menu_project".localized()) {
         Item(
@@ -127,13 +127,13 @@ private fun MenuBarScope.makeMenus(
         }
         Item(
             text = "menu_project_edit".localized(),
-            enabled = activeProject != null,
+            enabled = rootUiState.activeProject != null,
         ) {
             rootComponent.openEditProject()
         }
         Item(
             text = "menu_project_close".localized(),
-            enabled = activeProject != null,
+            enabled = rootUiState.activeProject != null,
             shortcut = KeyShortcut(Key.W, meta = true),
         ) {
             rootComponent.closeCurrentProject()
@@ -141,7 +141,7 @@ private fun MenuBarScope.makeMenus(
         Separator()
         Item(
             text = "menu_project_statistics".localized(),
-            enabled = activeProject != null,
+            enabled = rootUiState.activeProject != null,
         ) {
             rootComponent.openStatistics()
         }
@@ -154,7 +154,7 @@ private fun MenuBarScope.makeMenus(
         Separator()
         Menu(
             text = "menu_project_import".localized(),
-            enabled = activeProject != null,
+            enabled = rootUiState.activeProject != null,
         ) {
             Item(
                 text = "menu_project_import_android".localized(),
@@ -169,7 +169,7 @@ private fun MenuBarScope.makeMenus(
         }
         Menu(
             text = "menu_project_export".localized(),
-            enabled = activeProject != null,
+            enabled = rootUiState.activeProject != null,
         ) {
             Item(
                 text = "menu_project_import_android".localized(),
@@ -183,22 +183,20 @@ private fun MenuBarScope.makeMenus(
             }
         }
     }
-    val isEditing by rootComponent.isEditing.collectAsState()
-    val currentLanguage by rootComponent.currentLanguage.collectAsState()
     Menu(
         text = "menu_segment".localized(),
     ) {
         Item(
             text = "menu_segment_previous".localized(),
             shortcut = KeyShortcut(Key.P, meta = true, shift = true),
-            enabled = isEditing,
+            enabled = rootUiState.isEditing,
         ) {
             rootComponent.moveToPreviousSegment()
         }
         Item(
             text = "menu_segment_next".localized(),
             shortcut = KeyShortcut(Key.N, meta = true, shift = true),
-            enabled = isEditing,
+            enabled = rootUiState.isEditing,
         ) {
             rootComponent.moveToNextSegment()
         }
@@ -206,28 +204,28 @@ private fun MenuBarScope.makeMenus(
         Item(
             text = "menu_segment_new".localized(),
             shortcut = KeyShortcut(Key.Plus, meta = true),
-            enabled = activeProject != null,
+            enabled = rootUiState.activeProject != null,
         ) {
             rootComponent.addSegment()
         }
         Item(
             text = "menu_segment_delete".localized(),
             shortcut = KeyShortcut(Key.Minus, meta = true),
-            enabled = isEditing,
+            enabled = rootUiState.isEditing,
         ) {
             rootComponent.deleteSegment()
         }
         Item(
             text = "menu_segment_copy_base".localized(),
             shortcut = KeyShortcut(Key.B, meta = true, shift = true),
-            enabled = isEditing && currentLanguage?.isBase == false,
+            enabled = rootUiState.isEditing && rootUiState.currentLanguage?.isBase == false,
         ) {
             rootComponent.copyBase()
         }
         Item(
             text = "menu_segment_end_edit".localized(),
             shortcut = KeyShortcut(Key.Escape),
-            enabled = isEditing,
+            enabled = rootUiState.isEditing,
         ) {
             rootComponent.endEditing()
         }
