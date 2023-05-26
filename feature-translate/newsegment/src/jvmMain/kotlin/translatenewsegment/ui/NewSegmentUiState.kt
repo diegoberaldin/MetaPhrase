@@ -5,4 +5,5 @@ data class NewSegmentUiState(
     val keyError: String = "",
     val text: String = "",
     val textError: String = "",
+    val isLoading: Boolean = false,
 )
