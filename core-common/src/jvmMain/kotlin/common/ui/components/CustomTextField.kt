@@ -21,7 +21,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.Dp
@@ -76,7 +75,7 @@ fun CustomTextField(
                 .padding(horizontal = Spacing.xs, vertical = Spacing.xs),
             value = textFieldValue,
             onValueChange = {
-                textFieldValue = it.copy(selection = TextRange(it.text.length))
+                textFieldValue = it
                 onValueChange(it.text)
             },
             cursorBrush = SolidColor(textColor),
