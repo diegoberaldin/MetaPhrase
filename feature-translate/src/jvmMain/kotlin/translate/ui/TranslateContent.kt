@@ -54,7 +54,11 @@ fun TranslateContent(
             val project = uiState.project
             if (project != null) {
                 Text(
-                    text = "project: ${project.name} — units: ${uiState.unitCount}",
+                    text = buildString {
+                        append("status_bar_project".localized(project.name))
+                        append(" — ")
+                        append("status_bar_units".localized(uiState.unitCount))
+                    },
                     color = MaterialTheme.colors.onBackground,
                     style = MaterialTheme.typography.caption,
                 )

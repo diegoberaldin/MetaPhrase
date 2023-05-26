@@ -21,8 +21,16 @@ object L10n {
     }
 
     fun get(key: String): String = default.get(key)
+
+    fun get(key: String, vararg args: Any): String {
+        return default.get(key).format(*args)
+    }
 }
 
 fun String.localized(): String {
     return L10n.get(this)
+}
+
+fun String.localized(vararg args: Any): String {
+    return L10n.get(key = this, args = args)
 }
