@@ -384,8 +384,10 @@ internal class DefaultTranslateComponent(
                 val original = segmentRepository.getByKey(key = key, languageId = baseLanguage.id) ?: SegmentModel()
                 it to original
             }
-
-            when (val result = validatePlaceholders(segmentPairs)) {
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
+            val result = validatePlaceholders(segmentPairs)
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
+            when (result) {
                 ValidatePlaceholdersUseCase.Output.Valid -> {
                     withContext(dispatchers.main) {
                         dialogNavigation.activate(DialogConfig.PlaceholderValid)
