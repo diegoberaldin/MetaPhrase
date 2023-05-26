@@ -50,6 +50,7 @@ interface TranslateComponent {
             exportAndroidResources = getByInjection(),
             exportIosResources = getByInjection(),
             validatePlaceholders = getByInjection(),
+            notificationCenter = getByInjection(),
         )
     }
 

@@ -10,6 +10,7 @@ import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import com.arkivanov.essenty.lifecycle.doOnStart
 import common.coroutines.CoroutineDispatcherProvider
+import common.notification.NotificationCenter
 import common.utils.observeChildSlot
 import data.LanguageModel
 import data.ProjectModel
@@ -65,6 +66,7 @@ internal class DefaultTranslateComponent(
     private val exportAndroidResources: ExportAndroidResourcesUseCase,
     private val exportIosResources: ExportIosResourcesUseCase,
     private val validatePlaceholders: ValidatePlaceholdersUseCase,
+    private val notificationCenter: NotificationCenter,
 ) : TranslateComponent, ComponentContext by componentContext {
 
     private val project = MutableStateFlow<ProjectModel?>(null)
@@ -271,6 +273,7 @@ internal class DefaultTranslateComponent(
         viewModelScope.launch(dispatchers.io) {
             val toolbarState = observeChildSlot<TranslateToolbarComponent>(toolbar).first().uiState.value
             val language = toolbarState.currentLanguage ?: return@launch
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
             when (type) {
                 ResourceFileType.ANDROID_XML -> {
                     val segments = parseAndroidResources(path = path)
@@ -295,6 +298,7 @@ internal class DefaultTranslateComponent(
             delay(100)
             updateUnitCount()
             observeChildSlot<MessageListComponent>(messageList).firstOrNull()?.refresh()
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
         }
     }
 
