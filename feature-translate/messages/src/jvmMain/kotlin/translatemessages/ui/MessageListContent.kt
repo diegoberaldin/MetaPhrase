@@ -46,11 +46,13 @@ import common.ui.components.CustomTooltipArea
 import common.ui.theme.Indigo800
 import common.ui.theme.Purple800
 import common.ui.theme.Spacing
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import localized
 
-@OptIn(ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class, FlowPreview::class)
 @Composable
 fun MessageListContent(
     component: MessageListComponent,
@@ -60,8 +62,12 @@ fun MessageListContent(
     val lazyListState = rememberLazyListState()
 
     LaunchedEffect(component) {
-        component.selectionEvents.onEach { index ->
-            lazyListState.scrollToItem(index)
+        component.selectionEvents.debounce(500).onEach { index ->
+            if (index < lazyListState.firstVisibleItemIndex) {
+                lazyListState.scrollToItem(index)
+            } else {
+                lazyListState.animateScrollToItem(index = index)
+            }
         }.launchIn(this)
     }
 
@@ -72,7 +78,8 @@ fun MessageListContent(
     ) {
         itemsIndexed(
             items = uiState.units,
-            key = { _, unit -> unit.segment.key + uiState.currentLanguage?.code.orEmpty() }) { idx, unit ->
+            key = { _, unit -> unit.segment.key + uiState.currentLanguage?.code.orEmpty() },
+        ) { idx, unit ->
             val key = unit.segment.key
             val focusRequester = remember {
                 FocusRequester()
