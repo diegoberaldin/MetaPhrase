@@ -19,7 +19,7 @@ import repository.local.LanguageRepository
 import repository.local.SegmentRepository
 import kotlin.coroutines.CoroutineContext
 
-class DefaultInvalidSegmentComponent(
+internal class DefaultInvalidSegmentComponent(
     componentContext: ComponentContext,
     coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,

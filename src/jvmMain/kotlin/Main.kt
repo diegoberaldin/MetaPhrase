@@ -29,6 +29,7 @@ import data.ResourceFileType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.runBlocking
+import main.di.mainModule
 import main.ui.RootComponent
 import main.ui.RootContent
 import org.koin.core.context.startKoin
@@ -44,6 +45,7 @@ private fun initKoin() {
             persistenceModule,
             repositoryModule,
             useCaseModule,
+            mainModule,
         )
     }
 }
@@ -59,9 +61,9 @@ fun main() {
     val lifecycle = LifecycleRegistry()
     val mainScope = CoroutineScope(SupervisorJob())
     val rootComponent = runOnUiThread {
-        RootComponent.newInstance(
-            componentContext = DefaultComponentContext(lifecycle = lifecycle),
-            coroutineContext = mainScope.coroutineContext,
+        getByInjection<RootComponent>(
+            DefaultComponentContext(lifecycle = lifecycle),
+            mainScope.coroutineContext,
         )
     }
 

@@ -1,6 +1,5 @@
 package main.ui
 
-import StatisticsComponent
 import androidx.compose.runtime.snapshotFlow
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.slot.ChildSlot
@@ -15,6 +14,7 @@ import com.arkivanov.essenty.lifecycle.doOnStart
 import com.arkivanov.essenty.lifecycle.doOnStop
 import common.coroutines.CoroutineDispatcherProvider
 import common.notification.NotificationCenter
+import common.utils.getByInjection
 import common.utils.observeChildSlot
 import common.utils.observeNullableChildSlot
 import data.LanguageModel
@@ -45,6 +45,7 @@ import kotlinx.coroutines.withContext
 import mainsettings.ui.SettingsComponent
 import projects.ui.ProjectsComponent
 import projectscreate.ui.CreateProjectComponent
+import projectstatistics.ui.StatisticsComponent
 import repository.local.ProjectRepository
 import kotlin.coroutines.CoroutineContext
 
@@ -163,24 +164,14 @@ internal class DefaultRootComponent(
     }
 
     private fun createMainChild(config: RootComponent.Config, componentContext: ComponentContext): Any = when (config) {
-        RootComponent.Config.Projects -> ProjectsComponent.newInstance(
-            componentContext = componentContext,
-            coroutineContext = coroutineContext,
-        )
-
-        else -> IntroComponent.newInstance(
-            componentContext = componentContext,
-            coroutineContext = coroutineContext,
-        )
+        RootComponent.Config.Projects -> getByInjection<ProjectsComponent>(componentContext, coroutineContext)
+        else -> getByInjection<IntroComponent>(componentContext, coroutineContext)
     }
 
     private fun createDialogChild(config: RootComponent.DialogConfig, componentContext: ComponentContext): Any =
         when (config) {
             RootComponent.DialogConfig.NewDialog -> {
-                CreateProjectComponent.newInstance(
-                    componentContext = componentContext,
-                    coroutineContext = coroutineContext,
-                ).apply {
+                getByInjection<CreateProjectComponent>(componentContext, coroutineContext).apply {
                     done.onEach { projectId ->
                         withContext(dispatchers.main) {
                             closeDialog()
@@ -205,10 +196,7 @@ internal class DefaultRootComponent(
             }
 
             is RootComponent.DialogConfig.EditDialog -> {
-                CreateProjectComponent.newInstance(
-                    componentContext = componentContext,
-                    coroutineContext = coroutineContext,
-                ).apply {
+                getByInjection<CreateProjectComponent>(componentContext, coroutineContext).apply {
                     projectId = activeProject.value?.id ?: 0
                     done.onEach {
                         withContext(dispatchers.main) {
@@ -219,19 +207,13 @@ internal class DefaultRootComponent(
             }
 
             is RootComponent.DialogConfig.StatisticsDialog -> {
-                StatisticsComponent.newInstance(
-                    componentContext = componentContext,
-                    coroutineContext = coroutineContext,
-                ).apply {
+                getByInjection<StatisticsComponent>(componentContext, coroutineContext).apply {
                     projectId = activeProject.value?.id ?: 0
                 }
             }
 
             is RootComponent.DialogConfig.SettingsDialog -> {
-                SettingsComponent.newInstance(
-                    componentContext = componentContext,
-                    coroutineContext = coroutineContext,
-                )
+                getByInjection<SettingsComponent>(componentContext, coroutineContext)
             }
 
             else -> Unit

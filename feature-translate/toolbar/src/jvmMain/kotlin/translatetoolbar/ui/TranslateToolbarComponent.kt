@@ -1,12 +1,9 @@
 package translatetoolbar.ui
 
-import com.arkivanov.decompose.ComponentContext
-import common.utils.getByInjection
 import data.LanguageModel
 import data.TranslationUnitTypeFilter
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlin.coroutines.CoroutineContext
 
 interface TranslateToolbarComponent {
 
@@ -34,19 +31,5 @@ interface TranslateToolbarComponent {
         object RemoveUnit : Events
         object ValidateUnits : Events
         object CopyBase : Events
-    }
-
-    companion object {
-        fun newInstance(
-            componentContext: ComponentContext,
-            coroutineContext: CoroutineContext,
-        ): TranslateToolbarComponent = DefaultTranslateToolbarComponent(
-            componentContext = componentContext,
-            coroutineContext = coroutineContext,
-            dispatchers = getByInjection(),
-            languageRepository = getByInjection(),
-            completeLanguage = getByInjection(),
-            logManager = getByInjection(),
-        )
     }
 }

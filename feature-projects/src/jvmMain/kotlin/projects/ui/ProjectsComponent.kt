@@ -1,16 +1,13 @@
 package projects.ui
 
-import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
-import common.utils.getByInjection
 import data.LanguageModel
 import data.ProjectModel
 import data.ResourceFileType
 import kotlinx.coroutines.flow.StateFlow
-import kotlin.coroutines.CoroutineContext
 
 interface ProjectsComponent {
     val activeProject: StateFlow<ProjectModel?>
@@ -28,17 +25,6 @@ interface ProjectsComponent {
     fun copyBase()
     fun addSegment()
     fun deleteSegment()
-
-    companion object {
-        fun newInstance(componentContext: ComponentContext, coroutineContext: CoroutineContext): ProjectsComponent =
-            DefaultProjectsComponent(
-                componentContext = componentContext,
-                coroutineContext = coroutineContext,
-                dispatchers = getByInjection(),
-                keyStore = getByInjection(),
-                projectRepository = getByInjection(),
-            )
-    }
 
     sealed interface Config : Parcelable {
         @Parcelize

@@ -1,11 +1,8 @@
 package projectscreate.ui
 
-import com.arkivanov.decompose.ComponentContext
-import common.utils.getByInjection
 import data.LanguageModel
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlin.coroutines.CoroutineContext
 
 interface CreateProjectComponent {
 
@@ -19,19 +16,4 @@ interface CreateProjectComponent {
     fun setBaseLanguage(value: LanguageModel)
     fun removeLanguage(value: LanguageModel)
     fun submit()
-
-    companion object {
-        fun newInstance(
-            componentContext: ComponentContext,
-            coroutineContext: CoroutineContext,
-        ): CreateProjectComponent = DefaultCreateProjectComponent(
-            componentContext = componentContext,
-            coroutineContext = coroutineContext,
-            dispatchers = getByInjection(),
-            languageRepository = getByInjection(),
-            projectRepository = getByInjection(),
-            completeLanguage = getByInjection(),
-            segmentRepository = getByInjection(),
-        )
-    }
 }

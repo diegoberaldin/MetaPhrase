@@ -1,3 +1,5 @@
+package projectstatistics.ui
+
 sealed interface StatisticsItem {
     object Divider : StatisticsItem
     data class Header(val title: String = "") : StatisticsItem

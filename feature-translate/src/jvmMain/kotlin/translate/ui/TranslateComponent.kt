@@ -1,17 +1,14 @@
 package translate.ui
 
-import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.slot.ChildSlot
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
-import common.utils.getByInjection
 import data.LanguageModel
 import data.ResourceFileType
 import kotlinx.coroutines.flow.StateFlow
 import translatemessages.ui.MessageListComponent
 import translatetoolbar.ui.TranslateToolbarComponent
-import kotlin.coroutines.CoroutineContext
 
 interface TranslateComponent {
 
@@ -32,27 +29,6 @@ interface TranslateComponent {
     fun addSegment()
     fun deleteSegment()
     fun closeDialog()
-
-    companion object {
-        fun newInstance(
-            componentContext: ComponentContext,
-            coroutineContext: CoroutineContext,
-        ): TranslateComponent = DefaultTranslateComponent(
-            componentContext = componentContext,
-            coroutineContext = coroutineContext,
-            dispatchers = getByInjection(),
-            projectRepository = getByInjection(),
-            languageRepository = getByInjection(),
-            segmentRepository = getByInjection(),
-            parseAndroidResources = getByInjection(),
-            parseIosResources = getByInjection(),
-            importSegments = getByInjection(),
-            exportAndroidResources = getByInjection(),
-            exportIosResources = getByInjection(),
-            validatePlaceholders = getByInjection(),
-            notificationCenter = getByInjection(),
-        )
-    }
 
     @Parcelize
     object ToolbarConfig : Parcelable

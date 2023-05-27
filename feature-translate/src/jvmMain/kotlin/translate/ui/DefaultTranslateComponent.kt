@@ -11,6 +11,7 @@ import com.arkivanov.essenty.lifecycle.doOnDestroy
 import com.arkivanov.essenty.lifecycle.doOnStart
 import common.coroutines.CoroutineDispatcherProvider
 import common.notification.NotificationCenter
+import common.utils.getByInjection
 import common.utils.observeChildSlot
 import data.LanguageModel
 import data.ProjectModel
@@ -85,43 +86,27 @@ internal class DefaultTranslateComponent(
         }
 
     override lateinit var uiState: StateFlow<TranslateUiState>
-    override val toolbar: Value<ChildSlot<ToolbarConfig, TranslateToolbarComponent>> =
-        childSlot(
-            source = toolbarNavigation,
-            key = KEY_TOOLBAR_SLOT,
-            childFactory = { _, context ->
-                TranslateToolbarComponent.newInstance(
-                    componentContext = context,
-                    coroutineContext = coroutineContext,
-                )
-            },
-        )
-    override val messageList: Value<ChildSlot<MessageListConfig, MessageListComponent>> =
-        childSlot(
-            source = messageListNavigation,
-            key = KEY_MESSAGE_LIST_SLOT,
-            childFactory = { _, context ->
-                MessageListComponent.newInstance(
-                    componentContext = context,
-                    coroutineContext = coroutineContext,
-                )
-            },
-        )
+    override val toolbar: Value<ChildSlot<ToolbarConfig, TranslateToolbarComponent>> = childSlot(
+        source = toolbarNavigation,
+        key = KEY_TOOLBAR_SLOT,
+        childFactory = { _, context ->
+            getByInjection<TranslateToolbarComponent>(context, coroutineContext)
+        },
+    )
+    override val messageList: Value<ChildSlot<MessageListConfig, MessageListComponent>> = childSlot(
+        source = messageListNavigation,
+        key = KEY_MESSAGE_LIST_SLOT,
+        childFactory = { _, context ->
+            getByInjection<MessageListComponent>(context, coroutineContext)
+        },
+    )
     override val dialog: Value<ChildSlot<DialogConfig, *>> = childSlot(
         source = dialogNavigation,
         key = KEY_DIALOG_SLOT,
         childFactory = { config, context ->
             when (config) {
-                DialogConfig.NewSegment -> NewSegmentComponent.newInstance(
-                    componentContext = context,
-                    coroutineContext = coroutineContext,
-                )
-
-                is DialogConfig.PlaceholderInvalid -> InvalidSegmentComponent.newInstance(
-                    componentContext = context,
-                    coroutineContext = coroutineContext,
-                )
-
+                DialogConfig.NewSegment -> getByInjection<NewSegmentComponent>(context, coroutineContext)
+                is DialogConfig.PlaceholderInvalid -> getByInjection<InvalidSegmentComponent>(context, coroutineContext)
                 else -> Unit
             }
         },
@@ -129,14 +114,12 @@ internal class DefaultTranslateComponent(
 
     @OptIn(ExperimentalCoroutinesApi::class)
     override val isEditing
-        get() = observeChildSlot<MessageListComponent>(messageList).flatMapLatest { it.uiState }
-            .distinctUntilChanged()
+        get() = observeChildSlot<MessageListComponent>(messageList).flatMapLatest { it.uiState }.distinctUntilChanged()
             .map { it.editingIndex != null }
             .stateIn(viewModelScope, initialValue = false, started = SharingStarted.WhileSubscribed(5000))
 
     override val currentLanguage: StateFlow<LanguageModel?>
-        get() = observeChildSlot<TranslateToolbarComponent>(toolbar).flatMapLatest { it.uiState }
-            .distinctUntilChanged()
+        get() = observeChildSlot<TranslateToolbarComponent>(toolbar).flatMapLatest { it.uiState }.distinctUntilChanged()
             .map { it.currentLanguage }
             .stateIn(viewModelScope, initialValue = null, started = SharingStarted.WhileSubscribed(5000))
 
@@ -166,8 +149,7 @@ internal class DefaultTranslateComponent(
                     val messageListComponent = observeChildSlot<MessageListComponent>(messageList).first()
                     toolbarComponent.projectId = projectId
                     toolbarComponent.uiState.mapLatest { it.currentLanguage to it.currentTypeFilter }
-                        .distinctUntilChanged()
-                        .onEach { (language, filter) ->
+                        .distinctUntilChanged().onEach { (language, filter) ->
                             if (language == null) return@onEach
                             messageListComponent.setEditingEnabled(false)
                             messageListComponent.reloadMessages(

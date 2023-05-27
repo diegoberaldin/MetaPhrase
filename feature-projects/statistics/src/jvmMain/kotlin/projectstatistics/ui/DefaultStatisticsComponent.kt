@@ -1,3 +1,5 @@
+package projectstatistics.ui
+
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
@@ -13,12 +15,13 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import localized
 import repository.local.LanguageRepository
 import repository.local.SegmentRepository
 import repository.usecase.GetCompleteLanguageUseCase
 import kotlin.coroutines.CoroutineContext
 
-class DefaultStatisticsComponent(
+internal class DefaultStatisticsComponent(
     componentContext: ComponentContext,
     coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,
