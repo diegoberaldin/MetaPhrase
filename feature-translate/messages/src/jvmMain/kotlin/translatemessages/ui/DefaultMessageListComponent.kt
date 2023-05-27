@@ -7,6 +7,7 @@ import common.coroutines.CoroutineDispatcherProvider
 import common.notification.NotificationCenter
 import data.LanguageModel
 import data.SegmentModel
+import data.TranslationUnit
 import data.TranslationUnitTypeFilter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job

@@ -7,12 +7,14 @@ import translateinvalidsegments.di.translateInvalidSegmentsModule
 import translatemessages.di.translateMessagesModule
 import translatenewsegment.di.translateNewSegmentModule
 import translatetoolbar.di.translateToolbarModule
+import translationtranslationmemory.di.translateTranslationMemoryModule
 
 val translateModule = module {
     includes(translateToolbarModule)
     includes(translateMessagesModule)
     includes(translateInvalidSegmentsModule)
     includes(translateNewSegmentModule)
+    includes(translateTranslationMemoryModule)
 
     factory<TranslateComponent> { params ->
         DefaultTranslateComponent(
