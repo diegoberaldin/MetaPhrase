@@ -6,7 +6,13 @@ import repository.local.LanguageNameRepository
 import repository.local.LanguageRepository
 import repository.local.ProjectRepository
 import repository.local.SegmentRepository
-import repository.usecase.*
+import repository.usecase.ExportAndroidResourcesUseCase
+import repository.usecase.ExportIosResourcesUseCase
+import repository.usecase.GetCompleteLanguageUseCase
+import repository.usecase.ImportSegmentsUseCase
+import repository.usecase.ParseAndroidResourcesUseCase
+import repository.usecase.ParseIosResourcesUseCase
+import repository.usecase.ValidatePlaceholdersUseCase
 
 val repositoryModule = module {
     single {

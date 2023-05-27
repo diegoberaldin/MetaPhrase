@@ -1,3 +1,5 @@
+package projectstatistics.ui
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -30,6 +32,7 @@ import androidx.compose.ui.window.rememberWindowState
 import common.ui.components.CustomProgressIndicator
 import common.ui.theme.MetaPhraseTheme
 import common.ui.theme.Spacing
+import localized
 
 @Composable
 fun StatisticsDialog(

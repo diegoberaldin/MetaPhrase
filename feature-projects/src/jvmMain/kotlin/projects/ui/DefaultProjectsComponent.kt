@@ -11,14 +11,27 @@ import com.arkivanov.essenty.lifecycle.doOnDestroy
 import com.arkivanov.essenty.lifecycle.doOnStart
 import common.coroutines.CoroutineDispatcherProvider
 import common.keystore.TemporaryKeyStore
+import common.utils.getByInjection
 import common.utils.observeChildStack
 import common.utils.observeNullableChildStack
 import data.LanguageModel
 import data.ProjectModel
 import data.ResourceFileType
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.*
-import projectslist.ProjectListComponent
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import projectslist.ui.ProjectListComponent
 import repository.local.ProjectRepository
 import translate.ui.TranslateComponent
 import kotlin.coroutines.CoroutineContext
@@ -114,18 +127,16 @@ internal class DefaultProjectsComponent(
     }
 
     private fun createChild(config: ProjectsComponent.Config, componentContext: ComponentContext): Any = when (config) {
-        is ProjectsComponent.Config.List -> ProjectListComponent.newInstance(
-            componentContext = componentContext,
-            coroutineContext = coroutineContext,
+        is ProjectsComponent.Config.List -> getByInjection<ProjectListComponent>(
+            componentContext,
+            coroutineContext,
         )
 
-        is ProjectsComponent.Config.Detail -> {
-            TranslateComponent.newInstance(
-                componentContext = componentContext,
-                coroutineContext = coroutineContext,
-            ).apply {
-                projectId = config.projectId
-            }
+        is ProjectsComponent.Config.Detail -> getByInjection<TranslateComponent>(
+            componentContext,
+            coroutineContext,
+        ).apply {
+            projectId = config.projectId
         }
     }
 

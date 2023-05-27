@@ -3,8 +3,8 @@ package projects.ui
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
-import projectslist.ProjectListComponent
-import projectslist.ProjectsListContent
+import projectslist.ui.ProjectListComponent
+import projectslist.ui.ProjectsListContent
 import translate.ui.TranslateComponent
 import translate.ui.TranslateContent
 

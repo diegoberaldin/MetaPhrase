@@ -6,6 +6,7 @@ import com.arkivanov.decompose.value.Value
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
+import org.koin.core.parameter.parametersOf
 import org.koin.java.KoinJavaComponent
 import javax.swing.SwingUtilities
 
@@ -33,6 +34,13 @@ fun <T> runOnUiThread(block: () -> T): T {
 
 inline fun <reified T> getByInjection(): T {
     val res by KoinJavaComponent.inject<T>(T::class.java)
+    return res
+}
+
+inline fun <reified T> getByInjection(vararg params: Any?): T {
+    val res by KoinJavaComponent.inject<T>(T::class.java) {
+        parametersOf(*params)
+    }
     return res
 }
 

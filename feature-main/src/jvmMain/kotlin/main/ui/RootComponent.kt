@@ -1,14 +1,11 @@
 package main.ui
 
-import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.slot.ChildSlot
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
-import common.utils.getByInjection
 import data.ResourceFileType
 import kotlinx.coroutines.flow.StateFlow
-import kotlin.coroutines.CoroutineContext
 
 interface RootComponent {
 
@@ -33,17 +30,6 @@ interface RootComponent {
     fun copyBase()
     fun addSegment()
     fun deleteSegment()
-
-    companion object {
-        fun newInstance(componentContext: ComponentContext, coroutineContext: CoroutineContext): RootComponent =
-            DefaultRootComponent(
-                componentContext = componentContext,
-                coroutineContext = coroutineContext,
-                projectRepository = getByInjection(),
-                dispatchers = getByInjection(),
-                notificationCenter = getByInjection(),
-            )
-    }
 
     sealed interface Config : Parcelable {
         @Parcelize

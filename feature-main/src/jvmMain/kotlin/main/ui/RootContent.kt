@@ -1,7 +1,5 @@
 package main.ui
 
-import StatisticsComponent
-import StatisticsDialog
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -26,6 +24,8 @@ import projects.ui.ProjectsComponent
 import projects.ui.ProjectsContent
 import projectscreate.ui.CreateProjectComponent
 import projectscreate.ui.CreateProjectDialog
+import projectstatistics.ui.StatisticsComponent
+import projectstatistics.ui.StatisticsDialog
 import java.awt.Cursor
 
 @Composable

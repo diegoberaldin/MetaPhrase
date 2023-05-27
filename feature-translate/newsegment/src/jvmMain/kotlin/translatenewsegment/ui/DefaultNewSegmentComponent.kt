@@ -21,7 +21,7 @@ import repository.local.LanguageRepository
 import repository.local.SegmentRepository
 import kotlin.coroutines.CoroutineContext
 
-class DefaultNewSegmentComponent(
+internal class DefaultNewSegmentComponent(
     componentContext: ComponentContext,
     coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,
