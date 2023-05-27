@@ -8,8 +8,19 @@ import common.notification.NotificationCenter
 import data.LanguageModel
 import data.SegmentModel
 import data.TranslationUnitTypeFilter
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.getAndUpdate
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import repository.local.LanguageRepository
 import repository.local.SegmentRepository
 import kotlin.coroutines.CoroutineContext
@@ -186,12 +197,22 @@ internal class DefaultMessageListComponent(
 
     override fun moveToPrevious() {
         val index = editingIndex.value ?: return
-        editingIndex.value = (index - 1).coerceAtLeast(0)
+        val newIndex = (index - 1).coerceAtLeast(0)
+        editingIndex.value = newIndex
+        viewModelScope.launch {
+            // ensure previous is visible too
+            selectionEvents.emit((newIndex - 1).coerceAtLeast(0))
+        }
     }
 
     override fun moveToNext() {
         val index = editingIndex.value ?: return
-        editingIndex.value = (index + 1).coerceAtMost(units.value.lastIndex)
+        val newIndex = (index + 1).coerceAtMost(units.value.lastIndex)
+        editingIndex.value = newIndex
+        viewModelScope.launch {
+            // ensure previous is visible too
+            selectionEvents.emit((newIndex - 1).coerceAtLeast(0))
+        }
     }
 
     override fun copyBase() {
