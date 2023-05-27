@@ -72,7 +72,7 @@ fun ProjectsListContent(
                     )
                     Spacer(modifier = Modifier.weight(1f))
                     CustomTooltipArea(
-                        text = "tooltip_delete".localized()
+                        text = "tooltip_delete".localized(),
                     ) {
                         Icon(
                             imageVector = Icons.Default.Delete,

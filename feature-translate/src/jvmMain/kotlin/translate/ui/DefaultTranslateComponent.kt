@@ -46,7 +46,9 @@ import repository.usecase.ImportSegmentsUseCase
 import repository.usecase.ParseAndroidResourcesUseCase
 import repository.usecase.ParseIosResourcesUseCase
 import repository.usecase.ValidatePlaceholdersUseCase
-import translate.ui.TranslateComponent.*
+import translate.ui.TranslateComponent.DialogConfig
+import translate.ui.TranslateComponent.MessageListConfig
+import translate.ui.TranslateComponent.ToolbarConfig
 import translateinvalidsegments.ui.InvalidSegmentComponent
 import translatemessages.ui.MessageListComponent
 import translatenewsegment.ui.NewSegmentComponent
