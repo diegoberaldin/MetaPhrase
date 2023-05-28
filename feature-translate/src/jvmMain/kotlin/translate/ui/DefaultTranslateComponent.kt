@@ -48,17 +48,19 @@ import repository.usecase.ParseIosResourcesUseCase
 import repository.usecase.ValidatePlaceholdersUseCase
 import translate.ui.TranslateComponent.DialogConfig
 import translate.ui.TranslateComponent.MessageListConfig
+import translate.ui.TranslateComponent.PanelConfig
 import translate.ui.TranslateComponent.ToolbarConfig
 import translateinvalidsegments.ui.InvalidSegmentComponent
 import translatemessages.ui.MessageListComponent
 import translatenewsegment.ui.NewSegmentComponent
 import translatetoolbar.ui.TranslateToolbarComponent
+import translationtranslationmemory.ui.TranslationMemoryComponent
 import kotlin.coroutines.CoroutineContext
 
 @OptIn(ExperimentalCoroutinesApi::class)
 internal class DefaultTranslateComponent(
     componentContext: ComponentContext,
-    coroutineContext: CoroutineContext,
+    private val coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,
     private val projectRepository: ProjectRepository,
     private val languageRepository: LanguageRepository,
@@ -78,6 +80,7 @@ internal class DefaultTranslateComponent(
     private val toolbarNavigation = SlotNavigation<ToolbarConfig>()
     private val messageListNavigation = SlotNavigation<MessageListConfig>()
     private val dialogNavigation = SlotNavigation<DialogConfig>()
+    private val panelNavigation = SlotNavigation<PanelConfig>()
 
     private lateinit var viewModelScope: CoroutineScope
 
@@ -102,16 +105,15 @@ internal class DefaultTranslateComponent(
             getByInjection<MessageListComponent>(context, coroutineContext)
         },
     )
+    override val panel: Value<ChildSlot<PanelConfig, *>> = childSlot(
+        source = panelNavigation,
+        key = KEY_PANEL_SLOT,
+        childFactory = ::createPanelComponent,
+    )
     override val dialog: Value<ChildSlot<DialogConfig, *>> = childSlot(
         source = dialogNavigation,
         key = KEY_DIALOG_SLOT,
-        childFactory = { config, context ->
-            when (config) {
-                DialogConfig.NewSegment -> getByInjection<NewSegmentComponent>(context, coroutineContext)
-                is DialogConfig.PlaceholderInvalid -> getByInjection<InvalidSegmentComponent>(context, coroutineContext)
-                else -> Unit
-            }
-        },
+        childFactory = ::createDialogComponent,
     )
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -143,76 +145,15 @@ internal class DefaultTranslateComponent(
                     started = SharingStarted.WhileSubscribed(5_000),
                     initialValue = TranslateUiState(),
                 )
-                toolbarNavigation.activate(ToolbarConfig)
-                messageListNavigation.activate(MessageListConfig)
 
                 viewModelScope.launch {
-                    val toolbarComponent = observeChildSlot<TranslateToolbarComponent>(toolbar).first()
-                    val messageListComponent = observeChildSlot<MessageListComponent>(messageList).first()
-                    toolbarComponent.projectId = projectId
-                    toolbarComponent.uiState.mapLatest { it.currentLanguage to it.currentTypeFilter }
-                        .distinctUntilChanged().onEach { (language, filter) ->
-                            if (language == null) return@onEach
-                            messageListComponent.setEditingEnabled(false)
-                            messageListComponent.reloadMessages(
-                                language = language,
-                                filter = filter,
-                                projectId = projectId,
-                            )
-                            messageListComponent.setEditingEnabled(true)
-                        }.launchIn(this)
-                    toolbarComponent.events.onEach { evt ->
-                        when (evt) {
-                            TranslateToolbarComponent.Events.MoveToPrevious -> {
-                                moveToPrevious()
-                            }
-
-                            TranslateToolbarComponent.Events.MoveToNext -> {
-                                moveToNext()
-                            }
-
-                            is TranslateToolbarComponent.Events.Search -> {
-                                val searchText = evt.text
-                                messageListComponent.search(searchText)
-                            }
-
-                            TranslateToolbarComponent.Events.CopyBase -> {
-                                copyBase()
-                            }
-
-                            TranslateToolbarComponent.Events.AddUnit -> {
-                                addSegment()
-                            }
-
-                            TranslateToolbarComponent.Events.RemoveUnit -> {
-                                deleteSegment()
-                            }
-
-                            TranslateToolbarComponent.Events.ValidateUnits -> {
-                                startValidation()
-                            }
-                        }
-                    }.launchIn(this)
-                    messageListComponent.uiState.map { it.editingIndex }.distinctUntilChanged().onEach {
-                        toolbarComponent.setEditing(it != null)
-                    }.launchIn(this)
-                    observeChildSlot<NewSegmentComponent>(dialog).onEach {
-                        it.done.onEach { newSegment ->
-                            withContext(dispatchers.main) {
-                                dialogNavigation.activate(DialogConfig.None)
-                            }
-                            if (newSegment != null) {
-                                updateUnitCount()
-                                observeChildSlot<MessageListComponent>(messageList).firstOrNull()?.refresh()
-                            }
-                        }.launchIn(this)
-                    }.launchIn(this)
-                    observeChildSlot<InvalidSegmentComponent>(dialog).onEach {
-                        it.selectionEvents.onEach { key ->
-                            messageListComponent.scrollToMessage(key)
-                        }.launchIn(this)
-                    }.launchIn(this)
+                    configureToolbar()
+                    configureMessageList()
                 }
+
+                toolbarNavigation.activate(ToolbarConfig)
+                messageListNavigation.activate(MessageListConfig)
+                panelNavigation.activate(PanelConfig.None)
             }
             doOnStart {
                 viewModelScope.launch(dispatchers.io) {
@@ -228,6 +169,94 @@ internal class DefaultTranslateComponent(
             doOnDestroy {
                 viewModelScope.cancel()
             }
+        }
+    }
+
+    private suspend fun CoroutineScope.configureMessageList() {
+        val messageListComponent = observeChildSlot<MessageListComponent>(messageList).first()
+        val toolbarComponent = observeChildSlot<TranslateToolbarComponent>(toolbar).first()
+        messageListComponent.uiState.map { it.editingIndex }.distinctUntilChanged().onEach {
+            toolbarComponent.setEditing(it != null)
+        }.launchIn(this)
+        observeChildSlot<NewSegmentComponent>(dialog).onEach {
+            it.done.onEach { newSegment ->
+                withContext(dispatchers.main) {
+                    dialogNavigation.activate(DialogConfig.None)
+                }
+                if (newSegment != null) {
+                    updateUnitCount()
+                    observeChildSlot<MessageListComponent>(messageList).firstOrNull()?.refresh()
+                }
+            }.launchIn(this)
+        }.launchIn(this)
+        observeChildSlot<InvalidSegmentComponent>(dialog).onEach {
+            it.selectionEvents.onEach { key ->
+                messageListComponent.scrollToMessage(key)
+            }.launchIn(this)
+        }.launchIn(this)
+    }
+
+    private suspend fun CoroutineScope.configureToolbar() {
+        val toolbarComponent = observeChildSlot<TranslateToolbarComponent>(toolbar).first()
+        val messageListComponent = observeChildSlot<MessageListComponent>(messageList).first()
+        toolbarComponent.projectId = projectId
+        toolbarComponent.uiState.mapLatest { it.currentLanguage to it.currentTypeFilter }
+            .distinctUntilChanged().onEach { (language, filter) ->
+                if (language == null) return@onEach
+                messageListComponent.setEditingEnabled(false)
+                messageListComponent.reloadMessages(
+                    language = language,
+                    filter = filter,
+                    projectId = projectId,
+                )
+                messageListComponent.setEditingEnabled(true)
+            }.launchIn(this)
+        toolbarComponent.events.onEach { evt ->
+            when (evt) {
+                TranslateToolbarComponent.Events.MoveToPrevious -> {
+                    moveToPrevious()
+                }
+
+                TranslateToolbarComponent.Events.MoveToNext -> {
+                    moveToNext()
+                }
+
+                is TranslateToolbarComponent.Events.Search -> {
+                    val searchText = evt.text
+                    messageListComponent.search(searchText)
+                }
+
+                TranslateToolbarComponent.Events.CopyBase -> {
+                    copyBase()
+                }
+
+                TranslateToolbarComponent.Events.AddUnit -> {
+                    addSegment()
+                }
+
+                TranslateToolbarComponent.Events.RemoveUnit -> {
+                    deleteSegment()
+                }
+
+                TranslateToolbarComponent.Events.ValidateUnits -> {
+                    startValidation()
+                }
+            }
+        }.launchIn(this)
+    }
+
+    private fun createDialogComponent(config: DialogConfig, context: ComponentContext): Any {
+        return when (config) {
+            DialogConfig.NewSegment -> getByInjection<NewSegmentComponent>(context, coroutineContext)
+            is DialogConfig.PlaceholderInvalid -> getByInjection<InvalidSegmentComponent>(context, coroutineContext)
+            else -> Unit
+        }
+    }
+
+    private fun createPanelComponent(config: PanelConfig, context: ComponentContext): Any {
+        return when (config) {
+            PanelConfig.TranslationMemory -> getByInjection<TranslationMemoryComponent>(context, coroutineContext)
+            else -> Unit
         }
     }
 
@@ -394,9 +423,17 @@ internal class DefaultTranslateComponent(
         }
     }
 
+    override fun togglePanel(config: PanelConfig) {
+        when (panel.value.child?.configuration) {
+            config -> panelNavigation.activate(PanelConfig.None)
+            else -> panelNavigation.activate(config)
+        }
+    }
+
     companion object {
         const val KEY_DIALOG_SLOT = "DialogSlot"
         const val KEY_TOOLBAR_SLOT = "ToolbarSlot"
         const val KEY_MESSAGE_LIST_SLOT = "MessageListSlot"
+        const val KEY_PANEL_SLOT = "PanelSlot"
     }
 }

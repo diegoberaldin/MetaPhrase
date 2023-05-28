@@ -34,6 +34,7 @@ internal class DefaultTranslationMemoryRepository(
                     res += TranslationUnit(
                         original = similarSource,
                         segment = similarTarget,
+                        similarity = (similarity * 100).toInt(),
                     )
                 }
             }
