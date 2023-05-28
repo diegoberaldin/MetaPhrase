@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -25,6 +26,7 @@ import common.ui.components.CustomDialog
 import common.ui.theme.SelectedBackground
 import common.ui.theme.Spacing
 import localized
+import translate.ui.TranslateComponent.PanelConfig
 import translateinvalidsegments.ui.InvalidSegmentComponent
 import translateinvalidsegments.ui.InvalidSegmentDialog
 import translatemessages.ui.MessageListContent
@@ -61,11 +63,12 @@ fun TranslateContent(
 
         // panel
         val panelConfiguration = panel.child?.configuration
-        if (panelConfiguration != TranslateComponent.PanelConfig.None) {
+        if (panelConfiguration != PanelConfig.None) {
             Column(modifier = Modifier.height(180.dp)) {
                 Divider()
+                Spacer(modifier = Modifier.height(Spacing.s))
                 when (panelConfiguration) {
-                    TranslateComponent.PanelConfig.TranslationMemory -> {
+                    PanelConfig.TranslationMemory -> {
                         val childComponent = panel.child?.instance as TranslationMemoryComponent
                         TranslationMemoryContent(
                             modifier = Modifier.fillMaxWidth().weight(1f),
@@ -90,13 +93,15 @@ fun TranslateContent(
                         color = SelectedBackground,
                         shape = RoundedCornerShape(4.dp),
                     )
-                        .padding(vertical = Spacing.xxs, horizontal = Spacing.xs)
+                        .padding(vertical = Spacing.xs, horizontal = Spacing.s)
                         .onClick {
-                            component.togglePanel(TranslateComponent.PanelConfig.TranslationMemory)
+                            component.togglePanel(PanelConfig.TranslationMemory)
                         },
                     text = "panel_action_translation_memory".localized(),
                     style = MaterialTheme.typography.caption,
-                    color = MaterialTheme.colors.onBackground,
+                    color = MaterialTheme.colors.onBackground.copy(
+                        alpha = if (panel.child?.configuration == PanelConfig.TranslationMemory) 1f else 0.7f,
+                    ),
                 )
             }
 
@@ -105,7 +110,7 @@ fun TranslateContent(
                 Text(
                     modifier = Modifier.align(Alignment.CenterEnd),
                     text = buildString {
-                        append("status_bar_project".localized(project.name))
+                        append(project.name)
                         append(" — ")
                         append("status_bar_units".localized(uiState.unitCount))
                     },

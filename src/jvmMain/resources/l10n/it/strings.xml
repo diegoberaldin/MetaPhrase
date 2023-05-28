@@ -49,6 +49,7 @@
 	<string name="menu_segment_previous">Precedente</string>
 	<string name="message_duplicate_key">Esiste già un messaggio con la stessa chiave</string>
 	<string name="message_missing_field">Campo obbligatorio</string>
+	<string name="message_no_item_to_display">Nessun dato da visualizzare</string>
 	<string name="message_validation_invalid">Sono stati rilevati alcuni messggi non validi:</string>
 	<string name="message_validation_valid">Tutti i messaggi contengono placeholder validi</string>
 	<string name="panel_action_translation_memory">Memoria</string>
@@ -64,7 +65,8 @@
 	<string name="tooltip_move_to_next">Vai a precedente</string>
 	<string name="tooltip_move_to_previous">Vai a successivo</string>
 	<string name="tooltip_validate">Convalida</string>
-	<string name="translation_memory_similarity">somiglianza: %d</string>
+	<string name="translation_memory_similarity">somiglianza: %d%%</string>
+	<string name="translation_memory_title">Memoria di traduzione</string>
 	<string name="unit_filter_all">Tutti</string>
 	<string name="unit_filter_translatable">Traducibili</string>
 	<string name="unit_filter_untranslated">Da tradurre</string>

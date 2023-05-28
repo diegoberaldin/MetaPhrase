@@ -23,13 +23,19 @@ import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.PointerIcon
+import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import common.ui.components.CustomTooltipArea
-import common.ui.theme.Purple800
 import common.ui.theme.Spacing
 import localized
+import java.awt.Cursor
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -38,72 +44,91 @@ fun TranslationMemoryContent(
     modifier: Modifier = Modifier,
 ) {
     val uiState by component.uiState.collectAsState()
+    val pointerIcon by remember(uiState.isLoading) {
+        if (uiState.isLoading) {
+            mutableStateOf(PointerIcon(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR)))
+        } else {
+            mutableStateOf(PointerIcon(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR)))
+        }
+    }
 
-    LazyColumn(
-        modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(Spacing.xs),
+    Column(
+        modifier = Modifier.pointerHoverIcon(pointerIcon),
+        verticalArrangement = Arrangement.spacedBy(Spacing.s),
     ) {
-        itemsIndexed(uiState.units) { idx, unit ->
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-            ) {
-                // source segment
-                Box(
-                    modifier = Modifier.fillMaxWidth().background(
-                        color = Purple800,
-                        shape = RoundedCornerShape(topEnd = 4.dp, bottomStart = 4.dp, bottomEnd = 4.dp),
-                    ).padding(
-                        start = Spacing.xs,
-                        top = Spacing.xs + Spacing.xxs,
-                        end = Spacing.xs,
-                        bottom = Spacing.s,
-                    ),
-                ) {
+        Text(
+            text = "translation_memory_title".localized(),
+            style = MaterialTheme.typography.caption,
+            color = MaterialTheme.colors.onBackground,
+        )
+        LazyColumn(
+            modifier = modifier,
+            verticalArrangement = Arrangement.spacedBy(Spacing.xs),
+        ) {
+            if (uiState.units.isEmpty()) {
+                item {
                     Text(
-                        text = unit.original?.text.orEmpty(),
-                        style = MaterialTheme.typography.caption,
-                        color = Color.White,
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(Spacing.xxs))
-
-                // target segment
-                Box(
-                    modifier = Modifier.fillMaxWidth().background(
-                        color = Purple800,
-                        shape = RoundedCornerShape(topEnd = 4.dp, bottomStart = 4.dp, bottomEnd = 4.dp),
-                    ).padding(
-                        start = Spacing.xs,
-                        top = Spacing.xs + Spacing.xxs,
-                        end = Spacing.xs,
-                        bottom = Spacing.s,
-                    ),
-                ) {
-                    Text(
-                        text = unit.segment.text,
-                        style = MaterialTheme.typography.caption,
-                        color = Color.White,
-                    )
-                }
-
-                Row(modifier = Modifier.fillMaxWidth()) {
-                    Text(
-                        text = "translation_memory_similarity".localized(unit.similarity),
+                        text = "message_no_item_to_display".localized(),
                         style = MaterialTheme.typography.caption,
                         color = MaterialTheme.colors.onBackground,
                     )
-                    Spacer(modifier = Modifier.weight(1f))
-
-                    // action buttons
-                    CustomTooltipArea(text = "tooltip_copy_translation".localized()) {
-                        Icon(
-                            modifier = Modifier.size(22.dp).padding(Spacing.xxxs).onClick {
-                                component.copyTranslation(idx)
-                            },
-                            imageVector = Icons.Default.ContentCopy,
-                            contentDescription = null,
+                }
+            }
+            itemsIndexed(uiState.units) { idx, unit ->
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
+                    // source segment
+                    Box(
+                        modifier = Modifier.fillMaxWidth().background(
+                            color = Color(0xFF666666),
+                            shape = RoundedCornerShape(4.dp),
+                        ).padding(all = Spacing.xxs),
+                    ) {
+                        Text(
+                            text = unit.original?.text.orEmpty(),
+                            style = MaterialTheme.typography.caption,
+                            color = Color.White,
                         )
+                    }
+
+                    Spacer(modifier = Modifier.height(Spacing.xxs))
+
+                    // target segment
+                    Box(
+                        modifier = Modifier.fillMaxWidth().background(
+                            color = Color(0xFF666666).copy(alpha = 0.75f),
+                            shape = RoundedCornerShape(4.dp),
+                        ).padding(all = Spacing.xxs),
+                    ) {
+                        Text(
+                            text = unit.segment.text,
+                            style = MaterialTheme.typography.caption,
+                            color = Color.White,
+                        )
+                    }
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth().padding(top = Spacing.xxxs),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Text(
+                            text = "translation_memory_similarity".localized(unit.similarity),
+                            style = MaterialTheme.typography.caption.copy(fontSize = 10.sp),
+                            color = MaterialTheme.colors.onBackground.copy(alpha = 0.9f),
+                        )
+                        Spacer(modifier = Modifier.weight(1f))
+
+                        // action buttons
+                        CustomTooltipArea(text = "tooltip_copy_translation".localized()) {
+                            Icon(
+                                modifier = Modifier.size(18.dp).padding(Spacing.xxs).onClick {
+                                    component.copyTranslation(idx)
+                                },
+                                imageVector = Icons.Default.ContentCopy,
+                                contentDescription = null,
+                            )
+                        }
                     }
                 }
             }

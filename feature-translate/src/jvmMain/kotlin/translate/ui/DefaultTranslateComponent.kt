@@ -10,6 +10,7 @@ import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import com.arkivanov.essenty.lifecycle.doOnStart
 import common.coroutines.CoroutineDispatcherProvider
+import common.log.LogManager
 import common.notification.NotificationCenter
 import common.utils.getByInjection
 import common.utils.observeChildSlot
@@ -72,6 +73,7 @@ internal class DefaultTranslateComponent(
     private val exportIosResources: ExportIosResourcesUseCase,
     private val validatePlaceholders: ValidatePlaceholdersUseCase,
     private val notificationCenter: NotificationCenter,
+    private val logManager: LogManager,
 ) : TranslateComponent, ComponentContext by componentContext {
 
     private val project = MutableStateFlow<ProjectModel?>(null)
@@ -149,6 +151,7 @@ internal class DefaultTranslateComponent(
                 viewModelScope.launch {
                     configureToolbar()
                     configureMessageList()
+                    configureTranslationMemoryPanel()
                 }
 
                 toolbarNavigation.activate(ToolbarConfig)
@@ -176,7 +179,11 @@ internal class DefaultTranslateComponent(
         val messageListComponent = observeChildSlot<MessageListComponent>(messageList).first()
         val toolbarComponent = observeChildSlot<TranslateToolbarComponent>(toolbar).first()
         messageListComponent.uiState.map { it.editingIndex }.distinctUntilChanged().onEach {
-            toolbarComponent.setEditing(it != null)
+            val isEditing = it != null
+            toolbarComponent.setEditing(isEditing)
+            if (!isEditing) {
+                observeChildSlot<TranslationMemoryComponent>(panel).firstOrNull()?.clear()
+            }
         }.launchIn(this)
         observeChildSlot<NewSegmentComponent>(dialog).onEach {
             it.done.onEach { newSegment ->
@@ -194,14 +201,25 @@ internal class DefaultTranslateComponent(
                 messageListComponent.scrollToMessage(key)
             }.launchIn(this)
         }.launchIn(this)
+        messageListComponent.editedSegment.onEach { segment ->
+            val key = segment.key
+            launch {
+                val child = observeChildSlot<TranslationMemoryComponent>(panel).firstOrNull()
+                child?.loadSimilarities(
+                    key = key,
+                    projectId = project.value?.id ?: 0,
+                    languageId = toolbarComponent.uiState.value.currentLanguage?.id ?: 0,
+                )
+            }
+        }.launchIn(this)
     }
 
     private suspend fun CoroutineScope.configureToolbar() {
         val toolbarComponent = observeChildSlot<TranslateToolbarComponent>(toolbar).first()
         val messageListComponent = observeChildSlot<MessageListComponent>(messageList).first()
         toolbarComponent.projectId = projectId
-        toolbarComponent.uiState.mapLatest { it.currentLanguage to it.currentTypeFilter }
-            .distinctUntilChanged().onEach { (language, filter) ->
+        toolbarComponent.uiState.mapLatest { it.currentLanguage to it.currentTypeFilter }.distinctUntilChanged()
+            .onEach { (language, filter) ->
                 if (language == null) return@onEach
                 messageListComponent.setEditingEnabled(false)
                 messageListComponent.reloadMessages(
@@ -242,6 +260,18 @@ internal class DefaultTranslateComponent(
                     startValidation()
                 }
             }
+        }.launchIn(this)
+    }
+
+    private suspend fun CoroutineScope.configureTranslationMemoryPanel() {
+        val messageListComponent = observeChildSlot<MessageListComponent>(messageList).firstOrNull() ?: return
+        observeChildSlot<TranslationMemoryComponent>(panel).onEach { child ->
+            child.copyEvents.onEach { segmentId ->
+                val segment = segmentRepository.getById(segmentId)
+                if (segment != null) {
+                    messageListComponent.changeSegmentText(segment.text)
+                }
+            }.launchIn(this)
         }.launchIn(this)
     }
 

@@ -4,11 +4,10 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 
 interface TranslationMemoryComponent {
-    var projectId: Int
-    var languageId: Int
     val uiState: StateFlow<TranslationMemoryUiState>
     val copyEvents: SharedFlow<Int>
 
-    fun loadSimilarities(key: String)
+    fun clear()
+    fun loadSimilarities(key: String, projectId: Int, languageId: Int)
     fun copyTranslation(index: Int)
 }

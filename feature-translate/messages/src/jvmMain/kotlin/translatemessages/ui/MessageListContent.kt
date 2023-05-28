@@ -148,6 +148,7 @@ fun MessageListContent(
                         var value by remember(
                             key1 = unit.segment.id,
                             key2 = uiState.editingIndex == idx,
+                            key3 = uiState.updateTextSwitch,
                         ) {
                             mutableStateOf(
                                 TextFieldValue(
@@ -199,6 +200,7 @@ fun MessageListContent(
                         var value by remember(
                             key1 = unit.segment.id,
                             key2 = uiState.editingIndex == idx,
+                            key3 = uiState.updateTextSwitch,
                         ) {
                             mutableStateOf(
                                 TextFieldValue(

@@ -22,14 +22,14 @@ internal class DefaultTranslationMemoryRepository(
 
         val res = mutableListOf<TranslationUnit>()
         val segments = getReferenceSegments(baseLanguage, segment)
-        for (segment in segments) {
+        for (s in segments) {
             val source = original.text
-            val target = segment.text
+            val target = s.text
             val distance = levenshteinDistance(source = source, target = target)
-            val similarity = distance.toFloat() / max(source.length, target.length)
+            val similarity = 1f - distance.toFloat() / max(source.length, target.length)
             if (similarity >= threshold) {
-                val similarSource = segmentRepository.getByKey(key = segment.key, languageId = baseLanguage.id)
-                val similarTarget = segmentRepository.getByKey(key = segment.key, languageId = languageId)
+                val similarSource = segmentRepository.getByKey(key = s.key, languageId = baseLanguage.id)
+                val similarTarget = segmentRepository.getByKey(key = s.key, languageId = languageId)
                 if (similarSource != null && similarTarget != null) {
                     res += TranslationUnit(
                         original = similarSource,

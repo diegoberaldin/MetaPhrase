@@ -26,6 +26,7 @@
             <option value="$PROJECT_DIR$/feature-translate/messages" />
             <option value="$PROJECT_DIR$/feature-translate/newsegment" />
             <option value="$PROJECT_DIR$/feature-translate/toolbar" />
+            <option value="$PROJECT_DIR$/feature-translate/translationmemory" />
           </set>
         </option>
       </GradleProjectSettings>

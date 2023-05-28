@@ -30,8 +30,6 @@ internal class DefaultTranslationMemoryComponent(
     private val units = MutableStateFlow<List<TranslationUnit>>(emptyList())
     private lateinit var viewModelScope: CoroutineScope
 
-    override var projectId: Int = 0
-    override var languageId: Int = 0
     override lateinit var uiState: StateFlow<TranslationMemoryUiState>
     override val copyEvents = MutableSharedFlow<Int>()
 
@@ -44,7 +42,7 @@ internal class DefaultTranslationMemoryComponent(
                     units,
                 ) { loading, units ->
                     TranslationMemoryUiState(
-                        loading = loading,
+                        isLoading = loading,
                         units = units,
                     )
                 }.stateIn(
@@ -59,7 +57,11 @@ internal class DefaultTranslationMemoryComponent(
         }
     }
 
-    override fun loadSimilarities(key: String) {
+    override fun clear() {
+        units.value = emptyList()
+    }
+
+    override fun loadSimilarities(key: String, projectId: Int, languageId: Int) {
         viewModelScope.launch(dispatchers.io) {
             loading.value = true
             val segment = segmentRepository.getByKey(key = key, languageId = languageId) ?: return@launch
@@ -74,8 +76,10 @@ internal class DefaultTranslationMemoryComponent(
     }
 
     override fun copyTranslation(index: Int) {
-        val unit = units.value[index]
-        val segmentId = unit.segment.id
-        copyEvents.tryEmit(segmentId)
+        viewModelScope.launch {
+            val unit = units.value[index]
+            val segmentId = unit.segment.id
+            copyEvents.emit(segmentId)
+        }
     }
 }

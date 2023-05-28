@@ -8,4 +8,5 @@ data class MessageListUiState(
     val editingIndex: Int? = null,
     val currentLanguage: LanguageModel? = null,
     val editingEnabled: Boolean = true,
+    val updateTextSwitch: Boolean = false,
 )
