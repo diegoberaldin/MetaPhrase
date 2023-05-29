@@ -52,8 +52,7 @@
 	<string name="message_no_item_to_display">Nessun dato da visualizzare</string>
 	<string name="message_validation_invalid">Sono stati rilevati alcuni messggi non validi:</string>
 	<string name="message_validation_valid">Tutti i messaggi contengono placeholder validi</string>
-	<string name="panel_action_translation_memory">Memoria</string>
-	<string name="status_bar_project">progetto: %s</string>
+	<string name="panel_section_matches">Corrispondenze</string>
 	<string name="status_bar_units">messaggi: %d</string>
 	<string name="toolbar_search_placeholder">Cerca…</string>
 	<string name="tooltip_add">Aggiungi</string>

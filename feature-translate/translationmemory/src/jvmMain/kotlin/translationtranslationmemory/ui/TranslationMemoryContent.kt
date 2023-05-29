@@ -2,6 +2,7 @@ package translationtranslationmemory.ui
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,6 +21,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ContentCopy
+import androidx.compose.material.icons.filled.Minimize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -41,6 +43,7 @@ import java.awt.Cursor
 @Composable
 fun TranslationMemoryContent(
     component: TranslationMemoryComponent,
+    onMinify: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val uiState by component.uiState.collectAsState()
@@ -56,11 +59,24 @@ fun TranslationMemoryContent(
         modifier = Modifier.pointerHoverIcon(pointerIcon),
         verticalArrangement = Arrangement.spacedBy(Spacing.s),
     ) {
-        Text(
-            text = "translation_memory_title".localized(),
-            style = MaterialTheme.typography.caption,
-            color = MaterialTheme.colors.onBackground,
-        )
+        Box(modifier = Modifier.fillMaxWidth()) {
+            Text(
+                modifier = Modifier.align(Alignment.CenterStart),
+                text = "translation_memory_title".localized(),
+                style = MaterialTheme.typography.caption,
+                color = MaterialTheme.colors.onBackground,
+            )
+            CustomTooltipArea(
+                modifier = Modifier.align(Alignment.TopEnd),
+                text = "tooltip_minify".localized()
+            ) {
+                Icon(
+                    modifier = Modifier.size(24.dp).padding(top = 2.dp, bottom = 8.dp).onClick { onMinify() },
+                    imageVector = Icons.Default.Minimize,
+                    contentDescription = null
+                )
+            }
+        }
         LazyColumn(
             modifier = modifier,
             verticalArrangement = Arrangement.spacedBy(Spacing.xs),

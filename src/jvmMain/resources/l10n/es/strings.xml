@@ -49,11 +49,10 @@
 	<string name="menu_segment_previous">Anterior</string>
 	<string name="message_duplicate_key">Ya existe un mensaje con la misma llave</string>
 	<string name="message_missing_field">Información obligatoria</string>
-	<string name="message_no_item_to_display">Ninguna información para visualizar</string>
+	<string name="message_no_item_to_display">Ningún elemento para visualizar</string>
 	<string name="message_validation_invalid">Se han encontrado algunos mensajes no válidos:</string>
 	<string name="message_validation_valid">Todos los mensajes contienen especificadores válidos</string>
-	<string name="panel_action_translation_memory">Memoria</string>
-	<string name="status_bar_project">proyecto: %s</string>
+	<string name="panel_section_matches">Correspondencias</string>
 	<string name="status_bar_units">mensajes: %d</string>
 	<string name="toolbar_search_placeholder">Buscar…</string>
 	<string name="tooltip_add">Añadir</string>
@@ -62,6 +61,7 @@
 	<string name="tooltip_delete">Eliminar</string>
 	<string name="tooltip_make_translatable">Contraseñar como traducible</string>
 	<string name="tooltip_make_untranslatable">Contraseñar como no traducible</string>
+	<string name="tooltip_minify">Minimizza</string>
 	<string name="tooltip_move_to_next">Pasar al siguiente</string>
 	<string name="tooltip_move_to_previous">Pasar al anterior</string>
 	<string name="tooltip_validate">Convalidar</string>

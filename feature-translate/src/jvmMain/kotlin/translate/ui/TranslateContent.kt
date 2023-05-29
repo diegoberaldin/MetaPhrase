@@ -76,8 +76,9 @@ fun TranslateContent(
                         reverseDirection = true
                     )
                 ) {
+                    Spacer(modifier = Modifier.height(Spacing.xxxs))
                     Divider()
-                    Spacer(modifier = Modifier.height(Spacing.s))
+                    Spacer(modifier = Modifier.height(Spacing.xs))
                 }
                 when (panelConfiguration) {
                     PanelConfig.TranslationMemory -> {
@@ -85,6 +86,7 @@ fun TranslateContent(
                         TranslationMemoryContent(
                             modifier = Modifier.fillMaxWidth().weight(1f),
                             component = childComponent,
+                            onMinify = { component.togglePanel(PanelConfig.TranslationMemory) }
                         )
                     }
 
@@ -109,7 +111,7 @@ fun TranslateContent(
                         .onClick {
                             component.togglePanel(PanelConfig.TranslationMemory)
                         },
-                    text = "panel_action_translation_memory".localized(),
+                    text = "panel_section_matches".localized(),
                     style = MaterialTheme.typography.caption,
                     color = MaterialTheme.colors.onBackground.copy(
                         alpha = if (panel.child?.configuration == PanelConfig.TranslationMemory) 1f else 0.7f,

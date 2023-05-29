@@ -77,8 +77,7 @@
 	<string name="message_no_item_to_display">No item to display</string>
 	<string name="message_validation_invalid">Some invalid messages were found:</string>
 	<string name="message_validation_valid">All messages contain valid placeholders</string>
-	<string name="panel_action_translation_memory">Memory</string>
-	<string name="status_bar_project">project: %s</string>
+	<string name="panel_section_matches">Matches</string>
 	<string name="status_bar_units">messages: %d</string>
 	<string name="toolbar_search_placeholder">Search…</string>
 	<string name="tooltip_add">Add</string>
@@ -87,6 +86,7 @@
 	<string name="tooltip_delete">Delete</string>
 	<string name="tooltip_make_translatable">Make translatable</string>
 	<string name="tooltip_make_untranslatable">Make untranslatable</string>
+	<string name="tooltip_minify">Minify</string>
 	<string name="tooltip_move_to_next">Move to next</string>
 	<string name="tooltip_move_to_previous">Move to previous</string>
 	<string name="tooltip_validate">Validate</string>
