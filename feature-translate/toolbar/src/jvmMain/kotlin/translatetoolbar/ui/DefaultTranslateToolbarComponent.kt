@@ -40,7 +40,7 @@ internal class DefaultTranslateToolbarComponent(
             field = value
             loadLanguages()
         }
-    private val currentLanguage = MutableStateFlow<LanguageModel?>(null)
+    override val currentLanguage = MutableStateFlow<LanguageModel?>(null)
     private val currentTypeFilter = MutableStateFlow(TranslationUnitTypeFilter.ALL)
     private val availableLanguages = MutableStateFlow<List<LanguageModel>>(emptyList())
     private val availableFilters = MutableStateFlow(

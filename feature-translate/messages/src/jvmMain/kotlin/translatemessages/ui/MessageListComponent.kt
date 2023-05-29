@@ -10,7 +10,7 @@ interface MessageListComponent {
 
     val uiState: StateFlow<MessageListUiState>
     val selectionEvents: SharedFlow<Int>
-    val editedSegment: SharedFlow<SegmentModel>
+    val editedSegment: StateFlow<SegmentModel?>
 
     fun reloadMessages(language: LanguageModel, filter: TranslationUnitTypeFilter, projectId: Int)
     fun refresh()

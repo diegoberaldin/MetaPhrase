@@ -15,6 +15,7 @@ val translateTranslationMemoryModule = module {
             dispatchers = get(),
             segmentRepository = get(),
             translationMemoryRepository = get(),
+            keyStore = get(),
         )
     }
 }

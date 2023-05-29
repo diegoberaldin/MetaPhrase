@@ -30,6 +30,7 @@ internal class DefaultSettingsComponent(
 
     private val availableLanguages = MutableStateFlow<List<LanguageModel>>(emptyList())
     private val currentLanguage = MutableStateFlow<LanguageModel?>(null)
+    private val similarityThreshold = MutableStateFlow("")
     private val appVersion = MutableStateFlow("")
     private lateinit var viewModelScope: CoroutineScope
 
@@ -42,11 +43,13 @@ internal class DefaultSettingsComponent(
                 uiState = combine(
                     availableLanguages,
                     currentLanguage,
+                    similarityThreshold,
                     appVersion,
-                ) { availableLanguages, currentLanguage, appVersion ->
+                ) { availableLanguages, currentLanguage, similarityThreshold, appVersion ->
                     SettingsUiState(
                         currentLanguage = currentLanguage,
                         availableLanguages = availableLanguages,
+                        similarityThreshold = similarityThreshold,
                         appVersion = appVersion,
                     )
                 }.stateIn(
@@ -59,6 +62,8 @@ internal class DefaultSettingsComponent(
                 viewModelScope.launch(dispatchers.io) {
                     val langCode = "lang".localized()
                     currentLanguage.value = completeLanguage(LanguageModel(code = langCode))
+                    val similarity = keyStore.get("similarity_threshold", 75)
+                    similarityThreshold.value = similarity.toString()
                 }
 
                 availableLanguages.value = listOf(
@@ -82,6 +87,14 @@ internal class DefaultSettingsComponent(
         L10n.setLanguage(lang = langCode)
         viewModelScope.launch(dispatchers.io) {
             keyStore.save("lang", langCode)
+        }
+    }
+
+    override fun setSimilarity(value: String) {
+        val newValue = (value.toIntOrNull() ?: 75).coerceIn(0, 100)
+        similarityThreshold.value = newValue.toString()
+        viewModelScope.launch(dispatchers.io) {
+            keyStore.save("similarity_threshold", newValue)
         }
     }
 }

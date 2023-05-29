@@ -14,9 +14,8 @@ import com.arkivanov.essenty.lifecycle.doOnStart
 import com.arkivanov.essenty.lifecycle.doOnStop
 import common.coroutines.CoroutineDispatcherProvider
 import common.notification.NotificationCenter
+import common.utils.asFlow
 import common.utils.getByInjection
-import common.utils.observeChildSlot
-import common.utils.observeNullableChildSlot
 import data.LanguageModel
 import data.ProjectModel
 import data.ResourceFileType
@@ -33,7 +32,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
@@ -89,21 +87,21 @@ internal class DefaultRootComponent(
         with(lifecycle) {
             doOnCreate {
                 viewModelScope = CoroutineScope(coroutineContext + SupervisorJob())
-                activeProject = observeNullableChildSlot<ProjectsComponent>(main).flatMapLatest {
+                activeProject = main.asFlow<ProjectsComponent>(true).flatMapLatest {
                     it?.activeProject ?: snapshotFlow { null }
                 }.stateIn(
                     scope = viewModelScope,
                     started = SharingStarted.WhileSubscribed(5_000),
                     initialValue = null,
                 )
-                isEditing = observeNullableChildSlot<ProjectsComponent>(main).flatMapLatest {
+                isEditing = main.asFlow<ProjectsComponent>(true).flatMapLatest {
                     it?.isEditing ?: snapshotFlow { false }
                 }.stateIn(
                     scope = viewModelScope,
                     started = SharingStarted.WhileSubscribed(5_000),
                     initialValue = false,
                 )
-                currentLanguage = observeNullableChildSlot<ProjectsComponent>(main).flatMapLatest {
+                currentLanguage = main.asFlow<ProjectsComponent>(true).flatMapLatest {
                     it?.currentLanguage ?: snapshotFlow { null }
                 }.stateIn(
                     scope = viewModelScope,
@@ -177,7 +175,7 @@ internal class DefaultRootComponent(
                             closeDialog()
                         }
                         if (projectId != null) {
-                            when (val child = observeChildSlot<Any>(main).first()) {
+                            when (val child = main.asFlow<Any>().firstOrNull()) {
                                 is ProjectsComponent -> {
                                     child.open(projectId)
                                 }
@@ -187,7 +185,7 @@ internal class DefaultRootComponent(
                                         mainNavigation.activate(RootComponent.Config.Projects)
                                     }
                                     delay(100)
-                                    observeChildSlot<ProjectsComponent>(main).firstOrNull()?.open(projectId)
+                                    main.asFlow<ProjectsComponent>().firstOrNull()?.open(projectId)
                                 }
                             }
                         }
@@ -248,7 +246,7 @@ internal class DefaultRootComponent(
 
     override fun import(path: String, type: ResourceFileType) {
         viewModelScope.launch(dispatchers.io) {
-            observeChildSlot<ProjectsComponent>(main).firstOrNull()?.import(
+            main.asFlow<ProjectsComponent>().firstOrNull()?.import(
                 path = path,
                 type = type,
             )
@@ -257,7 +255,7 @@ internal class DefaultRootComponent(
 
     override fun export(path: String, type: ResourceFileType) {
         viewModelScope.launch(dispatchers.io) {
-            observeChildSlot<ProjectsComponent>(main).firstOrNull()?.export(
+            main.asFlow<ProjectsComponent>().firstOrNull()?.export(
                 path = path,
                 type = type,
             )
@@ -266,37 +264,37 @@ internal class DefaultRootComponent(
 
     override fun moveToPreviousSegment() {
         viewModelScope.launch(dispatchers.io) {
-            observeChildSlot<ProjectsComponent>(main).firstOrNull()?.moveToPrevious()
+            main.asFlow<ProjectsComponent>().firstOrNull()?.moveToPrevious()
         }
     }
 
     override fun moveToNextSegment() {
         viewModelScope.launch(dispatchers.io) {
-            observeChildSlot<ProjectsComponent>(main).firstOrNull()?.moveToNext()
+            main.asFlow<ProjectsComponent>().firstOrNull()?.moveToNext()
         }
     }
 
     override fun endEditing() {
         viewModelScope.launch(dispatchers.io) {
-            observeChildSlot<ProjectsComponent>(main).firstOrNull()?.endEditing()
+            main.asFlow<ProjectsComponent>().firstOrNull()?.endEditing()
         }
     }
 
     override fun copyBase() {
         viewModelScope.launch(dispatchers.io) {
-            observeChildSlot<ProjectsComponent>(main).firstOrNull()?.copyBase()
+            main.asFlow<ProjectsComponent>().firstOrNull()?.copyBase()
         }
     }
 
     override fun addSegment() {
         viewModelScope.launch(dispatchers.io) {
-            observeChildSlot<ProjectsComponent>(main).firstOrNull()?.addSegment()
+            main.asFlow<ProjectsComponent>().firstOrNull()?.addSegment()
         }
     }
 
     override fun deleteSegment() {
         viewModelScope.launch(dispatchers.io) {
-            observeChildSlot<ProjectsComponent>(main).firstOrNull()?.deleteSegment()
+            main.asFlow<ProjectsComponent>().firstOrNull()?.deleteSegment()
         }
     }
 

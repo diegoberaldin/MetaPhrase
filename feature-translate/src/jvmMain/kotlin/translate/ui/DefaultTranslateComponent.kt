@@ -12,8 +12,8 @@ import com.arkivanov.essenty.lifecycle.doOnStart
 import common.coroutines.CoroutineDispatcherProvider
 import common.log.LogManager
 import common.notification.NotificationCenter
+import common.utils.asFlow
 import common.utils.getByInjection
-import common.utils.observeChildSlot
 import data.LanguageModel
 import data.ProjectModel
 import data.ResourceFileType
@@ -22,14 +22,13 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
@@ -120,15 +119,18 @@ internal class DefaultTranslateComponent(
     )
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    override val isEditing
-        get() = observeChildSlot<MessageListComponent>(messageList).flatMapLatest { it.uiState }.distinctUntilChanged()
-            .map { it.editingIndex != null }
+    override val isEditing: StateFlow<Boolean>
+        get() = messageList.asFlow<MessageListComponent>().filterNotNull().flatMapLatest { it.editedSegment }.map { it != null }
             .stateIn(viewModelScope, initialValue = false, started = SharingStarted.WhileSubscribed(5000))
 
     override val currentLanguage: StateFlow<LanguageModel?>
-        get() = observeChildSlot<TranslateToolbarComponent>(toolbar).flatMapLatest { it.uiState }.distinctUntilChanged()
-            .map { it.currentLanguage }
-            .stateIn(viewModelScope, initialValue = null, started = SharingStarted.WhileSubscribed(5000))
+        get() {
+            return toolbar.asFlow<TranslateToolbarComponent>().filterNotNull().flatMapLatest { it.currentLanguage }
+                .stateIn(viewModelScope, initialValue = null, started = SharingStarted.WhileSubscribed(5000))
+        }
+
+    private suspend fun getCurrentLanguage(): LanguageModel? =
+        toolbar.asFlow<TranslateToolbarComponent>().firstOrNull()?.currentLanguage?.value
 
     init {
         with(lifecycle) {
@@ -177,49 +179,40 @@ internal class DefaultTranslateComponent(
     }
 
     private suspend fun CoroutineScope.configureMessageList() {
-        val messageListComponent = observeChildSlot<MessageListComponent>(messageList).first()
-        val toolbarComponent = observeChildSlot<TranslateToolbarComponent>(toolbar).first()
-        messageListComponent.uiState.map { it.editingIndex }.distinctUntilChanged().onEach { idx ->
-            val isEditing = idx != null
+        val messageListComponent = messageList.asFlow<MessageListComponent>().firstOrNull() ?: return
+        val toolbarComponent = toolbar.asFlow<TranslateToolbarComponent>().firstOrNull() ?: return
+        messageListComponent.editedSegment.onEach { segment ->
+            val isEditing = segment != null
             toolbarComponent.setEditing(isEditing)
             if (!isEditing) {
-                observeChildSlot<TranslationMemoryComponent>(panel).firstOrNull()?.clear()
+                panel.asFlow<TranslationMemoryComponent>().firstOrNull()?.clear()
             }
         }.launchIn(this)
-        observeChildSlot<NewSegmentComponent>(dialog).onEach {
+        dialog.asFlow<NewSegmentComponent>().filterNotNull().onEach {
             it.done.onEach { newSegment ->
                 withContext(dispatchers.main) {
                     dialogNavigation.activate(DialogConfig.None)
                 }
                 if (newSegment != null) {
                     updateUnitCount()
-                    observeChildSlot<MessageListComponent>(messageList).firstOrNull()?.refresh()
+                    messageListComponent.refresh()
                 }
             }.launchIn(this)
         }.launchIn(this)
-        observeChildSlot<InvalidSegmentComponent>(dialog).onEach {
-            it.selectionEvents.onEach { key ->
-                messageListComponent.scrollToMessage(key)
-            }.launchIn(this)
-        }.launchIn(this)
-        messageListComponent.editedSegment.onEach { segment ->
+        messageListComponent.editedSegment.filterNotNull().onEach { segment ->
             val key = segment.key
-            coroutineScope {
-                launch {
-                    val child = observeChildSlot<TranslationMemoryComponent>(panel).firstOrNull()
-                    child?.loadSimilarities(
-                        key = key,
-                        projectId = project.value?.id ?: 0,
-                        languageId = toolbarComponent.uiState.value.currentLanguage?.id ?: 0,
-                    )
-                }
-            }
+            val child = panel.asFlow<TranslationMemoryComponent>().firstOrNull()
+            child?.loadSimilarities(
+                key = key,
+                projectId = project.value?.id ?: 0,
+                languageId = getCurrentLanguage()?.id ?: 0,
+            )
         }.launchIn(this)
     }
 
     private suspend fun CoroutineScope.configureToolbar() {
-        val toolbarComponent = observeChildSlot<TranslateToolbarComponent>(toolbar).first()
-        val messageListComponent = observeChildSlot<MessageListComponent>(messageList).first()
+        val messageListComponent = messageList.asFlow<MessageListComponent>().firstOrNull() ?: return
+        val toolbarComponent = toolbar.asFlow<TranslateToolbarComponent>().firstOrNull() ?: return
         toolbarComponent.projectId = projectId
         toolbarComponent.uiState.mapLatest { it.currentLanguage to it.currentTypeFilter }.distinctUntilChanged()
             .onEach { (language, filter) ->
@@ -232,7 +225,7 @@ internal class DefaultTranslateComponent(
                 )
                 messageListComponent.setEditingEnabled(true)
                 // resets the current validation
-                observeChildSlot<InvalidSegmentComponent>(panel).firstOrNull()?.clear()
+                panel.asFlow<InvalidSegmentComponent>().firstOrNull()?.clear()
             }.launchIn(this)
         toolbarComponent.events.onEach { evt ->
             when (evt) {
@@ -269,8 +262,8 @@ internal class DefaultTranslateComponent(
     }
 
     private suspend fun CoroutineScope.configurePanel() {
-        val messageListComponent = observeChildSlot<MessageListComponent>(messageList).firstOrNull() ?: return
-        observeChildSlot<TranslationMemoryComponent>(panel).onEach { child ->
+        val messageListComponent = messageList.asFlow<MessageListComponent>().firstOrNull() ?: return
+        panel.asFlow<TranslationMemoryComponent>().filterNotNull().onEach { child ->
             child.copyEvents.onEach { segmentId ->
                 val segment = segmentRepository.getById(segmentId)
                 if (segment != null) {
@@ -278,7 +271,7 @@ internal class DefaultTranslateComponent(
                 }
             }.launchIn(this)
         }.launchIn(this)
-        observeChildSlot<InvalidSegmentComponent>(panel).onEach { child ->
+        panel.asFlow<InvalidSegmentComponent>().filterNotNull().onEach { child ->
             child.selectionEvents.onEach { key ->
                 messageListComponent.scrollToMessage(key)
             }.launchIn(this)
@@ -326,10 +319,9 @@ internal class DefaultTranslateComponent(
 
     override fun import(path: String, type: ResourceFileType) {
         viewModelScope.launch(dispatchers.io) {
-            val toolbarState = observeChildSlot<TranslateToolbarComponent>(toolbar).first().uiState.value
-            val language = toolbarState.currentLanguage ?: return@launch
+            val language = getCurrentLanguage() ?: return@launch
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
-            val messageListComponent = observeChildSlot<MessageListComponent>(messageList).firstOrNull()
+            val messageListComponent = messageList.asFlow<MessageListComponent>().firstOrNull()
             messageListComponent?.setEditingEnabled(false)
             messageListComponent?.clearMessages()
             when (type) {
@@ -363,8 +355,7 @@ internal class DefaultTranslateComponent(
 
     override fun export(path: String, type: ResourceFileType) {
         viewModelScope.launch(dispatchers.io) {
-            val language = observeChildSlot<TranslateToolbarComponent>(toolbar).first().uiState.value.currentLanguage
-                ?: return@launch
+            val language = getCurrentLanguage() ?: return@launch
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
             val segments = segmentRepository.getAll(language.id)
             when (type) {
@@ -398,25 +389,25 @@ internal class DefaultTranslateComponent(
 
     override fun moveToPrevious() {
         viewModelScope.launch(dispatchers.io) {
-            observeChildSlot<MessageListComponent>(messageList).first().moveToPrevious()
+            messageList.asFlow<MessageListComponent>().firstOrNull()?.moveToPrevious()
         }
     }
 
     override fun moveToNext() {
         viewModelScope.launch(dispatchers.io) {
-            observeChildSlot<MessageListComponent>(messageList).first().moveToNext()
+            messageList.asFlow<MessageListComponent>().firstOrNull()?.moveToNext()
         }
     }
 
     override fun endEditing() {
         viewModelScope.launch(dispatchers.io) {
-            observeChildSlot<MessageListComponent>(messageList).first().endEditing()
+            messageList.asFlow<MessageListComponent>().firstOrNull()?.endEditing()
         }
     }
 
     override fun copyBase() {
         viewModelScope.launch(dispatchers.io) {
-            observeChildSlot<MessageListComponent>(messageList).first().copyBase()
+            messageList.asFlow<MessageListComponent>().firstOrNull()?.copyBase()
         }
     }
 
@@ -428,15 +419,14 @@ internal class DefaultTranslateComponent(
 
     override fun deleteSegment() {
         viewModelScope.launch(dispatchers.io) {
-            observeChildSlot<MessageListComponent>(messageList).first().deleteSegment()
+            messageList.asFlow<MessageListComponent>().firstOrNull()?.deleteSegment()
         }
     }
 
     private fun startValidation() {
         val projectId = project.value?.id ?: return
         viewModelScope.launch(dispatchers.io) {
-            val toolbarState = observeChildSlot<TranslateToolbarComponent>(toolbar).first().uiState.value
-            val language = toolbarState.currentLanguage ?: return@launch
+            val language = getCurrentLanguage() ?: return@launch
             val baseLanguage = languageRepository.getBase(projectId) ?: return@launch
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
             val segmentPairs = segmentRepository.getAll(language.id).map {
@@ -450,14 +440,14 @@ internal class DefaultTranslateComponent(
             withContext(dispatchers.main) {
                 panelNavigation.activate(PanelConfig.Validation)
             }
-            val child = observeChildSlot<InvalidSegmentComponent>(panel).first()
+            val child = panel.asFlow<InvalidSegmentComponent>().firstOrNull()
             when (result) {
                 ValidatePlaceholdersUseCase.Output.Valid -> {
-                    child.load(projectId, language.id, invalidKeys = emptyList())
+                    child?.load(projectId, language.id, invalidKeys = emptyList())
                 }
 
                 is ValidatePlaceholdersUseCase.Output.Invalid -> {
-                    child.load(projectId, language.id, invalidKeys = result.keys)
+                    child?.load(projectId, language.id, invalidKeys = result.keys)
                 }
             }
         }
@@ -467,6 +457,20 @@ internal class DefaultTranslateComponent(
         when (panel.value.child?.configuration) {
             config -> panelNavigation.activate(PanelConfig.None)
             else -> panelNavigation.activate(config)
+        }
+    }
+
+    override fun tryLoadSimilarities() {
+        viewModelScope.launch(dispatchers.io) {
+            delay(100)
+            val currentKey = messageList.asFlow<MessageListComponent>().firstOrNull()?.editedSegment?.value?.key
+            if (currentKey != null) {
+                panel.asFlow<TranslationMemoryComponent>().firstOrNull()?.loadSimilarities(
+                    key = currentKey,
+                    languageId = getCurrentLanguage()?.id ?: 0,
+                    projectId = project.value?.id ?: 0,
+                )
+            }
         }
     }
 

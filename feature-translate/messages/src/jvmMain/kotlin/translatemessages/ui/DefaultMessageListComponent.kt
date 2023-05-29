@@ -16,13 +16,11 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.getAndUpdate
-import kotlinx.coroutines.flow.mapNotNull
-import kotlinx.coroutines.flow.shareIn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import repository.local.LanguageRepository
@@ -51,7 +49,7 @@ internal class DefaultMessageListComponent(
 
     override lateinit var uiState: StateFlow<MessageListUiState>
     override val selectionEvents = MutableSharedFlow<Int>()
-    override lateinit var editedSegment: SharedFlow<SegmentModel>
+    override lateinit var editedSegment: StateFlow<SegmentModel?>
 
     init {
         with(lifecycle) {
@@ -76,15 +74,16 @@ internal class DefaultMessageListComponent(
                     started = SharingStarted.WhileSubscribed(5_000),
                     initialValue = MessageListUiState(),
                 )
-                editedSegment = editingIndex.mapNotNull {
+                editedSegment = editingIndex.map {
                     if (it != null) {
                         units.value[it].segment
                     } else {
                         null
                     }
-                }.shareIn(
+                }.stateIn(
                     scope = viewModelScope,
                     started = SharingStarted.WhileSubscribed(5_000),
+                    initialValue = null,
                 )
             }
             doOnDestroy {

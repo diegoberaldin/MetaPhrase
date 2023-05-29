@@ -4,6 +4,7 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import common.coroutines.CoroutineDispatcherProvider
+import common.keystore.TemporaryKeyStore
 import data.TranslationUnit
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
@@ -25,6 +26,7 @@ internal class DefaultTranslationMemoryComponent(
     private val dispatchers: CoroutineDispatcherProvider,
     private val segmentRepository: SegmentRepository,
     private var translationMemoryRepository: TranslationMemoryRepository,
+    private val keyStore: TemporaryKeyStore,
 ) : TranslationMemoryComponent, ComponentContext by componentContext {
     private val loading = MutableStateFlow(false)
     private val units = MutableStateFlow<List<TranslationUnit>>(emptyList())
@@ -65,11 +67,13 @@ internal class DefaultTranslationMemoryComponent(
         viewModelScope.launch(dispatchers.io) {
             loading.value = true
             val segment = segmentRepository.getByKey(key = key, languageId = languageId) ?: return@launch
+            val similarityThreshold = keyStore.get("similarity_threshold", 75) / 100f
 
             units.value = translationMemoryRepository.getSimilarities(
                 segment = segment,
                 projectId = projectId,
                 languageId = languageId,
+                threshold = similarityThreshold,
             )
             loading.value = false
         }
