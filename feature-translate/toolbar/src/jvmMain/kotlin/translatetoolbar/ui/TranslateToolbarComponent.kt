@@ -10,6 +10,7 @@ interface TranslateToolbarComponent {
     var projectId: Int
     val uiState: StateFlow<TranslateToolbarUiState>
     val events: SharedFlow<Events>
+    val currentLanguage: StateFlow<LanguageModel?>
 
     fun setLanguage(value: LanguageModel)
     fun setTypeFilter(value: TranslationUnitTypeFilter)

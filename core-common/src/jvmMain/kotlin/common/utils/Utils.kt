@@ -3,12 +3,17 @@ package common.utils
 import com.arkivanov.decompose.router.slot.ChildSlot
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.value.Value
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.timeout
 import org.koin.core.parameter.parametersOf
 import org.koin.java.KoinJavaComponent
 import javax.swing.SwingUtilities
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.milliseconds
 
 fun <T> runOnUiThread(block: () -> T): T {
     if (SwingUtilities.isEventDispatchThread()) {
@@ -44,58 +49,44 @@ inline fun <reified T> getByInjection(vararg params: Any?): T {
     return res
 }
 
-inline fun <reified T> observeChildStack(childStack: Value<ChildStack<*, *>>): Flow<T> = callbackFlow {
-    val observer: (ChildStack<*, *>) -> Unit = {
-        val child = it.active.instance
-        if (T::class.java.isInstance(child)) {
-            trySend(child as T)
-        }
-    }
-    childStack.subscribe(observer)
-    awaitClose {
-        childStack.unsubscribe(observer)
-    }
-}
-
-inline fun <reified T> observeNullableChildStack(childStack: Value<ChildStack<*, *>>): Flow<T?> = callbackFlow {
+@OptIn(FlowPreview::class)
+inline fun <reified T> Value<ChildStack<*, *>>.activeAsFlow(
+    withNullsIfNotInstance: Boolean = false,
+    timeout: Duration = 500.milliseconds,
+): Flow<T?> = callbackFlow {
     val observer: (ChildStack<*, *>) -> Unit = {
         val child = it.active.instance
         if (T::class.java.isInstance(child)) {
             trySend(child as T)
         } else {
-            trySend(null)
+            if (withNullsIfNotInstance) {
+                trySend(null)
+            }
         }
     }
-    childStack.subscribe(observer)
+    subscribe(observer)
     awaitClose {
-        childStack.unsubscribe(observer)
+        unsubscribe(observer)
     }
-}
+}.timeout(timeout).catch { emit(null) }
 
-inline fun <reified T> observeChildSlot(childStack: Value<ChildSlot<*, *>>): Flow<T> = callbackFlow {
-    val observer: (ChildSlot<*, *>) -> Unit = {
-        val child = it.child?.instance
-        if (T::class.java.isInstance(child)) {
-            trySend(child as T)
-        }
-    }
-    childStack.subscribe(observer)
-    awaitClose {
-        childStack.unsubscribe(observer)
-    }
-}
-
-inline fun <reified T> observeNullableChildSlot(childStack: Value<ChildSlot<*, *>>): Flow<T?> = callbackFlow {
+@OptIn(FlowPreview::class)
+inline fun <reified T> Value<ChildSlot<*, *>>.asFlow(
+    withNullsIfNotInstance: Boolean = false,
+    timeout: Duration = 500.milliseconds,
+): Flow<T?> = callbackFlow {
     val observer: (ChildSlot<*, *>) -> Unit = {
         val child = it.child?.instance
         if (T::class.java.isInstance(child)) {
             trySend(child as T)
         } else {
-            trySend(null)
+            if (withNullsIfNotInstance) {
+                trySend(null)
+            }
         }
     }
-    childStack.subscribe(observer)
+    subscribe(observer)
     awaitClose {
-        childStack.unsubscribe(observer)
+        unsubscribe(observer)
     }
-}
+}.timeout(timeout).catch { emit(null) }

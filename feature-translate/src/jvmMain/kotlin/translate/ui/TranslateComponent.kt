@@ -31,6 +31,7 @@ interface TranslateComponent {
     fun deleteSegment()
     fun closeDialog()
     fun togglePanel(config: PanelConfig)
+    fun tryLoadSimilarities()
 
     @Parcelize
     object ToolbarConfig : Parcelable

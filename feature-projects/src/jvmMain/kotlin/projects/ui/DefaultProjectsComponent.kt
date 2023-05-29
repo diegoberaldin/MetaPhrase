@@ -11,9 +11,8 @@ import com.arkivanov.essenty.lifecycle.doOnDestroy
 import com.arkivanov.essenty.lifecycle.doOnStart
 import common.coroutines.CoroutineDispatcherProvider
 import common.keystore.TemporaryKeyStore
+import common.utils.activeAsFlow
 import common.utils.getByInjection
-import common.utils.observeChildStack
-import common.utils.observeNullableChildStack
 import data.LanguageModel
 import data.ProjectModel
 import data.ResourceFileType
@@ -24,6 +23,7 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
@@ -62,18 +62,18 @@ internal class DefaultProjectsComponent(
         with(lifecycle) {
             doOnCreate {
                 viewModelScope = CoroutineScope(coroutineContext + SupervisorJob())
-                observeChildStack<ProjectListComponent>(childStack).flatMapLatest { it.projectSelected }
+                childStack.activeAsFlow<ProjectListComponent>().filterNotNull().flatMapLatest { it.projectSelected }
                     .onEach { project ->
                         openProject(project.id)
                     }.launchIn(viewModelScope)
-                isEditing = observeNullableChildStack<TranslateComponent>(childStack).flatMapLatest {
+                isEditing = childStack.activeAsFlow<TranslateComponent>(true).flatMapLatest {
                     it?.isEditing ?: snapshotFlow { false }
                 }.stateIn(
                     scope = viewModelScope,
                     started = SharingStarted.WhileSubscribed(5_000),
                     initialValue = false,
                 )
-                currentLanguage = observeNullableChildStack<TranslateComponent>(childStack).flatMapLatest {
+                currentLanguage = childStack.activeAsFlow<TranslateComponent>(true).flatMapLatest {
                     it?.currentLanguage ?: snapshotFlow { null }
                 }.stateIn(
                     scope = viewModelScope,
@@ -150,7 +150,7 @@ internal class DefaultProjectsComponent(
 
     override fun import(path: String, type: ResourceFileType) {
         viewModelScope.launch(dispatchers.io) {
-            observeChildStack<TranslateComponent>(childStack).firstOrNull()?.import(
+            childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.import(
                 path = path,
                 type = type,
             )
@@ -159,7 +159,7 @@ internal class DefaultProjectsComponent(
 
     override fun export(path: String, type: ResourceFileType) {
         viewModelScope.launch(dispatchers.io) {
-            observeChildStack<TranslateComponent>(childStack).firstOrNull()?.export(
+            childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.export(
                 path = path,
                 type = type,
             )
@@ -168,37 +168,37 @@ internal class DefaultProjectsComponent(
 
     override fun moveToPrevious() {
         viewModelScope.launch(dispatchers.io) {
-            observeChildStack<TranslateComponent>(childStack).firstOrNull()?.moveToPrevious()
+            childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.moveToPrevious()
         }
     }
 
     override fun moveToNext() {
         viewModelScope.launch(dispatchers.io) {
-            observeChildStack<TranslateComponent>(childStack).firstOrNull()?.moveToNext()
+            childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.moveToNext()
         }
     }
 
     override fun endEditing() {
         viewModelScope.launch(dispatchers.io) {
-            observeChildStack<TranslateComponent>(childStack).firstOrNull()?.endEditing()
+            childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.endEditing()
         }
     }
 
     override fun copyBase() {
         viewModelScope.launch(dispatchers.io) {
-            observeChildStack<TranslateComponent>(childStack).firstOrNull()?.copyBase()
+            childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.copyBase()
         }
     }
 
     override fun addSegment() {
         viewModelScope.launch(dispatchers.io) {
-            observeChildStack<TranslateComponent>(childStack).firstOrNull()?.addSegment()
+            childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.addSegment()
         }
     }
 
     override fun deleteSegment() {
         viewModelScope.launch(dispatchers.io) {
-            observeChildStack<TranslateComponent>(childStack).firstOrNull()?.deleteSegment()
+            childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.deleteSegment()
         }
     }
 }
