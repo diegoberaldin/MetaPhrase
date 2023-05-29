@@ -23,6 +23,7 @@ include(
     ":core-data",
     ":core-persistence",
     ":core-repository",
+    ":core-translationmemory",
 
     ":feature-main",
     ":feature-main:settings",
@@ -38,4 +39,5 @@ include(
     ":feature-translate:messages",
     ":feature-translate:newsegment",
     ":feature-translate:invalidsegments",
+    ":feature-translate:translationmemory",
 )

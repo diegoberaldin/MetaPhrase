@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="messages-jvm-1.0.0-alpha02">
+    <output-path>$PROJECT_DIR$/feature-translate/messages/build/libs</output-path>
+    <root id="archive" name="messages-jvm-1.0.0-alpha02.jar">
+      <element id="module-output" name="MetaPhrase.feature-translate.messages.jvmMain" />
+    </root>
+  </artifact>
+</component>

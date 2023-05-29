@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="settings-jvm-1.0.0">
-    <output-path>$PROJECT_DIR$/feature-main/settings/build/libs</output-path>
-    <root id="archive" name="settings-jvm-1.0.0.jar">
-      <element id="module-output" name="MetaPhrase.feature-main.settings.jvmMain" />
-    </root>
-  </artifact>
-</component>

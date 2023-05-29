@@ -1,6 +1,7 @@
 package translatemessages.ui
 
 import data.LanguageModel
+import data.SegmentModel
 import data.TranslationUnitTypeFilter
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -9,6 +10,7 @@ interface MessageListComponent {
 
     val uiState: StateFlow<MessageListUiState>
     val selectionEvents: SharedFlow<Int>
+    val editedSegment: SharedFlow<SegmentModel>
 
     fun reloadMessages(language: LanguageModel, filter: TranslationUnitTypeFilter, projectId: Int)
     fun refresh()
@@ -18,6 +20,7 @@ interface MessageListComponent {
     fun moveToPrevious()
     fun moveToNext()
     fun setSegmentText(text: String)
+    fun changeSegmentText(text: String)
     fun copyBase()
     fun deleteSegment()
     fun scrollToMessage(key: String)

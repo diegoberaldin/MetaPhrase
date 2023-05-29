@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="toolbar-jvm-1.0.0-alpha02">
+    <output-path>$PROJECT_DIR$/feature-translate/toolbar/build/libs</output-path>
+    <root id="archive" name="toolbar-jvm-1.0.0-alpha02.jar">
+      <element id="module-output" name="MetaPhrase.feature-translate.toolbar.jvmMain" />
+    </root>
+  </artifact>
+</component>

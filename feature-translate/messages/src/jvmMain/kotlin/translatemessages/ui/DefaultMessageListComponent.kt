@@ -7,6 +7,7 @@ import common.coroutines.CoroutineDispatcherProvider
 import common.notification.NotificationCenter
 import data.LanguageModel
 import data.SegmentModel
+import data.TranslationUnit
 import data.TranslationUnitTypeFilter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -15,10 +16,13 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.getAndUpdate
+import kotlinx.coroutines.flow.mapNotNull
+import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import repository.local.LanguageRepository
@@ -38,6 +42,7 @@ internal class DefaultMessageListComponent(
     private val editingIndex = MutableStateFlow<Int?>(null)
     private val currentLanguage = MutableStateFlow<LanguageModel?>(null)
     private val editingEnabled = MutableStateFlow(true)
+    private val updateTextSwitch = MutableStateFlow(false)
     private lateinit var viewModelScope: CoroutineScope
     private var saveJob: Job? = null
     private var lastFilter = TranslationUnitTypeFilter.ALL
@@ -46,6 +51,7 @@ internal class DefaultMessageListComponent(
 
     override lateinit var uiState: StateFlow<MessageListUiState>
     override val selectionEvents = MutableSharedFlow<Int>()
+    override lateinit var editedSegment: SharedFlow<SegmentModel>
 
     init {
         with(lifecycle) {
@@ -56,17 +62,29 @@ internal class DefaultMessageListComponent(
                     editingIndex,
                     currentLanguage,
                     editingEnabled,
-                ) { units, editingIndex, currentLanguage, editingEnabled ->
+                    updateTextSwitch,
+                ) { units, editingIndex, currentLanguage, editingEnabled, updateTextSwitch ->
                     MessageListUiState(
                         units = units,
                         editingIndex = editingIndex,
                         currentLanguage = currentLanguage,
                         editingEnabled = editingEnabled,
+                        updateTextSwitch = updateTextSwitch,
                     )
                 }.stateIn(
                     scope = viewModelScope,
                     started = SharingStarted.WhileSubscribed(5_000),
                     initialValue = MessageListUiState(),
+                )
+                editedSegment = editingIndex.mapNotNull {
+                    if (it != null) {
+                        units.value[it].segment
+                    } else {
+                        null
+                    }
+                }.shareIn(
+                    scope = viewModelScope,
+                    started = SharingStarted.WhileSubscribed(5_000),
                 )
             }
             doOnDestroy {
@@ -99,6 +117,10 @@ internal class DefaultMessageListComponent(
         lastFilter = filter
         this.projectId = projectId
 
+        units.getAndUpdate { oldList ->
+            oldList.map { it.copy(segment = it.segment.copy(text = "")) }
+        }
+        updateTextSwitch.getAndUpdate { !it }
         refresh()
     }
 
@@ -178,6 +200,11 @@ internal class DefaultMessageListComponent(
         }
 
         saveCurrentSegmentDebounced(editingIndex)
+    }
+
+    override fun changeSegmentText(text: String) {
+        setSegmentText(text)
+        updateTextSwitch.getAndUpdate { !it }
     }
 
     private fun saveCurrentSegmentDebounced(index: Int) {
