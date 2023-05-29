@@ -1,34 +1,41 @@
 package translate.ui
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.draggable
 import androidx.compose.foundation.gestures.rememberDraggableState
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.onClick
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
-import common.ui.components.CustomDialog
-import common.ui.theme.SelectedBackground
 import common.ui.theme.Spacing
 import localized
 import translate.ui.TranslateComponent.PanelConfig
 import translateinvalidsegments.ui.InvalidSegmentComponent
-import translateinvalidsegments.ui.InvalidSegmentDialog
+import translateinvalidsegments.ui.ValidateContent
 import translatemessages.ui.MessageListContent
 import translatenewsegment.ui.NewSegmentComponent
 import translatenewsegment.ui.NewSegmentDialog
 import translatetoolbar.ui.TranslateToolbar
-import translatetoolbar.ui.TranslateToolbarUiState
 import translationtranslationmemory.ui.TranslationMemoryComponent
 import translationtranslationmemory.ui.TranslationMemoryContent
 
@@ -62,7 +69,6 @@ fun TranslateContent(
         }
         val panelConfiguration = panel.child?.configuration
         if (panelConfiguration != PanelConfig.None) {
-
             val density = LocalDensity.current
             val draggableState = rememberDraggableState {
                 val newHeight = panelHeight + (it / density.density).dp
@@ -73,8 +79,8 @@ fun TranslateContent(
                     modifier = Modifier.draggable(
                         state = draggableState,
                         orientation = Orientation.Vertical,
-                        reverseDirection = true
-                    )
+                        reverseDirection = true,
+                    ),
                 ) {
                     Spacer(modifier = Modifier.height(Spacing.xxxs))
                     Divider()
@@ -86,7 +92,16 @@ fun TranslateContent(
                         TranslationMemoryContent(
                             modifier = Modifier.fillMaxWidth().weight(1f),
                             component = childComponent,
-                            onMinify = { component.togglePanel(PanelConfig.TranslationMemory) }
+                            onMinify = { component.togglePanel(PanelConfig.TranslationMemory) },
+                        )
+                    }
+
+                    PanelConfig.Validation -> {
+                        val childComponent = panel.child?.instance as InvalidSegmentComponent
+                        ValidateContent(
+                            modifier = Modifier.fillMaxWidth().weight(1f),
+                            component = childComponent,
+                            onMinify = { component.togglePanel(PanelConfig.TranslationMemory) },
                         )
                     }
 
@@ -101,22 +116,20 @@ fun TranslateContent(
         ) {
             Row(
                 modifier = Modifier.align(Alignment.CenterStart),
+                horizontalArrangement = Arrangement.spacedBy(Spacing.xs),
             ) {
-                Text(
-                    modifier = Modifier.background(
-                        color = SelectedBackground,
-                        shape = RoundedCornerShape(4.dp),
-                    )
-                        .padding(vertical = Spacing.xs, horizontal = Spacing.s)
-                        .onClick {
-                            component.togglePanel(PanelConfig.TranslationMemory)
-                        },
-                    text = "panel_section_matches".localized(),
-                    style = MaterialTheme.typography.caption,
-                    color = MaterialTheme.colors.onBackground.copy(
-                        alpha = if (panel.child?.configuration == PanelConfig.TranslationMemory) 1f else 0.7f,
-                    ),
-                )
+                PanelChip(
+                    title = "panel_section_matches".localized(),
+                    isActive = panel.child?.configuration == PanelConfig.TranslationMemory,
+                ) {
+                    component.togglePanel(PanelConfig.TranslationMemory)
+                }
+                PanelChip(
+                    title = "panel_section_checks".localized(),
+                    isActive = panel.child?.configuration == PanelConfig.Validation,
+                ) {
+                    component.togglePanel(PanelConfig.Validation)
+                }
             }
 
             val project = uiState.project
@@ -137,7 +150,7 @@ fun TranslateContent(
 
     val dialogConfig by component.dialog.subscribeAsState()
     val child = dialogConfig.child
-    when (val config = child?.configuration) {
+    when (child?.configuration) {
         TranslateComponent.DialogConfig.NewSegment -> {
             val language by component.currentLanguage.collectAsState()
             val projectId = uiState.project?.id ?: 0
@@ -147,31 +160,6 @@ fun TranslateContent(
             }
             childComponent.projectId = projectId
             NewSegmentDialog(component = childComponent)
-        }
-
-        TranslateComponent.DialogConfig.PlaceholderValid -> {
-            CustomDialog(
-                title = "dialog_title_generic_message".localized(),
-                message = "message_validation_valid".localized(),
-                closeButtonText = "button_close".localized(),
-                onClose = {
-                    component.closeDialog()
-                },
-            )
-        }
-
-        is TranslateComponent.DialogConfig.PlaceholderInvalid -> {
-            val childComponent = child.instance as InvalidSegmentComponent
-            val toolbarState = toolbar.child?.instance?.uiState?.collectAsState(TranslateToolbarUiState())
-            childComponent.languageId = toolbarState?.value?.currentLanguage?.id ?: 0
-            childComponent.projectId = uiState.project?.id ?: 0
-            childComponent.invalidKeys = config.keys
-            InvalidSegmentDialog(
-                component = childComponent,
-                onClose = {
-                    component.closeDialog()
-                },
-            )
         }
 
         else -> Unit

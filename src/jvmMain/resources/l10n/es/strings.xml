@@ -50,8 +50,10 @@
 	<string name="message_duplicate_key">Ya existe un mensaje con la misma llave</string>
 	<string name="message_missing_field">Información obligatoria</string>
 	<string name="message_no_item_to_display">Ningún elemento para visualizar</string>
+	<string name="message_no_validation">Ningún resultado, iniciar una validación a través de la acción "Convalidar" desde la barra de herramientas</string>
 	<string name="message_validation_invalid">Se han encontrado algunos mensajes no válidos:</string>
-	<string name="message_validation_valid">Todos los mensajes contienen especificadores válidos</string>
+	<string name="message_validation_valid">¡Enhorabuena! Todos los mensajes contienen especificadores válidos 🎉</string>
+	<string name="panel_section_checks">Validación</string>
 	<string name="panel_section_matches">Correspondencias</string>
 	<string name="status_bar_units">mensajes: %d</string>
 	<string name="toolbar_search_placeholder">Buscar…</string>
@@ -70,4 +72,5 @@
 	<string name="unit_filter_all">Todos</string>
 	<string name="unit_filter_translatable">Traducibles</string>
 	<string name="unit_filter_untranslated">No traducidos</string>
+	<string name="validation_title">Resultados validación</string>
 </resources>

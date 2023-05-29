@@ -27,18 +27,12 @@ internal class DefaultInvalidSegmentComponent(
     private val segmentRepository: SegmentRepository,
 ) : InvalidSegmentComponent, ComponentContext by componentContext {
 
+    private val stage = MutableStateFlow(InvalidSegmentStage.INITIAL)
     private val references = MutableStateFlow<List<InvalidReference>>(emptyList())
     private val currentIndex = MutableStateFlow<Int?>(null)
     private lateinit var viewModelScope: CoroutineScope
 
     override val selectionEvents = MutableSharedFlow<String>()
-    override var languageId: Int = 0
-    override var projectId: Int = 0
-    override var invalidKeys: List<String> = emptyList()
-        set(value) {
-            field = value
-            loadReferences()
-        }
     override lateinit var uiState: StateFlow<InvalidSegmentUiState>
 
     init {
@@ -46,10 +40,12 @@ internal class DefaultInvalidSegmentComponent(
             doOnCreate {
                 viewModelScope = CoroutineScope(coroutineContext + SupervisorJob())
                 uiState = combine(
+                    stage,
                     references,
                     currentIndex,
-                ) { references, currentIndex ->
+                ) { stage, references, currentIndex ->
                     InvalidSegmentUiState(
+                        stage = stage,
                         references = references,
                         currentIndex = currentIndex,
                     )
@@ -58,9 +54,6 @@ internal class DefaultInvalidSegmentComponent(
                     started = SharingStarted.WhileSubscribed(5_000),
                     initialValue = InvalidSegmentUiState(),
                 )
-                if (invalidKeys.isNotEmpty()) {
-                    loadReferences()
-                }
             }
             doOnDestroy {
                 viewModelScope.cancel()
@@ -68,7 +61,7 @@ internal class DefaultInvalidSegmentComponent(
         }
     }
 
-    private fun loadReferences() {
+    override fun load(projectId: Int, languageId: Int, invalidKeys: List<String>) {
         viewModelScope.launch(dispatchers.io) {
             val baseLanguage = languageRepository.getBase(projectId) ?: return@launch
             references.value = invalidKeys.mapNotNull { key ->
@@ -83,7 +76,12 @@ internal class DefaultInvalidSegmentComponent(
 
                 InvalidReference(key = key, extraPlaceholders = exceeding, missingPlaceholders = missing)
             }
+            stage.value = InvalidSegmentStage.CONTENT
         }
+    }
+
+    override fun clear() {
+        stage.value = InvalidSegmentStage.INITIAL
     }
 
     override fun setCurrentIndex(value: Int) {

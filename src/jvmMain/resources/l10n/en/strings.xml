@@ -75,8 +75,10 @@
 	<string name="message_duplicate_key">A message with the same key already exists</string>
 	<string name="message_missing_field">Missing field</string>
 	<string name="message_no_item_to_display">No item to display</string>
+	<string name="message_no_validation">No validation results, run a validation with the "Validate" toolbar action</string>
 	<string name="message_validation_invalid">Some invalid messages were found:</string>
-	<string name="message_validation_valid">All messages contain valid placeholders</string>
+	<string name="message_validation_valid">Hooray! All messages contain valid placeholders 🎉</string>
+	<string name="panel_section_checks">Validation</string>
 	<string name="panel_section_matches">Matches</string>
 	<string name="status_bar_units">messages: %d</string>
 	<string name="toolbar_search_placeholder">Search…</string>
@@ -95,4 +97,5 @@
 	<string name="unit_filter_all">All</string>
 	<string name="unit_filter_translatable">Translatable</string>
 	<string name="unit_filter_untranslated">Untranslated</string>
+	<string name="validation_title">Validation results</string>
 </resources>

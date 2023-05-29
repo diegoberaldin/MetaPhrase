@@ -22,6 +22,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -151,7 +152,7 @@ internal class DefaultTranslateComponent(
                 viewModelScope.launch {
                     configureToolbar()
                     configureMessageList()
-                    configureTranslationMemoryPanel()
+                    configurePanel()
                 }
 
                 toolbarNavigation.activate(ToolbarConfig)
@@ -178,8 +179,8 @@ internal class DefaultTranslateComponent(
     private suspend fun CoroutineScope.configureMessageList() {
         val messageListComponent = observeChildSlot<MessageListComponent>(messageList).first()
         val toolbarComponent = observeChildSlot<TranslateToolbarComponent>(toolbar).first()
-        messageListComponent.uiState.map { it.editingIndex }.distinctUntilChanged().onEach {
-            val isEditing = it != null
+        messageListComponent.uiState.map { it.editingIndex }.distinctUntilChanged().onEach { idx ->
+            val isEditing = idx != null
             toolbarComponent.setEditing(isEditing)
             if (!isEditing) {
                 observeChildSlot<TranslationMemoryComponent>(panel).firstOrNull()?.clear()
@@ -203,13 +204,15 @@ internal class DefaultTranslateComponent(
         }.launchIn(this)
         messageListComponent.editedSegment.onEach { segment ->
             val key = segment.key
-            launch {
-                val child = observeChildSlot<TranslationMemoryComponent>(panel).firstOrNull()
-                child?.loadSimilarities(
-                    key = key,
-                    projectId = project.value?.id ?: 0,
-                    languageId = toolbarComponent.uiState.value.currentLanguage?.id ?: 0,
-                )
+            coroutineScope {
+                launch {
+                    val child = observeChildSlot<TranslationMemoryComponent>(panel).firstOrNull()
+                    child?.loadSimilarities(
+                        key = key,
+                        projectId = project.value?.id ?: 0,
+                        languageId = toolbarComponent.uiState.value.currentLanguage?.id ?: 0,
+                    )
+                }
             }
         }.launchIn(this)
     }
@@ -228,6 +231,8 @@ internal class DefaultTranslateComponent(
                     projectId = projectId,
                 )
                 messageListComponent.setEditingEnabled(true)
+                // resets the current validation
+                observeChildSlot<InvalidSegmentComponent>(panel).firstOrNull()?.clear()
             }.launchIn(this)
         toolbarComponent.events.onEach { evt ->
             when (evt) {
@@ -263,7 +268,7 @@ internal class DefaultTranslateComponent(
         }.launchIn(this)
     }
 
-    private suspend fun CoroutineScope.configureTranslationMemoryPanel() {
+    private suspend fun CoroutineScope.configurePanel() {
         val messageListComponent = observeChildSlot<MessageListComponent>(messageList).firstOrNull() ?: return
         observeChildSlot<TranslationMemoryComponent>(panel).onEach { child ->
             child.copyEvents.onEach { segmentId ->
@@ -273,12 +278,16 @@ internal class DefaultTranslateComponent(
                 }
             }.launchIn(this)
         }.launchIn(this)
+        observeChildSlot<InvalidSegmentComponent>(panel).onEach { child ->
+            child.selectionEvents.onEach { key ->
+                messageListComponent.scrollToMessage(key)
+            }.launchIn(this)
+        }.launchIn(this)
     }
 
     private fun createDialogComponent(config: DialogConfig, context: ComponentContext): Any {
         return when (config) {
             DialogConfig.NewSegment -> getByInjection<NewSegmentComponent>(context, coroutineContext)
-            is DialogConfig.PlaceholderInvalid -> getByInjection<InvalidSegmentComponent>(context, coroutineContext)
             else -> Unit
         }
     }
@@ -286,6 +295,7 @@ internal class DefaultTranslateComponent(
     private fun createPanelComponent(config: PanelConfig, context: ComponentContext): Any {
         return when (config) {
             PanelConfig.TranslationMemory -> getByInjection<TranslationMemoryComponent>(context, coroutineContext)
+            PanelConfig.Validation -> getByInjection<InvalidSegmentComponent>(context, coroutineContext)
             else -> Unit
         }
     }
@@ -428,26 +438,26 @@ internal class DefaultTranslateComponent(
             val toolbarState = observeChildSlot<TranslateToolbarComponent>(toolbar).first().uiState.value
             val language = toolbarState.currentLanguage ?: return@launch
             val baseLanguage = languageRepository.getBase(projectId) ?: return@launch
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
             val segmentPairs = segmentRepository.getAll(language.id).map {
                 val key = it.key
                 val original = segmentRepository.getByKey(key = key, languageId = baseLanguage.id) ?: SegmentModel()
                 it to original
             }
-            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
             val result = validatePlaceholders(segmentPairs)
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
+
+            withContext(dispatchers.main) {
+                panelNavigation.activate(PanelConfig.Validation)
+            }
+            val child = observeChildSlot<InvalidSegmentComponent>(panel).first()
             when (result) {
                 ValidatePlaceholdersUseCase.Output.Valid -> {
-                    withContext(dispatchers.main) {
-                        dialogNavigation.activate(DialogConfig.PlaceholderValid)
-                    }
+                    child.load(projectId, language.id, invalidKeys = emptyList())
                 }
 
                 is ValidatePlaceholdersUseCase.Output.Invalid -> {
-                    withContext(dispatchers.main) {
-                        val invalidKeys = result.keys
-                        dialogNavigation.activate(DialogConfig.PlaceholderInvalid(invalidKeys))
-                    }
+                    child.load(projectId, language.id, invalidKeys = result.keys)
                 }
             }
         }

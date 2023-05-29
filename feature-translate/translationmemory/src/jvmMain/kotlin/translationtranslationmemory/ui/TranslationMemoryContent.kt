@@ -2,7 +2,6 @@ package translationtranslationmemory.ui
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -56,7 +55,7 @@ fun TranslationMemoryContent(
     }
 
     Column(
-        modifier = Modifier.pointerHoverIcon(pointerIcon),
+        modifier = modifier.pointerHoverIcon(pointerIcon),
         verticalArrangement = Arrangement.spacedBy(Spacing.s),
     ) {
         Box(modifier = Modifier.fillMaxWidth()) {
@@ -68,17 +67,16 @@ fun TranslationMemoryContent(
             )
             CustomTooltipArea(
                 modifier = Modifier.align(Alignment.TopEnd),
-                text = "tooltip_minify".localized()
+                text = "tooltip_minify".localized(),
             ) {
                 Icon(
                     modifier = Modifier.size(24.dp).padding(top = 2.dp, bottom = 8.dp).onClick { onMinify() },
                     imageVector = Icons.Default.Minimize,
-                    contentDescription = null
+                    contentDescription = null,
                 )
             }
         }
         LazyColumn(
-            modifier = modifier,
             verticalArrangement = Arrangement.spacedBy(Spacing.xs),
         ) {
             if (uiState.units.isEmpty()) {
