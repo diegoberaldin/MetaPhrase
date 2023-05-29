@@ -44,20 +44,16 @@ interface TranslateComponent {
 
         @Parcelize
         object NewSegment : DialogConfig
-
-        @Parcelize
-        object PlaceholderValid : DialogConfig
-
-        @Parcelize
-        data class PlaceholderInvalid(val keys: List<String>) : DialogConfig
     }
 
     sealed interface PanelConfig : Parcelable {
-
         @Parcelize
         object None : PanelConfig
 
         @Parcelize
         object TranslationMemory : PanelConfig
+
+        @Parcelize
+        object Validation : PanelConfig
     }
 }
