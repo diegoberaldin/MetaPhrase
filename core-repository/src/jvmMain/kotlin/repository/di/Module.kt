@@ -4,6 +4,7 @@ import org.koin.dsl.module
 import repository.local.FlagsRepository
 import repository.local.LanguageNameRepository
 import repository.local.LanguageRepository
+import repository.local.MemoryEntryRepository
 import repository.local.ProjectRepository
 import repository.local.SegmentRepository
 import repository.usecase.ExportAndroidResourcesUseCase
@@ -33,6 +34,11 @@ val repositoryModule = module {
     }
     single {
         SegmentRepository(
+            dao = get(),
+        )
+    }
+    single {
+        MemoryEntryRepository(
             dao = get(),
         )
     }

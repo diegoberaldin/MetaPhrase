@@ -1,15 +1,11 @@
 package translationmemory.repo
 
-import data.LanguageModel
 import data.SegmentModel
 import data.TranslationUnit
-import repository.local.LanguageRepository
-import repository.local.SegmentRepository
-import kotlin.math.max
 
 internal class DefaultTranslationMemoryRepository(
-    private val languageRepository: LanguageRepository,
-    private val segmentRepository: SegmentRepository,
+    private val projectSource: ProjectTranslationUnitSource,
+    private val memorySource: MemoryTranslationUnitSource,
 ) : TranslationMemoryRepository {
     override suspend fun getSimilarities(
         segment: SegmentModel,
@@ -17,33 +13,23 @@ internal class DefaultTranslationMemoryRepository(
         languageId: Int,
         threshold: Float,
     ): List<TranslationUnit> {
-        val baseLanguage = languageRepository.getBase(projectId) ?: return emptyList()
-        val original = segmentRepository.getByKey(key = segment.key, languageId = baseLanguage.id) ?: return emptyList()
+        val unitsFromMemory = memorySource.getUnits(
+            projectId = projectId,
+            key = segment.key,
+            threshold = threshold,
+            languageId = languageId,
+        )
 
-        val res = mutableListOf<TranslationUnit>()
-        val segments = getReferenceSegments(baseLanguage, segment)
-        for (s in segments) {
-            val source = original.text
-            val target = s.text
-            val distance = levenshteinDistance(source = source, target = target)
-            val similarity = 1f - distance.toFloat() / max(source.length, target.length)
-            if (similarity >= threshold) {
-                val similarSource = segmentRepository.getByKey(key = s.key, languageId = baseLanguage.id)
-                val similarTarget = segmentRepository.getByKey(key = s.key, languageId = languageId)
-                if (similarSource != null && similarTarget != null) {
-                    res += TranslationUnit(
-                        original = similarSource,
-                        segment = similarTarget,
-                        similarity = (similarity * 100).toInt(),
-                    )
-                }
-            }
+        val unitsFromProject = projectSource.getUnits(
+            projectId = projectId,
+            key = segment.key,
+            threshold = threshold,
+            languageId = languageId,
+        ).filter {
+            val original = it.original?.text.orEmpty()
+            unitsFromMemory.none { m -> m.original?.text.orEmpty() == original }
         }
-        return res
-    }
 
-    private suspend fun getReferenceSegments(
-        baseLanguage: LanguageModel,
-        segment: SegmentModel,
-    ) = segmentRepository.getAll(baseLanguage.id).filter { it.key != segment.key }
+        return unitsFromMemory + unitsFromProject
+    }
 }

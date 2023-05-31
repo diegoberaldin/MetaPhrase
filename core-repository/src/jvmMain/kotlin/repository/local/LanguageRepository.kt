@@ -52,6 +52,8 @@ class LanguageRepository(
         }
     }.distinctUntilChanged()
 
+    suspend fun getById(id: Int) = dao.getById(id)
+
     suspend fun getByCode(code: String, projectId: Int) = dao.getByCode(code = code, projectId = projectId)
 
     suspend fun delete(model: LanguageModel) = dao.delete(model = model)
