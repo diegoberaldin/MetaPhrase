@@ -3,10 +3,10 @@ package repository.usecase
 import data.SegmentModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.redundent.kotlin.xml.Node
+import org.redundent.kotlin.xml.TextElement
+import org.redundent.kotlin.xml.parse
 import java.io.File
-import java.io.FileReader
-import javax.xml.namespace.QName
-import javax.xml.stream.XMLInputFactory
 
 class ParseAndroidResourcesUseCase {
 
@@ -24,35 +24,18 @@ class ParseAndroidResourcesUseCase {
         return withContext(Dispatchers.IO) {
             runCatching {
                 val res = mutableListOf<SegmentModel>()
-
-                FileReader(file).use { reader ->
-                    val inputFactory = XMLInputFactory.newInstance()
-                    val eventReader = inputFactory.createXMLEventReader(reader)
-
-                    while (eventReader.hasNext()) {
-                        val evt = eventReader.nextEvent()
-                        if (evt.isStartElement) {
-                            val startElement = evt.asStartElement()
-                            val elemName = startElement.name.localPart
-                            if (elemName == ELEM_STRING) {
-                                val key = runCatching {
-                                    startElement.getAttributeByName(QName(ATTR_NAME)).value
-                                }.getOrElse { "" }
-                                val translatable = runCatching {
-                                    startElement.getAttributeByName(QName(ATTR_TRANSLATABLE)).value.toBoolean()
-                                }.getOrElse { true }
-                                val text = runCatching {
-                                    eventReader.nextEvent().asCharacters().data
-                                }.getOrElse { "" }.sanitize()
-                                val segment = SegmentModel(
-                                    key = key,
-                                    text = text,
-                                    translatable = translatable,
-                                )
-                                res += segment
-                            }
-                        }
-                    }
+                val resourcesNode = parse(file)
+                for (elem in resourcesNode.children) {
+                    if ((elem as? Node)?.nodeName != ELEM_STRING) continue
+                    val key = (elem.attributes[ATTR_NAME] as? String).orEmpty()
+                    val translatable = (elem.attributes[ATTR_TRANSLATABLE] as? Boolean) ?: true
+                    val text = (elem.children.firstOrNull() as? TextElement)?.text.orEmpty().sanitize()
+                    val segment = SegmentModel(
+                        key = key,
+                        text = text,
+                        translatable = translatable,
+                    )
+                    res += segment
                 }
                 res
             }.getOrElse { emptyList() }

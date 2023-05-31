@@ -31,7 +31,7 @@ val translateModule = module {
             exportIosResources = get(),
             validatePlaceholders = get(),
             notificationCenter = get(),
-            logManager = get(),
+            exportToTmx = get(),
         )
     }
 }

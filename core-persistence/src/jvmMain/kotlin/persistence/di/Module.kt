@@ -24,6 +24,10 @@ private val daoModule = module {
         val db: AppDatabase = get()
         db.segmentDao()
     }
+    single {
+        val db: AppDatabase = get()
+        db.memoryEntryDao()
+    }
 }
 
 val persistenceModule = module {

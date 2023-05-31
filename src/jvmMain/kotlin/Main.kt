@@ -232,4 +232,14 @@ private fun MenuBarScope.makeMenus(
             rootComponent.endEditing()
         }
     }
+    Menu(
+        text = "menu_translation_memory".localized(),
+    ) {
+        Item(
+            text = "menu_translation_memory_export".localized(),
+            enabled = rootUiState.activeProject != null,
+        ) {
+            rootComponent.openExportTmxDialog()
+        }
+    }
 }

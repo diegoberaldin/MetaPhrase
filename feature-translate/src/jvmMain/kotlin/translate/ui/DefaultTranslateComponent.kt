@@ -10,7 +10,6 @@ import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import com.arkivanov.essenty.lifecycle.doOnStart
 import common.coroutines.CoroutineDispatcherProvider
-import common.log.LogManager
 import common.notification.NotificationCenter
 import common.utils.asFlow
 import common.utils.getByInjection
@@ -43,6 +42,7 @@ import repository.local.ProjectRepository
 import repository.local.SegmentRepository
 import repository.usecase.ExportAndroidResourcesUseCase
 import repository.usecase.ExportIosResourcesUseCase
+import repository.usecase.ExportTmxUseCase
 import repository.usecase.ImportSegmentsUseCase
 import repository.usecase.ParseAndroidResourcesUseCase
 import repository.usecase.ParseIosResourcesUseCase
@@ -73,7 +73,7 @@ internal class DefaultTranslateComponent(
     private val exportIosResources: ExportIosResourcesUseCase,
     private val validatePlaceholders: ValidatePlaceholdersUseCase,
     private val notificationCenter: NotificationCenter,
-    private val logManager: LogManager,
+    private val exportToTmx: ExportTmxUseCase,
 ) : TranslateComponent, ComponentContext by componentContext {
 
     private val project = MutableStateFlow<ProjectModel?>(null)
@@ -120,7 +120,8 @@ internal class DefaultTranslateComponent(
 
     @OptIn(ExperimentalCoroutinesApi::class)
     override val isEditing: StateFlow<Boolean>
-        get() = messageList.asFlow<MessageListComponent>().filterNotNull().flatMapLatest { it.editedSegment }.map { it != null }
+        get() = messageList.asFlow<MessageListComponent>().filterNotNull().flatMapLatest { it.editedSegment }
+            .map { it != null }
             .stateIn(viewModelScope, initialValue = false, started = SharingStarted.WhileSubscribed(5000))
 
     override val currentLanguage: StateFlow<LanguageModel?>
@@ -471,6 +472,14 @@ internal class DefaultTranslateComponent(
                     projectId = project.value?.id ?: 0,
                 )
             }
+        }
+    }
+
+    override fun exportTmx(path: String) {
+        viewModelScope.launch(dispatchers.io) {
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
+            exportToTmx(path = path, projectId = project.value?.id ?: 0)
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
         }
     }
 

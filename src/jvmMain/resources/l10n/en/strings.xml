@@ -72,6 +72,8 @@
 	<string name="menu_segment_new">New…</string>
 	<string name="menu_segment_next">Next</string>
 	<string name="menu_segment_previous">Previous</string>
+	<string name="menu_translation_memory">Memory</string>
+	<string name="menu_translation_memory_export">Export…</string>
 	<string name="message_duplicate_key">A message with the same key already exists</string>
 	<string name="message_missing_field">Missing field</string>
 	<string name="message_no_item_to_display">No item to display</string>

@@ -4,10 +4,12 @@ import org.koin.dsl.module
 import repository.local.FlagsRepository
 import repository.local.LanguageNameRepository
 import repository.local.LanguageRepository
+import repository.local.MemoryEntryRepository
 import repository.local.ProjectRepository
 import repository.local.SegmentRepository
 import repository.usecase.ExportAndroidResourcesUseCase
 import repository.usecase.ExportIosResourcesUseCase
+import repository.usecase.ExportTmxUseCase
 import repository.usecase.GetCompleteLanguageUseCase
 import repository.usecase.ImportSegmentsUseCase
 import repository.usecase.ParseAndroidResourcesUseCase
@@ -33,6 +35,11 @@ val repositoryModule = module {
     }
     single {
         SegmentRepository(
+            dao = get(),
+        )
+    }
+    single {
+        MemoryEntryRepository(
             dao = get(),
         )
     }
@@ -65,5 +72,11 @@ val useCaseModule = module {
     }
     single {
         ValidatePlaceholdersUseCase()
+    }
+    single {
+        ExportTmxUseCase(
+            languageRepository = get(),
+            segmentRepository = get(),
+        )
     }
 }
