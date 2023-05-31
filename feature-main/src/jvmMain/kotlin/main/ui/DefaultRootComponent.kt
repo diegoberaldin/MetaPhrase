@@ -22,6 +22,7 @@ import data.ResourceFileType
 import intro.ui.IntroComponent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
@@ -33,6 +34,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
@@ -47,7 +49,7 @@ import projectstatistics.ui.StatisticsComponent
 import repository.local.ProjectRepository
 import kotlin.coroutines.CoroutineContext
 
-@OptIn(ExperimentalCoroutinesApi::class)
+@OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
 internal class DefaultRootComponent(
     componentContext: ComponentContext,
     private val coroutineContext: CoroutineContext,
@@ -87,14 +89,14 @@ internal class DefaultRootComponent(
         with(lifecycle) {
             doOnCreate {
                 viewModelScope = CoroutineScope(coroutineContext + SupervisorJob())
-                activeProject = main.asFlow<ProjectsComponent>(true).flatMapLatest {
+                activeProject = main.asFlow<ProjectsComponent>(true).flatMapConcat {
                     it?.activeProject ?: snapshotFlow { null }
                 }.stateIn(
                     scope = viewModelScope,
                     started = SharingStarted.WhileSubscribed(5_000),
                     initialValue = null,
                 )
-                isEditing = main.asFlow<ProjectsComponent>(true).flatMapLatest {
+                isEditing = main.asFlow<ProjectsComponent>(true).flatMapConcat {
                     it?.isEditing ?: snapshotFlow { false }
                 }.stateIn(
                     scope = viewModelScope,
