@@ -1,6 +1,7 @@
+import org.redundent.kotlin.xml.Node
+import org.redundent.kotlin.xml.TextElement
+import org.redundent.kotlin.xml.parse
 import java.io.InputStream
-import javax.xml.namespace.QName
-import javax.xml.stream.XMLInputFactory
 
 internal class DefaultParseXmlResourceUseCase : ParseXmlResourceUseCase {
 
@@ -13,31 +14,16 @@ internal class DefaultParseXmlResourceUseCase : ParseXmlResourceUseCase {
     override operator fun invoke(inputStream: InputStream): List<LocalizableString> {
         return runCatching {
             val res = mutableListOf<LocalizableString>()
-            val inputFactory = XMLInputFactory.newInstance()
-            val eventReader = inputFactory.createXMLEventReader(inputStream)
-
-            while (eventReader.hasNext()) {
-                val evt = eventReader.nextEvent()
-                if (evt.isStartElement) {
-                    val startElement = evt.asStartElement()
-                    val elemName = startElement.name.localPart
-                    if (elemName == ELEM_STRING) {
-                        val key = runCatching {
-                            startElement.getAttributeByName(QName(ATTR_NAME)).value
-                        }.getOrElse { "" }
-                        val translatable = runCatching {
-                            startElement.getAttributeByName(QName(ATTR_TRANSLATABLE)).value.toBoolean()
-                        }.getOrElse { true }
-                        val text = runCatching {
-                            eventReader.nextEvent().asCharacters().data
-                        }.getOrElse { "" }.sanitize()
-                        val segment = LocalizableString(
-                            key = key,
-                            value = text,
-                        )
-                        res += segment
-                    }
-                }
+            val resourcesNode = parse(inputStream)
+            for (elem in resourcesNode.children) {
+                if ((elem as? Node)?.nodeName != ELEM_STRING) continue
+                val key = (elem.attributes[ATTR_NAME] as? String).orEmpty()
+                val text = (elem.children.firstOrNull() as? TextElement)?.text.orEmpty().sanitize()
+                val segment = LocalizableString(
+                    key = key,
+                    value = text,
+                )
+                res += segment
             }
             res
         }.getOrElse { emptyList() }
