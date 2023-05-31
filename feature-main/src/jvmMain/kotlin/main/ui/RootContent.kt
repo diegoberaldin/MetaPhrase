@@ -154,6 +154,19 @@ fun RootContent(
             )
         }
 
+        is RootComponent.DialogConfig.ExportTmxDialog -> {
+            CustomSaveFileDialog(
+                title = "dialog_title_open_file".localized(),
+                initialFileName = "memory.tmx",
+                onCloseRequest = { path ->
+                    component.closeDialog()
+                    if (path != null) {
+                        component.exportTmx(path = path)
+                    }
+                },
+            )
+        }
+
         else -> Unit
     }
 }

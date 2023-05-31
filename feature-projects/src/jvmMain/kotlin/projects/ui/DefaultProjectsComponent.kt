@@ -201,4 +201,10 @@ internal class DefaultProjectsComponent(
             childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.deleteSegment()
         }
     }
+
+    override fun exportTmx(path: String) {
+        viewModelScope.launch(dispatchers.io) {
+            childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.exportTmx(path = path)
+        }
+    }
 }

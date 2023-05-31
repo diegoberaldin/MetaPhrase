@@ -2,7 +2,7 @@ package translationmemory.repo
 
 import data.TranslationUnit
 
-interface TranslationUnitSource {
+internal interface TranslationUnitSource {
     suspend fun getUnits(
         projectId: Int,
         key: String,

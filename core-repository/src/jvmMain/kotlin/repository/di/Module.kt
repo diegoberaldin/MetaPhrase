@@ -9,6 +9,7 @@ import repository.local.ProjectRepository
 import repository.local.SegmentRepository
 import repository.usecase.ExportAndroidResourcesUseCase
 import repository.usecase.ExportIosResourcesUseCase
+import repository.usecase.ExportTmxUseCase
 import repository.usecase.GetCompleteLanguageUseCase
 import repository.usecase.ImportSegmentsUseCase
 import repository.usecase.ParseAndroidResourcesUseCase
@@ -71,5 +72,11 @@ val useCaseModule = module {
     }
     single {
         ValidatePlaceholdersUseCase()
+    }
+    single {
+        ExportTmxUseCase(
+            languageRepository = get(),
+            segmentRepository = get(),
+        )
     }
 }

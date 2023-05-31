@@ -305,4 +305,14 @@ internal class DefaultRootComponent(
     override fun openSettings() {
         dialogNavigation.activate(RootComponent.DialogConfig.SettingsDialog)
     }
+
+    override fun openExportTmxDialog() {
+        dialogNavigation.activate(RootComponent.DialogConfig.ExportTmxDialog)
+    }
+
+    override fun exportTmx(path: String) {
+        viewModelScope.launch(dispatchers.io) {
+            main.asFlow<ProjectsComponent>().firstOrNull()?.exportTmx(path = path)
+        }
+    }
 }

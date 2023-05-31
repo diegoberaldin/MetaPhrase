@@ -47,6 +47,8 @@
     <string name="menu_segment_new">Nuovo</string>
     <string name="menu_segment_next">Successivo</string>
     <string name="menu_segment_previous">Precedente</string>
+    <string name="menu_translation_memory">Memoria</string>
+    <string name="menu_translation_memory_export">Esporta…</string>
     <string name="message_duplicate_key">Esiste già un messaggio con la stessa chiave</string>
     <string name="message_missing_field">Campo obbligatorio</string>
     <string name="message_no_item_to_display">Nessun dato da visualizzare</string>
