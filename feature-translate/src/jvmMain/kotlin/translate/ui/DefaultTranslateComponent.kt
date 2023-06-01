@@ -500,6 +500,10 @@ internal class DefaultTranslateComponent(
         }
     }
 
+    override fun validatePlaceholders() {
+        startValidation()
+    }
+
     companion object {
         const val KEY_DIALOG_SLOT = "DialogSlot"
         const val KEY_TOOLBAR_SLOT = "ToolbarSlot"

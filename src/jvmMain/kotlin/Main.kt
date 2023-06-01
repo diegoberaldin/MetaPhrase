@@ -184,6 +184,13 @@ private fun MenuBarScope.makeMenus(
                 rootComponent.openExportDialog(ResourceFileType.IOS_STRINGS)
             }
         }
+        Separator()
+        Item(
+            text = "menu_project_validate".localized(),
+            enabled = rootUiState.activeProject != null,
+        ) {
+            rootComponent.validatePlaceholders()
+        }
     }
     Menu(
         text = "menu_segment".localized(),

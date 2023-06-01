@@ -33,6 +33,7 @@ interface TranslateComponent {
     fun togglePanel(config: PanelConfig)
     fun tryLoadSimilarities()
     fun exportTmx(path: String)
+    fun validatePlaceholders()
 
     @Parcelize
     object ToolbarConfig : Parcelable

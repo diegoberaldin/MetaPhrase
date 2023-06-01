@@ -208,4 +208,10 @@ internal class DefaultProjectsComponent(
             childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.exportTmx(path = path)
         }
     }
+
+    override fun validatePlaceholders() {
+        viewModelScope.launch(dispatchers.io) {
+            childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.validatePlaceholders()
+        }
+    }
 }

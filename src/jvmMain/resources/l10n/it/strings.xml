@@ -39,6 +39,7 @@
     <string name="menu_project_import_android">XML Android…</string>
     <string name="menu_project_import_ios">stringtable iOS…</string>
     <string name="menu_project_new">Nuovo…</string>
+    <string name="menu_project_validate">Convalida</string>
     <string name="menu_project_settings">Impostazioni…</string>
     <string name="menu_project_statistics">Statistiche…</string>
     <string name="menu_segment">Messaggio</string>

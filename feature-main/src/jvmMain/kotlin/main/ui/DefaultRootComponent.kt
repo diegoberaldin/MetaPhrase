@@ -34,7 +34,6 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
@@ -340,6 +339,12 @@ internal class DefaultRootComponent(
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
             clearTranslationMemory()
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
+        }
+    }
+
+    override fun validatePlaceholders() {
+        viewModelScope.launch(dispatchers.io) {
+            main.asFlow<ProjectsComponent>().firstOrNull()?.validatePlaceholders()
         }
     }
 }
