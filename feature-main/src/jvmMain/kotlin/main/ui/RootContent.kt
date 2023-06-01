@@ -167,6 +167,19 @@ fun RootContent(
             )
         }
 
+        is RootComponent.DialogConfig.ImportTmxDialog -> {
+            CustomOpenFileDialog(
+                title = "dialog_title_open_file".localized(),
+                nameFilter = { it.endsWith(".tmx") },
+                onCloseRequest = { path ->
+                    component.closeDialog()
+                    if (path != null) {
+                        component.importTmx(path = path)
+                    }
+                },
+            )
+        }
+
         else -> Unit
     }
 }

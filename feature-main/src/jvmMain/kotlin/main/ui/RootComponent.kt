@@ -32,6 +32,8 @@ interface RootComponent {
     fun deleteSegment()
     fun openExportTmxDialog()
     fun exportTmx(path: String)
+    fun openImportTmxDialog()
+    fun importTmx(path: String)
 
     sealed interface Config : Parcelable {
         @Parcelize
@@ -66,5 +68,8 @@ interface RootComponent {
 
         @Parcelize
         object ExportTmxDialog : DialogConfig
+
+        @Parcelize
+        object ImportTmxDialog : DialogConfig
     }
 }

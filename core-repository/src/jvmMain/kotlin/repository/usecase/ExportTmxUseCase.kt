@@ -11,10 +11,21 @@ import repository.local.SegmentRepository
 import java.io.File
 import java.io.FileWriter
 
+
 class ExportTmxUseCase(
     private val languageRepository: LanguageRepository,
     private val segmentRepository: SegmentRepository,
 ) {
+
+    companion object {
+        private const val ELEM_HEADER = "header"
+        private const val ELEM_BODY = "body"
+        private const val ELEM_UNIT = "tu"
+        private const val ELEM_VARIANT = "tuv"
+        private const val ELEM_SEGMENT = "seg"
+        private const val ATTR_LANGUAGE = "xml:lang"
+        private const val ATTR_SOURCE_LANG = "srcLang"
+    }
     suspend operator fun invoke(projectId: Int, path: String) {
         val file = File(path)
         if (!file.exists()) {
@@ -60,23 +71,23 @@ class ExportTmxUseCase(
 
             attribute("version", "1.4")
 
-            "header" {
+            ELEM_HEADER {
                 attribute("creationTool", "app_name".localized())
-                attribute("creationToolVersion", "1.0.0")
+                attribute("creationToolVersion", System.getProperty("jpackage.app-version") ?: "1.0.0")
                 attribute("segtype", "sentence")
                 attribute("o-tmf", "tmx")
                 attribute("adminLang", "en-US")
-                attribute("srcLang", baseLanguage.code)
+                attribute(ATTR_SOURCE_LANG, baseLanguage.code)
                 attribute("datatype", "plaintext")
             }
-            "body" {
+            ELEM_BODY {
                 for (translationUnit in registry) {
-                    "tu" {
+                    ELEM_UNIT {
                         val translationUnitVariants = translationUnit.value
                         for (variant in translationUnitVariants) {
-                            "tuv" {
-                                attribute("xml:lang", variant.first)
-                                "seg" {
+                            ELEM_VARIANT {
+                                attribute(ATTR_LANGUAGE, variant.first)
+                                ELEM_SEGMENT {
                                     text(variant.second)
                                 }
                             }

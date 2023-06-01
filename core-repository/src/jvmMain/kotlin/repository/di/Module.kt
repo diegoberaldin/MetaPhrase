@@ -12,6 +12,7 @@ import repository.usecase.ExportIosResourcesUseCase
 import repository.usecase.ExportTmxUseCase
 import repository.usecase.GetCompleteLanguageUseCase
 import repository.usecase.ImportSegmentsUseCase
+import repository.usecase.ImportTmxUseCase
 import repository.usecase.ParseAndroidResourcesUseCase
 import repository.usecase.ParseIosResourcesUseCase
 import repository.usecase.ValidatePlaceholdersUseCase
@@ -77,6 +78,11 @@ val useCaseModule = module {
         ExportTmxUseCase(
             languageRepository = get(),
             segmentRepository = get(),
+        )
+    }
+    single {
+        ImportTmxUseCase(
+            memoryEntryRepository = get(),
         )
     }
 }
