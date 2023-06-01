@@ -47,6 +47,8 @@ import projects.ui.ProjectsComponent
 import projectscreate.ui.CreateProjectComponent
 import projectstatistics.ui.StatisticsComponent
 import repository.local.ProjectRepository
+import repository.usecase.ClearTmUseCase
+import repository.usecase.ImportTmxUseCase
 import kotlin.coroutines.CoroutineContext
 
 @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
@@ -55,7 +57,9 @@ internal class DefaultRootComponent(
     private val coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,
     projectRepository: ProjectRepository,
-    notificationCenter: NotificationCenter,
+    private val importFromTmx: ImportTmxUseCase,
+    private val clearTranslationMemory: ClearTmUseCase,
+    private val notificationCenter: NotificationCenter,
 ) : RootComponent, ComponentContext by componentContext {
 
     companion object {
@@ -324,7 +328,17 @@ internal class DefaultRootComponent(
 
     override fun importTmx(path: String) {
         viewModelScope.launch(dispatchers.io) {
-            main.asFlow<ProjectsComponent>().firstOrNull()?.importTmx(path = path)
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
+            importFromTmx(path = path)
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
+        }
+    }
+
+    override fun clearTm() {
+        viewModelScope.launch(dispatchers.io) {
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
+            clearTranslationMemory()
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
         }
     }
 }

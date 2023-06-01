@@ -12,6 +12,8 @@ class MemoryEntryRepository(
 
     suspend fun delete(model: TranslationMemoryEntryModel) = dao.delete(model)
 
+    suspend fun deleteAll() = dao.deleteAll()
+
     suspend fun getById(id: Int, sourceLang: String, targetLang: String): TranslationMemoryEntryModel? =
         dao.getById(id = id, sourceLang = sourceLang, targetLang = targetLang)
 

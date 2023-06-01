@@ -23,6 +23,8 @@ val mainModule = module {
             projectRepository = get(),
             dispatchers = get(),
             notificationCenter = get(),
+            importFromTmx = get(),
+            clearTranslationMemory = get(),
         )
     }
 }

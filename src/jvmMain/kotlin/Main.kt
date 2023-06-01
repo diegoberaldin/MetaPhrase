@@ -246,5 +246,10 @@ private fun MenuBarScope.makeMenus(
         ) {
             rootComponent.openImportTmxDialog()
         }
+        Item(
+            text = "menu_translation_memory_clear".localized(),
+        ) {
+            rootComponent.clearTm()
+        }
     }
 }

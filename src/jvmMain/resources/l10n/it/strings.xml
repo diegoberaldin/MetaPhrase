@@ -49,6 +49,7 @@
     <string name="menu_segment_next">Successivo</string>
     <string name="menu_segment_previous">Precedente</string>
     <string name="menu_translation_memory">Memoria</string>
+    <string name="menu_translation_memory_clear">Azzera</string>
     <string name="menu_translation_memory_export">Esporta…</string>
     <string name="menu_translation_memory_import">Importa…</string>
     <string name="message_duplicate_key">Esiste già un messaggio con la stessa chiave</string>
@@ -59,7 +60,7 @@
     <string name="message_validation_valid">Evviva! Tutti i messaggi contengono placeholder validi 🎉</string>
     <string name="panel_section_checks">Convalida</string>
     <string name="panel_section_matches">Corrispondenze</string>
-    <string name="panel_section_translation_memory">TM</string>
+    <string name="panel_section_translation_memory">Memoria</string>
     <string name="status_bar_units">messaggi: %d</string>
     <string name="toolbar_search_placeholder">Cerca…</string>
     <string name="tooltip_add">Aggiungi</string>

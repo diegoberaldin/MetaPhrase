@@ -207,10 +207,4 @@ internal class DefaultProjectsComponent(
             childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.exportTmx(path = path)
         }
     }
-
-    override fun importTmx(path: String) {
-        viewModelScope.launch(dispatchers.io) {
-            childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.importTmx(path = path)
-        }
-    }
 }

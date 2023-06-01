@@ -74,6 +74,7 @@
 	<string name="menu_segment_next">Next</string>
 	<string name="menu_segment_previous">Previous</string>
 	<string name="menu_translation_memory">Memory</string>
+	<string name="menu_translation_memory_clear">Reset all</string>
 	<string name="menu_translation_memory_export">Export…</string>
 	<string name="menu_translation_memory_import">Import…</string>
 	<string name="message_duplicate_key">A message with the same key already exists</string>
@@ -84,7 +85,7 @@
 	<string name="message_validation_valid">Hooray! All messages contain valid placeholders 🎉</string>
 	<string name="panel_section_checks">Validation</string>
 	<string name="panel_section_matches">Matches</string>
-	<string name="panel_section_translation_memory">TM</string>
+	<string name="panel_section_translation_memory">Memory</string>
 	<string name="status_bar_units">messages: %d</string>
 	<string name="toolbar_search_placeholder">Search…</string>
 	<string name="tooltip_add">Add</string>

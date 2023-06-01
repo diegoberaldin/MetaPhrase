@@ -34,6 +34,7 @@ interface RootComponent {
     fun exportTmx(path: String)
     fun openImportTmxDialog()
     fun importTmx(path: String)
+    fun clearTm()
 
     sealed interface Config : Parcelable {
         @Parcelize
