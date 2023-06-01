@@ -31,6 +31,8 @@ import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import common.ui.theme.Spacing
 import localized
 import translate.ui.TranslateComponent.PanelConfig
+import translatebrowsememory.ui.BrowseMemoryComponent
+import translatebrowsememory.ui.BrowseMemoryContent
 import translateinvalidsegments.ui.InvalidSegmentComponent
 import translateinvalidsegments.ui.ValidateContent
 import translatemessages.ui.MessageListContent
@@ -88,12 +90,12 @@ fun TranslateContent(
                     Spacer(modifier = Modifier.height(Spacing.xs))
                 }
                 when (panelConfiguration) {
-                    PanelConfig.TranslationMemory -> {
+                    PanelConfig.Matches -> {
                         val childComponent = panel.child?.instance as TranslationMemoryComponent
                         TranslationMemoryContent(
                             modifier = Modifier.fillMaxWidth().weight(1f),
                             component = childComponent,
-                            onMinify = { component.togglePanel(PanelConfig.TranslationMemory) },
+                            onMinify = { component.togglePanel(PanelConfig.Matches) },
                         )
                         LaunchedEffect(component) {
                             component.tryLoadSimilarities()
@@ -105,7 +107,16 @@ fun TranslateContent(
                         ValidateContent(
                             modifier = Modifier.fillMaxWidth().weight(1f),
                             component = childComponent,
-                            onMinify = { component.togglePanel(PanelConfig.TranslationMemory) },
+                            onMinify = { component.togglePanel(PanelConfig.Matches) },
+                        )
+                    }
+
+                    PanelConfig.MemoryContent -> {
+                        val childComponent = panel.child?.instance as BrowseMemoryComponent
+                        BrowseMemoryContent(
+                            modifier = Modifier.fillMaxWidth().weight(1f),
+                            component = childComponent,
+                            onMinify = { component.togglePanel(PanelConfig.MemoryContent) },
                         )
                     }
 
@@ -124,15 +135,21 @@ fun TranslateContent(
             ) {
                 PanelChip(
                     title = "panel_section_matches".localized(),
-                    isActive = panel.child?.configuration == PanelConfig.TranslationMemory,
+                    isActive = panel.child?.configuration == PanelConfig.Matches,
                 ) {
-                    component.togglePanel(PanelConfig.TranslationMemory)
+                    component.togglePanel(PanelConfig.Matches)
                 }
                 PanelChip(
                     title = "panel_section_checks".localized(),
                     isActive = panel.child?.configuration == PanelConfig.Validation,
                 ) {
                     component.togglePanel(PanelConfig.Validation)
+                }
+                PanelChip(
+                    title = "panel_section_translation_memory".localized(),
+                    isActive = panel.child?.configuration == PanelConfig.MemoryContent,
+                ) {
+                    component.togglePanel(PanelConfig.MemoryContent)
                 }
             }
 

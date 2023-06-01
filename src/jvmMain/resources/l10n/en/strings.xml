@@ -55,6 +55,7 @@
 	<string name="language_slovenian" translatable="false">Slovenščina</string>
 	<string name="language_spanish" translatable="false">Español</string>
 	<string name="language_swedish" translatable="false">Svenska</string>
+	<string name="memory_content_title">TM content</string>
 	<string name="menu_project">Project</string>
 	<string name="menu_project_close">Close</string>
 	<string name="menu_project_edit">Edit…</string>
@@ -83,6 +84,7 @@
 	<string name="message_validation_valid">Hooray! All messages contain valid placeholders 🎉</string>
 	<string name="panel_section_checks">Validation</string>
 	<string name="panel_section_matches">Matches</string>
+	<string name="panel_section_translation_memory">TM</string>
 	<string name="status_bar_units">messages: %d</string>
 	<string name="toolbar_search_placeholder">Search…</string>
 	<string name="tooltip_add">Add</string>

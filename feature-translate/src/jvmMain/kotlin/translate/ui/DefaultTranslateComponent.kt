@@ -52,12 +52,14 @@ import translate.ui.TranslateComponent.DialogConfig
 import translate.ui.TranslateComponent.MessageListConfig
 import translate.ui.TranslateComponent.PanelConfig
 import translate.ui.TranslateComponent.ToolbarConfig
+import translatebrowsememory.ui.BrowseMemoryComponent
 import translateinvalidsegments.ui.InvalidSegmentComponent
 import translatemessages.ui.MessageListComponent
 import translatenewsegment.ui.NewSegmentComponent
 import translatetoolbar.ui.TranslateToolbarComponent
 import translationtranslationmemory.ui.TranslationMemoryComponent
 import kotlin.coroutines.CoroutineContext
+import kotlin.time.Duration
 
 @OptIn(ExperimentalCoroutinesApi::class)
 internal class DefaultTranslateComponent(
@@ -207,7 +209,7 @@ internal class DefaultTranslateComponent(
             val child = panel.asFlow<TranslationMemoryComponent>().firstOrNull()
             child?.loadSimilarities(
                 key = key,
-                projectId = project.value?.id ?: 0,
+                projectId = projectId,
                 languageId = getCurrentLanguage()?.id ?: 0,
             )
         }.launchIn(this)
@@ -229,6 +231,11 @@ internal class DefaultTranslateComponent(
                 messageListComponent.setEditingEnabled(true)
                 // resets the current validation
                 panel.asFlow<InvalidSegmentComponent>().firstOrNull()?.clear()
+                // resets the TM
+                panel.asFlow<BrowseMemoryComponent>().firstOrNull()?.setLanguages(
+                    source = languageRepository.getBase(projectId),
+                    target = getCurrentLanguage(),
+                )
             }.launchIn(this)
         toolbarComponent.events.onEach { evt ->
             when (evt) {
@@ -265,19 +272,32 @@ internal class DefaultTranslateComponent(
     }
 
     private suspend fun CoroutineScope.configurePanel() {
-        val messageListComponent = messageList.asFlow<MessageListComponent>().firstOrNull() ?: return
-        panel.asFlow<TranslationMemoryComponent>().filterNotNull().onEach { child ->
-            child.copyEvents.onEach { segmentId ->
-                val segment = segmentRepository.getById(segmentId)
-                if (segment != null) {
-                    messageListComponent.changeSegmentText(segment.text)
+        panel.asFlow<Any>(timeout = Duration.INFINITE).onEach { child ->
+            when (child) {
+                is TranslationMemoryComponent -> {
+                    child.copyEvents.onEach { segmentId ->
+                        val segment = segmentRepository.getById(segmentId)
+                        if (segment != null) {
+                            val messageListComponent = messageList.asFlow<MessageListComponent>().firstOrNull()
+                            messageListComponent?.changeSegmentText(segment.text)
+                        }
+                    }.launchIn(this)
                 }
-            }.launchIn(this)
-        }.launchIn(this)
-        panel.asFlow<InvalidSegmentComponent>().filterNotNull().onEach { child ->
-            child.selectionEvents.onEach { key ->
-                messageListComponent.scrollToMessage(key)
-            }.launchIn(this)
+
+                is InvalidSegmentComponent -> {
+                    child.selectionEvents.onEach { key ->
+                        val messageListComponent = messageList.asFlow<MessageListComponent>().firstOrNull()
+                        messageListComponent?.scrollToMessage(key)
+                    }.launchIn(this)
+                }
+
+                is BrowseMemoryComponent -> {
+                    child.setLanguages(
+                        source = languageRepository.getBase(projectId),
+                        target = getCurrentLanguage(),
+                    )
+                }
+            }
         }.launchIn(this)
     }
 
@@ -290,8 +310,9 @@ internal class DefaultTranslateComponent(
 
     private fun createPanelComponent(config: PanelConfig, context: ComponentContext): Any {
         return when (config) {
-            PanelConfig.TranslationMemory -> getByInjection<TranslationMemoryComponent>(context, coroutineContext)
+            PanelConfig.Matches -> getByInjection<TranslationMemoryComponent>(context, coroutineContext)
             PanelConfig.Validation -> getByInjection<InvalidSegmentComponent>(context, coroutineContext)
+            PanelConfig.MemoryContent -> getByInjection<BrowseMemoryComponent>(context, coroutineContext)
             else -> Unit
         }
     }
@@ -427,7 +448,6 @@ internal class DefaultTranslateComponent(
     }
 
     private fun startValidation() {
-        val projectId = project.value?.id ?: return
         viewModelScope.launch(dispatchers.io) {
             val language = getCurrentLanguage() ?: return@launch
             val baseLanguage = languageRepository.getBase(projectId) ?: return@launch
@@ -471,7 +491,7 @@ internal class DefaultTranslateComponent(
                 panel.asFlow<TranslationMemoryComponent>().firstOrNull()?.loadSimilarities(
                     key = currentKey,
                     languageId = getCurrentLanguage()?.id ?: 0,
-                    projectId = project.value?.id ?: 0,
+                    projectId = projectId,
                 )
             }
         }
@@ -480,7 +500,7 @@ internal class DefaultTranslateComponent(
     override fun exportTmx(path: String) {
         viewModelScope.launch(dispatchers.io) {
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
-            exportToTmx(path = path, projectId = project.value?.id ?: 0)
+            exportToTmx(path = path, projectId = projectId)
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
         }
     }

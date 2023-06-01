@@ -3,6 +3,7 @@ package translate.di
 import org.koin.dsl.module
 import translate.ui.DefaultTranslateComponent
 import translate.ui.TranslateComponent
+import translatebrowsememory.di.translateBrowseMemoryModule
 import translateinvalidsegments.di.translateInvalidSegmentsModule
 import translatemessages.di.translateMessagesModule
 import translatenewsegment.di.translateNewSegmentModule
@@ -15,6 +16,7 @@ val translateModule = module {
     includes(translateInvalidSegmentsModule)
     includes(translateNewSegmentModule)
     includes(translateTranslationMemoryModule)
+    includes(translateBrowseMemoryModule)
 
     factory<TranslateComponent> { params ->
         DefaultTranslateComponent(

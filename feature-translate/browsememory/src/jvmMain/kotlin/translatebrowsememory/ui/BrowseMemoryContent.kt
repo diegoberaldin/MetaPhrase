@@ -1,4 +1,4 @@
-package translationtranslationmemory.ui
+package translatebrowsememory.ui
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.onClick
@@ -20,49 +19,35 @@ import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ContentCopy
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Minimize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.PointerIcon
-import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import common.ui.components.CustomTooltipArea
 import common.ui.theme.Spacing
 import localized
-import java.awt.Cursor
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun TranslationMemoryContent(
-    component: TranslationMemoryComponent,
-    onMinify: () -> Unit,
+fun BrowseMemoryContent(
+    component: BrowseMemoryComponent,
     modifier: Modifier = Modifier,
+    onMinify: () -> Unit,
 ) {
-    val uiState by component.uiState.collectAsState()
-    val pointerIcon by remember(uiState.isLoading) {
-        if (uiState.isLoading) {
-            mutableStateOf(PointerIcon(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR)))
-        } else {
-            mutableStateOf(PointerIcon(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR)))
-        }
-    }
-
     Column(
-        modifier = modifier.pointerHoverIcon(pointerIcon),
+        modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(Spacing.s),
     ) {
         Box(modifier = Modifier.fillMaxWidth()) {
             Text(
                 modifier = Modifier.align(Alignment.CenterStart),
-                text = "translation_memory_title".localized(),
+                text = "memory_content_title".localized(),
                 style = MaterialTheme.typography.caption,
                 color = MaterialTheme.colors.onBackground,
             )
@@ -77,19 +62,33 @@ fun TranslationMemoryContent(
                 )
             }
         }
+        val uiState by component.uiState.collectAsState()
+
+        BrowseMemoryTopControls(
+            sourceLanguage = uiState.sourceLanguage,
+            availableSourceLanguages = uiState.availableSourceLanguages,
+            targetLanguage = uiState.targetLanguage,
+            availableTargetLanguages = uiState.availableTargetLanguages,
+            currentSearch = uiState.currentSearch,
+            onSourceLanguageSelected = {
+                component.setSourceLanguage(it)
+            },
+            onTargetLanguageSelected = {
+                component.setTargetLanguage(it)
+            },
+            onSearchChanged = {
+                component.setSearch(it)
+            },
+            onSearchFired = {
+                component.onSearchFired()
+            },
+        )
+
         LazyColumn(
+            modifier = Modifier.weight(1f).fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(Spacing.s),
         ) {
-            if (uiState.units.isEmpty()) {
-                item {
-                    Text(
-                        text = "message_no_item_to_display".localized(),
-                        style = MaterialTheme.typography.caption,
-                        color = MaterialTheme.colors.onBackground,
-                    )
-                }
-            }
-            itemsIndexed(uiState.units) { idx, unit ->
+            itemsIndexed(uiState.entries) { idx, entry ->
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                 ) {
@@ -101,7 +100,7 @@ fun TranslationMemoryContent(
                         ).padding(all = Spacing.xxs),
                     ) {
                         Text(
-                            text = unit.original?.text.orEmpty(),
+                            text = entry.sourceText,
                             style = MaterialTheme.typography.caption,
                             color = Color.White,
                         )
@@ -117,7 +116,7 @@ fun TranslationMemoryContent(
                         ).padding(all = Spacing.xxs),
                     ) {
                         Text(
-                            text = unit.segment.text,
+                            text = entry.targetText,
                             style = MaterialTheme.typography.caption,
                             color = Color.White,
                         )
@@ -128,27 +127,19 @@ fun TranslationMemoryContent(
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Text(
-                            text = "translation_memory_similarity".localized(unit.similarity),
+                            text = "translation_memory_origin".localized(entry.origin),
                             style = MaterialTheme.typography.caption.copy(fontSize = 10.sp),
                             color = MaterialTheme.colors.onBackground.copy(alpha = 0.9f),
                         )
-                        if (unit.origin.isNotEmpty()) {
-                            Spacer(modifier = Modifier.width(Spacing.xs))
-                            Text(
-                                text = "translation_memory_origin".localized(unit.origin),
-                                style = MaterialTheme.typography.caption.copy(fontSize = 10.sp),
-                                color = MaterialTheme.colors.onBackground.copy(alpha = 0.9f),
-                            )
-                        }
                         Spacer(modifier = Modifier.weight(1f))
 
                         // action buttons
-                        CustomTooltipArea(text = "tooltip_copy_translation".localized()) {
+                        CustomTooltipArea(text = "tooltip_delete".localized()) {
                             Icon(
                                 modifier = Modifier.size(18.dp).padding(Spacing.xxs).onClick {
-                                    component.copyTranslation(idx)
+                                    component.deleteEntry(idx)
                                 },
-                                imageVector = Icons.Default.ContentCopy,
+                                imageVector = Icons.Default.Delete,
                                 contentDescription = null,
                             )
                         }
