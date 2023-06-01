@@ -81,7 +81,7 @@ internal class DefaultTranslationMemoryComponent(
 
     override fun copyTranslation(index: Int) {
         viewModelScope.launch {
-            val unit = units.value[index]
+            val unit = units.value.getOrNull(index) ?: return@launch
             copyEvents.emit(unit.segment.text)
         }
     }

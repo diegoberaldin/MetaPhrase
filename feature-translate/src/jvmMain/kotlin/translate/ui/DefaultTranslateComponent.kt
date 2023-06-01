@@ -504,6 +504,12 @@ internal class DefaultTranslateComponent(
         startValidation()
     }
 
+    override fun insertBestMatch() {
+        viewModelScope.launch(dispatchers.io) {
+            panel.asFlow<TranslationMemoryComponent>().firstOrNull()?.copyTranslation(0)
+        }
+    }
+
     companion object {
         const val KEY_DIALOG_SLOT = "DialogSlot"
         const val KEY_TOOLBAR_SLOT = "ToolbarSlot"

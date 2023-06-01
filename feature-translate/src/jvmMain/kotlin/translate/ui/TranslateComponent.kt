@@ -34,6 +34,7 @@ interface TranslateComponent {
     fun tryLoadSimilarities()
     fun exportTmx(path: String)
     fun validatePlaceholders()
+    fun insertBestMatch()
 
     @Parcelize
     object ToolbarConfig : Parcelable

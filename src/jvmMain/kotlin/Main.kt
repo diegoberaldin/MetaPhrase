@@ -243,6 +243,14 @@ private fun MenuBarScope.makeMenus(
         text = "menu_translation_memory".localized(),
     ) {
         Item(
+            text = "menu_translation_memory_insert_best_match".localized(),
+            shortcut = KeyShortcut(Key.M, meta = true, shift = true),
+            enabled = rootUiState.isEditing,
+        ) {
+            rootComponent.insertBestMatch()
+        }
+        Separator()
+        Item(
             text = "menu_translation_memory_export".localized(),
             enabled = rootUiState.activeProject != null,
         ) {
@@ -253,6 +261,7 @@ private fun MenuBarScope.makeMenus(
         ) {
             rootComponent.openImportTmxDialog()
         }
+        Separator()
         Item(
             text = "menu_translation_memory_clear".localized(),
         ) {

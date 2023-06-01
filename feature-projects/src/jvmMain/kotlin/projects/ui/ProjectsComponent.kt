@@ -27,6 +27,7 @@ interface ProjectsComponent {
     fun deleteSegment()
     fun exportTmx(path: String)
     fun validatePlaceholders()
+    fun insertBestMatch()
 
     sealed interface Config : Parcelable {
         @Parcelize

@@ -36,6 +36,7 @@ interface RootComponent {
     fun importTmx(path: String)
     fun clearTm()
     fun validatePlaceholders()
+    fun insertBestMatch()
 
     sealed interface Config : Parcelable {
         @Parcelize

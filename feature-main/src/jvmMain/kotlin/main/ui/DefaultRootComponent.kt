@@ -347,4 +347,10 @@ internal class DefaultRootComponent(
             main.asFlow<ProjectsComponent>().firstOrNull()?.validatePlaceholders()
         }
     }
+
+    override fun insertBestMatch() {
+        viewModelScope.launch(dispatchers.io) {
+            main.asFlow<ProjectsComponent>().firstOrNull()?.insertBestMatch()
+        }
+    }
 }

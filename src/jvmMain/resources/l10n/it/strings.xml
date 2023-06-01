@@ -53,6 +53,7 @@
     <string name="menu_translation_memory_clear">Azzera</string>
     <string name="menu_translation_memory_export">Esporta…</string>
     <string name="menu_translation_memory_import">Importa…</string>
+    <string name="menu_translation_memory_insert_best_match">Inserisci corrispondenza migliore</string>
     <string name="message_duplicate_key">Esiste già un messaggio con la stessa chiave</string>
     <string name="message_missing_field">Campo obbligatorio</string>
     <string name="message_no_item_to_display">Nessun dato da visualizzare</string>

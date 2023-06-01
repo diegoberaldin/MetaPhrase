@@ -214,4 +214,10 @@ internal class DefaultProjectsComponent(
             childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.validatePlaceholders()
         }
     }
+
+    override fun insertBestMatch() {
+        viewModelScope.launch(dispatchers.io) {
+            childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.insertBestMatch()
+        }
+    }
 }
