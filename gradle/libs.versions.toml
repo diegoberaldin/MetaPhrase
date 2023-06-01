@@ -9,8 +9,8 @@ decompose = "2.0.0-alpha-02"
 redundent = "1.9.0"
 sl4j = "1.7.30"
 
-appVersion = "1.0.0-alpha02"
-buildNumber = "1"
+appVersion = "1.0.0-beta-01"
+buildNumber = "3"
 
 [libraries]
 # DI

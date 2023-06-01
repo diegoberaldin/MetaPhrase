@@ -1,6 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="browsememory-jvm-1.0.0-alpha02">
-    <output-path>$PROJECT_DIR$/feature-translate/browsememory/build/libs</output-path>
-    <root id="archive" name="browsememory-jvm-1.0.0-alpha02.jar" />
-  </artifact>
-</component>
