@@ -12,7 +12,11 @@ class MemoryEntryRepository(
 
     suspend fun delete(model: TranslationMemoryEntryModel) = dao.delete(model)
 
-    suspend fun getById(id: Int, sourceLang: String, targetLang: String): TranslationMemoryEntryModel? = dao.getById(id = id, sourceLang = sourceLang, targetLang = targetLang)
+    suspend fun getById(id: Int, sourceLang: String, targetLang: String): TranslationMemoryEntryModel? =
+        dao.getById(id = id, sourceLang = sourceLang, targetLang = targetLang)
 
-    suspend fun getAll(sourceLang: String, targetLang: String): List<TranslationMemoryEntryModel> = dao.getAll(sourceLang = sourceLang, targetLang = targetLang)
+    suspend fun getAll(sourceLang: String, targetLang: String, search: String = ""): List<TranslationMemoryEntryModel> =
+        dao.getAll(sourceLang = sourceLang, targetLang = targetLang, search = search)
+
+    suspend fun getLanguageCodes(): List<String> = dao.getLanguageCodes()
 }

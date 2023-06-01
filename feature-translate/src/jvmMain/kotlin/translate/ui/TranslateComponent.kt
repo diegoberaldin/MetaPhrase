@@ -54,9 +54,12 @@ interface TranslateComponent {
         object None : PanelConfig
 
         @Parcelize
-        object TranslationMemory : PanelConfig
+        object Matches : PanelConfig
 
         @Parcelize
         object Validation : PanelConfig
+
+        @Parcelize
+        object MemoryContent : PanelConfig
     }
 }

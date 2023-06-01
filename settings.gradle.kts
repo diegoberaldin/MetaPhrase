@@ -40,4 +40,5 @@ include(
     ":feature-translate:newsegment",
     ":feature-translate:invalidsegments",
     ":feature-translate:translationmemory",
+    ":feature-translate:browsememory",
 )

@@ -30,6 +30,7 @@
     <string name="dialog_title_settings">Impostazioni</string>
     <string name="dialog_title_statistics">Statistiche</string>
     <string name="lang">it</string>
+    <string name="memory_content_title">Contenuto TM</string>
     <string name="menu_project">Progetto</string>
     <string name="menu_project_close">Chiudi</string>
     <string name="menu_project_edit">Modifica…</string>
@@ -58,6 +59,7 @@
     <string name="message_validation_valid">Evviva! Tutti i messaggi contengono placeholder validi 🎉</string>
     <string name="panel_section_checks">Convalida</string>
     <string name="panel_section_matches">Corrispondenze</string>
+    <string name="panel_section_translation_memory">TM</string>
     <string name="status_bar_units">messaggi: %d</string>
     <string name="toolbar_search_placeholder">Cerca…</string>
     <string name="tooltip_add">Aggiungi</string>

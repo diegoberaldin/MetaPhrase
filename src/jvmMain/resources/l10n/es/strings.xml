@@ -30,6 +30,7 @@
 	<string name="dialog_title_settings">Ajustes</string>
 	<string name="dialog_title_statistics">Estadísticas</string>
 	<string name="lang">es</string>
+	<string name="memory_content_title">Contenido MT</string>
 	<string name="menu_project">Proyecto</string>
 	<string name="menu_project_close">Cerrar</string>
 	<string name="menu_project_edit">Modificar…</string>
@@ -58,6 +59,7 @@
 	<string name="message_validation_valid">¡Enhorabuena! Todos los mensajes contienen especificadores válidos 🎉</string>
 	<string name="panel_section_checks">Validación</string>
 	<string name="panel_section_matches">Correspondencias</string>
+	<string name="panel_section_translation_memory">MT</string>
 	<string name="status_bar_units">mensajes: %d</string>
 	<string name="toolbar_search_placeholder">Buscar…</string>
 	<string name="tooltip_add">Añadir</string>

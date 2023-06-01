@@ -18,7 +18,7 @@ internal class DefaultTranslationMemoryRepository(
             key = segment.key,
             threshold = threshold,
             languageId = languageId,
-        )
+        ).distinctBy { it.original?.text.orEmpty() }
 
         val unitsFromProject = projectSource.getUnits(
             projectId = projectId,
