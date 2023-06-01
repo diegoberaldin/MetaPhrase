@@ -273,12 +273,9 @@ internal class DefaultTranslateComponent(
         panel.asFlow<Any>(timeout = Duration.INFINITE).onEach { child ->
             when (child) {
                 is TranslationMemoryComponent -> {
-                    child.copyEvents.onEach { segmentId ->
-                        val segment = segmentRepository.getById(segmentId)
-                        if (segment != null) {
-                            val messageListComponent = messageList.asFlow<MessageListComponent>().firstOrNull()
-                            messageListComponent?.changeSegmentText(segment.text)
-                        }
+                    child.copyEvents.onEach { textToCopy ->
+                        val messageListComponent = messageList.asFlow<MessageListComponent>().firstOrNull()
+                        messageListComponent?.changeSegmentText(textToCopy)
                     }.launchIn(this)
                 }
 
