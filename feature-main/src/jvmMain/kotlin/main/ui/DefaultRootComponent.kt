@@ -317,4 +317,14 @@ internal class DefaultRootComponent(
             main.asFlow<ProjectsComponent>().firstOrNull()?.exportTmx(path = path)
         }
     }
+
+    override fun openImportTmxDialog() {
+        dialogNavigation.activate(RootComponent.DialogConfig.ImportTmxDialog)
+    }
+
+    override fun importTmx(path: String) {
+        viewModelScope.launch(dispatchers.io) {
+            main.asFlow<ProjectsComponent>().firstOrNull()?.importTmx(path = path)
+        }
+    }
 }

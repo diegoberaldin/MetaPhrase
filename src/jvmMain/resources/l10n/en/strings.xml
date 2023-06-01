@@ -74,6 +74,7 @@
 	<string name="menu_segment_previous">Previous</string>
 	<string name="menu_translation_memory">Memory</string>
 	<string name="menu_translation_memory_export">Export…</string>
+	<string name="menu_translation_memory_import">Import…</string>
 	<string name="message_duplicate_key">A message with the same key already exists</string>
 	<string name="message_missing_field">Missing field</string>
 	<string name="message_no_item_to_display">No item to display</string>
@@ -94,8 +95,10 @@
 	<string name="tooltip_move_to_next">Move to next</string>
 	<string name="tooltip_move_to_previous">Move to previous</string>
 	<string name="tooltip_validate">Validate</string>
+	<string name="translation_memory_origin">source: %s</string>
 	<string name="translation_memory_similarity">similarity: %d%%</string>
 	<string name="translation_memory_title">Translation Memory</string>
+	<string name="translation_unit_source_this_project">this project</string>
 	<string name="unit_filter_all">All</string>
 	<string name="unit_filter_translatable">Translatable</string>
 	<string name="unit_filter_untranslated">Untranslated</string>

@@ -12,7 +12,12 @@ internal class MemoryTranslationUnitSource(
     private val memoryEntryRepository: MemoryEntryRepository,
     private val calculateSimilarity: SimilarityCalculator,
 ) : TranslationUnitSource {
-    override suspend fun getUnits(projectId: Int, key: String, threshold: Float, languageId: Int): List<TranslationUnit> {
+    override suspend fun getUnits(
+        projectId: Int,
+        key: String,
+        threshold: Float,
+        languageId: Int,
+    ): List<TranslationUnit> {
         val baseLanguage = languageRepository.getBase(projectId) ?: return emptyList()
         val currentLanguage = languageRepository.getById(languageId) ?: return emptyList()
         val entries = memoryEntryRepository.getAll(sourceLang = baseLanguage.code, targetLang = currentLanguage.code)
@@ -28,6 +33,7 @@ internal class MemoryTranslationUnitSource(
                         original = SegmentModel(text = e.sourceText),
                         segment = SegmentModel(text = e.targetText),
                         similarity = (similarity * 100).toInt(),
+                        origin = e.origin,
                     )
                 }
             }

@@ -241,5 +241,10 @@ private fun MenuBarScope.makeMenus(
         ) {
             rootComponent.openExportTmxDialog()
         }
+        Item(
+            text = "menu_translation_memory_import".localized(),
+        ) {
+            rootComponent.openImportTmxDialog()
+        }
     }
 }

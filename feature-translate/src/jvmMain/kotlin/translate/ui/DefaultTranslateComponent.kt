@@ -44,6 +44,7 @@ import repository.usecase.ExportAndroidResourcesUseCase
 import repository.usecase.ExportIosResourcesUseCase
 import repository.usecase.ExportTmxUseCase
 import repository.usecase.ImportSegmentsUseCase
+import repository.usecase.ImportTmxUseCase
 import repository.usecase.ParseAndroidResourcesUseCase
 import repository.usecase.ParseIosResourcesUseCase
 import repository.usecase.ValidatePlaceholdersUseCase
@@ -74,6 +75,7 @@ internal class DefaultTranslateComponent(
     private val validatePlaceholders: ValidatePlaceholdersUseCase,
     private val notificationCenter: NotificationCenter,
     private val exportToTmx: ExportTmxUseCase,
+    private val importFromTmx: ImportTmxUseCase,
 ) : TranslateComponent, ComponentContext by componentContext {
 
     private val project = MutableStateFlow<ProjectModel?>(null)
@@ -479,6 +481,14 @@ internal class DefaultTranslateComponent(
         viewModelScope.launch(dispatchers.io) {
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
             exportToTmx(path = path, projectId = project.value?.id ?: 0)
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
+        }
+    }
+
+    override fun importTmx(path: String) {
+        viewModelScope.launch(dispatchers.io) {
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
+            importFromTmx(path = path)
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
         }
     }
