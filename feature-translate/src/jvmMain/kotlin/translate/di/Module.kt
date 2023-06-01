@@ -34,7 +34,6 @@ val translateModule = module {
             validatePlaceholders = get(),
             notificationCenter = get(),
             exportToTmx = get(),
-            importFromTmx = get(),
         )
     }
 }

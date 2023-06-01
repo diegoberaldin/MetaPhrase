@@ -44,7 +44,6 @@ import repository.usecase.ExportAndroidResourcesUseCase
 import repository.usecase.ExportIosResourcesUseCase
 import repository.usecase.ExportTmxUseCase
 import repository.usecase.ImportSegmentsUseCase
-import repository.usecase.ImportTmxUseCase
 import repository.usecase.ParseAndroidResourcesUseCase
 import repository.usecase.ParseIosResourcesUseCase
 import repository.usecase.ValidatePlaceholdersUseCase
@@ -77,7 +76,6 @@ internal class DefaultTranslateComponent(
     private val validatePlaceholders: ValidatePlaceholdersUseCase,
     private val notificationCenter: NotificationCenter,
     private val exportToTmx: ExportTmxUseCase,
-    private val importFromTmx: ImportTmxUseCase,
 ) : TranslateComponent, ComponentContext by componentContext {
 
     private val project = MutableStateFlow<ProjectModel?>(null)
@@ -275,12 +273,9 @@ internal class DefaultTranslateComponent(
         panel.asFlow<Any>(timeout = Duration.INFINITE).onEach { child ->
             when (child) {
                 is TranslationMemoryComponent -> {
-                    child.copyEvents.onEach { segmentId ->
-                        val segment = segmentRepository.getById(segmentId)
-                        if (segment != null) {
-                            val messageListComponent = messageList.asFlow<MessageListComponent>().firstOrNull()
-                            messageListComponent?.changeSegmentText(segment.text)
-                        }
+                    child.copyEvents.onEach { textToCopy ->
+                        val messageListComponent = messageList.asFlow<MessageListComponent>().firstOrNull()
+                        messageListComponent?.changeSegmentText(textToCopy)
                     }.launchIn(this)
                 }
 
@@ -505,11 +500,13 @@ internal class DefaultTranslateComponent(
         }
     }
 
-    override fun importTmx(path: String) {
+    override fun validatePlaceholders() {
+        startValidation()
+    }
+
+    override fun insertBestMatch() {
         viewModelScope.launch(dispatchers.io) {
-            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
-            importFromTmx(path = path)
-            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
+            panel.asFlow<TranslationMemoryComponent>().firstOrNull()?.copyTranslation(0)
         }
     }
 

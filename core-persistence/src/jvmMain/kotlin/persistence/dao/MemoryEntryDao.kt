@@ -5,6 +5,7 @@ import org.jetbrains.exposed.sql.JoinType
 import org.jetbrains.exposed.sql.LikePattern
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.and
+import org.jetbrains.exposed.sql.deleteAll
 import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.insertIgnore
 import org.jetbrains.exposed.sql.select
@@ -37,6 +38,10 @@ class MemoryEntryDao {
 
     suspend fun delete(model: TranslationMemoryEntryModel) = newSuspendedTransaction {
         MemoryEntryEntity.deleteWhere { MemoryEntryEntity.id eq model.id }
+    }
+
+    suspend fun deleteAll() = newSuspendedTransaction {
+        MemoryEntryEntity.deleteAll()
     }
 
     suspend fun update(model: TranslationMemoryEntryModel) = newSuspendedTransaction {

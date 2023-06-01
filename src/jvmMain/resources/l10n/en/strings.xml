@@ -1,108 +1,115 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-	<string name="app_intro">Please open a project by selecting one of the following items.</string>
-	<string name="app_intro_empty">It seems like you don\'t have any project.\nPlease create a new one using the "Project" > "New…" menu.</string>
-	<string name="app_intro_title">Thank you for using MetaPhrase!</string>
-	<string name="app_name" translatable="false">MetaPhrase</string>
-	<string name="button_cancel">Cancel</string>
-	<string name="button_close">Close</string>
-	<string name="button_ok">OK</string>
-	<string name="column_invalid_extra">Extra</string>
-	<string name="column_invalid_key">Key</string>
-	<string name="column_invalid_missing">Missing</string>
-	<string name="create_project_field_name">Name</string>
-	<string name="create_project_languages">Languages</string>
-	<string name="create_project_languages_subtitle">Each project must have exactly one base (or default) language</string>
-	<string name="create_segment_key">Key</string>
-	<string name="create_segment_text">Text</string>
-	<string name="dialog_settings_language">App language</string>
-	<string name="dialog_settings_version">App version</string>
-	<string name="dialog_statistics_item_completion_rate">Completion rate</string>
-	<string name="dialog_statistics_item_total_languages">Language number</string>
-	<string name="dialog_statistics_item_total_messages">Message number</string>
-	<string name="dialog_statistics_item_translatable_messages">Translatable message number</string>
-	<string name="dialog_statistics_section_general">General</string>
-	<string name="dialog_title_create_project">New project</string>
-	<string name="dialog_title_create_segment">New message</string>
-	<string name="dialog_title_edit_project">Edit project</string>
-	<string name="dialog_title_generic_message">Info</string>
-	<string name="dialog_title_invalid_segments">Invalid messages</string>
-	<string name="dialog_title_open_file">Choose file</string>
-	<string name="dialog_title_settings">Settings</string>
-	<string name="dialog_title_statistics">Statistics</string>
-	<string name="lang">en</string>
-	<string name="language_bulgarian" translatable="false">Вългарски</string>
-	<string name="language_croatian" translatable="false">Hrvatski</string>
-	<string name="language_czech" translatable="false">Čeština</string>
-	<string name="language_danish" translatable="false">Dansk</string>
-	<string name="language_dutch" translatable="false">Nederlands</string>
-	<string name="language_english" translatable="false">English</string>
-	<string name="language_estonian" translatable="false">Eesti</string>
-	<string name="language_finnish" translatable="false">Suomi</string>
-	<string name="language_french" translatable="false">Français</string>
-	<string name="language_german" translatable="false">Deutsch</string>
-	<string name="language_greek" translatable="false">Ελληνικά</string>
-	<string name="language_hungarian" translatable="false">Magyar</string>
-	<string name="language_irish" translatable="false">Gaeilge</string>
-	<string name="language_italian" translatable="false">Italiano</string>
-	<string name="language_latvian" translatable="false">Latviešu</string>
-	<string name="language_lithuanian" translatable="false">Lietuvių</string>
-	<string name="language_maltese" translatable="false">Malti</string>
-	<string name="language_polish" translatable="false">Polski</string>
-	<string name="language_portuguese" translatable="false">Português</string>
-	<string name="language_romanian" translatable="false">Română</string>
-	<string name="language_slovak" translatable="false">Slovenčina</string>
-	<string name="language_slovenian" translatable="false">Slovenščina</string>
-	<string name="language_spanish" translatable="false">Español</string>
-	<string name="language_swedish" translatable="false">Svenska</string>
-	<string name="memory_content_title">TM content</string>
-	<string name="menu_project">Project</string>
-	<string name="menu_project_close">Close</string>
-	<string name="menu_project_edit">Edit…</string>
-	<string name="menu_project_export">Export</string>
-	<string name="menu_project_import">Import</string>
-	<string name="menu_project_import_android">Android XML…</string>
-	<string name="menu_project_import_ios">iOS stringtable…</string>
-	<string name="menu_project_new">New…</string>
-	<string name="menu_project_settings">Settings…</string>
-	<string name="menu_project_statistics">Statistics…</string>
-	<string name="menu_segment">Message</string>
-	<string name="menu_segment_copy_base">Copy base</string>
-	<string name="menu_segment_delete">Delete</string>
-	<string name="menu_segment_end_edit">End edit</string>
-	<string name="menu_segment_new">New…</string>
-	<string name="menu_segment_next">Next</string>
-	<string name="menu_segment_previous">Previous</string>
-	<string name="menu_translation_memory">Memory</string>
-	<string name="menu_translation_memory_export">Export…</string>
-	<string name="menu_translation_memory_import">Import…</string>
-	<string name="message_duplicate_key">A message with the same key already exists</string>
-	<string name="message_missing_field">Missing field</string>
-	<string name="message_no_item_to_display">No item to display</string>
-	<string name="message_no_validation">No validation results, run a validation with the "Validate" toolbar action</string>
-	<string name="message_validation_invalid">Some invalid messages were found:</string>
-	<string name="message_validation_valid">Hooray! All messages contain valid placeholders 🎉</string>
-	<string name="panel_section_checks">Validation</string>
-	<string name="panel_section_matches">Matches</string>
-	<string name="panel_section_translation_memory">TM</string>
-	<string name="status_bar_units">messages: %d</string>
-	<string name="toolbar_search_placeholder">Search…</string>
-	<string name="tooltip_add">Add</string>
-	<string name="tooltip_copy_base">Copy from base language</string>
-	<string name="tooltip_copy_translation">Copy translation</string>
-	<string name="tooltip_delete">Delete</string>
-	<string name="tooltip_make_translatable">Make translatable</string>
-	<string name="tooltip_make_untranslatable">Make untranslatable</string>
-	<string name="tooltip_minify">Minify</string>
-	<string name="tooltip_move_to_next">Move to next</string>
-	<string name="tooltip_move_to_previous">Move to previous</string>
-	<string name="tooltip_validate">Validate</string>
-	<string name="translation_memory_origin">source: %s</string>
-	<string name="translation_memory_similarity">similarity: %d%%</string>
-	<string name="translation_memory_title">Translation Memory</string>
-	<string name="translation_unit_source_this_project">this project</string>
-	<string name="unit_filter_all">All</string>
-	<string name="unit_filter_translatable">Translatable</string>
-	<string name="unit_filter_untranslated">Untranslated</string>
-	<string name="validation_title">Validation results</string>
+    <string name="app_intro">Please open a project by selecting one of the following items.</string>
+    <string name="app_intro_empty">It seems like you don\'t have any project.\nPlease create a new one using the
+        "Project" > "New…" menu.
+    </string>
+    <string name="app_intro_title">Thank you for using MetaPhrase!</string>
+    <string name="app_name" translatable="false">MetaPhrase</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="button_close">Close</string>
+    <string name="button_ok">OK</string>
+    <string name="column_invalid_extra">Extra</string>
+    <string name="column_invalid_key">Key</string>
+    <string name="column_invalid_missing">Missing</string>
+    <string name="create_project_field_name">Name</string>
+    <string name="create_project_languages">Languages</string>
+    <string name="create_project_languages_subtitle">Each project must have exactly one base (or default) language
+    </string>
+    <string name="create_segment_key">Key</string>
+    <string name="create_segment_text">Text</string>
+    <string name="dialog_settings_language">App language</string>
+    <string name="dialog_settings_version">App version</string>
+    <string name="dialog_statistics_item_completion_rate">Completion rate</string>
+    <string name="dialog_statistics_item_total_languages">Language number</string>
+    <string name="dialog_statistics_item_total_messages">Message number</string>
+    <string name="dialog_statistics_item_translatable_messages">Translatable message number</string>
+    <string name="dialog_statistics_section_general">General</string>
+    <string name="dialog_title_create_project">New project</string>
+    <string name="dialog_title_create_segment">New message</string>
+    <string name="dialog_title_edit_project">Edit project</string>
+    <string name="dialog_title_generic_message">Info</string>
+    <string name="dialog_title_invalid_segments">Invalid messages</string>
+    <string name="dialog_title_open_file">Choose file</string>
+    <string name="dialog_title_settings">Settings</string>
+    <string name="dialog_title_statistics">Statistics</string>
+    <string name="lang">en</string>
+    <string name="language_bulgarian" translatable="false">Вългарски</string>
+    <string name="language_croatian" translatable="false">Hrvatski</string>
+    <string name="language_czech" translatable="false">Čeština</string>
+    <string name="language_danish" translatable="false">Dansk</string>
+    <string name="language_dutch" translatable="false">Nederlands</string>
+    <string name="language_english" translatable="false">English</string>
+    <string name="language_estonian" translatable="false">Eesti</string>
+    <string name="language_finnish" translatable="false">Suomi</string>
+    <string name="language_french" translatable="false">Français</string>
+    <string name="language_german" translatable="false">Deutsch</string>
+    <string name="language_greek" translatable="false">Ελληνικά</string>
+    <string name="language_hungarian" translatable="false">Magyar</string>
+    <string name="language_irish" translatable="false">Gaeilge</string>
+    <string name="language_italian" translatable="false">Italiano</string>
+    <string name="language_latvian" translatable="false">Latviešu</string>
+    <string name="language_lithuanian" translatable="false">Lietuvių</string>
+    <string name="language_maltese" translatable="false">Malti</string>
+    <string name="language_polish" translatable="false">Polski</string>
+    <string name="language_portuguese" translatable="false">Português</string>
+    <string name="language_romanian" translatable="false">Română</string>
+    <string name="language_slovak" translatable="false">Slovenčina</string>
+    <string name="language_slovenian" translatable="false">Slovenščina</string>
+    <string name="language_spanish" translatable="false">Español</string>
+    <string name="language_swedish" translatable="false">Svenska</string>
+    <string name="memory_content_title">TM content</string>
+    <string name="menu_project">Project</string>
+    <string name="menu_project_close">Close</string>
+    <string name="menu_project_edit">Edit…</string>
+    <string name="menu_project_export">Export</string>
+    <string name="menu_project_import">Import</string>
+    <string name="menu_project_import_android">Android XML…</string>
+    <string name="menu_project_import_ios">iOS stringtable…</string>
+    <string name="menu_project_new">New…</string>
+    <string name="menu_project_validate">Validate</string>
+    <string name="menu_project_settings">Settings…</string>
+    <string name="menu_project_statistics">Statistics…</string>
+    <string name="menu_segment">Message</string>
+    <string name="menu_segment_copy_base">Copy base</string>
+    <string name="menu_segment_delete">Delete</string>
+    <string name="menu_segment_end_edit">End edit</string>
+    <string name="menu_segment_new">New…</string>
+    <string name="menu_segment_next">Next</string>
+    <string name="menu_segment_previous">Previous</string>
+    <string name="menu_translation_memory">Memory</string>
+    <string name="menu_translation_memory_clear">Reset all</string>
+    <string name="menu_translation_memory_export">Export…</string>
+    <string name="menu_translation_memory_import">Import…</string>
+    <string name="menu_translation_memory_insert_best_match">Insert best match</string>
+    <string name="message_duplicate_key">A message with the same key already exists</string>
+    <string name="message_missing_field">Missing field</string>
+    <string name="message_no_item_to_display">No item to display</string>
+    <string name="message_no_validation">No validation results, run a validation with the "Validate" toolbar action
+    </string>
+    <string name="message_validation_invalid">Some invalid messages were found:</string>
+    <string name="message_validation_valid">Hooray! All messages contain valid placeholders 🎉</string>
+    <string name="panel_section_checks">Validation</string>
+    <string name="panel_section_matches">Matches</string>
+    <string name="panel_section_translation_memory">Memory</string>
+    <string name="status_bar_units">messages: %d</string>
+    <string name="toolbar_search_placeholder">Search…</string>
+    <string name="tooltip_add">Add</string>
+    <string name="tooltip_copy_base">Copy from base language</string>
+    <string name="tooltip_copy_translation">Copy translation</string>
+    <string name="tooltip_delete">Delete</string>
+    <string name="tooltip_make_translatable">Make translatable</string>
+    <string name="tooltip_make_untranslatable">Make untranslatable</string>
+    <string name="tooltip_minify">Minify</string>
+    <string name="tooltip_move_to_next">Move to next</string>
+    <string name="tooltip_move_to_previous">Move to previous</string>
+    <string name="tooltip_validate">Validate</string>
+    <string name="translation_memory_origin">source: %s</string>
+    <string name="translation_memory_similarity">similarity: %d%%</string>
+    <string name="translation_memory_title">Translation Memory</string>
+    <string name="translation_unit_source_this_project">this project</string>
+    <string name="unit_filter_all">All</string>
+    <string name="unit_filter_translatable">Translatable</string>
+    <string name="unit_filter_untranslated">Untranslated</string>
+    <string name="validation_title">Validation results</string>
 </resources>

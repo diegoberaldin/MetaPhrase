@@ -33,7 +33,7 @@ internal class DefaultTranslationMemoryComponent(
     private lateinit var viewModelScope: CoroutineScope
 
     override lateinit var uiState: StateFlow<TranslationMemoryUiState>
-    override val copyEvents = MutableSharedFlow<Int>()
+    override val copyEvents = MutableSharedFlow<String>()
 
     init {
         with(lifecycle) {
@@ -81,9 +81,8 @@ internal class DefaultTranslationMemoryComponent(
 
     override fun copyTranslation(index: Int) {
         viewModelScope.launch {
-            val unit = units.value[index]
-            val segmentId = unit.segment.id
-            copyEvents.emit(segmentId)
+            val unit = units.value.getOrNull(index) ?: return@launch
+            copyEvents.emit(unit.segment.text)
         }
     }
 }

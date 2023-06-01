@@ -30,6 +30,6 @@ internal class DefaultTranslationMemoryRepository(
             unitsFromMemory.none { m -> m.original?.text.orEmpty() == original }
         }
 
-        return unitsFromMemory + unitsFromProject
+        return (unitsFromMemory + unitsFromProject).sortedByDescending { it.similarity }
     }
 }

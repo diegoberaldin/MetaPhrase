@@ -39,6 +39,7 @@
 	<string name="menu_project_import_android">Android XML…</string>
 	<string name="menu_project_import_ios">iOS stringtable…</string>
 	<string name="menu_project_new">Nuevo…</string>
+	<string name="menu_project_validate">Convalidar</string>
 	<string name="menu_project_settings">Ajustes…</string>
 	<string name="menu_project_statistics">Estadísticas…</string>
 	<string name="menu_segment">Mensaje</string>
@@ -49,8 +50,10 @@
 	<string name="menu_segment_next">Siguiente</string>
 	<string name="menu_segment_previous">Anterior</string>
 	<string name="menu_translation_memory">Memoria</string>
+	<string name="menu_translation_memory_clear">Reiniciar</string>
 	<string name="menu_translation_memory_export">Exportar…</string>
 	<string name="menu_translation_memory_import">Importar…</string>
+	<string name="menu_translation_memory_insert_best_match">Inserta correspondencia mejor</string>
 	<string name="message_duplicate_key">Ya existe un mensaje con la misma llave</string>
 	<string name="message_missing_field">Información obligatoria</string>
 	<string name="message_no_item_to_display">Ningún elemento para visualizar</string>
@@ -59,7 +62,7 @@
 	<string name="message_validation_valid">¡Enhorabuena! Todos los mensajes contienen especificadores válidos 🎉</string>
 	<string name="panel_section_checks">Validación</string>
 	<string name="panel_section_matches">Correspondencias</string>
-	<string name="panel_section_translation_memory">MT</string>
+	<string name="panel_section_translation_memory">Memoria</string>
 	<string name="status_bar_units">mensajes: %d</string>
 	<string name="toolbar_search_placeholder">Buscar…</string>
 	<string name="tooltip_add">Añadir</string>

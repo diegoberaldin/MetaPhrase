@@ -34,7 +34,6 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
@@ -47,7 +46,10 @@ import projects.ui.ProjectsComponent
 import projectscreate.ui.CreateProjectComponent
 import projectstatistics.ui.StatisticsComponent
 import repository.local.ProjectRepository
+import repository.usecase.ClearTmUseCase
+import repository.usecase.ImportTmxUseCase
 import kotlin.coroutines.CoroutineContext
+import kotlin.time.Duration
 
 @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
 internal class DefaultRootComponent(
@@ -55,7 +57,9 @@ internal class DefaultRootComponent(
     private val coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,
     projectRepository: ProjectRepository,
-    notificationCenter: NotificationCenter,
+    private val importFromTmx: ImportTmxUseCase,
+    private val clearTranslationMemory: ClearTmUseCase,
+    private val notificationCenter: NotificationCenter,
 ) : RootComponent, ComponentContext by componentContext {
 
     companion object {
@@ -89,21 +93,21 @@ internal class DefaultRootComponent(
         with(lifecycle) {
             doOnCreate {
                 viewModelScope = CoroutineScope(coroutineContext + SupervisorJob())
-                activeProject = main.asFlow<ProjectsComponent>(true).flatMapConcat {
+                activeProject = main.asFlow<ProjectsComponent>(true, timeout = Duration.INFINITE).flatMapLatest {
                     it?.activeProject ?: snapshotFlow { null }
                 }.stateIn(
                     scope = viewModelScope,
                     started = SharingStarted.WhileSubscribed(5_000),
                     initialValue = null,
                 )
-                isEditing = main.asFlow<ProjectsComponent>(true).flatMapConcat {
+                isEditing = main.asFlow<ProjectsComponent>(true, timeout = Duration.INFINITE).flatMapLatest {
                     it?.isEditing ?: snapshotFlow { false }
                 }.stateIn(
                     scope = viewModelScope,
                     started = SharingStarted.WhileSubscribed(5_000),
                     initialValue = false,
                 )
-                currentLanguage = main.asFlow<ProjectsComponent>(true).flatMapLatest {
+                currentLanguage = main.asFlow<ProjectsComponent>(true, timeout = Duration.INFINITE).flatMapLatest {
                     it?.currentLanguage ?: snapshotFlow { null }
                 }.stateIn(
                     scope = viewModelScope,
@@ -324,7 +328,29 @@ internal class DefaultRootComponent(
 
     override fun importTmx(path: String) {
         viewModelScope.launch(dispatchers.io) {
-            main.asFlow<ProjectsComponent>().firstOrNull()?.importTmx(path = path)
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
+            importFromTmx(path = path)
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
+        }
+    }
+
+    override fun clearTm() {
+        viewModelScope.launch(dispatchers.io) {
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
+            clearTranslationMemory()
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
+        }
+    }
+
+    override fun validatePlaceholders() {
+        viewModelScope.launch(dispatchers.io) {
+            main.asFlow<ProjectsComponent>().firstOrNull()?.validatePlaceholders()
+        }
+    }
+
+    override fun insertBestMatch() {
+        viewModelScope.launch(dispatchers.io) {
+            main.asFlow<ProjectsComponent>().firstOrNull()?.insertBestMatch()
         }
     }
 }

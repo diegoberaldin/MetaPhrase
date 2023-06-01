@@ -7,6 +7,7 @@ import repository.local.LanguageRepository
 import repository.local.MemoryEntryRepository
 import repository.local.ProjectRepository
 import repository.local.SegmentRepository
+import repository.usecase.ClearTmUseCase
 import repository.usecase.ExportAndroidResourcesUseCase
 import repository.usecase.ExportIosResourcesUseCase
 import repository.usecase.ExportTmxUseCase
@@ -82,6 +83,11 @@ val useCaseModule = module {
     }
     single {
         ImportTmxUseCase(
+            memoryEntryRepository = get(),
+        )
+    }
+    single {
+        ClearTmUseCase(
             memoryEntryRepository = get(),
         )
     }
