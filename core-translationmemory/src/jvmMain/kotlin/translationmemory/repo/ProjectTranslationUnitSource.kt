@@ -28,7 +28,7 @@ internal class ProjectTranslationUnitSource(
             if (similarity >= threshold) {
                 val similarSource = segmentRepository.getByKey(key = s.key, languageId = baseLanguage.id)
                 val similarTarget = segmentRepository.getByKey(key = s.key, languageId = languageId)
-                if (similarSource != null && similarTarget != null) {
+                if (similarSource != null && similarTarget != null && similarTarget.text.isNotEmpty()) {
                     res += TranslationUnit(
                         original = similarSource,
                         segment = similarTarget,
