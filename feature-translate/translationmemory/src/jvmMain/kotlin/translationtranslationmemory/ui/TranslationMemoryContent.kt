@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.onClick
@@ -131,6 +132,14 @@ fun TranslationMemoryContent(
                             style = MaterialTheme.typography.caption.copy(fontSize = 10.sp),
                             color = MaterialTheme.colors.onBackground.copy(alpha = 0.9f),
                         )
+                        if (unit.origin.isNotEmpty()) {
+                            Spacer(modifier = Modifier.width(Spacing.xs))
+                            Text(
+                                text = "translation_memory_origin".localized(unit.origin),
+                                style = MaterialTheme.typography.caption.copy(fontSize = 10.sp),
+                                color = MaterialTheme.colors.onBackground.copy(alpha = 0.9f),
+                            )
+                        }
                         Spacer(modifier = Modifier.weight(1f))
 
                         // action buttons

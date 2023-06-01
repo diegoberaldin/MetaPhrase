@@ -70,8 +70,10 @@
 	<string name="tooltip_move_to_next">Pasar al siguiente</string>
 	<string name="tooltip_move_to_previous">Pasar al anterior</string>
 	<string name="tooltip_validate">Convalidar</string>
+	<string name="translation_memory_origin">fuente: %s</string>
 	<string name="translation_memory_similarity">semejanza: %d%%</string>
 	<string name="translation_memory_title">Memoria de traducción</string>
+	<string name="translation_unit_source_this_project">este proyecto</string>
 	<string name="unit_filter_all">Todos</string>
 	<string name="unit_filter_translatable">Traducibles</string>
 	<string name="unit_filter_untranslated">No traducidos</string>

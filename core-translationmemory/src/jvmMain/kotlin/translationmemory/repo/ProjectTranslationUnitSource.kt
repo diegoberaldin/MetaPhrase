@@ -1,6 +1,7 @@
 package translationmemory.repo
 
 import data.TranslationUnit
+import localized
 import repository.local.LanguageRepository
 import repository.local.SegmentRepository
 
@@ -9,7 +10,12 @@ internal class ProjectTranslationUnitSource(
     private val segmentRepository: SegmentRepository,
     private val calculateSimilarity: SimilarityCalculator,
 ) : TranslationUnitSource {
-    override suspend fun getUnits(projectId: Int, key: String, threshold: Float, languageId: Int): List<TranslationUnit> {
+    override suspend fun getUnits(
+        projectId: Int,
+        key: String,
+        threshold: Float,
+        languageId: Int,
+    ): List<TranslationUnit> {
         val baseLanguage = languageRepository.getBase(projectId) ?: return emptyList()
         val segments = segmentRepository.getAll(baseLanguage.id).filter { it.key != key }
         val original = segmentRepository.getByKey(key = key, languageId = baseLanguage.id) ?: return emptyList()
@@ -27,6 +33,7 @@ internal class ProjectTranslationUnitSource(
                         original = similarSource,
                         segment = similarTarget,
                         similarity = (similarity * 100).toInt(),
+                        origin = "translation_unit_source_this_project".localized(),
                     )
                 }
             }

@@ -25,6 +25,7 @@ kotlin {
                 implementation(libs.koin)
 
                 implementation(projects.coreData)
+                implementation(projects.coreLocalization)
                 implementation(projects.coreRepository)
             }
         }
