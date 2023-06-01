@@ -25,11 +25,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.PointerIcon
+import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import common.ui.theme.Spacing
 import localized
+import org.jetbrains.skiko.Cursor
 import translate.ui.TranslateComponent.PanelConfig
 import translatebrowsememory.ui.BrowseMemoryComponent
 import translatebrowsememory.ui.BrowseMemoryContent
@@ -79,13 +82,14 @@ fun TranslateContent(
             }
             Column(modifier = Modifier.height(panelHeight)) {
                 Column(
-                    modifier = Modifier.draggable(
-                        state = draggableState,
-                        orientation = Orientation.Vertical,
-                        reverseDirection = true,
-                    ),
+                    modifier = Modifier
+                        .pointerHoverIcon(PointerIcon(Cursor(Cursor.N_RESIZE_CURSOR)))
+                        .draggable(
+                            state = draggableState,
+                            orientation = Orientation.Vertical,
+                            reverseDirection = true,
+                        ),
                 ) {
-                    Spacer(modifier = Modifier.height(Spacing.xxxs))
                     Divider()
                     Spacer(modifier = Modifier.height(Spacing.xs))
                 }
