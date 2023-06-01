@@ -8,7 +8,6 @@ internal class DefaultParseXmlResourceUseCase : ParseXmlResourceUseCase {
     companion object {
         private const val ELEM_STRING = "string"
         private const val ATTR_NAME = "name"
-        private const val ATTR_TRANSLATABLE = "translatable"
     }
 
     override operator fun invoke(inputStream: InputStream): List<LocalizableString> {

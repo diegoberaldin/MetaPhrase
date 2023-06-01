@@ -50,6 +50,7 @@ import repository.local.ProjectRepository
 import repository.usecase.ClearTmUseCase
 import repository.usecase.ImportTmxUseCase
 import kotlin.coroutines.CoroutineContext
+import kotlin.time.Duration
 
 @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
 internal class DefaultRootComponent(
@@ -93,21 +94,21 @@ internal class DefaultRootComponent(
         with(lifecycle) {
             doOnCreate {
                 viewModelScope = CoroutineScope(coroutineContext + SupervisorJob())
-                activeProject = main.asFlow<ProjectsComponent>(true).flatMapConcat {
+                activeProject = main.asFlow<ProjectsComponent>(true, timeout = Duration.INFINITE).flatMapLatest {
                     it?.activeProject ?: snapshotFlow { null }
                 }.stateIn(
                     scope = viewModelScope,
                     started = SharingStarted.WhileSubscribed(5_000),
                     initialValue = null,
                 )
-                isEditing = main.asFlow<ProjectsComponent>(true).flatMapConcat {
+                isEditing = main.asFlow<ProjectsComponent>(true, timeout = Duration.INFINITE).flatMapLatest {
                     it?.isEditing ?: snapshotFlow { false }
                 }.stateIn(
                     scope = viewModelScope,
                     started = SharingStarted.WhileSubscribed(5_000),
                     initialValue = false,
                 )
-                currentLanguage = main.asFlow<ProjectsComponent>(true).flatMapLatest {
+                currentLanguage = main.asFlow<ProjectsComponent>(true, timeout = Duration.INFINITE).flatMapLatest {
                     it?.currentLanguage ?: snapshotFlow { null }
                 }.stateIn(
                     scope = viewModelScope,

@@ -28,7 +28,7 @@ class ParseAndroidResourcesUseCase {
                 for (elem in resourcesNode.children) {
                     if ((elem as? Node)?.nodeName != ELEM_STRING) continue
                     val key = (elem.attributes[ATTR_NAME] as? String).orEmpty()
-                    val translatable = (elem.attributes[ATTR_TRANSLATABLE] as? Boolean) ?: true
+                    val translatable = ((elem.attributes[ATTR_TRANSLATABLE] as? String) ?: "true").toBoolean()
                     val text = (elem.children.firstOrNull() as? TextElement)?.text.orEmpty().sanitize()
                     val segment = SegmentModel(
                         key = key,
