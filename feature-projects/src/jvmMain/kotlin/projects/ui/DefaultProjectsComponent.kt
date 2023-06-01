@@ -35,6 +35,7 @@ import projectslist.ui.ProjectListComponent
 import repository.local.ProjectRepository
 import translate.ui.TranslateComponent
 import kotlin.coroutines.CoroutineContext
+import kotlin.time.Duration
 
 @OptIn(ExperimentalCoroutinesApi::class)
 internal class DefaultProjectsComponent(
@@ -66,14 +67,14 @@ internal class DefaultProjectsComponent(
                     .onEach { project ->
                         openProject(project.id)
                     }.launchIn(viewModelScope)
-                isEditing = childStack.activeAsFlow<TranslateComponent>(true).flatMapLatest {
+                isEditing = childStack.activeAsFlow<TranslateComponent>(true, Duration.INFINITE).flatMapLatest {
                     it?.isEditing ?: snapshotFlow { false }
                 }.stateIn(
                     scope = viewModelScope,
                     started = SharingStarted.WhileSubscribed(5_000),
                     initialValue = false,
                 )
-                currentLanguage = childStack.activeAsFlow<TranslateComponent>(true).flatMapLatest {
+                currentLanguage = childStack.activeAsFlow<TranslateComponent>(true, Duration.INFINITE).flatMapLatest {
                     it?.currentLanguage ?: snapshotFlow { null }
                 }.stateIn(
                     scope = viewModelScope,
