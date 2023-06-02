@@ -42,19 +42,19 @@ At startup, either a welcome screen is displayed or a screen with the project li
 #### Welcome screen
 
 <p align="center">
-  <img src="https://github.com/diegoberaldin/MetaPhrase/assets/2738294/41553c7a-1ce8-41bd-adb4-1c5016f4bd70" />
+  <img width="900" src="https://github.com/diegoberaldin/MetaPhrase/assets/2738294/41553c7a-1ce8-41bd-adb4-1c5016f4bd70" />
 </p>
 
 #### Project list
 
 <p align="center">
-  <img src="https://github.com/diegoberaldin/MetaPhrase/assets/2738294/fe286862-1555-41fb-bc67-4e0b83abb708" />
+  <img width="900" src="https://github.com/diegoberaldin/MetaPhrase/assets/2738294/fe286862-1555-41fb-bc67-4e0b83abb708" />
 </p>
 
 ### Create project
 
 <p align="center">
-  <img src="https://github.com/diegoberaldin/MetaPhrase/assets/2738294/4d98ec74-9d0a-4493-94bb-81c796c5b0b8" />
+  <img width="600" src="https://github.com/diegoberaldin/MetaPhrase/assets/2738294/4d98ec74-9d0a-4493-94bb-81c796c5b0b8" />
 </p>
 
 Creating a project involves selecting an internal name and the relevant languages. Each project must have at least one
@@ -70,26 +70,54 @@ category: All messages, Messages needing translation, Only translatable messages
 #### Base language
 
 <p align="center">
-  <img src="https://github.com/diegoberaldin/MetaPhrase/assets/2738294/5ef948e4-b1cc-46e2-9344-47b3cf79cb4a" />
+  <img width="900" alt="main_language" src="https://github.com/diegoberaldin/MetaPhrase/assets/2738294/f7c3a821-3904-4f24-9c52-69806b1ecb1b">
 </p>
 
 For the base (or default) language, messages can be edited and updated in their source version. Additionally, using the
 lock/unlock button, it is possible to mark messages as translatable or untranslatable. Untranslatable messages will not
 appear in other languages.
 
-#### Localized version
+#### Local version
 
 <p align="center">
-  <img src="https://github.com/diegoberaldin/MetaPhrase/assets/2738294/ce1dac05-891a-4812-a391-b01fa5f2372f" />
+  <img width="900" alt="local_version" src="https://github.com/diegoberaldin/MetaPhrase/assets/2738294/1ca3c6c0-ef06-447d-ae1f-e43c2e9c944e">
 </p>
 
 For non-base languages, messages are edited in their localized version. The base version is displayed as the source text
 and the key is always shown as well.
 
+### Bottom panel
+
+The bottom part of the main screen contains an expandable panel which gives access to useful features to make it easier to deliver high quality work for localizers.
+
+#### Fuzzy match
+
+<p align="center">
+  <img width="900" alt="fuzzy_match" src="https://github.com/diegoberaldin/MetaPhrase/assets/2738294/109888f8-ac57-4f3e-950e-51547b501bd5">
+</p>
+
+This section is populated whenever a new message is being edited. It contains the fuzzy matches with a score higher or equal to the similarity threshold selected in the settings dialog. The best match can be inserted via the "Memory" > "Insert best match" menu, every other match can be copied to the target field via the copy button. This helps maintain a higher consistency in the localization project. Entries displayed here can either come from the same projet (internal matches) or can come from the translation memory. Memory is populated by importing TMX files and each project's content can be exported as a TMX.
+
+#### Placeholder validation
+
+<p align="center">
+  <img width="900" alt="validation" src="https://github.com/diegoberaldin/MetaPhrase/assets/2738294/b5188272-4aef-4e75-84ee-51a92cd5ec83">
+</p>
+
+Individual languages of each projects can be validated, i.e. the program can check whether all the messages contain valid format placeholders (matching the source language message). Errors are displayed in the panel and clicking on each result will navigate to the corresponding message in the main UI to edit and fix the problem. Invalid placeholders will lead the application runtime failure for the users, so localizers must be extremely careful of them.
+
+#### Browsing Translation Memory
+
+<p align="center">
+  <img width="900" alt="browse_tm" src="https://github.com/diegoberaldin/MetaPhrase/assets/2738294/b834ace7-4116-457e-8c26-197eef655143">
+</p>
+
+The content of the TM can be explored and used as a "concordancer". Additionally, individual entries can be deleted from this panel if they are not useful. The whole TM can be erased too, in order to populate it again with only specific TMX files. The origin of each correspondence in the TM is displayed underneath the message pair.
+
 ### Create new message
 
 <p align="center">
-  <img src="https://github.com/diegoberaldin/MetaPhrase/assets/2738294/b82407e9-12cc-442c-a582-01ba36231c78" />
+  <img width="600" src="https://github.com/diegoberaldin/MetaPhrase/assets/2738294/b82407e9-12cc-442c-a582-01ba36231c78" />
 </p>
 
 The application allows to add new messages providing the key and a text. The text inserted as a value will be of the
@@ -99,7 +127,7 @@ value).
 ### Statistics
 
 <p align="center">
-  <img src="https://github.com/diegoberaldin/MetaPhrase/assets/2738294/16031e56-4922-4afc-84d8-09f9afff506b" />
+  <img width="600" src="https://github.com/diegoberaldin/MetaPhrase/assets/2738294/16031e56-4922-4afc-84d8-09f9afff506b" />
 </p>
 
 This dialog shows some statistics about the current project. The completion rate for each language does not account the
@@ -108,7 +136,7 @@ untranslatable messages.
 ### Settings
 
 <p align="center">
-  <img src="https://github.com/diegoberaldin/MetaPhrase/assets/2738294/e0e1d69c-753b-46c5-9002-92ecd6b174da" />
+  <img width="600" alt="settings" src="https://github.com/diegoberaldin/MetaPhrase/assets/2738294/82fcc407-f2cb-4b29-a621-2ea26b69480a">
 </p>
 
 This dialog allows to customize the application. For the time being, the UI language is the only configurable item; more
@@ -136,5 +164,4 @@ This is a Gradle project, so please use Gradle to compile and run it. Make sure 
 
 ## What's next
 
-This is still under heavy development, I'm planning to add translation memory feature (both intra-project and
-inter-project, with TMX import).
+With the main tranlation UI, message filtering, fuzzy matching in translation memory and placeholder validation, all the base features of the application have been completed. I am not evaluating new features unless I receive explicit requests by users, but I am prioriting stability issues and bug reports now.
