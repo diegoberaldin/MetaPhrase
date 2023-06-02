@@ -15,6 +15,7 @@
 	<string name="create_segment_key">Llave</string>
 	<string name="create_segment_text">Texto</string>
 	<string name="dialog_settings_language">Idioma de la aplicación</string>
+	<string name="dialog_settings_similarity_threshold">Límite de semejanza</string>
 	<string name="dialog_settings_version">Version de la aplicación</string>
 	<string name="dialog_statistics_item_completion_rate">% de terminación</string>
 	<string name="dialog_statistics_item_total_languages">Número de idiomas</string>

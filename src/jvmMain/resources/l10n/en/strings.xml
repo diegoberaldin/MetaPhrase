@@ -19,6 +19,7 @@
     <string name="create_segment_key">Key</string>
     <string name="create_segment_text">Text</string>
     <string name="dialog_settings_language">App language</string>
+    <string name="dialog_settings_similarity_threshold">Similarity threshold</string>
     <string name="dialog_settings_version">App version</string>
     <string name="dialog_statistics_item_completion_rate">Completion rate</string>
     <string name="dialog_statistics_item_total_languages">Language number</string>
