@@ -25,6 +25,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import repository.local.LanguageRepository
 import repository.local.SegmentRepository
+import spellcheck.SpellCheckRepository
 import kotlin.coroutines.CoroutineContext
 
 internal class DefaultMessageListComponent(
@@ -33,6 +34,7 @@ internal class DefaultMessageListComponent(
     private val dispatchers: CoroutineDispatcherProvider,
     private val segmentRepository: SegmentRepository,
     private val languageRepository: LanguageRepository,
+    private val spellCheckRepository: SpellCheckRepository,
     private val notificationCenter: NotificationCenter,
 ) : MessageListComponent, ComponentContext by componentContext {
 
@@ -137,6 +139,7 @@ internal class DefaultMessageListComponent(
 
         val languageId = language.id
         currentLanguage.value = language
+        spellCheckRepository.setLanguage(language.code)
         val baseLanguageId = if (language.isBase) {
             languageId
         } else {
@@ -176,6 +179,12 @@ internal class DefaultMessageListComponent(
                 val segment = units.value[oldIndex].segment
                 segmentRepository.update(segment)
             }
+        }
+
+        val text = units.value[index].segment.text
+        viewModelScope.launch(dispatchers.io) {
+            val result = spellCheckRepository.check(message = text)
+            println(result)
         }
     }
 

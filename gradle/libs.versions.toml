@@ -2,6 +2,7 @@
 androidx_datastore = "1.0.0"
 exposed = "0.41.1"
 h2 = "2.1.214"
+jaspell = "0.3.1"
 koin = "3.2.0"
 kotlinx_coroutines = "1.7.1"
 log4j = "2.20.0"
@@ -17,7 +18,7 @@ buildNumber = "3"
 koin = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin_test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
 
-# Essenty
+# Decompose
 decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose" }
 decompose_extensions = { module = "com.arkivanov.decompose:extensions-compose-jetbrains", version.ref = "decompose" }
 
@@ -36,6 +37,9 @@ exposed_jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "e
 
 # serialization
 redundent = { module = "org.redundent:kotlin-xml-builder", version.ref = "redundent" }
+
+# spelling
+jaspell = { module = "uk.ac.gate:jaspell", version.ref = "jaspell" }
 
 # logging
 log4j_api = { module = "org.apache.logging.log4j:log4j-api", version.ref = "log4j" }

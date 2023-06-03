@@ -33,6 +33,7 @@ kotlin {
                 implementation(projects.coreData)
                 implementation(projects.corePersistence)
                 implementation(projects.coreRepository)
+                implementation(projects.coreSpellcheck)
 
                 implementation(projects.featureMain)
                 implementation(projects.featureMain.settings)
