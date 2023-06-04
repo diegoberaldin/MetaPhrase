@@ -45,6 +45,7 @@ internal class DefaultMessageListComponent(
     private val updateTextSwitch = MutableStateFlow(false)
     private lateinit var viewModelScope: CoroutineScope
     private var saveJob: Job? = null
+    private var spellcheckJob: Job? = null
     private var lastFilter = TranslationUnitTypeFilter.ALL
     private var lastSearch: String = ""
     private var projectId: Int = 0
@@ -52,6 +53,7 @@ internal class DefaultMessageListComponent(
     override lateinit var uiState: StateFlow<MessageListUiState>
     override val selectionEvents = MutableSharedFlow<Int>()
     override lateinit var editedSegment: StateFlow<SegmentModel?>
+    override val spellingErrorRanges = MutableStateFlow<List<IntRange>>(emptyList())
 
     init {
         with(lifecycle) {
@@ -182,16 +184,15 @@ internal class DefaultMessageListComponent(
         }
 
         val text = units.value[index].segment.text
-        viewModelScope.launch(dispatchers.io) {
-            val result = spellCheckRepository.check(message = text)
-            println(result)
-        }
+        checkSpelling(text)
     }
 
     override fun endEditing() {
         if (!editingEnabled.value) return
 
         editingIndex.value = null
+        spellcheckJob?.cancel()
+        spellcheckJob = null
     }
 
     override fun setSegmentText(text: String) {
@@ -208,6 +209,16 @@ internal class DefaultMessageListComponent(
         }
 
         saveCurrentSegmentDebounced(editingIndex)
+        checkSpelling(text)
+    }
+
+    private fun checkSpelling(text: String) {
+        spellcheckJob?.cancel()
+        spellcheckJob = viewModelScope.launch(dispatchers.io) {
+            delay(100)
+            val results = spellCheckRepository.check(message = text)
+            spellingErrorRanges.value = results.map { it.indices }
+        }
     }
 
     override fun changeSegmentText(text: String) {
