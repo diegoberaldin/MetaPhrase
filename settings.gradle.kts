@@ -22,6 +22,7 @@ include(
     ":core-localization",
     ":core-data",
     ":core-persistence",
+    ":core-spellcheck",
     ":core-repository",
     ":core-translationmemory",
 

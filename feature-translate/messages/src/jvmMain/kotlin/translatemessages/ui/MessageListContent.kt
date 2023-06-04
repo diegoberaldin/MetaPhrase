@@ -39,8 +39,11 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import common.ui.components.CustomTooltipArea
 import common.ui.theme.Indigo800
@@ -157,6 +160,28 @@ fun MessageListContent(
                                 ),
                             )
                         }
+                        LaunchedEffect(component.spellingErrorRanges, value) {
+                            value = value.copy(
+                                annotatedString = buildAnnotatedString {
+                                    append(value.text)
+                                    if (idx == uiState.editingIndex) {
+                                        for (range in component.spellingErrorRanges.value) {
+                                            runCatching {
+                                                addStyle(
+                                                    SpanStyle(
+                                                        color = Color.Red,
+                                                        textDecoration = TextDecoration.Underline,
+                                                    ),
+                                                    start = range.first,
+                                                    end = (range.last + 1).coerceAtMost(length),
+                                                )
+                                            }
+                                        }
+                                    }
+                                },
+                            )
+                        }
+
                         BasicTextField(
                             modifier = Modifier.fillMaxWidth().focusRequester(focusRequester).onFocusChanged {
                                 if (it.hasFocus) {
@@ -168,8 +193,27 @@ fun MessageListContent(
                             cursorBrush = SolidColor(Color.White),
                             value = value,
                             onValueChange = {
-                                value = it
-                                component.setSegmentText(it.text)
+                                runCatching {
+                                    value = value.copy(
+                                        annotatedString = buildAnnotatedString {
+                                            append(it.text)
+                                            if (idx == uiState.editingIndex) {
+                                                for (range in component.spellingErrorRanges.value) {
+                                                    addStyle(
+                                                        SpanStyle(
+                                                            color = Color.Red,
+                                                            textDecoration = TextDecoration.Underline,
+                                                        ),
+                                                        start = range.first,
+                                                        end = (range.last + 1).coerceAtMost(length),
+                                                    )
+                                                }
+                                            }
+                                        },
+                                        selection = it.selection,
+                                    )
+                                    component.setSegmentText(it.text)
+                                }
                             },
                         )
                     } else {
@@ -209,6 +253,27 @@ fun MessageListContent(
                                 ),
                             )
                         }
+                        LaunchedEffect(component.spellingErrorRanges) {
+                            value = value.copy(
+                                annotatedString = buildAnnotatedString {
+                                    append(value.text)
+                                    if (idx == uiState.editingIndex) {
+                                        for (range in component.spellingErrorRanges.value) {
+                                            runCatching {
+                                                addStyle(
+                                                    SpanStyle(
+                                                        color = Color.Red,
+                                                        textDecoration = TextDecoration.Underline,
+                                                    ),
+                                                    start = range.first,
+                                                    end = (range.last + 1).coerceAtMost(length),
+                                                )
+                                            }
+                                        }
+                                    }
+                                },
+                            )
+                        }
                         BasicTextField(
                             modifier = Modifier.fillMaxWidth().focusRequester(focusRequester).onFocusChanged {
                                 if (it.hasFocus) {
@@ -220,8 +285,29 @@ fun MessageListContent(
                             value = value,
                             enabled = uiState.editingEnabled,
                             onValueChange = {
-                                value = it
-                                component.setSegmentText(it.text)
+                                runCatching {
+                                    value = value.copy(
+                                        annotatedString = buildAnnotatedString {
+                                            append(it.text)
+                                            if (idx == uiState.editingIndex) {
+                                                for (range in component.spellingErrorRanges.value) {
+                                                    runCatching {
+                                                        addStyle(
+                                                            SpanStyle(
+                                                                color = Color.Red,
+                                                                textDecoration = TextDecoration.Underline,
+                                                            ),
+                                                            start = range.first,
+                                                            end = (range.last + 1).coerceAtMost(length),
+                                                        )
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        selection = it.selection,
+                                    )
+                                    component.setSegmentText(it.text)
+                                }
                             },
                         )
                     }

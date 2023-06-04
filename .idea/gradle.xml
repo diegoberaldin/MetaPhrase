@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/core-localization" />
             <option value="$PROJECT_DIR$/core-persistence" />
             <option value="$PROJECT_DIR$/core-repository" />
+            <option value="$PROJECT_DIR$/core-spellcheck" />
             <option value="$PROJECT_DIR$/core-translationmemory" />
             <option value="$PROJECT_DIR$/feature-intro" />
             <option value="$PROJECT_DIR$/feature-main" />
@@ -27,14 +28,6 @@
             <option value="$PROJECT_DIR$/feature-translate/messages" />
             <option value="$PROJECT_DIR$/feature-translate/newsegment" />
             <option value="$PROJECT_DIR$/feature-translate/toolbar" />
-            <option value="$PROJECT_DIR$/feature-translate/translationmemory" />
-          </set>
-        </option>
-      </GradleProjectSettings>
-      <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/feature-translate/translationmemory" />
-        <option name="modules">
-          <set>
             <option value="$PROJECT_DIR$/feature-translate/translationmemory" />
           </set>
         </option>

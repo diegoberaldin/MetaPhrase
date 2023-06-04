@@ -25,6 +25,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import repository.local.LanguageRepository
 import repository.local.SegmentRepository
+import spellcheck.SpellCheckRepository
 import kotlin.coroutines.CoroutineContext
 
 internal class DefaultMessageListComponent(
@@ -33,6 +34,7 @@ internal class DefaultMessageListComponent(
     private val dispatchers: CoroutineDispatcherProvider,
     private val segmentRepository: SegmentRepository,
     private val languageRepository: LanguageRepository,
+    private val spellCheckRepository: SpellCheckRepository,
     private val notificationCenter: NotificationCenter,
 ) : MessageListComponent, ComponentContext by componentContext {
 
@@ -43,6 +45,7 @@ internal class DefaultMessageListComponent(
     private val updateTextSwitch = MutableStateFlow(false)
     private lateinit var viewModelScope: CoroutineScope
     private var saveJob: Job? = null
+    private var spellcheckJob: Job? = null
     private var lastFilter = TranslationUnitTypeFilter.ALL
     private var lastSearch: String = ""
     private var projectId: Int = 0
@@ -50,6 +53,7 @@ internal class DefaultMessageListComponent(
     override lateinit var uiState: StateFlow<MessageListUiState>
     override val selectionEvents = MutableSharedFlow<Int>()
     override lateinit var editedSegment: StateFlow<SegmentModel?>
+    override val spellingErrorRanges = MutableStateFlow<List<IntRange>>(emptyList())
 
     init {
         with(lifecycle) {
@@ -137,6 +141,7 @@ internal class DefaultMessageListComponent(
 
         val languageId = language.id
         currentLanguage.value = language
+        spellCheckRepository.setLanguage(language.code)
         val baseLanguageId = if (language.isBase) {
             languageId
         } else {
@@ -177,12 +182,17 @@ internal class DefaultMessageListComponent(
                 segmentRepository.update(segment)
             }
         }
+
+        val text = units.value[index].segment.text
+        checkSpelling(text)
     }
 
     override fun endEditing() {
         if (!editingEnabled.value) return
 
         editingIndex.value = null
+        spellcheckJob?.cancel()
+        spellcheckJob = null
     }
 
     override fun setSegmentText(text: String) {
@@ -199,6 +209,16 @@ internal class DefaultMessageListComponent(
         }
 
         saveCurrentSegmentDebounced(editingIndex)
+        checkSpelling(text)
+    }
+
+    private fun checkSpelling(text: String) {
+        spellcheckJob?.cancel()
+        spellcheckJob = viewModelScope.launch(dispatchers.io) {
+            delay(100)
+            val results = spellCheckRepository.check(message = text)
+            spellingErrorRanges.value = results.map { it.indices }
+        }
     }
 
     override fun changeSegmentText(text: String) {
