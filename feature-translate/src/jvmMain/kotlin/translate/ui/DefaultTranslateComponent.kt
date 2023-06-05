@@ -37,6 +37,10 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import panelglossary.ui.GlossaryComponent
+import panelmatches.ui.TranslationMemoryComponent
+import panelmemory.ui.BrowseMemoryComponent
+import panelvalidate.ui.InvalidSegmentComponent
 import repository.local.LanguageRepository
 import repository.local.ProjectRepository
 import repository.local.SegmentRepository
@@ -51,12 +55,9 @@ import translate.ui.TranslateComponent.DialogConfig
 import translate.ui.TranslateComponent.MessageListConfig
 import translate.ui.TranslateComponent.PanelConfig
 import translate.ui.TranslateComponent.ToolbarConfig
-import panelmemory.ui.BrowseMemoryComponent
-import panelvalidate.ui.InvalidSegmentComponent
 import translatemessages.ui.MessageListComponent
 import translatenewsegment.ui.NewSegmentComponent
 import translatetoolbar.ui.TranslateToolbarComponent
-import panelmatches.ui.TranslationMemoryComponent
 import kotlin.coroutines.CoroutineContext
 import kotlin.time.Duration
 
@@ -308,6 +309,7 @@ internal class DefaultTranslateComponent(
             PanelConfig.Matches -> getByInjection<TranslationMemoryComponent>(context, coroutineContext)
             PanelConfig.Validation -> getByInjection<InvalidSegmentComponent>(context, coroutineContext)
             PanelConfig.MemoryContent -> getByInjection<BrowseMemoryComponent>(context, coroutineContext)
+            PanelConfig.Glossary -> getByInjection<GlossaryComponent>(context, coroutineContext)
             else -> Unit
         }
     }

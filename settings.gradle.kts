@@ -42,4 +42,5 @@ include(
     ":feature-translate:panel-validate",
     ":feature-translate:panel-matches",
     ":feature-translate:panel-memory",
+    ":feature-translate:panel-glossary",
 )

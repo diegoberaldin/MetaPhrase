@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.compose")
 }
 
-group = "feature.translate"
+group = "feature.translate.panel.glossary"
 version = libs.versions.appVersion.get()
 
 repositories {
@@ -31,14 +31,6 @@ kotlin {
                 implementation(projects.coreLocalization)
                 implementation(projects.coreData)
                 implementation(projects.coreRepository)
-
-                implementation(projects.featureTranslate.toolbar)
-                implementation(projects.featureTranslate.messages)
-                implementation(projects.featureTranslate.newsegment)
-                implementation(projects.featureTranslate.panelValidate)
-                implementation(projects.featureTranslate.panelMatches)
-                implementation(projects.featureTranslate.panelMemory)
-                implementation(projects.featureTranslate.panelGlossary)
             }
         }
     }

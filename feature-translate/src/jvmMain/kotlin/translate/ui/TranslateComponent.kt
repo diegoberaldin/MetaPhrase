@@ -62,5 +62,8 @@ interface TranslateComponent {
 
         @Parcelize
         object MemoryContent : PanelConfig
+
+        @Parcelize
+        object Glossary : PanelConfig
     }
 }

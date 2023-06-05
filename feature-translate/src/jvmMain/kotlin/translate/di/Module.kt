@@ -18,6 +18,7 @@ val translateModule = module {
     includes(panelMatchesModule)
     includes(panelValidateModule)
     includes(panelMemoryModule)
+    includes(panelGlossaryModule)
 
     factory<TranslateComponent> { params ->
         DefaultTranslateComponent(
