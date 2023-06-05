@@ -1,8 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="browsememory-jvm-1.0.0-beta-01">
     <output-path>$PROJECT_DIR$/feature-translate/browsememory/build/libs</output-path>
-    <root id="archive" name="browsememory-jvm-1.0.0-beta-01.jar">
-      <element id="module-output" name="MetaPhrase.feature-translate.browsememory.jvmMain" />
-    </root>
+    <root id="archive" name="browsememory-jvm-1.0.0-beta-01.jar" />
   </artifact>
 </component>

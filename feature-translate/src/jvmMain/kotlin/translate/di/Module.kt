@@ -1,22 +1,23 @@
 package translate.di
 
 import org.koin.dsl.module
+import panelglossary.di.panelGlossaryModule
+import panelmatches.di.panelMatchesModule
+import panelmemory.di.panelMemoryModule
+import panelvalidate.di.panelValidateModule
 import translate.ui.DefaultTranslateComponent
 import translate.ui.TranslateComponent
-import translatebrowsememory.di.translateBrowseMemoryModule
-import translateinvalidsegments.di.translateInvalidSegmentsModule
 import translatemessages.di.translateMessagesModule
 import translatenewsegment.di.translateNewSegmentModule
 import translatetoolbar.di.translateToolbarModule
-import translationtranslationmemory.di.translateTranslationMemoryModule
 
 val translateModule = module {
     includes(translateToolbarModule)
     includes(translateMessagesModule)
-    includes(translateInvalidSegmentsModule)
     includes(translateNewSegmentModule)
-    includes(translateTranslationMemoryModule)
-    includes(translateBrowseMemoryModule)
+    includes(panelMatchesModule)
+    includes(panelValidateModule)
+    includes(panelMemoryModule)
 
     factory<TranslateComponent> { params ->
         DefaultTranslateComponent(

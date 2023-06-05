@@ -23,12 +23,12 @@
             <option value="$PROJECT_DIR$/feature-projects/list" />
             <option value="$PROJECT_DIR$/feature-projects/statistics" />
             <option value="$PROJECT_DIR$/feature-translate" />
-            <option value="$PROJECT_DIR$/feature-translate/browsememory" />
-            <option value="$PROJECT_DIR$/feature-translate/invalidsegments" />
             <option value="$PROJECT_DIR$/feature-translate/messages" />
             <option value="$PROJECT_DIR$/feature-translate/newsegment" />
+            <option value="$PROJECT_DIR$/feature-translate/panel-matches" />
+            <option value="$PROJECT_DIR$/feature-translate/panel-memory" />
+            <option value="$PROJECT_DIR$/feature-translate/panel-validate" />
             <option value="$PROJECT_DIR$/feature-translate/toolbar" />
-            <option value="$PROJECT_DIR$/feature-translate/translationmemory" />
           </set>
         </option>
       </GradleProjectSettings>

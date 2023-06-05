@@ -51,12 +51,12 @@ import translate.ui.TranslateComponent.DialogConfig
 import translate.ui.TranslateComponent.MessageListConfig
 import translate.ui.TranslateComponent.PanelConfig
 import translate.ui.TranslateComponent.ToolbarConfig
-import translatebrowsememory.ui.BrowseMemoryComponent
-import translateinvalidsegments.ui.InvalidSegmentComponent
+import panelmemory.ui.BrowseMemoryComponent
+import panelvalidate.ui.InvalidSegmentComponent
 import translatemessages.ui.MessageListComponent
 import translatenewsegment.ui.NewSegmentComponent
 import translatetoolbar.ui.TranslateToolbarComponent
-import translationtranslationmemory.ui.TranslationMemoryComponent
+import panelmatches.ui.TranslationMemoryComponent
 import kotlin.coroutines.CoroutineContext
 import kotlin.time.Duration
 

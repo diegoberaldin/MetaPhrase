@@ -34,16 +34,16 @@ import common.ui.theme.Spacing
 import localized
 import org.jetbrains.skiko.Cursor
 import translate.ui.TranslateComponent.PanelConfig
-import translatebrowsememory.ui.BrowseMemoryComponent
-import translatebrowsememory.ui.BrowseMemoryContent
-import translateinvalidsegments.ui.InvalidSegmentComponent
-import translateinvalidsegments.ui.ValidateContent
+import panelmemory.ui.BrowseMemoryComponent
+import panelmemory.ui.BrowseMemoryContent
+import panelvalidate.ui.InvalidSegmentComponent
+import panelvalidate.ui.ValidateContent
 import translatemessages.ui.MessageListContent
 import translatenewsegment.ui.NewSegmentComponent
 import translatenewsegment.ui.NewSegmentDialog
 import translatetoolbar.ui.TranslateToolbar
-import translationtranslationmemory.ui.TranslationMemoryComponent
-import translationtranslationmemory.ui.TranslationMemoryContent
+import panelmatches.ui.TranslationMemoryComponent
+import panelmatches.ui.TranslationMemoryContent
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

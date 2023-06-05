@@ -39,7 +39,7 @@ include(
     ":feature-translate:toolbar",
     ":feature-translate:messages",
     ":feature-translate:newsegment",
-    ":feature-translate:invalidsegments",
-    ":feature-translate:translationmemory",
-    ":feature-translate:browsememory",
+    ":feature-translate:panel-validate",
+    ":feature-translate:panel-matches",
+    ":feature-translate:panel-memory",
 )
