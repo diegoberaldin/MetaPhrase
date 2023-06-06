@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.compose")
 }
 
-group = "feature.translate.panel.glossary"
+group = "domain.glossary"
 version = libs.versions.appVersion.get()
 
 repositories {
@@ -21,16 +21,12 @@ kotlin {
         val jvmMain by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)
-                implementation(compose.materialIconsExtended)
 
                 implementation(libs.koin)
-                implementation(libs.decompose)
-                implementation(libs.decompose.extensions)
 
                 implementation(projects.coreCommon)
-                implementation(projects.coreLocalization)
                 implementation(projects.coreData)
-                implementation(projects.domainGlossary)
+                implementation(projects.corePersistence)
             }
         }
     }

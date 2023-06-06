@@ -1,4 +1,4 @@
-package repository.local
+package glossary.repo
 
 import data.GlossaryTermModel
 import persistence.dao.GlossaryTermDao

@@ -28,6 +28,7 @@ include(
     ":domain-language",
     ":domain-tm",
     ":domain-spellcheck",
+    ":domain-glossary",
 
     ":feature-main",
     ":feature-main:settings",
