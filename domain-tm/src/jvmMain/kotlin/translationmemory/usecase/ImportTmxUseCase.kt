@@ -1,4 +1,4 @@
-package repository.usecase
+package translationmemory.usecase
 
 import common.utils.lastPathSegment
 import common.utils.stripExtension
@@ -8,7 +8,7 @@ import kotlinx.coroutines.withContext
 import org.redundent.kotlin.xml.Node
 import org.redundent.kotlin.xml.TextElement
 import org.redundent.kotlin.xml.parse
-import repository.local.MemoryEntryRepository
+import translationmemory.repo.MemoryEntryRepository
 import java.io.File
 
 class ImportTmxUseCase(

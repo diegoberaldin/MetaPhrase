@@ -1,12 +1,15 @@
 package translationmemory.di
 
 import org.koin.dsl.module
-import translationmemory.similarity.DefaultSimilarityCalculator
-import translationmemory.repo.DefaultTranslationMemoryRepository
 import translationmemory.datasource.MemoryTranslationUnitSource
 import translationmemory.datasource.ProjectTranslationUnitSource
-import translationmemory.similarity.SimilarityCalculator
+import translationmemory.repo.DefaultTranslationMemoryRepository
+import translationmemory.repo.MemoryEntryRepository
 import translationmemory.repo.TranslationMemoryRepository
+import translationmemory.similarity.DefaultSimilarityCalculator
+import translationmemory.similarity.SimilarityCalculator
+import translationmemory.usecase.ClearTmUseCase
+import translationmemory.usecase.ImportTmxUseCase
 
 internal val innerTranslationMemoryModule = module {
     single<SimilarityCalculator> {
@@ -25,6 +28,21 @@ internal val innerTranslationMemoryModule = module {
             segmentRepository = get(),
             memoryEntryRepository = get(),
             calculateSimilarity = get(),
+        )
+    }
+    single {
+        MemoryEntryRepository(
+            dao = get(),
+        )
+    }
+    single {
+        ImportTmxUseCase(
+            memoryEntryRepository = get(),
+        )
+    }
+    single {
+        ClearTmUseCase(
+            memoryEntryRepository = get(),
         )
     }
 }

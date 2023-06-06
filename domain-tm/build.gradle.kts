@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.compose")
 }
 
-group = "core.translationmemory"
+group = "domain.tm"
 version = libs.versions.appVersion.get()
 
 repositories {
@@ -23,9 +23,12 @@ kotlin {
                 implementation(compose.desktop.currentOs)
 
                 implementation(libs.koin)
+                implementation(libs.redundent)
 
+                implementation(projects.coreCommon)
                 implementation(projects.coreData)
                 implementation(projects.coreLocalization)
+                implementation(projects.corePersistence)
                 implementation(projects.coreRepository)
             }
         }

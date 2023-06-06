@@ -1,6 +1,7 @@
-package repository.usecase
+package translationmemory.usecase
 
-import repository.local.MemoryEntryRepository
+import translationmemory.repo.MemoryEntryRepository
+
 
 class ClearTmUseCase(
     private val memoryEntryRepository: MemoryEntryRepository,

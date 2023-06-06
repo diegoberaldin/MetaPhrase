@@ -31,6 +31,7 @@ kotlin {
                 implementation(projects.coreData)
                 implementation(projects.coreLocalization)
                 implementation(projects.coreRepository)
+                implementation(projects.domainTm)
 
                 implementation(projects.featureIntro)
                 implementation(projects.featureProjects)

@@ -1,4 +1,4 @@
-package repository.local
+package translationmemory.repo
 
 import data.TranslationMemoryEntryModel
 import persistence.dao.MemoryEntryDao

@@ -3,8 +3,8 @@ package translationmemory.datasource
 import data.SegmentModel
 import data.TranslationUnit
 import repository.local.LanguageRepository
-import repository.local.MemoryEntryRepository
 import repository.local.SegmentRepository
+import translationmemory.repo.MemoryEntryRepository
 import translationmemory.similarity.SimilarityCalculator
 
 internal class MemoryTranslationUnitSource(

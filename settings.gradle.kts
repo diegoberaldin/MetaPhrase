@@ -23,7 +23,8 @@ include(
     ":core-data",
     ":core-persistence",
     ":core-repository",
-    ":core-translationmemory",
+
+    ":domain-tm",
     ":domain-spellcheck",
 
     ":feature-main",
