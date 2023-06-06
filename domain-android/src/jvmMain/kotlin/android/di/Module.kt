@@ -1,14 +1,16 @@
 package android.di
 
+import android.usecase.DefaultExportAndroidResourcesUseCase
+import android.usecase.DefaultParseAndroidResourcesUseCase
 import android.usecase.ExportAndroidResourcesUseCase
 import android.usecase.ParseAndroidResourcesUseCase
 import org.koin.dsl.module
 
 val androidModule = module {
-    single {
-        ParseAndroidResourcesUseCase()
+    single<ParseAndroidResourcesUseCase> {
+        DefaultParseAndroidResourcesUseCase()
     }
-    single {
-        ExportAndroidResourcesUseCase()
+    single<ExportAndroidResourcesUseCase> {
+        DefaultExportAndroidResourcesUseCase()
     }
 }

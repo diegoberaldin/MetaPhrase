@@ -12,9 +12,13 @@
             <option value="$PROJECT_DIR$/core-data" />
             <option value="$PROJECT_DIR$/core-localization" />
             <option value="$PROJECT_DIR$/core-persistence" />
-            <option value="$PROJECT_DIR$/core-repository" />
-            <option value="$PROJECT_DIR$/core-translationmemory" />
+            <option value="$PROJECT_DIR$/domain-android" />
+            <option value="$PROJECT_DIR$/domain-glossary" />
+            <option value="$PROJECT_DIR$/domain-ios" />
+            <option value="$PROJECT_DIR$/domain-language" />
+            <option value="$PROJECT_DIR$/domain-project" />
             <option value="$PROJECT_DIR$/domain-spellcheck" />
+            <option value="$PROJECT_DIR$/domain-tm" />
             <option value="$PROJECT_DIR$/feature-intro" />
             <option value="$PROJECT_DIR$/feature-main" />
             <option value="$PROJECT_DIR$/feature-main/settings" />

@@ -1,6 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="panel-glossary-jvm-1.0-SNAPSHOT">
-    <output-path>$PROJECT_DIR$/feature-translate/panel-glossary/build/libs</output-path>
-    <root id="archive" name="panel-glossary-jvm-1.0-SNAPSHOT.jar" />
-  </artifact>
-</component>
