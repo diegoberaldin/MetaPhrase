@@ -24,7 +24,6 @@ kotlin {
 
                 implementation(libs.koin)
 
-                implementation(projects.coreCommon)
                 implementation(projects.coreData)
                 implementation(projects.coreLocalization)
                 implementation(projects.corePersistence)

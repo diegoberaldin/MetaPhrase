@@ -30,6 +30,7 @@ kotlin {
                 implementation(projects.coreCommon)
                 implementation(projects.coreLocalization)
                 implementation(projects.coreData)
+
                 implementation(projects.domainGlossary)
             }
         }
