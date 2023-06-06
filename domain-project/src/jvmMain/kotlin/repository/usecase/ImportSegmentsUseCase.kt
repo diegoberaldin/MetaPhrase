@@ -3,7 +3,7 @@ package repository.usecase
 import data.LanguageModel
 import data.SegmentModel
 import language.repo.LanguageRepository
-import repository.local.SegmentRepository
+import repository.repo.SegmentRepository
 
 class ImportSegmentsUseCase(
     private val languageRepository: LanguageRepository,

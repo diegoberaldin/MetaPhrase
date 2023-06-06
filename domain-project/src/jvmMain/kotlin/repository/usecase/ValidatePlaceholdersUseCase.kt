@@ -11,7 +11,7 @@ class ValidatePlaceholdersUseCase {
         object Valid : Output
 
         data class Invalid(
-            val keys: List<String> = emptyList()
+            val keys: List<String> = emptyList(),
         ) : Output
     }
 
@@ -33,6 +33,5 @@ class ValidatePlaceholdersUseCase {
         } else {
             Output.Invalid(keys = invalidKeys)
         }
-
     }
 }

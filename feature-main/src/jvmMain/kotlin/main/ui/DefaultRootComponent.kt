@@ -45,7 +45,7 @@ import mainsettings.ui.SettingsComponent
 import projects.ui.ProjectsComponent
 import projectscreate.ui.CreateProjectComponent
 import projectstatistics.ui.StatisticsComponent
-import repository.local.ProjectRepository
+import repository.repo.ProjectRepository
 import translationmemory.usecase.ClearTmUseCase
 import translationmemory.usecase.ImportTmxUseCase
 import kotlin.coroutines.CoroutineContext

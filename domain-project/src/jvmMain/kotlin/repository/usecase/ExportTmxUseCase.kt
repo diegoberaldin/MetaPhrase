@@ -7,7 +7,7 @@ import localized
 import org.redundent.kotlin.xml.PrintOptions
 import org.redundent.kotlin.xml.XmlVersion
 import org.redundent.kotlin.xml.xml
-import repository.local.SegmentRepository
+import repository.repo.SegmentRepository
 import java.io.File
 import java.io.FileWriter
 

@@ -3,7 +3,7 @@ package translationmemory.datasource
 import data.SegmentModel
 import data.TranslationUnit
 import language.repo.LanguageRepository
-import repository.local.SegmentRepository
+import repository.repo.SegmentRepository
 import translationmemory.repo.MemoryEntryRepository
 import translationmemory.similarity.SimilarityCalculator
 

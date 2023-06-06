@@ -46,8 +46,8 @@ import panelglossary.ui.GlossaryComponent
 import panelmatches.ui.TranslationMemoryComponent
 import panelmemory.ui.BrowseMemoryComponent
 import panelvalidate.ui.InvalidSegmentComponent
-import repository.local.ProjectRepository
-import repository.local.SegmentRepository
+import repository.repo.ProjectRepository
+import repository.repo.SegmentRepository
 import repository.usecase.ExportTmxUseCase
 import repository.usecase.ImportSegmentsUseCase
 import repository.usecase.ValidatePlaceholdersUseCase

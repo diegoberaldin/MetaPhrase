@@ -1,13 +1,13 @@
 package repository.di
 
 import org.koin.dsl.module
-import repository.local.ProjectRepository
-import repository.local.SegmentRepository
+import repository.repo.ProjectRepository
+import repository.repo.SegmentRepository
 import repository.usecase.ExportTmxUseCase
 import repository.usecase.ImportSegmentsUseCase
 import repository.usecase.ValidatePlaceholdersUseCase
 
-val repositoryModule = module {
+val projectModule = module {
     single {
         ProjectRepository(
             dao = get(),
@@ -18,9 +18,6 @@ val repositoryModule = module {
             dao = get(),
         )
     }
-}
-
-val useCaseModule = module {
     single {
         ImportSegmentsUseCase(
             languageRepository = get(),

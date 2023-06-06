@@ -22,8 +22,8 @@ include(
     ":core-localization",
     ":core-data",
     ":core-persistence",
-    ":core-repository",
 
+    ":domain-project",
     ":domain-android",
     ":domain-ios",
     ":domain-language",

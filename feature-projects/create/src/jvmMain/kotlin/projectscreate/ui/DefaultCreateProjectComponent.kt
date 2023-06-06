@@ -19,8 +19,8 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import language.repo.LanguageRepository
 import language.usecase.GetCompleteLanguageUseCase
-import repository.local.ProjectRepository
-import repository.local.SegmentRepository
+import repository.repo.ProjectRepository
+import repository.repo.SegmentRepository
 import kotlin.coroutines.CoroutineContext
 
 internal class DefaultCreateProjectComponent(

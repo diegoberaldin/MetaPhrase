@@ -35,8 +35,7 @@ import main.ui.RootComponent
 import main.ui.RootContent
 import org.koin.core.context.startKoin
 import persistence.di.persistenceModule
-import repository.di.repositoryModule
-import repository.di.useCaseModule
+import repository.di.projectModule
 import java.util.*
 
 private fun initKoin() {
@@ -44,9 +43,8 @@ private fun initKoin() {
         modules(
             commonModule,
             persistenceModule,
-            repositoryModule,
             languageModule,
-            useCaseModule,
+            projectModule,
             mainModule,
         )
     }

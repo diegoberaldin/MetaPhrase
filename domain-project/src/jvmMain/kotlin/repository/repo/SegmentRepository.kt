@@ -1,4 +1,4 @@
-package repository.local
+package repository.repo
 
 import data.SegmentModel
 import data.TranslationUnitTypeFilter

@@ -32,8 +32,8 @@ kotlin {
                 implementation(projects.coreLocalization)
                 implementation(projects.coreData)
                 implementation(projects.corePersistence)
-                implementation(projects.coreRepository)
 
+                implementation(projects.domainProject)
                 implementation(projects.domainLanguage)
 
                 implementation(projects.featureMain)
