@@ -1,34 +1,39 @@
 package repository.di
 
 import org.koin.dsl.module
+import repository.repo.DefaultProjectRepository
+import repository.repo.DefaultSegmentRepository
 import repository.repo.ProjectRepository
 import repository.repo.SegmentRepository
+import repository.usecase.DefaultExportTmxUseCase
+import repository.usecase.DefaultImportSegmentsUseCase
+import repository.usecase.DefaultValidatePlaceholdersUseCase
 import repository.usecase.ExportTmxUseCase
 import repository.usecase.ImportSegmentsUseCase
 import repository.usecase.ValidatePlaceholdersUseCase
 
 val projectModule = module {
-    single {
-        ProjectRepository(
+    single<ProjectRepository> {
+        DefaultProjectRepository(
             dao = get(),
         )
     }
-    single {
-        SegmentRepository(
+    single<SegmentRepository> {
+        DefaultSegmentRepository(
             dao = get(),
         )
     }
-    single {
-        ImportSegmentsUseCase(
+    single<ImportSegmentsUseCase> {
+        DefaultImportSegmentsUseCase(
             languageRepository = get(),
             segmentRepository = get(),
         )
     }
-    single {
-        ValidatePlaceholdersUseCase()
+    single<ValidatePlaceholdersUseCase> {
+        DefaultValidatePlaceholdersUseCase()
     }
-    single {
-        ExportTmxUseCase(
+    single<ExportTmxUseCase> {
+        DefaultExportTmxUseCase(
             languageRepository = get(),
             segmentRepository = get(),
         )
