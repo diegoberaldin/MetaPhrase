@@ -1,5 +1,8 @@
 package common.di
 
+import common.coroutines.CoroutineDispatcherProvider
+import common.coroutines.DefaultCoroutineDispatcherProvider
+import common.files.DefaultFileManager
 import common.files.FileManager
 import common.keystore.DefaultTemporaryKeyStore
 import common.keystore.TemporaryKeyStore
@@ -10,8 +13,8 @@ import common.notification.NotificationCenter
 import org.koin.dsl.module
 
 val commonModule = module {
-    single<common.coroutines.CoroutineDispatcherProvider> {
-        common.coroutines.CoroutineDispatcherProviderImpl
+    single<CoroutineDispatcherProvider> {
+        DefaultCoroutineDispatcherProvider
     }
     single<NotificationCenter> {
         DefaultNotificationCenter
@@ -20,7 +23,7 @@ val commonModule = module {
         DefaultTemporaryKeyStore(fileManager = get())
     }
     single<FileManager> {
-        common.files.DefaultFileManager
+        DefaultFileManager
     }
     single<LogManager> {
         DefaultLogManager(fileManager = get())
