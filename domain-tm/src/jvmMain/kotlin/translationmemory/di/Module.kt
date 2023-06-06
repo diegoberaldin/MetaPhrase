@@ -3,12 +3,15 @@ package translationmemory.di
 import org.koin.dsl.module
 import translationmemory.datasource.MemoryTranslationUnitSource
 import translationmemory.datasource.ProjectTranslationUnitSource
-import translationmemory.repo.DefaultTranslationMemoryRepository
+import translationmemory.repo.DefaultMemoryEntryRepository
 import translationmemory.repo.MemoryEntryRepository
-import translationmemory.repo.TranslationMemoryRepository
 import translationmemory.similarity.DefaultSimilarityCalculator
 import translationmemory.similarity.SimilarityCalculator
 import translationmemory.usecase.ClearTmUseCase
+import translationmemory.usecase.DefaultClearTmUseCase
+import translationmemory.usecase.DefaultGetSimilaritiesUseCase
+import translationmemory.usecase.DefaultImportTmxUseCase
+import translationmemory.usecase.GetSimilaritiesUseCase
 import translationmemory.usecase.ImportTmxUseCase
 
 internal val innerTranslationMemoryModule = module {
@@ -30,18 +33,18 @@ internal val innerTranslationMemoryModule = module {
             calculateSimilarity = get(),
         )
     }
-    single {
-        MemoryEntryRepository(
+    single<MemoryEntryRepository> {
+        DefaultMemoryEntryRepository(
             dao = get(),
         )
     }
-    single {
-        ImportTmxUseCase(
+    single<ImportTmxUseCase> {
+        DefaultImportTmxUseCase(
             memoryEntryRepository = get(),
         )
     }
-    single {
-        ClearTmUseCase(
+    single<ClearTmUseCase> {
+        DefaultClearTmUseCase(
             memoryEntryRepository = get(),
         )
     }
@@ -50,8 +53,8 @@ internal val innerTranslationMemoryModule = module {
 val translationMemoryModule = module {
     includes(innerTranslationMemoryModule)
 
-    single<TranslationMemoryRepository> {
-        DefaultTranslationMemoryRepository(
+    single<GetSimilaritiesUseCase> {
+        DefaultGetSimilaritiesUseCase(
             projectSource = get(),
             memorySource = get(),
         )

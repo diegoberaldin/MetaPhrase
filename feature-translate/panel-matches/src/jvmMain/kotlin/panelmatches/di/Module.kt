@@ -1,9 +1,9 @@
 package panelmatches.di
 
 import org.koin.dsl.module
-import translationmemory.di.translationMemoryModule
 import panelmatches.ui.DefaultTranslationMemoryComponent
 import panelmatches.ui.TranslationMemoryComponent
+import translationmemory.di.translationMemoryModule
 
 val panelMatchesModule = module {
     includes(translationMemoryModule)
@@ -14,7 +14,7 @@ val panelMatchesModule = module {
             coroutineContext = it[1],
             dispatchers = get(),
             segmentRepository = get(),
-            translationMemoryRepository = get(),
+            getSimilarities = get(),
             keyStore = get(),
         )
     }

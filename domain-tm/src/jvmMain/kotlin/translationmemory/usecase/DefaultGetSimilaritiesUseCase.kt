@@ -1,15 +1,15 @@
-package translationmemory.repo
+package translationmemory.usecase
 
 import data.SegmentModel
 import data.TranslationUnit
 import translationmemory.datasource.MemoryTranslationUnitSource
 import translationmemory.datasource.ProjectTranslationUnitSource
 
-internal class DefaultTranslationMemoryRepository(
+internal class DefaultGetSimilaritiesUseCase(
     private val projectSource: ProjectTranslationUnitSource,
     private val memorySource: MemoryTranslationUnitSource,
-) : TranslationMemoryRepository {
-    override suspend fun getSimilarities(
+) : GetSimilaritiesUseCase {
+    override suspend fun invoke(
         segment: SegmentModel,
         projectId: Int,
         languageId: Int,

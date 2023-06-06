@@ -1,10 +1,10 @@
-package translationmemory.repo
+package translationmemory.usecase
 
 import data.SegmentModel
 import data.TranslationUnit
 
-interface TranslationMemoryRepository {
-    suspend fun getSimilarities(
+interface GetSimilaritiesUseCase {
+    suspend operator fun invoke(
         segment: SegmentModel,
         projectId: Int,
         languageId: Int,

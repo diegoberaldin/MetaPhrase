@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import repository.repo.SegmentRepository
-import translationmemory.repo.TranslationMemoryRepository
+import translationmemory.usecase.GetSimilaritiesUseCase
 import kotlin.coroutines.CoroutineContext
 
 internal class DefaultTranslationMemoryComponent(
@@ -25,7 +25,7 @@ internal class DefaultTranslationMemoryComponent(
     coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,
     private val segmentRepository: SegmentRepository,
-    private var translationMemoryRepository: TranslationMemoryRepository,
+    private var getSimilarities: GetSimilaritiesUseCase,
     private val keyStore: TemporaryKeyStore,
 ) : TranslationMemoryComponent, ComponentContext by componentContext {
     private val loading = MutableStateFlow(false)
@@ -69,7 +69,7 @@ internal class DefaultTranslationMemoryComponent(
             val segment = segmentRepository.getByKey(key = key, languageId = languageId) ?: return@launch
             val similarityThreshold = keyStore.get("similarity_threshold", 75) / 100f
 
-            units.value = translationMemoryRepository.getSimilarities(
+            units.value = getSimilarities(
                 segment = segment,
                 projectId = projectId,
                 languageId = languageId,
