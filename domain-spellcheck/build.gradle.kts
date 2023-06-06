@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.compose")
 }
 
-group = "core.spellcheck"
+group = "domain.spellcheck"
 version = libs.versions.appVersion.get()
 
 repositories {
