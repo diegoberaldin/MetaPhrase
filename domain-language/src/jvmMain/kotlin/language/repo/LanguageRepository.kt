@@ -1,64 +1,23 @@
 package language.repo
 
 import data.LanguageModel
-import kotlinx.coroutines.flow.channelFlow
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.isActive
-import persistence.dao.LanguageDao
-import java.util.*
+import kotlinx.coroutines.flow.Flow
 
-class LanguageRepository(
-    private val dao: LanguageDao,
-) {
+interface LanguageRepository {
+    fun getDefaultLanguages(): List<LanguageModel>
 
-    fun getDefaultLanguages() = listOf(
-        LanguageModel(code = Locale.ENGLISH.language),
-        LanguageModel(code = Locale.FRENCH.language),
-        LanguageModel(code = Locale.GERMAN.language),
-        LanguageModel(code = Locale.ITALIAN.language),
-        LanguageModel(code = "bg"),
-        LanguageModel(code = "cs"),
-        LanguageModel(code = "da"),
-        LanguageModel(code = "el"),
-        LanguageModel(code = "es"),
-        LanguageModel(code = "et"),
-        LanguageModel(code = "fi"),
-        LanguageModel(code = "ga"),
-        LanguageModel(code = "hr"),
-        LanguageModel(code = "hu"),
-        LanguageModel(code = "lt"),
-        LanguageModel(code = "lv"),
-        LanguageModel(code = "mt"),
-        LanguageModel(code = "nl"),
-        LanguageModel(code = "pl"),
-        LanguageModel(code = "pt"),
-        LanguageModel(code = "ro"),
-        LanguageModel(code = "sk"),
-        LanguageModel(code = "sl"),
-        LanguageModel(code = "sw"),
-    )
+    suspend fun getAll(projectId: Int): List<LanguageModel>
 
-    suspend fun getAll(projectId: Int) = dao.getAll(projectId)
+    suspend fun getBase(projectId: Int): LanguageModel?
+    fun observeAll(projectId: Int): Flow<List<LanguageModel>>
 
-    suspend fun getBase(projectId: Int) = dao.getBase(projectId)
+    suspend fun getById(id: Int): LanguageModel?
 
-    fun observeAll(projectId: Int) = channelFlow {
-        while (true) {
-            if (!isActive) {
-                break
-            }
-            val res = getAll(projectId)
-            trySend(res)
-        }
-    }.distinctUntilChanged()
+    suspend fun getByCode(code: String, projectId: Int): LanguageModel?
 
-    suspend fun getById(id: Int) = dao.getById(id)
+    suspend fun delete(model: LanguageModel): Int
 
-    suspend fun getByCode(code: String, projectId: Int) = dao.getByCode(code = code, projectId = projectId)
+    suspend fun update(model: LanguageModel): Int
 
-    suspend fun delete(model: LanguageModel) = dao.delete(model = model)
-
-    suspend fun update(model: LanguageModel) = dao.update(model = model)
-
-    suspend fun create(model: LanguageModel, projectId: Int): Int = dao.create(model = model, projectId = projectId)
+    suspend fun create(model: LanguageModel, projectId: Int): Int
 }

@@ -1,25 +1,29 @@
 package language.di
 
+import language.repo.DefaultFlagsRepository
+import language.repo.DefaultLanguageNameRepository
+import language.repo.DefaultLanguageRepository
 import language.repo.FlagsRepository
 import language.repo.LanguageNameRepository
 import language.repo.LanguageRepository
+import language.usecase.DefaultGetCompleteLanguageUseCase
 import language.usecase.GetCompleteLanguageUseCase
 import org.koin.dsl.module
 
 val languageModule = module {
-    single {
-        LanguageRepository(
+    single<LanguageRepository> {
+        DefaultLanguageRepository(
             dao = get(),
         )
     }
-    single {
-        LanguageNameRepository()
+    single<LanguageNameRepository> {
+        DefaultLanguageNameRepository()
     }
-    single {
-        FlagsRepository()
+    single<FlagsRepository> {
+        DefaultFlagsRepository()
     }
-    single {
-        GetCompleteLanguageUseCase(
+    single<GetCompleteLanguageUseCase> {
+        DefaultGetCompleteLanguageUseCase(
             languageNameRepository = get(),
             flagsRepository = get(),
         )
