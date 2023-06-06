@@ -1,5 +1,6 @@
 package translate.di
 
+import android.di.androidModule
 import org.koin.dsl.module
 import panelglossary.di.panelGlossaryModule
 import panelmatches.di.panelMatchesModule
@@ -12,6 +13,7 @@ import translatenewsegment.di.translateNewSegmentModule
 import translatetoolbar.di.translateToolbarModule
 
 val translateModule = module {
+    includes(androidModule)
     includes(translateToolbarModule)
     includes(translateMessagesModule)
     includes(translateNewSegmentModule)

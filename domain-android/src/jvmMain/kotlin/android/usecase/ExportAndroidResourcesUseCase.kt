@@ -1,4 +1,4 @@
-package repository.usecase
+package android.usecase
 
 import data.SegmentModel
 import kotlinx.coroutines.Dispatchers

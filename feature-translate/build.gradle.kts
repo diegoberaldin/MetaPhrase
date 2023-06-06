@@ -32,6 +32,7 @@ kotlin {
                 implementation(projects.coreData)
                 implementation(projects.coreRepository)
                 implementation(projects.domainLanguage)
+                implementation(projects.domainAndroid)
 
                 implementation(projects.featureTranslate.toolbar)
                 implementation(projects.featureTranslate.messages)

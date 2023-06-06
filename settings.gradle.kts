@@ -24,6 +24,7 @@ include(
     ":core-persistence",
     ":core-repository",
 
+    ":domain-android",
     ":domain-language",
     ":domain-tm",
     ":domain-spellcheck",

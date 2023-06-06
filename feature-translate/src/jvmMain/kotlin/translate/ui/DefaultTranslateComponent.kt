@@ -1,5 +1,7 @@
 package translate.ui
 
+import android.usecase.ExportAndroidResourcesUseCase
+import android.usecase.ParseAndroidResourcesUseCase
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.slot.ChildSlot
 import com.arkivanov.decompose.router.slot.SlotNavigation
@@ -44,11 +46,9 @@ import panelmemory.ui.BrowseMemoryComponent
 import panelvalidate.ui.InvalidSegmentComponent
 import repository.local.ProjectRepository
 import repository.local.SegmentRepository
-import repository.usecase.ExportAndroidResourcesUseCase
 import repository.usecase.ExportIosResourcesUseCase
 import repository.usecase.ExportTmxUseCase
 import repository.usecase.ImportSegmentsUseCase
-import repository.usecase.ParseAndroidResourcesUseCase
 import repository.usecase.ParseIosResourcesUseCase
 import repository.usecase.ValidatePlaceholdersUseCase
 import translate.ui.TranslateComponent.DialogConfig

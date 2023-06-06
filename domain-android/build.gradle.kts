@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.compose")
 }
 
-group = "domain.language"
+group = "domain.android"
 version = libs.versions.appVersion.get()
 
 repositories {
@@ -23,11 +23,11 @@ kotlin {
                 implementation(compose.desktop.currentOs)
 
                 implementation(libs.koin)
+                implementation(libs.redundent)
 
                 implementation(projects.coreCommon)
                 implementation(projects.coreData)
                 implementation(projects.coreLocalization)
-                implementation(projects.corePersistence)
             }
         }
     }
