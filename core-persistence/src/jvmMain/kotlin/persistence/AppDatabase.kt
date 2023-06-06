@@ -4,11 +4,11 @@ import common.files.FileManager
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
-import persistence.dao.GlossaryTermDao
-import persistence.dao.LanguageDao
-import persistence.dao.MemoryEntryDao
-import persistence.dao.ProjectDao
-import persistence.dao.SegmentDao
+import persistence.dao.DefaultGlossaryTermDao
+import persistence.dao.DefaultLanguageDao
+import persistence.dao.DefaultMemoryEntryDao
+import persistence.dao.DefaultProjectDao
+import persistence.dao.DefaultSegmentDao
 import persistence.entities.GlossaryTermEntity
 import persistence.entities.GlossaryTermRelationshipEntity
 import persistence.entities.LanguageEntity
@@ -17,7 +17,7 @@ import persistence.entities.MemoryMessageEntity
 import persistence.entities.ProjectEntity
 import persistence.entities.SegmentEntity
 
-class AppDatabase(
+internal class AppDatabase(
     private val filename: String = FILE_NAME,
     private val fileManager: FileManager,
 ) {
@@ -49,9 +49,9 @@ class AppDatabase(
         }
     }
 
-    internal fun projectDao() = ProjectDao()
-    internal fun languageDao() = LanguageDao()
-    internal fun segmentDao() = SegmentDao()
-    internal fun memoryEntryDao() = MemoryEntryDao()
-    internal fun glossaryTermDao() = GlossaryTermDao()
+    internal fun projectDao() = DefaultProjectDao()
+    internal fun languageDao() = DefaultLanguageDao()
+    internal fun segmentDao() = DefaultSegmentDao()
+    internal fun memoryEntryDao() = DefaultMemoryEntryDao()
+    internal fun glossaryTermDao() = DefaultGlossaryTermDao()
 }

@@ -2,6 +2,11 @@ package persistence.di
 
 import org.koin.dsl.module
 import persistence.AppDatabase
+import persistence.dao.GlossaryTermDao
+import persistence.dao.LanguageDao
+import persistence.dao.MemoryEntryDao
+import persistence.dao.ProjectDao
+import persistence.dao.SegmentDao
 
 private val dbModule = module {
     single {
@@ -12,23 +17,23 @@ private val dbModule = module {
 }
 
 private val daoModule = module {
-    single {
+    single<ProjectDao> {
         val db: AppDatabase = get()
         db.projectDao()
     }
-    single {
+    single<LanguageDao> {
         val db: AppDatabase = get()
         db.languageDao()
     }
-    single {
+    single<SegmentDao> {
         val db: AppDatabase = get()
         db.segmentDao()
     }
-    single {
+    single<MemoryEntryDao> {
         val db: AppDatabase = get()
         db.memoryEntryDao()
     }
-    single {
+    single<GlossaryTermDao> {
         val db: AppDatabase = get()
         db.glossaryTermDao()
     }
