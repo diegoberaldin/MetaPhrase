@@ -1,15 +1,14 @@
-package translationmemory.repo
+package translationmemory.datasource
 
-import data.SegmentModel
 import data.TranslationUnit
+import localized
 import repository.local.LanguageRepository
-import repository.local.MemoryEntryRepository
 import repository.local.SegmentRepository
+import translationmemory.similarity.SimilarityCalculator
 
-internal class MemoryTranslationUnitSource(
+internal class ProjectTranslationUnitSource(
     private val languageRepository: LanguageRepository,
     private val segmentRepository: SegmentRepository,
-    private val memoryEntryRepository: MemoryEntryRepository,
     private val calculateSimilarity: SimilarityCalculator,
 ) : TranslationUnitSource {
     override suspend fun getUnits(
@@ -19,26 +18,27 @@ internal class MemoryTranslationUnitSource(
         languageId: Int,
     ): List<TranslationUnit> {
         val baseLanguage = languageRepository.getBase(projectId) ?: return emptyList()
-        val currentLanguage = languageRepository.getById(languageId) ?: return emptyList()
-        val entries = memoryEntryRepository.getAll(sourceLang = baseLanguage.code, targetLang = currentLanguage.code)
+        val segments = segmentRepository.getAll(baseLanguage.id).filter { it.key != key }
         val original = segmentRepository.getByKey(key = key, languageId = baseLanguage.id) ?: return emptyList()
+
         val res = mutableListOf<TranslationUnit>()
-        for (e in entries) {
+        for (s in segments) {
             val source = original.text
-            val target = e.sourceText
+            val target = s.text
             val similarity = calculateSimilarity(segment1 = source, segment2 = target)
             if (similarity >= threshold) {
-                if (e.sourceText.isNotEmpty() && e.targetText.isNotEmpty()) {
+                val similarSource = segmentRepository.getByKey(key = s.key, languageId = baseLanguage.id)
+                val similarTarget = segmentRepository.getByKey(key = s.key, languageId = languageId)
+                if (similarSource != null && similarTarget != null && similarTarget.text.isNotEmpty()) {
                     res += TranslationUnit(
-                        original = SegmentModel(text = e.sourceText),
-                        segment = SegmentModel(text = e.targetText),
+                        original = similarSource,
+                        segment = similarTarget,
                         similarity = (similarity * 100).toInt(),
-                        origin = e.origin,
+                        origin = "translation_unit_source_this_project".localized(),
                     )
                 }
             }
         }
-
         return res
     }
 }

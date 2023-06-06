@@ -2,6 +2,8 @@ package translationmemory.repo
 
 import data.SegmentModel
 import data.TranslationUnit
+import translationmemory.datasource.MemoryTranslationUnitSource
+import translationmemory.datasource.ProjectTranslationUnitSource
 
 internal class DefaultTranslationMemoryRepository(
     private val projectSource: ProjectTranslationUnitSource,

@@ -1,8 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="panel-matches-jvm-1.0.0-beta-01">
     <output-path>$PROJECT_DIR$/feature-translate/panel-matches/build/libs</output-path>
-    <root id="archive" name="panel-matches-jvm-1.0.0-beta-01.jar">
-      <element id="module-output" name="MetaPhrase.feature-translate.panel-matches.jvmMain" />
-    </root>
+    <root id="archive" name="panel-matches-jvm-1.0.0-beta-01.jar" />
   </artifact>
 </component>

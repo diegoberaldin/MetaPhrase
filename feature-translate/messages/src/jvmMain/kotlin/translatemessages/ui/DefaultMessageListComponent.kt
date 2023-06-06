@@ -25,7 +25,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import repository.local.LanguageRepository
 import repository.local.SegmentRepository
-import spellcheck.SpellCheckRepository
+import spellcheck.repo.SpellCheckRepository
 import kotlin.coroutines.CoroutineContext
 
 internal class DefaultMessageListComponent(

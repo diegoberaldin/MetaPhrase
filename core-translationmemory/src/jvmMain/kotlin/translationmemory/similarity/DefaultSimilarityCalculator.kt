@@ -1,4 +1,4 @@
-package translationmemory.repo
+package translationmemory.similarity
 
 import kotlin.math.max
 

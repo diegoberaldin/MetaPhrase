@@ -1,11 +1,11 @@
 package translationmemory.di
 
 import org.koin.dsl.module
-import translationmemory.repo.DefaultSimilarityCalculator
+import translationmemory.similarity.DefaultSimilarityCalculator
 import translationmemory.repo.DefaultTranslationMemoryRepository
-import translationmemory.repo.MemoryTranslationUnitSource
-import translationmemory.repo.ProjectTranslationUnitSource
-import translationmemory.repo.SimilarityCalculator
+import translationmemory.datasource.MemoryTranslationUnitSource
+import translationmemory.datasource.ProjectTranslationUnitSource
+import translationmemory.similarity.SimilarityCalculator
 import translationmemory.repo.TranslationMemoryRepository
 
 internal val innerTranslationMemoryModule = module {

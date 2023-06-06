@@ -1,4 +1,4 @@
-package translationmemory.repo
+package translationmemory.datasource
 
 import data.TranslationUnit
 

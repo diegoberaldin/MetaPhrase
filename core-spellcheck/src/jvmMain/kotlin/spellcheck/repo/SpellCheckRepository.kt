@@ -1,4 +1,6 @@
-package spellcheck
+package spellcheck.repo
+
+import spellcheck.SpellCheckCorrection
 
 interface SpellCheckRepository {
     fun setLanguage(code: String)
