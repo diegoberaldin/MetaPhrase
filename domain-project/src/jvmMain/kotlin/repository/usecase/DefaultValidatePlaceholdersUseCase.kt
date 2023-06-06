@@ -1,14 +1,16 @@
 package repository.usecase
 
+import common.coroutines.CoroutineDispatcherProvider
 import data.Constants
 import data.SegmentModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-internal class DefaultValidatePlaceholdersUseCase : ValidatePlaceholdersUseCase {
+internal class DefaultValidatePlaceholdersUseCase(
+    private val dispatchers: CoroutineDispatcherProvider,
+) : ValidatePlaceholdersUseCase {
 
     override suspend operator fun invoke(pairs: List<Pair<SegmentModel, SegmentModel>>): ValidatePlaceholdersUseCase.Output =
-        withContext(Dispatchers.IO) {
+        withContext(dispatchers.io) {
             val invalidKeys = mutableListOf<String>()
 
             for ((source, target) in pairs) {

@@ -41,6 +41,7 @@ internal val innerTranslationMemoryModule = module {
     single<ImportTmxUseCase> {
         DefaultImportTmxUseCase(
             memoryEntryRepository = get(),
+            dispatchers = get(),
         )
     }
     single<ClearTmUseCase> {

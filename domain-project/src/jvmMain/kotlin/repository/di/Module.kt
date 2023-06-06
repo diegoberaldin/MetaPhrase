@@ -27,15 +27,19 @@ val projectModule = module {
         DefaultImportSegmentsUseCase(
             languageRepository = get(),
             segmentRepository = get(),
+            dispatchers = get(),
         )
     }
     single<ValidatePlaceholdersUseCase> {
-        DefaultValidatePlaceholdersUseCase()
+        DefaultValidatePlaceholdersUseCase(
+            dispatchers = get(),
+        )
     }
     single<ExportTmxUseCase> {
         DefaultExportTmxUseCase(
             languageRepository = get(),
             segmentRepository = get(),
+            dispatchers = get(),
         )
     }
 }

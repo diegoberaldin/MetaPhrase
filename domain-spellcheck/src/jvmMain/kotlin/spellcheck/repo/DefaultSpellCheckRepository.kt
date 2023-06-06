@@ -1,12 +1,13 @@
 package spellcheck.repo
 
-import kotlinx.coroutines.Dispatchers
+import common.coroutines.CoroutineDispatcherProvider
 import kotlinx.coroutines.withContext
 import spellcheck.SpellCheckCorrection
 import spellcheck.spelling.Spelling
 
 internal class DefaultSpellCheckRepository(
     private val spelling: Spelling,
+    private val dispatchers: CoroutineDispatcherProvider,
 ) : SpellCheckRepository {
 
     override fun setLanguage(code: String) {
@@ -16,7 +17,7 @@ internal class DefaultSpellCheckRepository(
     override suspend fun check(message: String): List<SpellCheckCorrection> {
         if (!spelling.isInitialized) return emptyList()
 
-        return withContext(Dispatchers.IO) {
+        return withContext(dispatchers.io) {
             val sanitizedMessage = message.replace("\\n", "  ")
             val res = mutableListOf<SpellCheckCorrection>()
             val separator = Regex("\\W+")

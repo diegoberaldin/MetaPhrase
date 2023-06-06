@@ -1,12 +1,14 @@
 package ios.usecase
 
+import common.coroutines.CoroutineDispatcherProvider
 import data.SegmentModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileWriter
 
-internal class DefaultExportIosResourcesUseCase : ExportIosResourcesUseCase {
+internal class DefaultExportIosResourcesUseCase(
+    private val dispatchers: CoroutineDispatcherProvider,
+) : ExportIosResourcesUseCase {
 
     override suspend operator fun invoke(segments: List<SegmentModel>, path: String) {
         val file = File(path)
@@ -16,7 +18,7 @@ internal class DefaultExportIosResourcesUseCase : ExportIosResourcesUseCase {
         if (!file.canWrite()) {
             return
         }
-        withContext(Dispatchers.IO) {
+        withContext(dispatchers.io) {
             runCatching {
                 val content = getStringTable(segments)
                 FileWriter(file).use {

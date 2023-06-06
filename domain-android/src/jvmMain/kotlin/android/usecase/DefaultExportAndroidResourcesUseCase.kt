@@ -1,14 +1,16 @@
 package android.usecase
 
+import common.coroutines.CoroutineDispatcherProvider
 import data.SegmentModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.redundent.kotlin.xml.PrintOptions
 import org.redundent.kotlin.xml.xml
 import java.io.File
 import java.io.FileWriter
 
-internal class DefaultExportAndroidResourcesUseCase : ExportAndroidResourcesUseCase {
+internal class DefaultExportAndroidResourcesUseCase(
+    private val dispatchers: CoroutineDispatcherProvider,
+) : ExportAndroidResourcesUseCase {
     override suspend operator fun invoke(segments: List<SegmentModel>, path: String) {
         val file = File(path)
         if (!file.exists()) {
@@ -19,7 +21,7 @@ internal class DefaultExportAndroidResourcesUseCase : ExportAndroidResourcesUseC
         if (!file.canWrite()) {
             return
         }
-        withContext(Dispatchers.IO) {
+        withContext(dispatchers.io) {
             runCatching {
                 val content = getXml(segments)
                 FileWriter(file).use {

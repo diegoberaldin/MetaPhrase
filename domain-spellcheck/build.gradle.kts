@@ -23,6 +23,8 @@ kotlin {
                 implementation(compose.desktop.currentOs)
                 implementation(libs.koin)
                 implementation(libs.jaspell)
+
+                implementation(projects.coreCommon)
             }
         }
         val jvmTest by getting

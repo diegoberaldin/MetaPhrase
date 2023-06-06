@@ -1,6 +1,6 @@
 package repository.usecase
 
-import kotlinx.coroutines.Dispatchers
+import common.coroutines.CoroutineDispatcherProvider
 import kotlinx.coroutines.withContext
 import language.repo.LanguageRepository
 import localized
@@ -14,6 +14,7 @@ import java.io.FileWriter
 internal class DefaultExportTmxUseCase(
     private val languageRepository: LanguageRepository,
     private val segmentRepository: SegmentRepository,
+    private val dispatchers: CoroutineDispatcherProvider,
 ) : ExportTmxUseCase {
 
     companion object {
@@ -36,7 +37,7 @@ internal class DefaultExportTmxUseCase(
         if (!file.canWrite()) {
             return
         }
-        withContext(Dispatchers.IO) {
+        withContext(dispatchers.io) {
             runCatching {
                 val content = getXml(projectId)
                 FileWriter(file).use {

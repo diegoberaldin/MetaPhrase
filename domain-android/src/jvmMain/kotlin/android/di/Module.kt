@@ -8,9 +8,13 @@ import org.koin.dsl.module
 
 val androidModule = module {
     single<ParseAndroidResourcesUseCase> {
-        DefaultParseAndroidResourcesUseCase()
+        DefaultParseAndroidResourcesUseCase(
+            dispatchers = get(),
+        )
     }
     single<ExportAndroidResourcesUseCase> {
-        DefaultExportAndroidResourcesUseCase()
+        DefaultExportAndroidResourcesUseCase(
+            dispatchers = get(),
+        )
     }
 }

@@ -1,9 +1,9 @@
 package translationmemory.usecase
 
+import common.coroutines.CoroutineDispatcherProvider
 import common.utils.lastPathSegment
 import common.utils.stripExtension
 import data.TranslationMemoryEntryModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.redundent.kotlin.xml.Node
 import org.redundent.kotlin.xml.TextElement
@@ -13,6 +13,7 @@ import java.io.File
 
 internal class DefaultImportTmxUseCase(
     private val memoryEntryRepository: MemoryEntryRepository,
+    private val dispatchers: CoroutineDispatcherProvider,
 ) : ImportTmxUseCase {
 
     companion object {
@@ -38,7 +39,7 @@ internal class DefaultImportTmxUseCase(
             return emptyList()
         }
         val origin = path.lastPathSegment().stripExtension()
-        return withContext(Dispatchers.IO) {
+        return withContext(dispatchers.io) {
             runCatching {
                 var baseLanguage = ""
                 val rootNode = parse(file)

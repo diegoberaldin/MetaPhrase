@@ -1,19 +1,22 @@
 package ios.usecase
 
+import common.coroutines.CoroutineDispatcherProvider
 import data.SegmentModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileReader
 
-internal class DefaultParseIosResourcesUseCase : ParseIosResourcesUseCase {
+internal class DefaultParseIosResourcesUseCase(
+    private val dispatchers: CoroutineDispatcherProvider,
+) : ParseIosResourcesUseCase {
 
     override suspend operator fun invoke(path: String): List<SegmentModel> {
         val file = File(path)
         if (!file.exists() || !file.canRead()) {
             return emptyList()
         }
-        return withContext(Dispatchers.IO) {
+        return withContext(dispatchers.io) {
             runCatching {
                 val res = mutableListOf<SegmentModel>()
 

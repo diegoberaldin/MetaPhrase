@@ -15,6 +15,7 @@ val spellcheckModule = module {
     single<SpellCheckRepository> {
         DefaultSpellCheckRepository(
             spelling = get(),
+            dispatchers = get(),
         )
     }
 }

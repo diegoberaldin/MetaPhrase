@@ -1,14 +1,16 @@
 package android.usecase
 
+import common.coroutines.CoroutineDispatcherProvider
 import data.SegmentModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.redundent.kotlin.xml.Node
 import org.redundent.kotlin.xml.TextElement
 import org.redundent.kotlin.xml.parse
 import java.io.File
 
-internal class DefaultParseAndroidResourcesUseCase : ParseAndroidResourcesUseCase {
+internal class DefaultParseAndroidResourcesUseCase(
+    private val dispatchers: CoroutineDispatcherProvider,
+) : ParseAndroidResourcesUseCase {
 
     companion object {
         private const val ELEM_STRING = "string"
@@ -21,7 +23,7 @@ internal class DefaultParseAndroidResourcesUseCase : ParseAndroidResourcesUseCas
         if (!file.exists() || !file.canRead()) {
             return emptyList()
         }
-        return withContext(Dispatchers.IO) {
+        return withContext(dispatchers.io) {
             runCatching {
                 val res = mutableListOf<SegmentModel>()
                 val resourcesNode = parse(file)

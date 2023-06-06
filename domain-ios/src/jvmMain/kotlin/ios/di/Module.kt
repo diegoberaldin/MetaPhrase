@@ -8,9 +8,13 @@ import org.koin.dsl.module
 
 val iosModule = module {
     single<ParseIosResourcesUseCase> {
-        DefaultParseIosResourcesUseCase()
+        DefaultParseIosResourcesUseCase(
+            dispatchers = get(),
+        )
     }
     single<ExportIosResourcesUseCase> {
-        DefaultExportIosResourcesUseCase()
+        DefaultExportIosResourcesUseCase(
+            dispatchers = get(),
+        )
     }
 }
