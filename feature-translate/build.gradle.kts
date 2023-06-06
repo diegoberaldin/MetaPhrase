@@ -30,9 +30,11 @@ kotlin {
                 implementation(projects.coreCommon)
                 implementation(projects.coreLocalization)
                 implementation(projects.coreData)
+
                 implementation(projects.coreRepository)
                 implementation(projects.domainLanguage)
                 implementation(projects.domainAndroid)
+                implementation(projects.domainIos)
 
                 implementation(projects.featureTranslate.toolbar)
                 implementation(projects.featureTranslate.messages)

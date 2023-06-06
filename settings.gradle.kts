@@ -25,6 +25,7 @@ include(
     ":core-repository",
 
     ":domain-android",
+    ":domain-ios",
     ":domain-language",
     ":domain-tm",
     ":domain-spellcheck",

@@ -19,6 +19,8 @@ import data.LanguageModel
 import data.ProjectModel
 import data.ResourceFileType
 import data.SegmentModel
+import ios.usecase.ExportIosResourcesUseCase
+import ios.usecase.ParseIosResourcesUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.SupervisorJob
@@ -46,10 +48,8 @@ import panelmemory.ui.BrowseMemoryComponent
 import panelvalidate.ui.InvalidSegmentComponent
 import repository.local.ProjectRepository
 import repository.local.SegmentRepository
-import repository.usecase.ExportIosResourcesUseCase
 import repository.usecase.ExportTmxUseCase
 import repository.usecase.ImportSegmentsUseCase
-import repository.usecase.ParseIosResourcesUseCase
 import repository.usecase.ValidatePlaceholdersUseCase
 import translate.ui.TranslateComponent.DialogConfig
 import translate.ui.TranslateComponent.MessageListConfig

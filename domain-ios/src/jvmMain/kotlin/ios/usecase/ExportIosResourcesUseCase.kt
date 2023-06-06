@@ -1,4 +1,4 @@
-package repository.usecase
+package ios.usecase
 
 import data.SegmentModel
 import kotlinx.coroutines.Dispatchers

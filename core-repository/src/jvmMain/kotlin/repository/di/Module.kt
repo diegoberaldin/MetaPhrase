@@ -3,10 +3,8 @@ package repository.di
 import org.koin.dsl.module
 import repository.local.ProjectRepository
 import repository.local.SegmentRepository
-import repository.usecase.ExportIosResourcesUseCase
 import repository.usecase.ExportTmxUseCase
 import repository.usecase.ImportSegmentsUseCase
-import repository.usecase.ParseIosResourcesUseCase
 import repository.usecase.ValidatePlaceholdersUseCase
 
 val repositoryModule = module {
@@ -24,16 +22,10 @@ val repositoryModule = module {
 
 val useCaseModule = module {
     single {
-        ParseIosResourcesUseCase()
-    }
-    single {
         ImportSegmentsUseCase(
             languageRepository = get(),
             segmentRepository = get(),
         )
-    }
-    single {
-        ExportIosResourcesUseCase()
     }
     single {
         ValidatePlaceholdersUseCase()
