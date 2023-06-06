@@ -4,10 +4,13 @@ import common.files.FileManager
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
+import persistence.dao.GlossaryTermDao
 import persistence.dao.LanguageDao
 import persistence.dao.MemoryEntryDao
 import persistence.dao.ProjectDao
 import persistence.dao.SegmentDao
+import persistence.entities.GlossaryTermEntity
+import persistence.entities.GlossaryTermRelationshipEntity
 import persistence.entities.LanguageEntity
 import persistence.entities.MemoryEntryEntity
 import persistence.entities.MemoryMessageEntity
@@ -40,6 +43,8 @@ class AppDatabase(
                 SegmentEntity,
                 MemoryEntryEntity,
                 MemoryMessageEntity,
+                GlossaryTermEntity,
+                GlossaryTermRelationshipEntity,
             )
         }
     }
@@ -48,4 +53,5 @@ class AppDatabase(
     internal fun languageDao() = LanguageDao()
     internal fun segmentDao() = SegmentDao()
     internal fun memoryEntryDao() = MemoryEntryDao()
+    internal fun glossaryTermDao() = GlossaryTermDao()
 }

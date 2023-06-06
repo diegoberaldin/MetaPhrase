@@ -28,6 +28,10 @@ private val daoModule = module {
         val db: AppDatabase = get()
         db.memoryEntryDao()
     }
+    single {
+        val db: AppDatabase = get()
+        db.glossaryTermDao()
+    }
 }
 
 val persistenceModule = module {
