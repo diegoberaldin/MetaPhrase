@@ -31,6 +31,8 @@ kotlin {
                 implementation(projects.coreLocalization)
                 implementation(projects.coreData)
 
+                implementation(projects.domainLanguage)
+                implementation(projects.domainProject)
                 implementation(projects.domainGlossary)
             }
         }

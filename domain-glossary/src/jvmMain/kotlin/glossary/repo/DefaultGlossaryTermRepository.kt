@@ -19,6 +19,9 @@ internal class DefaultGlossaryTermRepository(
     override suspend fun areAssociated(sourceId: Int, targetId: Int) =
         dao.areAssociated(sourceId = sourceId, targetId = targetId)
 
+    override suspend fun getAssociated(model: GlossaryTermModel, otherLang: String): List<GlossaryTermModel> =
+        dao.getAssociated(model = model, otherLang = otherLang)
+
     override suspend fun associate(sourceId: Int, targetId: Int) =
         dao.associate(sourceId = sourceId, targetId = targetId)
 

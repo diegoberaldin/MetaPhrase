@@ -190,6 +190,7 @@ internal class DefaultTranslateComponent(
             toolbarComponent.setEditing(isEditing)
             if (!isEditing) {
                 panel.asFlow<TranslationMemoryComponent>().firstOrNull()?.clear()
+                panel.asFlow<GlossaryComponent>().firstOrNull()?.clear()
             }
         }.launchIn(this)
         dialog.asFlow<NewSegmentComponent>().filterNotNull().onEach {
@@ -205,8 +206,12 @@ internal class DefaultTranslateComponent(
         }.launchIn(this)
         messageListComponent.editedSegment.filterNotNull().onEach { segment ->
             val key = segment.key
-            val child = panel.asFlow<TranslationMemoryComponent>().firstOrNull()
-            child?.loadSimilarities(
+            panel.asFlow<TranslationMemoryComponent>().firstOrNull()?.loadSimilarities(
+                key = key,
+                projectId = projectId,
+                languageId = getCurrentLanguage()?.id ?: 0,
+            )
+            panel.asFlow<GlossaryComponent>().firstOrNull()?.loadGlossaryTerms(
                 key = key,
                 projectId = projectId,
                 languageId = getCurrentLanguage()?.id ?: 0,
@@ -486,6 +491,11 @@ internal class DefaultTranslateComponent(
             val currentKey = messageList.asFlow<MessageListComponent>().firstOrNull()?.editedSegment?.value?.key
             if (currentKey != null) {
                 panel.asFlow<TranslationMemoryComponent>().firstOrNull()?.loadSimilarities(
+                    key = currentKey,
+                    languageId = getCurrentLanguage()?.id ?: 0,
+                    projectId = projectId,
+                )
+                panel.asFlow<GlossaryComponent>().firstOrNull()?.loadGlossaryTerms(
                     key = currentKey,
                     languageId = getCurrentLanguage()?.id ?: 0,
                     projectId = projectId,

@@ -17,6 +17,8 @@ interface GlossaryTermDao {
 
     suspend fun areAssociated(sourceId: Int, targetId: Int): Boolean
 
+    suspend fun getAssociated(model: GlossaryTermModel, otherLang: String): List<GlossaryTermModel>
+
     suspend fun associate(sourceId: Int, targetId: Int)
 
     suspend fun disassociate(sourceId: Int, targetId: Int): Int

@@ -12,6 +12,11 @@ val panelGlossaryModule = module {
         DefaultGlossaryComponent(
             componentContext = it[0],
             coroutineContext = it[1],
+            dispatchers = get(),
+            languageRepository = get(),
+            segmentRepository = get(),
+            glossaryTermRepository = get(),
+            getGlossaryTerms = get(),
         )
     }
 }
