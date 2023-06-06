@@ -37,11 +37,11 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import language.repo.LanguageRepository
 import panelglossary.ui.GlossaryComponent
 import panelmatches.ui.TranslationMemoryComponent
 import panelmemory.ui.BrowseMemoryComponent
 import panelvalidate.ui.InvalidSegmentComponent
-import repository.local.LanguageRepository
 import repository.local.ProjectRepository
 import repository.local.SegmentRepository
 import repository.usecase.ExportAndroidResourcesUseCase

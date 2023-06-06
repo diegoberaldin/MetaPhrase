@@ -34,6 +34,8 @@ kotlin {
                 implementation(projects.corePersistence)
                 implementation(projects.coreRepository)
 
+                implementation(projects.domainLanguage)
+
                 implementation(projects.featureMain)
                 implementation(projects.featureMain.settings)
             }

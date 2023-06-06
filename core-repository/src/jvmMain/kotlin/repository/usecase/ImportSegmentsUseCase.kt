@@ -2,7 +2,7 @@ package repository.usecase
 
 import data.LanguageModel
 import data.SegmentModel
-import repository.local.LanguageRepository
+import language.repo.LanguageRepository
 import repository.local.SegmentRepository
 
 class ImportSegmentsUseCase(

@@ -31,6 +31,7 @@ kotlin {
                 implementation(projects.coreLocalization)
                 implementation(projects.coreData)
                 implementation(projects.coreRepository)
+                implementation(projects.domainLanguage)
                 implementation(projects.domainSpellcheck)
             }
         }

@@ -17,10 +17,10 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import repository.local.LanguageRepository
+import language.repo.LanguageRepository
+import language.usecase.GetCompleteLanguageUseCase
 import repository.local.ProjectRepository
 import repository.local.SegmentRepository
-import repository.usecase.GetCompleteLanguageUseCase
 import kotlin.coroutines.CoroutineContext
 
 internal class DefaultCreateProjectComponent(

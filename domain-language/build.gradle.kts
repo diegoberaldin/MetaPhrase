@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.compose")
 }
 
-group = "feature.projects.statistics"
+group = "domain.language"
 version = libs.versions.appVersion.get()
 
 repositories {
@@ -21,17 +21,14 @@ kotlin {
         val jvmMain by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)
-                implementation(compose.materialIconsExtended)
 
                 implementation(libs.koin)
-                implementation(libs.decompose)
-                implementation(libs.decompose.extensions)
+                implementation(libs.redundent)
 
                 implementation(projects.coreCommon)
-                implementation(projects.coreLocalization)
                 implementation(projects.coreData)
-                implementation(projects.coreRepository)
-                implementation(projects.domainLanguage)
+                implementation(projects.coreLocalization)
+                implementation(projects.corePersistence)
             }
         }
     }

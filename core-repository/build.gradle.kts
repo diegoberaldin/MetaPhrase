@@ -29,6 +29,7 @@ kotlin {
                 implementation(projects.coreData)
                 implementation(projects.coreLocalization)
                 implementation(projects.corePersistence)
+                implementation(projects.domainLanguage)
             }
         }
     }

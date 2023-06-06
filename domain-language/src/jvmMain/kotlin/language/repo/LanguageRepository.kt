@@ -1,4 +1,4 @@
-package repository.local
+package language.repo
 
 import data.LanguageModel
 import kotlinx.coroutines.flow.channelFlow

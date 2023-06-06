@@ -1,8 +1,8 @@
-package repository.usecase
+package language.usecase
 
 import data.LanguageModel
-import repository.local.FlagsRepository
-import repository.local.LanguageNameRepository
+import language.repo.FlagsRepository
+import language.repo.LanguageNameRepository
 
 class GetCompleteLanguageUseCase(
     private val languageNameRepository: LanguageNameRepository,

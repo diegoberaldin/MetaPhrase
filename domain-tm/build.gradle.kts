@@ -30,6 +30,8 @@ kotlin {
                 implementation(projects.coreLocalization)
                 implementation(projects.corePersistence)
                 implementation(projects.coreRepository)
+
+                implementation(projects.domainLanguage)
             }
         }
     }

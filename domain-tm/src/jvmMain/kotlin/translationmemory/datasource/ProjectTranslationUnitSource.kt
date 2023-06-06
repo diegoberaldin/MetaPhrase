@@ -1,8 +1,8 @@
 package translationmemory.datasource
 
 import data.TranslationUnit
+import language.repo.LanguageRepository
 import localized
-import repository.local.LanguageRepository
 import repository.local.SegmentRepository
 import translationmemory.similarity.SimilarityCalculator
 

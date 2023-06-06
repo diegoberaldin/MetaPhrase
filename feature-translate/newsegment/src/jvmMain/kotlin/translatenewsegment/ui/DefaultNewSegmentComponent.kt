@@ -16,8 +16,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import language.repo.LanguageRepository
 import localized
-import repository.local.LanguageRepository
 import repository.local.SegmentRepository
 import kotlin.coroutines.CoroutineContext
 

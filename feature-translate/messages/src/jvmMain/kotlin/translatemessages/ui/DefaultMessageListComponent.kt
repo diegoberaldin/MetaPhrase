@@ -23,7 +23,7 @@ import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import repository.local.LanguageRepository
+import language.repo.LanguageRepository
 import repository.local.SegmentRepository
 import spellcheck.repo.SpellCheckRepository
 import kotlin.coroutines.CoroutineContext
