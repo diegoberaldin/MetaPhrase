@@ -495,6 +495,15 @@ internal class DefaultTranslateComponent(
                     languageId = getCurrentLanguage()?.id ?: 0,
                     projectId = projectId,
                 )
+            }
+        }
+    }
+
+    override fun tryLoadGlossary() {
+        viewModelScope.launch(dispatchers.io) {
+            delay(100)
+            val currentKey = messageList.asFlow<MessageListComponent>().firstOrNull()?.editedSegment?.value?.key
+            if (currentKey != null) {
                 panel.asFlow<GlossaryComponent>().firstOrNull()?.loadGlossaryTerms(
                     key = currentKey,
                     languageId = getCurrentLanguage()?.id ?: 0,

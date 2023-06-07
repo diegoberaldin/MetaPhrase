@@ -133,6 +133,9 @@ fun TranslateContent(
                             component = childComponent,
                             onMinify = { component.togglePanel(PanelConfig.Glossary) },
                         )
+                        LaunchedEffect(component) {
+                            component.tryLoadGlossary()
+                        }
                     }
 
                     else -> Unit

@@ -57,7 +57,7 @@ fun TranslationMemoryContent(
 
     Column(
         modifier = modifier.pointerHoverIcon(pointerIcon),
-        verticalArrangement = Arrangement.spacedBy(Spacing.s),
+        verticalArrangement = Arrangement.spacedBy(Spacing.xs),
     ) {
         Box(modifier = Modifier.fillMaxWidth()) {
             Text(

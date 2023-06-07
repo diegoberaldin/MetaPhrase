@@ -1,7 +1,6 @@
 package panelglossary.ui
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,7 +16,6 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.onClick
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -57,7 +55,7 @@ fun GlossaryContent(
 
     Column(
         modifier = modifier.pointerHoverIcon(pointerIcon),
-        verticalArrangement = Arrangement.spacedBy(Spacing.s),
+        verticalArrangement = Arrangement.spacedBy(Spacing.xs),
     ) {
         Box(modifier = Modifier.fillMaxWidth()) {
             Text(
@@ -85,50 +83,66 @@ fun GlossaryContent(
                 val term = pair.first
                 val associated = pair.second
                 // source term
-                Text(
-                    text = term.lemma,
-                    modifier = Modifier.background(
-                        color = Color(0xFF666666),
-                        shape = RoundedCornerShape(4.dp),
-                    ).padding(start = Spacing.s, end = Spacing.s, bottom = Spacing.xs, top = Spacing.xxs),
-                    style = MaterialTheme.typography.caption,
-                )
-                Spacer(modifier = Modifier.height(Spacing.xs))
-                // target terms
-                FlowRow(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(Spacing.s),
+                Row(
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    for (targetTerm in associated) {
+                    if (uiState.sourceFlag.isNotEmpty()) {
                         Text(
-                            text = targetTerm.lemma,
-                            modifier = Modifier.background(
-                                color = Color(0xFF666666).copy(alpha = 0.75f),
-                                shape = RoundedCornerShape(4.dp),
-                            ).padding(start = Spacing.s, end = Spacing.s, bottom = Spacing.xxs, top = Spacing.xxs),
+                            text = uiState.sourceFlag,
                             style = MaterialTheme.typography.caption,
                         )
                     }
-                    Row(
+                    TermChip(
+                        term = term,
+                        onDelete = {
+                            component.deleteTerm(term)
+                        },
+                    )
+                }
+
+                if (!uiState.isBaseLanguage) {
+                    Spacer(modifier = Modifier.height(Spacing.xs))
+                    // target terms
+                    FlowRow(
+                        modifier = Modifier.fillMaxWidth(),
                         verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(Spacing.s),
                     ) {
-                        CustomTooltipArea(
-                            text = "tooltip_new_target_term".localized(),
+                        if (uiState.targetFlag.isNotEmpty()) {
+                            Text(
+                                text = uiState.targetFlag,
+                                style = MaterialTheme.typography.caption,
+                            )
+                        }
+
+                        for (targetTerm in associated) {
+                            TermChip(
+                                term = targetTerm,
+                                backgroundColor = Color(0xFF666666).copy(alpha = 0.75f),
+                                onDelete = {
+                                    component.deleteTerm(targetTerm)
+                                },
+                            )
+                        }
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(Spacing.s),
                         ) {
-                            Box(
-                                // at least 200.dp so that it is never unexpanded at the end and expanded on another
-                                modifier = Modifier.widthIn(min = 200.dp),
-                                contentAlignment = Alignment.CenterStart,
+                            CustomTooltipArea(
+                                text = "tooltip_new_target_term".localized(),
                             ) {
-                                GlossaryAddButton(
-                                    backgroundColor = Color(0xFF666666).copy(alpha = 0.75f),
-                                    onAddTerm = {
-                                        val sourceTerm = uiState.terms[idx].first
-                                        component.addTargetTerm(lemma = it, source = sourceTerm)
-                                    },
-                                )
+                                Box(
+                                    // at least 200.dp so that it is never unexpanded at the end and expanded on another
+                                    modifier = Modifier.widthIn(min = 200.dp),
+                                    contentAlignment = Alignment.CenterStart,
+                                ) {
+                                    GlossaryAddButton(
+                                        backgroundColor = Color(0xFF666666).copy(alpha = 0.75f),
+                                        onAddTerm = {
+                                            val sourceTerm = uiState.terms[idx].first
+                                            component.addTargetTerm(lemma = it, source = sourceTerm)
+                                        },
+                                    )
+                                }
                             }
                         }
                     }

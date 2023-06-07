@@ -14,6 +14,7 @@ val panelGlossaryModule = module {
             coroutineContext = it[1],
             dispatchers = get(),
             languageRepository = get(),
+            flagsRepository = get(),
             segmentRepository = get(),
             glossaryTermRepository = get(),
             getGlossaryTerms = get(),

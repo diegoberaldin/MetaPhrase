@@ -32,6 +32,7 @@ interface TranslateComponent {
     fun closeDialog()
     fun togglePanel(config: PanelConfig)
     fun tryLoadSimilarities()
+    fun tryLoadGlossary()
     fun exportTmx(path: String)
     fun validatePlaceholders()
     fun insertBestMatch()

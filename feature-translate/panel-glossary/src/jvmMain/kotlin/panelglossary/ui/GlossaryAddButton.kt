@@ -45,7 +45,7 @@ internal fun GlossaryAddButton(
 ) {
     var expanded by remember { mutableStateOf(false) }
     val expandedWith = 200.dp.toLocalPixel()
-    val baseSize = 18.dp
+    val baseSize = 20.dp
     val collapsedWidth = baseSize.toLocalPixel()
     val width by animateFloatAsState(targetValue = if (expanded) expandedWith else collapsedWidth)
     val focusRequester = remember { FocusRequester() }
