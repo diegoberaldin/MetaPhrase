@@ -12,9 +12,13 @@
             <option value="$PROJECT_DIR$/core-data" />
             <option value="$PROJECT_DIR$/core-localization" />
             <option value="$PROJECT_DIR$/core-persistence" />
-            <option value="$PROJECT_DIR$/core-repository" />
-            <option value="$PROJECT_DIR$/core-spellcheck" />
-            <option value="$PROJECT_DIR$/core-translationmemory" />
+            <option value="$PROJECT_DIR$/domain-android" />
+            <option value="$PROJECT_DIR$/domain-glossary" />
+            <option value="$PROJECT_DIR$/domain-ios" />
+            <option value="$PROJECT_DIR$/domain-language" />
+            <option value="$PROJECT_DIR$/domain-project" />
+            <option value="$PROJECT_DIR$/domain-spellcheck" />
+            <option value="$PROJECT_DIR$/domain-tm" />
             <option value="$PROJECT_DIR$/feature-intro" />
             <option value="$PROJECT_DIR$/feature-main" />
             <option value="$PROJECT_DIR$/feature-main/settings" />
@@ -23,12 +27,13 @@
             <option value="$PROJECT_DIR$/feature-projects/list" />
             <option value="$PROJECT_DIR$/feature-projects/statistics" />
             <option value="$PROJECT_DIR$/feature-translate" />
-            <option value="$PROJECT_DIR$/feature-translate/browsememory" />
-            <option value="$PROJECT_DIR$/feature-translate/invalidsegments" />
             <option value="$PROJECT_DIR$/feature-translate/messages" />
             <option value="$PROJECT_DIR$/feature-translate/newsegment" />
+            <option value="$PROJECT_DIR$/feature-translate/panel-glossary" />
+            <option value="$PROJECT_DIR$/feature-translate/panel-matches" />
+            <option value="$PROJECT_DIR$/feature-translate/panel-memory" />
+            <option value="$PROJECT_DIR$/feature-translate/panel-validate" />
             <option value="$PROJECT_DIR$/feature-translate/toolbar" />
-            <option value="$PROJECT_DIR$/feature-translate/translationmemory" />
           </set>
         </option>
       </GradleProjectSettings>

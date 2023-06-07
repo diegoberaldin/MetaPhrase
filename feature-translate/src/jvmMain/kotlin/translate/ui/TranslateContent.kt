@@ -33,17 +33,19 @@ import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import common.ui.theme.Spacing
 import localized
 import org.jetbrains.skiko.Cursor
+import panelglossary.ui.GlossaryComponent
+import panelglossary.ui.GlossaryContent
+import panelmatches.ui.TranslationMemoryComponent
+import panelmatches.ui.TranslationMemoryContent
+import panelmemory.ui.BrowseMemoryComponent
+import panelmemory.ui.BrowseMemoryContent
+import panelvalidate.ui.InvalidSegmentComponent
+import panelvalidate.ui.ValidateContent
 import translate.ui.TranslateComponent.PanelConfig
-import translatebrowsememory.ui.BrowseMemoryComponent
-import translatebrowsememory.ui.BrowseMemoryContent
-import translateinvalidsegments.ui.InvalidSegmentComponent
-import translateinvalidsegments.ui.ValidateContent
 import translatemessages.ui.MessageListContent
 import translatenewsegment.ui.NewSegmentComponent
 import translatenewsegment.ui.NewSegmentDialog
 import translatetoolbar.ui.TranslateToolbar
-import translationtranslationmemory.ui.TranslationMemoryComponent
-import translationtranslationmemory.ui.TranslationMemoryContent
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -124,6 +126,15 @@ fun TranslateContent(
                         )
                     }
 
+                    PanelConfig.Glossary -> {
+                        val childComponent = panel.child?.instance as GlossaryComponent
+                        GlossaryContent(
+                            modifier = Modifier.fillMaxWidth().weight(1f),
+                            component = childComponent,
+                            onMinify = { component.togglePanel(PanelConfig.Glossary) },
+                        )
+                    }
+
                     else -> Unit
                 }
             }
@@ -154,6 +165,12 @@ fun TranslateContent(
                     isActive = panel.child?.configuration == PanelConfig.MemoryContent,
                 ) {
                     component.togglePanel(PanelConfig.MemoryContent)
+                }
+                PanelChip(
+                    title = "panel_section_glossary".localized(),
+                    isActive = panel.child?.configuration == PanelConfig.Glossary,
+                ) {
+                    component.togglePanel(PanelConfig.Glossary)
                 }
             }
 

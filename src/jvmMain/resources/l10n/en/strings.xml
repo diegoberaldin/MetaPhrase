@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
     <string name="app_intro">Please open a project by selecting one of the following items.</string>
-    <string name="app_intro_empty">It seems like you don\'t have any project.\nPlease create a new one using the
-        "Project" > "New…" menu.
-    </string>
+    <string name="app_intro_empty">It seems like you don\'t have any project.\nPlease create a new one using the "Project" > "New…" menu.</string>
     <string name="app_intro_title">Thank you for using MetaPhrase!</string>
     <string name="app_name" translatable="false">MetaPhrase</string>
     <string name="button_cancel">Cancel</string>
@@ -14,8 +12,7 @@
     <string name="column_invalid_missing">Missing</string>
     <string name="create_project_field_name">Name</string>
     <string name="create_project_languages">Languages</string>
-    <string name="create_project_languages_subtitle">Each project must have exactly one base (or default) language
-    </string>
+    <string name="create_project_languages_subtitle">Each project must have exactly one base (or default) language</string>
     <string name="create_segment_key">Key</string>
     <string name="create_segment_text">Text</string>
     <string name="dialog_settings_language">App language</string>
@@ -34,6 +31,7 @@
     <string name="dialog_title_open_file">Choose file</string>
     <string name="dialog_title_settings">Settings</string>
     <string name="dialog_title_statistics">Statistics</string>
+    <string name="glossary_title">Glossary</string>
     <string name="lang">en</string>
     <string name="language_bulgarian" translatable="false">Вългарски</string>
     <string name="language_croatian" translatable="false">Hrvatski</string>
@@ -86,12 +84,12 @@
     <string name="message_duplicate_key">A message with the same key already exists</string>
     <string name="message_missing_field">Missing field</string>
     <string name="message_no_item_to_display">No item to display</string>
-    <string name="message_no_validation">No validation results, run a validation with the "Validate" toolbar action
-    </string>
+    <string name="message_no_validation">No validation results, run a validation with the "Validate" toolbar action</string>
     <string name="message_validation_invalid">Some invalid messages were found:</string>
     <string name="message_validation_valid">Hooray! All messages contain valid placeholders 🎉</string>
     <string name="panel_section_checks">Validation</string>
     <string name="panel_section_matches">Matches</string>
+    <string name="panel_section_glossary">Glossary</string>
     <string name="panel_section_translation_memory">Memory</string>
     <string name="status_bar_units">messages: %d</string>
     <string name="toolbar_search_placeholder">Search…</string>
@@ -104,6 +102,8 @@
     <string name="tooltip_minify">Minify</string>
     <string name="tooltip_move_to_next">Move to next</string>
     <string name="tooltip_move_to_previous">Move to previous</string>
+    <string name="tooltip_new_source_term">New source term</string>
+    <string name="tooltip_new_target_term">New target term</string>
     <string name="tooltip_validate">Validate</string>
     <string name="translation_memory_origin">source: %s</string>
     <string name="translation_memory_similarity">similarity: %d%%</string>

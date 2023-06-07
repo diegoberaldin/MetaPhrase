@@ -1,6 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="core-spellcheck-jvm-1.0.0-beta-01">
-    <output-path>$PROJECT_DIR$/core-spellcheck/build/libs</output-path>
-    <root id="archive" name="core-spellcheck-jvm-1.0.0-beta-01.jar" />
-  </artifact>
-</component>

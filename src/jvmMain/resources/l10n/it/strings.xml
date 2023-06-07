@@ -30,6 +30,7 @@
     <string name="dialog_title_open_file">Scegli file</string>
     <string name="dialog_title_settings">Impostazioni</string>
     <string name="dialog_title_statistics">Statistiche</string>
+    <string name="glossary_title">Glossario</string>
     <string name="lang">it</string>
     <string name="memory_content_title">Contenuto TM</string>
     <string name="menu_project">Progetto</string>
@@ -63,6 +64,7 @@
     <string name="message_validation_valid">Evviva! Tutti i messaggi contengono placeholder validi 🎉</string>
     <string name="panel_section_checks">Convalida</string>
     <string name="panel_section_matches">Corrispondenze</string>
+    <string name="panel_section_glossary">Glossario</string>
     <string name="panel_section_translation_memory">Memoria</string>
     <string name="status_bar_units">messaggi: %d</string>
     <string name="toolbar_search_placeholder">Cerca…</string>
@@ -74,6 +76,8 @@
     <string name="tooltip_make_untranslatable">Rendi non traducibile</string>
     <string name="tooltip_move_to_next">Vai a precedente</string>
     <string name="tooltip_move_to_previous">Vai a successivo</string>
+    <string name="tooltip_new_source_term">Nuovo termine sorgente</string>
+    <string name="tooltip_new_target_term">Nuovo termine destinazione</string>
     <string name="tooltip_validate">Convalida</string>
     <string name="translation_memory_origin">fonte: %s</string>
     <string name="translation_memory_similarity">somiglianza: %d%%</string>

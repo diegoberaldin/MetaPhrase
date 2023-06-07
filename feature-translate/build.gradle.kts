@@ -30,14 +30,19 @@ kotlin {
                 implementation(projects.coreCommon)
                 implementation(projects.coreLocalization)
                 implementation(projects.coreData)
-                implementation(projects.coreRepository)
+
+                implementation(projects.domainProject)
+                implementation(projects.domainLanguage)
+                implementation(projects.domainAndroid)
+                implementation(projects.domainIos)
 
                 implementation(projects.featureTranslate.toolbar)
                 implementation(projects.featureTranslate.messages)
                 implementation(projects.featureTranslate.newsegment)
-                implementation(projects.featureTranslate.invalidsegments)
-                implementation(projects.featureTranslate.translationmemory)
-                implementation(projects.featureTranslate.browsememory)
+                implementation(projects.featureTranslate.panelValidate)
+                implementation(projects.featureTranslate.panelMatches)
+                implementation(projects.featureTranslate.panelMemory)
+                implementation(projects.featureTranslate.panelGlossary)
             }
         }
     }

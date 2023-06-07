@@ -32,7 +32,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import projectslist.ui.ProjectListComponent
-import repository.local.ProjectRepository
+import repository.repo.ProjectRepository
 import translate.ui.TranslateComponent
 import kotlin.coroutines.CoroutineContext
 import kotlin.time.Duration

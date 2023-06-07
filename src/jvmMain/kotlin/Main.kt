@@ -29,13 +29,13 @@ import data.ResourceFileType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.runBlocking
+import language.di.languageModule
 import main.di.mainModule
 import main.ui.RootComponent
 import main.ui.RootContent
 import org.koin.core.context.startKoin
 import persistence.di.persistenceModule
-import repository.di.repositoryModule
-import repository.di.useCaseModule
+import repository.di.projectModule
 import java.util.*
 
 private fun initKoin() {
@@ -43,8 +43,8 @@ private fun initKoin() {
         modules(
             commonModule,
             persistenceModule,
-            repositoryModule,
-            useCaseModule,
+            languageModule,
+            projectModule,
             mainModule,
         )
     }

@@ -30,6 +30,7 @@
 	<string name="dialog_title_open_file">Elegir archivo</string>
 	<string name="dialog_title_settings">Ajustes</string>
 	<string name="dialog_title_statistics">Estadísticas</string>
+	<string name="glossary_title">Glosario</string>
 	<string name="lang">es</string>
 	<string name="memory_content_title">Contenido MT</string>
 	<string name="menu_project">Proyecto</string>
@@ -62,6 +63,7 @@
 	<string name="message_validation_invalid">Se han encontrado algunos mensajes no válidos:</string>
 	<string name="message_validation_valid">¡Enhorabuena! Todos los mensajes contienen especificadores válidos 🎉</string>
 	<string name="panel_section_checks">Validación</string>
+	<string name="panel_section_glossary">Glosario</string>
 	<string name="panel_section_matches">Correspondencias</string>
 	<string name="panel_section_translation_memory">Memoria</string>
 	<string name="status_bar_units">mensajes: %d</string>
@@ -75,6 +77,8 @@
 	<string name="tooltip_minify">Minimizza</string>
 	<string name="tooltip_move_to_next">Pasar al siguiente</string>
 	<string name="tooltip_move_to_previous">Pasar al anterior</string>
+	<string name="tooltip_new_source_term">Nuevo término fuente</string>
+	<string name="tooltip_new_target_term">Nuevo término meta</string>
 	<string name="tooltip_validate">Convalidar</string>
 	<string name="translation_memory_origin">fuente: %s</string>
 	<string name="translation_memory_similarity">semejanza: %d%%</string>

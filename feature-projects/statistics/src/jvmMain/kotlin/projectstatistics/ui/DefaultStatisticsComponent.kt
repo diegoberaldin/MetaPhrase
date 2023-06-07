@@ -15,10 +15,10 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import language.repo.LanguageRepository
+import language.usecase.GetCompleteLanguageUseCase
 import localized
-import repository.local.LanguageRepository
-import repository.local.SegmentRepository
-import repository.usecase.GetCompleteLanguageUseCase
+import repository.repo.SegmentRepository
 import kotlin.coroutines.CoroutineContext
 
 internal class DefaultStatisticsComponent(

@@ -21,7 +21,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import repository.local.ProjectRepository
+import repository.repo.ProjectRepository
 import kotlin.coroutines.CoroutineContext
 
 internal class DefaultProjectListComponent(

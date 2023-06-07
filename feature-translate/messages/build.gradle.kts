@@ -30,8 +30,10 @@ kotlin {
                 implementation(projects.coreCommon)
                 implementation(projects.coreLocalization)
                 implementation(projects.coreData)
-                implementation(projects.coreRepository)
-                implementation(projects.coreSpellcheck)
+
+                implementation(projects.domainProject)
+                implementation(projects.domainLanguage)
+                implementation(projects.domainSpellcheck)
             }
         }
     }
