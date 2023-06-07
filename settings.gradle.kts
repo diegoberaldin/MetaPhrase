@@ -33,12 +33,12 @@ include(
 
     ":dialog-settings",
     ":dialog-create-project",
+    ":dialog-statistics",
 
     ":feature-main",
     ":feature-intro",
     ":feature-projects",
     ":feature-projects:list",
-    ":feature-projects:statistics",
     ":feature-translate",
     ":feature-translate:toolbar",
     ":feature-translate:messages",

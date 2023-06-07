@@ -36,7 +36,8 @@ kotlin {
 
                 implementation(projects.featureIntro)
                 implementation(projects.featureProjects)
-                implementation(projects.featureProjects.statistics)
+
+                implementation(projects.dialogStatistics)
                 implementation(projects.dialogCreateProject)
                 implementation(projects.dialogSettings)
             }
