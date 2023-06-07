@@ -114,6 +114,14 @@ Individual languages of each projects can be validated, i.e. the program can che
 
 The content of the TM can be explored and used as a "concordancer". Additionally, individual entries can be deleted from this panel if they are not useful. The whole TM can be erased too, in order to populate it again with only specific TMX files. The origin of each correspondence in the TM is displayed underneath the message pair.
 
+#### Glossary
+
+<p align="center">
+  <img width="1300" alt="glossary" src="https://github.com/diegoberaldin/MetaPhrase/assets/2738294/ad3936c7-d66e-4478-8868-0229638c4109">
+</p>
+
+Glossaries are useful tools in the translation process, ensuring consistency and avoiding mistakes. MetaPhrase allows to insert terms and multiple translations for each term in M:N relationships. Glossaries, as well as TMs, are shared across projects. Each term can be deleted individually when it is not needed any more.
+
 ### Create new message
 
 <p align="center">
