@@ -12,6 +12,7 @@
             <option value="$PROJECT_DIR$/core-data" />
             <option value="$PROJECT_DIR$/core-localization" />
             <option value="$PROJECT_DIR$/core-persistence" />
+            <option value="$PROJECT_DIR$/dialog-settings" />
             <option value="$PROJECT_DIR$/domain-android" />
             <option value="$PROJECT_DIR$/domain-glossary" />
             <option value="$PROJECT_DIR$/domain-ios" />
@@ -21,7 +22,6 @@
             <option value="$PROJECT_DIR$/domain-tm" />
             <option value="$PROJECT_DIR$/feature-intro" />
             <option value="$PROJECT_DIR$/feature-main" />
-            <option value="$PROJECT_DIR$/feature-main/settings" />
             <option value="$PROJECT_DIR$/feature-projects" />
             <option value="$PROJECT_DIR$/feature-projects/create" />
             <option value="$PROJECT_DIR$/feature-projects/list" />

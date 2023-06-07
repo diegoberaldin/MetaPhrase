@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.compose")
 }
 
-group = "feature.main.settings"
+group = "dialog.settings"
 version = libs.versions.appVersion.get()
 
 repositories {

@@ -17,6 +17,7 @@ val translateMessagesModule = module {
             languageRepository = get(),
             spellCheckRepository = get(),
             notificationCenter = get(),
+            keyStore = get(),
         )
     }
 }

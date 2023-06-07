@@ -15,6 +15,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
+import androidx.compose.material.Checkbox
+import androidx.compose.material.CheckboxColors
+import androidx.compose.material.CheckboxDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -82,7 +85,10 @@ fun SettingsDialog(
                         Spacer(modifier = Modifier.weight(1f))
                         val availableLanguages = uiState.availableLanguages
                         CustomSpinner(
-                            modifier = Modifier.background(color = SelectedBackground, shape = RoundedCornerShape(4.dp)),
+                            modifier = Modifier.background(
+                                color = SelectedBackground,
+                                shape = RoundedCornerShape(4.dp),
+                            ),
                             size = DpSize(width = 200.dp, height = 30.dp),
                             values = availableLanguages.map { it.name },
                             valueColor = MaterialTheme.colors.onBackground,
@@ -112,6 +118,21 @@ fun SettingsDialog(
                             text = "%",
                             style = MaterialTheme.typography.caption,
                             color = MaterialTheme.colors.onBackground,
+                        )
+                    }
+                    Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                        Text(
+                            text = "dialog_settings_spellcheck_enabled".localized(),
+                            style = MaterialTheme.typography.caption,
+                            color = MaterialTheme.colors.onBackground,
+                        )
+                        Spacer(modifier = Modifier.weight(1f))
+                        Checkbox(
+                            checked = uiState.spellcheckEnabled,
+                            onCheckedChange = {
+                                component.setSpellcheckEnabled(it)
+                            },
+                            colors = CheckboxDefaults.colors(checkedColor = MaterialTheme.colors.primary),
                         )
                     }
                     Spacer(modifier = Modifier.weight(1f))

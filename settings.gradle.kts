@@ -32,7 +32,7 @@ include(
     ":domain-glossary",
 
     ":feature-main",
-    ":feature-main:settings",
+    ":dialog-settings",
     ":feature-intro",
 
     ":feature-projects",
