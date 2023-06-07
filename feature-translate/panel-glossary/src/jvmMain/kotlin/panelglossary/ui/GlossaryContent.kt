@@ -99,7 +99,11 @@ fun GlossaryContent(
                         style = MaterialTheme.typography.caption,
                         color = MaterialTheme.colors.onBackground,
                     )
-                    GlossaryAddButton(onAddTerm = {})
+                    GlossaryAddButton(
+                        onAddTerm = {
+                            component.addSourceTerm(it)
+                        },
+                    )
                 }
             }
         }

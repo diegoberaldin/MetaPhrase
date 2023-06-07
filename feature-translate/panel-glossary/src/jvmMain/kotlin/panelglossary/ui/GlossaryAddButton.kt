@@ -78,7 +78,7 @@ internal fun GlossaryAddButton(
         } else {
             var text by remember { mutableStateOf("") }
             BasicTextField(
-                modifier = Modifier.padding(horizontal = Spacing.s)
+                modifier = Modifier.padding(horizontal = Spacing.m)
                     .align(Alignment.CenterStart)
                     .focusRequester(focusRequester).onKeyEvent {
                         when (it.key) {

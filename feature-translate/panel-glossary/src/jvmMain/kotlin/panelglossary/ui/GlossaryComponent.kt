@@ -7,4 +7,5 @@ interface GlossaryComponent {
 
     fun clear()
     fun loadGlossaryTerms(key: String, projectId: Int, languageId: Int)
+    fun addSourceTerm(lemma: String)
 }

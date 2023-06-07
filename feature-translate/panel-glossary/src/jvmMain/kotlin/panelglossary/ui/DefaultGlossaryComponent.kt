@@ -5,6 +5,7 @@ import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import common.coroutines.CoroutineDispatcherProvider
 import data.GlossaryTermModel
+import data.LanguageModel
 import glossary.repo.GlossaryTermRepository
 import glossary.usecase.GetGlossaryTermsUseCase
 import kotlinx.coroutines.CoroutineScope
@@ -30,6 +31,9 @@ internal class DefaultGlossaryComponent(
     private val getGlossaryTerms: GetGlossaryTermsUseCase,
 ) : GlossaryComponent, ComponentContext by componentContext {
 
+    private var lastSourceLanguage: LanguageModel? = null
+    private var lastTargetLanguage: LanguageModel? = null
+    private var lastSourceMessage: String? = null
     private val loading = MutableStateFlow(false)
     private val terms = MutableStateFlow<List<Pair<GlossaryTermModel, List<GlossaryTermModel>>>>(emptyList())
     private lateinit var viewModelScope: CoroutineScope
@@ -66,19 +70,41 @@ internal class DefaultGlossaryComponent(
             val sourceLanguage = languageRepository.getBase(projectId) ?: return@launch
             val targetLanguage = languageRepository.getById(languageId) ?: return@launch
             val sourceSegment = segmentRepository.getByKey(key, languageId = sourceLanguage.id)
-            loading.value = true
-            terms.value =
-                getGlossaryTerms(
-                    message = sourceSegment?.text.orEmpty(),
-                    lang = sourceLanguage.code,
-                ).map { model ->
-                    val targetTerms = glossaryTermRepository.getAssociated(
-                        model = model,
-                        otherLang = targetLanguage.code,
-                    )
-                    model to targetTerms
-                }
-            loading.value = false
+            val sourceMessage = sourceSegment?.text.orEmpty()
+
+            lastSourceLanguage = sourceLanguage
+            lastTargetLanguage = targetLanguage
+            lastSourceMessage = sourceMessage
+            innerReload()
+        }
+    }
+
+    private suspend fun innerReload() {
+        val sourceLanguage = lastSourceLanguage ?: return
+        val targetLanguage = lastTargetLanguage ?: return
+        val message = lastSourceMessage.orEmpty()
+        loading.value = true
+        terms.value =
+            getGlossaryTerms(
+                message = message,
+                lang = sourceLanguage.code,
+            ).map { model ->
+                val targetTerms = glossaryTermRepository.getAssociated(
+                    model = model,
+                    otherLang = targetLanguage.code,
+                )
+                model to targetTerms
+            }
+        loading.value = false
+    }
+
+    override fun addSourceTerm(lemma: String) {
+        val langCode = lastSourceLanguage?.code ?: return
+        viewModelScope.launch(dispatchers.io) {
+            val term = GlossaryTermModel(lemma = lemma, lang = langCode)
+            glossaryTermRepository.create(term)
+
+            innerReload()
         }
     }
 }
