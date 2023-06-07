@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.compose")
 }
 
-group = "feature.projects.create"
+group = "dialog.create.project"
 version = libs.versions.appVersion.get()
 
 repositories {

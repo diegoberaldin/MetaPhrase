@@ -31,15 +31,14 @@ include(
     ":domain-spellcheck",
     ":domain-glossary",
 
-    ":feature-main",
     ":dialog-settings",
-    ":feature-intro",
+    ":dialog-create-project",
 
+    ":feature-main",
+    ":feature-intro",
     ":feature-projects",
     ":feature-projects:list",
-    ":feature-projects:create",
     ":feature-projects:statistics",
-
     ":feature-translate",
     ":feature-translate:toolbar",
     ":feature-translate:messages",
