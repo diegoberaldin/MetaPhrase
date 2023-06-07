@@ -31,6 +31,7 @@ internal class DefaultSettingsComponent(
     private val availableLanguages = MutableStateFlow<List<LanguageModel>>(emptyList())
     private val currentLanguage = MutableStateFlow<LanguageModel?>(null)
     private val similarityThreshold = MutableStateFlow("")
+    private val spellcheckEnabled = MutableStateFlow(false)
     private val appVersion = MutableStateFlow("")
     private lateinit var viewModelScope: CoroutineScope
 
@@ -44,12 +45,14 @@ internal class DefaultSettingsComponent(
                     availableLanguages,
                     currentLanguage,
                     similarityThreshold,
+                    spellcheckEnabled,
                     appVersion,
-                ) { availableLanguages, currentLanguage, similarityThreshold, appVersion ->
+                ) { availableLanguages, currentLanguage, similarityThreshold, spellcheckEnabled, appVersion ->
                     SettingsUiState(
                         currentLanguage = currentLanguage,
                         availableLanguages = availableLanguages,
                         similarityThreshold = similarityThreshold,
+                        spellcheckEnabled = spellcheckEnabled,
                         appVersion = appVersion,
                     )
                 }.stateIn(
@@ -64,6 +67,8 @@ internal class DefaultSettingsComponent(
                     currentLanguage.value = completeLanguage(LanguageModel(code = langCode))
                     val similarity = keyStore.get("similarity_threshold", 75)
                     similarityThreshold.value = similarity.toString()
+                    val isSpellcheckEnabled = keyStore.get("spellcheck_enabled", false)
+                    spellcheckEnabled.value = isSpellcheckEnabled
                 }
 
                 availableLanguages.value = listOf(
@@ -95,6 +100,13 @@ internal class DefaultSettingsComponent(
         similarityThreshold.value = newValue.toString()
         viewModelScope.launch(dispatchers.io) {
             keyStore.save("similarity_threshold", newValue)
+        }
+    }
+
+    override fun setSpellcheckEnabled(value: Boolean) {
+        spellcheckEnabled.value = value
+        viewModelScope.launch(dispatchers.io) {
+            keyStore.save("spellcheck_enabled", value)
         }
     }
 }

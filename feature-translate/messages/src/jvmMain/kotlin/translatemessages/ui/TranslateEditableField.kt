@@ -45,25 +45,27 @@ fun TranslateEditableField(
         )
     }
     LaunchedEffect(spellingErrorRanges, value) {
-        value = value.copy(
-            annotatedString = buildAnnotatedString {
-                append(value.text)
-                if (active) {
-                    for (range in spellingErrorRanges) {
-                        runCatching {
-                            addStyle(
-                                SpanStyle(
-                                    color = Color.Red,
-                                    textDecoration = TextDecoration.Underline,
-                                ),
-                                start = range.first,
-                                end = (range.last + 1).coerceAtMost(length),
-                            )
+        runCatching {
+            value = value.copy(
+                annotatedString = buildAnnotatedString {
+                    append(value.text)
+                    if (active) {
+                        for (range in spellingErrorRanges) {
+                            runCatching {
+                                addStyle(
+                                    SpanStyle(
+                                        color = Color.Red,
+                                        textDecoration = TextDecoration.Underline,
+                                    ),
+                                    start = range.first,
+                                    end = (range.last + 1).coerceAtMost(length),
+                                )
+                            }
                         }
                     }
-                }
-            },
-        )
+                },
+            )
+        }
     }
 
     BasicTextField(

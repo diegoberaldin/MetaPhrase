@@ -4,6 +4,7 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import common.coroutines.CoroutineDispatcherProvider
+import common.keystore.TemporaryKeyStore
 import common.notification.NotificationCenter
 import data.LanguageModel
 import data.SegmentModel
@@ -23,6 +24,7 @@ import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import language.repo.LanguageRepository
 import repository.repo.SegmentRepository
 import spellcheck.repo.SpellCheckRepository
@@ -36,6 +38,7 @@ internal class DefaultMessageListComponent(
     private val languageRepository: LanguageRepository,
     private val spellCheckRepository: SpellCheckRepository,
     private val notificationCenter: NotificationCenter,
+    private val keyStore: TemporaryKeyStore,
 ) : MessageListComponent, ComponentContext by componentContext {
 
     private val units = MutableStateFlow<List<TranslationUnit>>(emptyList())
@@ -213,6 +216,12 @@ internal class DefaultMessageListComponent(
     }
 
     private fun checkSpelling(text: String) {
+        val isEnabled = runBlocking {
+            keyStore.get("spellcheck_enabled", false)
+        }
+        if (!isEnabled) {
+            return
+        }
         spellcheckJob?.cancel()
         spellcheckJob = viewModelScope.launch(dispatchers.io) {
             delay(100)

@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.compose")
 }
 
-group = "feature.translate.newsegment"
+group = "dialog.statistics"
 version = libs.versions.appVersion.get()
 
 repositories {

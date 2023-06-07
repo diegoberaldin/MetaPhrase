@@ -17,6 +17,7 @@
     <string name="dialog_settings_language">Lingua app</string>
     <string name="dialog_settings_similarity_threshold">Soglia corrispondenza</string>
     <string name="dialog_settings_version">Versione app</string>
+    <string name="dialog_settings_spellcheck_enabled">Abilita controllo ortografico</string>
     <string name="dialog_statistics_item_completion_rate">% completamento</string>
     <string name="dialog_statistics_item_total_languages">Numero lingue</string>
     <string name="dialog_statistics_item_total_messages">Numero messaggi</string>

@@ -37,7 +37,6 @@ kotlin {
                 implementation(projects.domainLanguage)
 
                 implementation(projects.featureMain)
-                implementation(projects.featureMain.settings)
             }
         }
         val jvmTest by getting
