@@ -46,7 +46,7 @@ internal class DefaultGlossaryComponent(
                 viewModelScope = CoroutineScope(coroutineContext + SupervisorJob())
                 uiState = combine(loading, terms) { loading, terms ->
                     GlossaryUiState(
-                        loading = loading,
+                        isLoading = loading,
                         terms = terms,
                     )
                 }.stateIn(
@@ -101,8 +101,30 @@ internal class DefaultGlossaryComponent(
     override fun addSourceTerm(lemma: String) {
         val langCode = lastSourceLanguage?.code ?: return
         viewModelScope.launch(dispatchers.io) {
-            val term = GlossaryTermModel(lemma = lemma, lang = langCode)
-            glossaryTermRepository.create(term)
+            val existing = glossaryTermRepository.get(lemma = lemma, lang = langCode)
+            if (existing == null) {
+                val term = GlossaryTermModel(lemma = lemma, lang = langCode)
+                glossaryTermRepository.create(term)
+            }
+
+            innerReload()
+        }
+    }
+
+    override fun addTargetTerm(lemma: String, source: GlossaryTermModel) {
+        val langCode = lastTargetLanguage?.code ?: return
+        viewModelScope.launch(dispatchers.io) {
+            val existing = glossaryTermRepository.get(lemma = lemma, lang = langCode)
+            val targetId = if (existing == null) {
+                val term = GlossaryTermModel(lemma = lemma, lang = langCode)
+                glossaryTermRepository.create(term)
+            } else {
+                existing.id
+            }
+            val sourceId = source.id
+            if (!glossaryTermRepository.areAssociated(sourceId = sourceId, targetId = targetId)) {
+                glossaryTermRepository.associate(sourceId = sourceId, targetId = targetId)
+            }
 
             innerReload()
         }

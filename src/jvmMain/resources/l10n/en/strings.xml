@@ -102,6 +102,8 @@
     <string name="tooltip_minify">Minify</string>
     <string name="tooltip_move_to_next">Move to next</string>
     <string name="tooltip_move_to_previous">Move to previous</string>
+    <string name="tooltip_new_source_term">New source term</string>
+    <string name="tooltip_new_target_term">New target term</string>
     <string name="tooltip_validate">Validate</string>
     <string name="translation_memory_origin">source: %s</string>
     <string name="translation_memory_similarity">similarity: %d%%</string>

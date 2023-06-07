@@ -45,7 +45,7 @@ internal fun GlossaryAddButton(
 ) {
     var expanded by remember { mutableStateOf(false) }
     val expandedWith = 200.dp.toLocalPixel()
-    val baseSize = 26.dp
+    val baseSize = 18.dp
     val collapsedWidth = baseSize.toLocalPixel()
     val width by animateFloatAsState(targetValue = if (expanded) expandedWith else collapsedWidth)
     val focusRequester = remember { FocusRequester() }
@@ -60,10 +60,10 @@ internal fun GlossaryAddButton(
             .width((width / LocalDensity.current.density).dp)
             .background(color = backgroundColor, shape = RoundedCornerShape(baseSize / 2)),
     ) {
-        val buttonModifier = Modifier.size(baseSize).padding(5.dp)
         if (!expanded) {
             Box(
-                modifier = buttonModifier
+                modifier = Modifier.size(baseSize)
+                    .padding(Spacing.xxs)
                     .align(Alignment.Center)
                     .onClick {
                         expanded = true
@@ -78,7 +78,7 @@ internal fun GlossaryAddButton(
         } else {
             var text by remember { mutableStateOf("") }
             BasicTextField(
-                modifier = Modifier.padding(horizontal = Spacing.m)
+                modifier = Modifier.padding(horizontal = Spacing.s)
                     .align(Alignment.CenterStart)
                     .focusRequester(focusRequester).onKeyEvent {
                         when (it.key) {
@@ -99,8 +99,9 @@ internal fun GlossaryAddButton(
                 },
             )
             Box(
-                modifier = buttonModifier
+                modifier = Modifier.size(baseSize)
                     .align(Alignment.CenterEnd)
+                    .padding(end = Spacing.xs)
                     .onClick {
                         if (text.isNotEmpty()) {
                             onAddTerm(text)

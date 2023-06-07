@@ -77,6 +77,8 @@
 	<string name="tooltip_minify">Minimizza</string>
 	<string name="tooltip_move_to_next">Pasar al siguiente</string>
 	<string name="tooltip_move_to_previous">Pasar al anterior</string>
+	<string name="tooltip_new_source_term">Nuevo término fuente</string>
+	<string name="tooltip_new_target_term">Nuevo término meta</string>
 	<string name="tooltip_validate">Convalidar</string>
 	<string name="translation_memory_origin">fuente: %s</string>
 	<string name="translation_memory_similarity">semejanza: %d%%</string>

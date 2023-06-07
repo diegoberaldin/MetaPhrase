@@ -76,6 +76,8 @@
     <string name="tooltip_make_untranslatable">Rendi non traducibile</string>
     <string name="tooltip_move_to_next">Vai a precedente</string>
     <string name="tooltip_move_to_previous">Vai a successivo</string>
+    <string name="tooltip_new_source_term">Nuovo termine sorgente</string>
+    <string name="tooltip_new_target_term">Nuovo termine destinazione</string>
     <string name="tooltip_validate">Convalida</string>
     <string name="translation_memory_origin">fonte: %s</string>
     <string name="translation_memory_similarity">somiglianza: %d%%</string>
