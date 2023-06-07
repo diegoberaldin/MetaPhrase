@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import language.repo.FlagsRepository
 import language.repo.LanguageRepository
 import repository.repo.SegmentRepository
 import kotlin.coroutines.CoroutineContext
@@ -26,6 +27,7 @@ internal class DefaultGlossaryComponent(
     coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,
     private val languageRepository: LanguageRepository,
+    private val flagsRepository: FlagsRepository,
     private val segmentRepository: SegmentRepository,
     private val glossaryTermRepository: GlossaryTermRepository,
     private val getGlossaryTerms: GetGlossaryTermsUseCase,
@@ -34,7 +36,10 @@ internal class DefaultGlossaryComponent(
     private var lastSourceLanguage: LanguageModel? = null
     private var lastTargetLanguage: LanguageModel? = null
     private var lastSourceMessage: String? = null
-    private val loading = MutableStateFlow(false)
+    private val isLoading = MutableStateFlow(false)
+    private val isBaseLanguage = MutableStateFlow(false)
+    private val sourceFlag = MutableStateFlow("")
+    private val targetFlag = MutableStateFlow("")
     private val terms = MutableStateFlow<List<Pair<GlossaryTermModel, List<GlossaryTermModel>>>>(emptyList())
     private lateinit var viewModelScope: CoroutineScope
 
@@ -44,9 +49,18 @@ internal class DefaultGlossaryComponent(
         with(lifecycle) {
             doOnCreate {
                 viewModelScope = CoroutineScope(coroutineContext + SupervisorJob())
-                uiState = combine(loading, terms) { loading, terms ->
+                uiState = combine(
+                    isLoading,
+                    isBaseLanguage,
+                    sourceFlag,
+                    targetFlag,
+                    terms,
+                ) { isLoading, isBaseLanguage, sourceFlag, targetFlag, terms ->
                     GlossaryUiState(
-                        isLoading = loading,
+                        isLoading = isLoading,
+                        isBaseLanguage = isBaseLanguage,
+                        sourceFlag = sourceFlag,
+                        targetFlag = targetFlag,
                         terms = terms,
                     )
                 }.stateIn(
@@ -75,6 +89,10 @@ internal class DefaultGlossaryComponent(
             lastSourceLanguage = sourceLanguage
             lastTargetLanguage = targetLanguage
             lastSourceMessage = sourceMessage
+            isBaseLanguage.value = sourceLanguage == targetLanguage
+            sourceFlag.value = flagsRepository.getFlag(sourceLanguage.code)
+            targetFlag.value = flagsRepository.getFlag(targetLanguage.code)
+
             innerReload()
         }
     }
@@ -83,7 +101,7 @@ internal class DefaultGlossaryComponent(
         val sourceLanguage = lastSourceLanguage ?: return
         val targetLanguage = lastTargetLanguage ?: return
         val message = lastSourceMessage.orEmpty()
-        loading.value = true
+        isLoading.value = true
         terms.value =
             getGlossaryTerms(
                 message = message,
@@ -95,15 +113,16 @@ internal class DefaultGlossaryComponent(
                 )
                 model to targetTerms
             }
-        loading.value = false
+        isLoading.value = false
     }
 
     override fun addSourceTerm(lemma: String) {
         val langCode = lastSourceLanguage?.code ?: return
+        val trimmedLemma = lemma.trim()
         viewModelScope.launch(dispatchers.io) {
-            val existing = glossaryTermRepository.get(lemma = lemma, lang = langCode)
+            val existing = glossaryTermRepository.get(lemma = trimmedLemma, lang = langCode)
             if (existing == null) {
-                val term = GlossaryTermModel(lemma = lemma, lang = langCode)
+                val term = GlossaryTermModel(lemma = trimmedLemma, lang = langCode)
                 glossaryTermRepository.create(term)
             }
 
@@ -113,10 +132,11 @@ internal class DefaultGlossaryComponent(
 
     override fun addTargetTerm(lemma: String, source: GlossaryTermModel) {
         val langCode = lastTargetLanguage?.code ?: return
+        val trimmedLemma = lemma.trim()
         viewModelScope.launch(dispatchers.io) {
-            val existing = glossaryTermRepository.get(lemma = lemma, lang = langCode)
+            val existing = glossaryTermRepository.get(lemma = trimmedLemma, lang = langCode)
             val targetId = if (existing == null) {
-                val term = GlossaryTermModel(lemma = lemma, lang = langCode)
+                val term = GlossaryTermModel(lemma = trimmedLemma, lang = langCode)
                 glossaryTermRepository.create(term)
             } else {
                 existing.id
@@ -126,6 +146,13 @@ internal class DefaultGlossaryComponent(
                 glossaryTermRepository.associate(sourceId = sourceId, targetId = targetId)
             }
 
+            innerReload()
+        }
+    }
+
+    override fun deleteTerm(term: GlossaryTermModel) {
+        viewModelScope.launch(dispatchers.io) {
+            glossaryTermRepository.delete(term)
             innerReload()
         }
     }

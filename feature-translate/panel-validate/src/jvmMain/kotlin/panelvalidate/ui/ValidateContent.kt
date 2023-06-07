@@ -39,7 +39,7 @@ fun ValidateContent(
 
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(Spacing.s),
+        verticalArrangement = Arrangement.spacedBy(Spacing.xs),
     ) {
         Box(modifier = Modifier.fillMaxWidth()) {
             Text(
