@@ -34,6 +34,7 @@ include(
     ":dialog-settings",
     ":dialog-create-project",
     ":dialog-statistics",
+    ":dialog-newsegment",
 
     ":feature-main",
     ":feature-intro",
@@ -42,7 +43,6 @@ include(
     ":feature-translate",
     ":feature-translate:toolbar",
     ":feature-translate:messages",
-    ":feature-translate:newsegment",
     ":feature-translate:panel-validate",
     ":feature-translate:panel-matches",
     ":feature-translate:panel-memory",

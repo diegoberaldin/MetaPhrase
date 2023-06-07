@@ -38,7 +38,9 @@ kotlin {
 
                 implementation(projects.featureTranslate.toolbar)
                 implementation(projects.featureTranslate.messages)
-                implementation(projects.featureTranslate.newsegment)
+
+                implementation(projects.dialogNewsegment)
+
                 implementation(projects.featureTranslate.panelValidate)
                 implementation(projects.featureTranslate.panelMatches)
                 implementation(projects.featureTranslate.panelMemory)
