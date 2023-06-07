@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -64,16 +65,6 @@ fun GlossaryContent(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(Spacing.s),
         ) {
-            if (uiState.terms.isEmpty()) {
-                item {
-                    Text(
-                        text = "message_no_item_to_display".localized(),
-                        style = MaterialTheme.typography.caption,
-                        color = MaterialTheme.colors.onBackground,
-                    )
-                }
-            }
-
             items(uiState.terms) { pair ->
                 val term = pair.first
                 val associated = pair.second
@@ -96,6 +87,19 @@ fun GlossaryContent(
                             ).padding(horizontal = Spacing.s, vertical = Spacing.xs),
                         )
                     }
+                }
+            }
+            item {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(Spacing.s),
+                ) {
+                    Text(
+                        text = "Add a new term".localized(),
+                        style = MaterialTheme.typography.caption,
+                        color = MaterialTheme.colors.onBackground,
+                    )
+                    GlossaryAddButton(onAddTerm = {})
                 }
             }
         }
