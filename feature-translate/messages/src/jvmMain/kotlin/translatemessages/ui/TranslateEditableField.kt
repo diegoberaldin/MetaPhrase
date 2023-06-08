@@ -44,7 +44,7 @@ fun TranslateEditableField(
             ),
         )
     }
-    LaunchedEffect(spellingErrorRanges, value) {
+    LaunchedEffect(spellingErrorRanges, active) {
         runCatching {
             value = value.copy(
                 annotatedString = buildAnnotatedString {
