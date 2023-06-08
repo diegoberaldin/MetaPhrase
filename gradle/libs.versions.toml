@@ -1,10 +1,11 @@
 [versions]
 androidx_datastore = "1.0.0"
+guava = "31.1-jre"
 exposed = "0.41.1"
 h2 = "2.1.214"
-jaspell = "0.3.1"
 koin = "3.2.0"
 kotlinx_coroutines = "1.7.1"
+languagetool = "6.1"
 log4j = "2.20.0"
 decompose = "2.0.0-alpha-02"
 redundent = "1.9.0"
@@ -39,7 +40,8 @@ exposed_jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "e
 redundent = { module = "org.redundent:kotlin-xml-builder", version.ref = "redundent" }
 
 # spelling
-jaspell = { module = "uk.ac.gate:jaspell", version.ref = "jaspell" }
+guava = { module = "com.google.guava:guava", version.ref = "guava" }
+languagetool = { module = "org.languagetool:language-all", version.ref = "languagetool" }
 
 # logging
 log4j_api = { module = "org.apache.logging.log4j:log4j-api", version.ref = "log4j" }
