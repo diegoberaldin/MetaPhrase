@@ -196,6 +196,7 @@ internal class DefaultMessageListComponent(
         editingIndex.value = null
         spellcheckJob?.cancel()
         spellcheckJob = null
+        spellingErrorRanges.value = emptyList()
     }
 
     override fun setSegmentText(text: String) {
@@ -216,15 +217,17 @@ internal class DefaultMessageListComponent(
     }
 
     private fun checkSpelling(text: String) {
+        spellcheckJob?.cancel()
+        spellingErrorRanges.value = emptyList()
         val isEnabled = runBlocking {
             keyStore.get("spellcheck_enabled", false)
         }
         if (!isEnabled) {
             return
         }
-        spellcheckJob?.cancel()
+
         spellcheckJob = viewModelScope.launch(dispatchers.io) {
-            delay(100)
+            delay(1000)
             val results = spellCheckRepository.check(message = text)
             spellingErrorRanges.value = results.map { it.indices }
         }
