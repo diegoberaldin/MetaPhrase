@@ -22,8 +22,10 @@ kotlin {
             dependencies {
                 implementation(compose.desktop.currentOs)
                 implementation(libs.koin)
-                implementation(libs.jaspell)
-
+                implementation(libs.guava.get().module.toString(), configure = {
+                    version { strictly(libs.versions.guava.get()) }
+                })
+                implementation(libs.languagetool)
                 implementation(projects.coreCommon)
             }
         }

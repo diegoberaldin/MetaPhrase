@@ -9,6 +9,7 @@
 	<string name="column_invalid_extra">De sobra</string>
 	<string name="column_invalid_key">Llave</string>
 	<string name="column_invalid_missing">De falta</string>
+	<string name="context_menu_insert_suggestion">Insertar: %s</string>
 	<string name="create_project_field_name">Nombre</string>
 	<string name="create_project_languages">Idiomas</string>
 	<string name="create_project_languages_subtitle">En cada proyecto tiene que haber exactamente un idioma de base (predefinido)</string>

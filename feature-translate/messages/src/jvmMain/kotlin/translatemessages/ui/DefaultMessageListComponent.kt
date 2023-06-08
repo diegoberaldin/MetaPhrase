@@ -27,6 +27,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import language.repo.LanguageRepository
 import repository.repo.SegmentRepository
+import spellcheck.SpellCheckCorrection
 import spellcheck.repo.SpellCheckRepository
 import kotlin.coroutines.CoroutineContext
 
@@ -56,7 +57,7 @@ internal class DefaultMessageListComponent(
     override lateinit var uiState: StateFlow<MessageListUiState>
     override val selectionEvents = MutableSharedFlow<Int>()
     override lateinit var editedSegment: StateFlow<SegmentModel?>
-    override val spellingErrorRanges = MutableStateFlow<List<IntRange>>(emptyList())
+    override val spellingErrors = MutableStateFlow<List<SpellCheckCorrection>>(emptyList())
 
     init {
         with(lifecycle) {
@@ -177,6 +178,7 @@ internal class DefaultMessageListComponent(
     override fun startEditing(index: Int) {
         if (!editingEnabled.value) return
 
+        spellingErrors.value = emptyList()
         val oldIndex = editingIndex.value
         editingIndex.value = index
         if (oldIndex != null) {
@@ -196,11 +198,13 @@ internal class DefaultMessageListComponent(
         editingIndex.value = null
         spellcheckJob?.cancel()
         spellcheckJob = null
-        spellingErrorRanges.value = emptyList()
+        spellingErrors.value = emptyList()
     }
 
     override fun setSegmentText(text: String) {
         val editingIndex = editingIndex.value ?: return
+        val oldText = units.value[editingIndex].segment.text
+        if (text == oldText) return
 
         units.getAndUpdate { oldList ->
             oldList.mapIndexed { idx, unit ->
@@ -213,12 +217,13 @@ internal class DefaultMessageListComponent(
         }
 
         saveCurrentSegmentDebounced(editingIndex)
+
+        spellingErrors.value = emptyList()
         checkSpelling(text)
     }
 
     private fun checkSpelling(text: String) {
         spellcheckJob?.cancel()
-        spellingErrorRanges.value = emptyList()
         val isEnabled = runBlocking {
             keyStore.get("spellcheck_enabled", false)
         }
@@ -229,7 +234,7 @@ internal class DefaultMessageListComponent(
         spellcheckJob = viewModelScope.launch(dispatchers.io) {
             delay(1000)
             val results = spellCheckRepository.check(message = text)
-            spellingErrorRanges.value = results.map { it.indices }
+            spellingErrors.value = results
         }
     }
 
