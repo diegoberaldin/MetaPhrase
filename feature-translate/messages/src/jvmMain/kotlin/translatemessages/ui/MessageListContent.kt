@@ -137,14 +137,14 @@ fun MessageListContent(
                         ),
                 ) {
                     if (uiState.currentLanguage?.isBase == true) {
-                        val spellingErrors by component.spellingErrorRanges.collectAsState()
+                        val spellingErrors by component.spellingErrors.collectAsState()
                         TranslateEditableField(
                             unit = unit,
                             focusRequester = focusRequester,
                             active = idx == uiState.editingIndex,
                             updateTextSwitch = uiState.updateTextSwitch,
                             enabled = uiState.editingEnabled,
-                            spellingErrorRanges = spellingErrors,
+                            spellingErrors = spellingErrors,
                             onStartEditing = {
                                 component.startEditing(idx)
                             },
@@ -177,14 +177,14 @@ fun MessageListContent(
                                 bottom = Spacing.s,
                             ),
                     ) {
-                        val spellingErrors by component.spellingErrorRanges.collectAsState()
+                        val spellingErrors by component.spellingErrors.collectAsState()
                         TranslateEditableField(
                             unit = unit,
                             focusRequester = focusRequester,
                             active = idx == uiState.editingIndex,
                             updateTextSwitch = uiState.updateTextSwitch,
                             enabled = uiState.editingEnabled,
-                            spellingErrorRanges = spellingErrors,
+                            spellingErrors = spellingErrors,
                             onStartEditing = {
                                 component.startEditing(idx)
                             },

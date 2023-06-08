@@ -5,13 +5,14 @@ import data.SegmentModel
 import data.TranslationUnitTypeFilter
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import spellcheck.SpellCheckCorrection
 
 interface MessageListComponent {
 
     val uiState: StateFlow<MessageListUiState>
     val selectionEvents: SharedFlow<Int>
     val editedSegment: StateFlow<SegmentModel?>
-    val spellingErrorRanges: StateFlow<List<IntRange>>
+    val spellingErrors: StateFlow<List<SpellCheckCorrection>>
 
     fun reloadMessages(language: LanguageModel, filter: TranslationUnitTypeFilter, projectId: Int)
     fun refresh()

@@ -9,6 +9,7 @@
     <string name="column_invalid_extra">Extra</string>
     <string name="column_invalid_key">Chiave</string>
     <string name="column_invalid_missing">Mancante</string>
+    <string name="context_menu_insert_suggestion">Inserisci: %s</string>
     <string name="create_project_field_name">Nome</string>
     <string name="create_project_languages">Lingue</string>
     <string name="create_project_languages_subtitle">Ogni progetto deve avere esattamente una lingua base (o di default)</string>
