@@ -19,26 +19,7 @@ internal class DefaultSpellCheckRepository(
 
         return withContext(dispatchers.io) {
             val sanitizedMessage = message.replace("\\n", "  ")
-            val res = mutableListOf<SpellCheckCorrection>()
-            val separator = Regex("\\W+")
-            var startIdx = 0
-            for (word in sanitizedMessage.split(separator)) {
-                val match = runCatching {
-                    Regex(word).find(sanitizedMessage, startIdx)
-                }.getOrNull() ?: continue
-
-                val (isCorrect, suggestions) = spelling.check(word)
-                if (!isCorrect) {
-                    res += SpellCheckCorrection(
-                        value = word,
-                        indices = match.range,
-                        suggestions = suggestions,
-                    )
-                }
-
-                startIdx = match.range.last
-            }
-            res
+            spelling.checkSentence(sanitizedMessage)
         }
     }
 }

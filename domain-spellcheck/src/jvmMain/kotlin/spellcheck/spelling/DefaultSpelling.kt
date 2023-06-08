@@ -23,6 +23,7 @@ import org.languagetool.language.Russian
 import org.languagetool.language.Slovak
 import org.languagetool.language.Spanish
 import org.languagetool.language.Ukrainian
+import spellcheck.SpellCheckCorrection
 
 class DefaultSpelling : Spelling {
 
@@ -54,29 +55,49 @@ class DefaultSpelling : Spelling {
     }
 
     override val isInitialized: Boolean
-        get() = ::spellChecker.isInitialized
+        get() = ::languageTool.isInitialized
 
-    private lateinit var spellChecker: JLanguageTool
+    private lateinit var languageTool: JLanguageTool
 
     override fun setLanguage(code: String) {
-        spellChecker = JLanguageTool(code.toLanguage())
+        languageTool = JLanguageTool(code.toLanguage())
     }
 
     override fun check(word: String): Pair<Boolean, List<String>> {
         val defaultResult: Pair<Boolean, List<String>> = true to emptyList()
         if (!isInitialized) return defaultResult
 
-        try {
-            val matches = spellChecker.check(word)
+        return try {
+            val matches = languageTool.check(word)
             val suggestions = matches.flatMap { it.suggestedReplacements }
             if (suggestions.isEmpty()) {
                 return defaultResult
             }
 
-            return false to suggestions
+            false to suggestions
         } catch (e: Throwable) {
             e.printStackTrace()
-            return defaultResult
+            defaultResult
+        }
+    }
+
+    override fun checkSentence(message: String): List<SpellCheckCorrection> {
+        val defaultResult: List<SpellCheckCorrection> = emptyList()
+        if (!isInitialized) return defaultResult
+
+        return try {
+            val matches = languageTool.check(message)
+            matches.map {
+                val range = it.fromPos until it.toPos
+                SpellCheckCorrection(
+                    indices = range,
+                    value = message.substring(range = range),
+                    suggestions = it.suggestedReplacements,
+                )
+            }
+        } catch (e: Throwable) {
+            e.printStackTrace()
+            defaultResult
         }
     }
 }
