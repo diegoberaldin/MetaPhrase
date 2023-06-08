@@ -113,7 +113,7 @@ fun TranslateContent(
                         ValidateContent(
                             modifier = Modifier.fillMaxWidth().weight(1f),
                             component = childComponent,
-                            onMinify = { component.togglePanel(PanelConfig.Matches) },
+                            onMinify = { component.togglePanel(PanelConfig.Validation) },
                         )
                     }
 
