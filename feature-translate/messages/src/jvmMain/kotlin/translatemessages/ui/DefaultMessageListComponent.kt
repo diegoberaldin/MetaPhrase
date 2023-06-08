@@ -203,6 +203,8 @@ internal class DefaultMessageListComponent(
 
     override fun setSegmentText(text: String) {
         val editingIndex = editingIndex.value ?: return
+        val oldText = units.value[editingIndex].segment.text
+        if (text == oldText) return
 
         units.getAndUpdate { oldList ->
             oldList.mapIndexed { idx, unit ->
@@ -215,12 +217,13 @@ internal class DefaultMessageListComponent(
         }
 
         saveCurrentSegmentDebounced(editingIndex)
+
+        spellingErrors.value = emptyList()
         checkSpelling(text)
     }
 
     private fun checkSpelling(text: String) {
         spellcheckJob?.cancel()
-        // spellingErrors.value = emptyList()
         val isEnabled = runBlocking {
             keyStore.get("spellcheck_enabled", false)
         }
