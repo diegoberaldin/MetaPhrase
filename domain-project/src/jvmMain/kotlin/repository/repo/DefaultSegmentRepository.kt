@@ -26,10 +26,14 @@ internal class DefaultSegmentRepository(
         languageId: Int,
         filter: TranslationUnitTypeFilter,
         search: String?,
+        skip: Int,
+        limit: Int,
     ) = dao.search(
         languageId = languageId,
         filter = filter,
         search = search,
+        skip = skip,
+        limit = limit,
     )
 
     override suspend fun getById(id: Int) = dao.getById(id)

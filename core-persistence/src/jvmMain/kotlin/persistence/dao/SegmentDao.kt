@@ -21,6 +21,8 @@ interface SegmentDao {
         languageId: Int,
         filter: TranslationUnitTypeFilter = TranslationUnitTypeFilter.ALL,
         search: String? = null,
+        skip: Int = 0,
+        limit: Int = 0,
     ): List<SegmentModel>
 
     suspend fun getById(id: Int): SegmentModel?

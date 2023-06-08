@@ -13,9 +13,11 @@ interface MessageListComponent {
     val selectionEvents: SharedFlow<Int>
     val editedSegment: StateFlow<SegmentModel?>
     val spellingErrors: StateFlow<List<SpellCheckCorrection>>
+    val paginationState: StateFlow<MessageLisPaginationState>
 
     fun reloadMessages(language: LanguageModel, filter: TranslationUnitTypeFilter, projectId: Int)
     fun refresh()
+    fun loadNextPage()
     fun search(text: String)
     fun startEditing(index: Int)
     fun endEditing()

@@ -17,6 +17,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.onClick
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -52,6 +53,8 @@ fun MessageListContent(
 ) {
     val uiState by component.uiState.collectAsState()
     val lazyListState = rememberLazyListState()
+    val spellingErrors by component.spellingErrors.collectAsState()
+    val paginationState by component.paginationState.collectAsState()
 
     LaunchedEffect(component) {
         component.selectionEvents.debounce(500).onEach { index ->
@@ -137,7 +140,6 @@ fun MessageListContent(
                         ),
                 ) {
                     if (uiState.currentLanguage?.isBase == true) {
-                        val spellingErrors by component.spellingErrors.collectAsState()
                         TranslateEditableField(
                             unit = unit,
                             focusRequester = focusRequester,
@@ -177,7 +179,6 @@ fun MessageListContent(
                                 bottom = Spacing.s,
                             ),
                     ) {
-                        val spellingErrors by component.spellingErrors.collectAsState()
                         TranslateEditableField(
                             unit = unit,
                             focusRequester = focusRequester,
@@ -196,6 +197,19 @@ fun MessageListContent(
                 }
             }
         }
+        item {
+            Box(
+                modifier = Modifier.fillMaxWidth().padding(vertical = Spacing.xxs),
+                contentAlignment = Alignment.Center,
+            ) {
+                if (paginationState.canFetchMore && !paginationState.isLoading) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(20.dp),
+                        color = MaterialTheme.colors.primary,
+                    )
+                    component.loadNextPage()
+                }
+            }
+        }
     }
 }
-
