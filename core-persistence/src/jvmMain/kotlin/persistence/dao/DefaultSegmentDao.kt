@@ -58,6 +58,8 @@ internal class DefaultSegmentDao : SegmentDao {
         languageId: Int,
         filter: TranslationUnitTypeFilter,
         search: String?,
+        skip: Int,
+        limit: Int,
     ): List<SegmentModel> = newSuspendedTransaction {
         SegmentEntity.select {
             val conditions = mutableListOf<Op<Boolean>>()
@@ -78,7 +80,9 @@ internal class DefaultSegmentDao : SegmentDao {
                 conditions += (SegmentEntity.text like pattern) or (SegmentEntity.key like pattern)
             }
             conditions.fold<Op<Boolean>, Op<Boolean>>(Op.TRUE) { acc, it -> acc.and(it) }
-        }.orderBy(SegmentEntity.key).map { it.toModel() }
+        }.limit(n = limit, offset = skip.toLong())
+            .orderBy(SegmentEntity.key)
+            .map { it.toModel() }
     }
 
     override suspend fun getById(id: Int): SegmentModel? = newSuspendedTransaction {

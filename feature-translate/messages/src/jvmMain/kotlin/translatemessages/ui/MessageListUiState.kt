@@ -10,3 +10,8 @@ data class MessageListUiState(
     val editingEnabled: Boolean = true,
     val updateTextSwitch: Boolean = false,
 )
+
+data class MessageLisPaginationState(
+    val canFetchMore: Boolean = true,
+    val isLoading: Boolean = false,
+)

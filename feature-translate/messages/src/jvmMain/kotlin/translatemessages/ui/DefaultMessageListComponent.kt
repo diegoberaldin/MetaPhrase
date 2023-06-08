@@ -42,19 +42,27 @@ internal class DefaultMessageListComponent(
     private val keyStore: TemporaryKeyStore,
 ) : MessageListComponent, ComponentContext by componentContext {
 
+    companion object {
+        private const val PAGE_SIZE = 15
+    }
+
     private val units = MutableStateFlow<List<TranslationUnit>>(emptyList())
     private val editingIndex = MutableStateFlow<Int?>(null)
     private val currentLanguage = MutableStateFlow<LanguageModel?>(null)
     private val editingEnabled = MutableStateFlow(true)
     private val updateTextSwitch = MutableStateFlow(false)
+    private val isLoading = MutableStateFlow(false)
+    private val canFetchMore = MutableStateFlow(true)
     private lateinit var viewModelScope: CoroutineScope
     private var saveJob: Job? = null
     private var spellcheckJob: Job? = null
     private var lastFilter = TranslationUnitTypeFilter.ALL
     private var lastSearch: String = ""
     private var projectId: Int = 0
+    private var currentPage = -1
 
     override lateinit var uiState: StateFlow<MessageListUiState>
+    override lateinit var paginationState: StateFlow<MessageLisPaginationState>
     override val selectionEvents = MutableSharedFlow<Int>()
     override lateinit var editedSegment: StateFlow<SegmentModel?>
     override val spellingErrors = MutableStateFlow<List<SpellCheckCorrection>>(emptyList())
@@ -93,6 +101,19 @@ internal class DefaultMessageListComponent(
                     started = SharingStarted.WhileSubscribed(5_000),
                     initialValue = null,
                 )
+                paginationState = combine(
+                    isLoading,
+                    canFetchMore,
+                ) { isLoading, canFetchMore ->
+                    MessageLisPaginationState(
+                        isLoading = isLoading,
+                        canFetchMore = canFetchMore,
+                    )
+                }.stateIn(
+                    scope = viewModelScope,
+                    started = SharingStarted.WhileSubscribed(5_000),
+                    initialValue = MessageLisPaginationState(),
+                )
             }
             doOnDestroy {
                 viewModelScope.cancel()
@@ -105,15 +126,14 @@ internal class DefaultMessageListComponent(
     }
 
     override fun clearMessages() {
+        canFetchMore.value = false
         units.value = emptyList()
     }
 
     override fun search(text: String) {
         if (lastSearch == text) return
         lastSearch = text
-        viewModelScope.launch(dispatchers.io) {
-            innerReload()
-        }
+        refresh()
     }
 
     override fun reloadMessages(language: LanguageModel, filter: TranslationUnitTypeFilter, projectId: Int) {
@@ -139,26 +159,50 @@ internal class DefaultMessageListComponent(
 
     private suspend fun innerReload() {
         val language = currentLanguage.value ?: return
-        val search = lastSearch.takeIf { it.isNotBlank() }
         editingIndex.value = null
         notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
+        isLoading.value = true
+        canFetchMore.value = false
 
-        val languageId = language.id
         currentLanguage.value = language
         spellCheckRepository.setLanguage(language.code)
+
+        units.value = emptyList()
+        currentPage = 0
+        loadPage()
+        notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
+        isLoading.value = false
+    }
+
+    override fun loadNextPage() {
+        if (isLoading.value) {
+            return
+        }
+
+        isLoading.value = true
+        viewModelScope.launch(dispatchers.io) {
+            currentPage++
+            loadPage()
+            isLoading.value = false
+        }
+    }
+
+    private suspend fun loadPage() {
+        val language = currentLanguage.value ?: return
         val baseLanguageId = if (language.isBase) {
-            languageId
+            language.id
         } else {
             languageRepository.getBase(projectId)?.id ?: 0
         }
-
+        val search = lastSearch.takeIf { it.isNotBlank() }
         val segments = segmentRepository.search(
-            languageId = languageId,
+            languageId = language.id,
             filter = lastFilter,
             search = search,
+            skip = currentPage * PAGE_SIZE,
+            limit = PAGE_SIZE,
         )
-
-        units.value = segments.map { segment ->
+        val unitsToAdd = segments.map { segment ->
             if (language.isBase) {
                 TranslationUnit(
                     segment = segment,
@@ -172,7 +216,10 @@ internal class DefaultMessageListComponent(
                 )
             }
         }
-        notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
+        canFetchMore.value = unitsToAdd.isNotEmpty()
+        units.getAndUpdate {
+            it + unitsToAdd
+        }
     }
 
     override fun startEditing(index: Int) {
