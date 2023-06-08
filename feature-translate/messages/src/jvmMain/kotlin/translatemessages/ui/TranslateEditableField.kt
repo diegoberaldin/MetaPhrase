@@ -91,7 +91,7 @@ fun TranslateEditableField(
         mutableStateOf(
             TextFieldValue(
                 text = unit.segment.text,
-                selection = TextRange(unit.original?.text.orEmpty().length),
+                selection = TextRange(unit.segment.text.length),
             ),
         )
     }
