@@ -62,7 +62,7 @@ fun ValidateContent(
 
         when (uiState.stage) {
             InvalidSegmentStage.INITIAL -> Text(
-                text = "No validation results, run a validation with the \"Validate\" toolbar action",
+                text = "message_no_validation".localized(),
                 style = MaterialTheme.typography.caption,
                 color = MaterialTheme.colors.onBackground,
             )
