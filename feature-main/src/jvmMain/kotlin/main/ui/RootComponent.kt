@@ -37,6 +37,7 @@ interface RootComponent {
     fun clearTm()
     fun validatePlaceholders()
     fun insertBestMatch()
+    fun globalSpellcheck()
 
     sealed interface Config : Parcelable {
         @Parcelize

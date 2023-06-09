@@ -10,6 +10,7 @@
     <string name="column_invalid_extra">Extra</string>
     <string name="column_invalid_key">Key</string>
     <string name="column_invalid_missing">Missing</string>
+    <string name="column_invalid_spelling">Spelling mistakes</string>
     <string name="context_menu_insert_suggestion">Insert: %s</string>
     <string name="create_project_field_name">Name</string>
     <string name="create_project_languages">Languages</string>
@@ -70,6 +71,7 @@
     <string name="menu_project_new">New…</string>
     <string name="menu_project_validate">Validate placeholders</string>
     <string name="menu_project_settings">Settings…</string>
+    <string name="menu_project_spellcheck">Check spelling</string>
     <string name="menu_project_statistics">Statistics…</string>
     <string name="menu_segment">Message</string>
     <string name="menu_segment_copy_base">Copy base</string>
@@ -87,8 +89,10 @@
     <string name="message_missing_field">Missing field</string>
     <string name="message_no_item_to_display">No item to display</string>
     <string name="message_no_validation">No validation results, run a validation with the "Validate" toolbar action</string>
-    <string name="message_validation_invalid">Some invalid messages were found:</string>
+    <string name="message_validation_invalid">Some invalid messages have been found:</string>
+    <string name="message_spelling_invalid">Some spelling mistakes have been found:</string>
     <string name="message_validation_valid">Hooray! All messages contain valid placeholders 🎉</string>
+    <string name="message_spelling_valid">Hooray! No spelling mistakes have been found 🎉</string>
     <string name="panel_section_checks">Validation</string>
     <string name="panel_section_matches">Matches</string>
     <string name="panel_section_glossary">Glossary</string>

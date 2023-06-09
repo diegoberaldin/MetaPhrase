@@ -72,6 +72,16 @@ internal class DefaultValidateComponent(
         }
     }
 
+    override fun loadSpellingMistakes(errors: Map<String, List<String>>) {
+        val references = errors.keys.map {
+            SpellingMistakeReference(
+                key = it,
+                mistakes = errors[it].orEmpty(),
+            )
+        }
+        content.value = ValidationContent.SpellingMistakes(references = references)
+    }
+
     override fun clear() {
         content.value = null
     }
@@ -79,6 +89,13 @@ internal class DefaultValidateComponent(
     override fun selectItem(value: Int) {
         when (val c = content.value) {
             is ValidationContent.InvalidPlaceholders -> {
+                val reference = c.references[value]
+                viewModelScope.launch(dispatchers.io) {
+                    selectionEvents.emit(reference.key)
+                }
+            }
+
+            is ValidationContent.SpellingMistakes -> {
                 val reference = c.references[value]
                 viewModelScope.launch(dispatchers.io) {
                     selectionEvents.emit(reference.key)

@@ -9,6 +9,7 @@
     <string name="column_invalid_extra">Extra</string>
     <string name="column_invalid_key">Chiave</string>
     <string name="column_invalid_missing">Mancante</string>
+    <string name="column_invalid_spelling">Errori ortografici</string>
     <string name="context_menu_insert_suggestion">Inserisci: %s</string>
     <string name="create_project_field_name">Nome</string>
     <string name="create_project_languages">Lingue</string>
@@ -45,6 +46,7 @@
     <string name="menu_project_new">Nuovo…</string>
     <string name="menu_project_validate">Valida placeholder</string>
     <string name="menu_project_settings">Impostazioni…</string>
+    <string name="menu_project_spellcheck">Controllo ortografico</string>
     <string name="menu_project_statistics">Statistiche…</string>
     <string name="menu_segment">Messaggio</string>
     <string name="menu_segment_copy_base">Copia base</string>
@@ -63,7 +65,9 @@
     <string name="message_no_item_to_display">Nessun dato da visualizzare</string>
     <string name="message_no_validation">Nessun risultato, avvia una validazione con l'azione "Convalida" della barra degli strumenti</string>
     <string name="message_validation_invalid">Sono stati rilevati alcuni messggi non validi:</string>
+    <string name="message_spelling_invalid">Sono stati rilevati alcuni errori ortografici:</string>
     <string name="message_validation_valid">Evviva! Tutti i messaggi contengono placeholder validi 🎉</string>
+    <string name="message_spelling_valid">Evviva! Nessun errore ortogfafico rilevato 🎉</string>
     <string name="panel_section_checks">Convalida</string>
     <string name="panel_section_matches">Corrispondenze</string>
     <string name="panel_section_glossary">Glossario</string>

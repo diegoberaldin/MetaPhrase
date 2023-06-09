@@ -51,6 +51,7 @@ import repository.repo.SegmentRepository
 import repository.usecase.ExportTmxUseCase
 import repository.usecase.ImportSegmentsUseCase
 import repository.usecase.ValidatePlaceholdersUseCase
+import spellcheck.usecase.ValidateSpellingUseCase
 import translate.ui.TranslateComponent.DialogConfig
 import translate.ui.TranslateComponent.MessageListConfig
 import translate.ui.TranslateComponent.PanelConfig
@@ -77,6 +78,7 @@ internal class DefaultTranslateComponent(
     private val validatePlaceholders: ValidatePlaceholdersUseCase,
     private val notificationCenter: NotificationCenter,
     private val exportToTmx: ExportTmxUseCase,
+    private val validateSpelling: ValidateSpellingUseCase,
 ) : TranslateComponent, ComponentContext by componentContext {
 
     private val project = MutableStateFlow<ProjectModel?>(null)
@@ -465,6 +467,7 @@ internal class DefaultTranslateComponent(
             withContext(dispatchers.main) {
                 panelNavigation.activate(PanelConfig.Validation)
             }
+
             val child = panel.asFlow<ValidateComponent>().firstOrNull()
             when (result) {
                 ValidatePlaceholdersUseCase.Output.Valid -> {
@@ -475,6 +478,23 @@ internal class DefaultTranslateComponent(
                     child?.loadInvalidPlaceholders(projectId, language.id, invalidKeys = result.keys)
                 }
             }
+        }
+    }
+
+    private fun startSpellcheck() {
+        viewModelScope.launch(dispatchers.io) {
+            val language = getCurrentLanguage() ?: return@launch
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
+            val messagesWithKeys = segmentRepository.getAll(language.id).map { it.key to it.text }
+            val errorMap = validateSpelling(input = messagesWithKeys, lang = language.code)
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
+
+            withContext(dispatchers.main) {
+                panelNavigation.activate(PanelConfig.Validation)
+            }
+
+            val child = panel.asFlow<ValidateComponent>().firstOrNull()
+            child?.loadSpellingMistakes(errorMap)
         }
     }
 
@@ -529,6 +549,10 @@ internal class DefaultTranslateComponent(
         viewModelScope.launch(dispatchers.io) {
             panel.asFlow<TranslationMemoryComponent>().firstOrNull()?.copyTranslation(0)
         }
+    }
+
+    override fun globalSpellcheck() {
+        startSpellcheck()
     }
 
     companion object {

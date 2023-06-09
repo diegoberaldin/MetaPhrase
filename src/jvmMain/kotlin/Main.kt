@@ -191,6 +191,12 @@ private fun MenuBarScope.makeMenus(
         ) {
             rootComponent.validatePlaceholders()
         }
+        Item(
+            text = "menu_project_spellcheck".localized(),
+            enabled = rootUiState.activeProject != null,
+        ) {
+            rootComponent.globalSpellcheck()
+        }
     }
     Menu(
         text = "menu_segment".localized(),

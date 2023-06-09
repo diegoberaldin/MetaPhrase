@@ -9,6 +9,7 @@ interface ValidateComponent {
     val selectionEvents: SharedFlow<String>
 
     fun loadInvalidPlaceholders(projectId: Int, languageId: Int, invalidKeys: List<String>)
+    fun loadSpellingMistakes(errors: Map<String, List<String>>)
     fun clear()
     fun selectItem(value: Int)
 }
