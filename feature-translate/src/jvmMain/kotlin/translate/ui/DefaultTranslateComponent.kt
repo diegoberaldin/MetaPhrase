@@ -45,7 +45,7 @@ import language.repo.LanguageRepository
 import panelglossary.ui.GlossaryComponent
 import panelmatches.ui.TranslationMemoryComponent
 import panelmemory.ui.BrowseMemoryComponent
-import panelvalidate.ui.InvalidSegmentComponent
+import panelvalidate.ui.ValidateComponent
 import repository.repo.ProjectRepository
 import repository.repo.SegmentRepository
 import repository.usecase.ExportTmxUseCase
@@ -234,7 +234,7 @@ internal class DefaultTranslateComponent(
                 )
                 messageListComponent.setEditingEnabled(true)
                 // resets the current validation
-                panel.asFlow<InvalidSegmentComponent>().firstOrNull()?.clear()
+                panel.asFlow<ValidateComponent>().firstOrNull()?.clear()
                 // resets the TM
                 panel.asFlow<BrowseMemoryComponent>().firstOrNull()?.setLanguages(
                     source = languageRepository.getBase(projectId),
@@ -269,7 +269,7 @@ internal class DefaultTranslateComponent(
                 }
 
                 TranslateToolbarComponent.Events.ValidateUnits -> {
-                    startValidation()
+                    startPlaceholderValidation()
                 }
             }
         }.launchIn(this)
@@ -285,7 +285,7 @@ internal class DefaultTranslateComponent(
                     }.launchIn(this)
                 }
 
-                is InvalidSegmentComponent -> {
+                is ValidateComponent -> {
                     child.selectionEvents.onEach { key ->
                         val messageListComponent = messageList.asFlow<MessageListComponent>().firstOrNull()
                         messageListComponent?.scrollToMessage(key)
@@ -312,7 +312,7 @@ internal class DefaultTranslateComponent(
     private fun createPanelComponent(config: PanelConfig, context: ComponentContext): Any {
         return when (config) {
             PanelConfig.Matches -> getByInjection<TranslationMemoryComponent>(context, coroutineContext)
-            PanelConfig.Validation -> getByInjection<InvalidSegmentComponent>(context, coroutineContext)
+            PanelConfig.Validation -> getByInjection<ValidateComponent>(context, coroutineContext)
             PanelConfig.MemoryContent -> getByInjection<BrowseMemoryComponent>(context, coroutineContext)
             PanelConfig.Glossary -> getByInjection<GlossaryComponent>(context, coroutineContext)
             else -> Unit
@@ -449,7 +449,7 @@ internal class DefaultTranslateComponent(
         }
     }
 
-    private fun startValidation() {
+    private fun startPlaceholderValidation() {
         viewModelScope.launch(dispatchers.io) {
             val language = getCurrentLanguage() ?: return@launch
             val baseLanguage = languageRepository.getBase(projectId) ?: return@launch
@@ -465,14 +465,14 @@ internal class DefaultTranslateComponent(
             withContext(dispatchers.main) {
                 panelNavigation.activate(PanelConfig.Validation)
             }
-            val child = panel.asFlow<InvalidSegmentComponent>().firstOrNull()
+            val child = panel.asFlow<ValidateComponent>().firstOrNull()
             when (result) {
                 ValidatePlaceholdersUseCase.Output.Valid -> {
-                    child?.load(projectId, language.id, invalidKeys = emptyList())
+                    child?.loadInvalidPlaceholders(projectId, language.id, invalidKeys = emptyList())
                 }
 
                 is ValidatePlaceholdersUseCase.Output.Invalid -> {
-                    child?.load(projectId, language.id, invalidKeys = result.keys)
+                    child?.loadInvalidPlaceholders(projectId, language.id, invalidKeys = result.keys)
                 }
             }
         }
@@ -522,7 +522,7 @@ internal class DefaultTranslateComponent(
     }
 
     override fun validatePlaceholders() {
-        startValidation()
+        startPlaceholderValidation()
     }
 
     override fun insertBestMatch() {

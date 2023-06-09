@@ -43,7 +43,7 @@
 	<string name="menu_project_import_android">Android XML…</string>
 	<string name="menu_project_import_ios">iOS stringtable…</string>
 	<string name="menu_project_new">Nuevo…</string>
-	<string name="menu_project_validate">Comprobar</string>
+	<string name="menu_project_validate">Comprobar especificadores</string>
 	<string name="menu_project_settings">Ajustes…</string>
 	<string name="menu_project_statistics">Estadísticas…</string>
 	<string name="menu_segment">Mensaje</string>
@@ -81,7 +81,7 @@
 	<string name="tooltip_move_to_previous">Pasar al anterior</string>
 	<string name="tooltip_new_source_term">Nuevo término fuente</string>
 	<string name="tooltip_new_target_term">Nuevo término meta</string>
-	<string name="tooltip_validate">Convalidar</string>
+	<string name="tooltip_validate">Convalidar especificadores</string>
 	<string name="translation_memory_origin">fuente: %s</string>
 	<string name="translation_memory_similarity">semejanza: %d%%</string>
 	<string name="translation_memory_title">Memoria de traducción</string>

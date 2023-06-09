@@ -39,7 +39,7 @@ import panelmatches.ui.TranslationMemoryComponent
 import panelmatches.ui.TranslationMemoryContent
 import panelmemory.ui.BrowseMemoryComponent
 import panelmemory.ui.BrowseMemoryContent
-import panelvalidate.ui.InvalidSegmentComponent
+import panelvalidate.ui.ValidateComponent
 import panelvalidate.ui.ValidateContent
 import translate.ui.TranslateComponent.PanelConfig
 import translatemessages.ui.MessageListContent
@@ -109,7 +109,7 @@ fun TranslateContent(
                     }
 
                     PanelConfig.Validation -> {
-                        val childComponent = panel.child?.instance as InvalidSegmentComponent
+                        val childComponent = panel.child?.instance as ValidateComponent
                         ValidateContent(
                             modifier = Modifier.fillMaxWidth().weight(1f),
                             component = childComponent,

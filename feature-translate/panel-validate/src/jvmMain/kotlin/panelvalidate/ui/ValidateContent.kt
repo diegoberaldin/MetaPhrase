@@ -31,7 +31,7 @@ import localized
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ValidateContent(
-    component: InvalidSegmentComponent,
+    component: ValidateComponent,
     onMinify: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -60,15 +60,15 @@ fun ValidateContent(
             }
         }
 
-        when (uiState.stage) {
-            InvalidSegmentStage.INITIAL -> Text(
+        when (val content = uiState.content) {
+            null -> Text(
                 text = "message_no_validation".localized(),
                 style = MaterialTheme.typography.caption,
                 color = MaterialTheme.colors.onBackground,
             )
 
-            InvalidSegmentStage.CONTENT -> {
-                if (uiState.references.isEmpty()) {
+            is ValidationContent.InvalidPlaceholders -> {
+                if (content.references.isEmpty()) {
                     Text(
                         text = "message_validation_valid".localized(),
                         style = MaterialTheme.typography.caption,
@@ -108,12 +108,12 @@ fun ValidateContent(
                                 )
                             }
                         }
-                        itemsIndexed(uiState.references) { idx, reference ->
+                        itemsIndexed(content.references) { idx, reference ->
                             Row(
                                 modifier = Modifier.fillMaxWidth()
                                     .padding(Spacing.xs)
                                     .onClick {
-                                        component.setCurrentIndex(idx)
+                                        component.selectItem(idx)
                                     },
                                 horizontalArrangement = Arrangement.spacedBy(Spacing.xxxs),
                             ) {
