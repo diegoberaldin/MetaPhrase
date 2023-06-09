@@ -18,8 +18,8 @@
 	<string name="create_segment_text">Texto</string>
 	<string name="dialog_settings_language">Idioma de la aplicación</string>
 	<string name="dialog_settings_similarity_threshold">Límite de semejanza</string>
-	<string name="dialog_settings_version">Version de la aplicación</string>
 	<string name="dialog_settings_spellcheck_enabled">Activar corrector ortográfico</string>
+	<string name="dialog_settings_version">Version de la aplicación</string>
 	<string name="dialog_statistics_item_completion_rate">% de terminación</string>
 	<string name="dialog_statistics_item_total_languages">Número de idiomas</string>
 	<string name="dialog_statistics_item_total_messages">Número de mensajes</string>
@@ -44,10 +44,10 @@
 	<string name="menu_project_import_android">Android XML…</string>
 	<string name="menu_project_import_ios">iOS stringtable…</string>
 	<string name="menu_project_new">Nuevo…</string>
-	<string name="menu_project_validate">Comprobar especificadores</string>
 	<string name="menu_project_settings">Ajustes…</string>
 	<string name="menu_project_spellcheck">Corrección ortográfica</string>
 	<string name="menu_project_statistics">Estadísticas…</string>
+	<string name="menu_project_validate">Comprobar especificadores</string>
 	<string name="menu_segment">Mensaje</string>
 	<string name="menu_segment_copy_base">Copiar base</string>
 	<string name="menu_segment_delete">Eliminar</string>
@@ -64,10 +64,10 @@
 	<string name="message_missing_field">Información obligatoria</string>
 	<string name="message_no_item_to_display">Ningún elemento para visualizar</string>
 	<string name="message_no_validation">Ningún resultado, iniciar una validación a través de la acción "Convalidar" desde la barra de herramientas</string>
-	<string name="message_validation_invalid">Se han detectado algunos mensajes no válidos:</string>
 	<string name="message_spelling_invalid">Se han detectado algunas faltas de ortografía:</string>
-	<string name="message_validation_valid">¡Enhorabuena! Todos los mensajes contienen especificadores válidos 🎉</string>
 	<string name="message_spelling_valid">¡Enhorabuena! No se ha detectado ninguna falta de ortografía 🎉</string>
+	<string name="message_validation_invalid">Se han detectado algunos mensajes no válidos:</string>
+	<string name="message_validation_valid">¡Enhorabuena! Todos los mensajes contienen especificadores válidos 🎉</string>
 	<string name="panel_section_checks">Validación</string>
 	<string name="panel_section_glossary">Glosario</string>
 	<string name="panel_section_matches">Correspondencias</string>
@@ -80,7 +80,7 @@
 	<string name="tooltip_delete">Eliminar</string>
 	<string name="tooltip_make_translatable">Contraseñar como traducible</string>
 	<string name="tooltip_make_untranslatable">Contraseñar como no traducible</string>
-	<string name="tooltip_minify">Minimizza</string>
+	<string name="tooltip_minify">Minimizar</string>
 	<string name="tooltip_move_to_next">Pasar al siguiente</string>
 	<string name="tooltip_move_to_previous">Pasar al anterior</string>
 	<string name="tooltip_new_source_term">Nuevo término fuente</string>
