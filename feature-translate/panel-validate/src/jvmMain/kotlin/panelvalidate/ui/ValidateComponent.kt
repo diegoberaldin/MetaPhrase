@@ -3,12 +3,13 @@ package panelvalidate.ui
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 
-interface InvalidSegmentComponent {
+interface ValidateComponent {
 
     val uiState: StateFlow<InvalidSegmentUiState>
     val selectionEvents: SharedFlow<String>
 
-    fun load(projectId: Int, languageId: Int, invalidKeys: List<String>)
+    fun loadInvalidPlaceholders(projectId: Int, languageId: Int, invalidKeys: List<String>)
+    fun loadSpellingMistakes(errors: Map<String, List<String>>)
     fun clear()
-    fun setCurrentIndex(value: Int)
+    fun selectItem(value: Int)
 }

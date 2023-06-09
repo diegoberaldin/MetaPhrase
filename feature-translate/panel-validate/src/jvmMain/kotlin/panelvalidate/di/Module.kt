@@ -1,12 +1,12 @@
 package panelvalidate.di
 
 import org.koin.dsl.module
-import panelvalidate.ui.DefaultInvalidSegmentComponent
-import panelvalidate.ui.InvalidSegmentComponent
+import panelvalidate.ui.DefaultValidateComponent
+import panelvalidate.ui.ValidateComponent
 
 val panelValidateModule = module {
-    factory<InvalidSegmentComponent> { params ->
-        DefaultInvalidSegmentComponent(
+    factory<ValidateComponent> { params ->
+        DefaultValidateComponent(
             componentContext = params[0],
             coroutineContext = params[1],
             dispatchers = get(),

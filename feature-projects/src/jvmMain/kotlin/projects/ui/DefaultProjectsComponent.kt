@@ -220,4 +220,10 @@ internal class DefaultProjectsComponent(
             childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.insertBestMatch()
         }
     }
+
+    override fun globalSpellcheck() {
+        viewModelScope.launch(dispatchers.io) {
+            childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.globalSpellcheck()
+        }
+    }
 }

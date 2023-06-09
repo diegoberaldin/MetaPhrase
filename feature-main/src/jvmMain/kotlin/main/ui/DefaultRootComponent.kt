@@ -353,4 +353,10 @@ internal class DefaultRootComponent(
             main.asFlow<ProjectsComponent>().firstOrNull()?.insertBestMatch()
         }
     }
+
+    override fun globalSpellcheck() {
+        viewModelScope.launch(dispatchers.io) {
+            main.asFlow<ProjectsComponent>().firstOrNull()?.globalSpellcheck()
+        }
+    }
 }

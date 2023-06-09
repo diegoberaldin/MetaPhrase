@@ -28,6 +28,7 @@ interface ProjectsComponent {
     fun exportTmx(path: String)
     fun validatePlaceholders()
     fun insertBestMatch()
+    fun globalSpellcheck()
 
     sealed interface Config : Parcelable {
         @Parcelize
