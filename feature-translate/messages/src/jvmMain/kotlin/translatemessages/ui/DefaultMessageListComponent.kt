@@ -373,11 +373,25 @@ internal class DefaultMessageListComponent(
     }
 
     override fun scrollToMessage(key: String) {
-        viewModelScope.launch {
+        suspend fun searchRec() {
             val index = units.value.indexOfFirst { it.segment.key == key }
             if (index >= 0) {
+                notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
                 selectionEvents.emit(index)
+            } else if (canFetchMore.value && !isLoading.value) {
+                notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
+                isLoading.value = true
+                currentPage++
+                loadPage()
+                isLoading.value = false
+                searchRec()
+            } else {
+                notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
             }
+        }
+
+        viewModelScope.launch(dispatchers.io) {
+            searchRec()
         }
     }
 
