@@ -342,6 +342,12 @@ internal class DefaultRootComponent(
         }
     }
 
+    override fun syncTm() {
+        viewModelScope.launch(dispatchers.io) {
+            main.asFlow<ProjectsComponent>().firstOrNull()?.syncWithTm()
+        }
+    }
+
     override fun validatePlaceholders() {
         viewModelScope.launch(dispatchers.io) {
             main.asFlow<ProjectsComponent>().firstOrNull()?.validatePlaceholders()

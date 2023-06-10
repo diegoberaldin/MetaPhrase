@@ -37,6 +37,7 @@ interface TranslateComponent {
     fun validatePlaceholders()
     fun insertBestMatch()
     fun globalSpellcheck()
+    fun syncWithTm()
 
     @Parcelize
     object ToolbarConfig : Parcelable

@@ -29,6 +29,7 @@ interface ProjectsComponent {
     fun validatePlaceholders()
     fun insertBestMatch()
     fun globalSpellcheck()
+    fun syncWithTm()
 
     sealed interface Config : Parcelable {
         @Parcelize

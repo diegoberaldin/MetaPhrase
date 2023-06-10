@@ -9,12 +9,16 @@ import translationmemory.similarity.DefaultSimilarityCalculator
 import translationmemory.similarity.SimilarityCalculator
 import translationmemory.usecase.ClearTmUseCase
 import translationmemory.usecase.DefaultClearTmUseCase
+import translationmemory.usecase.DefaultExportTmxUseCase
 import translationmemory.usecase.DefaultGetSimilaritiesUseCase
 import translationmemory.usecase.DefaultImportTmxUseCase
+import translationmemory.usecase.DefaultSyncProjectWithTmUseCase
+import translationmemory.usecase.ExportTmxUseCase
 import translationmemory.usecase.GetSimilaritiesUseCase
 import translationmemory.usecase.ImportTmxUseCase
+import translationmemory.usecase.SyncProjectWithTmUseCase
 
-internal val innerTranslationMemoryModule = module {
+val translationMemoryModule = module {
     single<SimilarityCalculator> {
         DefaultSimilarityCalculator()
     }
@@ -49,15 +53,26 @@ internal val innerTranslationMemoryModule = module {
             memoryEntryRepository = get(),
         )
     }
-}
-
-val translationMemoryModule = module {
-    includes(innerTranslationMemoryModule)
-
+    single<SyncProjectWithTmUseCase> {
+        DefaultSyncProjectWithTmUseCase(
+            dispatchers = get(),
+            projectRepository = get(),
+            segmentRepository = get(),
+            languageRepository = get(),
+            memoryEntryRepository = get(),
+        )
+    }
     single<GetSimilaritiesUseCase> {
         DefaultGetSimilaritiesUseCase(
             projectSource = get(),
             memorySource = get(),
+        )
+    }
+    single<ExportTmxUseCase> {
+        DefaultExportTmxUseCase(
+            languageRepository = get(),
+            segmentRepository = get(),
+            dispatchers = get(),
         )
     }
 }

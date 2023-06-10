@@ -48,7 +48,6 @@ import panelmemory.presentation.BrowseMemoryComponent
 import panelvalidate.presentation.ValidateComponent
 import repository.repo.ProjectRepository
 import repository.repo.SegmentRepository
-import repository.usecase.ExportTmxUseCase
 import repository.usecase.ImportSegmentsUseCase
 import repository.usecase.ValidatePlaceholdersUseCase
 import spellcheck.usecase.ValidateSpellingUseCase
@@ -59,6 +58,8 @@ import translate.presentation.TranslateComponent.ToolbarConfig
 import translatemessages.presentation.MessageListComponent
 import translatenewsegment.ui.NewSegmentComponent
 import translatetoolbar.presentation.TranslateToolbarComponent
+import translationmemory.usecase.ExportTmxUseCase
+import translationmemory.usecase.SyncProjectWithTmUseCase
 import kotlin.coroutines.CoroutineContext
 import kotlin.time.Duration
 
@@ -79,6 +80,7 @@ internal class DefaultTranslateComponent(
     private val notificationCenter: NotificationCenter,
     private val exportToTmx: ExportTmxUseCase,
     private val validateSpelling: ValidateSpellingUseCase,
+    private val syncProjectWithTm: SyncProjectWithTmUseCase,
 ) : TranslateComponent, ComponentContext by componentContext {
 
     private val project = MutableStateFlow<ProjectModel?>(null)
@@ -537,6 +539,14 @@ internal class DefaultTranslateComponent(
         viewModelScope.launch(dispatchers.io) {
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
             exportToTmx(path = path, projectId = projectId)
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
+        }
+    }
+
+    override fun syncWithTm() {
+        viewModelScope.launch(dispatchers.io) {
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
+            syncProjectWithTm(projectId = projectId)
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
         }
     }

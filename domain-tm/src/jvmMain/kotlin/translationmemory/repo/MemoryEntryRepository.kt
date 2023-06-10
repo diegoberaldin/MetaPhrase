@@ -9,7 +9,7 @@ interface MemoryEntryRepository {
 
     suspend fun delete(model: TranslationMemoryEntryModel): Int
 
-    suspend fun deleteAll(): Int
+    suspend fun deleteAll(origin: String? = null)
 
     suspend fun getById(id: Int, sourceLang: String, targetLang: String): TranslationMemoryEntryModel?
 
@@ -17,4 +17,3 @@ interface MemoryEntryRepository {
 
     suspend fun getLanguageCodes(): List<String>
 }
-

@@ -269,6 +269,12 @@ private fun MenuBarScope.makeMenus(
         }
         Separator()
         Item(
+            text = "menu_translation_memory_sync_project".localized(),
+            enabled = rootUiState.activeProject != null,
+        ) {
+            rootComponent.syncTm()
+        }
+        Item(
             text = "menu_translation_memory_clear".localized(),
         ) {
             rootComponent.clearTm()

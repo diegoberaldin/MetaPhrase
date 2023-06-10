@@ -35,6 +35,7 @@ interface RootComponent {
     fun openImportTmxDialog()
     fun importTmx(path: String)
     fun clearTm()
+    fun syncTm()
     fun validatePlaceholders()
     fun insertBestMatch()
     fun globalSpellcheck()

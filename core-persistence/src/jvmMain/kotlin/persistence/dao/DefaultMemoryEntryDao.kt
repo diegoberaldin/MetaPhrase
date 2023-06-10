@@ -39,16 +39,21 @@ internal class DefaultMemoryEntryDao : MemoryEntryDao {
         MemoryEntryEntity.deleteWhere { MemoryEntryEntity.id eq model.id }
     }
 
-    override suspend fun deleteAll() = newSuspendedTransaction {
-        MemoryEntryEntity.deleteAll()
+    override suspend fun deleteAll(origin: String?) = newSuspendedTransaction {
+        if (origin.isNullOrEmpty()) {
+            MemoryEntryEntity.deleteAll()
+        } else {
+            MemoryEntryEntity.deleteWhere { MemoryEntryEntity.origin eq origin }
+        }
+        Unit
     }
 
     override suspend fun update(model: TranslationMemoryEntryModel) = newSuspendedTransaction {
         MemoryMessageEntity.update(where = { (MemoryMessageEntity.entryId eq model.id) and (MemoryMessageEntity.lang eq model.sourceLang) }) {
-            it[MemoryMessageEntity.text] = model.sourceText
+            it[text] = model.sourceText
         }
         MemoryMessageEntity.update(where = { (MemoryMessageEntity.entryId eq model.id) and (MemoryMessageEntity.lang eq model.targetLang) }) {
-            it[MemoryMessageEntity.text] = model.targetText
+            it[text] = model.targetText
         }
     }
 

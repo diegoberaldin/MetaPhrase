@@ -36,6 +36,7 @@ kotlin {
                 implementation(projects.domainAndroid)
                 implementation(projects.domainIos)
                 implementation(projects.domainSpellcheck)
+                implementation(projects.domainTm)
 
                 implementation(projects.featureTranslate.toolbar)
                 implementation(projects.featureTranslate.messages)

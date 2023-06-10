@@ -209,6 +209,12 @@ internal class DefaultProjectsComponent(
         }
     }
 
+    override fun syncWithTm() {
+        viewModelScope.launch(dispatchers.io) {
+            childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.syncWithTm()
+        }
+    }
+
     override fun validatePlaceholders() {
         viewModelScope.launch(dispatchers.io) {
             childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.validatePlaceholders()
