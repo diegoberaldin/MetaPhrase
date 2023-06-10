@@ -7,7 +7,7 @@ interface MemoryEntryDao {
 
     suspend fun delete(model: TranslationMemoryEntryModel): Int
 
-    suspend fun deleteAll(): Int
+    suspend fun deleteAll(origin: String?)
 
     suspend fun update(model: TranslationMemoryEntryModel): Int
 

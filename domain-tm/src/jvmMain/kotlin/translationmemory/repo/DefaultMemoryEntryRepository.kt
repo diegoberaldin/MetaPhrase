@@ -12,7 +12,9 @@ internal class DefaultMemoryEntryRepository(
 
     override suspend fun delete(model: TranslationMemoryEntryModel) = dao.delete(model)
 
-    override suspend fun deleteAll() = dao.deleteAll()
+    override suspend fun deleteAll(origin: String?) {
+        dao.deleteAll(origin)
+    }
 
     override suspend fun getById(id: Int, sourceLang: String, targetLang: String): TranslationMemoryEntryModel? =
         dao.getById(id = id, sourceLang = sourceLang, targetLang = targetLang)

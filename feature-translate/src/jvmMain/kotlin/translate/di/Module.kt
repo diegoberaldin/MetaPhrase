@@ -43,6 +43,7 @@ val translateModule = module {
             notificationCenter = get(),
             exportToTmx = get(),
             validateSpelling = get(),
+            syncProjectWithTm = get(),
         )
     }
 }

@@ -60,6 +60,7 @@
 	<string name="menu_translation_memory_export">Exportar…</string>
 	<string name="menu_translation_memory_import">Importar…</string>
 	<string name="menu_translation_memory_insert_best_match">Insertar correspondencia mejor</string>
+	<string name="menu_translation_memory_sync_project">Sincronizar proyecto en MT</string>
 	<string name="message_duplicate_key">Ya existe un mensaje con la misma llave</string>
 	<string name="message_missing_field">Información obligatoria</string>
 	<string name="message_no_item_to_display">Ningún elemento para visualizar</string>

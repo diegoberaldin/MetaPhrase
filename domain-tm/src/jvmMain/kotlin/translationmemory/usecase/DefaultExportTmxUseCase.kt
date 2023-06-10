@@ -1,4 +1,4 @@
-package repository.usecase
+package translationmemory.usecase
 
 import common.coroutines.CoroutineDispatcherProvider
 import kotlinx.coroutines.withContext
