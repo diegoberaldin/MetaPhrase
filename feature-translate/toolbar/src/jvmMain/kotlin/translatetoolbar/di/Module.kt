@@ -12,7 +12,6 @@ val translateToolbarModule = module {
             dispatchers = get(),
             languageRepository = get(),
             completeLanguage = get(),
-            logManager = get(),
         )
     }
 }

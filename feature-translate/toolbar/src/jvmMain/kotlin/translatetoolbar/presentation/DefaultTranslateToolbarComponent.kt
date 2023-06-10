@@ -4,7 +4,6 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import common.coroutines.CoroutineDispatcherProvider
-import common.log.LogManager
 import common.utils.combine
 import data.LanguageModel
 import data.TranslationUnitTypeFilter
@@ -32,7 +31,6 @@ internal class DefaultTranslateToolbarComponent(
     private val dispatchers: CoroutineDispatcherProvider,
     private val languageRepository: LanguageRepository,
     private val completeLanguage: GetCompleteLanguageUseCase,
-    private val logManager: LogManager,
 ) : TranslateToolbarComponent, ComponentContext by componentContext {
 
     override var projectId: Int = 0
