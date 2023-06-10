@@ -1,8 +1,8 @@
 package panelvalidate.di
 
 import org.koin.dsl.module
-import panelvalidate.ui.DefaultValidateComponent
-import panelvalidate.ui.ValidateComponent
+import panelvalidate.presentation.DefaultValidateComponent
+import panelvalidate.presentation.ValidateComponent
 
 val panelValidateModule = module {
     factory<ValidateComponent> { params ->

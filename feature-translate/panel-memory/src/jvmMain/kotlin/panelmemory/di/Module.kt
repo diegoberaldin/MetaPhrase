@@ -1,8 +1,8 @@
 package panelmemory.di
 
 import org.koin.dsl.module
-import panelmemory.ui.BrowseMemoryComponent
-import panelmemory.ui.DefaultBrowseMemoryComponent
+import panelmemory.presentation.BrowseMemoryComponent
+import panelmemory.presentation.DefaultBrowseMemoryComponent
 
 val panelMemoryModule = module {
     factory<BrowseMemoryComponent> { params ->

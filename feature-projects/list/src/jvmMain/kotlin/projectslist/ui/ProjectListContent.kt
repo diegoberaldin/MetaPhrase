@@ -29,6 +29,7 @@ import common.ui.components.CustomTooltipArea
 import common.ui.theme.SelectedBackground
 import common.ui.theme.Spacing
 import localized
+import projectslist.presentation.ProjectListComponent
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

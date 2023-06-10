@@ -18,6 +18,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.sp
 import common.ui.theme.Spacing
 import localized
+import panelvalidate.presentation.ValidationContent
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

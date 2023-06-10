@@ -2,8 +2,8 @@ package translatemessages.di
 
 import org.koin.dsl.module
 import spellcheck.di.spellcheckModule
-import translatemessages.ui.DefaultMessageListComponent
-import translatemessages.ui.MessageListComponent
+import translatemessages.presentation.DefaultMessageListComponent
+import translatemessages.presentation.MessageListComponent
 
 val translateMessagesModule = module {
     includes(spellcheckModule)

@@ -1,7 +1,7 @@
 package intro.di
 
-import intro.ui.DefaultIntroComponent
-import intro.ui.IntroComponent
+import intro.presentation.DefaultIntroComponent
+import intro.presentation.IntroComponent
 import org.koin.dsl.module
 
 val introModule = module {

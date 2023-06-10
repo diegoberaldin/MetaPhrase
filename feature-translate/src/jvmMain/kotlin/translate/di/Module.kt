@@ -7,8 +7,8 @@ import panelglossary.di.panelGlossaryModule
 import panelmatches.di.panelMatchesModule
 import panelmemory.di.panelMemoryModule
 import panelvalidate.di.panelValidateModule
-import translate.ui.DefaultTranslateComponent
-import translate.ui.TranslateComponent
+import translate.presentation.DefaultTranslateComponent
+import translate.presentation.TranslateComponent
 import translatemessages.di.translateMessagesModule
 import translatenewsegment.di.translateNewSegmentModule
 import translatetoolbar.di.translateToolbarModule

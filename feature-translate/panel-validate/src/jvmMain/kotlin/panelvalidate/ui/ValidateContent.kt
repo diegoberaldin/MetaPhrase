@@ -22,6 +22,8 @@ import androidx.compose.ui.unit.dp
 import common.ui.components.CustomTooltipArea
 import common.ui.theme.Spacing
 import localized
+import panelvalidate.presentation.ValidateComponent
+import panelvalidate.presentation.ValidationContent
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

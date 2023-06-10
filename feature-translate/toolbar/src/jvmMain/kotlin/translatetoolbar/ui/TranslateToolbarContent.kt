@@ -39,6 +39,8 @@ import common.ui.components.CustomTooltipArea
 import common.ui.theme.SelectedBackground
 import common.ui.theme.Spacing
 import localized
+import translatetoolbar.presentation.TranslateToolbarComponent
+import translatetoolbar.presentation.toReadableString
 
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalFoundationApi::class)
 @Composable

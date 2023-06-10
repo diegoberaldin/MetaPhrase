@@ -2,8 +2,8 @@ package panelglossary.di
 
 import glossary.di.glossaryModule
 import org.koin.dsl.module
-import panelglossary.ui.DefaultGlossaryComponent
-import panelglossary.ui.GlossaryComponent
+import panelglossary.presentation.DefaultGlossaryComponent
+import panelglossary.presentation.GlossaryComponent
 
 val panelGlossaryModule = module {
     includes(glossaryModule)

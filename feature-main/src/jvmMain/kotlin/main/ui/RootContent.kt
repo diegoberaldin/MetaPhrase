@@ -15,12 +15,13 @@ import common.ui.components.CustomOpenFileDialog
 import common.ui.components.CustomSaveFileDialog
 import common.ui.theme.Spacing
 import data.ResourceFileType
-import intro.ui.IntroComponent
+import intro.presentation.IntroComponent
 import intro.ui.MainEmptyContent
 import localized
+import main.presentation.RootComponent
 import mainsettings.ui.SettingsComponent
 import mainsettings.ui.SettingsDialog
-import projects.ui.ProjectsComponent
+import projects.presentation.ProjectsComponent
 import projects.ui.ProjectsContent
 import projectscreate.ui.CreateProjectComponent
 import projectscreate.ui.CreateProjectDialog
