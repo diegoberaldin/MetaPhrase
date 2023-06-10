@@ -17,6 +17,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -31,13 +32,21 @@ import androidx.compose.ui.window.rememberWindowState
 import common.ui.components.CustomTextField
 import common.ui.theme.MetaPhraseTheme
 import common.ui.theme.Spacing
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import localized
 import java.awt.Cursor
 
 @Composable
 fun NewSegmentDialog(
     component: NewSegmentComponent,
+    onClose: () -> Unit,
 ) {
+    LaunchedEffect(component) {
+        component.done.onEach {
+            onClose?.invoke()
+        }.launchIn(this)
+    }
     MetaPhraseTheme {
         Window(
             title = "dialog_title_create_segment".localized(),

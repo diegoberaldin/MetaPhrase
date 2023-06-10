@@ -205,7 +205,12 @@ fun TranslateContent(
                 childComponent.language = it
             }
             childComponent.projectId = projectId
-            NewSegmentDialog(component = childComponent)
+            NewSegmentDialog(
+                component = childComponent,
+                onClose = {
+                    component.closeDialog()
+                },
+            )
         }
 
         else -> Unit
