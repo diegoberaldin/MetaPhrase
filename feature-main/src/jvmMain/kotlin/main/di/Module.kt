@@ -1,8 +1,8 @@
 package main.di
 
 import intro.di.introModule
-import main.ui.DefaultRootComponent
-import main.ui.RootComponent
+import main.presentation.DefaultRootComponent
+import main.presentation.RootComponent
 import mainsettings.di.mainSettingsModule
 import org.koin.dsl.module
 import projects.di.projectsModule

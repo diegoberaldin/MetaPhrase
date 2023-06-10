@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import common.ui.components.CustomTooltipArea
 import common.ui.theme.Spacing
 import localized
+import panelglossary.presentation.GlossaryComponent
 import java.awt.Cursor
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalLayoutApi::class)

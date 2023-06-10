@@ -31,7 +31,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.runBlocking
 import language.di.languageModule
 import main.di.mainModule
-import main.ui.RootComponent
+import main.presentation.RootComponent
 import main.ui.RootContent
 import org.koin.core.context.startKoin
 import persistence.di.persistenceModule

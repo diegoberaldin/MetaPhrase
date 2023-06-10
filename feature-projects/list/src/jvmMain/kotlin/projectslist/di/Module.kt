@@ -1,8 +1,8 @@
 package projectslist.di
 
 import org.koin.dsl.module
-import projectslist.ui.DefaultProjectListComponent
-import projectslist.ui.ProjectListComponent
+import projectslist.presentation.DefaultProjectListComponent
+import projectslist.presentation.ProjectListComponent
 
 val projectListModule = module {
     factory<ProjectListComponent> { params ->

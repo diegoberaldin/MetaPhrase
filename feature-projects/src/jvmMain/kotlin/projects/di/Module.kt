@@ -1,8 +1,8 @@
 package projects.di
 
 import org.koin.dsl.module
-import projects.ui.DefaultProjectsComponent
-import projects.ui.ProjectsComponent
+import projects.presentation.DefaultProjectsComponent
+import projects.presentation.ProjectsComponent
 import projectslist.di.projectListModule
 import translate.di.translateModule
 

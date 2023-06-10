@@ -1,8 +1,8 @@
 package translatetoolbar.di
 
 import org.koin.dsl.module
-import translatetoolbar.ui.DefaultTranslateToolbarComponent
-import translatetoolbar.ui.TranslateToolbarComponent
+import translatetoolbar.presentation.DefaultTranslateToolbarComponent
+import translatetoolbar.presentation.TranslateToolbarComponent
 
 val translateToolbarModule = module {
     factory<TranslateToolbarComponent> { params ->
