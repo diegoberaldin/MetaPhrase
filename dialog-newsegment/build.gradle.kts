@@ -25,7 +25,6 @@ kotlin {
 
                 implementation(libs.koin)
                 implementation(libs.decompose)
-                implementation(libs.decompose.extensions)
 
                 implementation(projects.coreCommon)
                 implementation(projects.coreLocalization)

@@ -43,7 +43,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import mainsettings.ui.SettingsComponent
 import projects.presentation.ProjectsComponent
-import projectscreate.ui.CreateProjectComponent
+import newproject.presentation.CreateProjectComponent
 import projectstatistics.ui.StatisticsComponent
 import repository.repo.ProjectRepository
 import translationmemory.usecase.ClearTmUseCase

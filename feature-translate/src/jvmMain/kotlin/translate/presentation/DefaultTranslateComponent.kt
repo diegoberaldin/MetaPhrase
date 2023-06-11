@@ -15,10 +15,12 @@ import common.coroutines.CoroutineDispatcherProvider
 import common.notification.NotificationCenter
 import common.utils.asFlow
 import common.utils.getByInjection
+import data.GlossaryTermModel
 import data.LanguageModel
 import data.ProjectModel
 import data.ResourceFileType
 import data.SegmentModel
+import glossary.repo.GlossaryTermRepository
 import ios.usecase.ExportIosResourcesUseCase
 import ios.usecase.ParseIosResourcesUseCase
 import kotlinx.coroutines.CoroutineScope
@@ -42,6 +44,8 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import language.repo.LanguageRepository
+import newglossaryterm.presentation.NewGlossaryTermComponent
+import newsegment.presentation.NewSegmentComponent
 import panelglossary.presentation.GlossaryComponent
 import panelmatches.presentation.TranslationMemoryComponent
 import panelmemory.presentation.BrowseMemoryComponent
@@ -56,7 +60,6 @@ import translate.presentation.TranslateComponent.MessageListConfig
 import translate.presentation.TranslateComponent.PanelConfig
 import translate.presentation.TranslateComponent.ToolbarConfig
 import translatemessages.presentation.MessageListComponent
-import translatenewsegment.ui.NewSegmentComponent
 import translatetoolbar.presentation.TranslateToolbarComponent
 import translationmemory.usecase.ExportTmxUseCase
 import translationmemory.usecase.SyncProjectWithTmUseCase
@@ -81,6 +84,7 @@ internal class DefaultTranslateComponent(
     private val exportToTmx: ExportTmxUseCase,
     private val validateSpelling: ValidateSpellingUseCase,
     private val syncProjectWithTm: SyncProjectWithTmUseCase,
+    private val glossaryTermRepository: GlossaryTermRepository,
 ) : TranslateComponent, ComponentContext by componentContext {
 
     private val project = MutableStateFlow<ProjectModel?>(null)
@@ -221,6 +225,82 @@ internal class DefaultTranslateComponent(
                 languageId = getCurrentLanguage()?.id ?: 0,
             )
         }.launchIn(this)
+        messageListComponent.addToGlossaryEvents.onEach { (lemma, lang) ->
+            val baseLanguage = languageRepository.getBase(projectId) ?: return@onEach
+            if (baseLanguage.code == lang) {
+                // for base language, add immediately
+                val termModel = GlossaryTermModel(
+                    lemma = lemma.lowercase(),
+                    lang = lang,
+                )
+                val existing = glossaryTermRepository.get(lemma, lang)
+                if (existing == null) {
+                    glossaryTermRepository.create(termModel)
+                }
+            } else {
+                // insert variant in dialog
+                viewModelScope.launch(dispatchers.main) {
+                    dialogNavigation.activate(DialogConfig.NewGlossaryTerm(target = lemma.lowercase()))
+                }
+            }
+            // reload panel
+            val key = messageListComponent.editedSegment.value?.key
+            if (!key.isNullOrEmpty()) {
+                panel.asFlow<GlossaryComponent>().firstOrNull()?.loadGlossaryTerms(
+                    key = key,
+                    projectId = projectId,
+                    languageId = getCurrentLanguage()?.id ?: 0,
+                )
+            }
+        }.launchIn(this)
+    }
+
+    override fun addGlossaryTerm(source: String?, target: String?) {
+        val sourceTerm = source?.lowercase() ?: return
+        val targetTerm = target?.lowercase() ?: return
+        viewModelScope.launch(dispatchers.io) {
+            val baseLanguage = languageRepository.getBase(projectId) ?: return@launch
+            val targetLanguage = getCurrentLanguage() ?: return@launch
+
+            // add source
+            val sourceTermId: Int
+            val sourceToAdd = GlossaryTermModel(
+                lemma = sourceTerm.lowercase(),
+                lang = baseLanguage.code,
+            )
+            val existingSource = glossaryTermRepository.get(sourceToAdd.lemma, sourceToAdd.lang)
+            if (existingSource == null) {
+                sourceTermId = glossaryTermRepository.create(sourceToAdd)
+            } else {
+                sourceTermId = existingSource.id
+            }
+
+            // add target
+            val targetTermId: Int
+            val targetToAdd = GlossaryTermModel(
+                lemma = targetTerm.lowercase(),
+                lang = targetLanguage.code,
+            )
+            val existingTarget = glossaryTermRepository.get(targetToAdd.lemma, targetToAdd.lang)
+            if (existingTarget == null) {
+                targetTermId = glossaryTermRepository.create(targetToAdd)
+            } else {
+                targetTermId = existingTarget.id
+            }
+
+            // create the association
+            glossaryTermRepository.associate(sourceId = sourceTermId, targetId = targetTermId)
+
+            // reload panel
+            val key = messageList.asFlow<MessageListComponent>().firstOrNull()?.editedSegment?.value?.key
+            if (!key.isNullOrEmpty()) {
+                panel.asFlow<GlossaryComponent>().firstOrNull()?.loadGlossaryTerms(
+                    key = key,
+                    projectId = projectId,
+                    languageId = getCurrentLanguage()?.id ?: 0,
+                )
+            }
+        }
     }
 
     private suspend fun CoroutineScope.configureToolbar() {
@@ -309,6 +389,7 @@ internal class DefaultTranslateComponent(
     private fun createDialogComponent(config: DialogConfig, context: ComponentContext): Any {
         return when (config) {
             DialogConfig.NewSegment -> getByInjection<NewSegmentComponent>(context, coroutineContext)
+            is DialogConfig.NewGlossaryTerm -> getByInjection<NewGlossaryTermComponent>(context, coroutineContext)
             else -> Unit
         }
     }

@@ -38,6 +38,7 @@ interface TranslateComponent {
     fun insertBestMatch()
     fun globalSpellcheck()
     fun syncWithTm()
+    fun addGlossaryTerm(source: String?, target: String?)
 
     @Parcelize
     object ToolbarConfig : Parcelable
@@ -51,6 +52,9 @@ interface TranslateComponent {
 
         @Parcelize
         object NewSegment : DialogConfig
+
+        @Parcelize
+        data class NewGlossaryTerm(val target: String) : DialogConfig
     }
 
     sealed interface PanelConfig : Parcelable {

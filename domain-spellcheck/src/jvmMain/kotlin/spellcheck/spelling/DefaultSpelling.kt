@@ -100,4 +100,11 @@ class DefaultSpelling : Spelling {
             defaultResult
         }
     }
+
+    override fun getLemmata(message: String): List<String> {
+        if (!isInitialized) return emptyList()
+
+        val sentence = languageTool.getAnalyzedSentence(message)
+        return sentence.lemmaSet.toList()
+    }
 }

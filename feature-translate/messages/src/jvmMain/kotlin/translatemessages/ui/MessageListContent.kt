@@ -154,6 +154,9 @@ fun MessageListContent(
                             onTextChanged = {
                                 component.setSegmentText(it)
                             },
+                            onAddToGlossary = { word ->
+                                component.addToGlossarySource(word, uiState.currentLanguage?.code.orEmpty())
+                            },
                         )
                     } else {
                         Text(
@@ -192,6 +195,9 @@ fun MessageListContent(
                             },
                             onTextChanged = {
                                 component.setSegmentText(it)
+                            },
+                            onAddToGlossary = { word ->
+                                component.addToGlossarySource(word, uiState.currentLanguage?.code.orEmpty())
                             },
                         )
                     }

@@ -2,6 +2,8 @@ package translate.di
 
 import android.di.androidModule
 import ios.di.iosModule
+import newglossaryterm.di.dialogNewGlossaryTermModule
+import newsegment.di.dialogNewSegmentModule
 import org.koin.dsl.module
 import panelglossary.di.panelGlossaryModule
 import panelmatches.di.panelMatchesModule
@@ -10,7 +12,6 @@ import panelvalidate.di.panelValidateModule
 import translate.presentation.DefaultTranslateComponent
 import translate.presentation.TranslateComponent
 import translatemessages.di.translateMessagesModule
-import translatenewsegment.di.translateNewSegmentModule
 import translatetoolbar.di.translateToolbarModule
 
 val translateModule = module {
@@ -19,7 +20,9 @@ val translateModule = module {
 
     includes(translateToolbarModule)
     includes(translateMessagesModule)
-    includes(translateNewSegmentModule)
+
+    includes(dialogNewSegmentModule)
+    includes(dialogNewGlossaryTermModule)
 
     includes(panelMatchesModule)
     includes(panelValidateModule)
@@ -44,6 +47,7 @@ val translateModule = module {
             exportToTmx = get(),
             validateSpelling = get(),
             syncProjectWithTm = get(),
+            glossaryTermRepository = get(),
         )
     }
 }

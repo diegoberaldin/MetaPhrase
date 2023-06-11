@@ -11,7 +11,10 @@
 	<string name="column_invalid_key">Key</string>
 	<string name="column_invalid_missing">Missing</string>
 	<string name="column_invalid_spelling">Spelling mistakes</string>
+	<string name="context_menu_add_glossary">Add to glossary</string>
 	<string name="context_menu_insert_suggestion">Insert: %s</string>
+	<string name="create_glossary_source_term">Source term</string>
+	<string name="create_glossary_target_term">Target term</string>
 	<string name="create_project_field_name">Name</string>
 	<string name="create_project_languages">Languages</string>
 	<string name="create_project_languages_subtitle">Each project must have exactly one base (or default) language</string>
@@ -26,6 +29,7 @@
 	<string name="dialog_statistics_item_total_messages">Message number</string>
 	<string name="dialog_statistics_item_translatable_messages">Translatable message number</string>
 	<string name="dialog_statistics_section_general">General</string>
+	<string name="dialog_title_create_glossary_term">Create glossary term</string>
 	<string name="dialog_title_create_project">New project</string>
 	<string name="dialog_title_create_segment">New message</string>
 	<string name="dialog_title_edit_project">Edit project</string>

@@ -104,7 +104,7 @@ internal class DefaultGlossaryComponent(
         isLoading.value = true
         terms.value =
             getGlossaryTerms(
-                message = message,
+                message = message.lowercase(),
                 lang = sourceLanguage.code,
             ).map { model ->
                 val targetTerms = glossaryTermRepository.getAssociated(

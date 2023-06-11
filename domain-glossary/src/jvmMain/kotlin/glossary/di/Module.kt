@@ -16,6 +16,7 @@ val glossaryModule = module {
         DefaultGetGlossaryTermsUseCase(
             repository = get(),
             dispatchers = get(),
+            spelling = get(),
         )
     }
 }

@@ -37,6 +37,14 @@
           </set>
         </option>
       </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/dialog-newglossaryterm" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/dialog-newglossaryterm" />
+          </set>
+        </option>
+      </GradleProjectSettings>
     </option>
   </component>
 </project>

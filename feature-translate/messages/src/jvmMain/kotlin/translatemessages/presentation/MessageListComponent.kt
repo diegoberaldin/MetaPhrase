@@ -14,6 +14,7 @@ interface MessageListComponent {
     val editedSegment: StateFlow<SegmentModel?>
     val spellingErrors: StateFlow<List<SpellCheckCorrection>>
     val paginationState: StateFlow<MessageLisPaginationState>
+    val addToGlossaryEvents: SharedFlow<Pair<String, String>>
 
     fun reloadMessages(language: LanguageModel, filter: TranslationUnitTypeFilter, projectId: Int)
     fun refresh()
@@ -31,4 +32,5 @@ interface MessageListComponent {
     fun markAsTranslatable(value: Boolean, key: String)
     fun setEditingEnabled(value: Boolean)
     fun clearMessages()
+    fun addToGlossarySource(lemma: String, lang: String)
 }
