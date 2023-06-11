@@ -12,7 +12,6 @@
             <option value="$PROJECT_DIR$/core-data" />
             <option value="$PROJECT_DIR$/core-localization" />
             <option value="$PROJECT_DIR$/core-persistence" />
-            <option value="$PROJECT_DIR$/dialog-settings" />
             <option value="$PROJECT_DIR$/domain-android" />
             <option value="$PROJECT_DIR$/domain-glossary" />
             <option value="$PROJECT_DIR$/domain-ios" />
@@ -22,6 +21,8 @@
             <option value="$PROJECT_DIR$/domain-tm" />
             <option value="$PROJECT_DIR$/feature-intro" />
             <option value="$PROJECT_DIR$/feature-main" />
+            <option value="$PROJECT_DIR$/feature-main/dialog" />
+            <option value="$PROJECT_DIR$/feature-main/dialog/settings" />
             <option value="$PROJECT_DIR$/feature-projects" />
             <option value="$PROJECT_DIR$/feature-projects/dialog" />
             <option value="$PROJECT_DIR$/feature-projects/dialog/newproject" />
@@ -46,14 +47,6 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/dialog-newglossaryterm" />
-          </set>
-        </option>
-      </GradleProjectSettings>
-      <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/feature-main/dialog" />
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$/feature-main/dialog" />
           </set>
         </option>
       </GradleProjectSettings>

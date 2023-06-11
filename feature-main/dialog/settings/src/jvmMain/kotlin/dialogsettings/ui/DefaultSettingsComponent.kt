@@ -34,6 +34,7 @@ internal class DefaultSettingsComponent(
             "it",
             "es",
             "fr",
+            "pt",
         )
     }
 
