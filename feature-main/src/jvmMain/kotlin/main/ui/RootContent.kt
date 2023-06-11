@@ -15,18 +15,18 @@ import common.ui.components.CustomOpenFileDialog
 import common.ui.components.CustomSaveFileDialog
 import common.ui.theme.Spacing
 import data.ResourceFileType
+import dialognewproject.presentation.CreateProjectComponent
+import dialognewproject.ui.CreateProjectDialog
+import dialogsettings.ui.SettingsComponent
+import dialogsettings.ui.SettingsDialog
+import dialogstatistics.ui.StatisticsComponent
+import dialogstatistics.ui.StatisticsDialog
 import intro.presentation.IntroComponent
 import intro.ui.MainEmptyContent
 import localized
 import main.presentation.RootComponent
-import mainsettings.ui.SettingsComponent
-import mainsettings.ui.SettingsDialog
 import projects.presentation.ProjectsComponent
 import projects.ui.ProjectsContent
-import newproject.presentation.CreateProjectComponent
-import newproject.ui.CreateProjectDialog
-import projectstatistics.ui.StatisticsComponent
-import projectstatistics.ui.StatisticsDialog
 import java.awt.Cursor
 
 @Composable

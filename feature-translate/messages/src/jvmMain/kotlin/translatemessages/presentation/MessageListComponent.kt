@@ -7,6 +7,8 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import spellcheck.SpellCheckCorrection
 
+data class AddToGlossaryEvent(val lemma: String, val lang: String)
+
 interface MessageListComponent {
 
     val uiState: StateFlow<MessageListUiState>
@@ -14,7 +16,7 @@ interface MessageListComponent {
     val editedSegment: StateFlow<SegmentModel?>
     val spellingErrors: StateFlow<List<SpellCheckCorrection>>
     val paginationState: StateFlow<MessageLisPaginationState>
-    val addToGlossaryEvents: SharedFlow<Pair<String, String>>
+    val addToGlossaryEvents: SharedFlow<AddToGlossaryEvent>
 
     fun reloadMessages(language: LanguageModel, filter: TranslationUnitTypeFilter, projectId: Int)
     fun refresh()

@@ -42,13 +42,13 @@ kotlin {
                 implementation(projects.featureTranslate.toolbar)
                 implementation(projects.featureTranslate.messages)
 
-                implementation(projects.dialogNewsegment)
-                implementation(projects.dialogNewglossaryterm)
+                implementation(projects.featureTranslate.dialog.newsegment)
+                implementation(projects.featureTranslate.dialog.newterm)
 
-                implementation(projects.featureTranslate.panelValidate)
-                implementation(projects.featureTranslate.panelMatches)
-                implementation(projects.featureTranslate.panelMemory)
-                implementation(projects.featureTranslate.panelGlossary)
+                implementation(projects.featureTranslate.panel.validate)
+                implementation(projects.featureTranslate.panel.matches)
+                implementation(projects.featureTranslate.panel.memory)
+                implementation(projects.featureTranslate.panel.glossary)
             }
         }
     }

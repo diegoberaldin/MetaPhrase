@@ -2,7 +2,6 @@ package ios.usecase
 
 import common.coroutines.CoroutineDispatcherProvider
 import data.SegmentModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileReader

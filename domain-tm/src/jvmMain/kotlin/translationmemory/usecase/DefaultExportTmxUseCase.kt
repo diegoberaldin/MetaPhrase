@@ -27,6 +27,11 @@ internal class DefaultExportTmxUseCase(
         private const val ATTR_SOURCE_LANG = "srcLang"
     }
 
+    private data class LocalizedMessage(
+        val lang: String,
+        val message: String,
+    )
+
     override suspend operator fun invoke(projectId: Int, path: String) {
         val file = File(path)
         if (!file.exists()) {
@@ -51,15 +56,15 @@ internal class DefaultExportTmxUseCase(
         val baseLanguage = languageRepository.getBase(projectId) ?: return ""
         val otherLanguages = languageRepository.getAll(projectId).filter { it.code != baseLanguage.code }
 
-        val registry = mutableMapOf<String, List<Pair<String, String>>>()
+        val registry = mutableMapOf<String, List<LocalizedMessage>>()
         segmentRepository.getAll(baseLanguage.id).forEach { baseSegment ->
             val key = baseSegment.key
             registry[key] = buildList {
-                this += baseLanguage.code to baseSegment.text
+                this += LocalizedMessage(lang = baseLanguage.code, message = baseSegment.text)
                 for (lang in otherLanguages) {
                     val localSegment = segmentRepository.getByKey(key = key, languageId = lang.id)
                     if (localSegment != null && localSegment.text.isNotEmpty()) {
-                        this += lang.code to localSegment.text
+                        this += LocalizedMessage(lang = lang.code, message = localSegment.text)
                     }
                 }
             }
@@ -87,9 +92,9 @@ internal class DefaultExportTmxUseCase(
                         val translationUnitVariants = translationUnit.value
                         for (variant in translationUnitVariants) {
                             ELEM_VARIANT {
-                                attribute(ATTR_LANGUAGE, variant.first)
+                                attribute(ATTR_LANGUAGE, variant.lang)
                                 ELEM_SEGMENT {
-                                    text(variant.second)
+                                    text(variant.message)
                                 }
                             }
                         }

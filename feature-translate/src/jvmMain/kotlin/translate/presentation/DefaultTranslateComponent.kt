@@ -20,6 +20,8 @@ import data.LanguageModel
 import data.ProjectModel
 import data.ResourceFileType
 import data.SegmentModel
+import dialognewsegment.presentation.NewSegmentComponent
+import dialognewterm.presentation.NewGlossaryTermComponent
 import glossary.repo.GlossaryTermRepository
 import ios.usecase.ExportIosResourcesUseCase
 import ios.usecase.ParseIosResourcesUseCase
@@ -44,8 +46,6 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import language.repo.LanguageRepository
-import newglossaryterm.presentation.NewGlossaryTermComponent
-import newsegment.presentation.NewSegmentComponent
 import panelglossary.presentation.GlossaryComponent
 import panelmatches.presentation.TranslationMemoryComponent
 import panelmemory.presentation.BrowseMemoryComponent
@@ -568,8 +568,9 @@ internal class DefaultTranslateComponent(
         viewModelScope.launch(dispatchers.io) {
             val language = getCurrentLanguage() ?: return@launch
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
-            val messagesWithKeys = segmentRepository.getAll(language.id).map { it.key to it.text }
-            val errorMap = validateSpelling(input = messagesWithKeys, lang = language.code)
+            val items = segmentRepository.getAll(language.id)
+                .map { ValidateSpellingUseCase.InputItem(key = it.key, message = it.text) }
+            val errorMap = validateSpelling(input = items, lang = language.code)
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
 
             withContext(dispatchers.main) {
