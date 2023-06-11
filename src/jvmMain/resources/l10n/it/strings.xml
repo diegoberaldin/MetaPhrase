@@ -12,6 +12,8 @@
 	<string name="column_invalid_spelling">Errori ortografici</string>
 	<string name="context_menu_add_glossary">Aggiungi al glossario</string>
 	<string name="context_menu_insert_suggestion">Inserisci: %s</string>
+	<string name="create_glossary_source_term">Termine di partenza</string>
+	<string name="create_glossary_target_term">Termine di arrivo</string>
 	<string name="create_project_field_name">Nome</string>
 	<string name="create_project_languages">Lingue</string>
 	<string name="create_project_languages_subtitle">Ogni progetto deve avere esattamente una lingua base (o di default)</string>
@@ -26,6 +28,7 @@
 	<string name="dialog_statistics_item_total_messages">Numero messaggi</string>
 	<string name="dialog_statistics_item_translatable_messages">Numero messaggi traducibili</string>
 	<string name="dialog_statistics_section_general">Generali</string>
+	<string name="dialog_title_create_glossary_term">Crea voce di glossario</string>
 	<string name="dialog_title_create_project">Nuovo progetto</string>
 	<string name="dialog_title_create_segment">Nuovo messaggio</string>
 	<string name="dialog_title_edit_project">Modifica progetto</string>

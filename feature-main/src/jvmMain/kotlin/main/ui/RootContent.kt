@@ -23,8 +23,8 @@ import mainsettings.ui.SettingsComponent
 import mainsettings.ui.SettingsDialog
 import projects.presentation.ProjectsComponent
 import projects.ui.ProjectsContent
-import projectscreate.ui.CreateProjectComponent
-import projectscreate.ui.CreateProjectDialog
+import newproject.presentation.CreateProjectComponent
+import newproject.ui.CreateProjectDialog
 import projectstatistics.ui.StatisticsComponent
 import projectstatistics.ui.StatisticsDialog
 import java.awt.Cursor

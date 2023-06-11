@@ -32,9 +32,10 @@ include(
     ":domain-glossary",
 
     ":dialog-settings",
-    ":dialog-create-project",
+    ":dialog-newproject",
     ":dialog-statistics",
     ":dialog-newsegment",
+    ":dialog-newglossaryterm",
 
     ":feature-main",
     ":feature-intro",

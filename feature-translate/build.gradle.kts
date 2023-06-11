@@ -43,6 +43,7 @@ kotlin {
                 implementation(projects.featureTranslate.messages)
 
                 implementation(projects.dialogNewsegment)
+                implementation(projects.dialogNewglossaryterm)
 
                 implementation(projects.featureTranslate.panelValidate)
                 implementation(projects.featureTranslate.panelMatches)

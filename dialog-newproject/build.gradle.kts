@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.compose")
 }
 
-group = "dialog.newsegment"
+group = "dialog.newproject"
 version = libs.versions.appVersion.get()
 
 repositories {
@@ -25,6 +25,7 @@ kotlin {
 
                 implementation(libs.koin)
                 implementation(libs.decompose)
+                implementation(libs.decompose.extensions)
 
                 implementation(projects.coreCommon)
                 implementation(projects.coreLocalization)

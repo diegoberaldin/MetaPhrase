@@ -32,6 +32,10 @@ import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import common.ui.theme.Spacing
 import localized
+import newglossaryterm.presentation.NewGlossaryTermComponent
+import newglossaryterm.ui.NewGlossaryTermDialog
+import newsegment.presentation.NewSegmentComponent
+import newsegment.ui.NewSegmentDialog
 import org.jetbrains.skiko.Cursor
 import panelglossary.presentation.GlossaryComponent
 import panelglossary.ui.GlossaryContent
@@ -44,8 +48,6 @@ import panelvalidate.ui.ValidateContent
 import translate.presentation.TranslateComponent
 import translate.presentation.TranslateComponent.PanelConfig
 import translatemessages.ui.MessageListContent
-import translatenewsegment.ui.NewSegmentComponent
-import translatenewsegment.ui.NewSegmentDialog
 import translatetoolbar.ui.TranslateToolbar
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -196,7 +198,7 @@ fun TranslateContent(
 
     val dialogConfig by component.dialog.subscribeAsState()
     val child = dialogConfig.child
-    when (child?.configuration) {
+    when (val config = child?.configuration) {
         TranslateComponent.DialogConfig.NewSegment -> {
             val language by component.currentLanguage.collectAsState()
             val projectId = uiState.project?.id ?: 0
@@ -208,6 +210,18 @@ fun TranslateContent(
             NewSegmentDialog(
                 component = childComponent,
                 onClose = {
+                    component.closeDialog()
+                },
+            )
+        }
+
+        is TranslateComponent.DialogConfig.NewGlossaryTerm -> {
+            val childComponent = child.instance as NewGlossaryTermComponent
+            NewGlossaryTermDialog(
+                targetTerm = config.target,
+                component = childComponent,
+                onClose = { sourceTerm, targetTerm ->
+                    component.addGlossaryTerm(source = sourceTerm, target = targetTerm)
                     component.closeDialog()
                 },
             )

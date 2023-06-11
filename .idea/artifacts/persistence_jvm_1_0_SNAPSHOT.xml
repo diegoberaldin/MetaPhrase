@@ -1,0 +1,6 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="persistence-jvm-1.0-SNAPSHOT">
+    <output-path>$PROJECT_DIR$/domain-glossary/persistence/build/libs</output-path>
+    <root id="archive" name="persistence-jvm-1.0-SNAPSHOT.jar" />
+  </artifact>
+</component>

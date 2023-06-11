@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.compose")
 }
 
-group = "dialog.newsegment"
+group = "dialog.newglossaryterm"
 version = libs.versions.appVersion.get()
 
 repositories {
@@ -28,10 +28,6 @@ kotlin {
 
                 implementation(projects.coreCommon)
                 implementation(projects.coreLocalization)
-                implementation(projects.coreData)
-
-                implementation(projects.domainProject)
-                implementation(projects.domainLanguage)
             }
         }
     }
