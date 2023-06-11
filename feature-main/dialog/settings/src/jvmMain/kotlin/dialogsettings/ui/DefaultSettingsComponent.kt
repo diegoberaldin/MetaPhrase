@@ -28,6 +28,17 @@ internal class DefaultSettingsComponent(
     private val keyStore: TemporaryKeyStore,
 ) : SettingsComponent, ComponentContext by componentContext {
 
+    companion object {
+        private val SUPPORTED_LANGUAGES = listOf(
+            "en",
+            "de",
+            "fr",
+            "es",
+            "it",
+            "pt",
+        )
+    }
+
     private val availableLanguages = MutableStateFlow<List<LanguageModel>>(emptyList())
     private val currentLanguage = MutableStateFlow<LanguageModel?>(null)
     private val similarityThreshold = MutableStateFlow("")
@@ -71,11 +82,7 @@ internal class DefaultSettingsComponent(
                     spellcheckEnabled.value = isSpellcheckEnabled
                 }
 
-                availableLanguages.value = listOf(
-                    "en",
-                    "it",
-                    "es",
-                ).map {
+                availableLanguages.value = SUPPORTED_LANGUAGES.map {
                     completeLanguage(LanguageModel(code = it))
                 }
             }
