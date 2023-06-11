@@ -26,6 +26,11 @@ internal class DefaultImportTmxUseCase(
         private const val ATTR_SOURCE_LANG = "srcLang"
     }
 
+    private data class LocalizedMessage(
+        val lang: String,
+        val message: String,
+    )
+
     override suspend operator fun invoke(path: String) {
         val entries = readEntries(path)
         for (entry in entries) {
@@ -47,18 +52,18 @@ internal class DefaultImportTmxUseCase(
                 if (headerNode != null) {
                     baseLanguage = (headerNode.attributes[ATTR_SOURCE_LANG] as? String).orEmpty()
                 }
-                val unitList = mutableListOf<List<Pair<String, String>>>()
+                val unitList = mutableListOf<List<LocalizedMessage>>()
 
                 val bodyNode = rootNode.children.firstOrNull { (it as? Node)?.nodeName == ELEM_BODY } as? Node
                 if (bodyNode != null) {
                     for (unit in bodyNode.children.filter { (it as? Node)?.nodeName == ELEM_UNIT }) {
-                        val variantList = mutableListOf<Pair<String, String>>()
+                        val variantList = mutableListOf<LocalizedMessage>()
                         for (variant in (unit as Node).children.filter { (it as? Node)?.nodeName == ELEM_VARIANT }) {
                             val lang = ((variant as Node).attributes[ATTR_LANGUAGE] as? String).orEmpty()
                             val segment =
                                 variant.children.firstOrNull { (it as? Node)?.nodeName == ELEM_SEGMENT } as? Node
                             val text = (segment?.children?.firstOrNull() as? TextElement)?.text.orEmpty()
-                            variantList += (lang to text)
+                            variantList += LocalizedMessage(lang, text)
                         }
                         unitList += variantList
                     }
@@ -66,12 +71,12 @@ internal class DefaultImportTmxUseCase(
 
                 val res = mutableListOf<TranslationMemoryEntryModel>()
                 for (unit in unitList) {
-                    val sourceText = unit.firstOrNull { it.first == baseLanguage }?.second.orEmpty()
+                    val sourceText = unit.firstOrNull { it.lang == baseLanguage }?.message.orEmpty()
                     if (sourceText.isEmpty()) continue
 
-                    for (targetVariant in unit.filter { it.first != baseLanguage }) {
-                        val targetLang = targetVariant.first
-                        val targetText = targetVariant.second
+                    for (targetVariant in unit.filter { it.lang != baseLanguage }) {
+                        val targetLang = targetVariant.lang
+                        val targetText = targetVariant.message
                         res += TranslationMemoryEntryModel(
                             sourceText = sourceText,
                             sourceLang = baseLanguage,

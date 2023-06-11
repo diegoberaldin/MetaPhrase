@@ -568,8 +568,9 @@ internal class DefaultTranslateComponent(
         viewModelScope.launch(dispatchers.io) {
             val language = getCurrentLanguage() ?: return@launch
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
-            val messagesWithKeys = segmentRepository.getAll(language.id).map { it.key to it.text }
-            val errorMap = validateSpelling(input = messagesWithKeys, lang = language.code)
+            val items = segmentRepository.getAll(language.id)
+                .map { ValidateSpellingUseCase.InputItem(key = it.key, message = it.text) }
+            val errorMap = validateSpelling(input = items, lang = language.code)
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
 
             withContext(dispatchers.main) {

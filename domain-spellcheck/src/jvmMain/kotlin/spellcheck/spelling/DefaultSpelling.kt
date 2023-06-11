@@ -63,21 +63,15 @@ class DefaultSpelling : Spelling {
         languageTool = JLanguageTool(code.toLanguage())
     }
 
-    override fun check(word: String): Pair<Boolean, List<String>> {
-        val defaultResult: Pair<Boolean, List<String>> = true to emptyList()
-        if (!isInitialized) return defaultResult
+    override fun check(word: String): List<String> {
+        if (!isInitialized) return emptyList()
 
         return try {
             val matches = languageTool.check(word)
-            val suggestions = matches.flatMap { it.suggestedReplacements }
-            if (suggestions.isEmpty()) {
-                return defaultResult
-            }
-
-            false to suggestions
+            matches.flatMap { it.suggestedReplacements }
         } catch (e: Throwable) {
             e.printStackTrace()
-            defaultResult
+            emptyList()
         }
     }
 

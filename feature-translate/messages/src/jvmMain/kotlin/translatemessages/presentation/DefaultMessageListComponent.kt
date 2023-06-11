@@ -66,7 +66,7 @@ internal class DefaultMessageListComponent(
     override val selectionEvents = MutableSharedFlow<Int>()
     override lateinit var editedSegment: StateFlow<SegmentModel?>
     override val spellingErrors = MutableStateFlow<List<SpellCheckCorrection>>(emptyList())
-    override val addToGlossaryEvents = MutableSharedFlow<Pair<String, String>>()
+    override val addToGlossaryEvents = MutableSharedFlow<AddToGlossaryEvent>()
 
     init {
         with(lifecycle) {
@@ -438,7 +438,7 @@ internal class DefaultMessageListComponent(
 
     override fun addToGlossarySource(lemma: String, lang: String) {
         viewModelScope.launch(dispatchers.io) {
-            addToGlossaryEvents.emit(lemma to lang)
+            addToGlossaryEvents.emit(AddToGlossaryEvent(lemma = lemma, lang = lang))
         }
     }
 }

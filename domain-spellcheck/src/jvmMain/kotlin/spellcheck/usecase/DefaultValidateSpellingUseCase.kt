@@ -8,7 +8,10 @@ class DefaultValidateSpellingUseCase(
     private val spelling: Spelling,
     private val dispatchers: CoroutineDispatcherProvider,
 ) : ValidateSpellingUseCase {
-    override suspend fun invoke(input: List<Pair<String, String>>, lang: String): Map<String, List<String>> {
+    override suspend fun invoke(
+        input: List<ValidateSpellingUseCase.InputItem>,
+        lang: String,
+    ): Map<String, List<String>> {
         return withContext(dispatchers.io) {
             spelling.setLanguage(lang)
 

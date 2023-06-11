@@ -30,7 +30,7 @@ class DefaultNewGlossaryTermComponent(
     private lateinit var viewModelScope: CoroutineScope
 
     override lateinit var uiState: StateFlow<NewGlossaryTermUiState>
-    override val done = MutableSharedFlow<Pair<String?, String?>>()
+    override val done = MutableSharedFlow<GlossaryTermPair>()
 
     init {
         with(lifecycle) {
@@ -87,7 +87,7 @@ class DefaultNewGlossaryTermComponent(
         }
 
         viewModelScope.launch(dispatchers.io) {
-            done.emit(source to target)
+            done.emit(GlossaryTermPair(sourceLemma = source, targetLemma = target))
         }
     }
 }

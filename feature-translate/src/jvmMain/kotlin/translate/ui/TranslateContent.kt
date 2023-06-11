@@ -220,8 +220,10 @@ fun TranslateContent(
             NewGlossaryTermDialog(
                 targetTerm = config.target,
                 component = childComponent,
-                onClose = { sourceTerm, targetTerm ->
-                    component.addGlossaryTerm(source = sourceTerm, target = targetTerm)
+                onClose = { termPair ->
+                    if (termPair != null) {
+                        component.addGlossaryTerm(source = termPair.sourceLemma, target = termPair.targetLemma)
+                    }
                     component.closeDialog()
                 },
             )

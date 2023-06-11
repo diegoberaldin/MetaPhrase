@@ -31,18 +31,19 @@ import common.ui.theme.Spacing
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import localized
+import newglossaryterm.presentation.GlossaryTermPair
 import newglossaryterm.presentation.NewGlossaryTermComponent
 
 @Composable
 fun NewGlossaryTermDialog(
     targetTerm: String? = null,
     component: NewGlossaryTermComponent,
-    onClose: ((String?, String?) -> Unit)? = null,
+    onClose: ((GlossaryTermPair?) -> Unit)? = null,
 ) {
     LaunchedEffect(component) {
         component.setTargetTerm(targetTerm.orEmpty())
         component.done.onEach {
-            onClose?.invoke(it.first, it.second)
+            onClose?.invoke(it)
         }.launchIn(this)
     }
     MetaPhraseTheme {
@@ -51,7 +52,7 @@ fun NewGlossaryTermDialog(
             state = rememberWindowState(width = Dp.Unspecified, height = Dp.Unspecified),
             resizable = false,
             onCloseRequest = {
-                onClose?.invoke(null, null)
+                onClose?.invoke(null)
             },
         ) {
             Surface(
@@ -103,7 +104,7 @@ fun NewGlossaryTermDialog(
                             modifier = Modifier.heightIn(max = 25.dp),
                             contentPadding = PaddingValues(0.dp),
                             onClick = {
-                                onClose?.invoke(null, null)
+                                onClose?.invoke(null)
                             },
                         ) {
                             Text(text = "button_cancel".localized(), style = MaterialTheme.typography.button)
