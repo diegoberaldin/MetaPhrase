@@ -31,9 +31,10 @@ internal class DefaultSettingsComponent(
     companion object {
         private val SUPPORTED_LANGUAGES = listOf(
             "en",
-            "it",
-            "es",
+            "de",
             "fr",
+            "es",
+            "it",
             "pt",
         )
     }
