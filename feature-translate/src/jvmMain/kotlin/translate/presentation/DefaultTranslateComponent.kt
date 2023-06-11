@@ -20,6 +20,8 @@ import data.LanguageModel
 import data.ProjectModel
 import data.ResourceFileType
 import data.SegmentModel
+import dialognewsegment.presentation.NewSegmentComponent
+import dialognewterm.presentation.NewGlossaryTermComponent
 import glossary.repo.GlossaryTermRepository
 import ios.usecase.ExportIosResourcesUseCase
 import ios.usecase.ParseIosResourcesUseCase
@@ -44,8 +46,6 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import language.repo.LanguageRepository
-import newglossaryterm.presentation.NewGlossaryTermComponent
-import newsegment.presentation.NewSegmentComponent
 import panelglossary.presentation.GlossaryComponent
 import panelmatches.presentation.TranslationMemoryComponent
 import panelmemory.presentation.BrowseMemoryComponent

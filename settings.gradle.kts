@@ -31,21 +31,22 @@ include(
     ":domain-spellcheck",
     ":domain-glossary",
 
-    ":dialog-settings",
-    ":dialog-newproject",
-    ":dialog-statistics",
-    ":dialog-newsegment",
-    ":dialog-newglossaryterm",
-
     ":feature-main",
+    ":feature-main:dialog:settings",
     ":feature-intro",
+
     ":feature-projects",
     ":feature-projects:list",
+    ":feature-projects:dialog:newproject",
+    ":feature-projects:dialog:statistics",
+
     ":feature-translate",
+    ":feature-translate:dialog:newsegment",
+    ":feature-translate:dialog:newterm",
     ":feature-translate:toolbar",
     ":feature-translate:messages",
-    ":feature-translate:panel-validate",
-    ":feature-translate:panel-matches",
-    ":feature-translate:panel-memory",
-    ":feature-translate:panel-glossary",
+    ":feature-translate:panel:validate",
+    ":feature-translate:panel:matches",
+    ":feature-translate:panel:memory",
+    ":feature-translate:panel:glossary",
 )

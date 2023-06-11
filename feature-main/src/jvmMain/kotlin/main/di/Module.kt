@@ -1,20 +1,20 @@
 package main.di
 
+import dialognewproject.di.dialogNewProjectModule
+import dialogsettings.di.dialogSettingsModule
+import dialogstatistics.di.dialogStatisticsModule
 import intro.di.introModule
 import main.presentation.DefaultRootComponent
 import main.presentation.RootComponent
-import mainsettings.di.mainSettingsModule
 import org.koin.dsl.module
 import projects.di.projectsModule
-import newproject.di.createProjectModule
-import projectstatistics.di.projectStatisticsModule
 
 val mainModule = module {
     includes(projectsModule)
     includes(introModule)
-    includes(mainSettingsModule)
-    includes(createProjectModule)
-    includes(projectStatisticsModule)
+    includes(dialogSettingsModule)
+    includes(dialogNewProjectModule)
+    includes(dialogStatisticsModule)
 
     factory<RootComponent> { params ->
         DefaultRootComponent(

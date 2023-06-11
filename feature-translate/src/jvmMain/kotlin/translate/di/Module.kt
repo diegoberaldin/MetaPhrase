@@ -1,9 +1,9 @@
 package translate.di
 
 import android.di.androidModule
+import dialognewsegment.di.dialogNewSegmentModule
+import dialognewterm.di.dialogNewTermModule
 import ios.di.iosModule
-import newglossaryterm.di.dialogNewGlossaryTermModule
-import newsegment.di.dialogNewSegmentModule
 import org.koin.dsl.module
 import panelglossary.di.panelGlossaryModule
 import panelmatches.di.panelMatchesModule
@@ -22,7 +22,7 @@ val translateModule = module {
     includes(translateMessagesModule)
 
     includes(dialogNewSegmentModule)
-    includes(dialogNewGlossaryTermModule)
+    includes(dialogNewTermModule)
 
     includes(panelMatchesModule)
     includes(panelValidateModule)

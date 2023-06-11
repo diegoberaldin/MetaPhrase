@@ -31,11 +31,11 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import common.ui.theme.Spacing
+import dialognewsegment.presentation.NewSegmentComponent
+import dialognewsegment.ui.NewSegmentDialog
+import dialognewterm.presentation.NewGlossaryTermComponent
+import dialognewterm.ui.NewGlossaryTermDialog
 import localized
-import newglossaryterm.presentation.NewGlossaryTermComponent
-import newglossaryterm.ui.NewGlossaryTermDialog
-import newsegment.presentation.NewSegmentComponent
-import newsegment.ui.NewSegmentDialog
 import org.jetbrains.skiko.Cursor
 import panelglossary.presentation.GlossaryComponent
 import panelglossary.ui.GlossaryContent
