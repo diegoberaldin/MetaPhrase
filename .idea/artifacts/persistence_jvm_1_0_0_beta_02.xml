@@ -1,8 +1,8 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="persistence-jvm-1.0.0-beta-02">
-    <output-path>$PROJECT_DIR$/domain-glossary/persistence/build/libs</output-path>
+    <output-path>$PROJECT_DIR$/domain-tm/persistence/build/libs</output-path>
     <root id="archive" name="persistence-jvm-1.0.0-beta-02.jar">
-      <element id="module-output" name="MetaPhrase.domain-glossary.persistence.jvmMain" />
+      <element id="module-output" name="MetaPhrase.domain-tm.persistence.jvmMain" />
     </root>
   </artifact>
 </component>

@@ -24,11 +24,24 @@ include(
     ":core-persistence",
 
     ":domain-project",
+    ":domain-project:persistence",
+    ":domain-project:repository",
+    ":domain-project:usecase",
+
     ":domain-android",
     ":domain-ios",
+
     ":domain-language",
+    ":domain-language:repository",
+    ":domain-language:usecase",
+
     ":domain-tm",
+    ":domain-tm:persistence",
+    ":domain-tm:repository",
+    ":domain-tm:usecase",
+
     ":domain-spellcheck",
+
     ":domain-glossary",
     ":domain-glossary:persistence",
     ":domain-glossary:repository",

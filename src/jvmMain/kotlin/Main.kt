@@ -29,7 +29,6 @@ import data.ResourceFileType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.runBlocking
-import language.di.languageModule
 import main.di.mainModule
 import main.presentation.RootComponent
 import main.ui.RootContent
@@ -43,7 +42,6 @@ private fun initKoin() {
         modules(
             commonModule,
             persistenceModule,
-            languageModule,
             projectModule,
             mainModule,
         )
@@ -56,6 +54,9 @@ fun main() {
     initKoin()
 
     val log: LogManager = getByInjection()
+    Thread.setDefaultUncaughtExceptionHandler { t, e ->
+        log.exception("Exception in ${t.name}", cause = e)
+    }
 
     // init root component in the main thread outside the application lifecycle
     val lifecycle = LifecycleRegistry()

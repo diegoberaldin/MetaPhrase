@@ -30,6 +30,8 @@ kotlin {
                 implementation(projects.coreData)
 
                 implementation(projects.domainGlossary.persistence)
+                implementation(projects.domainProject.persistence)
+                implementation(projects.domainTm.persistence)
             }
         }
     }

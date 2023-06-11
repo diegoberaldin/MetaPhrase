@@ -34,7 +34,6 @@ kotlin {
                 implementation(projects.corePersistence)
 
                 implementation(projects.domainProject)
-                implementation(projects.domainLanguage)
 
                 implementation(projects.featureMain)
             }

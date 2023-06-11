@@ -45,15 +45,15 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import language.repo.LanguageRepository
+import projectrepository.LanguageRepository
 import panelglossary.presentation.GlossaryComponent
 import panelmatches.presentation.TranslationMemoryComponent
 import panelmemory.presentation.BrowseMemoryComponent
 import panelvalidate.presentation.ValidateComponent
-import repository.repo.ProjectRepository
-import repository.repo.SegmentRepository
-import repository.usecase.ImportSegmentsUseCase
-import repository.usecase.ValidatePlaceholdersUseCase
+import projectrepository.ProjectRepository
+import projectrepository.SegmentRepository
+import projectusecase.ImportSegmentsUseCase
+import projectusecase.ValidatePlaceholdersUseCase
 import spellcheck.usecase.ValidateSpellingUseCase
 import translate.presentation.TranslateComponent.DialogConfig
 import translate.presentation.TranslateComponent.MessageListConfig
@@ -61,8 +61,8 @@ import translate.presentation.TranslateComponent.PanelConfig
 import translate.presentation.TranslateComponent.ToolbarConfig
 import translatemessages.presentation.MessageListComponent
 import translatetoolbar.presentation.TranslateToolbarComponent
-import translationmemory.usecase.ExportTmxUseCase
-import translationmemory.usecase.SyncProjectWithTmUseCase
+import tmusecase.ExportTmxUseCase
+import tmusecase.SyncProjectWithTmUseCase
 import kotlin.coroutines.CoroutineContext
 import kotlin.time.Duration
 

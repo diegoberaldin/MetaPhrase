@@ -1,8 +1,8 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="usecase-jvm-1.0.0-beta-02">
-    <output-path>$PROJECT_DIR$/domain-glossary/usecase/build/libs</output-path>
+    <output-path>$PROJECT_DIR$/domain-tm/usecase/build/libs</output-path>
     <root id="archive" name="usecase-jvm-1.0.0-beta-02.jar">
-      <element id="module-output" name="MetaPhrase.domain-glossary.usecase.jvmMain" />
+      <element id="module-output" name="MetaPhrase.domain-tm.usecase.jvmMain" />
     </root>
   </artifact>
 </component>

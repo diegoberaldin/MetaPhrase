@@ -15,8 +15,8 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import language.usecase.GetCompleteLanguageUseCase
-import translationmemory.repo.MemoryEntryRepository
+import projectusecase.GetCompleteLanguageUseCase
+import tmrepository.MemoryEntryRepository
 import kotlin.coroutines.CoroutineContext
 
 internal class DefaultBrowseMemoryComponent(

@@ -19,9 +19,17 @@
             <option value="$PROJECT_DIR$/domain-glossary/usecase" />
             <option value="$PROJECT_DIR$/domain-ios" />
             <option value="$PROJECT_DIR$/domain-language" />
+            <option value="$PROJECT_DIR$/domain-language/repository" />
+            <option value="$PROJECT_DIR$/domain-language/usecase" />
             <option value="$PROJECT_DIR$/domain-project" />
+            <option value="$PROJECT_DIR$/domain-project/persistence" />
+            <option value="$PROJECT_DIR$/domain-project/repository" />
+            <option value="$PROJECT_DIR$/domain-project/usecase" />
             <option value="$PROJECT_DIR$/domain-spellcheck" />
             <option value="$PROJECT_DIR$/domain-tm" />
+            <option value="$PROJECT_DIR$/domain-tm/persistence" />
+            <option value="$PROJECT_DIR$/domain-tm/repository" />
+            <option value="$PROJECT_DIR$/domain-tm/usecase" />
             <option value="$PROJECT_DIR$/feature-intro" />
             <option value="$PROJECT_DIR$/feature-main" />
             <option value="$PROJECT_DIR$/feature-main/dialog" />

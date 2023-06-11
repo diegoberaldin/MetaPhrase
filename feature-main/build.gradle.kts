@@ -31,8 +31,9 @@ kotlin {
                 implementation(projects.coreData)
                 implementation(projects.coreLocalization)
 
-                implementation(projects.domainProject)
-                implementation(projects.domainTm)
+                implementation(projects.domainProject.repository)
+                implementation(projects.domainProject.usecase)
+                implementation(projects.domainTm.usecase)
 
                 implementation(projects.featureIntro)
                 implementation(projects.featureProjects)

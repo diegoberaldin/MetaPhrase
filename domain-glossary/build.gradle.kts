@@ -26,7 +26,6 @@ kotlin {
 
                 implementation(projects.coreCommon)
                 implementation(projects.coreData)
-                implementation(projects.corePersistence)
 
                 implementation(projects.domainSpellcheck)
                 implementation(projects.domainGlossary.usecase)

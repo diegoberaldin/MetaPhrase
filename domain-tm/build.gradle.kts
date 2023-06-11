@@ -27,11 +27,10 @@ kotlin {
 
                 implementation(projects.coreCommon)
                 implementation(projects.coreData)
-                implementation(projects.coreLocalization)
-                implementation(projects.corePersistence)
 
-                implementation(projects.domainProject)
-                implementation(projects.domainLanguage)
+                implementation(projects.domainTm.persistence)
+                implementation(projects.domainTm.repository)
+                implementation(projects.domainTm.usecase)
             }
         }
     }
