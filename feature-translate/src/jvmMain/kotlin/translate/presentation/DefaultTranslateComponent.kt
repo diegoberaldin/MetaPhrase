@@ -15,10 +15,12 @@ import common.coroutines.CoroutineDispatcherProvider
 import common.notification.NotificationCenter
 import common.utils.asFlow
 import common.utils.getByInjection
+import data.GlossaryTermModel
 import data.LanguageModel
 import data.ProjectModel
 import data.ResourceFileType
 import data.SegmentModel
+import glossary.repo.GlossaryTermRepository
 import ios.usecase.ExportIosResourcesUseCase
 import ios.usecase.ParseIosResourcesUseCase
 import kotlinx.coroutines.CoroutineScope
@@ -81,6 +83,7 @@ internal class DefaultTranslateComponent(
     private val exportToTmx: ExportTmxUseCase,
     private val validateSpelling: ValidateSpellingUseCase,
     private val syncProjectWithTm: SyncProjectWithTmUseCase,
+    private val glossaryTermRepository: GlossaryTermRepository,
 ) : TranslateComponent, ComponentContext by componentContext {
 
     private val project = MutableStateFlow<ProjectModel?>(null)
@@ -220,6 +223,31 @@ internal class DefaultTranslateComponent(
                 projectId = projectId,
                 languageId = getCurrentLanguage()?.id ?: 0,
             )
+        }.launchIn(this)
+        messageListComponent.addToGlossaryEvents.onEach { (lemma, lang) ->
+            val baseLanguage = languageRepository.getBase(projectId) ?: return@onEach
+            if (baseLanguage.code == lang) {
+                // for base language, add immediately
+                val termModel = GlossaryTermModel(
+                    lemma = lemma.lowercase(),
+                    lang = lang,
+                )
+                val existing = glossaryTermRepository.get(lemma, lang)
+                if (existing != null) {
+                    glossaryTermRepository.create(termModel)
+                }
+            } else {
+                // insert variant in dialog
+            }
+            // reload the panel
+            val key = messageListComponent.editedSegment.value?.key
+            if (!key.isNullOrEmpty()) {
+                panel.asFlow<GlossaryComponent>().firstOrNull()?.loadGlossaryTerms(
+                    key = key,
+                    projectId = projectId,
+                    languageId = getCurrentLanguage()?.id ?: 0,
+                )
+            }
         }.launchIn(this)
     }
 

@@ -10,6 +10,7 @@
 	<string name="column_invalid_key">Chiave</string>
 	<string name="column_invalid_missing">Mancante</string>
 	<string name="column_invalid_spelling">Errori ortografici</string>
+	<string name="context_menu_add_glossary">Aggiungi al glossario</string>
 	<string name="context_menu_insert_suggestion">Inserisci: %s</string>
 	<string name="create_project_field_name">Nome</string>
 	<string name="create_project_languages">Lingue</string>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
 	<string name="app_intro">Abrir un proyecto eligiendo entre las siguientes opciones.</string>
-	<string name="app_intro_empty">Parece que no hay ningun proyecto.\nPara crear uno nuevo, utilizar el menú "Proyecto" > "Nuevo…".</string>
-	<string name="app_intro_title">Gracias por utilizar MetaPhrase!</string>
+	<string name="app_intro_empty">Parece que no hay ningún proyecto.\nPara crear uno nuevo, utilizar el menú "Proyecto" > "Nuevo…".</string>
+	<string name="app_intro_title">¡Gracias por utilizar MetaPhrase!</string>
 	<string name="button_cancel">Cancelar</string>
 	<string name="button_close">Cerrar</string>
 	<string name="button_ok">OK</string>
@@ -10,6 +10,7 @@
 	<string name="column_invalid_key">Llave</string>
 	<string name="column_invalid_missing">De falta</string>
 	<string name="column_invalid_spelling">Errores de ortografía</string>
+	<string name="context_menu_add_glossary">Añadir al glosario</string>
 	<string name="context_menu_insert_suggestion">Insertar: %s</string>
 	<string name="create_project_field_name">Nombre</string>
 	<string name="create_project_languages">Idiomas</string>
@@ -19,7 +20,7 @@
 	<string name="dialog_settings_language">Idioma de la aplicación</string>
 	<string name="dialog_settings_similarity_threshold">Límite de semejanza</string>
 	<string name="dialog_settings_spellcheck_enabled">Activar corrector ortográfico</string>
-	<string name="dialog_settings_version">Version de la aplicación</string>
+	<string name="dialog_settings_version">Versión de la aplicación</string>
 	<string name="dialog_statistics_item_completion_rate">% de terminación</string>
 	<string name="dialog_statistics_item_total_languages">Número de idiomas</string>
 	<string name="dialog_statistics_item_total_messages">Número de mensajes</string>
@@ -51,7 +52,7 @@
 	<string name="menu_segment">Mensaje</string>
 	<string name="menu_segment_copy_base">Copiar base</string>
 	<string name="menu_segment_delete">Eliminar</string>
-	<string name="menu_segment_end_edit">Terminar modífica</string>
+	<string name="menu_segment_end_edit">Terminar cambio</string>
 	<string name="menu_segment_new">Nuevo</string>
 	<string name="menu_segment_next">Siguiente</string>
 	<string name="menu_segment_previous">Anterior</string>
@@ -79,8 +80,8 @@
 	<string name="tooltip_copy_base">Copiar desde idioma de base</string>
 	<string name="tooltip_copy_translation">Copiar traducción</string>
 	<string name="tooltip_delete">Eliminar</string>
-	<string name="tooltip_make_translatable">Contraseñar como traducible</string>
-	<string name="tooltip_make_untranslatable">Contraseñar como no traducible</string>
+	<string name="tooltip_make_translatable">Marcar como traducible</string>
+	<string name="tooltip_make_untranslatable">Marcar como no traducible</string>
 	<string name="tooltip_minify">Minimizar</string>
 	<string name="tooltip_move_to_next">Pasar al siguiente</string>
 	<string name="tooltip_move_to_previous">Pasar al anterior</string>
@@ -94,5 +95,5 @@
 	<string name="unit_filter_all">Todos</string>
 	<string name="unit_filter_translatable">Traducibles</string>
 	<string name="unit_filter_untranslated">No traducidos</string>
-	<string name="validation_title">Resultados validación</string>
+	<string name="validation_title">Resultados de la validación</string>
 </resources>

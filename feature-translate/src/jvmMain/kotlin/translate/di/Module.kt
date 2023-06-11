@@ -44,6 +44,7 @@ val translateModule = module {
             exportToTmx = get(),
             validateSpelling = get(),
             syncProjectWithTm = get(),
+            glossaryTermRepository = get(),
         )
     }
 }

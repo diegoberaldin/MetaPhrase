@@ -11,6 +11,7 @@
 	<string name="column_invalid_key">Key</string>
 	<string name="column_invalid_missing">Missing</string>
 	<string name="column_invalid_spelling">Spelling mistakes</string>
+	<string name="context_menu_add_glossary">Add to glossary</string>
 	<string name="context_menu_insert_suggestion">Insert: %s</string>
 	<string name="create_project_field_name">Name</string>
 	<string name="create_project_languages">Languages</string>
