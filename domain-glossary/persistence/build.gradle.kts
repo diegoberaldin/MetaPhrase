@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.compose")
 }
 
-group = "domain.glossary"
+group = "domain.glossary.persistence"
 version = libs.versions.appVersion.get()
 
 repositories {
@@ -23,14 +23,11 @@ kotlin {
                 implementation(compose.desktop.currentOs)
 
                 implementation(libs.koin)
+                implementation(libs.h2database)
+                implementation(libs.bundles.exposed)
 
                 implementation(projects.coreCommon)
                 implementation(projects.coreData)
-                implementation(projects.corePersistence)
-
-                implementation(projects.domainSpellcheck)
-                implementation(projects.domainGlossary.usecase)
-                implementation(projects.domainGlossary.repository)
             }
         }
     }

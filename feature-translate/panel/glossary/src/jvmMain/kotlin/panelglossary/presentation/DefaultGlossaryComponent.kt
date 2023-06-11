@@ -6,8 +6,8 @@ import com.arkivanov.essenty.lifecycle.doOnDestroy
 import common.coroutines.CoroutineDispatcherProvider
 import data.GlossaryTermModel
 import data.LanguageModel
-import glossary.repo.GlossaryTermRepository
-import glossary.usecase.GetGlossaryTermsUseCase
+import glossaryrepository.GlossaryTermRepository
+import glossaryusecase.GetGlossaryTermsUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel

@@ -1,8 +1,8 @@
 package persistence.di
 
+import glossarypersistence.dao.GlossaryTermDao
 import org.koin.dsl.module
 import persistence.AppDatabase
-import persistence.dao.GlossaryTermDao
 import persistence.dao.LanguageDao
 import persistence.dao.MemoryEntryDao
 import persistence.dao.ProjectDao

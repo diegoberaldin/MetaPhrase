@@ -1,4 +1,4 @@
-package glossary.repo
+package glossaryrepository
 
 import data.GlossaryTermModel
 

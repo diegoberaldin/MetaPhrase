@@ -37,7 +37,7 @@ kotlin {
                 implementation(projects.domainIos)
                 implementation(projects.domainSpellcheck)
                 implementation(projects.domainTm)
-                implementation(projects.domainGlossary)
+                implementation(projects.domainGlossary.repository)
 
                 implementation(projects.featureTranslate.toolbar)
                 implementation(projects.featureTranslate.messages)

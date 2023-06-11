@@ -1,4 +1,4 @@
-package persistence.dao
+package glossarypersistence.dao
 
 import data.GlossaryTermModel
 import org.jetbrains.exposed.sql.ResultRow

@@ -28,6 +28,8 @@ kotlin {
 
                 implementation(projects.coreCommon)
                 implementation(projects.coreData)
+
+                implementation(projects.domainGlossary.persistence)
             }
         }
     }

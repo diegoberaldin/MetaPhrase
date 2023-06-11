@@ -1,16 +1,16 @@
 package persistence
 
 import common.files.FileManager
+import glossarypersistence.dao.DefaultGlossaryTermDao
+import glossarypersistence.entities.GlossaryTermEntity
+import glossarypersistence.entities.GlossaryTermRelationshipEntity
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
-import persistence.dao.DefaultGlossaryTermDao
 import persistence.dao.DefaultLanguageDao
 import persistence.dao.DefaultMemoryEntryDao
 import persistence.dao.DefaultProjectDao
 import persistence.dao.DefaultSegmentDao
-import persistence.entities.GlossaryTermEntity
-import persistence.entities.GlossaryTermRelationshipEntity
 import persistence.entities.LanguageEntity
 import persistence.entities.MemoryEntryEntity
 import persistence.entities.MemoryMessageEntity

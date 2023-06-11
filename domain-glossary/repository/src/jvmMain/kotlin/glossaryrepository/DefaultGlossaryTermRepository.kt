@@ -1,7 +1,7 @@
-package glossary.repo
+package glossaryrepository
 
 import data.GlossaryTermModel
-import persistence.dao.GlossaryTermDao
+import glossarypersistence.dao.GlossaryTermDao
 
 internal class DefaultGlossaryTermRepository(
     private val dao: GlossaryTermDao,

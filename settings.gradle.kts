@@ -30,6 +30,9 @@ include(
     ":domain-tm",
     ":domain-spellcheck",
     ":domain-glossary",
+    ":domain-glossary:persistence",
+    ":domain-glossary:repository",
+    ":domain-glossary:usecase",
 
     ":feature-main",
     ":feature-main:dialog:settings",

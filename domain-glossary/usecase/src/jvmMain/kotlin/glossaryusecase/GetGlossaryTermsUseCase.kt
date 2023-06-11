@@ -1,4 +1,4 @@
-package glossary.usecase
+package glossaryusecase
 
 import data.GlossaryTermModel
 

@@ -22,7 +22,7 @@ import data.ResourceFileType
 import data.SegmentModel
 import dialognewsegment.presentation.NewSegmentComponent
 import dialognewterm.presentation.NewGlossaryTermComponent
-import glossary.repo.GlossaryTermRepository
+import glossaryrepository.GlossaryTermRepository
 import ios.usecase.ExportIosResourcesUseCase
 import ios.usecase.ParseIosResourcesUseCase
 import kotlinx.coroutines.CoroutineScope

@@ -1,6 +1,8 @@
-package persistence.dao
+package glossarypersistence.dao
 
 import data.GlossaryTermModel
+import glossarypersistence.entities.GlossaryTermEntity
+import glossarypersistence.entities.GlossaryTermRelationshipEntity
 import org.jetbrains.exposed.sql.JoinType
 import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
@@ -12,10 +14,8 @@ import org.jetbrains.exposed.sql.or
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.update
-import persistence.entities.GlossaryTermEntity
-import persistence.entities.GlossaryTermRelationshipEntity
 
-internal class DefaultGlossaryTermDao : GlossaryTermDao {
+class DefaultGlossaryTermDao : GlossaryTermDao {
     override suspend fun insert(model: GlossaryTermModel): Int = newSuspendedTransaction {
         GlossaryTermEntity.insertIgnore {
             it[lemma] = model.lemma

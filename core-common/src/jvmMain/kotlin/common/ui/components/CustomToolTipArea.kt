@@ -31,6 +31,7 @@ fun CustomTooltipArea(
                 style = MaterialTheme.typography.caption,
                 color = Color.White,
             )
-        }, content = content
+        },
+        content = content,
     )
 }

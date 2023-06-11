@@ -1,8 +1,8 @@
-package glossary.usecase
+package glossaryusecase
 
 import common.coroutines.CoroutineDispatcherProvider
 import data.GlossaryTermModel
-import glossary.repo.GlossaryTermRepository
+import glossaryrepository.GlossaryTermRepository
 import kotlinx.coroutines.withContext
 import spellcheck.spelling.Spelling
 
