@@ -9,7 +9,7 @@ import spellcheck.usecase.DefaultValidateSpellingUseCase
 import spellcheck.usecase.ValidateSpellingUseCase
 
 internal val spellCheckInternalModule = module {
-    single<Spelling> { DefaultSpelling() }
+    factory<Spelling> { DefaultSpelling() }
 }
 
 val spellcheckModule = module {
