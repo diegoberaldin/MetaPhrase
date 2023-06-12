@@ -30,8 +30,8 @@ kotlin {
                 implementation(projects.coreLocalization)
                 implementation(projects.coreData)
 
-                implementation(projects.domainProject)
-                implementation(projects.domainLanguage)
+                implementation(projects.domainProject.repository)
+                implementation(projects.domainProject.repository)
             }
         }
     }

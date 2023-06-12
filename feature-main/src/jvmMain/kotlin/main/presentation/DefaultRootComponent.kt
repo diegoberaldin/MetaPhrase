@@ -21,7 +21,7 @@ import data.ProjectModel
 import data.ResourceFileType
 import dialognewproject.presentation.CreateProjectComponent
 import dialogsettings.ui.SettingsComponent
-import dialogstatistics.ui.StatisticsComponent
+import dialogstatistics.presentation.StatisticsComponent
 import intro.presentation.IntroComponent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -44,10 +44,10 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import projectrepository.ProjectRepository
 import projects.presentation.ProjectsComponent
-import repository.repo.ProjectRepository
-import translationmemory.usecase.ClearTmUseCase
-import translationmemory.usecase.ImportTmxUseCase
+import tmusecase.ClearTmUseCase
+import tmusecase.ImportTmxUseCase
 import kotlin.coroutines.CoroutineContext
 import kotlin.time.Duration
 

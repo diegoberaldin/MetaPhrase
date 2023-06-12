@@ -6,8 +6,8 @@ import com.arkivanov.essenty.lifecycle.doOnDestroy
 import common.coroutines.CoroutineDispatcherProvider
 import data.GlossaryTermModel
 import data.LanguageModel
-import glossary.repo.GlossaryTermRepository
-import glossary.usecase.GetGlossaryTermsUseCase
+import glossaryrepository.GlossaryTermRepository
+import glossaryusecase.GetGlossaryTermsUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
@@ -17,9 +17,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import language.repo.FlagsRepository
-import language.repo.LanguageRepository
-import repository.repo.SegmentRepository
+import projectrepository.FlagsRepository
+import projectrepository.LanguageRepository
+import projectrepository.SegmentRepository
 import kotlin.coroutines.CoroutineContext
 
 internal class DefaultGlossaryComponent(

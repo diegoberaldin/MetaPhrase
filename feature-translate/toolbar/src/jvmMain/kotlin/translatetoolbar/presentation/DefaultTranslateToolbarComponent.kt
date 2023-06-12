@@ -21,8 +21,8 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import language.repo.LanguageRepository
-import language.usecase.GetCompleteLanguageUseCase
+import projectrepository.LanguageRepository
+import projectusecase.GetCompleteLanguageUseCase
 import kotlin.coroutines.CoroutineContext
 
 internal class DefaultTranslateToolbarComponent(

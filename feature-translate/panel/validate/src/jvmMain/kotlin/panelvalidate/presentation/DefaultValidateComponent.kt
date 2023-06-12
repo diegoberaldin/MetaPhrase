@@ -15,10 +15,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import language.repo.LanguageRepository
+import projectrepository.LanguageRepository
 import panelvalidate.data.InvalidPlaceholderReference
 import panelvalidate.data.SpellingMistakeReference
-import repository.repo.SegmentRepository
+import projectrepository.SegmentRepository
 import kotlin.coroutines.CoroutineContext
 
 internal class DefaultValidateComponent(

@@ -31,7 +31,7 @@ kotlin {
                 implementation(projects.coreLocalization)
                 implementation(projects.coreData)
 
-                implementation(projects.domainProject)
+                implementation(projects.domainProject.repository)
             }
         }
     }

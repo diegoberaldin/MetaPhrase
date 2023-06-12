@@ -14,11 +14,22 @@
             <option value="$PROJECT_DIR$/core-persistence" />
             <option value="$PROJECT_DIR$/domain-android" />
             <option value="$PROJECT_DIR$/domain-glossary" />
+            <option value="$PROJECT_DIR$/domain-glossary/persistence" />
+            <option value="$PROJECT_DIR$/domain-glossary/repository" />
+            <option value="$PROJECT_DIR$/domain-glossary/usecase" />
             <option value="$PROJECT_DIR$/domain-ios" />
             <option value="$PROJECT_DIR$/domain-language" />
+            <option value="$PROJECT_DIR$/domain-language/repository" />
+            <option value="$PROJECT_DIR$/domain-language/usecase" />
             <option value="$PROJECT_DIR$/domain-project" />
+            <option value="$PROJECT_DIR$/domain-project/persistence" />
+            <option value="$PROJECT_DIR$/domain-project/repository" />
+            <option value="$PROJECT_DIR$/domain-project/usecase" />
             <option value="$PROJECT_DIR$/domain-spellcheck" />
             <option value="$PROJECT_DIR$/domain-tm" />
+            <option value="$PROJECT_DIR$/domain-tm/persistence" />
+            <option value="$PROJECT_DIR$/domain-tm/repository" />
+            <option value="$PROJECT_DIR$/domain-tm/usecase" />
             <option value="$PROJECT_DIR$/feature-intro" />
             <option value="$PROJECT_DIR$/feature-main" />
             <option value="$PROJECT_DIR$/feature-main/dialog" />
@@ -39,14 +50,6 @@
             <option value="$PROJECT_DIR$/feature-translate/panel/memory" />
             <option value="$PROJECT_DIR$/feature-translate/panel/validate" />
             <option value="$PROJECT_DIR$/feature-translate/toolbar" />
-          </set>
-        </option>
-      </GradleProjectSettings>
-      <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/dialog-newglossaryterm" />
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$/dialog-newglossaryterm" />
           </set>
         </option>
       </GradleProjectSettings>

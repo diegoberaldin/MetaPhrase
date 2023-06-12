@@ -16,9 +16,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import language.repo.LanguageRepository
+import projectrepository.LanguageRepository
 import localized
-import repository.repo.SegmentRepository
+import projectrepository.SegmentRepository
 import kotlin.coroutines.CoroutineContext
 
 internal class DefaultNewSegmentComponent(

@@ -1,7 +1,7 @@
 package dialogstatistics.di
 
-import dialogstatistics.ui.DefaultStatisticsComponent
-import dialogstatistics.ui.StatisticsComponent
+import dialogstatistics.presentation.DefaultStatisticsComponent
+import dialogstatistics.presentation.StatisticsComponent
 import org.koin.dsl.module
 
 val dialogStatisticsModule = module {

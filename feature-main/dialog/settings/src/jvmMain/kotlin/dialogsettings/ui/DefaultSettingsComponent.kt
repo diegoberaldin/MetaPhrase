@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import language.usecase.GetCompleteLanguageUseCase
+import projectusecase.GetCompleteLanguageUseCase
 import localized
 import kotlin.coroutines.CoroutineContext
 

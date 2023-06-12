@@ -19,7 +19,7 @@ import dialognewproject.presentation.CreateProjectComponent
 import dialognewproject.ui.CreateProjectDialog
 import dialogsettings.ui.SettingsComponent
 import dialogsettings.ui.SettingsDialog
-import dialogstatistics.ui.StatisticsComponent
+import dialogstatistics.presentation.StatisticsComponent
 import dialogstatistics.ui.StatisticsDialog
 import intro.presentation.IntroComponent
 import intro.ui.MainEmptyContent

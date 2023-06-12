@@ -25,8 +25,8 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import language.repo.LanguageRepository
-import repository.repo.SegmentRepository
+import projectrepository.LanguageRepository
+import projectrepository.SegmentRepository
 import spellcheck.SpellCheckCorrection
 import spellcheck.repo.SpellCheckRepository
 import kotlin.coroutines.CoroutineContext

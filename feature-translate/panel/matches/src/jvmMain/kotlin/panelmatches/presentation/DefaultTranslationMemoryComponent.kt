@@ -16,8 +16,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import repository.repo.SegmentRepository
-import translationmemory.usecase.GetSimilaritiesUseCase
+import projectrepository.SegmentRepository
+import tmusecase.GetSimilaritiesUseCase
 import kotlin.coroutines.CoroutineContext
 
 internal class DefaultTranslationMemoryComponent(
