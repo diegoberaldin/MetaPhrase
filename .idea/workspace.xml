@@ -1,0 +1,796 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="137cc7e3-908b-4b0d-beca-1914f20518c5" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/core-data">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/core-persistence">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/core-repository">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/core-spellcheck">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/core-translationmemory">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/dialog-newglossaryterm">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/domain-glossary/data">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/domain-glossary/persistence">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/domain-glossary/repository">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/domain-glossary/usecase">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/domain-language/persistence">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/domain-language/repository">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/domain-language/usecase">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/domain-project/persistence">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/domain-project/repository">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/domain-project/usecase">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/domain-tm/persistence">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/domain-tm/repository">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/domain-tm/usecase">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/feature-intro">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/feature-main">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/feature-main/dialog">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/feature-main/settings">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/feature-projects">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/feature-projects/create">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/feature-projects/dialog">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/feature-projects/list">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/feature-projects/statistics">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/feature-translate">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/feature-translate/dialog">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/feature-translate/invalidsegments">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/feature-translate/messages">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/feature-translate/newsegment">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/feature-translate/panel">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/feature-translate/panel-glossary">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/feature-translate/translationmemory">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <task path="$PROJECT_DIR$/core-persistence">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="MetaPhrase" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Kotlin File" />
+        <option value="Kotlin Interface" />
+        <option value="Kotlin Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="refactor_modules" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="GitRewordedCommitMessages">
+    <option name="commitMessagesMapping">
+      <RewordedCommitMessageMapping>
+        <option name="originalMessage" value="start user manual" />
+        <option name="rewordedMessage" value="add user manual" />
+      </RewordedCommitMessageMapping>
+    </option>
+    <option name="currentCommit" value="1" />
+    <option name="onto" value="c5710a82ce3d6afec20982823d03a3cd4f951e8d" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
+  <component name="ProjectId" id="2PqT98XyVsFK0PPt1xWpaAdxynJ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+    <ConfirmationsSetting value="2" id="Remove" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="false" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showScratchesAndConsoles" value="false" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "gh-pages",
+    "jdk.selected.JAVA_MODULE": "corretto-18",
+    "last_opened_file_path": "/Users/diego/Projects/other/MetaPhrase/src/jvmMain/resources/l10n/de",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.27956003",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
+  },
+  "keyToStringList": {
+    "ChangesTree.GroupingKeys": [
+      "module"
+    ],
+    "GitStage.ChangesTree.GroupingKeys": [
+      "repository"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/jvmMain/resources/l10n/de" />
+      <recent name="$PROJECT_DIR$/src/jvmMain/resources/l10n/pt" />
+      <recent name="$PROJECT_DIR$/dialog-newglossaryterm/src/jvmMain/kotlin/newglossaryterm/ui" />
+      <recent name="$PROJECT_DIR$/feature-translate/newsegment/src/jvmMain/kotlin/translatenewsegment/ui" />
+      <recent name="$PROJECT_DIR$/core-persistence/src/jvmMain/kotlin/persistence/di" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/feature-projects/dialog/statistics/src/jvmMain/kotlin/dialogstatistics/presentation" />
+      <recent name="$PROJECT_DIR$/domain-project/usecase/src/jvmMain/kotlin/projectusecase/di" />
+      <recent name="$PROJECT_DIR$/domain-project/repository/src/jvmMain/kotlin/projectrepository/di" />
+      <recent name="$PROJECT_DIR$/domain-language/repository/src/jvmMain/kotlin/languagerepository/di" />
+      <recent name="$PROJECT_DIR$/domain-language/usecase/src/jvmMain/kotlin/languageusecase/di" />
+    </key>
+    <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="tmusecase" />
+      <recent name="tmrepository" />
+      <recent name="tmpersistence.entities" />
+      <recent name="tmpersistence.dao" />
+      <recent name="dialogstatistics.presentation" />
+    </key>
+    <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="repository.usecase" />
+      <recent name="persistence.entities" />
+      <recent name="translatenewsegment.ui" />
+      <recent name="persistence.dao" />
+      <recent name="persistence" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Gradle.MetaPhrase [run]">
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <module />
+      <method />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MetaPhrase [assemble]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="assemble" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <ForceTestExec>false</ForceTestExec>
+      <method v="2" />
+    </configuration>
+    <configuration name="MetaPhrase [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="clean" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <ForceTestExec>false</ForceTestExec>
+      <method v="2" />
+    </configuration>
+    <configuration name="MetaPhrase [packageDmg]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="packageDmg" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <ForceTestExec>false</ForceTestExec>
+      <method v="2" />
+    </configuration>
+    <configuration name="MetaPhrase [run]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="run" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <ForceTestExec>false</ForceTestExec>
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="TestNG">
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <predefined_log_file enabled="true" id="idea.log" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.MetaPhrase [run]" />
+        <item itemvalue="Gradle.MetaPhrase [packageDmg]" />
+        <item itemvalue="Gradle.MetaPhrase [clean]" />
+        <item itemvalue="Gradle.MetaPhrase [run]" />
+        <item itemvalue="Gradle.MetaPhrase [assemble]" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="137cc7e3-908b-4b0d-beca-1914f20518c5" name="Changes" comment="" />
+      <created>1684183458273</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1684183458273</updated>
+    </task>
+    <task id="LOCAL-00094" summary="feat(translate): display spellcheck when editing message">
+      <created>1685907856798</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1685907856798</updated>
+    </task>
+    <task id="LOCAL-00095" summary="refactor(translate): rename panel modules">
+      <created>1685997147901</created>
+      <option name="number" value="00095" />
+      <option name="presentableId" value="LOCAL-00095" />
+      <option name="project" value="LOCAL" />
+      <updated>1685997147902</updated>
+    </task>
+    <task id="LOCAL-00096" summary="refactor(translate): rename panel modules">
+      <created>1685997165378</created>
+      <option name="number" value="00096" />
+      <option name="presentableId" value="LOCAL-00096" />
+      <option name="project" value="LOCAL" />
+      <updated>1685997165378</updated>
+    </task>
+    <task id="LOCAL-00097" summary="refactor(translate): rename panel modules">
+      <created>1685997985404</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1685997985404</updated>
+    </task>
+    <task id="LOCAL-00098" summary="feat(glossary): implementation of glossary panel">
+      <created>1685998634152</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
+      <option name="project" value="LOCAL" />
+      <updated>1685998634152</updated>
+    </task>
+    <task id="LOCAL-00099" summary="feat(glossary): add glossary query and basic display">
+      <created>1686085855085</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
+      <option name="project" value="LOCAL" />
+      <updated>1686085855086</updated>
+    </task>
+    <task id="LOCAL-00100" summary="feat(glossary): add target term and association">
+      <created>1686157730127</created>
+      <option name="number" value="00100" />
+      <option name="presentableId" value="LOCAL-00100" />
+      <option name="project" value="LOCAL" />
+      <updated>1686157730127</updated>
+    </task>
+    <task id="LOCAL-00101" summary="feat(glossary): implement term deletion">
+      <created>1686158802589</created>
+      <option name="number" value="00101" />
+      <option name="presentableId" value="LOCAL-00101" />
+      <option name="project" value="LOCAL" />
+      <updated>1686158802589</updated>
+    </task>
+    <task id="LOCAL-00102" summary="feat(glossary): some layout improvements">
+      <created>1686160124322</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1686160124322</updated>
+    </task>
+    <task id="LOCAL-00103" summary="feat(glossary): some improvements">
+      <created>1686161318540</created>
+      <option name="number" value="00103" />
+      <option name="presentableId" value="LOCAL-00103" />
+      <option name="project" value="LOCAL" />
+      <updated>1686161318540</updated>
+    </task>
+    <task id="LOCAL-00104" summary="feat(glossary): term deletion, layout improvements">
+      <created>1686163384875</created>
+      <option name="number" value="00104" />
+      <option name="presentableId" value="LOCAL-00104" />
+      <option name="project" value="LOCAL" />
+      <updated>1686163384875</updated>
+    </task>
+    <task id="LOCAL-00105" summary="feat(settings): disables spellcheck">
+      <created>1686171616962</created>
+      <option name="number" value="00105" />
+      <option name="presentableId" value="LOCAL-00105" />
+      <option name="project" value="LOCAL" />
+      <updated>1686171616962</updated>
+    </task>
+    <task id="LOCAL-00106" summary="refactor(createProject): move module">
+      <created>1686171901451</created>
+      <option name="number" value="00106" />
+      <option name="presentableId" value="LOCAL-00106" />
+      <option name="project" value="LOCAL" />
+      <updated>1686171901451</updated>
+    </task>
+    <task id="LOCAL-00107" summary="refactor(statistics): move module">
+      <created>1686172090771</created>
+      <option name="number" value="00107" />
+      <option name="presentableId" value="LOCAL-00107" />
+      <option name="project" value="LOCAL" />
+      <updated>1686172090771</updated>
+    </task>
+    <task id="LOCAL-00108" summary="refactor(newSegment): move module">
+      <created>1686172444815</created>
+      <option name="number" value="00108" />
+      <option name="presentableId" value="LOCAL-00108" />
+      <option name="project" value="LOCAL" />
+      <updated>1686172444815</updated>
+    </task>
+    <task id="LOCAL-00109" summary="refactor: cleanup">
+      <created>1686172563534</created>
+      <option name="number" value="00109" />
+      <option name="presentableId" value="LOCAL-00109" />
+      <option name="project" value="LOCAL" />
+      <updated>1686172563534</updated>
+    </task>
+    <task id="LOCAL-00110" summary="fix(spellcheck): improved view and debounce">
+      <created>1686206160791</created>
+      <option name="number" value="00110" />
+      <option name="presentableId" value="LOCAL-00110" />
+      <option name="project" value="LOCAL" />
+      <updated>1686206160791</updated>
+    </task>
+    <task id="LOCAL-00111" summary="feat(spellcheck): WIP">
+      <created>1686207791745</created>
+      <option name="number" value="00111" />
+      <option name="presentableId" value="LOCAL-00111" />
+      <option name="project" value="LOCAL" />
+      <updated>1686207791746</updated>
+    </task>
+    <task id="LOCAL-00112" summary="fix(translate): cursor default position">
+      <created>1686244345086</created>
+      <option name="number" value="00112" />
+      <option name="presentableId" value="LOCAL-00112" />
+      <option name="project" value="LOCAL" />
+      <updated>1686244345086</updated>
+    </task>
+    <task id="LOCAL-00113" summary="fix(validate): fix minify of validate panel">
+      <created>1686244564568</created>
+      <option name="number" value="00113" />
+      <option name="presentableId" value="LOCAL-00113" />
+      <option name="project" value="LOCAL" />
+      <updated>1686244564568</updated>
+    </task>
+    <task id="LOCAL-00114" summary="version 1.0.0-beta-02">
+      <created>1686247156611</created>
+      <option name="number" value="00114" />
+      <option name="presentableId" value="LOCAL-00114" />
+      <option name="project" value="LOCAL" />
+      <updated>1686247156611</updated>
+    </task>
+    <task id="LOCAL-00115" summary="feat(translate): introduce message lazy loading">
+      <created>1686253926693</created>
+      <option name="number" value="00115" />
+      <option name="presentableId" value="LOCAL-00115" />
+      <option name="project" value="LOCAL" />
+      <updated>1686253926693</updated>
+    </task>
+    <task id="LOCAL-00116" summary="fix(translate): navigate to message with specific key">
+      <created>1686278519439</created>
+      <option name="number" value="00116" />
+      <option name="presentableId" value="LOCAL-00116" />
+      <option name="project" value="LOCAL" />
+      <updated>1686278519439</updated>
+    </task>
+    <task id="LOCAL-00117" summary="fix(validate): remove hardcoded message">
+      <created>1686278721278</created>
+      <option name="number" value="00117" />
+      <option name="presentableId" value="LOCAL-00117" />
+      <option name="project" value="LOCAL" />
+      <updated>1686278721278</updated>
+    </task>
+    <task id="LOCAL-00118" summary="refactor(validate): preparation for spelling validation">
+      <created>1686280510038</created>
+      <option name="number" value="00118" />
+      <option name="presentableId" value="LOCAL-00118" />
+      <option name="project" value="LOCAL" />
+      <updated>1686280510039</updated>
+    </task>
+    <task id="LOCAL-00119" summary="refactor(validate): preparation for spelling validation">
+      <created>1686280598449</created>
+      <option name="number" value="00119" />
+      <option name="presentableId" value="LOCAL-00119" />
+      <option name="project" value="LOCAL" />
+      <updated>1686280598449</updated>
+    </task>
+    <task id="LOCAL-00120" summary="feat(validate): spellcheck UI">
+      <created>1686282421630</created>
+      <option name="number" value="00120" />
+      <option name="presentableId" value="LOCAL-00120" />
+      <option name="project" value="LOCAL" />
+      <updated>1686282421630</updated>
+    </task>
+    <task id="LOCAL-00121" summary="feat(validate): implement global spellcheck">
+      <created>1686284351267</created>
+      <option name="number" value="00121" />
+      <option name="presentableId" value="LOCAL-00121" />
+      <option name="project" value="LOCAL" />
+      <updated>1686284351267</updated>
+    </task>
+    <task id="LOCAL-00122" summary="fix(l10n): correct some translation errors">
+      <created>1686286031608</created>
+      <option name="number" value="00122" />
+      <option name="presentableId" value="LOCAL-00122" />
+      <option name="project" value="LOCAL" />
+      <updated>1686286031608</updated>
+    </task>
+    <task id="LOCAL-00123" summary="refactor: introduce presentation packages">
+      <created>1686413032566</created>
+      <option name="number" value="00123" />
+      <option name="presentableId" value="LOCAL-00123" />
+      <option name="project" value="LOCAL" />
+      <updated>1686413032566</updated>
+    </task>
+    <task id="LOCAL-00124" summary="refactor: remove unneeded gradle files">
+      <created>1686413709171</created>
+      <option name="number" value="00124" />
+      <option name="presentableId" value="LOCAL-00124" />
+      <option name="project" value="LOCAL" />
+      <updated>1686413709171</updated>
+    </task>
+    <task id="LOCAL-00125" summary="refactor(translate): code cleanup">
+      <created>1686413948326</created>
+      <option name="number" value="00125" />
+      <option name="presentableId" value="LOCAL-00125" />
+      <option name="project" value="LOCAL" />
+      <updated>1686413948326</updated>
+    </task>
+    <task id="LOCAL-00126" summary="fix(dialogNewSegment): dialog closing">
+      <created>1686417052060</created>
+      <option name="number" value="00126" />
+      <option name="presentableId" value="LOCAL-00126" />
+      <option name="project" value="LOCAL" />
+      <updated>1686417052060</updated>
+    </task>
+    <task id="LOCAL-00127" summary="fix(tm): add project sync with TM">
+      <created>1686437034403</created>
+      <option name="number" value="00127" />
+      <option name="presentableId" value="LOCAL-00127" />
+      <option name="project" value="LOCAL" />
+      <updated>1686437034403</updated>
+    </task>
+    <task id="LOCAL-00128" summary="feat(translate): add directly to glossary for base language">
+      <created>1686471453669</created>
+      <option name="number" value="00128" />
+      <option name="presentableId" value="LOCAL-00128" />
+      <option name="project" value="LOCAL" />
+      <updated>1686471453669</updated>
+    </task>
+    <task id="LOCAL-00129" summary="feat(translate): add to glossary for target language">
+      <created>1686473830033</created>
+      <option name="number" value="00129" />
+      <option name="presentableId" value="LOCAL-00129" />
+      <option name="project" value="LOCAL" />
+      <updated>1686473830033</updated>
+    </task>
+    <task id="LOCAL-00130" summary="feat(translate): add to glossary for target language">
+      <created>1686492146942</created>
+      <option name="number" value="00130" />
+      <option name="presentableId" value="LOCAL-00130" />
+      <option name="project" value="LOCAL" />
+      <updated>1686492146943</updated>
+    </task>
+    <task id="LOCAL-00131" summary="feat(translate): add to glossary for target language">
+      <created>1686497804387</created>
+      <option name="number" value="00131" />
+      <option name="presentableId" value="LOCAL-00131" />
+      <option name="project" value="LOCAL" />
+      <updated>1686497804387</updated>
+    </task>
+    <task id="LOCAL-00132" summary="feat(glossary): reintroduces stemming for glossary match">
+      <created>1686498690702</created>
+      <option name="number" value="00132" />
+      <option name="presentableId" value="LOCAL-00132" />
+      <option name="project" value="LOCAL" />
+      <updated>1686498690702</updated>
+    </task>
+    <task id="LOCAL-00133" summary="refactor: remove some unnecessary pairs">
+      <created>1686499961202</created>
+      <option name="number" value="00133" />
+      <option name="presentableId" value="LOCAL-00133" />
+      <option name="project" value="LOCAL" />
+      <updated>1686499961202</updated>
+    </task>
+    <task id="LOCAL-00134" summary="refactor: remove some unnecessary pairs">
+      <created>1686502348575</created>
+      <option name="number" value="00134" />
+      <option name="presentableId" value="LOCAL-00134" />
+      <option name="project" value="LOCAL" />
+      <updated>1686502348575</updated>
+    </task>
+    <task id="LOCAL-00135" summary="refactor: rearrange modules">
+      <created>1686505572673</created>
+      <option name="number" value="00135" />
+      <option name="presentableId" value="LOCAL-00135" />
+      <option name="project" value="LOCAL" />
+      <updated>1686505572673</updated>
+    </task>
+    <task id="LOCAL-00136" summary="feat(l10n): add French l10n">
+      <created>1686506352030</created>
+      <option name="number" value="00136" />
+      <option name="presentableId" value="LOCAL-00136" />
+      <option name="project" value="LOCAL" />
+      <updated>1686506352030</updated>
+    </task>
+    <task id="LOCAL-00137" summary="feat(l10n): add Portuguese l10n">
+      <created>1686506624107</created>
+      <option name="number" value="00137" />
+      <option name="presentableId" value="LOCAL-00137" />
+      <option name="project" value="LOCAL" />
+      <updated>1686506624107</updated>
+    </task>
+    <task id="LOCAL-00138" summary="feat(l10n): add German l10n">
+      <created>1686507006741</created>
+      <option name="number" value="00138" />
+      <option name="presentableId" value="LOCAL-00138" />
+      <option name="project" value="LOCAL" />
+      <updated>1686507006741</updated>
+    </task>
+    <task id="LOCAL-00139" summary="refactor(glossary): move persistence classes inside module">
+      <created>1686513102515</created>
+      <option name="number" value="00139" />
+      <option name="presentableId" value="LOCAL-00139" />
+      <option name="project" value="LOCAL" />
+      <updated>1686513102515</updated>
+    </task>
+    <task id="LOCAL-00140" summary="refactor: WIP refactoring">
+      <created>1686519932476</created>
+      <option name="number" value="00140" />
+      <option name="presentableId" value="LOCAL-00140" />
+      <option name="project" value="LOCAL" />
+      <updated>1686519932477</updated>
+    </task>
+    <task id="LOCAL-00141" summary="refactor: WIP refactoring">
+      <created>1686551342012</created>
+      <option name="number" value="00141" />
+      <option name="presentableId" value="LOCAL-00141" />
+      <option name="project" value="LOCAL" />
+      <updated>1686551342012</updated>
+    </task>
+    <task id="LOCAL-00142" summary="refactor: WIP refactoring">
+      <created>1686554708476</created>
+      <option name="number" value="00142" />
+      <option name="presentableId" value="LOCAL-00142" />
+      <option name="project" value="LOCAL" />
+      <updated>1686554708476</updated>
+    </task>
+    <option name="localTasksCounter" value="143" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="gh-pages" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="fix(translate): cursor default position" />
+    <MESSAGE value="fix(validate): fix minify of validate panel" />
+    <MESSAGE value="version 1.0.0-beta-02" />
+    <MESSAGE value="feat(translate): introduce message lazy loading" />
+    <MESSAGE value="fix(translate): navigate to message with specific key" />
+    <MESSAGE value="fix(validate): remove hardcoded message" />
+    <MESSAGE value="refactor(validate): preparation for spelling validation" />
+    <MESSAGE value="feat(validate): spellcheck UI" />
+    <MESSAGE value="feat(validate): implement global spellcheck" />
+    <MESSAGE value="fix(l10n): correct some translation errors" />
+    <MESSAGE value="refactor: introduce presentation packages" />
+    <MESSAGE value="refactor: remove unneeded gradle files" />
+    <MESSAGE value="refactor(translate): code cleanup" />
+    <MESSAGE value="fix(dialogNewSegment): dialog closing" />
+    <MESSAGE value="fix(tm): add project sync with TM" />
+    <MESSAGE value="feat(translate): add directly to glossary for base language" />
+    <MESSAGE value="feat(translate): add to glossary for target language" />
+    <MESSAGE value="feat(glossary): reintroduces stemming for glossary match" />
+    <MESSAGE value="refactor: remove some unnecessary pairs" />
+    <MESSAGE value="refactor: rearrange modules" />
+    <MESSAGE value="feat(l10n): add French l10n" />
+    <MESSAGE value="feat(l10n): add Portuguese l10n" />
+    <MESSAGE value="feat(l10n): add German l10n" />
+    <MESSAGE value="refactor(glossary): move persistence classes inside module" />
+    <MESSAGE value="refactor: better encapsulation of domain modules" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: better encapsulation of domain modules" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
