@@ -32,6 +32,7 @@ kotlin {
                 implementation(projects.coreData)
 
                 implementation(projects.domainProject.repository)
+                implementation(projects.domainTm)
                 implementation(projects.domainTm.usecase)
             }
         }

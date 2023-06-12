@@ -33,7 +33,6 @@ kotlin {
 
                 implementation(projects.domainProject.repository)
                 implementation(projects.domainProject.usecase)
-                implementation(projects.domainTm)
                 implementation(projects.domainTm.repository)
             }
         }
