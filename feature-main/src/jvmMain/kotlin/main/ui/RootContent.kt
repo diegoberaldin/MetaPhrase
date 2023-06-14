@@ -105,6 +105,10 @@ fun RootContent(
                             it.endsWith(".strings")
                         }
 
+                        ResourceFileType.WINDOWS_RESX -> {
+                            it.endsWith(".resx")
+                        }
+
                         else -> {
                             false
                         }
@@ -126,6 +130,7 @@ fun RootContent(
                 initialFileName = when (type) {
                     ResourceFileType.ANDROID_XML -> "strings.xml"
                     ResourceFileType.IOS_STRINGS -> "Localizable.strings"
+                    ResourceFileType.WINDOWS_RESX -> "strings.resx"
                     else -> "strings"
                 },
                 onCloseRequest = { path ->

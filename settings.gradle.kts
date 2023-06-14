@@ -30,6 +30,7 @@ include(
 
     ":domain-android",
     ":domain-ios",
+    ":domain-windows",
 
     ":domain-language",
     ":domain-language:repository",

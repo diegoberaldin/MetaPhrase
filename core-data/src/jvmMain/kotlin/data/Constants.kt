@@ -1,5 +1,5 @@
 package data
 
 object Constants {
-    val PlaceholderRegex = Regex("%(?:\\d+\\\$)?[dfsu]")
+    val PlaceholderRegex = Regex("%(?<pos>:\\d+\\\$)?[dfsu]")
 }

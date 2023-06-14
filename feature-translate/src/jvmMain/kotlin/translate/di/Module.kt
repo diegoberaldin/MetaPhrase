@@ -13,21 +13,29 @@ import translate.presentation.DefaultTranslateComponent
 import translate.presentation.TranslateComponent
 import translatemessages.di.translateMessagesModule
 import translatetoolbar.di.translateToolbarModule
+import windows.di.windowsModule
 
 val translateModule = module {
-    includes(androidModule)
-    includes(iosModule)
+    includes(
+        androidModule,
+        iosModule,
+        windowsModule,
+    )
 
     includes(translateToolbarModule)
     includes(translateMessagesModule)
 
-    includes(dialogNewSegmentModule)
-    includes(dialogNewTermModule)
+    includes(
+        dialogNewSegmentModule,
+        dialogNewTermModule,
+    )
 
-    includes(panelMatchesModule)
-    includes(panelValidateModule)
-    includes(panelMemoryModule)
-    includes(panelGlossaryModule)
+    includes(
+        panelMatchesModule,
+        panelValidateModule,
+        panelMemoryModule,
+        panelGlossaryModule,
+    )
 
     factory<TranslateComponent> { params ->
         DefaultTranslateComponent(
@@ -39,9 +47,11 @@ val translateModule = module {
             segmentRepository = get(),
             parseAndroidResources = get(),
             parseIosResources = get(),
+            parseWindowsResources = get(),
             importSegments = get(),
             exportAndroidResources = get(),
             exportIosResources = get(),
+            exportWindowsResources = get(),
             validatePlaceholders = get(),
             notificationCenter = get(),
             exportToTmx = get(),

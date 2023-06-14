@@ -30,6 +30,7 @@
             <option value="$PROJECT_DIR$/domain-tm/persistence" />
             <option value="$PROJECT_DIR$/domain-tm/repository" />
             <option value="$PROJECT_DIR$/domain-tm/usecase" />
+            <option value="$PROJECT_DIR$/domain-windows" />
             <option value="$PROJECT_DIR$/feature-intro" />
             <option value="$PROJECT_DIR$/feature-main" />
             <option value="$PROJECT_DIR$/feature-main/dialog" />

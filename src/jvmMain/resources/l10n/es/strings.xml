@@ -45,8 +45,9 @@
 	<string name="menu_project_edit">Modificar…</string>
 	<string name="menu_project_export">Exportar</string>
 	<string name="menu_project_import">Importar</string>
-	<string name="menu_project_import_android">Android XML…</string>
-	<string name="menu_project_import_ios">iOS stringtable…</string>
+	<string name="menu_project_import_android">XML Android…</string>
+	<string name="menu_project_import_ios">stringtable iOS…</string>
+	<string name="menu_project_import_windows">resx Windows…</string>
 	<string name="menu_project_new">Nuevo…</string>
 	<string name="menu_project_settings">Ajustes…</string>
 	<string name="menu_project_spellcheck">Corrección ortográfica</string>
