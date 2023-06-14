@@ -45,6 +45,7 @@ include(
 
     ":domain-glossary",
     ":domain-glossary:persistence",
+    ":domain-glossary:data",
     ":domain-glossary:repository",
     ":domain-glossary:usecase",
 

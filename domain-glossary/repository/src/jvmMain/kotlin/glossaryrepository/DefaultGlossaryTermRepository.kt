@@ -1,6 +1,6 @@
 package glossaryrepository
 
-import data.GlossaryTermModel
+import glossarydata.GlossaryTermModel
 import glossarypersistence.dao.GlossaryTermDao
 
 internal class DefaultGlossaryTermRepository(

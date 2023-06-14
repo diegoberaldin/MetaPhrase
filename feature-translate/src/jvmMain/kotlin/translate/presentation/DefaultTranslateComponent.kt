@@ -15,7 +15,7 @@ import common.coroutines.CoroutineDispatcherProvider
 import common.notification.NotificationCenter
 import common.utils.asFlow
 import common.utils.getByInjection
-import data.GlossaryTermModel
+import glossarydata.GlossaryTermModel
 import data.LanguageModel
 import data.ProjectModel
 import data.ResourceFileType

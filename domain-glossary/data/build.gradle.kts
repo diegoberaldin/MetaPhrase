@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.compose")
 }
 
-group = "domain.glossary.usecase"
+group = "domain.glossary.data"
 version = libs.versions.appVersion.get()
 
 repositories {
@@ -21,14 +21,6 @@ kotlin {
         val jvmMain by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)
-
-                implementation(libs.koin)
-
-                implementation(projects.coreCommon)
-
-                implementation(projects.domainSpellcheck)
-                implementation(projects.domainGlossary.data)
-                implementation(projects.domainGlossary.repository)
             }
         }
     }

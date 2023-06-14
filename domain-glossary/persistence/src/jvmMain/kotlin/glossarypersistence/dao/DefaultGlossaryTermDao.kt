@@ -1,6 +1,6 @@
 package glossarypersistence.dao
 
-import data.GlossaryTermModel
+import glossarydata.GlossaryTermModel
 import glossarypersistence.entities.GlossaryTermEntity
 import glossarypersistence.entities.GlossaryTermRelationshipEntity
 import org.jetbrains.exposed.sql.JoinType

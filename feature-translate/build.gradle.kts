@@ -40,6 +40,7 @@ kotlin {
                 implementation(projects.domainProject.repository)
                 implementation(projects.domainSpellcheck)
                 implementation(projects.domainTm.usecase)
+                implementation(projects.domainGlossary.data)
                 implementation(projects.domainGlossary.repository)
 
                 implementation(projects.featureTranslate.toolbar)

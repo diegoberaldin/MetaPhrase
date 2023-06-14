@@ -27,7 +27,6 @@ kotlin {
                 implementation(libs.bundles.exposed)
 
                 implementation(projects.coreCommon)
-                implementation(projects.coreData)
 
                 implementation(projects.domainGlossary.persistence)
                 implementation(projects.domainProject.persistence)

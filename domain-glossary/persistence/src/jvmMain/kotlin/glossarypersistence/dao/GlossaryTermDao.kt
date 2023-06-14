@@ -1,6 +1,6 @@
 package glossarypersistence.dao
 
-import data.GlossaryTermModel
+import glossarydata.GlossaryTermModel
 import org.jetbrains.exposed.sql.ResultRow
 
 interface GlossaryTermDao {

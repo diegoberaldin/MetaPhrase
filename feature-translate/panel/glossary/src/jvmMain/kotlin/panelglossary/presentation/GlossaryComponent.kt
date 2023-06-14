@@ -1,6 +1,6 @@
 package panelglossary.presentation
 
-import data.GlossaryTermModel
+import glossarydata.GlossaryTermModel
 import kotlinx.coroutines.flow.StateFlow
 
 interface GlossaryComponent {
