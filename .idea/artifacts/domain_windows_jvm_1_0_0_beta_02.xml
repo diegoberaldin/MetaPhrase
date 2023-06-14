@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="domain-windows-jvm-1.0.0-beta-02">
+    <output-path>$PROJECT_DIR$/domain-windows/build/libs</output-path>
+    <root id="archive" name="domain-windows-jvm-1.0.0-beta-02.jar">
+      <element id="module-output" name="MetaPhrase.domain-windows.jvmMain" />
+    </root>
+  </artifact>
+</component>

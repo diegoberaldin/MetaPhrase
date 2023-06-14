@@ -47,7 +47,8 @@
 	<string name="menu_project_export">Exporter</string>
 	<string name="menu_project_import">Importer</string>
 	<string name="menu_project_import_android">XML Android…</string>
-	<string name="menu_project_import_ios">Tableau de chaînes iOS…</string>
+	<string name="menu_project_import_ios">stringtable iOS…</string>
+	<string name="menu_project_import_windows">resx Windows…</string>
 	<string name="menu_project_new">Nouveau…</string>
 	<string name="menu_project_settings">Paramètres…</string>
 	<string name="menu_project_spellcheck">Vérifier l\'orthographe</string>

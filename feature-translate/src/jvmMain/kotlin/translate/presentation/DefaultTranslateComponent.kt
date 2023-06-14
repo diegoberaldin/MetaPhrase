@@ -45,24 +45,26 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import projectrepository.LanguageRepository
 import panelglossary.presentation.GlossaryComponent
 import panelmatches.presentation.TranslationMemoryComponent
 import panelmemory.presentation.BrowseMemoryComponent
 import panelvalidate.presentation.ValidateComponent
+import projectrepository.LanguageRepository
 import projectrepository.ProjectRepository
 import projectrepository.SegmentRepository
 import projectusecase.ImportSegmentsUseCase
 import projectusecase.ValidatePlaceholdersUseCase
 import spellcheck.usecase.ValidateSpellingUseCase
+import tmusecase.ExportTmxUseCase
+import tmusecase.SyncProjectWithTmUseCase
 import translate.presentation.TranslateComponent.DialogConfig
 import translate.presentation.TranslateComponent.MessageListConfig
 import translate.presentation.TranslateComponent.PanelConfig
 import translate.presentation.TranslateComponent.ToolbarConfig
 import translatemessages.presentation.MessageListComponent
 import translatetoolbar.presentation.TranslateToolbarComponent
-import tmusecase.ExportTmxUseCase
-import tmusecase.SyncProjectWithTmUseCase
+import windows.usecase.ExportWindowsResourcesUseCase
+import windows.usecase.ParseWindowsResourcesUseCase
 import kotlin.coroutines.CoroutineContext
 import kotlin.time.Duration
 
@@ -76,9 +78,11 @@ internal class DefaultTranslateComponent(
     private val segmentRepository: SegmentRepository,
     private val parseAndroidResources: ParseAndroidResourcesUseCase,
     private val parseIosResources: ParseIosResourcesUseCase,
+    private val parseWindowsResources: ParseWindowsResourcesUseCase,
     private val importSegments: ImportSegmentsUseCase,
     private val exportAndroidResources: ExportAndroidResourcesUseCase,
     private val exportIosResources: ExportIosResourcesUseCase,
+    private val exportWindowsResources: ExportWindowsResourcesUseCase,
     private val validatePlaceholders: ValidatePlaceholdersUseCase,
     private val notificationCenter: NotificationCenter,
     private val exportToTmx: ExportTmxUseCase,
@@ -454,6 +458,15 @@ internal class DefaultTranslateComponent(
                     )
                 }
 
+                ResourceFileType.WINDOWS_RESX -> {
+                    val segments = parseWindowsResources(path = path)
+                    importSegments(
+                        segments = segments,
+                        language = language,
+                        projectId = projectId,
+                    )
+                }
+
                 else -> Unit
             }
             delay(100)
@@ -487,6 +500,21 @@ internal class DefaultTranslateComponent(
                         segments
                     }
                     exportIosResources(
+                        segments = toExport,
+                        path = path,
+                    )
+                }
+
+                ResourceFileType.WINDOWS_RESX -> {
+                    // for Windows too it is needed to copy the base version of all untranslatable segments
+                    val baseLanguage = languageRepository.getBase(projectId)
+                    val toExport = if (baseLanguage != null) {
+                        val untranslatable = segmentRepository.getUntranslatable(baseLanguage.id)
+                        segments + untranslatable
+                    } else {
+                        segments
+                    }
+                    exportWindowsResources(
                         segments = toExport,
                         path = path,
                     )

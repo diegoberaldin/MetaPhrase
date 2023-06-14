@@ -169,6 +169,11 @@ private fun MenuBarScope.makeMenus(
             ) {
                 rootComponent.openImportDialog(ResourceFileType.IOS_STRINGS)
             }
+            Item(
+                text = "menu_project_import_windows".localized(),
+            ) {
+                rootComponent.openImportDialog(ResourceFileType.WINDOWS_RESX)
+            }
         }
         Menu(
             text = "menu_project_export".localized(),
@@ -183,6 +188,11 @@ private fun MenuBarScope.makeMenus(
                 text = "menu_project_import_ios".localized(),
             ) {
                 rootComponent.openExportDialog(ResourceFileType.IOS_STRINGS)
+            }
+            Item(
+                text = "menu_project_import_windows".localized(),
+            ) {
+                rootComponent.openExportDialog(ResourceFileType.WINDOWS_RESX)
             }
         }
         Separator()
