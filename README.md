@@ -40,21 +40,21 @@ The bottom part of the main screen contains an expandable panel which gives acce
   <img width="900" alt="validation" src="https://github.com/diegoberaldin/MetaPhrase/assets/2738294/b5188272-4aef-4e75-84ee-51a92cd5ec83">
 </div>
 
-## Tech notes
+## Technology
 
 If you are a developer and would like to know more about the technologies involved in the project, here is a short list:
 
-- Kotlin multiplatform (JVM flavour)
-- Compose multiplatform for UI
-- Decompose for architecture
+- Kotlin multiplatform
+- Compose multiplatform
+- Decompose navigation
 - Koin for DI
-- H2 database as main storage
-- JetBrains Exposed as ORM
+- H2 database
+- JetBrains Exposed ORM
 - Redundent for XML generation
+- AndroidX datastore (preference based)
 - sl4j and log4j for logging to console and to file
-- AndroidX datastore (preference based) as secondary storage
 
-This is a Gradle project, so please use Gradle to compile and run it. Make sure you have a JDK >= 18.
+More on this in the [tech notes](https://diegoberaldin.github.io/MetaPhrase/tech_manual/main) section of the project homepage.
 
 ## What's next
 
