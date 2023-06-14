@@ -3,7 +3,7 @@ package tmusecase
 import common.coroutines.CoroutineDispatcherProvider
 import common.utils.lastPathSegment
 import common.utils.stripExtension
-import data.TranslationMemoryEntryModel
+import tmdata.TranslationMemoryEntryModel
 import kotlinx.coroutines.withContext
 import org.redundent.kotlin.xml.Node
 import org.redundent.kotlin.xml.TextElement

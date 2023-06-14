@@ -28,6 +28,7 @@
             <option value="$PROJECT_DIR$/domain-project/usecase" />
             <option value="$PROJECT_DIR$/domain-spellcheck" />
             <option value="$PROJECT_DIR$/domain-tm" />
+            <option value="$PROJECT_DIR$/domain-tm/data" />
             <option value="$PROJECT_DIR$/domain-tm/persistence" />
             <option value="$PROJECT_DIR$/domain-tm/repository" />
             <option value="$PROJECT_DIR$/domain-tm/usecase" />

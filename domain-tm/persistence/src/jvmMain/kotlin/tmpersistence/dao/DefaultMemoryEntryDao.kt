@@ -1,6 +1,5 @@
 package tmpersistence.dao
 
-import data.TranslationMemoryEntryModel
 import org.jetbrains.exposed.sql.JoinType
 import org.jetbrains.exposed.sql.LikePattern
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
@@ -12,6 +11,7 @@ import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.update
+import tmdata.TranslationMemoryEntryModel
 import tmpersistence.entities.MemoryEntryEntity
 import tmpersistence.entities.MemoryMessageEntity
 

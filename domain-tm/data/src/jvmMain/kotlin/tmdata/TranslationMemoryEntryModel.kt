@@ -1,4 +1,4 @@
-package data
+package tmdata
 
 data class TranslationMemoryEntryModel(
     val id: Int = 0,

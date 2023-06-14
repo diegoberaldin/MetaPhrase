@@ -37,6 +37,7 @@ include(
     ":domain-language:usecase",
 
     ":domain-tm",
+    ":domain-tm:data",
     ":domain-tm:persistence",
     ":domain-tm:repository",
     ":domain-tm:usecase",

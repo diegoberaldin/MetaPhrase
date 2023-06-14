@@ -1,11 +1,11 @@
 package tmusecase
 
 import common.coroutines.CoroutineDispatcherProvider
-import data.TranslationMemoryEntryModel
 import kotlinx.coroutines.withContext
 import projectrepository.LanguageRepository
 import projectrepository.ProjectRepository
 import projectrepository.SegmentRepository
+import tmdata.TranslationMemoryEntryModel
 import tmrepository.MemoryEntryRepository
 
 internal class DefaultSyncProjectWithTmUseCase(

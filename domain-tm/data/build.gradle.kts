@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.compose")
 }
 
-group = "domain.tm.persistence"
+group = "domain.tm.data"
 version = libs.versions.appVersion.get()
 
 repositories {
@@ -21,12 +21,6 @@ kotlin {
         val jvmMain by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)
-
-                implementation(libs.koin)
-                implementation(libs.h2database)
-                implementation(libs.bundles.exposed)
-
-                implementation(projects.domainTm.data)
             }
         }
     }

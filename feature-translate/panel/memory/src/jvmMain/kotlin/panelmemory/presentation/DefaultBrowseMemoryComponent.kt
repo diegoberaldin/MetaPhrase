@@ -6,7 +6,6 @@ import com.arkivanov.essenty.lifecycle.doOnDestroy
 import common.coroutines.CoroutineDispatcherProvider
 import common.utils.combine
 import data.LanguageModel
-import data.TranslationMemoryEntryModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
@@ -16,6 +15,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import projectusecase.GetCompleteLanguageUseCase
+import tmdata.TranslationMemoryEntryModel
 import tmrepository.MemoryEntryRepository
 import kotlin.coroutines.CoroutineContext
 

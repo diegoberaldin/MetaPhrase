@@ -29,6 +29,7 @@ kotlin {
                 implementation(projects.coreData)
                 implementation(projects.coreLocalization)
 
+                implementation(projects.domainTm.data)
                 implementation(projects.domainTm.repository)
                 implementation(projects.domainProject.repository)
             }
