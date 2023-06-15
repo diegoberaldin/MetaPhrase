@@ -172,7 +172,12 @@ private fun MenuBarScope.makeMenus(
             Item(
                 text = "menu_project_import_windows".localized(),
             ) {
-                rootComponent.openImportDialog(ResourceFileType.WINDOWS_RESX)
+                rootComponent.openImportDialog(ResourceFileType.RESX)
+            }
+            Item(
+                text = "menu_project_import_po".localized(),
+            ) {
+                rootComponent.openImportDialog(ResourceFileType.PO)
             }
         }
         Menu(
@@ -192,7 +197,12 @@ private fun MenuBarScope.makeMenus(
             Item(
                 text = "menu_project_import_windows".localized(),
             ) {
-                rootComponent.openExportDialog(ResourceFileType.WINDOWS_RESX)
+                rootComponent.openExportDialog(ResourceFileType.RESX)
+            }
+            Item(
+                text = "menu_project_import_po".localized(),
+            ) {
+                rootComponent.openExportDialog(ResourceFileType.PO)
             }
         }
         Separator()

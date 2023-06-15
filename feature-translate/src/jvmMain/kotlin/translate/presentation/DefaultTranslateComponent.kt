@@ -1,7 +1,5 @@
 package translate.presentation
 
-import android.usecase.ExportAndroidResourcesUseCase
-import android.usecase.ParseAndroidResourcesUseCase
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.slot.ChildSlot
 import com.arkivanov.decompose.router.slot.SlotNavigation
@@ -15,16 +13,18 @@ import common.coroutines.CoroutineDispatcherProvider
 import common.notification.NotificationCenter
 import common.utils.asFlow
 import common.utils.getByInjection
-import glossarydata.GlossaryTermModel
-import projectdata.LanguageModel
-import projectdata.ProjectModel
-import projectdata.ResourceFileType
-import projectdata.SegmentModel
 import dialognewsegment.presentation.NewSegmentComponent
 import dialognewterm.presentation.NewGlossaryTermComponent
+import formatsandroid.usecase.ExportAndroidResourcesUseCase
+import formatsandroid.usecase.ParseAndroidResourcesUseCase
+import formatsios.usecase.ExportIosResourcesUseCase
+import formatsios.usecase.ParseIosResourcesUseCase
+import formatspo.usecase.ExportPoUseCase
+import formatspo.usecase.ParsePoUseCase
+import formatsresx.usecase.ExportResxUseCase
+import formatsresx.usecase.ParseResxUseCase
+import glossarydata.GlossaryTermModel
 import glossaryrepository.GlossaryTermRepository
-import ios.usecase.ExportIosResourcesUseCase
-import ios.usecase.ParseIosResourcesUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.SupervisorJob
@@ -49,6 +49,10 @@ import panelglossary.presentation.GlossaryComponent
 import panelmatches.presentation.TranslationMemoryComponent
 import panelmemory.presentation.BrowseMemoryComponent
 import panelvalidate.presentation.ValidateComponent
+import projectdata.LanguageModel
+import projectdata.ProjectModel
+import projectdata.ResourceFileType
+import projectdata.SegmentModel
 import projectrepository.LanguageRepository
 import projectrepository.ProjectRepository
 import projectrepository.SegmentRepository
@@ -63,8 +67,6 @@ import translate.presentation.TranslateComponent.PanelConfig
 import translate.presentation.TranslateComponent.ToolbarConfig
 import translatemessages.presentation.MessageListComponent
 import translatetoolbar.presentation.TranslateToolbarComponent
-import windows.usecase.ExportWindowsResourcesUseCase
-import windows.usecase.ParseWindowsResourcesUseCase
 import kotlin.coroutines.CoroutineContext
 import kotlin.time.Duration
 
@@ -78,11 +80,13 @@ internal class DefaultTranslateComponent(
     private val segmentRepository: SegmentRepository,
     private val parseAndroidResources: ParseAndroidResourcesUseCase,
     private val parseIosResources: ParseIosResourcesUseCase,
-    private val parseWindowsResources: ParseWindowsResourcesUseCase,
+    private val parseResx: ParseResxUseCase,
+    private val parsePo: ParsePoUseCase,
     private val importSegments: ImportSegmentsUseCase,
     private val exportAndroidResources: ExportAndroidResourcesUseCase,
     private val exportIosResources: ExportIosResourcesUseCase,
-    private val exportWindowsResources: ExportWindowsResourcesUseCase,
+    private val exportResx: ExportResxUseCase,
+    private val exportPo: ExportPoUseCase,
     private val validatePlaceholders: ValidatePlaceholdersUseCase,
     private val notificationCenter: NotificationCenter,
     private val exportToTmx: ExportTmxUseCase,
@@ -439,36 +443,19 @@ internal class DefaultTranslateComponent(
             val messageListComponent = messageList.asFlow<MessageListComponent>().firstOrNull()
             messageListComponent?.setEditingEnabled(false)
             messageListComponent?.clearMessages()
-            when (type) {
-                ResourceFileType.ANDROID_XML -> {
-                    val segments = parseAndroidResources(path = path)
-                    importSegments(
-                        segments = segments,
-                        language = language,
-                        projectId = projectId,
-                    )
-                }
-
-                ResourceFileType.IOS_STRINGS -> {
-                    val segments = parseIosResources(path = path)
-                    importSegments(
-                        segments = segments,
-                        language = language,
-                        projectId = projectId,
-                    )
-                }
-
-                ResourceFileType.WINDOWS_RESX -> {
-                    val segments = parseWindowsResources(path = path)
-                    importSegments(
-                        segments = segments,
-                        language = language,
-                        projectId = projectId,
-                    )
-                }
-
-                else -> Unit
+            val segments = when (type) {
+                ResourceFileType.ANDROID_XML -> parseAndroidResources(path = path)
+                ResourceFileType.IOS_STRINGS -> parseIosResources(path = path)
+                ResourceFileType.RESX -> parseResx(path = path)
+                ResourceFileType.PO -> parsePo(path = path)
+                else -> emptyList()
             }
+            importSegments(
+                segments = segments,
+                language = language,
+                projectId = projectId,
+            )
+
             delay(100)
             updateUnitCount()
             messageListComponent?.refresh()
@@ -505,8 +492,8 @@ internal class DefaultTranslateComponent(
                     )
                 }
 
-                ResourceFileType.WINDOWS_RESX -> {
-                    // for Windows too it is needed to copy the base version of all untranslatable segments
+                ResourceFileType.RESX -> {
+                    // idem for untranslatable segments
                     val baseLanguage = languageRepository.getBase(projectId)
                     val toExport = if (baseLanguage != null) {
                         val untranslatable = segmentRepository.getUntranslatable(baseLanguage.id)
@@ -514,9 +501,25 @@ internal class DefaultTranslateComponent(
                     } else {
                         segments
                     }
-                    exportWindowsResources(
+                    exportResx(
                         segments = toExport,
                         path = path,
+                    )
+                }
+
+                ResourceFileType.PO -> {
+                    // idem for untranslatable segments
+                    val baseLanguage = languageRepository.getBase(projectId)
+                    val toExport = if (baseLanguage != null) {
+                        val untranslatable = segmentRepository.getUntranslatable(baseLanguage.id)
+                        segments + untranslatable
+                    } else {
+                        segments
+                    }
+                    exportPo(
+                        segments = toExport,
+                        path = path,
+                        lang = language.code,
                     )
                 }
 

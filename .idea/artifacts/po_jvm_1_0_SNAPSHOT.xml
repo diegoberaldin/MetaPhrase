@@ -1,0 +1,6 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="po-jvm-1.0-SNAPSHOT">
+    <output-path>$PROJECT_DIR$/domain-formats/po/build/libs</output-path>
+    <root id="archive" name="po-jvm-1.0-SNAPSHOT.jar" />
+  </artifact>
+</component>

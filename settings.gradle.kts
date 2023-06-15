@@ -28,9 +28,11 @@ include(
     ":domain-project:repository",
     ":domain-project:usecase",
 
-    ":domain-android",
-    ":domain-ios",
-    ":domain-windows",
+    ":domain-formats",
+    ":domain-formats:android",
+    ":domain-formats:ios",
+    ":domain-formats:resx",
+    ":domain-formats:po",
 
     ":domain-language",
     ":domain-language:repository",
