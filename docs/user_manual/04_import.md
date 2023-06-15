@@ -6,6 +6,7 @@ Here is the list of supported file formats for import:
 -  Android XML resource (aka `strings.xml`)
 -  iOS stringtables (aka `Localizable.strings`)
 -  Windows resources (aka `Resources.resx`)
+- GNU gettext PO files (`messages.po`)
 
 Since these files are monolingual, the keys and segments will be imported for the language that is currently selected in the translate toolbar. The Android XML format support untranslatable files, so if you select an XML format as input, the imported messages will already have the translatable/untranslatable field set automatically.
 
