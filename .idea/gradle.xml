@@ -9,11 +9,11 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/core-common" />
-            <option value="$PROJECT_DIR$/core-data" />
             <option value="$PROJECT_DIR$/core-localization" />
             <option value="$PROJECT_DIR$/core-persistence" />
             <option value="$PROJECT_DIR$/domain-android" />
             <option value="$PROJECT_DIR$/domain-glossary" />
+            <option value="$PROJECT_DIR$/domain-glossary/data" />
             <option value="$PROJECT_DIR$/domain-glossary/persistence" />
             <option value="$PROJECT_DIR$/domain-glossary/repository" />
             <option value="$PROJECT_DIR$/domain-glossary/usecase" />
@@ -22,11 +22,13 @@
             <option value="$PROJECT_DIR$/domain-language/repository" />
             <option value="$PROJECT_DIR$/domain-language/usecase" />
             <option value="$PROJECT_DIR$/domain-project" />
+            <option value="$PROJECT_DIR$/domain-project/data" />
             <option value="$PROJECT_DIR$/domain-project/persistence" />
             <option value="$PROJECT_DIR$/domain-project/repository" />
             <option value="$PROJECT_DIR$/domain-project/usecase" />
             <option value="$PROJECT_DIR$/domain-spellcheck" />
             <option value="$PROJECT_DIR$/domain-tm" />
+            <option value="$PROJECT_DIR$/domain-tm/data" />
             <option value="$PROJECT_DIR$/domain-tm/persistence" />
             <option value="$PROJECT_DIR$/domain-tm/repository" />
             <option value="$PROJECT_DIR$/domain-tm/usecase" />

@@ -1,4 +1,4 @@
-package data
+package projectdata
 
 data class SegmentModel(
     val id: Int = 0,

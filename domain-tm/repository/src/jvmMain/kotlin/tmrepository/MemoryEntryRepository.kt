@@ -1,6 +1,6 @@
 package tmrepository
 
-import data.TranslationMemoryEntryModel
+import tmdata.TranslationMemoryEntryModel
 
 interface MemoryEntryRepository {
     suspend fun create(model: TranslationMemoryEntryModel): Int

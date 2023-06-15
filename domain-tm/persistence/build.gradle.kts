@@ -26,7 +26,7 @@ kotlin {
                 implementation(libs.h2database)
                 implementation(libs.bundles.exposed)
 
-                implementation(projects.coreData)
+                implementation(projects.domainTm.data)
             }
         }
     }

@@ -4,8 +4,8 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import common.coroutines.CoroutineDispatcherProvider
-import data.LanguageModel
-import data.SegmentModel
+import projectdata.LanguageModel
+import projectdata.SegmentModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel

@@ -26,7 +26,7 @@ kotlin {
                 implementation(libs.redundent)
 
                 implementation(projects.coreCommon)
-                implementation(projects.coreData)
+                implementation(projects.domainProject.data)
             }
         }
     }

@@ -20,10 +20,10 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(
     ":core-common",
     ":core-localization",
-    ":core-data",
     ":core-persistence",
 
     ":domain-project",
+    ":domain-project:data",
     ":domain-project:persistence",
     ":domain-project:repository",
     ":domain-project:usecase",
@@ -37,6 +37,7 @@ include(
     ":domain-language:usecase",
 
     ":domain-tm",
+    ":domain-tm:data",
     ":domain-tm:persistence",
     ":domain-tm:repository",
     ":domain-tm:usecase",
@@ -45,6 +46,7 @@ include(
 
     ":domain-glossary",
     ":domain-glossary:persistence",
+    ":domain-glossary:data",
     ":domain-glossary:repository",
     ":domain-glossary:usecase",
 

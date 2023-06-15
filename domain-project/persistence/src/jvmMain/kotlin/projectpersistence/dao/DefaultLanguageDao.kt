@@ -1,6 +1,6 @@
 package projectpersistence.dao
 
-import data.LanguageModel
+import projectdata.LanguageModel
 import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.and

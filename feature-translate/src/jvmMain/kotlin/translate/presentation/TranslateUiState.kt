@@ -1,6 +1,6 @@
 package translate.presentation
 
-import data.ProjectModel
+import projectdata.ProjectModel
 
 data class TranslateUiState(
     val project: ProjectModel? = null,

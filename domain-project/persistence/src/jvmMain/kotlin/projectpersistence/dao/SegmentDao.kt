@@ -1,7 +1,7 @@
 package projectpersistence.dao
 
-import data.SegmentModel
-import data.TranslationUnitTypeFilter
+import projectdata.SegmentModel
+import projectdata.TranslationUnitTypeFilter
 import org.jetbrains.exposed.sql.ResultRow
 
 interface SegmentDao {

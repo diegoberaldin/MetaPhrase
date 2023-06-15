@@ -30,10 +30,10 @@ kotlin {
 
                 implementation(projects.coreCommon)
                 implementation(projects.coreLocalization)
-                implementation(projects.coreData)
                 implementation(projects.corePersistence)
 
                 implementation(projects.domainProject)
+                implementation(projects.domainProject.data)
 
                 implementation(projects.featureMain)
             }

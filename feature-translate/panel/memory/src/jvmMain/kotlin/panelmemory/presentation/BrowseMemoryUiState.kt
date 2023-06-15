@@ -1,7 +1,7 @@
 package panelmemory.presentation
 
-import data.LanguageModel
-import data.TranslationMemoryEntryModel
+import projectdata.LanguageModel
+import tmdata.TranslationMemoryEntryModel
 
 data class BrowseMemoryUiState(
     val sourceLanguage: LanguageModel? = null,

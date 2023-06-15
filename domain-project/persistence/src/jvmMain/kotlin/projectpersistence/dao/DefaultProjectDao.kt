@@ -1,6 +1,6 @@
 package projectpersistence.dao
 
-import data.ProjectModel
+import projectdata.ProjectModel
 import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.deleteWhere

@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import common.ui.theme.Spacing
-import data.GlossaryTermModel
+import glossarydata.GlossaryTermModel
 import localized
 
 @Composable

@@ -1,4 +1,4 @@
-package data
+package projectdata
 
 data class TranslationUnit(
     val segment: SegmentModel,

@@ -1,6 +1,6 @@
 package tmusecase.datasource
 
-import data.TranslationUnit
+import projectdata.TranslationUnit
 
 internal interface TranslationUnitSource {
     suspend fun getUnits(

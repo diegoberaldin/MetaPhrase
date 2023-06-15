@@ -1,6 +1,6 @@
 package tmrepository
 
-import data.TranslationMemoryEntryModel
+import tmdata.TranslationMemoryEntryModel
 import tmpersistence.dao.MemoryEntryDao
 
 internal class DefaultMemoryEntryRepository(

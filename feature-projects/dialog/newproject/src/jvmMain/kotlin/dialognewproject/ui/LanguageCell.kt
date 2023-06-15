@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import common.ui.components.CustomTooltipArea
 import common.ui.theme.SelectedBackground
 import common.ui.theme.Spacing
-import data.LanguageModel
+import projectdata.LanguageModel
 import localized
 
 @Composable

@@ -6,10 +6,10 @@ import com.arkivanov.essenty.lifecycle.doOnDestroy
 import common.coroutines.CoroutineDispatcherProvider
 import common.keystore.TemporaryKeyStore
 import common.notification.NotificationCenter
-import data.LanguageModel
-import data.SegmentModel
-import data.TranslationUnit
-import data.TranslationUnitTypeFilter
+import projectdata.LanguageModel
+import projectdata.SegmentModel
+import projectdata.TranslationUnit
+import projectdata.TranslationUnitTypeFilter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob

@@ -14,7 +14,7 @@ import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import common.ui.components.CustomOpenFileDialog
 import common.ui.components.CustomSaveFileDialog
 import common.ui.theme.Spacing
-import data.ResourceFileType
+import projectdata.ResourceFileType
 import dialognewproject.presentation.CreateProjectComponent
 import dialognewproject.ui.CreateProjectDialog
 import dialogsettings.ui.SettingsComponent

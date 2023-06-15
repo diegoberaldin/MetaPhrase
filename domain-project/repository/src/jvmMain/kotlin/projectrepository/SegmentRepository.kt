@@ -1,7 +1,7 @@
 package projectrepository
 
-import data.SegmentModel
-import data.TranslationUnitTypeFilter
+import projectdata.SegmentModel
+import projectdata.TranslationUnitTypeFilter
 
 interface SegmentRepository {
     suspend fun create(model: SegmentModel, languageId: Int): Int

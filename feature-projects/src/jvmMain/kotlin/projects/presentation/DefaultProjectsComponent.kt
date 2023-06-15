@@ -13,9 +13,9 @@ import common.coroutines.CoroutineDispatcherProvider
 import common.keystore.TemporaryKeyStore
 import common.utils.activeAsFlow
 import common.utils.getByInjection
-import data.LanguageModel
-import data.ProjectModel
-import data.ResourceFileType
+import projectdata.LanguageModel
+import projectdata.ProjectModel
+import projectdata.ResourceFileType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.SupervisorJob

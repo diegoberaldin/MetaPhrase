@@ -1,6 +1,6 @@
 package tmpersistence.dao
 
-import data.TranslationMemoryEntryModel
+import tmdata.TranslationMemoryEntryModel
 
 interface MemoryEntryDao {
     suspend fun create(model: TranslationMemoryEntryModel): Int

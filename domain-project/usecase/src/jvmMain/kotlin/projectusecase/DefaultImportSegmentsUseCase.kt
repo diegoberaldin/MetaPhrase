@@ -1,8 +1,8 @@
 package projectusecase
 
 import common.coroutines.CoroutineDispatcherProvider
-import data.LanguageModel
-import data.SegmentModel
+import projectdata.LanguageModel
+import projectdata.SegmentModel
 import kotlinx.coroutines.withContext
 import projectrepository.LanguageRepository
 import projectrepository.SegmentRepository

@@ -1,7 +1,7 @@
 package android.usecase
 
 import common.coroutines.CoroutineDispatcherProvider
-import data.SegmentModel
+import projectdata.SegmentModel
 import kotlinx.coroutines.withContext
 import org.redundent.kotlin.xml.PrintOptions
 import org.redundent.kotlin.xml.xml

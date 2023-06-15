@@ -1,6 +1,6 @@
 package glossaryrepository
 
-import data.GlossaryTermModel
+import glossarydata.GlossaryTermModel
 
 interface GlossaryTermRepository {
     suspend fun create(model: GlossaryTermModel): Int

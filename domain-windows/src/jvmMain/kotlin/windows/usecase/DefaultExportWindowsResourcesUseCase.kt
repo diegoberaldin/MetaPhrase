@@ -1,8 +1,8 @@
 package windows.usecase
 
 import common.coroutines.CoroutineDispatcherProvider
-import data.Constants
-import data.SegmentModel
+import common.utils.Constants
+import projectdata.SegmentModel
 import kotlinx.coroutines.withContext
 import org.redundent.kotlin.xml.PrintOptions
 import org.redundent.kotlin.xml.xml

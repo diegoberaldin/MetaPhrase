@@ -1,6 +1,6 @@
 package projectusecase
 
-import data.SegmentModel
+import projectdata.SegmentModel
 
 interface ValidatePlaceholdersUseCase {
     sealed interface Output {

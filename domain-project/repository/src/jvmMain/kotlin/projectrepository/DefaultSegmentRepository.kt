@@ -1,7 +1,7 @@
 package projectrepository
 
-import data.SegmentModel
-import data.TranslationUnitTypeFilter
+import projectdata.SegmentModel
+import projectdata.TranslationUnitTypeFilter
 import projectpersistence.dao.SegmentDao
 
 internal class DefaultSegmentRepository(

@@ -1,4 +1,4 @@
-package data
+package glossarydata
 
 data class GlossaryTermModel(
     val id: Int = 0,

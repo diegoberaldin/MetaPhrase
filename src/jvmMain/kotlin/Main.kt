@@ -25,7 +25,7 @@ import common.log.LogManager
 import common.ui.theme.MetaPhraseTheme
 import common.utils.getByInjection
 import common.utils.runOnUiThread
-import data.ResourceFileType
+import projectdata.ResourceFileType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.runBlocking

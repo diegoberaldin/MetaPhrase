@@ -1,7 +1,7 @@
 package tmusecase
 
-import data.SegmentModel
-import data.TranslationUnit
+import projectdata.SegmentModel
+import projectdata.TranslationUnit
 import tmusecase.datasource.MemoryTranslationUnitSource
 import tmusecase.datasource.ProjectTranslationUnitSource
 

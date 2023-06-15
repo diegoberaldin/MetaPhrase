@@ -25,9 +25,8 @@ kotlin {
                 implementation(libs.koin)
 
                 implementation(projects.coreCommon)
-                implementation(projects.coreData)
 
-                implementation(projects.domainProject.repository)
+                implementation(projects.domainProject.data)
                 implementation(projects.domainProject.repository)
             }
         }

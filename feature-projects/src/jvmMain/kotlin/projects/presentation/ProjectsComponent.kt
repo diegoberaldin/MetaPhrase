@@ -4,9 +4,9 @@ import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
-import data.LanguageModel
-import data.ProjectModel
-import data.ResourceFileType
+import projectdata.LanguageModel
+import projectdata.ProjectModel
+import projectdata.ResourceFileType
 import kotlinx.coroutines.flow.StateFlow
 
 interface ProjectsComponent {

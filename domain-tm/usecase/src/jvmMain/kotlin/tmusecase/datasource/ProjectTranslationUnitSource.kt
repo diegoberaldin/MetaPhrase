@@ -1,6 +1,6 @@
 package tmusecase.datasource
 
-import data.TranslationUnit
+import projectdata.TranslationUnit
 import localized
 import projectrepository.LanguageRepository
 import projectrepository.SegmentRepository

@@ -1,7 +1,7 @@
 package translatemessages.presentation
 
-import data.LanguageModel
-import data.TranslationUnit
+import projectdata.LanguageModel
+import projectdata.TranslationUnit
 
 data class MessageListUiState(
     val units: List<TranslationUnit> = emptyList(),

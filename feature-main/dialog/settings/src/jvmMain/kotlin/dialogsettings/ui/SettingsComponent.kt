@@ -1,6 +1,6 @@
 package dialogsettings.ui
 
-import data.LanguageModel
+import projectdata.LanguageModel
 import kotlinx.coroutines.flow.StateFlow
 
 interface SettingsComponent {

@@ -1,4 +1,4 @@
-package data
+package projectdata
 
 data class LanguageModel(
     val id: Int = 0,

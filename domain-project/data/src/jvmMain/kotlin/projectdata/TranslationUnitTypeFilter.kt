@@ -1,4 +1,4 @@
-package data
+package projectdata
 
 import localized
 

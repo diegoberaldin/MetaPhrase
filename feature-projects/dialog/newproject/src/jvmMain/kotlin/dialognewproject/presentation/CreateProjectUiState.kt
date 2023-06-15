@@ -1,6 +1,6 @@
 package dialognewproject.presentation
 
-import data.LanguageModel
+import projectdata.LanguageModel
 
 data class CreateProjectUiState(
     val name: String = "",

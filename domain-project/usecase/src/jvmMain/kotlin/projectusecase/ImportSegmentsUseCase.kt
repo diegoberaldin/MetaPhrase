@@ -1,7 +1,7 @@
 package projectusecase
 
-import data.LanguageModel
-import data.SegmentModel
+import projectdata.LanguageModel
+import projectdata.SegmentModel
 
 interface ImportSegmentsUseCase {
     suspend operator fun invoke(

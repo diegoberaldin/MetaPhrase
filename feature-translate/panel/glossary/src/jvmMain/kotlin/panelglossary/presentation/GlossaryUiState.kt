@@ -1,6 +1,6 @@
 package panelglossary.presentation
 
-import data.GlossaryTermModel
+import glossarydata.GlossaryTermModel
 
 data class GlossaryUiState(
     val sourceFlag: String = "",

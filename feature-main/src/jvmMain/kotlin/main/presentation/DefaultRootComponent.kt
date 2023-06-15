@@ -16,9 +16,9 @@ import common.coroutines.CoroutineDispatcherProvider
 import common.notification.NotificationCenter
 import common.utils.asFlow
 import common.utils.getByInjection
-import data.LanguageModel
-import data.ProjectModel
-import data.ResourceFileType
+import projectdata.LanguageModel
+import projectdata.ProjectModel
+import projectdata.ResourceFileType
 import dialognewproject.presentation.CreateProjectComponent
 import dialogsettings.ui.SettingsComponent
 import dialogstatistics.presentation.StatisticsComponent

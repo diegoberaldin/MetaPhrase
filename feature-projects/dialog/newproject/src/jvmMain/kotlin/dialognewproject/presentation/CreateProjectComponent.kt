@@ -1,6 +1,6 @@
 package dialognewproject.presentation
 
-import data.LanguageModel
+import projectdata.LanguageModel
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 

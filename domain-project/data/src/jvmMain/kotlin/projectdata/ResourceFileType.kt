@@ -1,4 +1,4 @@
-package data
+package projectdata
 
 enum class ResourceFileType {
     ANDROID_XML,

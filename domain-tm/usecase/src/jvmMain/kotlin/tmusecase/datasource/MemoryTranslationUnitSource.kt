@@ -1,7 +1,7 @@
 package tmusecase.datasource
 
-import data.SegmentModel
-import data.TranslationUnit
+import projectdata.SegmentModel
+import projectdata.TranslationUnit
 import projectrepository.LanguageRepository
 import projectrepository.SegmentRepository
 import tmrepository.MemoryEntryRepository

@@ -1,7 +1,7 @@
 package tmusecase
 
-import data.SegmentModel
-import data.TranslationUnit
+import projectdata.SegmentModel
+import projectdata.TranslationUnit
 
 interface GetSimilaritiesUseCase {
     suspend operator fun invoke(

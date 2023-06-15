@@ -1,6 +1,6 @@
 package projectusecase
 
-import data.LanguageModel
+import projectdata.LanguageModel
 
 interface GetCompleteLanguageUseCase {
     operator fun invoke(lang: LanguageModel): LanguageModel

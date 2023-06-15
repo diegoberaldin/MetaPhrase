@@ -26,8 +26,8 @@ kotlin {
                 implementation(libs.redundent)
 
                 implementation(projects.coreCommon)
-                implementation(projects.coreData)
 
+                implementation(projects.domainProject.data)
                 implementation(projects.domainProject.persistence)
                 implementation(projects.domainProject.repository)
                 implementation(projects.domainProject.usecase)

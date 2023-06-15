@@ -1,6 +1,6 @@
 package windows.usecase
 
-import data.SegmentModel
+import projectdata.SegmentModel
 
 interface ParseWindowsResourcesUseCase {
     suspend operator fun invoke(path: String): List<SegmentModel>
