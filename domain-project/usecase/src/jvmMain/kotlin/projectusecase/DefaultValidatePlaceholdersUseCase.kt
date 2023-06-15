@@ -1,8 +1,8 @@
 package projectusecase
 
 import common.coroutines.CoroutineDispatcherProvider
-import data.Constants
-import data.SegmentModel
+import common.utils.Constants
+import projectdata.SegmentModel
 import kotlinx.coroutines.withContext
 
 internal class DefaultValidatePlaceholdersUseCase(

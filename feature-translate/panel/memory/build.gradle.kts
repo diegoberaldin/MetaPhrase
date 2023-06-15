@@ -29,8 +29,8 @@ kotlin {
 
                 implementation(projects.coreCommon)
                 implementation(projects.coreLocalization)
-                implementation(projects.coreData)
 
+                implementation(projects.domainProject.data)
                 implementation(projects.domainProject.repository)
                 implementation(projects.domainProject.usecase)
                 implementation(projects.domainTm.data)

@@ -28,9 +28,9 @@ kotlin {
                 implementation(libs.decompose.extensions)
 
                 implementation(projects.coreCommon)
-                implementation(projects.coreData)
                 implementation(projects.coreLocalization)
 
+                implementation(projects.domainProject.data)
                 implementation(projects.domainProject.repository)
                 implementation(projects.domainProject.usecase)
                 implementation(projects.domainTm.usecase)

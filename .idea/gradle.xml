@@ -9,7 +9,6 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/core-common" />
-            <option value="$PROJECT_DIR$/core-data" />
             <option value="$PROJECT_DIR$/core-localization" />
             <option value="$PROJECT_DIR$/core-persistence" />
             <option value="$PROJECT_DIR$/domain-android" />
@@ -23,6 +22,7 @@
             <option value="$PROJECT_DIR$/domain-language/repository" />
             <option value="$PROJECT_DIR$/domain-language/usecase" />
             <option value="$PROJECT_DIR$/domain-project" />
+            <option value="$PROJECT_DIR$/domain-project/data" />
             <option value="$PROJECT_DIR$/domain-project/persistence" />
             <option value="$PROJECT_DIR$/domain-project/repository" />
             <option value="$PROJECT_DIR$/domain-project/usecase" />

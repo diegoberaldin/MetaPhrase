@@ -1,6 +1,6 @@
 package panelmemory.presentation
 
-import data.LanguageModel
+import projectdata.LanguageModel
 import tmdata.TranslationMemoryEntryModel
 
 data class BrowseMemoryUiState(

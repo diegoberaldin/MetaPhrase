@@ -16,10 +16,10 @@ import common.notification.NotificationCenter
 import common.utils.asFlow
 import common.utils.getByInjection
 import glossarydata.GlossaryTermModel
-import data.LanguageModel
-import data.ProjectModel
-import data.ResourceFileType
-import data.SegmentModel
+import projectdata.LanguageModel
+import projectdata.ProjectModel
+import projectdata.ResourceFileType
+import projectdata.SegmentModel
 import dialognewsegment.presentation.NewSegmentComponent
 import dialognewterm.presentation.NewGlossaryTermComponent
 import glossaryrepository.GlossaryTermRepository

@@ -25,9 +25,9 @@ kotlin {
                 implementation(libs.koin)
 
                 implementation(projects.coreCommon)
-                implementation(projects.coreData)
 
                 implementation(projects.domainSpellcheck)
+                implementation(projects.domainProject.data)
                 implementation(projects.domainGlossary.usecase)
                 implementation(projects.domainGlossary.repository)
             }

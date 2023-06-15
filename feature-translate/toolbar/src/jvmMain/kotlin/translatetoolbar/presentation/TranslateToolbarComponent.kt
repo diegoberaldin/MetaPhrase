@@ -1,7 +1,7 @@
 package translatetoolbar.presentation
 
-import data.LanguageModel
-import data.TranslationUnitTypeFilter
+import projectdata.LanguageModel
+import projectdata.TranslationUnitTypeFilter
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 

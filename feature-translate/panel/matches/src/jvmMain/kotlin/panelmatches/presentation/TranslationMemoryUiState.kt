@@ -1,6 +1,6 @@
 package panelmatches.presentation
 
-import data.TranslationUnit
+import projectdata.TranslationUnit
 
 data class TranslationMemoryUiState(
     val isLoading: Boolean = false,

@@ -1,8 +1,8 @@
 package translatemessages.presentation
 
-import data.LanguageModel
-import data.SegmentModel
-import data.TranslationUnitTypeFilter
+import projectdata.LanguageModel
+import projectdata.SegmentModel
+import projectdata.TranslationUnitTypeFilter
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import spellcheck.SpellCheckCorrection

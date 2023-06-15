@@ -20,7 +20,7 @@ import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextDecoration
-import data.TranslationUnit
+import projectdata.TranslationUnit
 import spellcheck.SpellCheckCorrection
 
 @Composable

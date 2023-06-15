@@ -26,9 +26,9 @@ kotlin {
                 implementation(libs.redundent)
 
                 implementation(projects.coreCommon)
-                implementation(projects.coreData)
                 implementation(projects.coreLocalization)
 
+                implementation(projects.domainProject.data)
                 implementation(projects.domainTm.data)
                 implementation(projects.domainTm.repository)
                 implementation(projects.domainProject.repository)

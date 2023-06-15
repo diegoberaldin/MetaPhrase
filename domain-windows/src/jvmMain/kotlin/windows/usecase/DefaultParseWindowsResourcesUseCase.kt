@@ -1,7 +1,7 @@
 package windows.usecase
 
 import common.coroutines.CoroutineDispatcherProvider
-import data.SegmentModel
+import projectdata.SegmentModel
 import kotlinx.coroutines.withContext
 import org.redundent.kotlin.xml.Node
 import org.redundent.kotlin.xml.TextElement

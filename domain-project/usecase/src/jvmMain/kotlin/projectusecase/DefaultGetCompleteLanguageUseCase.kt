@@ -1,6 +1,6 @@
 package projectusecase
 
-import data.LanguageModel
+import projectdata.LanguageModel
 import projectrepository.FlagsRepository
 import projectrepository.LanguageNameRepository
 

@@ -26,7 +26,7 @@ import common.ui.components.CustomSpinner
 import common.ui.components.CustomTextField
 import common.ui.theme.SelectedBackground
 import common.ui.theme.Spacing
-import data.LanguageModel
+import projectdata.LanguageModel
 import localized
 
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalFoundationApi::class)

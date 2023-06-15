@@ -1,4 +1,4 @@
-package data
+package projectdata
 
 data class ProjectModel(
     val id: Int = 0,

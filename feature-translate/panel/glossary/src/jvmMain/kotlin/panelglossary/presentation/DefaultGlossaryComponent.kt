@@ -4,7 +4,7 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import common.coroutines.CoroutineDispatcherProvider
-import data.LanguageModel
+import projectdata.LanguageModel
 import glossarydata.GlossaryTermModel
 import glossaryrepository.GlossaryTermRepository
 import glossaryusecase.GetGlossaryTermsUseCase

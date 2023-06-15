@@ -29,13 +29,12 @@ kotlin {
 
                 implementation(projects.coreCommon)
                 implementation(projects.coreLocalization)
-                implementation(projects.coreData)
 
                 implementation(projects.domainAndroid)
                 implementation(projects.domainIos)
                 implementation(projects.domainWindows)
 
-                implementation(projects.domainProject.repository)
+                implementation(projects.domainProject.data)
                 implementation(projects.domainProject.usecase)
                 implementation(projects.domainProject.repository)
                 implementation(projects.domainSpellcheck)

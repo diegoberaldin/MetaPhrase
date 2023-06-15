@@ -1,6 +1,6 @@
 package dialogsettings.ui
 
-import data.LanguageModel
+import projectdata.LanguageModel
 
 data class SettingsUiState(
     val availableLanguages: List<LanguageModel> = emptyList(),

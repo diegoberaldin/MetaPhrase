@@ -1,6 +1,6 @@
 package projectrepository
 
-import data.LanguageModel
+import projectdata.LanguageModel
 import kotlinx.coroutines.flow.Flow
 
 interface LanguageRepository {

@@ -20,10 +20,10 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(
     ":core-common",
     ":core-localization",
-    ":core-data",
     ":core-persistence",
 
     ":domain-project",
+    ":domain-project:data",
     ":domain-project:persistence",
     ":domain-project:repository",
     ":domain-project:usecase",

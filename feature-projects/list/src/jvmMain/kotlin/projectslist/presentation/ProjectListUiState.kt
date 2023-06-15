@@ -1,5 +1,5 @@
 package projectslist.presentation
 
-import data.ProjectModel
+import projectdata.ProjectModel
 
 data class ProjectListUiState(val projects: List<ProjectModel> = emptyList())

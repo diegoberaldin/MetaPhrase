@@ -7,7 +7,7 @@ import com.arkivanov.essenty.lifecycle.doOnStart
 import com.arkivanov.essenty.lifecycle.doOnStop
 import common.coroutines.CoroutineDispatcherProvider
 import common.notification.NotificationCenter
-import data.ProjectModel
+import projectdata.ProjectModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob

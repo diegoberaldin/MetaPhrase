@@ -1,7 +1,7 @@
 package dialognewsegment.presentation
 
-import data.LanguageModel
-import data.SegmentModel
+import projectdata.LanguageModel
+import projectdata.SegmentModel
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 

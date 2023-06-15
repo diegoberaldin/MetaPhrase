@@ -1,6 +1,6 @@
 package projectslist.presentation
 
-import data.ProjectModel
+import projectdata.ProjectModel
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 

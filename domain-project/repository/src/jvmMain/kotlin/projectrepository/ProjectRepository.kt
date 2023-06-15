@@ -1,6 +1,6 @@
 package projectrepository
 
-import data.ProjectModel
+import projectdata.ProjectModel
 import kotlinx.coroutines.flow.Flow
 
 interface ProjectRepository {
