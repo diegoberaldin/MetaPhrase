@@ -5,11 +5,11 @@
 layout: default
 ---
 
-What's in this page:
+Welcome to MetaPhrase's homepage! Here is what you will find on this page:
 
-- [overview](#overview)
+- [project overview](#overview)
 - [rationale](#rationale)
-- [key features](#key-features)
+- [key app features](#key-features)
 - [further reading](#further-reading)
 
 {% include_relative 00_overview.md %}
