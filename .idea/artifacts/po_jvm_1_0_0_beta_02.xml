@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="po-jvm-1.0.0-beta-02">
+    <output-path>$PROJECT_DIR$/domain-formats/po/build/libs</output-path>
+    <root id="archive" name="po-jvm-1.0.0-beta-02.jar">
+      <element id="module-output" name="MetaPhrase.domain-formats.po.jvmMain" />
+    </root>
+  </artifact>
+</component>

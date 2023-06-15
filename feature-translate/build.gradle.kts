@@ -30,9 +30,10 @@ kotlin {
                 implementation(projects.coreCommon)
                 implementation(projects.coreLocalization)
 
-                implementation(projects.domainAndroid)
-                implementation(projects.domainIos)
-                implementation(projects.domainWindows)
+                implementation(projects.domainFormats.android)
+                implementation(projects.domainFormats.ios)
+                implementation(projects.domainFormats.resx)
+                implementation(projects.domainFormats.po)
 
                 implementation(projects.domainProject.data)
                 implementation(projects.domainProject.usecase)

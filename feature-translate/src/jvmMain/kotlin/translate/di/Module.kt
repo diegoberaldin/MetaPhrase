@@ -1,9 +1,11 @@
 package translate.di
 
-import android.di.androidModule
 import dialognewsegment.di.dialogNewSegmentModule
 import dialognewterm.di.dialogNewTermModule
-import ios.di.iosModule
+import formatsandroid.di.androidModule
+import formatsios.di.iosModule
+import formatspo.di.poModule
+import formatsresx.di.resxModule
 import org.koin.dsl.module
 import panelglossary.di.panelGlossaryModule
 import panelmatches.di.panelMatchesModule
@@ -13,13 +15,13 @@ import translate.presentation.DefaultTranslateComponent
 import translate.presentation.TranslateComponent
 import translatemessages.di.translateMessagesModule
 import translatetoolbar.di.translateToolbarModule
-import windows.di.windowsModule
 
 val translateModule = module {
     includes(
         androidModule,
         iosModule,
-        windowsModule,
+        resxModule,
+        poModule,
     )
 
     includes(translateToolbarModule)
@@ -47,11 +49,13 @@ val translateModule = module {
             segmentRepository = get(),
             parseAndroidResources = get(),
             parseIosResources = get(),
-            parseWindowsResources = get(),
+            parseResx = get(),
+            parsePo = get(),
             importSegments = get(),
             exportAndroidResources = get(),
             exportIosResources = get(),
-            exportWindowsResources = get(),
+            exportResx = get(),
+            exportPo = get(),
             validatePlaceholders = get(),
             notificationCenter = get(),
             exportToTmx = get(),
