@@ -22,7 +22,7 @@ val spellcheckModule = module {
     }
     single<ValidateSpellingUseCase> {
         DefaultValidateSpellingUseCase(
-            spelling = get(),
+            repository = get(),
             dispatchers = get(),
         )
     }

@@ -2,10 +2,10 @@ package spellcheck.usecase
 
 import common.coroutines.CoroutineDispatcherProvider
 import kotlinx.coroutines.withContext
-import spellcheck.spelling.Spelling
+import spellcheck.repo.SpellCheckRepository
 
 class DefaultValidateSpellingUseCase(
-    private val spelling: Spelling,
+    private val repository: SpellCheckRepository,
     private val dispatchers: CoroutineDispatcherProvider,
 ) : ValidateSpellingUseCase {
     override suspend fun invoke(
@@ -13,13 +13,13 @@ class DefaultValidateSpellingUseCase(
         lang: String,
     ): Map<String, List<String>> {
         return withContext(dispatchers.io) {
-            spelling.setLanguage(lang)
+            repository.setLanguage(lang)
 
             val result = mutableMapOf<String, List<String>>()
 
             for ((key, message) in input) {
                 val sanitizedMessage = message.replace("\\n", "  ")
-                val corrections = spelling.checkSentence(sanitizedMessage)
+                val corrections = repository.check(sanitizedMessage)
                 if (corrections.isNotEmpty()) {
                     val mistakenWords = corrections.map { it.value }
                     result[key] = mistakenWords
