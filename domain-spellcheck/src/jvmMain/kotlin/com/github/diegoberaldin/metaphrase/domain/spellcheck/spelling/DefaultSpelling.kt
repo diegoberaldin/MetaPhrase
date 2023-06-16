@@ -1,8 +1,10 @@
 package com.github.diegoberaldin.metaphrase.domain.spellcheck.spelling
 
 import com.github.diegoberaldin.metaphrase.domain.spellcheck.SpellCheckCorrection
+import com.github.diegoberaldin.metaphrase.domain.spellcheck.repo.UserDefinedWordsRepository
 import org.languagetool.JLanguageTool
 import org.languagetool.Language
+import org.languagetool.UserConfig
 import org.languagetool.language.AmericanEnglish
 import org.languagetool.language.Arabic
 import org.languagetool.language.Catalan
@@ -25,7 +27,9 @@ import org.languagetool.language.Slovak
 import org.languagetool.language.Spanish
 import org.languagetool.language.Ukrainian
 
-class DefaultSpelling : Spelling {
+class DefaultSpelling(
+    private val userDefinedWordsRepository: UserDefinedWordsRepository,
+) : Spelling {
 
     companion object {
         private fun String.toLanguage(): Language? = when (this) {
@@ -59,8 +63,22 @@ class DefaultSpelling : Spelling {
 
     private lateinit var languageTool: JLanguageTool
 
-    override fun setLanguage(code: String) {
-        languageTool = JLanguageTool(code.toLanguage())
+    override suspend fun setLanguage(code: String) {
+        val language = code.toLanguage()
+        initialize(language)
+    }
+
+    private suspend fun initialize(language: Language?) {
+        if (language == null) {
+            return
+        }
+        val userDefinedWords = userDefinedWordsRepository.getAll(lang = language.locale.language)
+        languageTool = JLanguageTool(
+            language,
+            null,
+            null,
+            UserConfig(userDefinedWords),
+        )
     }
 
     override fun check(word: String): List<String> {
@@ -100,5 +118,13 @@ class DefaultSpelling : Spelling {
 
         val sentence = languageTool.getAnalyzedSentence(message)
         return sentence.lemmaSet.toList()
+    }
+
+    override suspend fun addUserDefinedWord(word: String) {
+        if (isInitialized) {
+            val language = languageTool.language
+            userDefinedWordsRepository.add(word = word, lang = language.locale.language)
+            initialize(language)
+        }
     }
 }

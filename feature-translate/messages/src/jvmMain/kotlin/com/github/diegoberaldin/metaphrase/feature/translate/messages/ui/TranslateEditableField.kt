@@ -34,6 +34,7 @@ fun TranslateEditableField(
     onStartEditing: () -> Unit = {},
     onTextChanged: (String) -> Unit = {},
     onAddToGlossary: (String) -> Unit = {},
+    onIgnoreWord: (String) -> Unit = {},
 ) {
     var value by remember(
         key1 = unit.segment.id,
@@ -81,6 +82,9 @@ fun TranslateEditableField(
         },
         onAddToGlossary = { word ->
             onAddToGlossary(word)
+        },
+        onIgnoreWord = { word ->
+            onIgnoreWord(word)
         },
     ) {
         BasicTextField(

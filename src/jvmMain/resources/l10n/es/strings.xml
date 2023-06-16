@@ -11,6 +11,7 @@
 	<string name="column_invalid_missing">De falta</string>
 	<string name="column_invalid_spelling">Errores de ortografía</string>
 	<string name="context_menu_add_glossary">Añadir al glosario</string>
+	<string name="context_menu_ignore">Ignorar "%s"</string>
 	<string name="context_menu_insert_suggestion">Insertar: %s</string>
 	<string name="create_glossary_source_term">Término fuente</string>
 	<string name="create_glossary_target_term">Término meta</string>

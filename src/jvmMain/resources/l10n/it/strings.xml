@@ -11,6 +11,7 @@
 	<string name="column_invalid_missing">Mancante</string>
 	<string name="column_invalid_spelling">Errori ortografici</string>
 	<string name="context_menu_add_glossary">Aggiungi al glossario</string>
+	<string name="context_menu_ignore">Ignora "%s"</string>
 	<string name="context_menu_insert_suggestion">Inserisci: %s</string>
 	<string name="create_glossary_source_term">Termine di partenza</string>
 	<string name="create_glossary_target_term">Termine di arrivo</string>

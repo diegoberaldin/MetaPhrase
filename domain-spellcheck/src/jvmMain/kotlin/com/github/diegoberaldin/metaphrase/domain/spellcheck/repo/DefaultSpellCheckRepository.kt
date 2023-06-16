@@ -10,7 +10,7 @@ internal class DefaultSpellCheckRepository(
     private val dispatchers: CoroutineDispatcherProvider,
 ) : SpellCheckRepository {
 
-    override fun setLanguage(code: String) {
+    override suspend fun setLanguage(code: String) {
         spelling.setLanguage(code)
     }
 
@@ -20,6 +20,12 @@ internal class DefaultSpellCheckRepository(
         return withContext(dispatchers.io) {
             val sanitizedMessage = message.replace("\\n", "  ")
             spelling.checkSentence(sanitizedMessage)
+        }
+    }
+
+    override suspend fun addUserDefineWord(word: String) {
+        if (spelling.isInitialized) {
+            spelling.addUserDefinedWord(word)
         }
     }
 }

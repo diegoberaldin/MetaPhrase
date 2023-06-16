@@ -11,32 +11,32 @@ object DefaultFileManager : com.github.diegoberaldin.metaphrase.core.common.file
     private lateinit var dirPath: String
 
     init {
-        com.github.diegoberaldin.metaphrase.core.common.files.DefaultFileManager.ensureAppDirectory()
+        ensureAppDirectory()
     }
 
     override fun getFilePath(vararg components: String): String {
-        return com.github.diegoberaldin.metaphrase.core.common.files.DefaultFileManager.dirPath + com.github.diegoberaldin.metaphrase.core.common.files.DefaultFileManager.separator + components.joinToString(
-            separator = com.github.diegoberaldin.metaphrase.core.common.files.DefaultFileManager.separator,
+        return dirPath + separator + components.joinToString(
+            separator = separator,
         )
     }
 
     private fun ensureAppDirectory() {
         val os = System.getProperty("os.name").uppercase(Locale.getDefault())
         if (os.contains("WIN")) {
-            com.github.diegoberaldin.metaphrase.core.common.files.DefaultFileManager.dirPath =
-                System.getenv("APPDATA") + com.github.diegoberaldin.metaphrase.core.common.files.DefaultFileManager.separator + com.github.diegoberaldin.metaphrase.core.common.files.DefaultFileManager.DIR_NAME
+            dirPath =
+                System.getenv("APPDATA") + separator + DIR_NAME
         }
         if (os.contains("MAC")) {
-            com.github.diegoberaldin.metaphrase.core.common.files.DefaultFileManager.dirPath =
+            dirPath =
                 System.getProperty("user.home") +
-                "${com.github.diegoberaldin.metaphrase.core.common.files.DefaultFileManager.separator}Library" + "${com.github.diegoberaldin.metaphrase.core.common.files.DefaultFileManager.separator}Application Support${com.github.diegoberaldin.metaphrase.core.common.files.DefaultFileManager.separator}" + com.github.diegoberaldin.metaphrase.core.common.files.DefaultFileManager.DIR_NAME
+                "${separator}Library" + "${separator}Application Support$separator" + DIR_NAME
         }
         if (os.contains("NUX")) {
-            com.github.diegoberaldin.metaphrase.core.common.files.DefaultFileManager.dirPath =
-                System.getProperty("user.dir") + com.github.diegoberaldin.metaphrase.core.common.files.DefaultFileManager.separator + ".${com.github.diegoberaldin.metaphrase.core.common.files.DefaultFileManager.DIR_NAME}"
+            dirPath =
+                System.getProperty("user.dir") + separator + ".$DIR_NAME"
         }
 
-        val directory = File(com.github.diegoberaldin.metaphrase.core.common.files.DefaultFileManager.dirPath)
+        val directory = File(dirPath)
         if (!directory.exists()) {
             directory.mkdir()
         }
