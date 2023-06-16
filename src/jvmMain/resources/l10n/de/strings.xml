@@ -42,6 +42,7 @@
 	<string name="glossary_title">Glossar</string>
 	<string name="lang">de</string>
 	<string name="memory_content_title">TM-Inhalt</string>
+	<string name="menu_glossary">Glossar</string>
 	<string name="menu_project">Projekt</string>
 	<string name="menu_project_close">Schließen</string>
 	<string name="menu_project_edit">Bearbeiten…</string>

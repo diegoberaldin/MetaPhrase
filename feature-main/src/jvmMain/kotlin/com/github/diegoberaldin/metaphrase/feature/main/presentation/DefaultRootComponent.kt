@@ -16,6 +16,7 @@ import com.github.diegoberaldin.metaphrase.core.common.coroutines.CoroutineDispa
 import com.github.diegoberaldin.metaphrase.core.common.notification.NotificationCenter
 import com.github.diegoberaldin.metaphrase.core.common.utils.asFlow
 import com.github.diegoberaldin.metaphrase.core.common.utils.getByInjection
+import com.github.diegoberaldin.metaphrase.domain.glossary.usecase.ExportGlossaryUseCase
 import com.github.diegoberaldin.metaphrase.domain.project.data.LanguageModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.ProjectModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.ResourceFileType
@@ -59,6 +60,7 @@ internal class DefaultRootComponent(
     projectRepository: ProjectRepository,
     private val importFromTmx: ImportTmxUseCase,
     private val clearTranslationMemory: ClearTmUseCase,
+    private val exportGlossaryTerms: ExportGlossaryUseCase,
     private val notificationCenter: NotificationCenter,
 ) : RootComponent, ComponentContext by componentContext {
 
@@ -363,6 +365,16 @@ internal class DefaultRootComponent(
     override fun globalSpellcheck() {
         viewModelScope.launch(dispatchers.io) {
             main.asFlow<ProjectsComponent>().firstOrNull()?.globalSpellcheck()
+        }
+    }
+
+    override fun openExportGlossaryDialog() {
+        dialogNavigation.activate(RootComponent.DialogConfig.ExportGlossaryDialog)
+    }
+
+    override fun exportGlossary(path: String) {
+        viewModelScope.launch(dispatchers.io) {
+            exportGlossaryTerms(path = path)
         }
     }
 }

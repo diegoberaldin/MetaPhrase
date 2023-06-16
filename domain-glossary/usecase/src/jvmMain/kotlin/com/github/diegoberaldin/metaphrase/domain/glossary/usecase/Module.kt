@@ -10,4 +10,10 @@ val glossaryUseCaseModule = module {
             spelling = get(),
         )
     }
+    single<ExportGlossaryUseCase> {
+        DefaultExportGlossaryUseCase(
+            repository = get(),
+            dispatchers = get(),
+        )
+    }
 }
