@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.compose")
 }
 
-group = "domain.formats"
+group = "com.github.diegoberaldin.metaphrase.domain.formats"
 version = libs.versions.appVersion.get()
 
 repositories {
@@ -21,6 +21,12 @@ kotlin {
         val jvmMain by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)
+
+                implementation(libs.koin)
+                implementation(libs.redundent)
+
+                implementation(projects.coreCommon)
+                implementation(projects.domainProject.data)
             }
         }
     }

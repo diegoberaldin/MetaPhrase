@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.compose")
 }
 
-group = "domain.glossary"
+group = "com.github.diegoberaldin.metaphrase.domain.glossary"
 version = libs.versions.appVersion.get()
 
 repositories {

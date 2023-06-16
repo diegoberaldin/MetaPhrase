@@ -1,7 +1,12 @@
+import com.github.diegoberaldin.metaphrase.core.localization.DefaultParseXmlResourceUseCase
+import com.github.diegoberaldin.metaphrase.core.localization.LocalizableString
+import com.github.diegoberaldin.metaphrase.core.localization.Localization
+import com.github.diegoberaldin.metaphrase.core.localization.ParseXmlResourceUseCase
+import com.github.diegoberaldin.metaphrase.core.localization.localized
 import java.io.InputStream
 
 internal class DefaultLocalization(
-    private val parseResource: ParseXmlResourceUseCase = DefaultParseXmlResourceUseCase()
+    private val parseResource: ParseXmlResourceUseCase = DefaultParseXmlResourceUseCase(),
 ) : Localization {
 
     private val defaultValues: List<LocalizableString> =

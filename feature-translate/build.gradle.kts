@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.compose")
 }
 
-group = "feature.translate"
+group = "com.github.diegoberaldin.metaphrase.feature.translate"
 version = libs.versions.appVersion.get()
 
 repositories {
@@ -30,10 +30,7 @@ kotlin {
                 implementation(projects.coreCommon)
                 implementation(projects.coreLocalization)
 
-                implementation(projects.domainFormats.android)
-                implementation(projects.domainFormats.ios)
-                implementation(projects.domainFormats.resx)
-                implementation(projects.domainFormats.po)
+                implementation(projects.domainFormats)
 
                 implementation(projects.domainProject.data)
                 implementation(projects.domainProject.usecase)

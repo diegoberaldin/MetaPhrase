@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.compose")
 }
 
-group = "core.data"
+group = "com.github.diegoberaldin.metaphrase.domain.project.data"
 version = libs.versions.appVersion.get()
 
 repositories {

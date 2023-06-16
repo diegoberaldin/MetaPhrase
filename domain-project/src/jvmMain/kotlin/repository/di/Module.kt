@@ -1,8 +1,8 @@
 package repository.di
 
+import com.github.diegoberaldin.metaphrase.domain.project.repository.di.projectRepositoryModule
+import com.github.diegoberaldin.metaphrase.domain.project.usecase.di.projectUseCaseModule
 import org.koin.dsl.module
-import projectrepository.di.projectRepositoryModule
-import projectusecase.di.projectUseCaseModule
 
 val projectModule = module {
     includes(

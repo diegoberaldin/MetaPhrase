@@ -5,7 +5,7 @@ plugins {
     id("org.jetbrains.compose")
 }
 
-group = "it.meta.phrase"
+group = "com.github.diegoberaldin.metaphrase"
 version = libs.versions.appVersion
 
 repositories {

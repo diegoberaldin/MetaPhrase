@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.compose")
 }
 
-group = "feature.translate.panel"
+group = "com.github.diegoberaldin.metaphrase.feature.translate.panel"
 version = libs.versions.appVersion.get()
 
 repositories {
