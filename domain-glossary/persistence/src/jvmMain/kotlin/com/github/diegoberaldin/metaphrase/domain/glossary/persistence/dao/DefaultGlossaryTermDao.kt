@@ -8,6 +8,7 @@ import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.alias
 import org.jetbrains.exposed.sql.and
+import org.jetbrains.exposed.sql.deleteAll
 import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.insertIgnore
 import org.jetbrains.exposed.sql.or
@@ -47,6 +48,10 @@ class DefaultGlossaryTermDao : GlossaryTermDao {
 
     override suspend fun delete(model: GlossaryTermModel) = newSuspendedTransaction {
         GlossaryTermEntity.deleteWhere { GlossaryTermEntity.id eq model.id }
+    }
+
+    override suspend fun deleteAll(): Unit = newSuspendedTransaction {
+        GlossaryTermEntity.deleteAll()
     }
 
     override fun ResultRow.toModel(): GlossaryTermModel = GlossaryTermModel(

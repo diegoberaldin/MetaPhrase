@@ -13,6 +13,7 @@ interface GlossaryTermRepository {
     suspend fun update(model: GlossaryTermModel): Int
 
     suspend fun delete(model: GlossaryTermModel): Int
+    suspend fun deleteAll()
 
     suspend fun areAssociated(sourceId: Int, targetId: Int): Boolean
 
