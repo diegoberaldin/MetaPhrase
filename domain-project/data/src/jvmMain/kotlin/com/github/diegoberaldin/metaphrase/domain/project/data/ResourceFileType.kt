@@ -5,4 +5,5 @@ enum class ResourceFileType {
     IOS_STRINGS,
     RESX,
     PO,
+    JSON,
 }

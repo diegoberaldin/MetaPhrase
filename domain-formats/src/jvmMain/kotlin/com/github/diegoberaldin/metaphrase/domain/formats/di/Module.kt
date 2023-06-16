@@ -1,5 +1,10 @@
 package com.github.diegoberaldin.metaphrase.domain.formats.di
 
+import com.github.diegoberaldin.metaphrase.domain.formats.DefaultExportResourcesUseCase
+import com.github.diegoberaldin.metaphrase.domain.formats.DefaultImportResourcesUseCase
+import com.github.diegoberaldin.metaphrase.domain.formats.ExportResourcesUseCase
+import com.github.diegoberaldin.metaphrase.domain.formats.ImportResourcesUseCase
+import com.github.diegoberaldin.metaphrase.domain.formats.android.DefaultExportAndroidResourcesUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.android.DefaultParseAndroidResourcesUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.android.ExportAndroidResourcesUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.android.ParseAndroidResourcesUseCase
@@ -7,6 +12,8 @@ import com.github.diegoberaldin.metaphrase.domain.formats.ios.DefaultExportIosRe
 import com.github.diegoberaldin.metaphrase.domain.formats.ios.DefaultParseIosResourcesUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.ios.ExportIosResourcesUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.ios.ParseIosResourcesUseCase
+import com.github.diegoberaldin.metaphrase.domain.formats.json.DefaultParseJsonUseCase
+import com.github.diegoberaldin.metaphrase.domain.formats.json.ParseJsonUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.po.DefaultExportPoResourcesUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.po.DefaultParsePoUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.po.ExportPoUseCase
@@ -17,20 +24,20 @@ import com.github.diegoberaldin.metaphrase.domain.formats.resx.ExportResxUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.resx.ParseResxUseCase
 import org.koin.dsl.module
 
-val androidModule = module {
+private val androidModule = module {
     single<ParseAndroidResourcesUseCase> {
         DefaultParseAndroidResourcesUseCase(
             dispatchers = get(),
         )
     }
     single<ExportAndroidResourcesUseCase> {
-        com.github.diegoberaldin.metaphrase.domain.formats.android.DefaultExportAndroidResourcesUseCase(
+        DefaultExportAndroidResourcesUseCase(
             dispatchers = get(),
         )
     }
 }
 
-val iosModule = module {
+private val iosModule = module {
     single<ParseIosResourcesUseCase> {
         DefaultParseIosResourcesUseCase(
             dispatchers = get(),
@@ -56,7 +63,7 @@ private val resxModule = module {
     }
 }
 
-val poModule = module {
+private val poModule = module {
     single<ParsePoUseCase> {
         DefaultParsePoUseCase(
             dispatchers = get(),
@@ -69,23 +76,33 @@ val poModule = module {
     }
 }
 
+private val jsonModule = module {
+    single<ParseJsonUseCase> {
+        DefaultParseJsonUseCase(
+            dispatchers = get(),
+        )
+    }
+}
+
 val formatsModule = module {
     includes(
         androidModule,
         iosModule,
         resxModule,
         poModule,
+        jsonModule,
     )
-    single<com.github.diegoberaldin.metaphrase.domain.formats.ImportResourcesUseCase> {
-        com.github.diegoberaldin.metaphrase.domain.formats.DefaultImportResourcesUseCase(
+    single<ImportResourcesUseCase> {
+        DefaultImportResourcesUseCase(
             parseAndroid = get(),
             parseIos = get(),
             parseResx = get(),
             parsePo = get(),
+            parseJson = get(),
         )
     }
-    single<com.github.diegoberaldin.metaphrase.domain.formats.ExportResourcesUseCase> {
-        com.github.diegoberaldin.metaphrase.domain.formats.DefaultExportResourcesUseCase(
+    single<ExportResourcesUseCase> {
+        DefaultExportResourcesUseCase(
             exportAndroid = get(),
             exportIos = get(),
             exportResx = get(),

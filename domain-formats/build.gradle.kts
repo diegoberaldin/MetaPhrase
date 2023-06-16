@@ -24,6 +24,7 @@ kotlin {
 
                 implementation(libs.koin)
                 implementation(libs.redundent)
+                implementation(libs.kotlinx.serialization.json)
 
                 implementation(projects.coreCommon)
                 implementation(projects.domainProject.data)

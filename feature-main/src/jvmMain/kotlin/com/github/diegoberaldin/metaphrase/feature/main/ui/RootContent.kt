@@ -113,6 +113,10 @@ fun RootContent(
                             it.endsWith(".po")
                         }
 
+                        ResourceFileType.JSON -> {
+                            it.endsWith(".json")
+                        }
+
                         else -> {
                             false
                         }

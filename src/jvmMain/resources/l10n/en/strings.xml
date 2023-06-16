@@ -74,6 +74,7 @@
 	<string name="menu_project_import">Import</string>
 	<string name="menu_project_import_android">Android XML…</string>
 	<string name="menu_project_import_ios">iOS stringtable…</string>
+	<string name="menu_project_import_json">JSON…</string>
 	<string name="menu_project_import_po">Gettext PO</string>
 	<string name="menu_project_import_windows">Windows resx…</string>
 	<string name="menu_project_new">New…</string>

@@ -181,6 +181,11 @@ private fun MenuBarScope.makeMenus(
             ) {
                 rootComponent.openImportDialog(ResourceFileType.PO)
             }
+            Item(
+                text = "menu_project_import_json".localized(),
+            ) {
+                rootComponent.openImportDialog(ResourceFileType.JSON)
+            }
         }
         Menu(
             text = "menu_project_export".localized(),

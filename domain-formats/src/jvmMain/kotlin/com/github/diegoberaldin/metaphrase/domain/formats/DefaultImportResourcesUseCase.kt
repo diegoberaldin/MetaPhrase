@@ -2,6 +2,7 @@ package com.github.diegoberaldin.metaphrase.domain.formats
 
 import com.github.diegoberaldin.metaphrase.domain.formats.android.ParseAndroidResourcesUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.ios.ParseIosResourcesUseCase
+import com.github.diegoberaldin.metaphrase.domain.formats.json.ParseJsonUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.po.ParsePoUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.resx.ParseResxUseCase
 import com.github.diegoberaldin.metaphrase.domain.project.data.ResourceFileType
@@ -12,6 +13,7 @@ internal class DefaultImportResourcesUseCase(
     private val parseIos: ParseIosResourcesUseCase,
     private val parseResx: ParseResxUseCase,
     private val parsePo: ParsePoUseCase,
+    private val parseJson: ParseJsonUseCase,
 ) : ImportResourcesUseCase {
     override suspend fun invoke(path: String, type: ResourceFileType): List<SegmentModel> {
         return when (type) {
@@ -19,6 +21,7 @@ internal class DefaultImportResourcesUseCase(
             ResourceFileType.IOS_STRINGS -> parseIos(path)
             ResourceFileType.RESX -> parseResx(path)
             ResourceFileType.PO -> parsePo(path)
+            ResourceFileType.JSON -> parseJson(path)
             else -> emptyList()
         }
     }

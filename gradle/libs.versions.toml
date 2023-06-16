@@ -6,6 +6,7 @@ exposed = "0.41.1"
 h2 = "2.1.214"
 koin = "3.4.2"
 kotlinx_coroutines = "1.7.1"
+kotlinx_serialization = "1.5.1"
 languagetool = "6.1"
 log4j = "2.20.0"
 decompose = "2.0.0-alpha-02"
@@ -40,6 +41,7 @@ exposed_jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "e
 # serialization
 redundent = { module = "org.redundent:kotlin-xml-builder", version.ref = "redundent" }
 commons_csv = { module = "org.apache.commons:commons-csv", version.ref = "commons_csv" }
+kotlinx_serialization_json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx_serialization" }
 
 # spelling
 guava = { module = "com.google.guava:guava", version.ref = "guava" }
