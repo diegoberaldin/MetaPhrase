@@ -15,14 +15,8 @@ import common.utils.asFlow
 import common.utils.getByInjection
 import dialognewsegment.presentation.NewSegmentComponent
 import dialognewterm.presentation.NewGlossaryTermComponent
-import formatsandroid.usecase.ExportAndroidResourcesUseCase
-import formatsandroid.usecase.ParseAndroidResourcesUseCase
-import formatsios.usecase.ExportIosResourcesUseCase
-import formatsios.usecase.ParseIosResourcesUseCase
-import formatspo.usecase.ExportPoUseCase
-import formatspo.usecase.ParsePoUseCase
-import formatsresx.usecase.ExportResxUseCase
-import formatsresx.usecase.ParseResxUseCase
+import formats.ExportResourcesUseCase
+import formats.ImportResourcesUseCase
 import glossarydata.GlossaryTermModel
 import glossaryrepository.GlossaryTermRepository
 import kotlinx.coroutines.CoroutineScope
@@ -78,15 +72,9 @@ internal class DefaultTranslateComponent(
     private val projectRepository: ProjectRepository,
     private val languageRepository: LanguageRepository,
     private val segmentRepository: SegmentRepository,
-    private val parseAndroidResources: ParseAndroidResourcesUseCase,
-    private val parseIosResources: ParseIosResourcesUseCase,
-    private val parseResx: ParseResxUseCase,
-    private val parsePo: ParsePoUseCase,
+    private val importResources: ImportResourcesUseCase,
     private val importSegments: ImportSegmentsUseCase,
-    private val exportAndroidResources: ExportAndroidResourcesUseCase,
-    private val exportIosResources: ExportIosResourcesUseCase,
-    private val exportResx: ExportResxUseCase,
-    private val exportPo: ExportPoUseCase,
+    private val exportResources: ExportResourcesUseCase,
     private val validatePlaceholders: ValidatePlaceholdersUseCase,
     private val notificationCenter: NotificationCenter,
     private val exportToTmx: ExportTmxUseCase,
@@ -277,11 +265,7 @@ internal class DefaultTranslateComponent(
                 lang = baseLanguage.code,
             )
             val existingSource = glossaryTermRepository.get(sourceToAdd.lemma, sourceToAdd.lang)
-            if (existingSource == null) {
-                sourceTermId = glossaryTermRepository.create(sourceToAdd)
-            } else {
-                sourceTermId = existingSource.id
-            }
+            sourceTermId = existingSource?.id ?: glossaryTermRepository.create(sourceToAdd)
 
             // add target
             val targetTermId: Int
@@ -290,11 +274,7 @@ internal class DefaultTranslateComponent(
                 lang = targetLanguage.code,
             )
             val existingTarget = glossaryTermRepository.get(targetToAdd.lemma, targetToAdd.lang)
-            if (existingTarget == null) {
-                targetTermId = glossaryTermRepository.create(targetToAdd)
-            } else {
-                targetTermId = existingTarget.id
-            }
+            targetTermId = existingTarget?.id ?: glossaryTermRepository.create(targetToAdd)
 
             // create the association
             glossaryTermRepository.associate(sourceId = sourceTermId, targetId = targetTermId)
@@ -443,13 +423,7 @@ internal class DefaultTranslateComponent(
             val messageListComponent = messageList.asFlow<MessageListComponent>().firstOrNull()
             messageListComponent?.setEditingEnabled(false)
             messageListComponent?.clearMessages()
-            val segments = when (type) {
-                ResourceFileType.ANDROID_XML -> parseAndroidResources(path = path)
-                ResourceFileType.IOS_STRINGS -> parseIosResources(path = path)
-                ResourceFileType.RESX -> parseResx(path = path)
-                ResourceFileType.PO -> parsePo(path = path)
-                else -> emptyList()
-            }
+            val segments = importResources(path = path, type = type)
             importSegments(
                 segments = segments,
                 language = language,
@@ -468,63 +442,26 @@ internal class DefaultTranslateComponent(
         viewModelScope.launch(dispatchers.io) {
             val language = getCurrentLanguage() ?: return@launch
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
-            val segments = segmentRepository.getAll(language.id)
-            when (type) {
-                ResourceFileType.ANDROID_XML -> {
-                    exportAndroidResources(
-                        segments = segments,
-                        path = path,
-                    )
-                }
-
-                ResourceFileType.IOS_STRINGS -> {
-                    // for iOS it is needed to copy the base version of all untranslatable segments
-                    val baseLanguage = languageRepository.getBase(projectId)
-                    val toExport = if (baseLanguage != null) {
-                        val untranslatable = segmentRepository.getUntranslatable(baseLanguage.id)
-                        segments + untranslatable
-                    } else {
-                        segments
+            val segments = segmentRepository.getAll(language.id).let {
+                when (type) {
+                    // replicate untranslatable segments
+                    ResourceFileType.IOS_STRINGS,
+                    ResourceFileType.RESX,
+                    ResourceFileType.PO,
+                    -> {
+                        val baseLanguage = languageRepository.getBase(projectId)
+                        if (baseLanguage != null) {
+                            val untranslatable = segmentRepository.getUntranslatable(baseLanguage.id)
+                            it + untranslatable
+                        } else {
+                            it
+                        }
                     }
-                    exportIosResources(
-                        segments = toExport,
-                        path = path,
-                    )
-                }
 
-                ResourceFileType.RESX -> {
-                    // idem for untranslatable segments
-                    val baseLanguage = languageRepository.getBase(projectId)
-                    val toExport = if (baseLanguage != null) {
-                        val untranslatable = segmentRepository.getUntranslatable(baseLanguage.id)
-                        segments + untranslatable
-                    } else {
-                        segments
-                    }
-                    exportResx(
-                        segments = toExport,
-                        path = path,
-                    )
+                    else -> it
                 }
-
-                ResourceFileType.PO -> {
-                    // idem for untranslatable segments
-                    val baseLanguage = languageRepository.getBase(projectId)
-                    val toExport = if (baseLanguage != null) {
-                        val untranslatable = segmentRepository.getUntranslatable(baseLanguage.id)
-                        segments + untranslatable
-                    } else {
-                        segments
-                    }
-                    exportPo(
-                        segments = toExport,
-                        path = path,
-                        lang = language.code,
-                    )
-                }
-
-                else -> Unit
             }
+            exportResources(segments = segments, path = path, lang = language.code, type = type)
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
         }
     }

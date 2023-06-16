@@ -21,6 +21,12 @@ kotlin {
         val jvmMain by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)
+
+                implementation(libs.koin)
+                implementation(libs.redundent)
+
+                implementation(projects.coreCommon)
+                implementation(projects.domainProject.data)
             }
         }
     }

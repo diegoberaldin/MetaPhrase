@@ -2,10 +2,7 @@ package translate.di
 
 import dialognewsegment.di.dialogNewSegmentModule
 import dialognewterm.di.dialogNewTermModule
-import formatsandroid.di.androidModule
-import formatsios.di.iosModule
-import formatspo.di.poModule
-import formatsresx.di.resxModule
+import formats.di.formatsModule
 import org.koin.dsl.module
 import panelglossary.di.panelGlossaryModule
 import panelmatches.di.panelMatchesModule
@@ -17,12 +14,7 @@ import translatemessages.di.translateMessagesModule
 import translatetoolbar.di.translateToolbarModule
 
 val translateModule = module {
-    includes(
-        androidModule,
-        iosModule,
-        resxModule,
-        poModule,
-    )
+    includes(formatsModule)
 
     includes(translateToolbarModule)
     includes(translateMessagesModule)
@@ -47,15 +39,9 @@ val translateModule = module {
             projectRepository = get(),
             languageRepository = get(),
             segmentRepository = get(),
-            parseAndroidResources = get(),
-            parseIosResources = get(),
-            parseResx = get(),
-            parsePo = get(),
+            importResources = get(),
             importSegments = get(),
-            exportAndroidResources = get(),
-            exportIosResources = get(),
-            exportResx = get(),
-            exportPo = get(),
+            exportResources = get(),
             validatePlaceholders = get(),
             notificationCenter = get(),
             exportToTmx = get(),
