@@ -39,8 +39,11 @@ interface RootComponent {
     fun validatePlaceholders()
     fun insertBestMatch()
     fun globalSpellcheck()
+    fun openImportGlossaryDialog()
+    fun importGlossary(path: String)
     fun openExportGlossaryDialog()
     fun exportGlossary(path: String)
+    fun clearGlossary()
 
     sealed interface Config : Parcelable {
         @Parcelize
@@ -75,6 +78,9 @@ interface RootComponent {
 
         @Parcelize
         object ExportTmxDialog : DialogConfig
+
+        @Parcelize
+        object ImportGlossaryDialog : DialogConfig
 
         @Parcelize
         object ImportTmxDialog : DialogConfig

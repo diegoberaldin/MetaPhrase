@@ -191,6 +191,19 @@ fun RootContent(
             )
         }
 
+        is RootComponent.DialogConfig.ImportGlossaryDialog -> {
+            CustomOpenFileDialog(
+                title = "dialog_title_open_file".localized(),
+                nameFilter = { it.endsWith(".csv") },
+                onCloseRequest = { path ->
+                    component.closeDialog()
+                    if (path != null) {
+                        component.importGlossary(path = path)
+                    }
+                },
+            )
+        }
+
         is RootComponent.DialogConfig.ExportGlossaryDialog -> {
             CustomSaveFileDialog(
                 title = "dialog_title_open_file".localized(),

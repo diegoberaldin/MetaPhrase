@@ -1,5 +1,6 @@
 [versions]
 androidx_datastore = "1.0.0"
+commons_csv = "1.10.0"
 guava = "31.1-jre"
 exposed = "0.41.1"
 h2 = "2.1.214"
@@ -38,6 +39,7 @@ exposed_jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "e
 
 # serialization
 redundent = { module = "org.redundent:kotlin-xml-builder", version.ref = "redundent" }
+commons_csv = { module = "org.apache.commons:commons-csv", version.ref = "commons_csv" }
 
 # spelling
 guava = { module = "com.google.guava:guava", version.ref = "guava" }

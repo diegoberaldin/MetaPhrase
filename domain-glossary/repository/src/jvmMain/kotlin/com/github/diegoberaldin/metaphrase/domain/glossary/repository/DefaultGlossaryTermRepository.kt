@@ -18,6 +18,8 @@ internal class DefaultGlossaryTermRepository(
 
     override suspend fun delete(model: GlossaryTermModel) = dao.delete(model)
 
+    override suspend fun deleteAll() = dao.deleteAll()
+
     override suspend fun areAssociated(sourceId: Int, targetId: Int) =
         dao.areAssociated(sourceId = sourceId, targetId = targetId)
 

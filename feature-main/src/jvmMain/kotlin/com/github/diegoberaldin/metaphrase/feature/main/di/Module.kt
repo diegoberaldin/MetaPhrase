@@ -25,7 +25,9 @@ val mainModule = module {
             notificationCenter = get(),
             importFromTmx = get(),
             clearTranslationMemory = get(),
+            importGlossaryTerms = get(),
             exportGlossaryTerms = get(),
+            clearGlossaryTerms = get(),
         )
     }
 }

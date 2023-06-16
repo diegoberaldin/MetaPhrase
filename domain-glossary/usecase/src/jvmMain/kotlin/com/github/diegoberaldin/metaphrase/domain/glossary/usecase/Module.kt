@@ -16,4 +16,15 @@ val glossaryUseCaseModule = module {
             dispatchers = get(),
         )
     }
+    single<ImportGlossaryUseCase> {
+        DefaultImportGlossaryUseCase(
+            repository = get(),
+            dispatchers = get(),
+        )
+    }
+    single<ClearGlossaryUseCase> {
+        DefaultClearGlossaryUseCase(
+            repository = get(),
+        )
+    }
 }

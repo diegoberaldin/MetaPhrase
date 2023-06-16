@@ -16,7 +16,9 @@ import com.github.diegoberaldin.metaphrase.core.common.coroutines.CoroutineDispa
 import com.github.diegoberaldin.metaphrase.core.common.notification.NotificationCenter
 import com.github.diegoberaldin.metaphrase.core.common.utils.asFlow
 import com.github.diegoberaldin.metaphrase.core.common.utils.getByInjection
+import com.github.diegoberaldin.metaphrase.domain.glossary.usecase.ClearGlossaryUseCase
 import com.github.diegoberaldin.metaphrase.domain.glossary.usecase.ExportGlossaryUseCase
+import com.github.diegoberaldin.metaphrase.domain.glossary.usecase.ImportGlossaryUseCase
 import com.github.diegoberaldin.metaphrase.domain.project.data.LanguageModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.ProjectModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.ResourceFileType
@@ -60,7 +62,9 @@ internal class DefaultRootComponent(
     projectRepository: ProjectRepository,
     private val importFromTmx: ImportTmxUseCase,
     private val clearTranslationMemory: ClearTmUseCase,
+    private val importGlossaryTerms: ImportGlossaryUseCase,
     private val exportGlossaryTerms: ExportGlossaryUseCase,
+    private val clearGlossaryTerms: ClearGlossaryUseCase,
     private val notificationCenter: NotificationCenter,
 ) : RootComponent, ComponentContext by componentContext {
 
@@ -368,6 +372,16 @@ internal class DefaultRootComponent(
         }
     }
 
+    override fun openImportGlossaryDialog() {
+        dialogNavigation.activate(RootComponent.DialogConfig.ImportGlossaryDialog)
+    }
+
+    override fun importGlossary(path: String) {
+        viewModelScope.launch(dispatchers.io) {
+            importGlossaryTerms(path)
+        }
+    }
+
     override fun openExportGlossaryDialog() {
         dialogNavigation.activate(RootComponent.DialogConfig.ExportGlossaryDialog)
     }
@@ -375,6 +389,12 @@ internal class DefaultRootComponent(
     override fun exportGlossary(path: String) {
         viewModelScope.launch(dispatchers.io) {
             exportGlossaryTerms(path = path)
+        }
+    }
+
+    override fun clearGlossary() {
+        viewModelScope.launch(dispatchers.io) {
+            clearGlossaryTerms()
         }
     }
 }

@@ -15,6 +15,8 @@ interface GlossaryTermDao {
     suspend fun update(model: GlossaryTermModel): Int
 
     suspend fun delete(model: GlossaryTermModel): Int
+
+    suspend fun deleteAll()
     fun ResultRow.toModel(): GlossaryTermModel
 
     suspend fun areAssociated(sourceId: Int, targetId: Int): Boolean

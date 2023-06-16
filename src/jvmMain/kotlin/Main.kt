@@ -280,15 +280,15 @@ private fun MenuBarScope.makeMenus(
         }
         Separator()
         Item(
+            text = "menu_translation_memory_import".localized(),
+        ) {
+            rootComponent.openImportTmxDialog()
+        }
+        Item(
             text = "menu_translation_memory_export".localized(),
             enabled = rootUiState.activeProject != null,
         ) {
             rootComponent.openExportTmxDialog()
-        }
-        Item(
-            text = "menu_translation_memory_import".localized(),
-        ) {
-            rootComponent.openImportTmxDialog()
         }
         Separator()
         Item(
@@ -307,9 +307,19 @@ private fun MenuBarScope.makeMenus(
         text = "menu_glossary".localized(),
     ) {
         Item(
+            text = "menu_translation_memory_import".localized(),
+        ) {
+            rootComponent.openImportGlossaryDialog()
+        }
+        Item(
             text = "menu_translation_memory_export".localized(),
         ) {
             rootComponent.openExportGlossaryDialog()
+        }
+        Item(
+            text = "menu_translation_memory_clear".localized(),
+        ) {
+            rootComponent.clearGlossary()
         }
     }
 }

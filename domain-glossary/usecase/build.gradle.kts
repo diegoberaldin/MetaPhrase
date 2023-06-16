@@ -23,6 +23,7 @@ kotlin {
                 implementation(compose.desktop.currentOs)
 
                 implementation(libs.koin)
+                implementation(libs.commons.csv)
 
                 implementation(projects.coreCommon)
 
