@@ -303,4 +303,13 @@ private fun MenuBarScope.makeMenus(
             rootComponent.clearTm()
         }
     }
+    Menu(
+        text = "menu_glossary".localized(),
+    ) {
+        Item(
+            text = "menu_translation_memory_export".localized(),
+        ) {
+            rootComponent.openExportGlossaryDialog()
+        }
+    }
 }

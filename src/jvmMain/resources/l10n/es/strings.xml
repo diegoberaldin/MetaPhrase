@@ -41,6 +41,7 @@
 	<string name="glossary_title">Glosario</string>
 	<string name="lang">es</string>
 	<string name="memory_content_title">Contenido MT</string>
+	<string name="menu_glossary">Glosario</string>
 	<string name="menu_project">Proyecto</string>
 	<string name="menu_project_close">Cerrar</string>
 	<string name="menu_project_edit">Modificar…</string>

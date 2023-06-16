@@ -191,6 +191,19 @@ fun RootContent(
             )
         }
 
+        is RootComponent.DialogConfig.ExportGlossaryDialog -> {
+            CustomSaveFileDialog(
+                title = "dialog_title_open_file".localized(),
+                initialFileName = "glossary.csv",
+                onCloseRequest = { path ->
+                    component.closeDialog()
+                    if (path != null) {
+                        component.exportGlossary(path = path)
+                    }
+                },
+            )
+        }
+
         else -> Unit
     }
 }

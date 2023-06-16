@@ -12,6 +12,7 @@ import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.insertIgnore
 import org.jetbrains.exposed.sql.or
 import org.jetbrains.exposed.sql.select
+import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.update
 
@@ -21,6 +22,10 @@ class DefaultGlossaryTermDao : GlossaryTermDao {
             it[lemma] = model.lemma
             it[lang] = model.lang
         }[GlossaryTermEntity.id].value
+    }
+
+    override suspend fun getAll(): List<GlossaryTermModel> = newSuspendedTransaction {
+        GlossaryTermEntity.selectAll().map { it.toModel() }
     }
 
     override suspend fun getById(id: Int): GlossaryTermModel? = newSuspendedTransaction {
@@ -102,6 +107,51 @@ class DefaultGlossaryTermDao : GlossaryTermDao {
 
             (termsWithId1.toSet() + termsWithId2).toList()
         }
+
+    override suspend fun getAllAssociated(model: GlossaryTermModel): List<GlossaryTermModel> = newSuspendedTransaction {
+        val terms1 = GlossaryTermEntity.alias("terms1")
+        val terms2 = GlossaryTermEntity.alias("terms2")
+        val termsWithId1 = terms1.join(
+            otherTable = GlossaryTermRelationshipEntity,
+            onColumn = terms1[GlossaryTermEntity.id],
+            otherColumn = GlossaryTermRelationshipEntity.id1,
+            joinType = JoinType.INNER,
+        ).join(
+            otherTable = terms2,
+            onColumn = GlossaryTermRelationshipEntity.id2,
+            otherColumn = terms2[GlossaryTermEntity.id],
+            joinType = JoinType.INNER,
+        )
+            .select { (terms1[GlossaryTermEntity.id] eq model.id) }
+            .map {
+                GlossaryTermModel(
+                    id = it[terms2[GlossaryTermEntity.id]].value,
+                    lemma = it[terms2[GlossaryTermEntity.lemma]],
+                    lang = it[terms2[GlossaryTermEntity.lang]],
+                )
+            }
+        val termsWithId2 = terms1.join(
+            otherTable = GlossaryTermRelationshipEntity,
+            onColumn = terms1[GlossaryTermEntity.id],
+            otherColumn = GlossaryTermRelationshipEntity.id2,
+            joinType = JoinType.INNER,
+        ).join(
+            otherTable = terms2,
+            onColumn = GlossaryTermRelationshipEntity.id1,
+            otherColumn = terms2[GlossaryTermEntity.id],
+            joinType = JoinType.INNER,
+        )
+            .select { (terms1[GlossaryTermEntity.id] eq model.id) }
+            .map {
+                GlossaryTermModel(
+                    id = it[terms2[GlossaryTermEntity.id]].value,
+                    lemma = it[terms2[GlossaryTermEntity.lemma]],
+                    lang = it[terms2[GlossaryTermEntity.lang]],
+                )
+            }
+
+        (termsWithId1.toSet() + termsWithId2).toList()
+    }
 
     override suspend fun associate(sourceId: Int, targetId: Int) = newSuspendedTransaction {
         if (areAssociated(sourceId, targetId)) return@newSuspendedTransaction

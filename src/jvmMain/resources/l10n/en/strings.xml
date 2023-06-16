@@ -66,6 +66,7 @@
 	<string name="language_spanish" translatable="false">Español</string>
 	<string name="language_swedish" translatable="false">Svenska</string>
 	<string name="memory_content_title">TM content</string>
+	<string name="menu_glossary">Glossary</string>
 	<string name="menu_project">Project</string>
 	<string name="menu_project_close">Close</string>
 	<string name="menu_project_edit">Edit…</string>

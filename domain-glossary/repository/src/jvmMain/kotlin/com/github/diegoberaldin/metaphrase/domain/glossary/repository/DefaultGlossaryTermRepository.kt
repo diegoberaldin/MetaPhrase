@@ -12,6 +12,8 @@ internal class DefaultGlossaryTermRepository(
 
     override suspend fun get(lemma: String, lang: String) = dao.getBy(lemma = lemma, lang = lang)
 
+    override suspend fun getAll() = dao.getAll()
+
     override suspend fun update(model: GlossaryTermModel) = dao.update(model)
 
     override suspend fun delete(model: GlossaryTermModel) = dao.delete(model)
@@ -21,6 +23,8 @@ internal class DefaultGlossaryTermRepository(
 
     override suspend fun getAssociated(model: GlossaryTermModel, otherLang: String): List<GlossaryTermModel> =
         dao.getAssociated(model = model, otherLang = otherLang)
+
+    override suspend fun getAllAssociated(model: GlossaryTermModel) = dao.getAllAssociated(model)
 
     override suspend fun associate(sourceId: Int, targetId: Int) =
         dao.associate(sourceId = sourceId, targetId = targetId)

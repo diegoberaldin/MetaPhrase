@@ -6,6 +6,8 @@ import org.jetbrains.exposed.sql.ResultRow
 interface GlossaryTermDao {
     suspend fun insert(model: GlossaryTermModel): Int
 
+    suspend fun getAll(): List<GlossaryTermModel>
+
     suspend fun getById(id: Int): GlossaryTermModel?
 
     suspend fun getBy(lemma: String, lang: String): GlossaryTermModel?
@@ -18,6 +20,8 @@ interface GlossaryTermDao {
     suspend fun areAssociated(sourceId: Int, targetId: Int): Boolean
 
     suspend fun getAssociated(model: GlossaryTermModel, otherLang: String): List<GlossaryTermModel>
+
+    suspend fun getAllAssociated(model: GlossaryTermModel): List<GlossaryTermModel>
 
     suspend fun associate(sourceId: Int, targetId: Int)
 
