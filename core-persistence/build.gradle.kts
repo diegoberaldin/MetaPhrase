@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.compose")
 }
 
-group = "core.persistence"
+group = "com.github.diegoberaldin.metaphrase.core.persistence"
 version = libs.versions.appVersion.get()
 
 repositories {

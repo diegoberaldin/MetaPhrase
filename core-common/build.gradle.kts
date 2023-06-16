@@ -4,7 +4,7 @@ plugins {
     id("org.jetbrains.compose")
 }
 
-group = "core.common"
+group = "com.github.diegoberaldin.metaphrase.core.common"
 version = libs.versions.appVersion.get()
 
 repositories {

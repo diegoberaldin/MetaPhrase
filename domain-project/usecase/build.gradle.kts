@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.compose")
 }
 
-group = "domain.language.usecase"
+group = "com.github.diegoberaldin.metaphrase.domain.project.usecase"
 version = libs.versions.appVersion.get()
 
 repositories {

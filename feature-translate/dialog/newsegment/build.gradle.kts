@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.compose")
 }
 
-group = "dialog.newsegment"
+group = "com.github.diegoberaldin.metaphrase.feature.translate.dialog.newsegment"
 version = libs.versions.appVersion.get()
 
 repositories {

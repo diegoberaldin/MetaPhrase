@@ -4,7 +4,7 @@ plugins {
     kotlin("plugin.serialization") version "1.8.10"
 }
 
-group = "core.localization"
+group = "com.github.diegoberaldin.metaphrase.core.localization"
 version = libs.versions.appVersion.get()
 
 repositories {

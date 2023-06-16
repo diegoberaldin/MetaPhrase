@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.compose")
 }
 
-group = "domain.spellcheck"
+group = "com.github.diegoberaldin.metaphrase.domain.spellcheck"
 version = libs.versions.appVersion.get()
 
 repositories {

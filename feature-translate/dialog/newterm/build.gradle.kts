@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.compose")
 }
 
-group = "dialog.newglossaryterm"
+group = "com.github.diegoberaldin.metaphrase.feature.translate.dialog.newglossaryterm"
 version = libs.versions.appVersion.get()
 
 repositories {
