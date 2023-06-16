@@ -36,7 +36,7 @@ Glossaries can be considered the second golden tool to ensure consistency and sa
 
 ![glossary](images/glossary.png)
 
-Glossary entries can be added on the fly by selecting a term in the editor, right-clicking on it and selecting the "Add to glossary" menu item.
+Glossary entries can be added on the fly by selecting a term in the editor, right-clicking on it and selecting the "Add to glossary" menu item. It is also possible to import and export glossaries in CSV format.
 
 ## Validation
 
