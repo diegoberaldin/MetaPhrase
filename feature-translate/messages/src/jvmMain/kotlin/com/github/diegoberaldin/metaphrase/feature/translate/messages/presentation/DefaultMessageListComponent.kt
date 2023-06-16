@@ -441,4 +441,14 @@ internal class DefaultMessageListComponent(
             addToGlossaryEvents.emit(AddToGlossaryEvent(lemma = lemma, lang = lang))
         }
     }
+
+    override fun ignoreWordInSpelling(word: String) {
+        viewModelScope.launch(dispatchers.io) {
+            spellCheckRepository.addUserDefineWord(word)
+            val index = editingIndex.value
+            if (index != null) {
+                startEditing(index)
+            }
+        }
+    }
 }

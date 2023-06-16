@@ -12,6 +12,7 @@
 	<string name="column_invalid_missing">Fehlt</string>
 	<string name="column_invalid_spelling">Rechtschreibfehler</string>
 	<string name="context_menu_add_glossary">Zum Glossar hinzufügen</string>
+	<string name="context_menu_ignore">„%s“ ignorieren</string>
 	<string name="context_menu_insert_suggestion">Einfügen: %s</string>
 	<string name="create_glossary_source_term">Quellbegriff</string>
 	<string name="create_glossary_target_term">Zielbegriff</string>

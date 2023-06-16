@@ -155,7 +155,15 @@ fun MessageListContent(
                                 component.setSegmentText(it)
                             },
                             onAddToGlossary = { word ->
-                                component.addToGlossarySource(word, uiState.currentLanguage?.code.orEmpty())
+                                component.addToGlossarySource(
+                                    lemma = word,
+                                    lang = uiState.currentLanguage?.code.orEmpty(),
+                                )
+                            },
+                            onIgnoreWord = { word ->
+                                component.ignoreWordInSpelling(
+                                    word = word,
+                                )
                             },
                         )
                     } else {
@@ -197,7 +205,15 @@ fun MessageListContent(
                                 component.setSegmentText(it)
                             },
                             onAddToGlossary = { word ->
-                                component.addToGlossarySource(word, uiState.currentLanguage?.code.orEmpty())
+                                component.addToGlossarySource(
+                                    lemma = word,
+                                    lang = uiState.currentLanguage?.code.orEmpty(),
+                                )
+                            },
+                            onIgnoreWord = { word ->
+                                component.ignoreWordInSpelling(
+                                    word = word,
+                                )
                             },
                         )
                     }

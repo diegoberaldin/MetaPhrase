@@ -35,4 +35,5 @@ interface MessageListComponent {
     fun setEditingEnabled(value: Boolean)
     fun clearMessages()
     fun addToGlossarySource(lemma: String, lang: String)
+    fun ignoreWordInSpelling(word: String)
 }

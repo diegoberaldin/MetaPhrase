@@ -17,6 +17,7 @@ internal fun SuggestCorrectionsForTextFieldContextMenu(
     active: Boolean = false,
     spellingErrors: List<SpellCheckCorrection> = emptyList(),
     onSuggestionAccepted: (String, IntRange) -> Unit,
+    onIgnoreWord: (String) -> Unit,
     onAddToGlossary: (String) -> Unit,
     content: @Composable () -> Unit,
 ) {
@@ -42,6 +43,9 @@ internal fun SuggestCorrectionsForTextFieldContextMenu(
                                     ContextMenuItem("context_menu_insert_suggestion".localized(suggestedWord)) {
                                         onSuggestionAccepted(suggestedWord, spellingCorrection.indices)
                                     }
+                                }
+                                newItems += ContextMenuItem("context_menu_ignore".localized(selection)) {
+                                    onIgnoreWord(selection)
                                 }
                             }
 
