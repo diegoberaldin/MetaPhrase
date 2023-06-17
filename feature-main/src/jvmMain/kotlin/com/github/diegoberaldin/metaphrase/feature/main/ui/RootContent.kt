@@ -113,6 +113,10 @@ fun RootContent(
                             it.endsWith(".po")
                         }
 
+                        ResourceFileType.JSON -> {
+                            it.endsWith(".json")
+                        }
+
                         else -> {
                             false
                         }
@@ -136,6 +140,7 @@ fun RootContent(
                     ResourceFileType.IOS_STRINGS -> "Localizable.strings"
                     ResourceFileType.RESX -> "Resources.resx"
                     ResourceFileType.PO -> "messages.po"
+                    ResourceFileType.JSON -> "strings.json"
                     else -> "strings"
                 },
                 onCloseRequest = { path ->
