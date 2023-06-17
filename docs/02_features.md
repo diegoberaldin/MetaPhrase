@@ -16,7 +16,7 @@ Conversely, the target mode allows translators to insert  a localized version of
 
 MetaPhrase is designed to integrate in the most frictionless way with the standard localization formats used for mobile application development: iOS stringtables (aka `Localizable.strings`) and string resources on Android (aka `strings.xml`). For this reason, the (de)serialization from and to this format is built-in, to the point that the application uses an Android-style XML format for its own localization.
 
-Support for `.resx` files, a common format used in Windows applications and in general in the .NET environment was integrated as well. The application also supports (to some extent) the PO format, that is very popular in projects using the GNU gettext utility.
+Support for `.resx` files, a common format used in Windows applications and in general in the .NET environment was integrated as well as suport for JSON resources in the format of the popular ngx-translate library. The application also partially supports the PO format, that is very popular in projects using the GNU gettext utility.
 
 MetaPhrase can import from and export to resource formats and it allows to manage some of the properties that these formats allow (e.g. marking some strings as untranslatable which on Android is achieved with the `translatable="false"` attribute).
 
