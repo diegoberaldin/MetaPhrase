@@ -73,6 +73,7 @@
 	<string name="menu_project_export">Export</string>
 	<string name="menu_project_import">Import</string>
 	<string name="menu_project_import_android">Android XML…</string>
+	<string name="menu_project_import_arb">Flutter ARB…</string>
 	<string name="menu_project_import_ios">iOS stringtable…</string>
 	<string name="menu_project_import_json">JSON…</string>
 	<string name="menu_project_import_po">Gettext PO</string>

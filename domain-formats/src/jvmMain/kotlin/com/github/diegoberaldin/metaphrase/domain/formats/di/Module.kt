@@ -8,6 +8,10 @@ import com.github.diegoberaldin.metaphrase.domain.formats.android.DefaultExportA
 import com.github.diegoberaldin.metaphrase.domain.formats.android.DefaultParseAndroidResourcesUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.android.ExportAndroidResourcesUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.android.ParseAndroidResourcesUseCase
+import com.github.diegoberaldin.metaphrase.domain.formats.flutter.DefaultExportArbUseCase
+import com.github.diegoberaldin.metaphrase.domain.formats.flutter.DefaultParseArbUseCase
+import com.github.diegoberaldin.metaphrase.domain.formats.flutter.ExportArbUseCase
+import com.github.diegoberaldin.metaphrase.domain.formats.flutter.ParseArbUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.ios.DefaultExportIosResourcesUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.ios.DefaultParseIosResourcesUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.ios.ExportIosResourcesUseCase
@@ -91,6 +95,19 @@ private val jsonModule = module {
     }
 }
 
+private val flutterModule = module {
+    single<ParseArbUseCase> {
+        DefaultParseArbUseCase(
+            dispatchers = get(),
+        )
+    }
+    single<ExportArbUseCase> {
+        DefaultExportArbUseCase(
+            dispatchers = get(),
+        )
+    }
+}
+
 val formatsModule = module {
     includes(
         androidModule,
@@ -98,6 +115,7 @@ val formatsModule = module {
         resxModule,
         poModule,
         jsonModule,
+        flutterModule,
     )
     single<ImportResourcesUseCase> {
         DefaultImportResourcesUseCase(
@@ -106,6 +124,7 @@ val formatsModule = module {
             parseResx = get(),
             parsePo = get(),
             parseJson = get(),
+            parseArb = get(),
         )
     }
     single<ExportResourcesUseCase> {
@@ -115,6 +134,7 @@ val formatsModule = module {
             exportResx = get(),
             exportPo = get(),
             exportJson = get(),
+            exportArb = get(),
         )
     }
 }

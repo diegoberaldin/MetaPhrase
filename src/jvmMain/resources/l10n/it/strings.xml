@@ -48,6 +48,7 @@
 	<string name="menu_project_export">Esporta</string>
 	<string name="menu_project_import">Importa</string>
 	<string name="menu_project_import_android">XML Android…</string>
+	<string name="menu_project_import_arb">ARB Flutter…</string>
 	<string name="menu_project_import_ios">stringtable iOS…</string>
 	<string name="menu_project_import_json">JSON…</string>
 	<string name="menu_project_import_po">PO Gettext</string>

@@ -186,6 +186,11 @@ private fun MenuBarScope.makeMenus(
             ) {
                 rootComponent.openImportDialog(ResourceFileType.JSON)
             }
+            Item(
+                text = "menu_project_import_arb".localized(),
+            ) {
+                rootComponent.openImportDialog(ResourceFileType.ARB)
+            }
         }
         Menu(
             text = "menu_project_export".localized(),
@@ -215,6 +220,11 @@ private fun MenuBarScope.makeMenus(
                 text = "menu_project_import_json".localized(),
             ) {
                 rootComponent.openExportDialog(ResourceFileType.JSON)
+            }
+            Item(
+                text = "menu_project_import_arb".localized(),
+            ) {
+                rootComponent.openExportDialog(ResourceFileType.ARB)
             }
         }
         Separator()

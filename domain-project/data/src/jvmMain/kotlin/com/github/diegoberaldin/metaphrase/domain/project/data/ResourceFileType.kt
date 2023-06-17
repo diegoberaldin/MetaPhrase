@@ -6,4 +6,5 @@ enum class ResourceFileType {
     RESX,
     PO,
     JSON,
+    ARB,
 }
