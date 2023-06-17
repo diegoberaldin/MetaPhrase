@@ -2,6 +2,7 @@ package com.github.diegoberaldin.metaphrase.domain.formats
 
 import com.github.diegoberaldin.metaphrase.domain.formats.android.ExportAndroidResourcesUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.ios.ExportIosResourcesUseCase
+import com.github.diegoberaldin.metaphrase.domain.formats.json.ExportJsonUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.po.ExportPoUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.resx.ExportResxUseCase
 import com.github.diegoberaldin.metaphrase.domain.project.data.ResourceFileType
@@ -12,6 +13,7 @@ internal class DefaultExportResourcesUseCase(
     private val exportIos: ExportIosResourcesUseCase,
     private val exportResx: ExportResxUseCase,
     private val exportPo: ExportPoUseCase,
+    private val exportJson: ExportJsonUseCase,
 ) : ExportResourcesUseCase {
     override suspend fun invoke(segments: List<SegmentModel>, path: String, lang: String, type: ResourceFileType) {
         when (type) {
@@ -29,6 +31,10 @@ internal class DefaultExportResourcesUseCase(
 
             ResourceFileType.PO -> {
                 exportPo(segments = segments, path = path, lang = lang)
+            }
+
+            ResourceFileType.JSON -> {
+                exportJson(segments = segments, path = path)
             }
 
             else -> Unit

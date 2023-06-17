@@ -12,7 +12,9 @@ import com.github.diegoberaldin.metaphrase.domain.formats.ios.DefaultExportIosRe
 import com.github.diegoberaldin.metaphrase.domain.formats.ios.DefaultParseIosResourcesUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.ios.ExportIosResourcesUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.ios.ParseIosResourcesUseCase
+import com.github.diegoberaldin.metaphrase.domain.formats.json.DefaultExportJsonUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.json.DefaultParseJsonUseCase
+import com.github.diegoberaldin.metaphrase.domain.formats.json.ExportJsonUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.json.ParseJsonUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.po.DefaultExportPoResourcesUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.po.DefaultParsePoUseCase
@@ -82,6 +84,11 @@ private val jsonModule = module {
             dispatchers = get(),
         )
     }
+    single<ExportJsonUseCase> {
+        DefaultExportJsonUseCase(
+            dispatchers = get(),
+        )
+    }
 }
 
 val formatsModule = module {
@@ -107,6 +114,7 @@ val formatsModule = module {
             exportIos = get(),
             exportResx = get(),
             exportPo = get(),
+            exportJson = get(),
         )
     }
 }
