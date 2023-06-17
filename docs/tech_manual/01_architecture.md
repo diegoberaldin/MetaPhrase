@@ -18,7 +18,7 @@ Here ist a short description of what can be found in each module:
 - **core-common** contains a set shared utilities divided by package: coroutine dispatchers (coroutines), file system (files), data store (keystore), logging (log), notification center (notification), shared UI components and theme (ui), extension functions and utilities (utils).
 - **core-localization**: contains the main entry point to localization in the `L10n` shared object and String extension functions; `L10n` uses the internal `DefaultLocalization` class internally to manage the language bundles. 
 - **core-persistence**: contains the `AppDatabase` class that provides a centralized entry point for the persistence layer and it is a factory for the DAO classes (which are found in each domain persistence submodule). Whenever a new persisted entity is created, `AppDatabase` needs to be updated for the schema creation/update and with the create DAO factory method.
-- **domain-formats** contains the business logic (mainly usecases) to manage import and export to resource files (Android XML, iOS stringtables, Windows resx, GNU gettext PO, ngx-translate JSON)
+- **domain-formats** contains the business logic (mainly usecases) to manage import and export to resource files (Android XML, iOS stringtables, Windows resx, GNU gettext PO, ngx-translate JSON, Flutter ARB)
 - **domain-glossary** contains the data layer and business logic layers of the glossary feature; it is divided into the following submodules:
   - **data** contains the model classes for the glossary terms
   - **persistence** contains the entity definitions and local data source (DAO, data access object) for glossary terms and associations between terms
