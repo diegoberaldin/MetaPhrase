@@ -14,8 +14,8 @@ internal class DefaultValidatePlaceholdersUseCase(
             val invalidKeys = mutableListOf<String>()
 
             for ((source, target) in pairs) {
-                val sourcePlaceholders = Constants.PlaceholderRegex.findAll(source.text).map { it.value }
-                val targetPlaceholders = Constants.PlaceholderRegex.findAll(target.text).map { it.value }
+                val sourcePlaceholders = extractPlaceholders(source.text)
+                val targetPlaceholders = extractPlaceholders(target.text)
                 val exceeding = (targetPlaceholders - sourcePlaceholders.toSet()).toList()
                 val missing = (sourcePlaceholders - targetPlaceholders.toSet()).toList()
                 if (missing.isNotEmpty() || exceeding.isNotEmpty()) {
@@ -29,4 +29,9 @@ internal class DefaultValidatePlaceholdersUseCase(
                 ValidatePlaceholdersUseCase.Output.Invalid(keys = invalidKeys)
             }
         }
+
+    private fun extractPlaceholders(message: String): List<String> {
+        val res = Constants.PlaceholderRegex.findAll(message).map { it.value }.toList()
+        return res + Constants.NamedPlaceholderRegex.findAll(message).map { it.value }.toList()
+    }
 }

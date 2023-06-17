@@ -63,8 +63,8 @@ internal class DefaultValidateComponent(
                 val source =
                     segmentRepository.getByKey(key = key, languageId = baseLanguage.id) ?: return@mapNotNull null
 
-                val sourcePlaceholders = Constants.PlaceholderRegex.findAll(source.text).map { it.value }
-                val targetPlaceholders = Constants.PlaceholderRegex.findAll(target.text).map { it.value }
+                val sourcePlaceholders = extractPlaceholders(source.text)
+                val targetPlaceholders = extractPlaceholders(target.text)
                 val exceeding = (targetPlaceholders - sourcePlaceholders.toSet()).toList()
                 val missing = (sourcePlaceholders - targetPlaceholders.toSet()).toList()
 
@@ -72,6 +72,11 @@ internal class DefaultValidateComponent(
             }
             content.value = ValidationContent.InvalidPlaceholders(references = references)
         }
+    }
+
+    private fun extractPlaceholders(message: String): List<String> {
+        val res = Constants.PlaceholderRegex.findAll(message).map { it.value }.toList()
+        return res + Constants.NamedPlaceholderRegex.findAll(message).map { it.value }.toList()
     }
 
     override fun loadSpellingMistakes(errors: Map<String, List<String>>) {
