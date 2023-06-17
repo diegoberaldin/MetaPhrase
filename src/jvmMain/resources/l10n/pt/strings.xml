@@ -20,8 +20,7 @@
     <string name="create_glossary_target_term">Termo-alvo</string>
     <string name="create_project_field_name">Nome</string>
     <string name="create_project_languages">Idiomas</string>
-    <string name="create_project_languages_subtitle">Cada projeto deve ter exatamente um idioma base (ou padrão)
-    </string>
+    <string name="create_project_languages_subtitle">Cada projeto deve ter exatamente um idioma base (ou padrão)</string>
     <string name="create_segment_key">Chave</string>
     <string name="create_segment_text">Texto</string>
     <string name="dialog_settings_language">Idioma do aplicativo</string>
@@ -52,9 +51,10 @@
     <string name="menu_project_export">Exportar</string>
     <string name="menu_project_import">Importar</string>
     <string name="menu_project_import_android">XML do Android…</string>
+    <string name="menu_project_import_arb">ARB do Flutter…</string>
     <string name="menu_project_import_ios">stringtable do iOS…</string>
     <string name="menu_project_import_json">JSON…</string>
-    <string name="menu_project_import_windows">PO do Gettext…</string>
+    <string name="menu_project_import_po">PO do Gettext…</string>
     <string name="menu_project_import_windows">resx do Windows…</string>
     <string name="menu_project_new">Novo…</string>
     <string name="menu_project_settings">Configurações…</string>
@@ -77,9 +77,7 @@
     <string name="message_duplicate_key">Já existe uma mensagem com a mesma chave</string>
     <string name="message_missing_field">Campo ausente</string>
     <string name="message_no_item_to_display">Nenhum item para exibir</string>
-    <string name="message_no_validation">Nenhum resultado de validação, execute uma validação com a ação "Validar" da
-        barra de ferramentas
-    </string>
+    <string name="message_no_validation">Nenhum resultado de validação, execute uma validação com a ação "Validar" da barra de ferramentas</string>
     <string name="message_spelling_invalid">Alguns erros ortográficos foram encontrados:</string>
     <string name="message_spelling_valid">Viva! Nenhum error de ortografia foi encontrado 🎉</string>
     <string name="message_validation_invalid">Algumas mensagens inválidas foram encontradas:</string>

@@ -97,29 +97,13 @@ fun RootContent(
                 title = "dialog_title_open_file".localized(),
                 nameFilter = {
                     when (type) {
-                        ResourceFileType.ANDROID_XML -> {
-                            it.endsWith(".xml")
-                        }
-
-                        ResourceFileType.IOS_STRINGS -> {
-                            it.endsWith(".strings")
-                        }
-
-                        ResourceFileType.RESX -> {
-                            it.endsWith(".resx")
-                        }
-
-                        ResourceFileType.PO -> {
-                            it.endsWith(".po")
-                        }
-
-                        ResourceFileType.JSON -> {
-                            it.endsWith(".json")
-                        }
-
-                        else -> {
-                            false
-                        }
+                        ResourceFileType.ANDROID_XML -> it.endsWith(".xml")
+                        ResourceFileType.IOS_STRINGS -> it.endsWith(".strings")
+                        ResourceFileType.RESX -> it.endsWith(".resx")
+                        ResourceFileType.PO -> it.endsWith(".po")
+                        ResourceFileType.JSON -> it.endsWith(".json")
+                        ResourceFileType.ARB -> it.endsWith(".arb")
+                        else -> false
                     }
                 },
                 onCloseRequest = { path ->
@@ -141,6 +125,7 @@ fun RootContent(
                     ResourceFileType.RESX -> "Resources.resx"
                     ResourceFileType.PO -> "messages.po"
                     ResourceFileType.JSON -> "strings.json"
+                    ResourceFileType.ARB -> "strings.arb"
                     else -> "strings"
                 },
                 onCloseRequest = { path ->

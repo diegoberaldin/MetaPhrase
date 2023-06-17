@@ -1,6 +1,7 @@
 package com.github.diegoberaldin.metaphrase.domain.formats
 
 import com.github.diegoberaldin.metaphrase.domain.formats.android.ExportAndroidResourcesUseCase
+import com.github.diegoberaldin.metaphrase.domain.formats.flutter.ExportArbUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.ios.ExportIosResourcesUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.json.ExportJsonUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.po.ExportPoUseCase
@@ -14,28 +15,16 @@ internal class DefaultExportResourcesUseCase(
     private val exportResx: ExportResxUseCase,
     private val exportPo: ExportPoUseCase,
     private val exportJson: ExportJsonUseCase,
+    private val exportArb: ExportArbUseCase,
 ) : ExportResourcesUseCase {
     override suspend fun invoke(segments: List<SegmentModel>, path: String, lang: String, type: ResourceFileType) {
         when (type) {
-            ResourceFileType.ANDROID_XML -> {
-                exportAndroid(segments = segments, path = path)
-            }
-
-            ResourceFileType.IOS_STRINGS -> {
-                exportIos(segments = segments, path = path)
-            }
-
-            ResourceFileType.RESX -> {
-                exportResx(segments = segments, path = path)
-            }
-
-            ResourceFileType.PO -> {
-                exportPo(segments = segments, path = path, lang = lang)
-            }
-
-            ResourceFileType.JSON -> {
-                exportJson(segments = segments, path = path)
-            }
+            ResourceFileType.ANDROID_XML -> exportAndroid(segments = segments, path = path)
+            ResourceFileType.IOS_STRINGS -> exportIos(segments = segments, path = path)
+            ResourceFileType.RESX -> exportResx(segments = segments, path = path)
+            ResourceFileType.PO -> exportPo(segments = segments, path = path, lang = lang)
+            ResourceFileType.JSON -> exportJson(segments = segments, path = path)
+            ResourceFileType.ARB -> exportArb(segments = segments, path = path)
 
             else -> Unit
         }
