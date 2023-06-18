@@ -31,6 +31,11 @@ val projectUseCaseModule = module {
         )
     }
     single<OpenProjectUseCase> {
-        DefaultOpenProjectUseCase()
+        DefaultOpenProjectUseCase(
+            dispatchers = get(),
+            projectRepository = get(),
+            languageRepository = get(),
+            segmentRepository = get(),
+        )
     }
 }

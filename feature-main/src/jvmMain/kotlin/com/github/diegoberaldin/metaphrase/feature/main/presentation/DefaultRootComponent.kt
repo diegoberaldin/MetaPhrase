@@ -245,10 +245,14 @@ internal class DefaultRootComponent(
 
     override fun openProject(path: String) {
         viewModelScope.launch(dispatchers.io) {
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
             val project = openProjectUseCase(path = path)
-            projectIdToOpen = project.id
-            val recentProject = RecentProjectModel(path = path)
-            recentProjectRepository.create(recentProject)
+            if (project != null) {
+                projectIdToOpen = project.id
+                val recentProject = RecentProjectModel(path = path)
+                recentProjectRepository.create(recentProject)
+            }
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
         }
     }
 
@@ -285,6 +289,7 @@ internal class DefaultRootComponent(
     }
 
     override fun closeCurrentProject() {
+        projectIdToOpen = null
         viewModelScope.launch(dispatchers.io) {
             main.asFlow<ProjectsComponent>().firstOrNull()?.closeCurrentProject()
         }

@@ -148,9 +148,11 @@ internal class DefaultProjectsComponent(
             if (current != null) {
                 projectRepository.delete(current)
             }
+            activeProject.value = null
+            withContext(dispatchers.main) {
+                navigation.pop()
+            }
         }
-        activeProject.value = null
-        navigation.pop()
     }
 
     override fun saveCurrentProject(path: String) {

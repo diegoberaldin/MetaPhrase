@@ -5,6 +5,7 @@ import com.github.diegoberaldin.metaphrase.domain.project.persistence.dao.Projec
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.isActive
 
 internal class DefaultProjectRepository(
@@ -22,9 +23,9 @@ internal class DefaultProjectRepository(
             if (res != null) {
                 trySend(res)
             }
-            delay(1_000)
+            delay(500)
         }
-    }
+    }.distinctUntilChanged()
 
     override suspend fun create(model: ProjectModel): Int = dao.create(model)
 

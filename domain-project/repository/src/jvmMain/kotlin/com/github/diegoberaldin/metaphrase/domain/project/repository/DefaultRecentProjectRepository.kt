@@ -5,6 +5,7 @@ import com.github.diegoberaldin.metaphrase.domain.project.persistence.dao.Recent
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.isActive
 
 internal class DefaultRecentProjectRepository(
@@ -18,9 +19,9 @@ internal class DefaultRecentProjectRepository(
             }
             val res = getAll()
             trySend(res)
-            delay(1_000)
+            delay(500)
         }
-    }
+    }.distinctUntilChanged()
 
     override suspend fun getAll(): List<RecentProjectModel> = dao.getAll()
 

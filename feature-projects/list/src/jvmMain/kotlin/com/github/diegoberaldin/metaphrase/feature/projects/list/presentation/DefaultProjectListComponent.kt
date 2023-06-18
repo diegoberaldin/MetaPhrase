@@ -75,9 +75,13 @@ internal class DefaultProjectListComponent(
 
     override fun openRecent(value: RecentProjectModel) {
         viewModelScope.launch(dispatchers.io) {
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
             val path = value.path
             val project = openProject(path = path)
-            projectSelected.emit(project)
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
+            if (project != null) {
+                projectSelected.emit(project)
+            }
         }
     }
 

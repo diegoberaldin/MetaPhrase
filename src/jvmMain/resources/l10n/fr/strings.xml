@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
 	<string name="app_intro">Veuillez ouvrir un projet en sélectionnant l\'un des éléments suivants.</string>
-	<string name="app_intro_empty">Il semble que vous n\'ayez aucun projet.\nVeuillez en créer un nouveau en utilisant le menu "Projet" > "Nouveau…".</string>
+	<string name="app_intro_empty">Aucun projet récent.\n\nVeuillez en créer un nouveau en utilisant le menu "Projet" > "Nouveau…".\n\nAlternativement, vous pouvez ouvrir un projet existant avec le menu "Projet" > "Ouvrir…".</string>
 	<string name="app_intro_title">Merci d\'utiliser MetaPhrase !</string>
 	<string name="app_name" translatable="false">MetaPhrase</string>
 	<string name="button_cancel">Annuler</string>
@@ -99,6 +99,7 @@
 	<string name="tooltip_move_to_previous">Passer au précédent</string>
 	<string name="tooltip_new_source_term">Nouveau terme source</string>
 	<string name="tooltip_new_target_term">Nouveau terme cible</string>
+	<string name="tooltip_remove_from_recent">Supprimer de la liste récente</string>
 	<string name="tooltip_validate">Valider les espaces réservés</string>
 	<string name="translation_memory_origin">source : %s</string>
 	<string name="translation_memory_similarity">similarité : %d%%</string>

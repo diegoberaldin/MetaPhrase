@@ -2,6 +2,7 @@ package com.github.diegoberaldin.metaphrase.domain.language.repository
 
 import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
 import com.github.diegoberaldin.metaphrase.domain.language.persistence.dao.LanguageDao
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.isActive
@@ -49,6 +50,7 @@ internal class DefaultLanguageRepository(
             }
             val res = getAll(projectId)
             trySend(res)
+            delay(500)
         }
     }.distinctUntilChanged()
 
