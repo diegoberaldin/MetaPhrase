@@ -1,6 +1,6 @@
 package com.github.diegoberaldin.metaphrase.feature.projects.dialog.newproject.presentation
 
-import com.github.diegoberaldin.metaphrase.domain.project.data.LanguageModel
+import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
 
 data class CreateProjectUiState(
     val name: String = "",

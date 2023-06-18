@@ -1,6 +1,6 @@
 package com.github.diegoberaldin.metaphrase.domain.project.usecase
 
-import com.github.diegoberaldin.metaphrase.domain.project.data.LanguageModel
+import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.SegmentModel
 
 interface ImportSegmentsUseCase {

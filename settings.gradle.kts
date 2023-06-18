@@ -22,6 +22,12 @@ include(
     ":core-localization",
     ":core-persistence",
 
+    ":domain-language",
+    ":domain-language:data",
+    ":domain-language:persistence",
+    ":domain-language:repository",
+    ":domain-language:usecase",
+
     ":domain-project",
     ":domain-project:data",
     ":domain-project:persistence",

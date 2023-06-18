@@ -5,8 +5,8 @@ import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import com.github.diegoberaldin.metaphrase.core.common.coroutines.CoroutineDispatcherProvider
 import com.github.diegoberaldin.metaphrase.core.common.utils.combine
-import com.github.diegoberaldin.metaphrase.domain.project.data.LanguageModel
-import com.github.diegoberaldin.metaphrase.domain.project.usecase.GetCompleteLanguageUseCase
+import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
+import com.github.diegoberaldin.metaphrase.domain.language.usecase.GetCompleteLanguageUseCase
 import com.github.diegoberaldin.metaphrase.domain.tm.data.TranslationMemoryEntryModel
 import com.github.diegoberaldin.metaphrase.domain.tm.repository.MemoryEntryRepository
 import kotlinx.coroutines.CoroutineScope

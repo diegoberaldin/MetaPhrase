@@ -1,7 +1,7 @@
 package com.github.diegoberaldin.metaphrase.feature.translate.toolbar.presentation
 
 import com.github.diegoberaldin.metaphrase.core.localization.localized
-import com.github.diegoberaldin.metaphrase.domain.project.data.LanguageModel
+import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.TranslationUnitTypeFilter
 
 data class TranslateToolbarUiState(

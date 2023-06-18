@@ -28,6 +28,8 @@ kotlin {
 
                 implementation(projects.domainProject.data)
                 implementation(projects.domainProject.repository)
+                implementation(projects.domainLanguage.data)
+                implementation(projects.domainLanguage.repository)
             }
         }
     }

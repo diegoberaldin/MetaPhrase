@@ -1,13 +1,14 @@
 package com.github.diegoberaldin.metaphrase.core.localization
 
-import DefaultLocalization
+import com.github.diegoberaldin.metaphrase.core.localization.repository.Localization
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.isActive
+import org.koin.java.KoinJavaComponent.get
 
 object L10n {
 
-    private val default = DefaultLocalization()
+    private val default: Localization = get(Localization::class.java)
 
     val currentLanguage = channelFlow<String> {
         while (true) {

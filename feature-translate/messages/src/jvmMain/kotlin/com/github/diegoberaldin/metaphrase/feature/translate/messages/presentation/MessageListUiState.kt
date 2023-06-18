@@ -1,6 +1,6 @@
 package com.github.diegoberaldin.metaphrase.feature.translate.messages.presentation
 
-import com.github.diegoberaldin.metaphrase.domain.project.data.LanguageModel
+import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.TranslationUnit
 
 data class MessageListUiState(

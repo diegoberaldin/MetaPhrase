@@ -2,7 +2,7 @@ package com.github.diegoberaldin.metaphrase.domain.tm.usecase
 
 import com.github.diegoberaldin.metaphrase.core.common.coroutines.CoroutineDispatcherProvider
 import com.github.diegoberaldin.metaphrase.core.localization.localized
-import com.github.diegoberaldin.metaphrase.domain.project.repository.LanguageRepository
+import com.github.diegoberaldin.metaphrase.domain.language.repository.LanguageRepository
 import com.github.diegoberaldin.metaphrase.domain.project.repository.SegmentRepository
 import kotlinx.coroutines.withContext
 import org.redundent.kotlin.xml.PrintOptions

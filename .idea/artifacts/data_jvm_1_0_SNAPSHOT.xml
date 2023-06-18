@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="data-jvm-1.0-SNAPSHOT">
-    <output-path>$PROJECT_DIR$/domain-tm/data/build/libs</output-path>
+    <output-path>$PROJECT_DIR$/domain-language/data/build/libs</output-path>
     <root id="archive" name="data-jvm-1.0-SNAPSHOT.jar" />
   </artifact>
 </component>

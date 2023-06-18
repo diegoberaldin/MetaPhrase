@@ -28,8 +28,9 @@ kotlin {
 
                 implementation(projects.coreCommon)
 
-                implementation(projects.domainGlossary.persistence)
                 implementation(projects.domainProject.persistence)
+                implementation(projects.domainLanguage.persistence)
+                implementation(projects.domainGlossary.persistence)
                 implementation(projects.domainTm.persistence)
             }
         }
