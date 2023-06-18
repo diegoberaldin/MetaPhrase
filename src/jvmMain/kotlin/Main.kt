@@ -26,8 +26,10 @@ import com.github.diegoberaldin.metaphrase.core.common.ui.theme.MetaPhraseTheme
 import com.github.diegoberaldin.metaphrase.core.common.utils.getByInjection
 import com.github.diegoberaldin.metaphrase.core.common.utils.runOnUiThread
 import com.github.diegoberaldin.metaphrase.core.localization.L10n
+import com.github.diegoberaldin.metaphrase.core.localization.di.localizationModule
 import com.github.diegoberaldin.metaphrase.core.localization.localized
 import com.github.diegoberaldin.metaphrase.core.persistence.di.persistenceModule
+import com.github.diegoberaldin.metaphrase.domain.language.di.languageModule
 import com.github.diegoberaldin.metaphrase.domain.project.data.ResourceFileType
 import com.github.diegoberaldin.metaphrase.feature.main.di.mainModule
 import com.github.diegoberaldin.metaphrase.feature.main.presentation.RootComponent
@@ -43,7 +45,9 @@ private fun initKoin() {
     startKoin {
         modules(
             commonModule,
+            localizationModule,
             persistenceModule,
+            languageModule,
             projectModule,
             mainModule,
         )

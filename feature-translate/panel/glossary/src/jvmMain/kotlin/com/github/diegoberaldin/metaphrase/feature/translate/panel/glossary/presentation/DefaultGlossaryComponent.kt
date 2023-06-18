@@ -7,9 +7,9 @@ import com.github.diegoberaldin.metaphrase.core.common.coroutines.CoroutineDispa
 import com.github.diegoberaldin.metaphrase.domain.glossary.data.GlossaryTermModel
 import com.github.diegoberaldin.metaphrase.domain.glossary.repository.GlossaryTermRepository
 import com.github.diegoberaldin.metaphrase.domain.glossary.usecase.GetGlossaryTermsUseCase
-import com.github.diegoberaldin.metaphrase.domain.project.data.LanguageModel
-import com.github.diegoberaldin.metaphrase.domain.project.repository.FlagsRepository
-import com.github.diegoberaldin.metaphrase.domain.project.repository.LanguageRepository
+import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
+import com.github.diegoberaldin.metaphrase.domain.language.repository.FlagsRepository
+import com.github.diegoberaldin.metaphrase.domain.language.repository.LanguageRepository
 import com.github.diegoberaldin.metaphrase.domain.project.repository.SegmentRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob

@@ -23,7 +23,7 @@ import com.github.diegoberaldin.metaphrase.core.common.ui.components.CustomToolt
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.SelectedBackground
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Spacing
 import com.github.diegoberaldin.metaphrase.core.localization.localized
-import com.github.diegoberaldin.metaphrase.domain.project.data.LanguageModel
+import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
 
 @Composable
 @OptIn(ExperimentalFoundationApi::class)

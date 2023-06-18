@@ -1,6 +1,6 @@
 package com.github.diegoberaldin.metaphrase.feature.main.presentation
 
-import com.github.diegoberaldin.metaphrase.domain.project.data.LanguageModel
+import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.ProjectModel
 
 data class RootUiState(

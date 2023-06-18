@@ -4,7 +4,7 @@ import com.github.diegoberaldin.metaphrase.core.common.files.FileManager
 import com.github.diegoberaldin.metaphrase.domain.glossary.persistence.dao.DefaultGlossaryTermDao
 import com.github.diegoberaldin.metaphrase.domain.glossary.persistence.entities.GlossaryTermEntity
 import com.github.diegoberaldin.metaphrase.domain.glossary.persistence.entities.GlossaryTermRelationshipEntity
-import com.github.diegoberaldin.metaphrase.domain.project.persistence.dao.DefaultLanguageDao
+import com.github.diegoberaldin.metaphrase.domain.language.persistence.dao.DefaultLanguageDao
 import com.github.diegoberaldin.metaphrase.domain.project.persistence.dao.DefaultProjectDao
 import com.github.diegoberaldin.metaphrase.domain.project.persistence.dao.DefaultSegmentDao
 import com.github.diegoberaldin.metaphrase.domain.project.persistence.entities.LanguageEntity

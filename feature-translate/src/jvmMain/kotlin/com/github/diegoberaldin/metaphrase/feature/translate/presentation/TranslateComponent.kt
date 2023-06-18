@@ -4,7 +4,7 @@ import com.arkivanov.decompose.router.slot.ChildSlot
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
-import com.github.diegoberaldin.metaphrase.domain.project.data.LanguageModel
+import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.ResourceFileType
 import com.github.diegoberaldin.metaphrase.feature.translate.messages.presentation.MessageListComponent
 import com.github.diegoberaldin.metaphrase.feature.translate.toolbar.presentation.TranslateToolbarComponent

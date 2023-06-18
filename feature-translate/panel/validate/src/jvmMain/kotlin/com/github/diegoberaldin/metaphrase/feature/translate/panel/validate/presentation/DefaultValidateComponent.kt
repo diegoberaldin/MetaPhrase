@@ -5,7 +5,7 @@ import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import com.github.diegoberaldin.metaphrase.core.common.coroutines.CoroutineDispatcherProvider
 import com.github.diegoberaldin.metaphrase.core.common.utils.Constants
-import com.github.diegoberaldin.metaphrase.domain.project.repository.LanguageRepository
+import com.github.diegoberaldin.metaphrase.domain.language.repository.LanguageRepository
 import com.github.diegoberaldin.metaphrase.domain.project.repository.SegmentRepository
 import com.github.diegoberaldin.metaphrase.feature.translate.panel.validate.data.InvalidPlaceholderReference
 import com.github.diegoberaldin.metaphrase.feature.translate.panel.validate.data.SpellingMistakeReference

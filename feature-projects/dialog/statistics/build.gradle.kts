@@ -30,6 +30,9 @@ kotlin {
                 implementation(projects.coreCommon)
                 implementation(projects.coreLocalization)
 
+                implementation(projects.domainLanguage.data)
+                implementation(projects.domainLanguage.repository)
+                implementation(projects.domainLanguage.usecase)
                 implementation(projects.domainProject.data)
                 implementation(projects.domainProject.repository)
                 implementation(projects.domainProject.usecase)

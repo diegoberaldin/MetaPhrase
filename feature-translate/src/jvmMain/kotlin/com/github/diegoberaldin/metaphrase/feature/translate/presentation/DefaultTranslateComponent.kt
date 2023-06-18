@@ -17,11 +17,11 @@ import com.github.diegoberaldin.metaphrase.domain.formats.ExportResourcesUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.ImportResourcesUseCase
 import com.github.diegoberaldin.metaphrase.domain.glossary.data.GlossaryTermModel
 import com.github.diegoberaldin.metaphrase.domain.glossary.repository.GlossaryTermRepository
-import com.github.diegoberaldin.metaphrase.domain.project.data.LanguageModel
+import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
+import com.github.diegoberaldin.metaphrase.domain.language.repository.LanguageRepository
 import com.github.diegoberaldin.metaphrase.domain.project.data.ProjectModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.ResourceFileType
 import com.github.diegoberaldin.metaphrase.domain.project.data.SegmentModel
-import com.github.diegoberaldin.metaphrase.domain.project.repository.LanguageRepository
 import com.github.diegoberaldin.metaphrase.domain.project.repository.ProjectRepository
 import com.github.diegoberaldin.metaphrase.domain.project.repository.SegmentRepository
 import com.github.diegoberaldin.metaphrase.domain.project.usecase.ImportSegmentsUseCase

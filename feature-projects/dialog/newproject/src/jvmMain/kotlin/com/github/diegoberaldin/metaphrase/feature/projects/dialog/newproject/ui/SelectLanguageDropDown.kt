@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.SelectedBackground
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Spacing
-import com.github.diegoberaldin.metaphrase.domain.project.data.LanguageModel
+import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
 
 @Composable
 @OptIn(ExperimentalComposeUiApi::class)

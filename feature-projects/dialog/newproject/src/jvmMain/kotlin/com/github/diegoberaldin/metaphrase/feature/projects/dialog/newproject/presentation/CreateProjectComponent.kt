@@ -1,6 +1,6 @@
 package com.github.diegoberaldin.metaphrase.feature.projects.dialog.newproject.presentation
 
-import com.github.diegoberaldin.metaphrase.domain.project.data.LanguageModel
+import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 

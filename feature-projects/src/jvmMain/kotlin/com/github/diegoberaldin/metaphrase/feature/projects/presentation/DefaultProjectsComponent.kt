@@ -13,7 +13,7 @@ import com.github.diegoberaldin.metaphrase.core.common.coroutines.CoroutineDispa
 import com.github.diegoberaldin.metaphrase.core.common.keystore.TemporaryKeyStore
 import com.github.diegoberaldin.metaphrase.core.common.utils.activeAsFlow
 import com.github.diegoberaldin.metaphrase.core.common.utils.getByInjection
-import com.github.diegoberaldin.metaphrase.domain.project.data.LanguageModel
+import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.ProjectModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.ResourceFileType
 import com.github.diegoberaldin.metaphrase.domain.project.repository.ProjectRepository

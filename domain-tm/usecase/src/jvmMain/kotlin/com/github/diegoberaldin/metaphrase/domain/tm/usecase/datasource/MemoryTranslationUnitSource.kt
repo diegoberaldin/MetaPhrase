@@ -1,8 +1,8 @@
 package com.github.diegoberaldin.metaphrase.domain.tm.usecase.datasource
 
+import com.github.diegoberaldin.metaphrase.domain.language.repository.LanguageRepository
 import com.github.diegoberaldin.metaphrase.domain.project.data.SegmentModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.TranslationUnit
-import com.github.diegoberaldin.metaphrase.domain.project.repository.LanguageRepository
 import com.github.diegoberaldin.metaphrase.domain.project.repository.SegmentRepository
 import com.github.diegoberaldin.metaphrase.domain.tm.repository.MemoryEntryRepository
 import com.github.diegoberaldin.metaphrase.domain.tm.usecase.similarity.SimilarityCalculator

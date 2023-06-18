@@ -32,7 +32,9 @@ kotlin {
                 implementation(projects.coreLocalization)
                 implementation(projects.corePersistence)
 
+                implementation(projects.domainLanguage)
                 implementation(projects.domainProject)
+                implementation(projects.domainLanguage.data)
                 implementation(projects.domainProject.data)
 
                 implementation(projects.featureMain)

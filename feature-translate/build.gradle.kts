@@ -32,6 +32,9 @@ kotlin {
 
                 implementation(projects.domainFormats)
 
+                implementation(projects.domainLanguage.data)
+                implementation(projects.domainLanguage.repository)
+
                 implementation(projects.domainProject.data)
                 implementation(projects.domainProject.usecase)
                 implementation(projects.domainProject.repository)

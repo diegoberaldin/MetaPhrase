@@ -36,6 +36,7 @@ import com.github.diegoberaldin.metaphrase.core.common.ui.theme.SelectedBackgrou
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Spacing
 import com.github.diegoberaldin.metaphrase.core.localization.L10n
 import com.github.diegoberaldin.metaphrase.core.localization.localized
+import com.github.diegoberaldin.metaphrase.feature.main.dialog.settings.presentation.SettingsComponent
 
 @Composable
 fun SettingsDialog(

@@ -1,6 +1,6 @@
 package com.github.diegoberaldin.metaphrase.feature.translate.messages.presentation
 
-import com.github.diegoberaldin.metaphrase.domain.project.data.LanguageModel
+import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.SegmentModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.TranslationUnitTypeFilter
 import com.github.diegoberaldin.metaphrase.domain.spellcheck.SpellCheckCorrection

@@ -18,7 +18,7 @@ import com.github.diegoberaldin.metaphrase.core.localization.localized
 import com.github.diegoberaldin.metaphrase.domain.project.data.ResourceFileType
 import com.github.diegoberaldin.metaphrase.feature.intro.presentation.IntroComponent
 import com.github.diegoberaldin.metaphrase.feature.intro.ui.MainEmptyContent
-import com.github.diegoberaldin.metaphrase.feature.main.dialog.settings.ui.SettingsComponent
+import com.github.diegoberaldin.metaphrase.feature.main.dialog.settings.presentation.SettingsComponent
 import com.github.diegoberaldin.metaphrase.feature.main.dialog.settings.ui.SettingsDialog
 import com.github.diegoberaldin.metaphrase.feature.main.presentation.RootComponent
 import com.github.diegoberaldin.metaphrase.feature.projects.dialog.newproject.presentation.CreateProjectComponent

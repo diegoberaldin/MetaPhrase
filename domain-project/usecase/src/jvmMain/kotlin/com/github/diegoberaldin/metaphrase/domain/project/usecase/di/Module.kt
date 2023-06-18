@@ -1,9 +1,7 @@
 package com.github.diegoberaldin.metaphrase.domain.project.usecase.di
 
-import com.github.diegoberaldin.metaphrase.domain.project.usecase.DefaultGetCompleteLanguageUseCase
 import com.github.diegoberaldin.metaphrase.domain.project.usecase.DefaultImportSegmentsUseCase
 import com.github.diegoberaldin.metaphrase.domain.project.usecase.DefaultValidatePlaceholdersUseCase
-import com.github.diegoberaldin.metaphrase.domain.project.usecase.GetCompleteLanguageUseCase
 import com.github.diegoberaldin.metaphrase.domain.project.usecase.ImportSegmentsUseCase
 import com.github.diegoberaldin.metaphrase.domain.project.usecase.ValidatePlaceholdersUseCase
 import org.koin.dsl.module
@@ -19,12 +17,6 @@ val projectUseCaseModule = module {
     single<ValidatePlaceholdersUseCase> {
         DefaultValidatePlaceholdersUseCase(
             dispatchers = get(),
-        )
-    }
-    single<GetCompleteLanguageUseCase> {
-        DefaultGetCompleteLanguageUseCase(
-            languageNameRepository = get(),
-            flagsRepository = get(),
         )
     }
 }

@@ -1,6 +1,6 @@
 package com.github.diegoberaldin.metaphrase.feature.translate.panel.memory.presentation
 
-import com.github.diegoberaldin.metaphrase.domain.project.data.LanguageModel
+import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
 import com.github.diegoberaldin.metaphrase.domain.tm.data.TranslationMemoryEntryModel
 
 data class BrowseMemoryUiState(

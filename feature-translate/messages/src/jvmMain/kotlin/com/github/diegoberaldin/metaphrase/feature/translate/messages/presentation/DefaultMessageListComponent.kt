@@ -6,11 +6,11 @@ import com.arkivanov.essenty.lifecycle.doOnDestroy
 import com.github.diegoberaldin.metaphrase.core.common.coroutines.CoroutineDispatcherProvider
 import com.github.diegoberaldin.metaphrase.core.common.keystore.TemporaryKeyStore
 import com.github.diegoberaldin.metaphrase.core.common.notification.NotificationCenter
-import com.github.diegoberaldin.metaphrase.domain.project.data.LanguageModel
+import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
+import com.github.diegoberaldin.metaphrase.domain.language.repository.LanguageRepository
 import com.github.diegoberaldin.metaphrase.domain.project.data.SegmentModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.TranslationUnit
 import com.github.diegoberaldin.metaphrase.domain.project.data.TranslationUnitTypeFilter
-import com.github.diegoberaldin.metaphrase.domain.project.repository.LanguageRepository
 import com.github.diegoberaldin.metaphrase.domain.project.repository.SegmentRepository
 import com.github.diegoberaldin.metaphrase.domain.spellcheck.SpellCheckCorrection
 import com.github.diegoberaldin.metaphrase.domain.spellcheck.repo.SpellCheckRepository
