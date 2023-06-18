@@ -71,6 +71,19 @@ fun RootContent(
     // dialogs
     val dialogState by component.dialog.subscribeAsState()
     when (val config = dialogState.child?.configuration ?: RootComponent.DialogConfig.None) {
+        RootComponent.DialogConfig.Open -> {
+            CustomOpenFileDialog(
+                title = "dialog_title_open_file".localized(),
+                nameFilter = { it.endsWith(".tmx") },
+                onCloseRequest = { path ->
+                    if (path != null) {
+                        component.openProject(path = path)
+                    }
+                    component.closeDialog()
+                },
+            )
+        }
+
         RootComponent.DialogConfig.NewDialog -> {
             CreateProjectDialog(
                 title = "dialog_title_create_project".localized(),

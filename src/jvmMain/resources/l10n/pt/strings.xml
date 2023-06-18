@@ -56,6 +56,7 @@
     <string name="menu_project_import_json">JSON…</string>
     <string name="menu_project_import_po">PO do Gettext…</string>
     <string name="menu_project_import_windows">resx do Windows…</string>
+    <string name="menu_project_open">Abrir…</string>
     <string name="menu_project_new">Novo…</string>
     <string name="menu_project_save_as">Guardar como…</string>
     <string name="menu_project_settings">Configurações…</string>

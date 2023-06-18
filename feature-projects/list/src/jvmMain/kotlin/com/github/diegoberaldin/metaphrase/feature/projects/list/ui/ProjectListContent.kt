@@ -17,7 +17,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Token
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -57,7 +57,7 @@ fun ProjectsListContent(
                     )
                         .padding(horizontal = Spacing.s, vertical = Spacing.lHalf)
                         .onClick {
-                            component.openProject(item)
+                            component.openRecent(item)
                         },
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(Spacing.s),
@@ -67,22 +67,22 @@ fun ProjectsListContent(
                         contentDescription = null,
                     )
                     Text(
-                        text = item.name,
+                        text = item.readableName,
                         style = MaterialTheme.typography.body1,
                         color = MaterialTheme.colors.onBackground,
                     )
                     Spacer(modifier = Modifier.weight(1f))
                     CustomTooltipArea(
-                        text = "tooltip_delete".localized(),
+                        text = "tooltip_remove_from_recent".localized(),
                     ) {
                         Icon(
-                            imageVector = Icons.Default.Delete,
+                            imageVector = Icons.Default.Close,
                             contentDescription = null,
                             modifier = Modifier
                                 .size(24.dp)
                                 .padding(2.dp)
                                 .onClick {
-                                    component.delete(item)
+                                    component.removeFromRecent(item)
                                 },
                         )
                     }

@@ -11,9 +11,10 @@ interface RootComponent {
 
     val main: Value<ChildSlot<Config, *>>
     val dialog: Value<ChildSlot<DialogConfig, *>>
-
     val uiState: StateFlow<RootUiState>
 
+    fun openDialog()
+    fun openProject(path: String)
     fun openEditProject()
     fun saveProjectAs()
     fun saveProject(path: String)
@@ -59,6 +60,9 @@ interface RootComponent {
 
         @Parcelize
         object None : DialogConfig
+
+        @Parcelize
+        object Open : DialogConfig
 
         @Parcelize
         object NewDialog : DialogConfig

@@ -20,8 +20,10 @@ import com.github.diegoberaldin.metaphrase.domain.glossary.usecase.ExportGlossar
 import com.github.diegoberaldin.metaphrase.domain.glossary.usecase.ImportGlossaryUseCase
 import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.ProjectModel
+import com.github.diegoberaldin.metaphrase.domain.project.data.RecentProjectModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.ResourceFileType
-import com.github.diegoberaldin.metaphrase.domain.project.repository.ProjectRepository
+import com.github.diegoberaldin.metaphrase.domain.project.repository.RecentProjectRepository
+import com.github.diegoberaldin.metaphrase.domain.project.usecase.OpenProjectUseCase
 import com.github.diegoberaldin.metaphrase.domain.tm.usecase.ClearTmUseCase
 import com.github.diegoberaldin.metaphrase.domain.tm.usecase.ImportTmxUseCase
 import com.github.diegoberaldin.metaphrase.feature.intro.presentation.IntroComponent
@@ -35,7 +37,6 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -58,12 +59,13 @@ internal class DefaultRootComponent(
     componentContext: ComponentContext,
     private val coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,
-    projectRepository: ProjectRepository,
+    private val recentProjectRepository: RecentProjectRepository,
     private val importFromTmx: ImportTmxUseCase,
     private val clearTranslationMemory: ClearTmUseCase,
     private val importGlossaryTerms: ImportGlossaryUseCase,
     private val exportGlossaryTerms: ExportGlossaryUseCase,
     private val clearGlossaryTerms: ClearGlossaryUseCase,
+    private val openProjectUseCase: OpenProjectUseCase,
     private val notificationCenter: NotificationCenter,
 ) : RootComponent, ComponentContext by componentContext {
 
@@ -81,6 +83,7 @@ internal class DefaultRootComponent(
     private lateinit var currentLanguage: StateFlow<LanguageModel?>
     private val isLoading = MutableStateFlow(false)
     private var observeProjectsJob: Job? = null
+    private var projectIdToOpen: Int? = null
 
     override val main: Value<ChildSlot<RootComponent.Config, *>> = childSlot(
         source = mainNavigation,
@@ -141,25 +144,37 @@ internal class DefaultRootComponent(
             doOnStart {
                 if (observeProjectsJob == null) {
                     observeProjectsJob = viewModelScope.launch(dispatchers.io) {
-                        projectRepository.observeAll().map { it.isEmpty() }.distinctUntilChanged().collect { isEmpty ->
-                            withContext(dispatchers.main) {
-                                if (isEmpty) {
-                                    mainNavigation.activate(RootComponent.Config.Intro)
-                                } else {
-                                    mainNavigation.activate(RootComponent.Config.Projects)
+                        recentProjectRepository.observeAll().map { it.isEmpty() }.distinctUntilChanged()
+                            .collect { isEmpty ->
+                                withContext(dispatchers.main) {
+                                    if (isEmpty) {
+                                        mainNavigation.activate(RootComponent.Config.Intro)
+                                    } else {
+                                        mainNavigation.activate(RootComponent.Config.Projects)
+                                    }
                                 }
                             }
-                        }
                     }
                 }
                 viewModelScope.launch {
-                    notificationCenter.events.filter { it is NotificationCenter.Event.ShowProgress }.onEach { evt ->
-                        when (evt) {
-                            is NotificationCenter.Event.ShowProgress -> {
-                                isLoading.value = evt.visible
+                    launch {
+                        notificationCenter.events.filter { it is NotificationCenter.Event.ShowProgress }.onEach { evt ->
+                            when (evt) {
+                                is NotificationCenter.Event.ShowProgress -> {
+                                    isLoading.value = evt.visible
+                                }
                             }
-                        }
-                    }.launchIn(this)
+                        }.launchIn(this)
+                    }
+                    launch {
+                        main.asFlow<ProjectsComponent>(timeout = Duration.INFINITE).onEach { child ->
+                            val projectId = projectIdToOpen
+                            if (child != null && projectId != null) {
+                                child.open(projectId)
+                                projectIdToOpen = null
+                            }
+                        }.launchIn(this)
+                    }
                 }
             }
             doOnStop {
@@ -192,11 +207,11 @@ internal class DefaultRootComponent(
                                 }
 
                                 is IntroComponent -> {
+                                    projectIdToOpen = projectId
+
                                     withContext(dispatchers.main) {
                                         mainNavigation.activate(RootComponent.Config.Projects)
                                     }
-                                    delay(100)
-                                    main.asFlow<ProjectsComponent>().firstOrNull()?.open(projectId)
                                 }
                             }
                         }
@@ -228,6 +243,15 @@ internal class DefaultRootComponent(
             else -> Unit
         }
 
+    override fun openProject(path: String) {
+        viewModelScope.launch(dispatchers.io) {
+            val project = openProjectUseCase(path = path)
+            projectIdToOpen = project.id
+            val recentProject = RecentProjectModel(path = path)
+            recentProjectRepository.create(recentProject)
+        }
+    }
+
     override fun openEditProject() {
         val projectId = activeProject.value?.id
         if (projectId != null) {
@@ -246,6 +270,10 @@ internal class DefaultRootComponent(
         viewModelScope.launch(dispatchers.io) {
             main.asFlow<ProjectsComponent>().firstOrNull()?.saveCurrentProject(path = path)
         }
+    }
+
+    override fun openDialog() {
+        dialogNavigation.activate(RootComponent.DialogConfig.Open)
     }
 
     override fun openNewDialog() {

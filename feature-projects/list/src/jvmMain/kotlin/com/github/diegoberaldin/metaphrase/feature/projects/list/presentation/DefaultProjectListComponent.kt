@@ -8,7 +8,9 @@ import com.arkivanov.essenty.lifecycle.doOnStop
 import com.github.diegoberaldin.metaphrase.core.common.coroutines.CoroutineDispatcherProvider
 import com.github.diegoberaldin.metaphrase.core.common.notification.NotificationCenter
 import com.github.diegoberaldin.metaphrase.domain.project.data.ProjectModel
-import com.github.diegoberaldin.metaphrase.domain.project.repository.ProjectRepository
+import com.github.diegoberaldin.metaphrase.domain.project.data.RecentProjectModel
+import com.github.diegoberaldin.metaphrase.domain.project.repository.RecentProjectRepository
+import com.github.diegoberaldin.metaphrase.domain.project.usecase.OpenProjectUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
@@ -28,11 +30,12 @@ internal class DefaultProjectListComponent(
     componentContext: ComponentContext,
     coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,
-    private val projectRepository: ProjectRepository,
+    private val projectRepository: RecentProjectRepository,
+    private val openProject: OpenProjectUseCase,
     private val notificationCenter: NotificationCenter,
 ) : ProjectListComponent, ComponentContext by componentContext {
 
-    private val projects = MutableStateFlow<List<ProjectModel>>(emptyList())
+    private val projects = MutableStateFlow<List<RecentProjectModel>>(emptyList())
     private lateinit var viewModelScope: CoroutineScope
     private var observeProjectsJob: Job? = null
 
@@ -70,13 +73,15 @@ internal class DefaultProjectListComponent(
         }
     }
 
-    override fun openProject(value: ProjectModel) {
+    override fun openRecent(value: RecentProjectModel) {
         viewModelScope.launch(dispatchers.io) {
-            projectSelected.emit(value)
+            val path = value.path
+            val project = openProject(path = path)
+            projectSelected.emit(project)
         }
     }
 
-    override fun delete(value: ProjectModel) {
+    override fun removeFromRecent(value: RecentProjectModel) {
         viewModelScope.launch(dispatchers.io) {
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
             projectRepository.delete(value)

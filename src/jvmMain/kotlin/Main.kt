@@ -129,6 +129,12 @@ private fun MenuBarScope.makeMenus(
 
     Menu(text = "menu_project".localized()) {
         Item(
+            text = "menu_project_open".localized(),
+            shortcut = KeyShortcut(Key.O, meta = true),
+        ) {
+            rootComponent.openDialog()
+        }
+        Item(
             text = "menu_project_new".localized(),
             shortcut = KeyShortcut(Key.N, meta = true),
         ) {

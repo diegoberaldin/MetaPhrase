@@ -12,6 +12,7 @@ val projectListModule = module {
             dispatchers = get(),
             projectRepository = get(),
             notificationCenter = get(),
+            openProject = get(),
         )
     }
 }

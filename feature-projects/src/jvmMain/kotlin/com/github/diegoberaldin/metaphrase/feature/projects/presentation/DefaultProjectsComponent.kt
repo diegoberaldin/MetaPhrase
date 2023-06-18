@@ -144,6 +144,10 @@ internal class DefaultProjectsComponent(
     override fun closeCurrentProject() {
         viewModelScope.launch(dispatchers.io) {
             keyStore.save("lastOpenedProject", 0)
+            val current = activeProject.value
+            if (current != null) {
+                projectRepository.delete(current)
+            }
         }
         activeProject.value = null
         navigation.pop()
