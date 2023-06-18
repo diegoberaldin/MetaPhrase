@@ -18,6 +18,8 @@ internal class DefaultProjectRepository(
         needsSaving = value
     }
 
+    override fun isNeedsSaving(): Boolean = needsSaving
+
     override fun observeNeedsSaving(): Flow<Boolean> = channelFlow {
         while (true) {
             if (!isActive) {

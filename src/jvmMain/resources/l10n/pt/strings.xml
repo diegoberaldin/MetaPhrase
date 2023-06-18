@@ -39,6 +39,7 @@
     <string name="dialog_title_open_file">Escolha o arquivo</string>
     <string name="dialog_title_settings">Configurações</string>
     <string name="dialog_title_statistics">Estatísticas</string>
+    <string name="dialog_title_warning">Aviso</string>
     <string name="glossary_title">Glossário</string>
     <string name="lang">pt</string>
     <string name="memory_content_title">conteúdo TM</string>
@@ -75,6 +76,7 @@
     <string name="menu_translation_memory_import">Importar…</string>
     <string name="menu_translation_memory_insert_best_match">Inserir melhor correspondência</string>
     <string name="menu_translation_memory_sync_project">Sincronizar projeto com TM</string>
+    <string name="message_confirm_close">O projeto contém algumas alterações não guardadas.\nTem a certeza de que o quer fechar?</string>
     <string name="message_duplicate_key">Já existe uma mensagem com a mesma chave</string>
     <string name="message_missing_field">Campo ausente</string>
     <string name="message_no_item_to_display">Nenhum item para exibir</string>

@@ -40,6 +40,7 @@
 	<string name="dialog_title_settings">Paramètres</string>
 	<string name="dialog_title_statistics">Statistiques</string>
 	<string name="glossary_title">Glossaire</string>
+	<string name="glossary_warning">Avis</string>
 	<string name="lang">fr</string>
 	<string name="memory_content_title">Contenu de la MT</string>
 	<string name="menu_glossary">Glossaire</string>
@@ -75,6 +76,7 @@
 	<string name="menu_translation_memory_import">Importer…</string>
 	<string name="menu_translation_memory_insert_best_match">Insérer la meilleure correspondance</string>
 	<string name="menu_translation_memory_sync_project">Synchroniser le projet avec TM</string>
+	<string name="message_confirm_close">Le projet contient des modifications non enregistrées.\nÊtes-vous sûr de vouloir le fermer ?</string>
 	<string name="message_duplicate_key">Un message avec la même clé existe déjà</string>
 	<string name="message_missing_field">Champ manquant</string>
 	<string name="message_no_item_to_display">Aucun élément à afficher</string>

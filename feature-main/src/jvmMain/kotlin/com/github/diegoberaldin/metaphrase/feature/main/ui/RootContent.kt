@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
+import com.github.diegoberaldin.metaphrase.core.common.ui.components.CustomDialog
 import com.github.diegoberaldin.metaphrase.core.common.ui.components.CustomOpenFileDialog
 import com.github.diegoberaldin.metaphrase.core.common.ui.components.CustomSaveFileDialog
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Spacing
@@ -33,6 +34,7 @@ import java.awt.Cursor
 fun RootContent(
     component: RootComponent,
     modifier: Modifier = Modifier,
+    onExitApplication: () -> Unit = {},
 ) {
     val mainSlot by component.main.subscribeAsState()
     val uiState by component.uiState.collectAsState()
@@ -71,13 +73,27 @@ fun RootContent(
     // dialogs
     val dialogState by component.dialog.subscribeAsState()
     when (val config = dialogState.child?.configuration ?: RootComponent.DialogConfig.None) {
-        RootComponent.DialogConfig.Open -> {
+        RootComponent.DialogConfig.OpenDialog -> {
             CustomOpenFileDialog(
                 title = "dialog_title_open_file".localized(),
                 nameFilter = { it.endsWith(".tmx") },
                 onCloseRequest = { path ->
                     if (path != null) {
                         component.openProject(path = path)
+                    }
+                    component.closeDialog()
+                },
+            )
+        }
+
+        is RootComponent.DialogConfig.ConfirmCloseDialog -> {
+            CustomDialog(
+                title = "dialog_title_warning".localized(),
+                message = "message_confirm_close".localized(),
+                buttonTexts = listOf("button_cancel".localized(), "button_ok".localized()),
+                onClose = { buttonIndex ->
+                    if (buttonIndex == 1) {
+                        onExitApplication()
                     }
                     component.closeDialog()
                 },

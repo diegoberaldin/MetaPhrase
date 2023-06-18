@@ -38,6 +38,7 @@
 	<string name="dialog_title_open_file">Elegir archivo</string>
 	<string name="dialog_title_settings">Ajustes</string>
 	<string name="dialog_title_statistics">Estadísticas</string>
+	<string name="dialog_title_warning">Aviso</string>
 	<string name="glossary_title">Glosario</string>
 	<string name="lang">es</string>
 	<string name="memory_content_title">Contenido MT</string>
@@ -74,6 +75,7 @@
 	<string name="menu_translation_memory_import">Importar…</string>
 	<string name="menu_translation_memory_insert_best_match">Insertar correspondencia mejor</string>
 	<string name="menu_translation_memory_sync_project">Sincronizar proyecto en MT</string>
+	<string name="message_confirm_close">El proyecto contiene algunos cambios no guardados.\n¿Se quiere cerrarlo igualmente?</string>
 	<string name="message_duplicate_key">Ya existe un mensaje con la misma llave</string>
 	<string name="message_missing_field">Información obligatoria</string>
 	<string name="message_no_item_to_display">Ningún elemento para visualizar</string>

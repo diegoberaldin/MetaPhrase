@@ -93,7 +93,13 @@ fun main() {
         LifecycleController(lifecycle, windowState)
 
         Window(
-            onCloseRequest = ::exitApplication,
+            onCloseRequest = {
+                if (rootComponent.hasUnsavedChanges()) {
+                    rootComponent.closeCurrentProject()
+                } else {
+                    exitApplication()
+                }
+            },
             title = "app_name".localized(),
             state = windowState,
         ) {
@@ -113,6 +119,9 @@ fun main() {
                     RootContent(
                         component = rootComponent,
                         modifier = Modifier.fillMaxSize(),
+                        onExitApplication = {
+                            exitApplication()
+                        },
                     )
                 }
             }

@@ -21,6 +21,7 @@ interface RootComponent {
     fun saveProject(path: String)
     fun openNewDialog()
     fun closeDialog()
+    fun hasUnsavedChanges(): Boolean
     fun closeCurrentProject()
     fun openStatistics()
     fun openSettings()
@@ -63,7 +64,7 @@ interface RootComponent {
         object None : DialogConfig
 
         @Parcelize
-        object Open : DialogConfig
+        object OpenDialog : DialogConfig
 
         @Parcelize
         object NewDialog : DialogConfig
@@ -73,6 +74,9 @@ interface RootComponent {
 
         @Parcelize
         data class SaveAsDialog(val name: String) : DialogConfig
+
+        @Parcelize
+        object ConfirmCloseDialog : DialogConfig
 
         @Parcelize
         data class ImportDialog(val type: ResourceFileType) : DialogConfig

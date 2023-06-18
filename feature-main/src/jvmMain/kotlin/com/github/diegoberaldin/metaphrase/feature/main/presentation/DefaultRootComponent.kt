@@ -256,6 +256,8 @@ internal class DefaultRootComponent(
             else -> Unit
         }
 
+    override fun hasUnsavedChanges(): Boolean = projectRepository.isNeedsSaving()
+
     override fun openProject(path: String) {
         viewModelScope.launch(dispatchers.io) {
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
@@ -304,7 +306,7 @@ internal class DefaultRootComponent(
     }
 
     override fun openDialog() {
-        dialogNavigation.activate(RootComponent.DialogConfig.Open)
+        dialogNavigation.activate(RootComponent.DialogConfig.OpenDialog)
     }
 
     override fun openNewDialog() {
@@ -316,9 +318,15 @@ internal class DefaultRootComponent(
     }
 
     override fun closeCurrentProject() {
-        projectIdToOpen = null
-        viewModelScope.launch(dispatchers.io) {
-            main.asFlow<ProjectsComponent>().firstOrNull()?.closeCurrentProject()
+        if (projectRepository.isNeedsSaving()) {
+            viewModelScope.launch(dispatchers.main) {
+                dialogNavigation.activate(RootComponent.DialogConfig.ConfirmCloseDialog)
+            }
+        } else {
+            projectIdToOpen = null
+            viewModelScope.launch(dispatchers.io) {
+                main.asFlow<ProjectsComponent>().firstOrNull()?.closeCurrentProject()
+            }
         }
     }
 
