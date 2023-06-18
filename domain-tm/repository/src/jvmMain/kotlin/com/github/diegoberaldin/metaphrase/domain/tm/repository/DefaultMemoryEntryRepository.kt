@@ -19,12 +19,18 @@ internal class DefaultMemoryEntryRepository(
     override suspend fun getById(id: Int, sourceLang: String, targetLang: String): TranslationMemoryEntryModel? =
         dao.getById(id = id, sourceLang = sourceLang, targetLang = targetLang)
 
-    override suspend fun getAll(
+    override suspend fun getSources(sourceLang: String): List<TranslationMemoryEntryModel> =
+        dao.getSourceMessages(sourceLang)
+
+    override suspend fun getTranslation(lang: String, key: String): TranslationMemoryEntryModel? =
+        dao.getTargetMessage(lang = lang, key = key)
+
+    override suspend fun getSources(
         sourceLang: String,
         targetLang: String,
         search: String,
     ): List<TranslationMemoryEntryModel> =
-        dao.getAll(sourceLang = sourceLang, targetLang = targetLang, search = search)
+        dao.getSourceMessages(sourceLang = sourceLang, targetLang = targetLang, search = search)
 
     override suspend fun getLanguageCodes(): List<String> = dao.getLanguageCodes()
 }

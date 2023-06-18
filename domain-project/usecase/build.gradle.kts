@@ -23,8 +23,10 @@ kotlin {
                 implementation(compose.desktop.currentOs)
 
                 implementation(libs.koin)
+                implementation(libs.redundent)
 
                 implementation(projects.coreCommon)
+                implementation(projects.coreLocalization)
 
                 implementation(projects.domainProject.data)
                 implementation(projects.domainProject.repository)

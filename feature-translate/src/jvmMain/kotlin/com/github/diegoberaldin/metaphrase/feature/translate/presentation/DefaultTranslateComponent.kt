@@ -25,6 +25,7 @@ import com.github.diegoberaldin.metaphrase.domain.project.data.SegmentModel
 import com.github.diegoberaldin.metaphrase.domain.project.repository.ProjectRepository
 import com.github.diegoberaldin.metaphrase.domain.project.repository.SegmentRepository
 import com.github.diegoberaldin.metaphrase.domain.project.usecase.ImportSegmentsUseCase
+import com.github.diegoberaldin.metaphrase.domain.project.usecase.SaveProjectUseCase
 import com.github.diegoberaldin.metaphrase.domain.project.usecase.ValidatePlaceholdersUseCase
 import com.github.diegoberaldin.metaphrase.domain.spellcheck.usecase.ValidateSpellingUseCase
 import com.github.diegoberaldin.metaphrase.domain.tm.usecase.ExportTmxUseCase
@@ -72,15 +73,16 @@ internal class DefaultTranslateComponent(
     private val projectRepository: ProjectRepository,
     private val languageRepository: LanguageRepository,
     private val segmentRepository: SegmentRepository,
+    private val glossaryTermRepository: GlossaryTermRepository,
     private val importResources: ImportResourcesUseCase,
     private val importSegments: ImportSegmentsUseCase,
     private val exportResources: ExportResourcesUseCase,
     private val validatePlaceholders: ValidatePlaceholdersUseCase,
-    private val notificationCenter: NotificationCenter,
     private val exportToTmx: ExportTmxUseCase,
     private val validateSpelling: ValidateSpellingUseCase,
     private val syncProjectWithTm: SyncProjectWithTmUseCase,
-    private val glossaryTermRepository: GlossaryTermRepository,
+    private val saveProject: SaveProjectUseCase,
+    private val notificationCenter: NotificationCenter,
 ) : TranslateComponent, ComponentContext by componentContext {
 
     private val project = MutableStateFlow<ProjectModel?>(null)
@@ -416,6 +418,12 @@ internal class DefaultTranslateComponent(
         }
     }
 
+    override fun save(path: String) {
+        viewModelScope.launch(dispatchers.io) {
+            saveProject(path = path, projectId = projectId)
+        }
+    }
+
     override fun import(path: String, type: ResourceFileType) {
         viewModelScope.launch(dispatchers.io) {
             val language = getCurrentLanguage() ?: return@launch
@@ -587,8 +595,9 @@ internal class DefaultTranslateComponent(
 
     override fun exportTmx(path: String) {
         viewModelScope.launch(dispatchers.io) {
+            val baseLanguage = languageRepository.getBase(projectId) ?: return@launch
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
-            exportToTmx(path = path, projectId = projectId)
+            exportToTmx(path = path, sourceLang = baseLanguage.code)
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
         }
     }

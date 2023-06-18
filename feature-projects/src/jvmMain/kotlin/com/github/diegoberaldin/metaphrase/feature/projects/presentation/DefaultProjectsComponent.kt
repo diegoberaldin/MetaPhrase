@@ -149,6 +149,12 @@ internal class DefaultProjectsComponent(
         navigation.pop()
     }
 
+    override fun saveCurrentProject(path: String) {
+        viewModelScope.launch(dispatchers.io) {
+            childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.save(path = path)
+        }
+    }
+
     override fun import(path: String, type: ResourceFileType) {
         viewModelScope.launch(dispatchers.io) {
             childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.import(

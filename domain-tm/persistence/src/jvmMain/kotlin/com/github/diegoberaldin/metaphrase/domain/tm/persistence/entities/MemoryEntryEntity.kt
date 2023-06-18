@@ -4,4 +4,5 @@ import org.jetbrains.exposed.dao.id.IntIdTable
 
 object MemoryEntryEntity : IntIdTable() {
     val origin = mediumText("origin")
+    val identifier = mediumText("identifier")
 }

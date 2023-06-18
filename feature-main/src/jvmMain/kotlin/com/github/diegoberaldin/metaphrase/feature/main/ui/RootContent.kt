@@ -91,6 +91,19 @@ fun RootContent(
             )
         }
 
+        is RootComponent.DialogConfig.SaveAsDialog -> {
+            CustomSaveFileDialog(
+                title = "dialog_title_open_file".localized(),
+                initialFileName = "${config.name}.tmx",
+                onCloseRequest = { path ->
+                    component.closeDialog()
+                    if (path != null) {
+                        component.saveProject(path = path)
+                    }
+                },
+            )
+        }
+
         is RootComponent.DialogConfig.ImportDialog -> {
             val type = config.type
             CustomOpenFileDialog(

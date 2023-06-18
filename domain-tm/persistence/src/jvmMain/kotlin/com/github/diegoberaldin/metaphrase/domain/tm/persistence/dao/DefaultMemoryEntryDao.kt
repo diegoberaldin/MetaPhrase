@@ -81,7 +81,63 @@ class DefaultMemoryEntryDao : MemoryEntryDao {
             )
         }
 
-    override suspend fun getAll(
+    override suspend fun getSourceMessages(sourceLang: String): List<TranslationMemoryEntryModel> =
+        newSuspendedTransaction {
+            MemoryEntryEntity.join(
+                otherTable = MemoryMessageEntity,
+                onColumn = MemoryEntryEntity.id,
+                otherColumn = MemoryMessageEntity.entryId,
+                joinType = JoinType.INNER,
+            ).select {
+                MemoryMessageEntity.lang eq sourceLang
+            }.mapNotNull {
+                val entryId = it[MemoryEntryEntity.id].value
+                val identifier = it[MemoryEntryEntity.identifier]
+                val origin = it[MemoryEntryEntity.origin]
+
+                val text = it[MemoryMessageEntity.text]
+                if (text.isEmpty()) {
+                    return@mapNotNull null
+                }
+                TranslationMemoryEntryModel(
+                    id = entryId,
+                    identifier = identifier,
+                    origin = origin,
+                    sourceText = text,
+                    sourceLang = sourceLang,
+                )
+            }
+        }
+
+    override suspend fun getTargetMessage(lang: String, key: String): TranslationMemoryEntryModel? =
+        newSuspendedTransaction {
+            MemoryEntryEntity.join(
+                otherTable = MemoryMessageEntity,
+                onColumn = MemoryEntryEntity.id,
+                otherColumn = MemoryMessageEntity.entryId,
+                joinType = JoinType.INNER,
+            ).select {
+                (MemoryMessageEntity.lang eq lang) and (MemoryEntryEntity.identifier eq key)
+            }.mapNotNull {
+                val entryId = it[MemoryEntryEntity.id].value
+                val identifier = it[MemoryEntryEntity.identifier]
+                val origin = it[MemoryEntryEntity.origin]
+
+                val text = it[MemoryMessageEntity.text]
+                if (text.isEmpty()) {
+                    return@mapNotNull null
+                }
+                TranslationMemoryEntryModel(
+                    id = entryId,
+                    identifier = identifier,
+                    origin = origin,
+                    targetText = text,
+                    targetLang = lang,
+                )
+            }.firstOrNull()
+        }
+
+    override suspend fun getSourceMessages(
         sourceLang: String,
         targetLang: String,
         search: String,
@@ -101,6 +157,7 @@ class DefaultMemoryEntryDao : MemoryEntryDao {
                 }
             }.mapNotNull {
                 val entryId = it[MemoryEntryEntity.id].value
+                val identifier = it[MemoryEntryEntity.identifier]
                 val origin = it[MemoryEntryEntity.origin]
 
                 val sourceText =
@@ -114,6 +171,7 @@ class DefaultMemoryEntryDao : MemoryEntryDao {
                 }
                 TranslationMemoryEntryModel(
                     id = entryId,
+                    identifier = identifier,
                     origin = origin,
                     sourceText = sourceText,
                     sourceLang = sourceLang,
@@ -124,6 +182,7 @@ class DefaultMemoryEntryDao : MemoryEntryDao {
         }
 
     override suspend fun getLanguageCodes(): List<String> = newSuspendedTransaction {
-        MemoryMessageEntity.slice(MemoryMessageEntity.lang).selectAll().map { it[MemoryMessageEntity.lang] }.distinct()
+        MemoryMessageEntity.slice(MemoryMessageEntity.lang).selectAll().map { it[MemoryMessageEntity.lang] }
+            .distinct()
     }
 }

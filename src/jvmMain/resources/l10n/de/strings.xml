@@ -55,6 +55,7 @@
 	<string name="menu_project_import_po">Gettext PO</string>
 	<string name="menu_project_import_windows">Windows resx…</string>
 	<string name="menu_project_new">Neu…</string>
+	<string name="menu_project_save_as">Speichern unter…</string>
 	<string name="menu_project_settings">Einstellungen…</string>
 	<string name="menu_project_spellcheck">Rechtschreibung prüfen</string>
 	<string name="menu_project_statistics">Statistik…</string>

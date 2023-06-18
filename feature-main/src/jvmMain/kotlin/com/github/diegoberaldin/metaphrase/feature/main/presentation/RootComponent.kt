@@ -15,6 +15,8 @@ interface RootComponent {
     val uiState: StateFlow<RootUiState>
 
     fun openEditProject()
+    fun saveProjectAs()
+    fun saveProject(path: String)
     fun openNewDialog()
     fun closeDialog()
     fun closeCurrentProject()
@@ -63,6 +65,9 @@ interface RootComponent {
 
         @Parcelize
         object EditDialog : DialogConfig
+
+        @Parcelize
+        data class SaveAsDialog(val name: String) : DialogConfig
 
         @Parcelize
         data class ImportDialog(val type: ResourceFileType) : DialogConfig

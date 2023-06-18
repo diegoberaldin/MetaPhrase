@@ -79,6 +79,7 @@
 	<string name="menu_project_import_po">Gettext PO</string>
 	<string name="menu_project_import_windows">Windows resx…</string>
 	<string name="menu_project_new">New…</string>
+	<string name="menu_project_save_as">Save as…</string>
 	<string name="menu_project_settings">Settings…</string>
 	<string name="menu_project_spellcheck">Check spelling</string>
 	<string name="menu_project_statistics">Statistics…</string>

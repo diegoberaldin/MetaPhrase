@@ -48,6 +48,7 @@ val translateModule = module {
             validateSpelling = get(),
             syncProjectWithTm = get(),
             glossaryTermRepository = get(),
+            saveProject = get(),
         )
     }
 }

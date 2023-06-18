@@ -1,8 +1,9 @@
-package com.github.diegoberaldin.metaphrase.domain.tm.usecase
+package com.github.diegoberaldin.metaphrase.domain.project.usecase
 
 import com.github.diegoberaldin.metaphrase.core.common.coroutines.CoroutineDispatcherProvider
 import com.github.diegoberaldin.metaphrase.core.localization.localized
-import com.github.diegoberaldin.metaphrase.domain.tm.repository.MemoryEntryRepository
+import com.github.diegoberaldin.metaphrase.domain.language.repository.LanguageRepository
+import com.github.diegoberaldin.metaphrase.domain.project.repository.SegmentRepository
 import kotlinx.coroutines.withContext
 import org.redundent.kotlin.xml.PrintOptions
 import org.redundent.kotlin.xml.XmlVersion
@@ -10,11 +11,11 @@ import org.redundent.kotlin.xml.xml
 import java.io.File
 import java.io.FileWriter
 
-internal class DefaultExportTmxUseCase(
-    private val memoryEntryRepository: MemoryEntryRepository,
+internal class DefaultSaveProjectUseCase(
+    private val languageRepository: LanguageRepository,
+    private val segmentRepository: SegmentRepository,
     private val dispatchers: CoroutineDispatcherProvider,
-) : ExportTmxUseCase {
-
+) : SaveProjectUseCase {
     companion object {
         private const val ELEM_HEADER = "header"
         private const val ELEM_BODY = "body"
@@ -31,7 +32,7 @@ internal class DefaultExportTmxUseCase(
         val message: String,
     )
 
-    override suspend operator fun invoke(sourceLang: String, path: String) {
+    override suspend operator fun invoke(projectId: Int, path: String) {
         val file = File(path)
         if (!file.exists()) {
             runCatching {
@@ -43,7 +44,7 @@ internal class DefaultExportTmxUseCase(
         }
         withContext(dispatchers.io) {
             runCatching {
-                val content = getXml(sourceLang)
+                val content = getXml(projectId)
                 FileWriter(file).use {
                     it.write(content)
                 }
@@ -51,19 +52,19 @@ internal class DefaultExportTmxUseCase(
         }
     }
 
-    private suspend fun getXml(sourceLang: String): String {
-        val registry = mutableMapOf<String, List<LocalizedMessage>>()
+    private suspend fun getXml(projectId: Int): String {
+        val baseLanguage = languageRepository.getBase(projectId) ?: return ""
+        val otherLanguages = languageRepository.getAll(projectId).filter { it.code != baseLanguage.code }
 
-        val otherLanguages = memoryEntryRepository.getLanguageCodes().filter { it != sourceLang }
-        val sourceMessages = memoryEntryRepository.getSources(sourceLang)
-        sourceMessages.forEach {
-            val key = it.identifier
+        val registry = mutableMapOf<String, List<LocalizedMessage>>()
+        segmentRepository.getAll(baseLanguage.id).forEach { baseSegment ->
+            val key = baseSegment.key
             registry[key] = buildList {
-                this += LocalizedMessage(lang = sourceLang, message = it.sourceText)
+                this += LocalizedMessage(lang = baseLanguage.code, message = baseSegment.text)
                 for (lang in otherLanguages) {
-                    val localMessage = memoryEntryRepository.getTranslation(lang = lang, key = key)
-                    if (localMessage != null && localMessage.targetText.isNotEmpty()) {
-                        this += LocalizedMessage(lang = lang, message = localMessage.targetText)
+                    val localSegment = segmentRepository.getByKey(key = key, languageId = lang.id)
+                    if (localSegment != null && localSegment.text.isNotEmpty()) {
+                        this += LocalizedMessage(lang = lang.code, message = localSegment.text)
                     }
                 }
             }
@@ -82,12 +83,13 @@ internal class DefaultExportTmxUseCase(
                 attribute("segtype", "sentence")
                 attribute("o-tmf", "tmx")
                 attribute("adminLang", "en-US")
-                attribute(ATTR_SOURCE_LANG, sourceLang)
+                attribute(ATTR_SOURCE_LANG, baseLanguage.code)
                 attribute("datatype", "plaintext")
             }
             ELEM_BODY {
                 for (translationUnit in registry) {
                     ELEM_UNIT {
+                        attribute(ATTR_UNIT_ID, translationUnit.key)
                         val translationUnitVariants = translationUnit.value
                         for (variant in translationUnitVariants) {
                             ELEM_VARIANT {

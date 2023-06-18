@@ -5,7 +5,6 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.slot.ChildSlot
 import com.arkivanov.decompose.router.slot.SlotNavigation
 import com.arkivanov.decompose.router.slot.activate
-import com.arkivanov.decompose.router.slot.child
 import com.arkivanov.decompose.router.slot.childSlot
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.lifecycle.doOnCreate
@@ -236,6 +235,19 @@ internal class DefaultRootComponent(
         }
     }
 
+    override fun saveProjectAs() {
+        val name = activeProject.value?.name
+        if (name != null) {
+            dialogNavigation.activate(RootComponent.DialogConfig.SaveAsDialog(name = name))
+        }
+    }
+
+    override fun saveProject(path: String) {
+        viewModelScope.launch(dispatchers.io) {
+            main.asFlow<ProjectsComponent>().firstOrNull()?.saveCurrentProject(path = path)
+        }
+    }
+
     override fun openNewDialog() {
         dialogNavigation.activate(RootComponent.DialogConfig.NewDialog)
     }
@@ -245,7 +257,9 @@ internal class DefaultRootComponent(
     }
 
     override fun closeCurrentProject() {
-        (main.child?.instance as? ProjectsComponent)?.closeCurrentProject()
+        viewModelScope.launch(dispatchers.io) {
+            main.asFlow<ProjectsComponent>().firstOrNull()?.closeCurrentProject()
+        }
     }
 
     override fun openImportDialog(type: ResourceFileType) {
