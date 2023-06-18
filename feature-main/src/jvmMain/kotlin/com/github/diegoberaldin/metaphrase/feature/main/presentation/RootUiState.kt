@@ -8,4 +8,5 @@ data class RootUiState(
     val isEditing: Boolean = false,
     val currentLanguage: LanguageModel? = null,
     val isLoading: Boolean = false,
+    val isSaveEnabled: Boolean = false,
 )

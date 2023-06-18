@@ -21,6 +21,7 @@ val mainModule = module {
             componentContext = params[0],
             coroutineContext = params[1],
             recentProjectRepository = get(),
+            projectRepository = get(),
             dispatchers = get(),
             notificationCenter = get(),
             importFromTmx = get(),

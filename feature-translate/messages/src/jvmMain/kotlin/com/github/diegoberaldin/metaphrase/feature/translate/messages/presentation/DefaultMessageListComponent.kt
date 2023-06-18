@@ -11,6 +11,7 @@ import com.github.diegoberaldin.metaphrase.domain.language.repository.LanguageRe
 import com.github.diegoberaldin.metaphrase.domain.project.data.SegmentModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.TranslationUnit
 import com.github.diegoberaldin.metaphrase.domain.project.data.TranslationUnitTypeFilter
+import com.github.diegoberaldin.metaphrase.domain.project.repository.ProjectRepository
 import com.github.diegoberaldin.metaphrase.domain.project.repository.SegmentRepository
 import com.github.diegoberaldin.metaphrase.domain.spellcheck.SpellCheckCorrection
 import com.github.diegoberaldin.metaphrase.domain.spellcheck.repo.SpellCheckRepository
@@ -35,6 +36,7 @@ internal class DefaultMessageListComponent(
     componentContext: ComponentContext,
     coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,
+    private val projectRepository: ProjectRepository,
     private val segmentRepository: SegmentRepository,
     private val languageRepository: LanguageRepository,
     private val spellCheckRepository: SpellCheckRepository,
@@ -254,6 +256,7 @@ internal class DefaultMessageListComponent(
         val oldText = units.value[editingIndex].segment.text
         if (text == oldText) return
 
+        projectRepository.setNeedsSaving(true)
         units.getAndUpdate { oldList ->
             oldList.mapIndexed { idx, unit ->
                 if (idx == editingIndex) {
@@ -287,6 +290,7 @@ internal class DefaultMessageListComponent(
     }
 
     override fun changeSegmentText(text: String) {
+        projectRepository.setNeedsSaving(true)
         setSegmentText(text)
         updateTextSwitch.getAndUpdate { !it }
     }
@@ -348,6 +352,7 @@ internal class DefaultMessageListComponent(
 
     override fun deleteSegment() {
         val index = editingIndex.value ?: return
+        projectRepository.setNeedsSaving(true)
         viewModelScope.launch(dispatchers.io) {
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
             val toDelete = units.value[index].segment
@@ -400,6 +405,7 @@ internal class DefaultMessageListComponent(
         val index = units.value.indexOfFirst { it.segment.key == key }
         val segment = units.value[index].segment
         val language = currentLanguage.value ?: return
+        projectRepository.setNeedsSaving(true)
         viewModelScope.launch(dispatchers.io) {
             val otherLanguages = languageRepository.getAll(projectId).filter { it.code != language.code }
             val toUpdate = segment.copy(translatable = value)

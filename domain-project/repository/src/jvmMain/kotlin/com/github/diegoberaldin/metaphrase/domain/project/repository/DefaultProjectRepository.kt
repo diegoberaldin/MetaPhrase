@@ -11,6 +11,23 @@ import kotlinx.coroutines.isActive
 internal class DefaultProjectRepository(
     private val dao: ProjectDao,
 ) : ProjectRepository {
+
+    private var needsSaving = false
+
+    override fun setNeedsSaving(value: Boolean) {
+        needsSaving = value
+    }
+
+    override fun observeNeedsSaving(): Flow<Boolean> = channelFlow {
+        while (true) {
+            if (!isActive) {
+                break
+            }
+            trySend(needsSaving)
+            delay(500)
+        }
+    }.distinctUntilChanged()
+
     override suspend fun getAll(): List<ProjectModel> = dao.getAll()
 
     override suspend fun getById(id: Int): ProjectModel? = dao.getById(id)

@@ -148,6 +148,7 @@ internal class DefaultProjectsComponent(
             if (current != null) {
                 projectRepository.delete(current)
             }
+            projectRepository.setNeedsSaving(false)
             activeProject.value = null
             withContext(dispatchers.main) {
                 navigation.pop()

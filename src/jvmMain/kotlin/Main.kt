@@ -147,8 +147,16 @@ private fun MenuBarScope.makeMenus(
             rootComponent.openEditProject()
         }
         Item(
+            text = "menu_project_save".localized(),
+            enabled = rootUiState.isSaveEnabled,
+            shortcut = KeyShortcut(Key.S, meta = true),
+        ) {
+            rootComponent.saveCurrentProject()
+        }
+        Item(
             text = "menu_project_save_as".localized(),
             enabled = rootUiState.activeProject != null,
+            shortcut = KeyShortcut(Key.S, meta = true, shift = true),
         ) {
             rootComponent.saveProjectAs()
         }

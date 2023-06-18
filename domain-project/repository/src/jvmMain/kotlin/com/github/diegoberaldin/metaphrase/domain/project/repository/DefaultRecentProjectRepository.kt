@@ -25,6 +25,8 @@ internal class DefaultRecentProjectRepository(
 
     override suspend fun getAll(): List<RecentProjectModel> = dao.getAll()
 
+    override suspend fun getByName(value: String): RecentProjectModel? = dao.getByName(value)
+
     override suspend fun create(model: RecentProjectModel) = dao.create(model)
 
     override suspend fun delete(model: RecentProjectModel) = dao.delete(model)

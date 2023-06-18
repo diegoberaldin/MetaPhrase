@@ -36,6 +36,7 @@ val translateModule = module {
             componentContext = params[0],
             coroutineContext = params[1],
             dispatchers = get(),
+            recentProjectRepository = get(),
             projectRepository = get(),
             languageRepository = get(),
             segmentRepository = get(),

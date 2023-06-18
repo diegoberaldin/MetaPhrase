@@ -20,9 +20,11 @@ import com.github.diegoberaldin.metaphrase.domain.glossary.repository.GlossaryTe
 import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
 import com.github.diegoberaldin.metaphrase.domain.language.repository.LanguageRepository
 import com.github.diegoberaldin.metaphrase.domain.project.data.ProjectModel
+import com.github.diegoberaldin.metaphrase.domain.project.data.RecentProjectModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.ResourceFileType
 import com.github.diegoberaldin.metaphrase.domain.project.data.SegmentModel
 import com.github.diegoberaldin.metaphrase.domain.project.repository.ProjectRepository
+import com.github.diegoberaldin.metaphrase.domain.project.repository.RecentProjectRepository
 import com.github.diegoberaldin.metaphrase.domain.project.repository.SegmentRepository
 import com.github.diegoberaldin.metaphrase.domain.project.usecase.ImportSegmentsUseCase
 import com.github.diegoberaldin.metaphrase.domain.project.usecase.SaveProjectUseCase
@@ -71,6 +73,7 @@ internal class DefaultTranslateComponent(
     private val coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,
     private val projectRepository: ProjectRepository,
+    private val recentProjectRepository: RecentProjectRepository,
     private val languageRepository: LanguageRepository,
     private val segmentRepository: SegmentRepository,
     private val glossaryTermRepository: GlossaryTermRepository,
@@ -205,6 +208,7 @@ internal class DefaultTranslateComponent(
                     dialogNavigation.activate(DialogConfig.None)
                 }
                 if (newSegment != null) {
+                    projectRepository.setNeedsSaving(true)
                     updateUnitCount()
                     messageListComponent.refresh()
                 }
@@ -420,13 +424,30 @@ internal class DefaultTranslateComponent(
 
     override fun save(path: String) {
         viewModelScope.launch(dispatchers.io) {
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
             saveProject(path = path, projectId = projectId)
+            val project = projectRepository.getById(projectId)
+            if (project != null) {
+                val projectName = project.name
+                val existingRecent = recentProjectRepository.getByName(value = projectName)
+                if (existingRecent == null) {
+                    recentProjectRepository.create(
+                        model = RecentProjectModel(
+                            path = path,
+                            name = projectName,
+                        ),
+                    )
+                }
+            }
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
+            projectRepository.setNeedsSaving(false)
         }
     }
 
     override fun import(path: String, type: ResourceFileType) {
         viewModelScope.launch(dispatchers.io) {
             val language = getCurrentLanguage() ?: return@launch
+            projectRepository.setNeedsSaving(true)
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
             val messageListComponent = messageList.asFlow<MessageListComponent>().firstOrNull()
             messageListComponent?.setEditingEnabled(false)

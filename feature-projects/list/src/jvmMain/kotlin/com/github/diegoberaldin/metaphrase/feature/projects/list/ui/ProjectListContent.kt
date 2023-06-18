@@ -67,7 +67,7 @@ fun ProjectsListContent(
                         contentDescription = null,
                     )
                     Text(
-                        text = item.readableName,
+                        text = item.name,
                         style = MaterialTheme.typography.body1,
                         color = MaterialTheme.colors.onBackground,
                     )

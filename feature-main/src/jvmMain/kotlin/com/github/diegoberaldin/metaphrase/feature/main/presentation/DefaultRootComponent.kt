@@ -15,6 +15,8 @@ import com.github.diegoberaldin.metaphrase.core.common.coroutines.CoroutineDispa
 import com.github.diegoberaldin.metaphrase.core.common.notification.NotificationCenter
 import com.github.diegoberaldin.metaphrase.core.common.utils.asFlow
 import com.github.diegoberaldin.metaphrase.core.common.utils.getByInjection
+import com.github.diegoberaldin.metaphrase.core.common.utils.lastPathSegment
+import com.github.diegoberaldin.metaphrase.core.common.utils.stripExtension
 import com.github.diegoberaldin.metaphrase.domain.glossary.usecase.ClearGlossaryUseCase
 import com.github.diegoberaldin.metaphrase.domain.glossary.usecase.ExportGlossaryUseCase
 import com.github.diegoberaldin.metaphrase.domain.glossary.usecase.ImportGlossaryUseCase
@@ -22,6 +24,7 @@ import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.ProjectModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.RecentProjectModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.ResourceFileType
+import com.github.diegoberaldin.metaphrase.domain.project.repository.ProjectRepository
 import com.github.diegoberaldin.metaphrase.domain.project.repository.RecentProjectRepository
 import com.github.diegoberaldin.metaphrase.domain.project.usecase.OpenProjectUseCase
 import com.github.diegoberaldin.metaphrase.domain.tm.usecase.ClearTmUseCase
@@ -60,6 +63,7 @@ internal class DefaultRootComponent(
     private val coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,
     private val recentProjectRepository: RecentProjectRepository,
+    private val projectRepository: ProjectRepository,
     private val importFromTmx: ImportTmxUseCase,
     private val clearTranslationMemory: ClearTmUseCase,
     private val importGlossaryTerms: ImportGlossaryUseCase,
@@ -82,6 +86,7 @@ internal class DefaultRootComponent(
     private lateinit var isEditing: StateFlow<Boolean>
     private lateinit var currentLanguage: StateFlow<LanguageModel?>
     private val isLoading = MutableStateFlow(false)
+    private val isSaveEnabled = MutableStateFlow(false)
     private var observeProjectsJob: Job? = null
     private var projectIdToOpen: Int? = null
 
@@ -127,12 +132,14 @@ internal class DefaultRootComponent(
                     isEditing,
                     currentLanguage,
                     isLoading,
-                ) { activeProject, isEditing, currentLanguage, isLoading ->
+                    isSaveEnabled,
+                ) { activeProject, isEditing, currentLanguage, isLoading, saveEnabled ->
                     RootUiState(
                         activeProject = activeProject,
                         isEditing = isEditing,
                         isLoading = isLoading,
                         currentLanguage = currentLanguage,
+                        isSaveEnabled = saveEnabled,
 
                     )
                 }.stateIn(
@@ -173,6 +180,12 @@ internal class DefaultRootComponent(
                                 child.open(projectId)
                                 projectIdToOpen = null
                             }
+                        }.launchIn(this)
+                    }
+                    launch {
+                        projectRepository.observeNeedsSaving().onEach { needsSaving ->
+                            isSaveEnabled.value =
+                                needsSaving && recentProjectRepository.getByName(activeProject.value?.name.orEmpty()) != null
                         }.launchIn(this)
                     }
                 }
@@ -249,7 +262,10 @@ internal class DefaultRootComponent(
             val project = openProjectUseCase(path = path)
             if (project != null) {
                 projectIdToOpen = project.id
-                val recentProject = RecentProjectModel(path = path)
+                val recentProject = RecentProjectModel(
+                    path = path,
+                    name = path.lastPathSegment().stripExtension(),
+                )
                 recentProjectRepository.create(recentProject)
             }
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
@@ -273,6 +289,17 @@ internal class DefaultRootComponent(
     override fun saveProject(path: String) {
         viewModelScope.launch(dispatchers.io) {
             main.asFlow<ProjectsComponent>().firstOrNull()?.saveCurrentProject(path = path)
+        }
+    }
+
+    override fun saveCurrentProject() {
+        viewModelScope.launch(dispatchers.io) {
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
+            val recentProjectModel = recentProjectRepository.getByName(activeProject.value?.name.orEmpty())
+            if (recentProjectModel != null) {
+                val path = recentProjectModel.path
+                main.asFlow<ProjectsComponent>().firstOrNull()?.saveCurrentProject(path = path)
+            }
         }
     }
 

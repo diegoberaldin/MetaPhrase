@@ -16,6 +16,7 @@ interface RootComponent {
     fun openDialog()
     fun openProject(path: String)
     fun openEditProject()
+    fun saveCurrentProject()
     fun saveProjectAs()
     fun saveProject(path: String)
     fun openNewDialog()

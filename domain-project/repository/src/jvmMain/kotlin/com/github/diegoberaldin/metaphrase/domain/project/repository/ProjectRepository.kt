@@ -1,10 +1,11 @@
 package com.github.diegoberaldin.metaphrase.domain.project.repository
 
 import com.github.diegoberaldin.metaphrase.domain.project.data.ProjectModel
-import com.github.diegoberaldin.metaphrase.domain.project.data.RecentProjectModel
 import kotlinx.coroutines.flow.Flow
 
 interface ProjectRepository {
+    fun setNeedsSaving(value: Boolean)
+    fun observeNeedsSaving(): Flow<Boolean>
     suspend fun getAll(): List<ProjectModel>
 
     suspend fun getById(id: Int): ProjectModel?
