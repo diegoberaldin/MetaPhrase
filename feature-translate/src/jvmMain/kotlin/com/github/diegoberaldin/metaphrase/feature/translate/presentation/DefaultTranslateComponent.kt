@@ -13,6 +13,8 @@ import com.github.diegoberaldin.metaphrase.core.common.coroutines.CoroutineDispa
 import com.github.diegoberaldin.metaphrase.core.common.notification.NotificationCenter
 import com.github.diegoberaldin.metaphrase.core.common.utils.asFlow
 import com.github.diegoberaldin.metaphrase.core.common.utils.getByInjection
+import com.github.diegoberaldin.metaphrase.core.common.utils.lastPathSegment
+import com.github.diegoberaldin.metaphrase.core.common.utils.stripExtension
 import com.github.diegoberaldin.metaphrase.domain.formats.ExportResourcesUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.ImportResourcesUseCase
 import com.github.diegoberaldin.metaphrase.domain.glossary.data.GlossaryTermModel
@@ -153,10 +155,12 @@ internal class DefaultTranslateComponent(
                 uiState = combine(
                     project,
                     unitCount,
-                ) { project, unitCount ->
+                    projectRepository.observeNeedsSaving(),
+                ) { project, unitCount, needsSaving ->
                     TranslateUiState(
                         project = project,
                         unitCount = unitCount,
+                        needsSaving = needsSaving,
                     )
                 }.stateIn(
                     scope = viewModelScope,
@@ -349,6 +353,8 @@ internal class DefaultTranslateComponent(
                 TranslateToolbarComponent.Events.ValidateUnits -> {
                     startPlaceholderValidation()
                 }
+
+                else -> Unit
             }
         }.launchIn(this)
     }
@@ -405,6 +411,14 @@ internal class DefaultTranslateComponent(
             val proj = projectRepository.getById(projectId)
             project.value = proj
             updateUnitCount()
+
+            messageList.asFlow<MessageListComponent>().firstOrNull()?.apply {
+                clearMessages()
+                refresh()
+            }
+            toolbar.asFlow<TranslateToolbarComponent>()?.firstOrNull()?.apply {
+                projectId = this@DefaultTranslateComponent.projectId
+            }
         }
     }
 
@@ -428,7 +442,7 @@ internal class DefaultTranslateComponent(
             saveProject(path = path, projectId = projectId)
             val project = projectRepository.getById(projectId)
             if (project != null) {
-                val projectName = project.name
+                val projectName = path.lastPathSegment().stripExtension()
                 val existingRecent = recentProjectRepository.getByName(value = projectName)
                 if (existingRecent == null && path.isNotEmpty()) {
                     recentProjectRepository.create(
@@ -557,6 +571,8 @@ internal class DefaultTranslateComponent(
                 is ValidatePlaceholdersUseCase.Output.Invalid -> {
                     child?.loadInvalidPlaceholders(projectId, language.id, invalidKeys = result.keys)
                 }
+
+                else -> Unit
             }
         }
     }

@@ -60,7 +60,6 @@ internal class DefaultMessageListComponent(
     private val updateTextSwitch = MutableStateFlow(false)
     private val isLoading = MutableStateFlow(false)
     private val canFetchMore = MutableStateFlow(true)
-    private val isShowingProgress = MutableStateFlow(false)
     private lateinit var viewModelScope: CoroutineScope
     private var saveJob: Job? = null
     private var spellcheckJob: Job? = null
@@ -75,6 +74,7 @@ internal class DefaultMessageListComponent(
     override lateinit var editedSegment: StateFlow<SegmentModel?>
     override val spellingErrors = MutableStateFlow<List<SpellCheckCorrection>>(emptyList())
     override val addToGlossaryEvents = MutableSharedFlow<AddToGlossaryEvent>()
+    override val isShowingProgress = MutableStateFlow(false)
 
     init {
         with(lifecycle) {
@@ -125,9 +125,10 @@ internal class DefaultMessageListComponent(
                 )
             }
             doOnStart {
-                notificationCenter.events.mapNotNull { it as? NotificationCenter.Event.ShowProgress }.distinctUntilChanged().onEach {
-                    isShowingProgress.value = it.visible
-                }.launchIn(viewModelScope)
+                notificationCenter.events.mapNotNull { it as? NotificationCenter.Event.ShowProgress }
+                    .distinctUntilChanged().onEach {
+                        isShowingProgress.value = it.visible
+                    }.launchIn(viewModelScope)
             }
             doOnDestroy {
                 viewModelScope.cancel()
@@ -192,9 +193,9 @@ internal class DefaultMessageListComponent(
         if (isLoading.value) {
             return
         }
-
         isLoading.value = true
         viewModelScope.launch(dispatchers.io) {
+            delay(100)
             currentPage++
             loadPage()
             isLoading.value = false

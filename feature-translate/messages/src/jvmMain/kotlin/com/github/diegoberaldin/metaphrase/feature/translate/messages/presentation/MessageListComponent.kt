@@ -14,6 +14,7 @@ interface MessageListComponent {
     val uiState: StateFlow<MessageListUiState>
     val selectionEvents: SharedFlow<Int>
     val editedSegment: StateFlow<SegmentModel?>
+    val isShowingProgress: StateFlow<Boolean>
     val spellingErrors: StateFlow<List<SpellCheckCorrection>>
     val paginationState: StateFlow<MessageLisPaginationState>
     val addToGlossaryEvents: SharedFlow<AddToGlossaryEvent>

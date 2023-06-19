@@ -15,7 +15,6 @@ internal class DefaultProjectRepository(
     private var needsSaving = false
 
     override fun setNeedsSaving(value: Boolean) {
-        println("---> needs saving $value")
         needsSaving = value
     }
 

@@ -11,13 +11,14 @@ val projectsModule = module {
     includes(translateModule)
 
     factory<ProjectsComponent> { params ->
-        val defaultProjectsComponent = DefaultProjectsComponent(
+        DefaultProjectsComponent(
             componentContext = params[0],
             coroutineContext = params[1],
             dispatchers = get(),
             keyStore = get(),
             projectRepository = get(),
+            recentProjectRepository = get(),
+            openProjectUseCase = get(),
         )
-        defaultProjectsComponent
     }
 }

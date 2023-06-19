@@ -74,6 +74,7 @@ internal class DefaultOpenProjectUseCase(
 
             val registry = mutableMapOf<String, MutableList<SegmentModel>>()
             registry[baseLanguage] = mutableListOf()
+            val languages = unitMap.values.flatMap { it.map { m -> m.lang } }.distinct()
 
             for (unit in unitMap) {
                 val key = unit.key
@@ -83,7 +84,7 @@ internal class DefaultOpenProjectUseCase(
                     val segment = SegmentModel(
                         key = key,
                         text = sourceVariant.message,
-                        translatable = otherVariants.isNotEmpty(),
+                        translatable = otherVariants.isNotEmpty() || languages.size == 1,
                     )
                     if (registry[baseLanguage] == null) {
                         registry[baseLanguage] = mutableListOf()

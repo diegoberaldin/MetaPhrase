@@ -8,8 +8,7 @@ import com.arkivanov.decompose.router.slot.childSlot
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
-import com.arkivanov.essenty.lifecycle.doOnStart
-import com.arkivanov.essenty.lifecycle.doOnStop
+import com.arkivanov.essenty.lifecycle.doOnResume
 import com.github.diegoberaldin.metaphrase.core.common.coroutines.CoroutineDispatcherProvider
 import com.github.diegoberaldin.metaphrase.core.common.notification.NotificationCenter
 import com.github.diegoberaldin.metaphrase.domain.project.data.ProjectModel
@@ -43,7 +42,6 @@ internal class DefaultProjectListComponent(
 
     private val projects = MutableStateFlow<List<RecentProjectModel>>(emptyList())
     private lateinit var viewModelScope: CoroutineScope
-    private var observeProjectsJob: Job? = null
     private val dialogNavigation = SlotNavigation<ProjectListComponent.DialogConfiguration>()
 
     override lateinit var uiState: StateFlow<ProjectListUiState>
@@ -68,18 +66,12 @@ internal class DefaultProjectListComponent(
                     initialValue = ProjectListUiState(),
                 )
             }
-            doOnStart {
-                if (observeProjectsJob == null) {
-                    observeProjectsJob = viewModelScope.launch(dispatchers.io) {
-                        projectRepository.observeAll().onEach { values ->
-                            projects.value = values
-                        }.launchIn(this)
-                    }
+            doOnResume {
+                viewModelScope.launch(dispatchers.io) {
+                    projectRepository.observeAll().onEach { values ->
+                        projects.value = values
+                    }.launchIn(this)
                 }
-            }
-            doOnStop {
-                observeProjectsJob?.cancel()
-                observeProjectsJob = null
             }
             doOnDestroy {
                 viewModelScope.cancel()
