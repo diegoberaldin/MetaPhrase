@@ -9,7 +9,6 @@ data class MessageListUiState(
     val currentLanguage: LanguageModel? = null,
     val editingEnabled: Boolean = true,
     val updateTextSwitch: Boolean = false,
-    val isShowingProgress: Boolean = false,
 )
 
 data class MessageLisPaginationState(

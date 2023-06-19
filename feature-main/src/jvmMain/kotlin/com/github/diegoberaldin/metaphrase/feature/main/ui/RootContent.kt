@@ -1,13 +1,16 @@
 package com.github.diegoberaldin.metaphrase.feature.main.ui
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
@@ -48,9 +51,7 @@ fun RootContent(
     }
 
     Box(
-        modifier = modifier
-            .pointerHoverIcon(pointerIcon)
-            .padding(horizontal = Spacing.s, vertical = Spacing.xs),
+        modifier = modifier.padding(horizontal = Spacing.s, vertical = Spacing.xs),
     ) {
         val child = mainSlot.child
         when (child?.configuration) {
@@ -67,6 +68,13 @@ fun RootContent(
             }
 
             else -> Unit
+        }
+
+        // Overlay
+        if (uiState.isLoading) {
+            Surface(color = Color.Transparent) {
+                Box(modifier = Modifier.fillMaxSize().pointerHoverIcon(icon = pointerIcon))
+            }
         }
     }
 

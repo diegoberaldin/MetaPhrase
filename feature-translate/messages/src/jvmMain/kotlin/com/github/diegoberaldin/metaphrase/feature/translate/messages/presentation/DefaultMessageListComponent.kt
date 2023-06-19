@@ -36,7 +36,6 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlin.coroutines.CoroutineContext
-import com.github.diegoberaldin.metaphrase.core.common.utils.combine as combineMulti
 
 internal class DefaultMessageListComponent(
     componentContext: ComponentContext,
@@ -81,21 +80,19 @@ internal class DefaultMessageListComponent(
         with(lifecycle) {
             doOnCreate {
                 viewModelScope = CoroutineScope(coroutineContext + SupervisorJob())
-                uiState = combineMulti(
+                uiState = combine(
                     units,
                     editingIndex,
                     currentLanguage,
                     editingEnabled,
                     updateTextSwitch,
-                    isShowingProgress,
-                ) { units, editingIndex, currentLanguage, editingEnabled, updateTextSwitch, isShowingProgress ->
+                ) { units, editingIndex, currentLanguage, editingEnabled, updateTextSwitch ->
                     MessageListUiState(
                         units = units,
                         editingIndex = editingIndex,
                         currentLanguage = currentLanguage,
                         editingEnabled = editingEnabled,
                         updateTextSwitch = updateTextSwitch,
-                        isShowingProgress = isShowingProgress,
                     )
                 }.stateIn(
                     scope = viewModelScope,
