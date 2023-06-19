@@ -73,6 +73,7 @@ internal class DefaultOpenProjectUseCase(
             }
 
             val registry = mutableMapOf<String, MutableList<SegmentModel>>()
+            registry[baseLanguage] = mutableListOf()
 
             for (unit in unitMap) {
                 val key = unit.key

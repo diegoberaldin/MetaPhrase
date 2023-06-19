@@ -11,6 +11,7 @@ interface ProjectRepository {
     suspend fun getById(id: Int): ProjectModel?
     fun observeById(id: Int): Flow<ProjectModel>
     suspend fun create(model: ProjectModel): Int
-    suspend fun update(model: ProjectModel): Int
-    suspend fun delete(model: ProjectModel): Int
+    suspend fun update(model: ProjectModel)
+    suspend fun delete(model: ProjectModel)
+    suspend fun deleteAll()
 }

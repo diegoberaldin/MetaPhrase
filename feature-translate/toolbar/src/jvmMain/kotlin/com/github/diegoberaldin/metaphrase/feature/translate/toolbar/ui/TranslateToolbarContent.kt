@@ -98,7 +98,7 @@ fun TranslateToolbar(
             )
         }
         CustomTooltipArea(
-            text = "tooltip_remove".localized(),
+            text = "tooltip_delete".localized(),
         ) {
             Icon(
                 modifier = buttonModifier.onClick { component.removeUnit() },

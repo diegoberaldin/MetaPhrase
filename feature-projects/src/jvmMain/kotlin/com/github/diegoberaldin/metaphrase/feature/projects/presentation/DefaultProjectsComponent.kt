@@ -85,7 +85,8 @@ internal class DefaultProjectsComponent(
             doOnStart {
                 viewModelScope.launch(dispatchers.io) {
                     val lastOpenedProjectId = keyStore.get("lastOpenedProject", 0)
-                    if (lastOpenedProjectId > 0) {
+                    val existing = projectRepository.getById(lastOpenedProjectId)
+                    if (existing != null) {
                         openProject(lastOpenedProjectId)
                     }
                 }

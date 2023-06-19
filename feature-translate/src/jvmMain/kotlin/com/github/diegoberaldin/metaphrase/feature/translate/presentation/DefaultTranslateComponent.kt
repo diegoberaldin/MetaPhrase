@@ -202,7 +202,7 @@ internal class DefaultTranslateComponent(
                 panel.asFlow<GlossaryComponent>().firstOrNull()?.clear()
             }
         }.launchIn(this)
-        dialog.asFlow<NewSegmentComponent>().filterNotNull().onEach {
+        dialog.asFlow<NewSegmentComponent>(timeout = Duration.INFINITE).filterNotNull().onEach {
             it.done.onEach { newSegment ->
                 withContext(dispatchers.main) {
                     dialogNavigation.activate(DialogConfig.None)
@@ -430,7 +430,7 @@ internal class DefaultTranslateComponent(
             if (project != null) {
                 val projectName = project.name
                 val existingRecent = recentProjectRepository.getByName(value = projectName)
-                if (existingRecent == null) {
+                if (existingRecent == null && path.isNotEmpty()) {
                     recentProjectRepository.create(
                         model = RecentProjectModel(
                             path = path,

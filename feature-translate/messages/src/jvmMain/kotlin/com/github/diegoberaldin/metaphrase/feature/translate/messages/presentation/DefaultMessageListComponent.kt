@@ -202,7 +202,10 @@ internal class DefaultMessageListComponent(
     }
 
     private suspend fun loadPage() {
-        val language = currentLanguage.value ?: return
+        val language = currentLanguage.value ?: run {
+            canFetchMore.value = false
+            return
+        }
         val baseLanguageId = if (language.isBase) {
             language.id
         } else {

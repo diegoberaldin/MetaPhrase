@@ -225,12 +225,14 @@ fun MessageListContent(
                 modifier = Modifier.fillMaxWidth().padding(vertical = Spacing.xxs),
                 contentAlignment = Alignment.Center,
             ) {
-                if (paginationState.canFetchMore && !paginationState.isLoading) {
+                if (paginationState.canFetchMore) {
                     CircularProgressIndicator(
                         modifier = Modifier.size(20.dp),
                         color = MaterialTheme.colors.primary,
                     )
-                    component.loadNextPage()
+                    if (!paginationState.isLoading) {
+                        component.loadNextPage()
+                    }
                 }
             }
         }

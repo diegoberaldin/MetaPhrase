@@ -147,6 +147,11 @@ internal class DefaultRootComponent(
                     started = SharingStarted.WhileSubscribed(5_000),
                     initialValue = RootUiState(),
                 )
+
+                // initial cleanup
+                viewModelScope.launch {
+                    projectRepository.deleteAll()
+                }
             }
             doOnStart {
                 if (observeProjectsJob == null) {
@@ -186,8 +191,7 @@ internal class DefaultRootComponent(
                     }
                     launch {
                         projectRepository.observeNeedsSaving().onEach { needsSaving ->
-                            isSaveEnabled.value =
-                                needsSaving && recentProjectRepository.getByName(activeProject.value?.name.orEmpty()) != null
+                            isSaveEnabled.value = needsSaving
                         }.launchIn(this)
                     }
                 }
@@ -223,6 +227,7 @@ internal class DefaultRootComponent(
 
                                 is IntroComponent -> {
                                     projectIdToOpen = projectId
+                                    projectRepository.setNeedsSaving(true)
 
                                     withContext(dispatchers.main) {
                                         mainNavigation.activate(RootComponent.Config.Projects)
@@ -266,11 +271,15 @@ internal class DefaultRootComponent(
             val project = openProjectUseCase(path = path)
             if (project != null) {
                 projectIdToOpen = project.id
-                val recentProject = RecentProjectModel(
-                    path = path,
-                    name = path.lastPathSegment().stripExtension(),
-                )
-                recentProjectRepository.create(recentProject)
+                val projectName = path.lastPathSegment().stripExtension()
+                val existingRecent = recentProjectRepository.getByName(projectName)
+                if (existingRecent == null && path.isNotEmpty()) {
+                    val recentProject = RecentProjectModel(
+                        path = path,
+                        name = projectName,
+                    )
+                    recentProjectRepository.create(recentProject)
+                }
             }
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
         }
@@ -286,7 +295,9 @@ internal class DefaultRootComponent(
     override fun saveProjectAs() {
         val name = activeProject.value?.name
         if (name != null) {
-            dialogNavigation.activate(RootComponent.DialogConfig.SaveAsDialog(name = name))
+            viewModelScope.launch(dispatchers.main) {
+                dialogNavigation.activate(RootComponent.DialogConfig.SaveAsDialog(name = name))
+            }
         }
     }
 
@@ -303,6 +314,8 @@ internal class DefaultRootComponent(
             if (recentProjectModel != null) {
                 val path = recentProjectModel.path
                 main.asFlow<ProjectsComponent>().firstOrNull()?.saveCurrentProject(path = path)
+            } else {
+                saveProjectAs()
             }
         }
     }

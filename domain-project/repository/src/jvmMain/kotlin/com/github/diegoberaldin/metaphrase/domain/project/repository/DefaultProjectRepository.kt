@@ -15,6 +15,7 @@ internal class DefaultProjectRepository(
     private var needsSaving = false
 
     override fun setNeedsSaving(value: Boolean) {
+        println("---> needs saving $value")
         needsSaving = value
     }
 
@@ -51,4 +52,6 @@ internal class DefaultProjectRepository(
     override suspend fun update(model: ProjectModel) = dao.update(model)
 
     override suspend fun delete(model: ProjectModel) = dao.delete(model)
+
+    override suspend fun deleteAll() = dao.deleteAll()
 }
