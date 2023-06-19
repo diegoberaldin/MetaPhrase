@@ -72,38 +72,44 @@ internal class DefaultOpenProjectUseCase(
                 }
             }
 
+            val registry = mutableMapOf<String, MutableList<SegmentModel>>()
+
             for (unit in unitMap) {
                 val key = unit.key
                 val sourceVariant = unit.value.firstOrNull { it.lang == baseLanguage }
                 val otherVariants = unit.value.filter { it.lang != baseLanguage }
                 if (sourceVariant != null && sourceVariant.message.isNotEmpty()) {
-                    val languageId = languageRepository.getByCode(baseLanguage, projectId)?.id ?: run {
-                        languageRepository.create(
-                            model = LanguageModel(code = baseLanguage, isBase = true),
-                            projectId = projectId,
-                        )
-                    }
                     val segment = SegmentModel(
                         key = key,
                         text = sourceVariant.message,
                         translatable = otherVariants.isNotEmpty(),
                     )
-                    segmentRepository.create(model = segment, languageId = languageId)
+                    if (registry[baseLanguage] == null) {
+                        registry[baseLanguage] = mutableListOf()
+                    }
+                    (registry[baseLanguage] as MutableList<SegmentModel>) += segment
                 }
                 for (targetVariant in otherVariants) {
-                    val languageId = languageRepository.getByCode(targetVariant.lang, projectId)?.id ?: run {
-                        languageRepository.create(
-                            model = LanguageModel(code = targetVariant.lang),
-                            projectId = projectId,
-                        )
-                    }
                     val segment = SegmentModel(
                         key = key,
                         text = targetVariant.message,
-                        translatable = otherVariants.isNotEmpty(),
                     )
-                    segmentRepository.create(model = segment, languageId = languageId)
+                    val lang = targetVariant.lang
+                    if (registry[lang] == null) {
+                        registry[lang] = mutableListOf()
+                    }
+                    (registry[lang] as MutableList<SegmentModel>) += segment
                 }
+            }
+
+            for (lang in registry.keys) {
+                val languageId = languageRepository.getByCode(lang, projectId)?.id ?: run {
+                    languageRepository.create(
+                        model = LanguageModel(code = lang, isBase = lang == baseLanguage),
+                        projectId = projectId,
+                    )
+                }
+                segmentRepository.createBatch(models = registry[lang] ?: emptyList(), languageId = languageId)
             }
 
             project.copy(id = projectId)
