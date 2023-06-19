@@ -80,6 +80,7 @@
 	<string name="message_missing_field">Información obligatoria</string>
 	<string name="message_no_item_to_display">Ningún elemento para visualizar</string>
 	<string name="message_no_validation">Ningún resultado, iniciar una validación a través de la acción "Convalidar" desde la barra de herramientas</string>
+	<string name="message_open_error">Se ha encontrado un problema al abrir el proyecto</string>
 	<string name="message_spelling_invalid">Se han detectado algunas faltas de ortografía:</string>
 	<string name="message_spelling_valid">¡Enhorabuena! No se ha detectado ninguna falta de ortografía 🎉</string>
 	<string name="message_validation_invalid">Se han detectado algunos mensajes no válidos:</string>

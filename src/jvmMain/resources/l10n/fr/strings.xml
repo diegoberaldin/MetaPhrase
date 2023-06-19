@@ -81,6 +81,7 @@
 	<string name="message_missing_field">Champ manquant</string>
 	<string name="message_no_item_to_display">Aucun élément à afficher</string>
 	<string name="message_no_validation">Aucun résultat de validation, exécutez une validation avec l\'action de barre d\'outils "Valider"</string>
+	<string name="message_open_error">Un problème s'est produit lors de l'ouverture du projet.</string>
 	<string name="message_spelling_invalid">Certaines fautes d\'orthographe ont été trouvées :</string>
 	<string name="message_spelling_valid">Hourra ! Aucune faute d\'orthographe n\'a été trouvée 🎉</string>
 	<string name="message_validation_invalid">Certains messages invalides ont été trouvés :</string>

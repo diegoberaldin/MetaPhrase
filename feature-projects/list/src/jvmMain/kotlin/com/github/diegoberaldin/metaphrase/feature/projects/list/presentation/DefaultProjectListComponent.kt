@@ -1,6 +1,11 @@
 package com.github.diegoberaldin.metaphrase.feature.projects.list.presentation
 
 import com.arkivanov.decompose.ComponentContext
+import com.arkivanov.decompose.router.slot.ChildSlot
+import com.arkivanov.decompose.router.slot.SlotNavigation
+import com.arkivanov.decompose.router.slot.activate
+import com.arkivanov.decompose.router.slot.childSlot
+import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import com.arkivanov.essenty.lifecycle.doOnStart
@@ -24,6 +29,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
 
 internal class DefaultProjectListComponent(
@@ -38,9 +44,17 @@ internal class DefaultProjectListComponent(
     private val projects = MutableStateFlow<List<RecentProjectModel>>(emptyList())
     private lateinit var viewModelScope: CoroutineScope
     private var observeProjectsJob: Job? = null
+    private val dialogNavigation = SlotNavigation<ProjectListComponent.DialogConfiguration>()
 
     override lateinit var uiState: StateFlow<ProjectListUiState>
     override val projectSelected = MutableSharedFlow<ProjectModel>()
+    override val dialog: Value<ChildSlot<ProjectListComponent.DialogConfiguration, *>> = childSlot(
+        source = dialogNavigation,
+        key = "ProjectListDialogSlot",
+        childFactory = { _, _ ->
+            Unit
+        },
+    )
 
     init {
         with(lifecycle) {
@@ -81,6 +95,12 @@ internal class DefaultProjectListComponent(
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
             if (project != null) {
                 projectSelected.emit(project)
+            } else {
+                projectRepository.delete(value)
+
+                withContext(dispatchers.main) {
+                    dialogNavigation.activate(ProjectListComponent.DialogConfiguration.OpenError)
+                }
             }
         }
     }
@@ -90,6 +110,12 @@ internal class DefaultProjectListComponent(
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
             projectRepository.delete(value)
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
+        }
+    }
+
+    override fun closeDialog() {
+        viewModelScope.launch(dispatchers.main) {
+            dialogNavigation.activate(ProjectListComponent.DialogConfiguration.None)
         }
     }
 }

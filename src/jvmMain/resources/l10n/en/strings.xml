@@ -105,6 +105,7 @@
 	<string name="message_missing_field">Missing field</string>
 	<string name="message_no_item_to_display">No item to display</string>
 	<string name="message_no_validation">No validation results, run a validation with the "Validate" toolbar action</string>
+	<string name="message_open_error">An issue has occurred opening the project.</string>
 	<string name="message_spelling_invalid">Some spelling mistakes have been found:</string>
 	<string name="message_spelling_valid">Hooray! No spelling mistakes have been found 🎉</string>
 	<string name="message_validation_invalid">Some invalid messages have been found:</string>

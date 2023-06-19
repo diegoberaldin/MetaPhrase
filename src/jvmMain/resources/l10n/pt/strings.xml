@@ -81,6 +81,7 @@
     <string name="message_missing_field">Campo ausente</string>
     <string name="message_no_item_to_display">Nenhum item para exibir</string>
     <string name="message_no_validation">Nenhum resultado de validação, execute uma validação com a ação "Validar" da barra de ferramentas</string>
+    <string name="message_open_error">Ocorreu um problema ao abrir o projeto.</string>
     <string name="message_spelling_invalid">Alguns erros ortográficos foram encontrados:</string>
     <string name="message_spelling_valid">Viva! Nenhum error de ortografia foi encontrado 🎉</string>
     <string name="message_validation_invalid">Algumas mensagens inválidas foram encontradas:</string>

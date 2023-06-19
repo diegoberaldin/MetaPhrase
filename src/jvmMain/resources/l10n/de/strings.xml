@@ -81,6 +81,7 @@
 	<string name="message_missing_field">Fehlendes Feld</string>
 	<string name="message_no_item_to_display">Kein Element zum Anzeigen</string>
 	<string name="message_no_validation">Keine Validierungsergebnisse, führen Sie eine Validierung mit der Symbolleistenaktion „Validieren“ durch</string>
+	<string name="message_open_error">Beim Öffnen des Projekts ist ein Problem aufgetreten.</string>
 	<string name="message_spelling_invalid">Es wurden einige Rechtschreibfehler gefunden:</string>
 	<string name="message_spelling_valid">Hurra! Es wurden keine Rechtschreibfehler gefunden 🎉</string>
 	<string name="message_validation_invalid">Es wurden einige ungültige Nachrichten gefunden:</string>

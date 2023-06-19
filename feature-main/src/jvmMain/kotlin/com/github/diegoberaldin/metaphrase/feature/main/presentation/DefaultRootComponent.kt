@@ -170,6 +170,8 @@ internal class DefaultRootComponent(
                                 is NotificationCenter.Event.ShowProgress -> {
                                     isLoading.value = evt.visible
                                 }
+
+                                else -> Unit
                             }
                         }.launchIn(this)
                     }

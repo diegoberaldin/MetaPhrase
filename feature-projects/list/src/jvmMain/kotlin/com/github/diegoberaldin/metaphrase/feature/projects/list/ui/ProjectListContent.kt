@@ -25,6 +25,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
+import com.github.diegoberaldin.metaphrase.core.common.ui.components.CustomDialog
 import com.github.diegoberaldin.metaphrase.core.common.ui.components.CustomTooltipArea
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.SelectedBackground
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Spacing
@@ -37,6 +39,7 @@ fun ProjectsListContent(
     component: ProjectListComponent,
 ) {
     val uiState by component.uiState.collectAsState()
+    val dialog by component.dialog.subscribeAsState()
     Column(
         modifier = Modifier.padding(horizontal = Spacing.s, vertical = Spacing.m),
         verticalArrangement = Arrangement.spacedBy(Spacing.xs),
@@ -89,5 +92,18 @@ fun ProjectsListContent(
                 }
             }
         }
+    }
+
+    when (dialog.child?.configuration) {
+        ProjectListComponent.DialogConfiguration.OpenError -> CustomDialog(
+            title = "dialog_title_warning".localized(),
+            message = "message_open_error".localized(),
+            buttonTexts = listOf("button_close".localized()),
+            onClose = {
+                component.closeDialog()
+            },
+        )
+
+        else -> Unit
     }
 }
