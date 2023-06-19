@@ -146,7 +146,7 @@ fun MessageListContent(
                             focusRequester = focusRequester,
                             active = idx == uiState.editingIndex,
                             updateTextSwitch = uiState.updateTextSwitch,
-                            enabled = uiState.editingEnabled,
+                            enabled = uiState.editingEnabled && !uiState.isShowingProgress,
                             spellingErrors = spellingErrors,
                             onStartEditing = {
                                 component.startEditing(idx)
@@ -196,7 +196,7 @@ fun MessageListContent(
                             focusRequester = focusRequester,
                             active = idx == uiState.editingIndex,
                             updateTextSwitch = uiState.updateTextSwitch,
-                            enabled = uiState.editingEnabled,
+                            enabled = uiState.editingEnabled && !uiState.isShowingProgress,
                             spellingErrors = spellingErrors,
                             onStartEditing = {
                                 component.startEditing(idx)

@@ -3,6 +3,7 @@ package com.github.diegoberaldin.metaphrase.feature.translate.messages.presentat
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
+import com.arkivanov.essenty.lifecycle.doOnStart
 import com.github.diegoberaldin.metaphrase.core.common.coroutines.CoroutineDispatcherProvider
 import com.github.diegoberaldin.metaphrase.core.common.keystore.TemporaryKeyStore
 import com.github.diegoberaldin.metaphrase.core.common.notification.NotificationCenter
@@ -25,12 +26,17 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.getAndUpdate
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapNotNull
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlin.coroutines.CoroutineContext
+import com.github.diegoberaldin.metaphrase.core.common.utils.combine as combineMulti
 
 internal class DefaultMessageListComponent(
     componentContext: ComponentContext,
@@ -55,6 +61,7 @@ internal class DefaultMessageListComponent(
     private val updateTextSwitch = MutableStateFlow(false)
     private val isLoading = MutableStateFlow(false)
     private val canFetchMore = MutableStateFlow(true)
+    private val isShowingProgress = MutableStateFlow(false)
     private lateinit var viewModelScope: CoroutineScope
     private var saveJob: Job? = null
     private var spellcheckJob: Job? = null
@@ -74,19 +81,21 @@ internal class DefaultMessageListComponent(
         with(lifecycle) {
             doOnCreate {
                 viewModelScope = CoroutineScope(coroutineContext + SupervisorJob())
-                uiState = combine(
+                uiState = combineMulti(
                     units,
                     editingIndex,
                     currentLanguage,
                     editingEnabled,
                     updateTextSwitch,
-                ) { units, editingIndex, currentLanguage, editingEnabled, updateTextSwitch ->
+                    isShowingProgress,
+                ) { units, editingIndex, currentLanguage, editingEnabled, updateTextSwitch, isShowingProgress ->
                     MessageListUiState(
                         units = units,
                         editingIndex = editingIndex,
                         currentLanguage = currentLanguage,
                         editingEnabled = editingEnabled,
                         updateTextSwitch = updateTextSwitch,
+                        isShowingProgress = isShowingProgress,
                     )
                 }.stateIn(
                     scope = viewModelScope,
@@ -117,6 +126,11 @@ internal class DefaultMessageListComponent(
                     started = SharingStarted.WhileSubscribed(5_000),
                     initialValue = MessageLisPaginationState(),
                 )
+            }
+            doOnStart {
+                notificationCenter.events.mapNotNull { it as? NotificationCenter.Event.ShowProgress }.distinctUntilChanged().onEach {
+                    isShowingProgress.value = it.visible
+                }.launchIn(viewModelScope)
             }
             doOnDestroy {
                 viewModelScope.cancel()
