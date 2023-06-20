@@ -80,7 +80,13 @@ class DefaultSegmentDao : SegmentDao {
                 conditions += (SegmentEntity.text like pattern) or (SegmentEntity.key like pattern)
             }
             conditions.fold<Op<Boolean>, Op<Boolean>>(Op.TRUE) { acc, it -> acc.and(it) }
-        }.limit(n = limit, offset = skip.toLong())
+        }.run {
+            if (limit > 0) {
+                limit(n = limit, offset = skip.toLong())
+            } else {
+                this
+            }
+        }
             .orderBy(SegmentEntity.key)
             .map { it.toModel() }
     }

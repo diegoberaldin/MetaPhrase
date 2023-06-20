@@ -28,6 +28,7 @@
 	<string name="dialog_statistics_item_total_languages">Numero lingue</string>
 	<string name="dialog_statistics_item_total_messages">Numero messaggi</string>
 	<string name="dialog_statistics_item_translatable_messages">Numero messaggi traducibili</string>
+	<string name="dialog_statistics_item_translatable_words">Conteggio parole (messaggi traducibili)</string>
 	<string name="dialog_statistics_section_general">Generali</string>
 	<string name="dialog_title_create_glossary_term">Crea voce di glossario</string>
 	<string name="dialog_title_create_project">Nuovo progetto</string>

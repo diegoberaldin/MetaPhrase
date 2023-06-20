@@ -26,9 +26,10 @@
     <string name="dialog_settings_spellcheck_enabled">Ativar verificação ortográfica</string>
     <string name="dialog_settings_version">Versão do aplicativo</string>
     <string name="dialog_statistics_item_completion_rate">Taxa de conclusão</string>
-    <string name="dialog_statistics_item_total_languages">Número do idioma</string>
-    <string name="dialog_statistics_item_total_messages">Número da mensagem</string>
-    <string name="dialog_statistics_item_translatable_messages">Número da mensagem traduzível</string>
+    <string name="dialog_statistics_item_total_languages">Número de idiomas</string>
+    <string name="dialog_statistics_item_total_messages">Número de mensagens</string>
+    <string name="dialog_statistics_item_translatable_messages">Número de mensagens traduzíveis</string>
+    <string name="dialog_statistics_item_translatable_words">Contagem de palavras (mensagens traduzíveis)</string>
     <string name="dialog_statistics_section_general">Geral</string>
     <string name="dialog_title_create_glossary_term">Criar termo do glossário</string>
     <string name="dialog_title_create_project">Novo projeto</string>

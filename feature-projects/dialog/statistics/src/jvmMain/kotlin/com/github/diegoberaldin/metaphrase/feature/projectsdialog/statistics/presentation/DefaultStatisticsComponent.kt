@@ -76,23 +76,35 @@ internal class DefaultStatisticsComponent(
                         title = "dialog_statistics_item_total_messages".localized(),
                         value = totalMessageCount.toString(),
                     )
-                    val translatableCount =
+                    val translatableSourceMessages =
                         segmentRepository.search(baseLanguage.id, filter = TranslationUnitTypeFilter.TRANSLATABLE)
-                            .count()
+                    val translatableCount = translatableSourceMessages.count()
                     this += StatisticsItem.TextRow(
                         title = "dialog_statistics_item_translatable_messages".localized(),
                         value = translatableCount.toString(),
                     )
+                    val translatableWordCount = translatableSourceMessages.fold(0) { acc, message ->
+                        val words = message.text.split(Regex("\\W+"))
+                        acc + words.count()
+                    }
+                    this += StatisticsItem.TextRow(
+                        title = "dialog_statistics_item_translatable_words".localized(),
+                        value = translatableWordCount.toString(),
+                    )
 
                     this += StatisticsItem.Divider
 
-                    for (language in languages) {
+                    val otherLanguages = languages.filter { it.code != baseLanguage.code }
+                    for (language in otherLanguages) {
                         this += StatisticsItem.LanguageHeader(language.name)
                         val untranslatedCount =
                             segmentRepository.search(language.id, filter = TranslationUnitTypeFilter.UNTRANSLATED)
                                 .count()
-                        val completionRate =
+                        val completionRate = if (translatableCount == 0) {
+                            0.0f
+                        } else {
                             (translatableCount - untranslatedCount).coerceAtLeast(0).toFloat() / translatableCount
+                        }
                         this += StatisticsItem.BarChartRow(
                             title = "dialog_statistics_item_completion_rate".localized(),
                             value = completionRate,
