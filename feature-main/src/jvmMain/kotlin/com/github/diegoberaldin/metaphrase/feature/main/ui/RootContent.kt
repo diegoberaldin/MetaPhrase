@@ -101,10 +101,10 @@ fun RootContent(
                 buttonTexts = listOf("button_cancel".localized(), "button_ok".localized()),
                 onClose = { buttonIndex ->
                     if (buttonIndex == 1) {
-                        if (config.closeAfterwards) {
+                        if (config.closeAfter) {
                             onExitApplication()
                         } else {
-                            component.confirmCloseCurrentProject()
+                            component.confirmCloseCurrentProject(newAfter = config.newAfter, openAfter = config.openAfter)
                         }
                     }
                     component.closeDialog()

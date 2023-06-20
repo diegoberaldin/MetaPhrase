@@ -275,7 +275,9 @@ internal class DefaultRootComponent(
     override fun openEditProject() {
         val projectId = activeProject.value?.id
         if (projectId != null) {
-            dialogNavigation.activate(RootComponent.DialogConfig.EditDialog)
+            viewModelScope.launch(dispatchers.main) {
+                dialogNavigation.activate(RootComponent.DialogConfig.EditDialog)
+            }
         }
     }
 
@@ -308,46 +310,76 @@ internal class DefaultRootComponent(
     }
 
     override fun openDialog() {
-        dialogNavigation.activate(RootComponent.DialogConfig.OpenDialog)
+        viewModelScope.launch(dispatchers.main) {
+            if (projectRepository.isNeedsSaving()) {
+                viewModelScope.launch(dispatchers.main) {
+                    dialogNavigation.activate(RootComponent.DialogConfig.ConfirmCloseDialog(openAfter = true))
+                }
+                return@launch
+            }
+            dialogNavigation.activate(RootComponent.DialogConfig.OpenDialog)
+        }
     }
 
     override fun openNewDialog() {
-        dialogNavigation.activate(RootComponent.DialogConfig.NewDialog)
+        viewModelScope.launch(dispatchers.main) {
+            if (projectRepository.isNeedsSaving()) {
+                viewModelScope.launch(dispatchers.main) {
+                    dialogNavigation.activate(RootComponent.DialogConfig.ConfirmCloseDialog(newAfter = true))
+                }
+                return@launch
+            }
+            dialogNavigation.activate(RootComponent.DialogConfig.NewDialog)
+        }
     }
 
     override fun closeDialog() {
-        dialogNavigation.activate(RootComponent.DialogConfig.None)
+        viewModelScope.launch(dispatchers.main) {
+            dialogNavigation.activate(RootComponent.DialogConfig.None)
+        }
     }
 
-    override fun closeCurrentProject(closeAfterwards: Boolean) {
+    override fun closeCurrentProject(closeAfter: Boolean) {
         if (projectRepository.isNeedsSaving()) {
             viewModelScope.launch(dispatchers.main) {
-                dialogNavigation.activate(RootComponent.DialogConfig.ConfirmCloseDialog(closeAfterwards))
+                dialogNavigation.activate(RootComponent.DialogConfig.ConfirmCloseDialog(closeAfter = closeAfter))
             }
         } else {
             confirmCloseCurrentProject()
         }
     }
 
-    override fun confirmCloseCurrentProject() {
+    override fun confirmCloseCurrentProject(openAfter: Boolean, newAfter: Boolean) {
         projectIdToOpen = null
         viewModelScope.launch(dispatchers.io) {
             main.asFlow<ProjectsComponent>().firstOrNull()?.closeCurrentProject()
+            projectRepository.setNeedsSaving(false)
+
+            // if no more projects, goes back to intro
             val projects = recentProjectRepository.getAll()
             if (projects.isEmpty()) {
                 withContext(dispatchers.main) {
                     mainNavigation.activate(RootComponent.Config.Intro)
                 }
             }
+
+            when {
+                newAfter -> openNewDialog()
+                openAfter -> openDialog()
+            }
         }
     }
 
     override fun openImportDialog(type: ResourceFileType) {
-        dialogNavigation.activate(RootComponent.DialogConfig.ImportDialog(type))
+        viewModelScope.launch(dispatchers.main) {
+            dialogNavigation.activate(RootComponent.DialogConfig.ImportDialog(type))
+        }
     }
 
     override fun openExportDialog(type: ResourceFileType) {
-        dialogNavigation.activate(RootComponent.DialogConfig.ExportDialog(type))
+        viewModelScope.launch(dispatchers.main) {
+            dialogNavigation.activate(RootComponent.DialogConfig.ExportDialog(type))
+        }
     }
 
     override fun import(path: String, type: ResourceFileType) {
@@ -405,15 +437,21 @@ internal class DefaultRootComponent(
     }
 
     override fun openStatistics() {
-        dialogNavigation.activate(RootComponent.DialogConfig.StatisticsDialog)
+        viewModelScope.launch(dispatchers.main) {
+            dialogNavigation.activate(RootComponent.DialogConfig.StatisticsDialog)
+        }
     }
 
     override fun openSettings() {
-        dialogNavigation.activate(RootComponent.DialogConfig.SettingsDialog)
+        viewModelScope.launch(dispatchers.main) {
+            dialogNavigation.activate(RootComponent.DialogConfig.SettingsDialog)
+        }
     }
 
     override fun openExportTmxDialog() {
-        dialogNavigation.activate(RootComponent.DialogConfig.ExportTmxDialog)
+        viewModelScope.launch(dispatchers.main) {
+            dialogNavigation.activate(RootComponent.DialogConfig.ExportTmxDialog)
+        }
     }
 
     override fun exportTmx(path: String) {
@@ -423,7 +461,9 @@ internal class DefaultRootComponent(
     }
 
     override fun openImportTmxDialog() {
-        dialogNavigation.activate(RootComponent.DialogConfig.ImportTmxDialog)
+        viewModelScope.launch(dispatchers.main) {
+            dialogNavigation.activate(RootComponent.DialogConfig.ImportTmxDialog)
+        }
     }
 
     override fun importTmx(path: String) {
@@ -467,7 +507,9 @@ internal class DefaultRootComponent(
     }
 
     override fun openImportGlossaryDialog() {
-        dialogNavigation.activate(RootComponent.DialogConfig.ImportGlossaryDialog)
+        viewModelScope.launch(dispatchers.main) {
+            dialogNavigation.activate(RootComponent.DialogConfig.ImportGlossaryDialog)
+        }
     }
 
     override fun importGlossary(path: String) {
@@ -477,7 +519,9 @@ internal class DefaultRootComponent(
     }
 
     override fun openExportGlossaryDialog() {
-        dialogNavigation.activate(RootComponent.DialogConfig.ExportGlossaryDialog)
+        viewModelScope.launch(dispatchers.main) {
+            dialogNavigation.activate(RootComponent.DialogConfig.ExportGlossaryDialog)
+        }
     }
 
     override fun exportGlossary(path: String) {

@@ -22,8 +22,8 @@ interface RootComponent {
     fun openNewDialog()
     fun closeDialog()
     fun hasUnsavedChanges(): Boolean
-    fun closeCurrentProject(closeAfterwards: Boolean = false)
-    fun confirmCloseCurrentProject()
+    fun closeCurrentProject(closeAfter: Boolean = false)
+    fun confirmCloseCurrentProject(openAfter: Boolean = false, newAfter: Boolean = false)
     fun openStatistics()
     fun openSettings()
     fun openImportDialog(type: ResourceFileType)
@@ -77,7 +77,11 @@ interface RootComponent {
         data class SaveAsDialog(val name: String) : DialogConfig
 
         @Parcelize
-        data class ConfirmCloseDialog(val closeAfterwards: Boolean) : DialogConfig
+        data class ConfirmCloseDialog(
+            val closeAfter: Boolean = false,
+            val openAfter: Boolean = false,
+            val newAfter: Boolean = false,
+        ) : DialogConfig
 
         @Parcelize
         data class ImportDialog(val type: ResourceFileType) : DialogConfig

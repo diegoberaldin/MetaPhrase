@@ -95,7 +95,7 @@ fun main() {
         Window(
             onCloseRequest = {
                 if (rootComponent.hasUnsavedChanges()) {
-                    rootComponent.closeCurrentProject(closeAfterwards = true)
+                    rootComponent.closeCurrentProject(closeAfter = true)
                 } else {
                     exitApplication()
                 }
