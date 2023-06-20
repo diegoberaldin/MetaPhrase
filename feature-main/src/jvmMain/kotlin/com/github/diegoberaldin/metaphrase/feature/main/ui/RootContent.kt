@@ -1,16 +1,20 @@
 package com.github.diegoberaldin.metaphrase.feature.main.ui
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
+import com.github.diegoberaldin.metaphrase.core.common.ui.components.CustomDialog
 import com.github.diegoberaldin.metaphrase.core.common.ui.components.CustomOpenFileDialog
 import com.github.diegoberaldin.metaphrase.core.common.ui.components.CustomSaveFileDialog
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Spacing
@@ -33,6 +37,7 @@ import java.awt.Cursor
 fun RootContent(
     component: RootComponent,
     modifier: Modifier = Modifier,
+    onExitApplication: () -> Unit = {},
 ) {
     val mainSlot by component.main.subscribeAsState()
     val uiState by component.uiState.collectAsState()
@@ -46,9 +51,7 @@ fun RootContent(
     }
 
     Box(
-        modifier = modifier
-            .pointerHoverIcon(pointerIcon)
-            .padding(horizontal = Spacing.s, vertical = Spacing.xs),
+        modifier = modifier.padding(horizontal = Spacing.s, vertical = Spacing.xs),
     ) {
         val child = mainSlot.child
         when (child?.configuration) {
@@ -66,11 +69,49 @@ fun RootContent(
 
             else -> Unit
         }
+
+        // Overlay
+        if (uiState.isLoading) {
+            Surface(color = Color.Transparent) {
+                Box(modifier = Modifier.fillMaxSize().pointerHoverIcon(icon = pointerIcon))
+            }
+        }
     }
 
     // dialogs
     val dialogState by component.dialog.subscribeAsState()
     when (val config = dialogState.child?.configuration ?: RootComponent.DialogConfig.None) {
+        RootComponent.DialogConfig.OpenDialog -> {
+            CustomOpenFileDialog(
+                title = "dialog_title_open_file".localized(),
+                nameFilter = { it.endsWith(".tmx") },
+                onCloseRequest = { path ->
+                    if (path != null) {
+                        component.openProject(path = path)
+                    }
+                    component.closeDialog()
+                },
+            )
+        }
+
+        is RootComponent.DialogConfig.ConfirmCloseDialog -> {
+            CustomDialog(
+                title = "dialog_title_warning".localized(),
+                message = "message_confirm_close".localized(),
+                buttonTexts = listOf("button_cancel".localized(), "button_ok".localized()),
+                onClose = { buttonIndex ->
+                    if (buttonIndex == 1) {
+                        if (config.closeAfter) {
+                            onExitApplication()
+                        } else {
+                            component.confirmCloseCurrentProject(newAfter = config.newAfter, openAfter = config.openAfter)
+                        }
+                    }
+                    component.closeDialog()
+                },
+            )
+        }
+
         RootComponent.DialogConfig.NewDialog -> {
             CreateProjectDialog(
                 title = "dialog_title_create_project".localized(),
@@ -87,6 +128,19 @@ fun RootContent(
                 component = dialogState.child?.instance as CreateProjectComponent,
                 onClose = {
                     component.closeDialog()
+                },
+            )
+        }
+
+        is RootComponent.DialogConfig.SaveAsDialog -> {
+            CustomSaveFileDialog(
+                title = "dialog_title_open_file".localized(),
+                initialFileName = "${config.name}.tmx",
+                onCloseRequest = { path ->
+                    component.closeDialog()
+                    if (path != null) {
+                        component.saveProject(path = path)
+                    }
                 },
             )
         }

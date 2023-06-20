@@ -27,14 +27,14 @@ import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Spacing
 fun CustomDialog(
     title: String,
     message: String,
-    closeButtonText: String,
-    onClose: () -> Unit,
+    buttonTexts: List<String> = emptyList(),
+    onClose: (Int?) -> Unit,
 ) {
     Dialog(
         title = title,
         state = rememberDialogState(width = 400.dp, height = Dp.Unspecified),
         onCloseRequest = {
-            onClose()
+            onClose(null)
         },
     ) {
         Column(
@@ -55,17 +55,19 @@ fun CustomDialog(
                 modifier = Modifier.padding(Spacing.s),
                 horizontalArrangement = Arrangement.spacedBy(Spacing.xs),
             ) {
-                Button(
-                    modifier = Modifier.heightIn(max = 25.dp),
-                    contentPadding = PaddingValues(0.dp),
-                    onClick = {
-                        onClose()
-                    },
-                ) {
-                    Text(
-                        text = closeButtonText,
-                        style = MaterialTheme.typography.button,
-                    )
+                buttonTexts.forEachIndexed { index, text ->
+                    Button(
+                        modifier = Modifier.heightIn(max = 25.dp),
+                        contentPadding = PaddingValues(0.dp),
+                        onClick = {
+                            onClose(index)
+                        },
+                    ) {
+                        Text(
+                            text = text,
+                            style = MaterialTheme.typography.button,
+                        )
+                    }
                 }
             }
         }

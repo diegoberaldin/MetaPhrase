@@ -225,12 +225,15 @@ fun MessageListContent(
                 modifier = Modifier.fillMaxWidth().padding(vertical = Spacing.xxs),
                 contentAlignment = Alignment.Center,
             ) {
-                if (paginationState.canFetchMore && !paginationState.isLoading) {
+                val isShowingProgress by component.isShowingProgress.collectAsState()
+                if (paginationState.canFetchMore && !isShowingProgress) {
                     CircularProgressIndicator(
                         modifier = Modifier.size(20.dp),
                         color = MaterialTheme.colors.primary,
                     )
-                    component.loadNextPage()
+                    if (!paginationState.isLoading) {
+                        component.loadNextPage()
+                    }
                 }
             }
         }

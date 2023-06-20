@@ -4,6 +4,7 @@ import com.github.diegoberaldin.metaphrase.core.persistence.AppDatabase
 import com.github.diegoberaldin.metaphrase.domain.glossary.persistence.dao.GlossaryTermDao
 import com.github.diegoberaldin.metaphrase.domain.language.persistence.dao.LanguageDao
 import com.github.diegoberaldin.metaphrase.domain.project.persistence.dao.ProjectDao
+import com.github.diegoberaldin.metaphrase.domain.project.persistence.dao.RecentProjectDao
 import com.github.diegoberaldin.metaphrase.domain.project.persistence.dao.SegmentDao
 import com.github.diegoberaldin.metaphrase.domain.tm.persistence.dao.MemoryEntryDao
 import org.koin.dsl.module
@@ -36,6 +37,10 @@ private val daoModule = module {
     single<GlossaryTermDao> {
         val db: AppDatabase = get()
         db.glossaryTermDao()
+    }
+    single<RecentProjectDao> {
+        val db: AppDatabase = get()
+        db.recentProjectDao()
     }
 }
 

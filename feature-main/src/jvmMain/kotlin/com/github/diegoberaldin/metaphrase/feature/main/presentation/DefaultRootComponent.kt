@@ -5,13 +5,11 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.slot.ChildSlot
 import com.arkivanov.decompose.router.slot.SlotNavigation
 import com.arkivanov.decompose.router.slot.activate
-import com.arkivanov.decompose.router.slot.child
 import com.arkivanov.decompose.router.slot.childSlot
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
-import com.arkivanov.essenty.lifecycle.doOnStart
-import com.arkivanov.essenty.lifecycle.doOnStop
+import com.arkivanov.essenty.lifecycle.doOnResume
 import com.github.diegoberaldin.metaphrase.core.common.coroutines.CoroutineDispatcherProvider
 import com.github.diegoberaldin.metaphrase.core.common.notification.NotificationCenter
 import com.github.diegoberaldin.metaphrase.core.common.utils.asFlow
@@ -21,8 +19,11 @@ import com.github.diegoberaldin.metaphrase.domain.glossary.usecase.ExportGlossar
 import com.github.diegoberaldin.metaphrase.domain.glossary.usecase.ImportGlossaryUseCase
 import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.ProjectModel
+import com.github.diegoberaldin.metaphrase.domain.project.data.RecentProjectModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.ResourceFileType
 import com.github.diegoberaldin.metaphrase.domain.project.repository.ProjectRepository
+import com.github.diegoberaldin.metaphrase.domain.project.repository.RecentProjectRepository
+import com.github.diegoberaldin.metaphrase.domain.project.usecase.OpenProjectUseCase
 import com.github.diegoberaldin.metaphrase.domain.tm.usecase.ClearTmUseCase
 import com.github.diegoberaldin.metaphrase.domain.tm.usecase.ImportTmxUseCase
 import com.github.diegoberaldin.metaphrase.feature.intro.presentation.IntroComponent
@@ -33,20 +34,16 @@ import com.github.diegoberaldin.metaphrase.feature.projectsdialog.statistics.pre
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -59,12 +56,14 @@ internal class DefaultRootComponent(
     componentContext: ComponentContext,
     private val coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,
-    projectRepository: ProjectRepository,
+    private val recentProjectRepository: RecentProjectRepository,
+    private val projectRepository: ProjectRepository,
     private val importFromTmx: ImportTmxUseCase,
     private val clearTranslationMemory: ClearTmUseCase,
     private val importGlossaryTerms: ImportGlossaryUseCase,
     private val exportGlossaryTerms: ExportGlossaryUseCase,
     private val clearGlossaryTerms: ClearGlossaryUseCase,
+    private val openProjectUseCase: OpenProjectUseCase,
     private val notificationCenter: NotificationCenter,
 ) : RootComponent, ComponentContext by componentContext {
 
@@ -81,7 +80,8 @@ internal class DefaultRootComponent(
     private lateinit var isEditing: StateFlow<Boolean>
     private lateinit var currentLanguage: StateFlow<LanguageModel?>
     private val isLoading = MutableStateFlow(false)
-    private var observeProjectsJob: Job? = null
+    private val isSaveEnabled = MutableStateFlow(false)
+    private var projectIdToOpen: Int? = null
 
     override val main: Value<ChildSlot<RootComponent.Config, *>> = childSlot(
         source = mainNavigation,
@@ -125,12 +125,14 @@ internal class DefaultRootComponent(
                     isEditing,
                     currentLanguage,
                     isLoading,
-                ) { activeProject, isEditing, currentLanguage, isLoading ->
+                    isSaveEnabled,
+                ) { activeProject, isEditing, currentLanguage, isLoading, saveEnabled ->
                     RootUiState(
                         activeProject = activeProject,
                         isEditing = isEditing,
                         isLoading = isLoading,
                         currentLanguage = currentLanguage,
+                        isSaveEnabled = saveEnabled,
 
                     )
                 }.stateIn(
@@ -138,34 +140,53 @@ internal class DefaultRootComponent(
                     started = SharingStarted.WhileSubscribed(5_000),
                     initialValue = RootUiState(),
                 )
+
+                // initial cleanup
+                viewModelScope.launch {
+                    projectRepository.deleteAll()
+                }
+                viewModelScope.launch {
+                    launch {
+                        notificationCenter.events.filter { it is NotificationCenter.Event.ShowProgress }.onEach { evt ->
+                            when (evt) {
+                                is NotificationCenter.Event.ShowProgress -> {
+                                    isLoading.value = evt.visible
+                                }
+
+                                else -> Unit
+                            }
+                        }.launchIn(this)
+                    }
+                    launch {
+                        main.asFlow<ProjectsComponent>(timeout = Duration.INFINITE).onEach { child ->
+                            val projectId = projectIdToOpen
+                            if (child != null && projectId != null) {
+                                child.open(projectId)
+                                projectIdToOpen = null
+                            }
+                        }.launchIn(this)
+                    }
+                    launch {
+                        projectRepository.observeNeedsSaving().onEach { needsSaving ->
+                            isSaveEnabled.value = needsSaving
+                        }.launchIn(this)
+                    }
+                }
             }
-            doOnStart {
-                if (observeProjectsJob == null) {
-                    observeProjectsJob = viewModelScope.launch(dispatchers.io) {
-                        projectRepository.observeAll().map { it.isEmpty() }.distinctUntilChanged().collect { isEmpty ->
+            doOnResume {
+                viewModelScope.launch(dispatchers.io) {
+                    launch {
+                        recentProjectRepository.observeAll().onEach { projects ->
                             withContext(dispatchers.main) {
-                                if (isEmpty) {
+                                if (projects.isEmpty()) {
                                     mainNavigation.activate(RootComponent.Config.Intro)
                                 } else {
                                     mainNavigation.activate(RootComponent.Config.Projects)
                                 }
                             }
-                        }
+                        }.launchIn(this)
                     }
                 }
-                viewModelScope.launch {
-                    notificationCenter.events.filter { it is NotificationCenter.Event.ShowProgress }.onEach { evt ->
-                        when (evt) {
-                            is NotificationCenter.Event.ShowProgress -> {
-                                isLoading.value = evt.visible
-                            }
-                        }
-                    }.launchIn(this)
-                }
-            }
-            doOnStop {
-                observeProjectsJob?.cancel()
-                observeProjectsJob = null
             }
             doOnDestroy {
                 viewModelScope.cancel()
@@ -187,17 +208,19 @@ internal class DefaultRootComponent(
                             closeDialog()
                         }
                         if (projectId != null) {
+                            projectRepository.setNeedsSaving(true)
+
                             when (val child = main.asFlow<Any>().firstOrNull()) {
                                 is ProjectsComponent -> {
                                     child.open(projectId)
                                 }
 
                                 is IntroComponent -> {
+                                    projectIdToOpen = projectId
+
                                     withContext(dispatchers.main) {
                                         mainNavigation.activate(RootComponent.Config.Projects)
                                     }
-                                    delay(100)
-                                    main.asFlow<ProjectsComponent>().firstOrNull()?.open(projectId)
                                 }
                             }
                         }
@@ -229,31 +252,134 @@ internal class DefaultRootComponent(
             else -> Unit
         }
 
+    override fun hasUnsavedChanges(): Boolean = projectRepository.isNeedsSaving()
+
+    override fun openProject(path: String) {
+        viewModelScope.launch(dispatchers.io) {
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
+            val project = openProjectUseCase(path = path)
+            if (project != null) {
+                val existing = recentProjectRepository.getByName(project.name)
+                if (existing == null) {
+                    recentProjectRepository.create(model = RecentProjectModel(name = project.name, path = path))
+                }
+                projectIdToOpen = project.id
+                viewModelScope.launch(dispatchers.main) {
+                    mainNavigation.activate(RootComponent.Config.Projects)
+                }
+            }
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
+        }
+    }
+
     override fun openEditProject() {
         val projectId = activeProject.value?.id
         if (projectId != null) {
-            dialogNavigation.activate(RootComponent.DialogConfig.EditDialog)
+            viewModelScope.launch(dispatchers.main) {
+                dialogNavigation.activate(RootComponent.DialogConfig.EditDialog)
+            }
+        }
+    }
+
+    override fun saveProjectAs() {
+        val name = activeProject.value?.name
+        if (name != null) {
+            viewModelScope.launch(dispatchers.main) {
+                dialogNavigation.activate(RootComponent.DialogConfig.SaveAsDialog(name = name))
+            }
+        }
+    }
+
+    override fun saveProject(path: String) {
+        viewModelScope.launch(dispatchers.io) {
+            main.asFlow<ProjectsComponent>().firstOrNull()?.saveCurrentProject(path = path)
+        }
+    }
+
+    override fun saveCurrentProject() {
+        viewModelScope.launch(dispatchers.io) {
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
+            val recentProjectModel = recentProjectRepository.getByName(activeProject.value?.name.orEmpty())
+            if (recentProjectModel != null) {
+                val path = recentProjectModel.path
+                main.asFlow<ProjectsComponent>().firstOrNull()?.saveCurrentProject(path = path)
+            } else {
+                saveProjectAs()
+            }
+        }
+    }
+
+    override fun openDialog() {
+        viewModelScope.launch(dispatchers.main) {
+            if (projectRepository.isNeedsSaving()) {
+                viewModelScope.launch(dispatchers.main) {
+                    dialogNavigation.activate(RootComponent.DialogConfig.ConfirmCloseDialog(openAfter = true))
+                }
+                return@launch
+            }
+            dialogNavigation.activate(RootComponent.DialogConfig.OpenDialog)
         }
     }
 
     override fun openNewDialog() {
-        dialogNavigation.activate(RootComponent.DialogConfig.NewDialog)
+        viewModelScope.launch(dispatchers.main) {
+            if (projectRepository.isNeedsSaving()) {
+                viewModelScope.launch(dispatchers.main) {
+                    dialogNavigation.activate(RootComponent.DialogConfig.ConfirmCloseDialog(newAfter = true))
+                }
+                return@launch
+            }
+            dialogNavigation.activate(RootComponent.DialogConfig.NewDialog)
+        }
     }
 
     override fun closeDialog() {
-        dialogNavigation.activate(RootComponent.DialogConfig.None)
+        viewModelScope.launch(dispatchers.main) {
+            dialogNavigation.activate(RootComponent.DialogConfig.None)
+        }
     }
 
-    override fun closeCurrentProject() {
-        (main.child?.instance as? ProjectsComponent)?.closeCurrentProject()
+    override fun closeCurrentProject(closeAfter: Boolean) {
+        if (projectRepository.isNeedsSaving()) {
+            viewModelScope.launch(dispatchers.main) {
+                dialogNavigation.activate(RootComponent.DialogConfig.ConfirmCloseDialog(closeAfter = closeAfter))
+            }
+        } else {
+            confirmCloseCurrentProject()
+        }
+    }
+
+    override fun confirmCloseCurrentProject(openAfter: Boolean, newAfter: Boolean) {
+        projectIdToOpen = null
+        viewModelScope.launch(dispatchers.io) {
+            main.asFlow<ProjectsComponent>().firstOrNull()?.closeCurrentProject()
+            projectRepository.setNeedsSaving(false)
+
+            // if no more projects, goes back to intro
+            val projects = recentProjectRepository.getAll()
+            if (projects.isEmpty()) {
+                withContext(dispatchers.main) {
+                    mainNavigation.activate(RootComponent.Config.Intro)
+                }
+            }
+
+            when {
+                newAfter -> openNewDialog()
+                openAfter -> openDialog()
+            }
+        }
     }
 
     override fun openImportDialog(type: ResourceFileType) {
-        dialogNavigation.activate(RootComponent.DialogConfig.ImportDialog(type))
+        viewModelScope.launch(dispatchers.main) {
+            dialogNavigation.activate(RootComponent.DialogConfig.ImportDialog(type))
+        }
     }
 
     override fun openExportDialog(type: ResourceFileType) {
-        dialogNavigation.activate(RootComponent.DialogConfig.ExportDialog(type))
+        viewModelScope.launch(dispatchers.main) {
+            dialogNavigation.activate(RootComponent.DialogConfig.ExportDialog(type))
+        }
     }
 
     override fun import(path: String, type: ResourceFileType) {
@@ -311,15 +437,21 @@ internal class DefaultRootComponent(
     }
 
     override fun openStatistics() {
-        dialogNavigation.activate(RootComponent.DialogConfig.StatisticsDialog)
+        viewModelScope.launch(dispatchers.main) {
+            dialogNavigation.activate(RootComponent.DialogConfig.StatisticsDialog)
+        }
     }
 
     override fun openSettings() {
-        dialogNavigation.activate(RootComponent.DialogConfig.SettingsDialog)
+        viewModelScope.launch(dispatchers.main) {
+            dialogNavigation.activate(RootComponent.DialogConfig.SettingsDialog)
+        }
     }
 
     override fun openExportTmxDialog() {
-        dialogNavigation.activate(RootComponent.DialogConfig.ExportTmxDialog)
+        viewModelScope.launch(dispatchers.main) {
+            dialogNavigation.activate(RootComponent.DialogConfig.ExportTmxDialog)
+        }
     }
 
     override fun exportTmx(path: String) {
@@ -329,7 +461,9 @@ internal class DefaultRootComponent(
     }
 
     override fun openImportTmxDialog() {
-        dialogNavigation.activate(RootComponent.DialogConfig.ImportTmxDialog)
+        viewModelScope.launch(dispatchers.main) {
+            dialogNavigation.activate(RootComponent.DialogConfig.ImportTmxDialog)
+        }
     }
 
     override fun importTmx(path: String) {
@@ -373,7 +507,9 @@ internal class DefaultRootComponent(
     }
 
     override fun openImportGlossaryDialog() {
-        dialogNavigation.activate(RootComponent.DialogConfig.ImportGlossaryDialog)
+        viewModelScope.launch(dispatchers.main) {
+            dialogNavigation.activate(RootComponent.DialogConfig.ImportGlossaryDialog)
+        }
     }
 
     override fun importGlossary(path: String) {
@@ -383,7 +519,9 @@ internal class DefaultRootComponent(
     }
 
     override fun openExportGlossaryDialog() {
-        dialogNavigation.activate(RootComponent.DialogConfig.ExportGlossaryDialog)
+        viewModelScope.launch(dispatchers.main) {
+            dialogNavigation.activate(RootComponent.DialogConfig.ExportGlossaryDialog)
+        }
     }
 
     override fun exportGlossary(path: String) {

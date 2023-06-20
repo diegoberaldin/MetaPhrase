@@ -28,7 +28,7 @@ fun MainEmptyContent(
         Spacer(Modifier.height(Spacing.s))
         Text(
             text = "app_intro_empty".localized(),
-            style = MaterialTheme.typography.h5,
+            style = MaterialTheme.typography.h6,
         )
     }
 }

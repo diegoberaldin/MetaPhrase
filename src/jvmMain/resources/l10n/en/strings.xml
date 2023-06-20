@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
 	<string name="app_intro">Please open a project by selecting one of the following items.</string>
-	<string name="app_intro_empty">It seems like you don\'t have any project.\nPlease create a new one using the "Project" > "New…" menu.</string>
+	<string name="app_intro_empty">No recent project.\n\nPlease create a new one using the "Project" > "New…" menu.\n\nAlternatively, you can open an existing one with "Project" > "Open…" menu.</string>
 	<string name="app_intro_title">Thank you for using MetaPhrase!</string>
 	<string name="app_name" translatable="false">MetaPhrase</string>
 	<string name="button_cancel">Cancel</string>
@@ -39,6 +39,7 @@
 	<string name="dialog_title_open_file">Choose file</string>
 	<string name="dialog_title_settings">Settings</string>
 	<string name="dialog_title_statistics">Statistics</string>
+	<string name="dialog_title_warning">Warning</string>
 	<string name="glossary_title">Glossary</string>
 	<string name="lang">en</string>
 	<string name="language_bulgarian" translatable="false">Вългарски</string>
@@ -78,7 +79,10 @@
 	<string name="menu_project_import_json">JSON…</string>
 	<string name="menu_project_import_po">Gettext PO</string>
 	<string name="menu_project_import_windows">Windows resx…</string>
+	<string name="menu_project_open">Open…</string>
 	<string name="menu_project_new">New…</string>
+	<string name="menu_project_save">Save</string>
+	<string name="menu_project_save_as">Save as…</string>
 	<string name="menu_project_settings">Settings…</string>
 	<string name="menu_project_spellcheck">Check spelling</string>
 	<string name="menu_project_statistics">Statistics…</string>
@@ -96,10 +100,12 @@
 	<string name="menu_translation_memory_import">Import…</string>
 	<string name="menu_translation_memory_insert_best_match">Insert best match</string>
 	<string name="menu_translation_memory_sync_project">Sync project with TM</string>
+	<string name="message_confirm_close">The project contains some unsaved changes.\nAre you sure you want to close it?</string>
 	<string name="message_duplicate_key">A message with the same key already exists</string>
 	<string name="message_missing_field">Missing field</string>
 	<string name="message_no_item_to_display">No item to display</string>
 	<string name="message_no_validation">No validation results, run a validation with the "Validate" toolbar action</string>
+	<string name="message_open_error">An issue has occurred opening the project.</string>
 	<string name="message_spelling_invalid">Some spelling mistakes have been found:</string>
 	<string name="message_spelling_valid">Hooray! No spelling mistakes have been found 🎉</string>
 	<string name="message_validation_invalid">Some invalid messages have been found:</string>
@@ -121,6 +127,7 @@
 	<string name="tooltip_move_to_previous">Move to previous</string>
 	<string name="tooltip_new_source_term">New source term</string>
 	<string name="tooltip_new_target_term">New target term</string>
+	<string name="tooltip_remove_from_recent">Remove from recent</string>
 	<string name="tooltip_validate">Validate placeholders</string>
 	<string name="translation_memory_origin">source: %s</string>
 	<string name="translation_memory_similarity">similarity: %d%%</string>

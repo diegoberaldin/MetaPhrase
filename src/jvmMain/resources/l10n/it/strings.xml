@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
 	<string name="app_intro">Apri un progetto selezionando una delle seguenti voci.</string>
-	<string name="app_intro_empty">Sembra che non abbia nessun progetto.\nPuoi crearne uno nuovo utilizzando il menu "Progetto" > "Nuovo…".</string>
+	<string name="app_intro_empty">Nessun progetto recente.\n\nPuoi crearne uno nuovo utilizzando il menu "Progetto" > "Nuovo…".\n\nIn alternativa, puoi aprirne uno esistente dal menu "Progetto" > "Apri…".</string>
 	<string name="app_intro_title">Grazie per utilizzare MetaPhrase!</string>
 	<string name="button_cancel">Annulla</string>
 	<string name="button_close">Chiudi</string>
@@ -38,6 +38,7 @@
 	<string name="dialog_title_open_file">Scegli file</string>
 	<string name="dialog_title_settings">Impostazioni</string>
 	<string name="dialog_title_statistics">Statistiche</string>
+	<string name="dialog_title_warning">Avviso</string>
 	<string name="glossary_title">Glossario</string>
 	<string name="lang">it</string>
 	<string name="memory_content_title">Contenuto TM</string>
@@ -53,7 +54,10 @@
 	<string name="menu_project_import_json">JSON…</string>
 	<string name="menu_project_import_po">PO Gettext</string>
 	<string name="menu_project_import_windows">resx Windows…</string>
+	<string name="menu_project_open">Apri…</string>
 	<string name="menu_project_new">Nuovo…</string>
+	<string name="menu_project_save">Salva</string>
+	<string name="menu_project_save_as">Salva con nome…</string>
 	<string name="menu_project_settings">Impostazioni…</string>
 	<string name="menu_project_spellcheck">Controllo ortografico</string>
 	<string name="menu_project_statistics">Statistiche…</string>
@@ -71,10 +75,12 @@
 	<string name="menu_translation_memory_import">Importa…</string>
 	<string name="menu_translation_memory_insert_best_match">Inserisci corrispondenza migliore</string>
 	<string name="menu_translation_memory_sync_project">Sincronizza progetto in TM</string>
+	<string name="message_confirm_close">Il progetto contiene delle modifiche non salvate.\nConfermi di volerlo chiudere?</string>
 	<string name="message_duplicate_key">Esiste già un messaggio con la stessa chiave</string>
 	<string name="message_missing_field">Campo obbligatorio</string>
 	<string name="message_no_item_to_display">Nessun dato da visualizzare</string>
 	<string name="message_no_validation">Nessun risultato, avvia una validazione con l\'azione "Convalida" della barra degli strumenti</string>
+	<string name="message_open_error">Si è verificato un problema durante l\'apertura del progetto</string>
 	<string name="message_spelling_invalid">Sono stati rilevati alcuni errori ortografici:</string>
 	<string name="message_spelling_valid">Evviva! Nessun errore ortografico rilevato 🎉</string>
 	<string name="message_validation_invalid">Sono stati rilevati alcuni messaggi non validi:</string>

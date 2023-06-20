@@ -3,6 +3,7 @@ package com.github.diegoberaldin.metaphrase.feature.translate.messages.presentat
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
+import com.arkivanov.essenty.lifecycle.doOnStart
 import com.github.diegoberaldin.metaphrase.core.common.coroutines.CoroutineDispatcherProvider
 import com.github.diegoberaldin.metaphrase.core.common.keystore.TemporaryKeyStore
 import com.github.diegoberaldin.metaphrase.core.common.notification.NotificationCenter
@@ -11,6 +12,7 @@ import com.github.diegoberaldin.metaphrase.domain.language.repository.LanguageRe
 import com.github.diegoberaldin.metaphrase.domain.project.data.SegmentModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.TranslationUnit
 import com.github.diegoberaldin.metaphrase.domain.project.data.TranslationUnitTypeFilter
+import com.github.diegoberaldin.metaphrase.domain.project.repository.ProjectRepository
 import com.github.diegoberaldin.metaphrase.domain.project.repository.SegmentRepository
 import com.github.diegoberaldin.metaphrase.domain.spellcheck.SpellCheckCorrection
 import com.github.diegoberaldin.metaphrase.domain.spellcheck.repo.SpellCheckRepository
@@ -24,8 +26,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.getAndUpdate
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapNotNull
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -35,6 +41,7 @@ internal class DefaultMessageListComponent(
     componentContext: ComponentContext,
     coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,
+    private val projectRepository: ProjectRepository,
     private val segmentRepository: SegmentRepository,
     private val languageRepository: LanguageRepository,
     private val spellCheckRepository: SpellCheckRepository,
@@ -67,6 +74,7 @@ internal class DefaultMessageListComponent(
     override lateinit var editedSegment: StateFlow<SegmentModel?>
     override val spellingErrors = MutableStateFlow<List<SpellCheckCorrection>>(emptyList())
     override val addToGlossaryEvents = MutableSharedFlow<AddToGlossaryEvent>()
+    override val isShowingProgress = MutableStateFlow(false)
 
     init {
         with(lifecycle) {
@@ -115,6 +123,12 @@ internal class DefaultMessageListComponent(
                     started = SharingStarted.WhileSubscribed(5_000),
                     initialValue = MessageLisPaginationState(),
                 )
+            }
+            doOnStart {
+                notificationCenter.events.mapNotNull { it as? NotificationCenter.Event.ShowProgress }
+                    .distinctUntilChanged().onEach {
+                        isShowingProgress.value = it.visible
+                    }.launchIn(viewModelScope)
             }
             doOnDestroy {
                 viewModelScope.cancel()
@@ -179,9 +193,9 @@ internal class DefaultMessageListComponent(
         if (isLoading.value) {
             return
         }
-
         isLoading.value = true
         viewModelScope.launch(dispatchers.io) {
+            delay(100)
             currentPage++
             loadPage()
             isLoading.value = false
@@ -189,7 +203,10 @@ internal class DefaultMessageListComponent(
     }
 
     private suspend fun loadPage() {
-        val language = currentLanguage.value ?: return
+        val language = currentLanguage.value ?: run {
+            canFetchMore.value = false
+            return
+        }
         val baseLanguageId = if (language.isBase) {
             language.id
         } else {
@@ -254,6 +271,7 @@ internal class DefaultMessageListComponent(
         val oldText = units.value[editingIndex].segment.text
         if (text == oldText) return
 
+        projectRepository.setNeedsSaving(true)
         units.getAndUpdate { oldList ->
             oldList.mapIndexed { idx, unit ->
                 if (idx == editingIndex) {
@@ -287,6 +305,7 @@ internal class DefaultMessageListComponent(
     }
 
     override fun changeSegmentText(text: String) {
+        projectRepository.setNeedsSaving(true)
         setSegmentText(text)
         updateTextSwitch.getAndUpdate { !it }
     }
@@ -348,6 +367,7 @@ internal class DefaultMessageListComponent(
 
     override fun deleteSegment() {
         val index = editingIndex.value ?: return
+        projectRepository.setNeedsSaving(true)
         viewModelScope.launch(dispatchers.io) {
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
             val toDelete = units.value[index].segment
@@ -400,6 +420,7 @@ internal class DefaultMessageListComponent(
         val index = units.value.indexOfFirst { it.segment.key == key }
         val segment = units.value[index].segment
         val language = currentLanguage.value ?: return
+        projectRepository.setNeedsSaving(true)
         viewModelScope.launch(dispatchers.io) {
             val otherLanguages = languageRepository.getAll(projectId).filter { it.code != language.code }
             val toUpdate = segment.copy(translatable = value)

@@ -20,6 +20,7 @@ val mainModule = module {
         DefaultRootComponent(
             componentContext = params[0],
             coroutineContext = params[1],
+            recentProjectRepository = get(),
             projectRepository = get(),
             dispatchers = get(),
             notificationCenter = get(),
@@ -28,6 +29,7 @@ val mainModule = module {
             importGlossaryTerms = get(),
             exportGlossaryTerms = get(),
             clearGlossaryTerms = get(),
+            openProjectUseCase = get(),
         )
     }
 }

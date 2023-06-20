@@ -11,13 +11,19 @@ interface RootComponent {
 
     val main: Value<ChildSlot<Config, *>>
     val dialog: Value<ChildSlot<DialogConfig, *>>
-
     val uiState: StateFlow<RootUiState>
 
+    fun openDialog()
+    fun openProject(path: String)
     fun openEditProject()
+    fun saveCurrentProject()
+    fun saveProjectAs()
+    fun saveProject(path: String)
     fun openNewDialog()
     fun closeDialog()
-    fun closeCurrentProject()
+    fun hasUnsavedChanges(): Boolean
+    fun closeCurrentProject(closeAfter: Boolean = false)
+    fun confirmCloseCurrentProject(openAfter: Boolean = false, newAfter: Boolean = false)
     fun openStatistics()
     fun openSettings()
     fun openImportDialog(type: ResourceFileType)
@@ -59,10 +65,23 @@ interface RootComponent {
         object None : DialogConfig
 
         @Parcelize
+        object OpenDialog : DialogConfig
+
+        @Parcelize
         object NewDialog : DialogConfig
 
         @Parcelize
         object EditDialog : DialogConfig
+
+        @Parcelize
+        data class SaveAsDialog(val name: String) : DialogConfig
+
+        @Parcelize
+        data class ConfirmCloseDialog(
+            val closeAfter: Boolean = false,
+            val openAfter: Boolean = false,
+            val newAfter: Boolean = false,
+        ) : DialogConfig
 
         @Parcelize
         data class ImportDialog(val type: ResourceFileType) : DialogConfig

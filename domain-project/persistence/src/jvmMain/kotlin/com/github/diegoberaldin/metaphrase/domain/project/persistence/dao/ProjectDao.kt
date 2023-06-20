@@ -6,9 +6,10 @@ import org.jetbrains.exposed.sql.ResultRow
 interface ProjectDao {
     suspend fun create(model: ProjectModel): Int
 
-    suspend fun update(model: ProjectModel): Int
+    suspend fun update(model: ProjectModel)
 
-    suspend fun delete(model: ProjectModel): Int
+    suspend fun delete(model: ProjectModel)
+    suspend fun deleteAll()
 
     suspend fun getAll(): List<ProjectModel>
 

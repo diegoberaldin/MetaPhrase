@@ -6,9 +6,11 @@ import com.github.diegoberaldin.metaphrase.domain.glossary.persistence.entities.
 import com.github.diegoberaldin.metaphrase.domain.glossary.persistence.entities.GlossaryTermRelationshipEntity
 import com.github.diegoberaldin.metaphrase.domain.language.persistence.dao.DefaultLanguageDao
 import com.github.diegoberaldin.metaphrase.domain.project.persistence.dao.DefaultProjectDao
+import com.github.diegoberaldin.metaphrase.domain.project.persistence.dao.DefaultRecentProjectDao
 import com.github.diegoberaldin.metaphrase.domain.project.persistence.dao.DefaultSegmentDao
 import com.github.diegoberaldin.metaphrase.domain.project.persistence.entities.LanguageEntity
 import com.github.diegoberaldin.metaphrase.domain.project.persistence.entities.ProjectEntity
+import com.github.diegoberaldin.metaphrase.domain.project.persistence.entities.RecentProjectEntity
 import com.github.diegoberaldin.metaphrase.domain.project.persistence.entities.SegmentEntity
 import com.github.diegoberaldin.metaphrase.domain.tm.persistence.dao.DefaultMemoryEntryDao
 import com.github.diegoberaldin.metaphrase.domain.tm.persistence.entities.MemoryEntryEntity
@@ -45,13 +47,16 @@ internal class AppDatabase(
                 MemoryMessageEntity,
                 GlossaryTermEntity,
                 GlossaryTermRelationshipEntity,
+                RecentProjectEntity,
             )
         }
     }
 
-    internal fun projectDao() = DefaultProjectDao()
-    internal fun languageDao() = DefaultLanguageDao()
-    internal fun segmentDao() = DefaultSegmentDao()
-    internal fun memoryEntryDao() = DefaultMemoryEntryDao()
-    internal fun glossaryTermDao() = DefaultGlossaryTermDao()
+    fun projectDao() = DefaultProjectDao()
+    fun languageDao() = DefaultLanguageDao()
+    fun segmentDao() = DefaultSegmentDao()
+    fun memoryEntryDao() = DefaultMemoryEntryDao()
+    fun glossaryTermDao() = DefaultGlossaryTermDao()
+
+    fun recentProjectDao() = DefaultRecentProjectDao()
 }

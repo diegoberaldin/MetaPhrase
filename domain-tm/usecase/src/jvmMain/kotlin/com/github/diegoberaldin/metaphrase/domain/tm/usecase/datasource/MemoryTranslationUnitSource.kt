@@ -21,7 +21,7 @@ internal class MemoryTranslationUnitSource(
     ): List<TranslationUnit> {
         val baseLanguage = languageRepository.getBase(projectId) ?: return emptyList()
         val currentLanguage = languageRepository.getById(languageId) ?: return emptyList()
-        val entries = memoryEntryRepository.getAll(sourceLang = baseLanguage.code, targetLang = currentLanguage.code)
+        val entries = memoryEntryRepository.getSources(sourceLang = baseLanguage.code, targetLang = currentLanguage.code)
         val original = segmentRepository.getByKey(key = key, languageId = baseLanguage.id) ?: return emptyList()
         val res = mutableListOf<TranslationUnit>()
         for (e in entries) {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
 	<string name="app_intro">Abrir un proyecto eligiendo entre las siguientes opciones.</string>
-	<string name="app_intro_empty">Parece que no hay ningún proyecto.\nPara crear uno nuevo, utilizar el menú "Proyecto" > "Nuevo…".</string>
+	<string name="app_intro_empty">Ningún proyecto reciente.\n\nPara crear uno nuevo, utilizar el menú "Proyecto" > "Nuevo…".\n\nDe otra forma, es posible abir uno existente a través del menu "Proyecto" > "Abrir…".</string>
 	<string name="app_intro_title">¡Gracias por utilizar MetaPhrase!</string>
 	<string name="button_cancel">Cancelar</string>
 	<string name="button_close">Cerrar</string>
@@ -38,6 +38,7 @@
 	<string name="dialog_title_open_file">Elegir archivo</string>
 	<string name="dialog_title_settings">Ajustes</string>
 	<string name="dialog_title_statistics">Estadísticas</string>
+	<string name="dialog_title_warning">Aviso</string>
 	<string name="glossary_title">Glosario</string>
 	<string name="lang">es</string>
 	<string name="memory_content_title">Contenido MT</string>
@@ -53,7 +54,10 @@
 	<string name="menu_project_import_json">JSON…</string>
 	<string name="menu_project_import_po">PO Gettext</string>
 	<string name="menu_project_import_windows">resx Windows…</string>
+	<string name="menu_project_open">Abrir…</string>
 	<string name="menu_project_new">Nuevo…</string>
+	<string name="menu_project_save">Guardar</string>
+	<string name="menu_project_save_as">Guardar como…</string>
 	<string name="menu_project_settings">Ajustes…</string>
 	<string name="menu_project_spellcheck">Corrección ortográfica</string>
 	<string name="menu_project_statistics">Estadísticas…</string>
@@ -71,10 +75,12 @@
 	<string name="menu_translation_memory_import">Importar…</string>
 	<string name="menu_translation_memory_insert_best_match">Insertar correspondencia mejor</string>
 	<string name="menu_translation_memory_sync_project">Sincronizar proyecto en MT</string>
+	<string name="message_confirm_close">El proyecto contiene algunos cambios no guardados.\n¿Se quiere cerrarlo igualmente?</string>
 	<string name="message_duplicate_key">Ya existe un mensaje con la misma llave</string>
 	<string name="message_missing_field">Información obligatoria</string>
 	<string name="message_no_item_to_display">Ningún elemento para visualizar</string>
 	<string name="message_no_validation">Ningún resultado, iniciar una validación a través de la acción "Convalidar" desde la barra de herramientas</string>
+	<string name="message_open_error">Se ha encontrado un problema al abrir el proyecto</string>
 	<string name="message_spelling_invalid">Se han detectado algunas faltas de ortografía:</string>
 	<string name="message_spelling_valid">¡Enhorabuena! No se ha detectado ninguna falta de ortografía 🎉</string>
 	<string name="message_validation_invalid">Se han detectado algunos mensajes no válidos:</string>
@@ -96,6 +102,7 @@
 	<string name="tooltip_move_to_previous">Pasar al anterior</string>
 	<string name="tooltip_new_source_term">Nuevo término fuente</string>
 	<string name="tooltip_new_target_term">Nuevo término meta</string>
+	<string name="tooltip_remove_from_recent">Eliminar de recientes</string>
 	<string name="tooltip_validate">Convalidar especificadores</string>
 	<string name="translation_memory_origin">fuente: %s</string>
 	<string name="translation_memory_similarity">semejanza: %d%%</string>

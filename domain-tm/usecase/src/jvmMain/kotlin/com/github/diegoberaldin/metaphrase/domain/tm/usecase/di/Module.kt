@@ -63,8 +63,7 @@ val tmUseCaseModule = module {
     }
     single<ExportTmxUseCase> {
         DefaultExportTmxUseCase(
-            languageRepository = get(),
-            segmentRepository = get(),
+            memoryEntryRepository = get(),
             dispatchers = get(),
         )
     }

@@ -21,6 +21,7 @@ interface TranslateComponent {
     val isEditing: StateFlow<Boolean>
     val currentLanguage: StateFlow<LanguageModel?>
 
+    fun save(path: String)
     fun import(path: String, type: ResourceFileType)
     fun export(path: String, type: ResourceFileType)
     fun moveToPrevious()

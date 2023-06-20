@@ -13,6 +13,8 @@ import com.github.diegoberaldin.metaphrase.core.common.coroutines.CoroutineDispa
 import com.github.diegoberaldin.metaphrase.core.common.notification.NotificationCenter
 import com.github.diegoberaldin.metaphrase.core.common.utils.asFlow
 import com.github.diegoberaldin.metaphrase.core.common.utils.getByInjection
+import com.github.diegoberaldin.metaphrase.core.common.utils.lastPathSegment
+import com.github.diegoberaldin.metaphrase.core.common.utils.stripExtension
 import com.github.diegoberaldin.metaphrase.domain.formats.ExportResourcesUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.ImportResourcesUseCase
 import com.github.diegoberaldin.metaphrase.domain.glossary.data.GlossaryTermModel
@@ -20,11 +22,14 @@ import com.github.diegoberaldin.metaphrase.domain.glossary.repository.GlossaryTe
 import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
 import com.github.diegoberaldin.metaphrase.domain.language.repository.LanguageRepository
 import com.github.diegoberaldin.metaphrase.domain.project.data.ProjectModel
+import com.github.diegoberaldin.metaphrase.domain.project.data.RecentProjectModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.ResourceFileType
 import com.github.diegoberaldin.metaphrase.domain.project.data.SegmentModel
 import com.github.diegoberaldin.metaphrase.domain.project.repository.ProjectRepository
+import com.github.diegoberaldin.metaphrase.domain.project.repository.RecentProjectRepository
 import com.github.diegoberaldin.metaphrase.domain.project.repository.SegmentRepository
 import com.github.diegoberaldin.metaphrase.domain.project.usecase.ImportSegmentsUseCase
+import com.github.diegoberaldin.metaphrase.domain.project.usecase.SaveProjectUseCase
 import com.github.diegoberaldin.metaphrase.domain.project.usecase.ValidatePlaceholdersUseCase
 import com.github.diegoberaldin.metaphrase.domain.spellcheck.usecase.ValidateSpellingUseCase
 import com.github.diegoberaldin.metaphrase.domain.tm.usecase.ExportTmxUseCase
@@ -70,17 +75,19 @@ internal class DefaultTranslateComponent(
     private val coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,
     private val projectRepository: ProjectRepository,
+    private val recentProjectRepository: RecentProjectRepository,
     private val languageRepository: LanguageRepository,
     private val segmentRepository: SegmentRepository,
+    private val glossaryTermRepository: GlossaryTermRepository,
     private val importResources: ImportResourcesUseCase,
     private val importSegments: ImportSegmentsUseCase,
     private val exportResources: ExportResourcesUseCase,
     private val validatePlaceholders: ValidatePlaceholdersUseCase,
-    private val notificationCenter: NotificationCenter,
     private val exportToTmx: ExportTmxUseCase,
     private val validateSpelling: ValidateSpellingUseCase,
     private val syncProjectWithTm: SyncProjectWithTmUseCase,
-    private val glossaryTermRepository: GlossaryTermRepository,
+    private val saveProject: SaveProjectUseCase,
+    private val notificationCenter: NotificationCenter,
 ) : TranslateComponent, ComponentContext by componentContext {
 
     private val project = MutableStateFlow<ProjectModel?>(null)
@@ -148,10 +155,12 @@ internal class DefaultTranslateComponent(
                 uiState = combine(
                     project,
                     unitCount,
-                ) { project, unitCount ->
+                    projectRepository.observeNeedsSaving(),
+                ) { project, unitCount, needsSaving ->
                     TranslateUiState(
                         project = project,
                         unitCount = unitCount,
+                        needsSaving = needsSaving,
                     )
                 }.stateIn(
                     scope = viewModelScope,
@@ -197,12 +206,13 @@ internal class DefaultTranslateComponent(
                 panel.asFlow<GlossaryComponent>().firstOrNull()?.clear()
             }
         }.launchIn(this)
-        dialog.asFlow<NewSegmentComponent>().filterNotNull().onEach {
+        dialog.asFlow<NewSegmentComponent>(timeout = Duration.INFINITE).filterNotNull().onEach {
             it.done.onEach { newSegment ->
                 withContext(dispatchers.main) {
                     dialogNavigation.activate(DialogConfig.None)
                 }
                 if (newSegment != null) {
+                    projectRepository.setNeedsSaving(true)
                     updateUnitCount()
                     messageListComponent.refresh()
                 }
@@ -343,6 +353,8 @@ internal class DefaultTranslateComponent(
                 TranslateToolbarComponent.Events.ValidateUnits -> {
                     startPlaceholderValidation()
                 }
+
+                else -> Unit
             }
         }.launchIn(this)
     }
@@ -399,6 +411,14 @@ internal class DefaultTranslateComponent(
             val proj = projectRepository.getById(projectId)
             project.value = proj
             updateUnitCount()
+
+            messageList.asFlow<MessageListComponent>().firstOrNull()?.apply {
+                clearMessages()
+                refresh()
+            }
+            toolbar.asFlow<TranslateToolbarComponent>()?.firstOrNull()?.apply {
+                projectId = this@DefaultTranslateComponent.projectId
+            }
         }
     }
 
@@ -416,9 +436,32 @@ internal class DefaultTranslateComponent(
         }
     }
 
+    override fun save(path: String) {
+        viewModelScope.launch(dispatchers.io) {
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
+            saveProject(path = path, projectId = projectId)
+            val project = projectRepository.getById(projectId)
+            if (project != null) {
+                val projectName = path.lastPathSegment().stripExtension()
+                val existingRecent = recentProjectRepository.getByName(value = projectName)
+                if (existingRecent == null && path.isNotEmpty()) {
+                    recentProjectRepository.create(
+                        model = RecentProjectModel(
+                            path = path,
+                            name = projectName,
+                        ),
+                    )
+                }
+            }
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
+            projectRepository.setNeedsSaving(false)
+        }
+    }
+
     override fun import(path: String, type: ResourceFileType) {
         viewModelScope.launch(dispatchers.io) {
             val language = getCurrentLanguage() ?: return@launch
+            projectRepository.setNeedsSaving(true)
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
             val messageListComponent = messageList.asFlow<MessageListComponent>().firstOrNull()
             messageListComponent?.setEditingEnabled(false)
@@ -528,6 +571,8 @@ internal class DefaultTranslateComponent(
                 is ValidatePlaceholdersUseCase.Output.Invalid -> {
                     child?.loadInvalidPlaceholders(projectId, language.id, invalidKeys = result.keys)
                 }
+
+                else -> Unit
             }
         }
     }
@@ -587,8 +632,9 @@ internal class DefaultTranslateComponent(
 
     override fun exportTmx(path: String) {
         viewModelScope.launch(dispatchers.io) {
+            val baseLanguage = languageRepository.getBase(projectId) ?: return@launch
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
-            exportToTmx(path = path, projectId = projectId)
+            exportToTmx(path = path, sourceLang = baseLanguage.code)
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
         }
     }

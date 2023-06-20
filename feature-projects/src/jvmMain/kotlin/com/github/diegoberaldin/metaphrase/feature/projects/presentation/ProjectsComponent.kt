@@ -17,6 +17,7 @@ interface ProjectsComponent {
 
     fun open(projectId: Int)
     fun closeCurrentProject()
+    fun saveCurrentProject(path: String)
     fun import(path: String, type: ResourceFileType)
     fun export(path: String, type: ResourceFileType)
     fun moveToPrevious()

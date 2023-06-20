@@ -17,6 +17,8 @@ import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.ProjectModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.ResourceFileType
 import com.github.diegoberaldin.metaphrase.domain.project.repository.ProjectRepository
+import com.github.diegoberaldin.metaphrase.domain.project.repository.RecentProjectRepository
+import com.github.diegoberaldin.metaphrase.domain.project.usecase.OpenProjectUseCase
 import com.github.diegoberaldin.metaphrase.feature.projects.list.presentation.ProjectListComponent
 import com.github.diegoberaldin.metaphrase.feature.translate.presentation.TranslateComponent
 import kotlinx.coroutines.CoroutineScope
@@ -44,7 +46,13 @@ internal class DefaultProjectsComponent(
     private val dispatchers: CoroutineDispatcherProvider,
     private val keyStore: TemporaryKeyStore,
     private val projectRepository: ProjectRepository,
+    private val recentProjectRepository: RecentProjectRepository,
+    private val openProjectUseCase: OpenProjectUseCase,
 ) : ProjectsComponent, ComponentContext by componentContext {
+
+    companion object {
+        private const val KEY_LAST_OPENED_PROJECT = "lastOpenedProject"
+    }
 
     private val navigation = StackNavigation<ProjectsComponent.Config>()
     private lateinit var viewModelScope: CoroutineScope
@@ -84,9 +92,12 @@ internal class DefaultProjectsComponent(
             }
             doOnStart {
                 viewModelScope.launch(dispatchers.io) {
-                    val lastOpenedProjectId = keyStore.get("lastOpenedProject", 0)
-                    if (lastOpenedProjectId > 0) {
-                        openProject(lastOpenedProjectId)
+                    val lastOpenedProject = keyStore.get(KEY_LAST_OPENED_PROJECT, "")
+                    val lastOpenedPath = recentProjectRepository.getByName(lastOpenedProject)?.path
+                    if (lastOpenedPath != null) {
+                        openProjectUseCase(lastOpenedPath)?.id?.also {
+                            openProject(it)
+                        }
                     }
                 }
             }
@@ -97,11 +108,26 @@ internal class DefaultProjectsComponent(
     }
 
     override fun open(projectId: Int) {
-        when (val conf = childStack.value.active.configuration) {
+        when (childStack.value.active.configuration) {
             is ProjectsComponent.Config.Detail -> {
-                val childComp = (childStack.value.active.instance as TranslateComponent)
-                if (childComp.projectId != conf.projectId) {
-                    childComp.projectId = conf.projectId
+                viewModelScope.launch(dispatchers.io) {
+                    val translateComponent = childStack.activeAsFlow<TranslateComponent>().firstOrNull()
+                    if (translateComponent != null && translateComponent.projectId != projectId) {
+                        val current = activeProject.value
+                        if (current != null) {
+                            projectRepository.delete(current)
+                        }
+
+                        val project = projectRepository.getById(projectId)
+                        if (project != null) {
+                            withContext(dispatchers.io) {
+                                keyStore.save(KEY_LAST_OPENED_PROJECT, project.name)
+                            }
+                        }
+                        activeProject.value = project
+
+                        translateComponent.projectId = projectId
+                    }
                 }
             }
 
@@ -118,10 +144,13 @@ internal class DefaultProjectsComponent(
             return
         }
 
-        withContext(dispatchers.io) {
-            keyStore.save("lastOpenedProject", projectId)
+        val project = projectRepository.getById(projectId)
+        if (project != null) {
+            withContext(dispatchers.io) {
+                keyStore.save(KEY_LAST_OPENED_PROJECT, project.name)
+            }
         }
-        activeProject.value = projectRepository.getById(projectId)
+        activeProject.value = project
         withContext(dispatchers.main) {
             navigation.push(ProjectsComponent.Config.Detail(projectId = projectId))
         }
@@ -143,10 +172,25 @@ internal class DefaultProjectsComponent(
 
     override fun closeCurrentProject() {
         viewModelScope.launch(dispatchers.io) {
-            keyStore.save("lastOpenedProject", 0)
+            keyStore.save(KEY_LAST_OPENED_PROJECT, "")
+            val current = activeProject.value
+            if (current != null) {
+                projectRepository.delete(current)
+            }
+            projectRepository.setNeedsSaving(false)
+            activeProject.value = null
+            withContext(dispatchers.main) {
+                navigation.pop()
+            }
         }
-        activeProject.value = null
-        navigation.pop()
+    }
+
+    override fun saveCurrentProject(path: String) {
+        viewModelScope.launch(dispatchers.io) {
+            runCatching {
+                childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.save(path = path)
+            }
+        }
     }
 
     override fun import(path: String, type: ResourceFileType) {

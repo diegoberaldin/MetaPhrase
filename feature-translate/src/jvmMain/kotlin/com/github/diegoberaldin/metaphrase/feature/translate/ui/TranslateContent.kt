@@ -1,6 +1,5 @@
 package com.github.diegoberaldin.metaphrase.feature.translate.ui
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.draggable
 import androidx.compose.foundation.gestures.rememberDraggableState
@@ -50,7 +49,6 @@ import com.github.diegoberaldin.metaphrase.feature.translate.presentation.Transl
 import com.github.diegoberaldin.metaphrase.feature.translate.toolbar.ui.TranslateToolbar
 import org.jetbrains.skiko.Cursor
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun TranslateContent(
     component: TranslateComponent,
@@ -185,6 +183,9 @@ fun TranslateContent(
                 Text(
                     modifier = Modifier.align(Alignment.CenterEnd),
                     text = buildString {
+                        if (uiState.needsSaving) {
+                            append("*\u2009")
+                        }
                         append(project.name)
                         append(" — ")
                         append("status_bar_units".localized(uiState.unitCount))

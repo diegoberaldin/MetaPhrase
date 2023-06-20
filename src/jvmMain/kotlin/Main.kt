@@ -93,7 +93,13 @@ fun main() {
         LifecycleController(lifecycle, windowState)
 
         Window(
-            onCloseRequest = ::exitApplication,
+            onCloseRequest = {
+                if (rootComponent.hasUnsavedChanges()) {
+                    rootComponent.closeCurrentProject(closeAfter = true)
+                } else {
+                    exitApplication()
+                }
+            },
             title = "app_name".localized(),
             state = windowState,
         ) {
@@ -113,6 +119,9 @@ fun main() {
                     RootContent(
                         component = rootComponent,
                         modifier = Modifier.fillMaxSize(),
+                        onExitApplication = {
+                            exitApplication()
+                        },
                     )
                 }
             }
@@ -129,6 +138,12 @@ private fun MenuBarScope.makeMenus(
 
     Menu(text = "menu_project".localized()) {
         Item(
+            text = "menu_project_open".localized(),
+            shortcut = KeyShortcut(Key.O, meta = true),
+        ) {
+            rootComponent.openDialog()
+        }
+        Item(
             text = "menu_project_new".localized(),
             shortcut = KeyShortcut(Key.N, meta = true),
         ) {
@@ -139,6 +154,20 @@ private fun MenuBarScope.makeMenus(
             enabled = rootUiState.activeProject != null,
         ) {
             rootComponent.openEditProject()
+        }
+        Item(
+            text = "menu_project_save".localized(),
+            enabled = rootUiState.isSaveEnabled,
+            shortcut = KeyShortcut(Key.S, meta = true),
+        ) {
+            rootComponent.saveCurrentProject()
+        }
+        Item(
+            text = "menu_project_save_as".localized(),
+            enabled = rootUiState.activeProject != null,
+            shortcut = KeyShortcut(Key.S, meta = true, shift = true),
+        ) {
+            rootComponent.saveProjectAs()
         }
         Item(
             text = "menu_project_close".localized(),
