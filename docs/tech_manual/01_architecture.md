@@ -16,7 +16,7 @@ If a module requires dependency injection, the bindings for the classes and inte
 Here ist a short description of what can be found in each module:
 
 - **core-common** contains a set shared utilities divided by package: coroutine dispatchers (coroutines), file system (files), data store (keystore), logging (log), notification center (notification), shared UI components and theme (ui), extension functions and utilities (utils).
-- **core-localization**: contains the main entry point to localization in the `L10n` shared object and String extension functions; `L10n` uses the internal `DefaultLocalization` class internally to manage the language bundles. 
+- **core-localization**: contains the main entry point to localization in the `L10n` shared object and String extension functions; `L10n` uses the internal `DefaultLocalization` repository class internally to manage the language bundles and load them from resources via the `LocalizationResourceLoader`. 
 - **core-persistence**: contains the `AppDatabase` class that provides a centralized entry point for the persistence layer and it is a factory for the DAO classes (which are found in each domain persistence submodule). Whenever a new persisted entity is created, `AppDatabase` needs to be updated for the schema creation/update and with the create DAO factory method.
 - **domain-formats** contains the business logic (mainly usecases) to manage import and export to resource files (Android XML, iOS stringtables, Windows resx, GNU gettext PO, ngx-translate JSON, Flutter ARB)
 - **domain-glossary** contains the data layer and business logic layers of the glossary feature; it is divided into the following submodules:
@@ -24,8 +24,13 @@ Here ist a short description of what can be found in each module:
   - **persistence** contains the entity definitions and local data source (DAO, data access object) for glossary terms and associations between terms
   - **repository** contains the repositories to create, read, update and delete glossary terms and associations between terms
   - **usecase** contains the use cases needed to perform the glossary lookup operations
-- **domain-project** contains the data layer and business logic layer for project, languages and messages (segments and segment pairs, aka translation units); it is divided in the following submodules:
-  - **data** contains the model classes for project, languages, segments and translation units
+- **domain-language** contains the data layer and business logic layer for language management; it is divided in the following submodules:
+  - **data** contains the model classes for languages
+  - **persistence** contains the local data sources for language data
+  - **repository** contains the repositories to create, read and delete language data
+  - **usecase** contains the use cases needed to interact with language data
+- **domain-project** contains the data layer and business logic layer for project and messages (segments and segment pairs, aka translation units); it is divided in the following submodules:
+  - **data** contains the model classes for project, segments and translation units
   - **persistence** contains the entity definitions and local data sources for project data
   - **repository** contains the repositories to create, read, update and delete project data
   - **usecase** contains the use cases needed to interact with project data

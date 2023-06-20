@@ -2,7 +2,7 @@
 
 After importing one or more resource files the message list will be populated in the translation editor. This same screen will also be displayed whenever opening an existing project which already contain some messages.
 
-The translation editor is made up by two parts: the [translate toolbar](#translation-toolbar) and the[ message list](#message-list).
+The translation editor is made up by two parts: the [translate toolbar](#translation-toolbar) and the[ message list](#message-list). The bottom part of the translation screen contains the status bar which displays the name of the project (prefixed with an asterisks if there are unsaved changes) and the translation unit count.
 
 ### Translation toolbar
 
