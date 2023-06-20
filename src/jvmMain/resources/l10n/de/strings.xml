@@ -29,6 +29,7 @@
 	<string name="dialog_statistics_item_total_languages">Sprachnummer</string>
 	<string name="dialog_statistics_item_total_messages">Nachrichtennummer</string>
 	<string name="dialog_statistics_item_translatable_messages">Übersetzbare Nachrichtennummer</string>
+	<string name="dialog_statistics_item_translatable_words">Wortzahl (übersetzbare Nachrichten)</string>
 	<string name="dialog_statistics_section_general">Allgemein</string>
 	<string name="dialog_title_create_glossary_term">Glossarbegriff erstellen</string>
 	<string name="dialog_title_create_project">Neues Projekt</string>
