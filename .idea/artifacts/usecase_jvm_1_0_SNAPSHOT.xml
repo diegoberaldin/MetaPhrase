@@ -1,6 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="usecase-jvm-1.0-SNAPSHOT">
-    <output-path>$PROJECT_DIR$/domain-tm/usecase/build/libs</output-path>
-    <root id="archive" name="usecase-jvm-1.0-SNAPSHOT.jar" />
-  </artifact>
-</component>

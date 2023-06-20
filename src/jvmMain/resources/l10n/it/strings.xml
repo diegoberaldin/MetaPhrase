@@ -5,7 +5,12 @@
 	<string name="app_intro_title">Grazie per utilizzare MetaPhrase!</string>
 	<string name="button_cancel">Annulla</string>
 	<string name="button_close">Chiudi</string>
+	<string name="button_copy_target">Copia destinazione</string>
+	<string name="button_insert">Inserisci</string>
 	<string name="button_ok">OK</string>
+	<string name="button_refresh">Ricarica</string>
+	<string name="button_retrieve">Ottieni</string>
+	<string name="button_share">Condividi</string>
 	<string name="column_invalid_extra">Extra</string>
 	<string name="column_invalid_key">Chiave</string>
 	<string name="column_invalid_missing">Mancante</string>
@@ -42,6 +47,7 @@
 	<string name="dialog_title_warning">Avviso</string>
 	<string name="glossary_title">Glossario</string>
 	<string name="lang">it</string>
+	<string name="machine_translation_title">Traduzione automatica</string>
 	<string name="memory_content_title">Contenuto TM</string>
 	<string name="menu_glossary">Glossario</string>
 	<string name="menu_project">Progetto</string>
@@ -55,8 +61,8 @@
 	<string name="menu_project_import_json">JSON…</string>
 	<string name="menu_project_import_po">PO Gettext</string>
 	<string name="menu_project_import_windows">resx Windows…</string>
-	<string name="menu_project_open">Apri…</string>
 	<string name="menu_project_new">Nuovo…</string>
+	<string name="menu_project_open">Apri…</string>
 	<string name="menu_project_save">Salva</string>
 	<string name="menu_project_save_as">Salva con nome…</string>
 	<string name="menu_project_settings">Impostazioni…</string>
@@ -88,6 +94,7 @@
 	<string name="message_validation_valid">Evviva! Tutti i messaggi contengono placeholder validi 🎉</string>
 	<string name="panel_section_checks">Convalida</string>
 	<string name="panel_section_glossary">Glossario</string>
+	<string name="panel_section_machine_translation">Traduzione automatica</string>
 	<string name="panel_section_matches">Corrispondenze</string>
 	<string name="panel_section_translation_memory">Memoria</string>
 	<string name="status_bar_units">messaggi: %d</string>
@@ -103,6 +110,7 @@
 	<string name="tooltip_move_to_previous">Vai a successivo</string>
 	<string name="tooltip_new_source_term">Nuovo termine sorgente</string>
 	<string name="tooltip_new_target_term">Nuovo termine destinazione</string>
+	<string name="tooltip_remove_from_recent">Rimuovi da recenti</string>
 	<string name="tooltip_validate">Valida placeholder</string>
 	<string name="translation_memory_origin">fonte: %s</string>
 	<string name="translation_memory_similarity">somiglianza: %d%%</string>

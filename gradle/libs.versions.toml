@@ -7,6 +7,7 @@ h2 = "2.1.214"
 koin = "3.4.2"
 kotlinx_coroutines = "1.7.1"
 kotlinx_serialization = "1.5.1"
+ktor = "2.3.1"
 languagetool = "6.1"
 log4j = "2.20.0"
 decompose = "2.0.0-alpha-02"
@@ -42,6 +43,12 @@ exposed_jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "e
 redundent = { module = "org.redundent:kotlin-xml-builder", version.ref = "redundent" }
 commons_csv = { module = "org.apache.commons:commons-csv", version.ref = "commons_csv" }
 kotlinx_serialization_json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx_serialization" }
+
+# networking
+ktor_core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor_cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
+ktor_negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor_serialization_json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 
 # spelling
 guava = { module = "com.google.guava:guava", version.ref = "guava" }

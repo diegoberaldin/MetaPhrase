@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
 	<string name="app_intro">Bitte öffnen Sie ein Projekt, indem Sie eines der folgenden Elemente auswählen.</string>
-	<string name="app_intro_empty">Kein aktuelles Projekt.\n\nBitte erstellen Sie ein neues Projekt über das Menü „Projekt“ > „Neu…“.\n\nAlternativ können Sie ein bestehendes Projekt über das Menü „Projekt“ > „Öffnen…“ öffnen..</string>
+	<string name="app_intro_empty">Kein aktuelles Projekt.\n\nBitte erstellen Sie ein neues Projekt über das Menü „Projekt“ > „Neu…“.\n\nAlternativ können Sie ein bestehendes Projekt über das Menü „Projekt“ > „Öffnen…“ öffnen.</string>
 	<string name="app_intro_title">Vielen Dank, dass Sie MetaPhrase verwenden!</string>
-	<string name="app_name" translatable="false">MetaPhrase</string>
 	<string name="button_cancel">Abbrechen</string>
 	<string name="button_close">Schließen</string>
+	<string name="button_copy_target">Ziel kopieren</string>
+	<string name="button_insert">Einfügen</string>
 	<string name="button_ok">OK</string>
+	<string name="button_refresh">Aktualisieren</string>
+	<string name="button_retrieve">Aktualisieren</string>
+	<string name="button_share">Abrufen</string>
 	<string name="column_invalid_extra">Extra</string>
 	<string name="column_invalid_key">Schlüssel</string>
 	<string name="column_invalid_missing">Fehlt</string>
@@ -43,6 +47,7 @@
 	<string name="dialog_title_warning">Warnung</string>
 	<string name="glossary_title">Glossar</string>
 	<string name="lang">de</string>
+	<string name="machine_translation_title">Maschinelle Übersetzung</string>
 	<string name="memory_content_title">TM-Inhalt</string>
 	<string name="menu_glossary">Glossar</string>
 	<string name="menu_project">Projekt</string>
@@ -70,7 +75,7 @@
 	<string name="menu_segment_end_edit">Bearbeitung beenden</string>
 	<string name="menu_segment_new">Neu…</string>
 	<string name="menu_segment_next">Weiter</string>
-	<string name="menu_segment_ previous">Vorherige</string>
+	<string name="menu_segment_previous">Vorherige</string>
 	<string name="menu_translation_memory">Speicher</string>
 	<string name="menu_translation_memory_clear">Alles zurücksetzen</string>
 	<string name="menu_translation_memory_export">Exportieren…</string>
@@ -89,6 +94,7 @@
 	<string name="message_validation_valid">Hurra! Alle Nachrichten enthalten gültige Platzhalter 🎉</string>
 	<string name="panel_section_checks">Validierung</string>
 	<string name="panel_section_glossary">Glossar</string>
+	<string name="panel_section_machine_translation">Maschinelle Übersetzung</string>
 	<string name="panel_section_matches">Übereinstimmungen</string>
 	<string name="panel_section_translation_memory">Speicher</string>
 	<string name="status_bar_units">Nachrichten: %d</string>
@@ -100,8 +106,8 @@
 	<string name="tooltip_make_translatable">Übersetzbar machen</string>
 	<string name="tooltip_make_untranslatable">Unübersetzbar machen</string>
 	<string name="tooltip_minify">Minimieren</string>
-	<string name="tooltip_move_to_next">Zum nächsten gehen</string>
-	<string name="tooltip_move_to_ previous">Zur vorherigen wechseln</string>
+	<string name="tooltip_move_to_next">Zum nächsten</string>
+	<string name="tooltip_move_to_previous">Zum vorherigen</string>
 	<string name="tooltip_new_source_term">Neuer Quellbegriff</string>
 	<string name="tooltip_new_target_term">Neuer Zielbegriff</string>
 	<string name="tooltip_remove_from_recent">Aus den letzten entfernen</string>

@@ -63,7 +63,7 @@ internal class DefaultTranslationMemoryComponent(
         units.value = emptyList()
     }
 
-    override fun loadSimilarities(key: String, projectId: Int, languageId: Int) {
+    override fun load(key: String, projectId: Int, languageId: Int) {
         viewModelScope.launch(dispatchers.io) {
             loading.value = true
             val segment = segmentRepository.getByKey(key = key, languageId = languageId) ?: return@launch

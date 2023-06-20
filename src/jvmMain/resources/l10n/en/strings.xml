@@ -6,7 +6,12 @@
 	<string name="app_name" translatable="false">MetaPhrase</string>
 	<string name="button_cancel">Cancel</string>
 	<string name="button_close">Close</string>
+	<string name="button_copy_target">Copy target</string>
+	<string name="button_insert">Insert</string>
 	<string name="button_ok">OK</string>
+	<string name="button_refresh">Refresh</string>
+	<string name="button_retrieve">Retrieve</string>
+	<string name="button_share">Share</string>
 	<string name="column_invalid_extra">Extra</string>
 	<string name="column_invalid_key">Key</string>
 	<string name="column_invalid_missing">Missing</string>
@@ -67,6 +72,7 @@
 	<string name="language_slovenian" translatable="false">Slovenščina</string>
 	<string name="language_spanish" translatable="false">Español</string>
 	<string name="language_swedish" translatable="false">Svenska</string>
+	<string name="machine_translation_title">Machine translation</string>
 	<string name="memory_content_title">TM content</string>
 	<string name="menu_glossary">Glossary</string>
 	<string name="menu_project">Project</string>
@@ -80,8 +86,8 @@
 	<string name="menu_project_import_json">JSON…</string>
 	<string name="menu_project_import_po">Gettext PO</string>
 	<string name="menu_project_import_windows">Windows resx…</string>
-	<string name="menu_project_open">Open…</string>
 	<string name="menu_project_new">New…</string>
+	<string name="menu_project_open">Open…</string>
 	<string name="menu_project_save">Save</string>
 	<string name="menu_project_save_as">Save as…</string>
 	<string name="menu_project_settings">Settings…</string>
@@ -113,6 +119,7 @@
 	<string name="message_validation_valid">Hooray! All messages contain valid placeholders 🎉</string>
 	<string name="panel_section_checks">Validation</string>
 	<string name="panel_section_glossary">Glossary</string>
+	<string name="panel_section_machine_translation">Machine Translation</string>
 	<string name="panel_section_matches">Matches</string>
 	<string name="panel_section_translation_memory">Memory</string>
 	<string name="status_bar_units">messages: %d</string>

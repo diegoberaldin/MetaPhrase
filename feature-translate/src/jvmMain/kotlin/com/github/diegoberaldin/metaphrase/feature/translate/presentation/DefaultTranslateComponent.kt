@@ -38,6 +38,7 @@ import com.github.diegoberaldin.metaphrase.feature.translate.dialog.newsegment.p
 import com.github.diegoberaldin.metaphrase.feature.translate.dialog.newterm.presentation.NewGlossaryTermComponent
 import com.github.diegoberaldin.metaphrase.feature.translate.messages.presentation.MessageListComponent
 import com.github.diegoberaldin.metaphrase.feature.translate.panel.glossary.presentation.GlossaryComponent
+import com.github.diegoberaldin.metaphrase.feature.translate.panel.machinetranslation.presentation.MachineTranslationComponent
 import com.github.diegoberaldin.metaphrase.feature.translate.panel.matches.presentation.TranslationMemoryComponent
 import com.github.diegoberaldin.metaphrase.feature.translate.panel.memory.presentation.BrowseMemoryComponent
 import com.github.diegoberaldin.metaphrase.feature.translate.panel.validate.presentation.ValidateComponent
@@ -204,6 +205,7 @@ internal class DefaultTranslateComponent(
             if (!isEditing) {
                 panel.asFlow<TranslationMemoryComponent>().firstOrNull()?.clear()
                 panel.asFlow<GlossaryComponent>().firstOrNull()?.clear()
+                panel.asFlow<MachineTranslationComponent>().firstOrNull()?.clear()
             }
         }.launchIn(this)
         dialog.asFlow<NewSegmentComponent>(timeout = Duration.INFINITE).filterNotNull().onEach {
@@ -220,12 +222,17 @@ internal class DefaultTranslateComponent(
         }.launchIn(this)
         messageListComponent.editedSegment.filterNotNull().onEach { segment ->
             val key = segment.key
-            panel.asFlow<TranslationMemoryComponent>().firstOrNull()?.loadSimilarities(
+            panel.asFlow<TranslationMemoryComponent>().firstOrNull()?.load(
                 key = key,
                 projectId = projectId,
                 languageId = getCurrentLanguage()?.id ?: 0,
             )
-            panel.asFlow<GlossaryComponent>().firstOrNull()?.loadGlossaryTerms(
+            panel.asFlow<GlossaryComponent>().firstOrNull()?.load(
+                key = key,
+                projectId = projectId,
+                languageId = getCurrentLanguage()?.id ?: 0,
+            )
+            panel.asFlow<MachineTranslationComponent>().firstOrNull()?.load(
                 key = key,
                 projectId = projectId,
                 languageId = getCurrentLanguage()?.id ?: 0,
@@ -252,7 +259,7 @@ internal class DefaultTranslateComponent(
             // reload panel
             val key = messageListComponent.editedSegment.value?.key
             if (!key.isNullOrEmpty()) {
-                panel.asFlow<GlossaryComponent>().firstOrNull()?.loadGlossaryTerms(
+                panel.asFlow<GlossaryComponent>().firstOrNull()?.load(
                     key = key,
                     projectId = projectId,
                     languageId = getCurrentLanguage()?.id ?: 0,
@@ -292,7 +299,7 @@ internal class DefaultTranslateComponent(
             // reload panel
             val key = messageList.asFlow<MessageListComponent>().firstOrNull()?.editedSegment?.value?.key
             if (!key.isNullOrEmpty()) {
-                panel.asFlow<GlossaryComponent>().firstOrNull()?.loadGlossaryTerms(
+                panel.asFlow<GlossaryComponent>().firstOrNull()?.load(
                     key = key,
                     projectId = projectId,
                     languageId = getCurrentLanguage()?.id ?: 0,
@@ -382,6 +389,22 @@ internal class DefaultTranslateComponent(
                         target = getCurrentLanguage(),
                     )
                 }
+
+                is MachineTranslationComponent -> {
+                    child.copySourceEvents.onEach { textToCopy ->
+                        val messageListComponent = messageList.asFlow<MessageListComponent>().firstOrNull()
+                        messageListComponent?.changeSegmentText(textToCopy)
+                    }.launchIn(this)
+                    child.copyTargetEvents.onEach {
+                        val messageListComponent = messageList.asFlow<MessageListComponent>().firstOrNull()
+                        val segmentId = messageListComponent?.editedSegment?.value?.id
+                        if (segmentId != null) {
+                            val segment = segmentRepository.getById(segmentId)
+                            val text = segment?.text.orEmpty()
+                            child.copyTranslation(text)
+                        }
+                    }.launchIn(this)
+                }
             }
         }.launchIn(this)
     }
@@ -400,6 +423,7 @@ internal class DefaultTranslateComponent(
             PanelConfig.Validation -> getByInjection<ValidateComponent>(context, coroutineContext)
             PanelConfig.MemoryContent -> getByInjection<BrowseMemoryComponent>(context, coroutineContext)
             PanelConfig.Glossary -> getByInjection<GlossaryComponent>(context, coroutineContext)
+            PanelConfig.MachineTranslation -> getByInjection<MachineTranslationComponent>(context, coroutineContext)
             else -> Unit
         }
     }
@@ -607,7 +631,7 @@ internal class DefaultTranslateComponent(
             delay(100)
             val currentKey = messageList.asFlow<MessageListComponent>().firstOrNull()?.editedSegment?.value?.key
             if (currentKey != null) {
-                panel.asFlow<TranslationMemoryComponent>().firstOrNull()?.loadSimilarities(
+                panel.asFlow<TranslationMemoryComponent>().firstOrNull()?.load(
                     key = currentKey,
                     languageId = getCurrentLanguage()?.id ?: 0,
                     projectId = projectId,
@@ -621,7 +645,21 @@ internal class DefaultTranslateComponent(
             delay(100)
             val currentKey = messageList.asFlow<MessageListComponent>().firstOrNull()?.editedSegment?.value?.key
             if (currentKey != null) {
-                panel.asFlow<GlossaryComponent>().firstOrNull()?.loadGlossaryTerms(
+                panel.asFlow<GlossaryComponent>().firstOrNull()?.load(
+                    key = currentKey,
+                    languageId = getCurrentLanguage()?.id ?: 0,
+                    projectId = projectId,
+                )
+            }
+        }
+    }
+
+    override fun tryLoadMachineTranslation() {
+        viewModelScope.launch(dispatchers.io) {
+            delay(100)
+            val currentKey = messageList.asFlow<MessageListComponent>().firstOrNull()?.editedSegment?.value?.key
+            if (currentKey != null) {
+                panel.asFlow<MachineTranslationComponent>().firstOrNull()?.load(
                     key = currentKey,
                     languageId = getCurrentLanguage()?.id ?: 0,
                     projectId = projectId,

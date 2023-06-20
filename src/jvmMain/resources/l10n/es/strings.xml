@@ -5,7 +5,12 @@
 	<string name="app_intro_title">¡Gracias por utilizar MetaPhrase!</string>
 	<string name="button_cancel">Cancelar</string>
 	<string name="button_close">Cerrar</string>
+	<string name="button_copy_target">Copiar meta</string>
+	<string name="button_insert">Insertar</string>
 	<string name="button_ok">OK</string>
+	<string name="button_refresh">Actualizar</string>
+	<string name="button_retrieve">Descargar</string>
+	<string name="button_share">Compartir</string>
 	<string name="column_invalid_extra">De sobra</string>
 	<string name="column_invalid_key">Llave</string>
 	<string name="column_invalid_missing">De falta</string>
@@ -42,6 +47,7 @@
 	<string name="dialog_title_warning">Aviso</string>
 	<string name="glossary_title">Glosario</string>
 	<string name="lang">es</string>
+	<string name="machine_translation_title">Traducción automática</string>
 	<string name="memory_content_title">Contenido MT</string>
 	<string name="menu_glossary">Glosario</string>
 	<string name="menu_project">Proyecto</string>
@@ -55,8 +61,8 @@
 	<string name="menu_project_import_json">JSON…</string>
 	<string name="menu_project_import_po">PO Gettext</string>
 	<string name="menu_project_import_windows">resx Windows…</string>
-	<string name="menu_project_open">Abrir…</string>
 	<string name="menu_project_new">Nuevo…</string>
+	<string name="menu_project_open">Abrir…</string>
 	<string name="menu_project_save">Guardar</string>
 	<string name="menu_project_save_as">Guardar como…</string>
 	<string name="menu_project_settings">Ajustes…</string>
@@ -88,6 +94,7 @@
 	<string name="message_validation_valid">¡Enhorabuena! Todos los mensajes contienen especificadores válidos 🎉</string>
 	<string name="panel_section_checks">Validación</string>
 	<string name="panel_section_glossary">Glosario</string>
+	<string name="panel_section_machine_translation">Traducción automática</string>
 	<string name="panel_section_matches">Correspondencias</string>
 	<string name="panel_section_translation_memory">Memoria</string>
 	<string name="status_bar_units">mensajes: %d</string>

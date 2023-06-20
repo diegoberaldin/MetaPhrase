@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="domain-mt-jvm-1.0.0-beta-02">
+    <output-path>$PROJECT_DIR$/domain-mt/build/libs</output-path>
+    <root id="archive" name="domain-mt-jvm-1.0.0-beta-02.jar">
+      <element id="module-output" name="MetaPhrase.domain-mt.jvmMain" />
+    </root>
+  </artifact>
+</component>

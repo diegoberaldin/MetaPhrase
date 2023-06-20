@@ -26,6 +26,8 @@
             <option value="$PROJECT_DIR$/domain-language/persistence" />
             <option value="$PROJECT_DIR$/domain-language/repository" />
             <option value="$PROJECT_DIR$/domain-language/usecase" />
+            <option value="$PROJECT_DIR$/domain-mt" />
+            <option value="$PROJECT_DIR$/domain-mt/repository" />
             <option value="$PROJECT_DIR$/domain-project" />
             <option value="$PROJECT_DIR$/domain-project/data" />
             <option value="$PROJECT_DIR$/domain-project/persistence" />
@@ -53,6 +55,7 @@
             <option value="$PROJECT_DIR$/feature-translate/messages" />
             <option value="$PROJECT_DIR$/feature-translate/panel" />
             <option value="$PROJECT_DIR$/feature-translate/panel/glossary" />
+            <option value="$PROJECT_DIR$/feature-translate/panel/machinetranslation" />
             <option value="$PROJECT_DIR$/feature-translate/panel/matches" />
             <option value="$PROJECT_DIR$/feature-translate/panel/memory" />
             <option value="$PROJECT_DIR$/feature-translate/panel/validate" />

@@ -38,6 +38,8 @@ import com.github.diegoberaldin.metaphrase.feature.translate.dialog.newterm.ui.N
 import com.github.diegoberaldin.metaphrase.feature.translate.messages.ui.MessageListContent
 import com.github.diegoberaldin.metaphrase.feature.translate.panel.glossary.presentation.GlossaryComponent
 import com.github.diegoberaldin.metaphrase.feature.translate.panel.glossary.ui.GlossaryContent
+import com.github.diegoberaldin.metaphrase.feature.translate.panel.machinetranslation.presentation.MachineTranslationComponent
+import com.github.diegoberaldin.metaphrase.feature.translate.panel.machinetranslation.ui.MachineTranslationContent
 import com.github.diegoberaldin.metaphrase.feature.translate.panel.matches.presentation.TranslationMemoryComponent
 import com.github.diegoberaldin.metaphrase.feature.translate.panel.matches.ui.TranslationMemoryContent
 import com.github.diegoberaldin.metaphrase.feature.translate.panel.memory.presentation.BrowseMemoryComponent
@@ -139,6 +141,18 @@ fun TranslateContent(
                         }
                     }
 
+                    PanelConfig.MachineTranslation -> {
+                        val childComponent = panel.child?.instance as MachineTranslationComponent
+                        MachineTranslationContent(
+                            modifier = Modifier.fillMaxWidth().weight(1f),
+                            component = childComponent,
+                            onMinify = { component.togglePanel(PanelConfig.MachineTranslation) },
+                        )
+                        LaunchedEffect(component) {
+                            component.tryLoadMachineTranslation()
+                        }
+                    }
+
                     else -> Unit
                 }
             }
@@ -175,6 +189,12 @@ fun TranslateContent(
                     isActive = panel.child?.configuration == PanelConfig.Glossary,
                 ) {
                     component.togglePanel(PanelConfig.Glossary)
+                }
+                PanelChip(
+                    title = "panel_section_machine_translation".localized(),
+                    isActive = panel.child?.configuration == PanelConfig.MachineTranslation,
+                ) {
+                    component.togglePanel(PanelConfig.MachineTranslation)
                 }
             }
 
