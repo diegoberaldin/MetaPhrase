@@ -18,7 +18,7 @@ interface MemoryEntryDao {
         targetLang: String,
     ): TranslationMemoryEntryModel?
 
-    suspend fun getSourceMessages(
+    suspend fun getEntries(
         sourceLang: String,
     ): List<TranslationMemoryEntryModel>
 
@@ -27,7 +27,7 @@ interface MemoryEntryDao {
         key: String,
     ): TranslationMemoryEntryModel?
 
-    suspend fun getSourceMessages(
+    suspend fun getEntries(
         sourceLang: String,
         targetLang: String,
         search: String,

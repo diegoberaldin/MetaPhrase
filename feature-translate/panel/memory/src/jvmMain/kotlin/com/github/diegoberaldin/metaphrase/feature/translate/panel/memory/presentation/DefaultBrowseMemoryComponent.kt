@@ -103,7 +103,7 @@ internal class DefaultBrowseMemoryComponent(
         val currentSearch = search.value
 
         viewModelScope.launch(dispatchers.io) {
-            entries.value = memoryEntryRepository.getSources(
+            entries.value = memoryEntryRepository.getEntries(
                 sourceLang = sourceLangCode,
                 targetLang = targetLangCode,
                 search = currentSearch,

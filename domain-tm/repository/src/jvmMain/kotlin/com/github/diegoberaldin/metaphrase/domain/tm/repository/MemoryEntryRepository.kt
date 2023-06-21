@@ -18,11 +18,11 @@ interface MemoryEntryRepository {
         targetLang: String,
     ): TranslationMemoryEntryModel?
 
-    suspend fun getSources(sourceLang: String): List<TranslationMemoryEntryModel>
+    suspend fun getEntries(sourceLang: String): List<TranslationMemoryEntryModel>
 
     suspend fun getTranslation(lang: String, key: String): TranslationMemoryEntryModel?
 
-    suspend fun getSources(
+    suspend fun getEntries(
         sourceLang: String,
         targetLang: String,
         search: String = "",

@@ -17,20 +17,49 @@ import org.jetbrains.exposed.sql.update
 
 class DefaultMemoryEntryDao : MemoryEntryDao {
     override suspend fun create(model: TranslationMemoryEntryModel): Int = newSuspendedTransaction {
-        val entryId = MemoryEntryEntity.insertIgnore {
-            it[origin] = model.origin
-            it[identifier] = model.identifier
-        }[MemoryEntryEntity.id].value
-
-        MemoryMessageEntity.insertIgnore {
-            it[MemoryMessageEntity.entryId] = entryId
-            it[lang] = model.sourceLang
-            it[text] = model.sourceText
+        val entryId = MemoryEntryEntity.select {
+            (MemoryEntryEntity.origin eq model.origin) and (MemoryEntryEntity.identifier eq model.identifier)
+        }.firstOrNull()?.let { it[MemoryEntryEntity.id].value } ?: run {
+            MemoryEntryEntity.insertIgnore {
+                it[origin] = model.origin
+                it[identifier] = model.identifier
+            }[MemoryEntryEntity.id].value
         }
-        MemoryMessageEntity.insertIgnore {
-            it[MemoryMessageEntity.entryId] = entryId
-            it[lang] = model.targetLang
-            it[text] = model.targetText
+
+        MemoryMessageEntity.select {
+            (MemoryMessageEntity.lang eq model.sourceLang) and (MemoryMessageEntity.entryId eq entryId)
+        }.firstOrNull().also { row ->
+            if (row == null) {
+                MemoryMessageEntity.insertIgnore {
+                    it[MemoryMessageEntity.entryId] = entryId
+                    it[lang] = model.sourceLang
+                    it[text] = model.sourceText
+                }
+            } else {
+                MemoryMessageEntity.update(where = {
+                    (MemoryMessageEntity.lang eq model.sourceLang) and (MemoryMessageEntity.entryId eq entryId)
+                }) {
+                    it[text] = model.sourceText
+                }
+            }
+        }
+
+        MemoryMessageEntity.select {
+            (MemoryMessageEntity.lang eq model.targetLang) and (MemoryMessageEntity.entryId eq entryId)
+        }.firstOrNull().also { row ->
+            if (row == null) {
+                MemoryMessageEntity.insertIgnore {
+                    it[MemoryMessageEntity.entryId] = entryId
+                    it[lang] = model.targetLang
+                    it[text] = model.targetText
+                }
+            } else {
+                MemoryMessageEntity.update(where = {
+                    (MemoryMessageEntity.lang eq model.targetLang) and (MemoryMessageEntity.entryId eq entryId)
+                }) {
+                    it[text] = model.targetText
+                }
+            }
         }
 
         entryId
@@ -91,7 +120,7 @@ class DefaultMemoryEntryDao : MemoryEntryDao {
             )
         }
 
-    override suspend fun getSourceMessages(sourceLang: String): List<TranslationMemoryEntryModel> =
+    override suspend fun getEntries(sourceLang: String): List<TranslationMemoryEntryModel> =
         newSuspendedTransaction {
             MemoryEntryEntity.join(
                 otherTable = MemoryMessageEntity,
@@ -147,7 +176,7 @@ class DefaultMemoryEntryDao : MemoryEntryDao {
             }.firstOrNull()
         }
 
-    override suspend fun getSourceMessages(
+    override suspend fun getEntries(
         sourceLang: String,
         targetLang: String,
         search: String,

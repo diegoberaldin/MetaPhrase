@@ -43,7 +43,7 @@ internal class DefaultSyncProjectWithTmUseCase(
                             identifier = key,
                             origin = origin,
                             sourceLang = baseLanguage.code,
-                            targetLang = baseLanguage.code,
+                            targetLang = targetLang.code,
                         )
                         if (existing == null) {
                             memoryEntryRepository.create(entryModel)
