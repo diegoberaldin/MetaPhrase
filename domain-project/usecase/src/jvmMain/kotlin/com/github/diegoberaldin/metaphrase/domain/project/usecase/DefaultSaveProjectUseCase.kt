@@ -61,10 +61,12 @@ internal class DefaultSaveProjectUseCase(
             val key = baseSegment.key
             registry[key] = buildList {
                 this += LocalizedMessage(lang = baseLanguage.code, message = baseSegment.text)
-                for (lang in otherLanguages) {
-                    val localSegment = segmentRepository.getByKey(key = key, languageId = lang.id)
-                    if (localSegment != null && localSegment.text.isNotEmpty()) {
-                        this += LocalizedMessage(lang = lang.code, message = localSegment.text)
+                if (baseSegment.translatable) {
+                    for (lang in otherLanguages) {
+                        val localSegment = segmentRepository.getByKey(key = key, languageId = lang.id)
+                        if (localSegment != null) {
+                            this += LocalizedMessage(lang = lang.code, message = localSegment.text)
+                        }
                     }
                 }
             }

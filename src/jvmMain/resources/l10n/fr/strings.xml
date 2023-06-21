@@ -3,10 +3,14 @@
 	<string name="app_intro">Veuillez ouvrir un projet en sélectionnant l\'un des éléments suivants.</string>
 	<string name="app_intro_empty">Aucun projet récent.\n\nVeuillez en créer un nouveau en utilisant le menu "Projet" > "Nouveau…".\n\nAlternativement, vous pouvez ouvrir un projet existant avec le menu "Projet" > "Ouvrir…".</string>
 	<string name="app_intro_title">Merci d\'utiliser MetaPhrase !</string>
-	<string name="app_name" translatable="false">MetaPhrase</string>
 	<string name="button_cancel">Annuler</string>
 	<string name="button_close">Fermer</string>
+	<string name="button_copy_target">Copier la cible</string>
+	<string name="button_insert">Insérer</string>
 	<string name="button_ok">OK</string>
+	<string name="button_refresh">Rafraîchir</string>
+	<string name="button_retrieve">Récupérer</string>
+	<string name="button_share">Partager</string>
 	<string name="column_invalid_extra">Extra</string>
 	<string name="column_invalid_key">Clé</string>
 	<string name="column_invalid_missing">Manquant</string>
@@ -22,6 +26,8 @@
 	<string name="create_segment_key">Clé</string>
 	<string name="create_segment_text">Texte</string>
 	<string name="dialog_settings_language">Langue de l\'application</string>
+	<string name="dialog_settings_machine_translation_key">Clé de l’API</string>
+	<string name="dialog_settings_machine_translation_provider">Fournisseur de traduction automatique</string>
 	<string name="dialog_settings_similarity_threshold">Seuil de similarité</string>
 	<string name="dialog_settings_spellcheck_enabled">Activer la vérification orthographique</string>
 	<string name="dialog_settings_version">Version de l\'application</string>
@@ -40,9 +46,10 @@
 	<string name="dialog_title_open_file">Choisir le fichier</string>
 	<string name="dialog_title_settings">Paramètres</string>
 	<string name="dialog_title_statistics">Statistiques</string>
+	<string name="dialog_title_warning">Avis</string>
 	<string name="glossary_title">Glossaire</string>
-	<string name="glossary_warning">Avis</string>
 	<string name="lang">fr</string>
+	<string name="machine_translation_title">Traduction automatique</string>
 	<string name="memory_content_title">Contenu de la MT</string>
 	<string name="menu_glossary">Glossaire</string>
 	<string name="menu_project">Projet</string>
@@ -56,8 +63,8 @@
 	<string name="menu_project_import_json">JSON…</string>
 	<string name="menu_project_import_po">PO Gettext</string>
 	<string name="menu_project_import_windows">resx Windows…</string>
-	<string name="menu_project_open">Ouvrir…</string>
 	<string name="menu_project_new">Nouveau…</string>
+	<string name="menu_project_open">Ouvrir…</string>
 	<string name="menu_project_save">Enregistrer</string>
 	<string name="menu_project_save_as">Enregistrer sous…</string>
 	<string name="menu_project_settings">Paramètres…</string>
@@ -82,13 +89,14 @@
 	<string name="message_missing_field">Champ manquant</string>
 	<string name="message_no_item_to_display">Aucun élément à afficher</string>
 	<string name="message_no_validation">Aucun résultat de validation, exécutez une validation avec l\'action de barre d\'outils "Valider"</string>
-	<string name="message_open_error">Un problème s'est produit lors de l'ouverture du projet.</string>
+	<string name="message_open_error">Un problème s\'est produit lors de l\'ouverture du projet.</string>
 	<string name="message_spelling_invalid">Certaines fautes d\'orthographe ont été trouvées :</string>
 	<string name="message_spelling_valid">Hourra ! Aucune faute d\'orthographe n\'a été trouvée 🎉</string>
 	<string name="message_validation_invalid">Certains messages invalides ont été trouvés :</string>
 	<string name="message_validation_valid">Hourra ! Tous les messages contiennent des espaces réservés valides 🎉</string>
 	<string name="panel_section_checks">Validation</string>
 	<string name="panel_section_glossary">Glossaire</string>
+	<string name="panel_section_machine_translation">Traduction automatique</string>
 	<string name="panel_section_matches">Correspondances</string>
 	<string name="panel_section_translation_memory">Mémoire</string>
 	<string name="status_bar_units">messages : %d</string>

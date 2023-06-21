@@ -34,6 +34,7 @@ interface TranslateComponent {
     fun togglePanel(config: PanelConfig)
     fun tryLoadSimilarities()
     fun tryLoadGlossary()
+    fun tryLoadMachineTranslation()
     fun exportTmx(path: String)
     fun validatePlaceholders()
     fun insertBestMatch()
@@ -73,5 +74,8 @@ interface TranslateComponent {
 
         @Parcelize
         object Glossary : PanelConfig
+
+        @Parcelize
+        object MachineTranslation : PanelConfig
     }
 }

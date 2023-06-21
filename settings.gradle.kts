@@ -58,6 +58,9 @@ include(
     ":domain-glossary:repository",
     ":domain-glossary:usecase",
 
+    ":domain-mt",
+    ":domain-mt:repository",
+
     ":feature-main",
     ":feature-main:dialog:settings",
     ":feature-intro",
@@ -72,8 +75,10 @@ include(
     ":feature-translate:dialog:newterm",
     ":feature-translate:toolbar",
     ":feature-translate:messages",
+
     ":feature-translate:panel:validate",
     ":feature-translate:panel:matches",
     ":feature-translate:panel:memory",
     ":feature-translate:panel:glossary",
+    ":feature-translate:panel:machinetranslation",
 )

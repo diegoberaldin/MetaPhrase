@@ -10,6 +10,7 @@ import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import com.arkivanov.essenty.lifecycle.doOnStart
 import com.github.diegoberaldin.metaphrase.core.common.coroutines.CoroutineDispatcherProvider
+import com.github.diegoberaldin.metaphrase.core.common.keystore.KeyStoreKeys
 import com.github.diegoberaldin.metaphrase.core.common.keystore.TemporaryKeyStore
 import com.github.diegoberaldin.metaphrase.core.common.utils.activeAsFlow
 import com.github.diegoberaldin.metaphrase.core.common.utils.getByInjection
@@ -50,9 +51,6 @@ internal class DefaultProjectsComponent(
     private val openProjectUseCase: OpenProjectUseCase,
 ) : ProjectsComponent, ComponentContext by componentContext {
 
-    companion object {
-        private const val KEY_LAST_OPENED_PROJECT = "lastOpenedProject"
-    }
 
     private val navigation = StackNavigation<ProjectsComponent.Config>()
     private lateinit var viewModelScope: CoroutineScope
@@ -92,7 +90,7 @@ internal class DefaultProjectsComponent(
             }
             doOnStart {
                 viewModelScope.launch(dispatchers.io) {
-                    val lastOpenedProject = keyStore.get(KEY_LAST_OPENED_PROJECT, "")
+                    val lastOpenedProject = keyStore.get(KeyStoreKeys.LastOpenedProject, "")
                     val lastOpenedPath = recentProjectRepository.getByName(lastOpenedProject)?.path
                     if (lastOpenedPath != null) {
                         openProjectUseCase(lastOpenedPath)?.id?.also {
@@ -121,7 +119,7 @@ internal class DefaultProjectsComponent(
                         val project = projectRepository.getById(projectId)
                         if (project != null) {
                             withContext(dispatchers.io) {
-                                keyStore.save(KEY_LAST_OPENED_PROJECT, project.name)
+                                keyStore.save(KeyStoreKeys.LastOpenedProject, project.name)
                             }
                         }
                         activeProject.value = project
@@ -147,7 +145,7 @@ internal class DefaultProjectsComponent(
         val project = projectRepository.getById(projectId)
         if (project != null) {
             withContext(dispatchers.io) {
-                keyStore.save(KEY_LAST_OPENED_PROJECT, project.name)
+                keyStore.save(KeyStoreKeys.LastOpenedProject, project.name)
             }
         }
         activeProject.value = project
@@ -172,7 +170,7 @@ internal class DefaultProjectsComponent(
 
     override fun closeCurrentProject() {
         viewModelScope.launch(dispatchers.io) {
-            keyStore.save(KEY_LAST_OPENED_PROJECT, "")
+            keyStore.save(KeyStoreKeys.LastOpenedProject, "")
             val current = activeProject.value
             if (current != null) {
                 projectRepository.delete(current)

@@ -53,6 +53,7 @@ kotlin {
                 implementation(projects.featureTranslate.panel.matches)
                 implementation(projects.featureTranslate.panel.memory)
                 implementation(projects.featureTranslate.panel.glossary)
+                implementation(projects.featureTranslate.panel.machinetranslation)
             }
         }
     }

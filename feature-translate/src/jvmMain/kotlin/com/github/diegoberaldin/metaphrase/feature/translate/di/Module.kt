@@ -5,6 +5,7 @@ import com.github.diegoberaldin.metaphrase.feature.translate.dialog.newsegment.d
 import com.github.diegoberaldin.metaphrase.feature.translate.dialog.newterm.di.dialogNewTermModule
 import com.github.diegoberaldin.metaphrase.feature.translate.messages.di.translateMessagesModule
 import com.github.diegoberaldin.metaphrase.feature.translate.panel.glossary.di.panelGlossaryModule
+import com.github.diegoberaldin.metaphrase.feature.translate.panel.machinetranslation.di.panelMachineTranslationModule
 import com.github.diegoberaldin.metaphrase.feature.translate.panel.matches.di.panelMatchesModule
 import com.github.diegoberaldin.metaphrase.feature.translate.panel.memory.di.panelMemoryModule
 import com.github.diegoberaldin.metaphrase.feature.translate.panel.validate.di.panelValidateModule
@@ -29,6 +30,7 @@ val translateModule = module {
         panelValidateModule,
         panelMemoryModule,
         panelGlossaryModule,
+        panelMachineTranslationModule,
     )
 
     factory<TranslateComponent> { params ->

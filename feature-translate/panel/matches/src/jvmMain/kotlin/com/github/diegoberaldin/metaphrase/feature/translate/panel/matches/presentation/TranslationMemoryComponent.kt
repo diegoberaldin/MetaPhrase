@@ -8,6 +8,6 @@ interface TranslationMemoryComponent {
     val copyEvents: SharedFlow<String>
 
     fun clear()
-    fun loadSimilarities(key: String, projectId: Int, languageId: Int)
+    fun load(key: String, projectId: Int, languageId: Int)
     fun copyTranslation(index: Int)
 }

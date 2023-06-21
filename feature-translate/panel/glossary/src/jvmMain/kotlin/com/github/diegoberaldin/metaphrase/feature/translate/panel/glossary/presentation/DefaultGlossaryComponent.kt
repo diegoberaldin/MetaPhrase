@@ -79,7 +79,7 @@ internal class DefaultGlossaryComponent(
         terms.value = emptyList()
     }
 
-    override fun loadGlossaryTerms(key: String, projectId: Int, languageId: Int) {
+    override fun load(key: String, projectId: Int, languageId: Int) {
         viewModelScope.launch(dispatchers.io) {
             val sourceLanguage = languageRepository.getBase(projectId) ?: return@launch
             val targetLanguage = languageRepository.getById(languageId) ?: return@launch
