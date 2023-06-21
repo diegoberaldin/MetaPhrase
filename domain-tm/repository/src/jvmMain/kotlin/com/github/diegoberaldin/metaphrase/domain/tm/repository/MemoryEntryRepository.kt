@@ -11,13 +11,22 @@ interface MemoryEntryRepository {
 
     suspend fun deleteAll(origin: String? = null)
 
-    suspend fun getById(id: Int, sourceLang: String, targetLang: String): TranslationMemoryEntryModel?
+    suspend fun getByIdentifier(
+        identifier: String,
+        origin: String,
+        sourceLang: String,
+        targetLang: String,
+    ): TranslationMemoryEntryModel?
 
     suspend fun getSources(sourceLang: String): List<TranslationMemoryEntryModel>
 
     suspend fun getTranslation(lang: String, key: String): TranslationMemoryEntryModel?
 
-    suspend fun getSources(sourceLang: String, targetLang: String, search: String = ""): List<TranslationMemoryEntryModel>
+    suspend fun getSources(
+        sourceLang: String,
+        targetLang: String,
+        search: String = "",
+    ): List<TranslationMemoryEntryModel>
 
     suspend fun getLanguageCodes(): List<String>
 }

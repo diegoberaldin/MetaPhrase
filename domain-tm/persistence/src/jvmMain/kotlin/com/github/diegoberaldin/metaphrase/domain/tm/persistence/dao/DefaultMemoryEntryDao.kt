@@ -19,6 +19,7 @@ class DefaultMemoryEntryDao : MemoryEntryDao {
     override suspend fun create(model: TranslationMemoryEntryModel): Int = newSuspendedTransaction {
         val entryId = MemoryEntryEntity.insertIgnore {
             it[origin] = model.origin
+            it[identifier] = model.identifier
         }[MemoryEntryEntity.id].value
 
         MemoryMessageEntity.insertIgnore {
@@ -57,10 +58,18 @@ class DefaultMemoryEntryDao : MemoryEntryDao {
         }
     }
 
-    override suspend fun getById(id: Int, sourceLang: String, targetLang: String): TranslationMemoryEntryModel? =
+    override suspend fun getByIdentifier(
+        identifier: String,
+        origin: String,
+        sourceLang: String,
+        targetLang: String,
+    ): TranslationMemoryEntryModel? =
         newSuspendedTransaction {
-            val origin = MemoryEntryEntity.select { MemoryEntryEntity.id eq id }.firstOrNull()
-                ?.let { it[MemoryEntryEntity.origin] }.orEmpty()
+            val id =
+                MemoryEntryEntity.select { (MemoryEntryEntity.identifier eq identifier) and (MemoryEntryEntity.origin eq origin) }
+                    .firstOrNull()?.let {
+                    it[MemoryEntryEntity.id].value
+                } ?: return@newSuspendedTransaction null
             val sourceText =
                 MemoryMessageEntity.select { (MemoryMessageEntity.entryId eq id) and (MemoryMessageEntity.lang eq sourceLang) }
                     .firstOrNull()?.let { it[MemoryMessageEntity.text] }.orEmpty()
@@ -73,6 +82,7 @@ class DefaultMemoryEntryDao : MemoryEntryDao {
 
             TranslationMemoryEntryModel(
                 id = id,
+                identifier = identifier,
                 origin = origin,
                 sourceText = sourceText,
                 sourceLang = sourceLang,

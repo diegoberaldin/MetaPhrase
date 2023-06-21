@@ -32,13 +32,26 @@ internal class DefaultSyncProjectWithTmUseCase(
                     if (localSegment != null && localSegment.text.isNotEmpty()) {
                         val targetText = localSegment.text
                         val entryModel = TranslationMemoryEntryModel(
+                            identifier = key,
                             origin = origin,
                             sourceText = sourceText,
                             sourceLang = baseLanguage.code,
                             targetText = targetText,
                             targetLang = targetLang.code,
                         )
-                        memoryEntryRepository.create(entryModel)
+                        val existing = memoryEntryRepository.getByIdentifier(
+                            identifier = key,
+                            origin = origin,
+                            sourceLang = baseLanguage.code,
+                            targetLang = baseLanguage.code,
+                        )
+                        if (existing == null) {
+                            memoryEntryRepository.create(entryModel)
+                        } else {
+                            memoryEntryRepository.update(
+                                existing.copy(sourceText = sourceText, targetText = targetText),
+                            )
+                        }
                     }
                 }
             }

@@ -11,7 +11,12 @@ interface MemoryEntryDao {
 
     suspend fun update(model: TranslationMemoryEntryModel): Int
 
-    suspend fun getById(id: Int, sourceLang: String, targetLang: String): TranslationMemoryEntryModel?
+    suspend fun getByIdentifier(
+        identifier: String,
+        origin: String,
+        sourceLang: String,
+        targetLang: String,
+    ): TranslationMemoryEntryModel?
 
     suspend fun getSourceMessages(
         sourceLang: String,
