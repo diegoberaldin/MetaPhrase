@@ -11,9 +11,14 @@ interface MemoryEntryDao {
 
     suspend fun update(model: TranslationMemoryEntryModel): Int
 
-    suspend fun getById(id: Int, sourceLang: String, targetLang: String): TranslationMemoryEntryModel?
+    suspend fun getByIdentifier(
+        identifier: String,
+        origin: String,
+        sourceLang: String,
+        targetLang: String,
+    ): TranslationMemoryEntryModel?
 
-    suspend fun getSourceMessages(
+    suspend fun getEntries(
         sourceLang: String,
     ): List<TranslationMemoryEntryModel>
 
@@ -22,7 +27,7 @@ interface MemoryEntryDao {
         key: String,
     ): TranslationMemoryEntryModel?
 
-    suspend fun getSourceMessages(
+    suspend fun getEntries(
         sourceLang: String,
         targetLang: String,
         search: String,

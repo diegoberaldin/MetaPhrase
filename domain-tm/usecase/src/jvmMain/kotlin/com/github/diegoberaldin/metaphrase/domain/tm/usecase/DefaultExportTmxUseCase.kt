@@ -55,7 +55,7 @@ internal class DefaultExportTmxUseCase(
         val registry = mutableMapOf<String, List<LocalizedMessage>>()
 
         val otherLanguages = memoryEntryRepository.getLanguageCodes().filter { it != sourceLang }
-        val sourceMessages = memoryEntryRepository.getSources(sourceLang)
+        val sourceMessages = memoryEntryRepository.getEntries(sourceLang)
         sourceMessages.forEach {
             val key = it.identifier
             registry[key] = buildList {
