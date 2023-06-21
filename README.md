@@ -23,39 +23,38 @@ The application main screen is the translation editor, where localizers can inse
 <div align="center">
   <table>
     <tr>
-      <td><img width="900" alt="main_language" src="https://github.com/diegoberaldin/MetaPhrase/assets/2738294/f7c3a821-3904-4f24-9c52-69806b1ecb1b" /></td>
+      <td><img width="900" alt="main_language" src="https://github.com/diegoberaldin/MetaPhrase/assets/2738294/c8fd14e4-779d-4c6c-bf20-9faa3a0b0dd8" /></td>
     </tr>
     <tr>
-      <td><img width="900" alt="local_version" src="https://github.com/diegoberaldin/MetaPhrase/assets/2738294/1ca3c6c0-ef06-447d-ae1f-e43c2e9c944e" /></td>
+      <td><img width="900" alt="local_version" src="https://github.com/diegoberaldin/MetaPhrase/assets/2738294/58c5cd1d-8bab-45a3-af99-0db7e4393634" /></td>
     </tr>
   </table>
 </div>
 
 The bottom part of the main screen contains an expandable panel which gives access to useful features to make it easier to deliver high quality work for localizers such as:
 - fuzzy matches in translation memory
-- glossary
 - placeholder validation
+- browse translation memory content
+- glossary
+- machine translation
 
 <div align="center">
-  <img width="900" alt="validation" src="https://github.com/diegoberaldin/MetaPhrase/assets/2738294/b5188272-4aef-4e75-84ee-51a92cd5ec83">
+  <img width="900" alt="validation" src="https://github.com/diegoberaldin/MetaPhrase/assets/2738294/5b670105-60b5-44e1-bc60-3c45b747a740">
 </div>
 
 ## Technology
 
-If you are a developer and would like to know more about the technologies involved in the project, here is a short list:
+If you are a developer and would like to know more about the technologies involved, here is a short list:
 
-- Kotlin multiplatform
-- Compose multiplatform
-- Decompose navigation
-- Koin for DI
-- H2 database
-- JetBrains Exposed ORM
-- Redundent for XML generation
+- Kotlin (multiplatform)
+- Jetpack Compose
+- Decompose
+- Koin
+- H2 DB
+- JetBrains Exposed
+- Redundent XML
 - AndroidX datastore (preference based)
-- sl4j and log4j for logging to console and to file
+- Ktor client
+- sl4j + log4j
 
 More on this in the [tech notes](https://diegoberaldin.github.io/MetaPhrase/tech_manual/main) section of the project homepage.
-
-## What's next
-
-With the main tranlation UI, message filtering, fuzzy matching in translation memory and placeholder validation, all the base features of the application have been completed. I am not evaluating new features unless I receive explicit requests by users, but I am prioriting stability issues and bug reports now.
