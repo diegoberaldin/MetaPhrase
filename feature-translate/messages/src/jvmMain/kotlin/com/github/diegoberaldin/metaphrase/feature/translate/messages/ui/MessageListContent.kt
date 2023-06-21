@@ -42,7 +42,6 @@ import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Spacing
 import com.github.diegoberaldin.metaphrase.core.localization.localized
 import com.github.diegoberaldin.metaphrase.feature.translate.messages.presentation.MessageListComponent
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -57,17 +56,19 @@ fun MessageListContent(
     val lazyListState = rememberLazyListState()
     val spellingErrors by component.spellingErrors.collectAsState()
     val paginationState by component.paginationState.collectAsState()
+    val focusManager = LocalFocusManager.current
 
     LaunchedEffect(component) {
-        component.selectionEvents.debounce(500).onEach { index ->
-            if (index < lazyListState.firstVisibleItemIndex) {
-                lazyListState.scrollToItem(index = index)
-            } else {
-                lazyListState.animateScrollToItem(index = index)
-            }
-            delay(250)
-            component.startEditing(index)
-        }.launchIn(this)
+        component.selectionEvents
+            .debounce(250)
+            .onEach { index ->
+                if (index < lazyListState.firstVisibleItemIndex) {
+                    lazyListState.scrollToItem(index = (index - 1).coerceAtLeast(0))
+                } else {
+                    lazyListState.animateScrollToItem(index = (index - 1).coerceAtLeast(0))
+                }
+                component.startEditing(index)
+            }.launchIn(this)
     }
 
     LazyColumn(
@@ -80,7 +81,7 @@ fun MessageListContent(
             val focusRequester = remember {
                 FocusRequester()
             }
-            val focusManager = LocalFocusManager.current
+
             LaunchedEffect(uiState.editingIndex) {
                 runCatching {
                     if (uiState.editingIndex == idx) {
