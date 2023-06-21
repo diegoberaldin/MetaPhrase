@@ -19,6 +19,7 @@ This page contains a short user manual and is organized in the following section
 - [glossary panel](#glossary)
 - [placeholder validation](#validation)
 - [spelling check](#spellcheck)
+- [machine translation](#machine-translation)
 
 {% include_relative 00_definitions.md %}
 
@@ -93,6 +94,12 @@ This page contains a short user manual and is organized in the following section
 </div>
 
 {% include_relative 12_spellcheck.md %}
+
+<div align="right">
+<a href="#top">🔝</a>
+</div>
+
+{% include_relative 13_machine_translation.md %}
 
 <div align="right">
 <a href="#top">🔝</a>

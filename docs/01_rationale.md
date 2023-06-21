@@ -22,7 +22,7 @@ Even if the same keys are used to reference the string resources, adding a new l
 
 ## Current state of the market
 
- How does it compare with existing alternatives?
+ How does it compare with existing alternatives, especially in the field of mobile application development?
 
 - in **Xcode**, localizable files are are treated as text files and they are only shown one at a time. This implies for each message only the key is displayed, which makes it difficult to work on it as a translator because the reference (source) messages are not displayed any more after a translation has been inserted. MetaPhrase solves this issue by always showing both the key and the source variant of each message.
 

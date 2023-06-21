@@ -29,7 +29,7 @@ I evaluated other alternatives such as Precompose and Voyager, but I liked more 
 
 ### Dependency Injection
 
-I was primarily accustomed to Dagger and Hilt from the Android world, and I had much less experience with other frameworks for Kotlin (such as Kodein or Koin). I tried both and the final choice was set on **Koin** because I find it concise and yet very powerful. Sometimes it can be tricky to figure out the cause of some error because messages are not always crystal clear (even if they mostly are, especially compared to Dagger 😂) and missing bindings only pop up at runtime due to its nature, but I found that if you know what you are doing – at least most of the time – it's no great deal.
+I was primarily accustomed to Dagger and Hilt from the Android world, and I had much less experience with other frameworks for Kotlin (such as Kodein or Koin). I tried both and the final choice was set on **Koin** because I find it concise and yet very powerful. Sometimes it can be tricky to figure out the cause of some error because messages are not always crystal clear (even if they mostly are, especially compared to Dagger 😅) and missing bindings only pop up at runtime due to its nature, but I found that if you know what you are doing – at least most of the time – it's no great deal.
 
 I evaluated other alternatives such as Kodein, honestly it did its job well but I remember having had some problems in injecting the same instance of a singleton across different Gradle modules (and I didn't want to fallback to plain language `object`s without being able to pass dependencies dynamically).
 
@@ -49,8 +49,12 @@ Luckily, the **AndroidX DataStore** library from Jetpack was ported to multiplat
 
 In this project, parsing and writing XML was a core feature (for Android resources), and my choice was on the **Redundent** library (more info [here](https://github.com/redundent/kotlin-xml-builder)) for being really lightweight and easy as a piece of cake to use. I really enjoyed its declarative approach to serialization which makes it really easy to write and to maintain the code. Parsing with Redundent is somehow a "minor" feature (and indeed not well documented), but it does its job well and it's very concise.
 
-I had used more standard approaches such as SAXParser and XMLPullParser and both of them were quite a nightmare. After discovering Redundent I am looking forward to eradicatiing them from my other projects too! 😂
+I had used more standard approaches such as SAXParser and XMLPullParser and both of them were quite a nightmare. After discovering Redundent I am looking forward to eradicating them from my other projects too! 😂
 
 ### Logging
 
 I wanted a logger to be able to write log to a file (rather than just in the console) for bug reporting purposes, in order to ask users to send me the logs if they encountered issues with the program. I didn't find a suitable (and well documented) solution for Kotlin multiplatform, so I had to fallback to plain Java solutions, such as sl4j and log4j. Being a modern developer (this is opinionated, I know!) I was not very fond of having to write XML configuration files in order to get this to work (and it was not easy to configure the log file destination via environment variables) but I didn't find any viable alternative so I had to settle down with it.
+
+### Networking
+
+This was an offline application focused on storing data only on local files and databases. The need to perform network requests emerged when adding the integration with machine translation services. For this, the **Ktor** library was selected, due to the popularity it has gained in the multiplatform environment as well as its being very well documented. Plus, its content negotiation part offers out of the box support for Json with kotlinx serialization, so it was very easy to integrate and to work with in general.

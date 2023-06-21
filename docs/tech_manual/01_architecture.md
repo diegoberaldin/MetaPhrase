@@ -29,6 +29,7 @@ Here ist a short description of what can be found in each module:
   - **persistence** contains the local data sources for language data
   - **repository** contains the repositories to create, read and delete language data
   - **usecase** contains the use cases needed to interact with language data
+- **domain-mt** contains the business logic, data sources and data transfer objects used in the connectors for Machine Translation providers.
 - **domain-project** contains the data layer and business logic layer for project and messages (segments and segment pairs, aka translation units); it is divided in the following submodules:
   - **data** contains the model classes for project, segments and translation units
   - **persistence** contains the entity definitions and local data sources for project data

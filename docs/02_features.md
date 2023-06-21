@@ -2,7 +2,9 @@
 
 ## Editor
 
-The translation editor is the main screen of the application and it has two modes: the source (base) mode and the target (localized) view. 
+The translation editor is the main screen of the application and it has two modes: the source (base) mode and the target (localized) view.
+
+![editor](images/editor_localized.png)
 
 The source mode does not allow to insert any translation but, instead, to change the source messages. It is intended for developers and project managers, whenever they need to update the source text. An update in the source text will affect all the target languages. It this mode, only the message key and source text are displayed and messages can be marked as "unstranlatable", making them disappear in the target languages.
 
@@ -47,3 +49,9 @@ One of the most important features of this project is the placeholder validation
 When running the placeholder validation, MetaPhrase scans all the messages in the current localized variant of the project and detects whenever a placeholder is missing or has been erroneously added in the target message. By clicking on each row in the panel, the editor will scroll to the corresponding message for the translator to correct the mismatch.
 
 In addition to placeholder validation, it is also possible to run a global spelling check on all the localized strings. Spelling is also checked whenever any message is opened for editing.
+
+## Machine translation
+
+MetaPhrase can also integrate with the [MyMemory](https://mymemory.translated.net/) service for machine translation. The results are displayed in the bottom panel and can easily be copied into the translation editor.
+
+![machine_translation](images/machine_translation.png)
