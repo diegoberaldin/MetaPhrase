@@ -5,6 +5,7 @@ import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import com.arkivanov.essenty.lifecycle.doOnStart
 import com.github.diegoberaldin.metaphrase.core.common.coroutines.CoroutineDispatcherProvider
+import com.github.diegoberaldin.metaphrase.core.common.keystore.KeyStoreKeys
 import com.github.diegoberaldin.metaphrase.core.common.keystore.TemporaryKeyStore
 import com.github.diegoberaldin.metaphrase.core.common.notification.NotificationCenter
 import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
@@ -291,7 +292,7 @@ internal class DefaultMessageListComponent(
     private fun checkSpelling(text: String) {
         spellcheckJob?.cancel()
         val isEnabled = runBlocking {
-            keyStore.get("spellcheck_enabled", false)
+            keyStore.get(KeyStoreKeys.SpellcheckEnabled, false)
         }
         if (!isEnabled) {
             return

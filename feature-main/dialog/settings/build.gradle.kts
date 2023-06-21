@@ -34,6 +34,7 @@ kotlin {
                 implementation(projects.domainLanguage.usecase)
                 implementation(projects.domainProject.data)
                 implementation(projects.domainProject.usecase)
+                implementation(projects.domainMt.repository)
             }
         }
     }

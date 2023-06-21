@@ -27,6 +27,8 @@
 	<string name="create_segment_key">Key</string>
 	<string name="create_segment_text">Text</string>
 	<string name="dialog_settings_language">App language</string>
+	<string name="dialog_settings_machine_translation_key">API key</string>
+	<string name="dialog_settings_machine_translation_provider">Machine translation provider</string>
 	<string name="dialog_settings_similarity_threshold">Similarity threshold</string>
 	<string name="dialog_settings_spellcheck_enabled">Enable spellcheck</string>
 	<string name="dialog_settings_version">App version</string>

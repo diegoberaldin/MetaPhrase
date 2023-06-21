@@ -3,6 +3,8 @@ package com.github.diegoberaldin.metaphrase.feature.translate.panel.machinetrans
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.github.diegoberaldin.metaphrase.core.common.coroutines.CoroutineDispatcherProvider
+import com.github.diegoberaldin.metaphrase.core.common.keystore.KeyStoreKeys
+import com.github.diegoberaldin.metaphrase.core.common.keystore.TemporaryKeyStore
 import com.github.diegoberaldin.metaphrase.domain.language.repository.LanguageRepository
 import com.github.diegoberaldin.metaphrase.domain.mt.repository.MachineTranslationRepository
 import com.github.diegoberaldin.metaphrase.domain.project.repository.SegmentRepository
@@ -25,6 +27,7 @@ internal class DefaultMachineTranslationComponent(
     private val languageRepository: LanguageRepository,
     private val segmentRepository: SegmentRepository,
     private val machineTranslationRepository: MachineTranslationRepository,
+    private val keyStore: TemporaryKeyStore,
 ) : MachineTranslationComponent, ComponentContext by componentContext {
 
     private val isLoading = MutableStateFlow(false)
@@ -65,6 +68,7 @@ internal class DefaultMachineTranslationComponent(
 
     override fun clear() {
         translation.value = ""
+        updateTextSwitch.getAndUpdate { !it }
         lastSourceLang = ""
         lastTargetLang = ""
         lastMessage = ""
@@ -72,6 +76,7 @@ internal class DefaultMachineTranslationComponent(
 
     override fun load(key: String, projectId: Int, languageId: Int) {
         translation.value = ""
+        updateTextSwitch.getAndUpdate { !it }
         lastSourceLang = ""
         lastTargetLang = ""
         lastMessage = ""
@@ -90,7 +95,13 @@ internal class DefaultMachineTranslationComponent(
 
         viewModelScope.launch(dispatchers.io) {
             isLoading.value = true
+            val key = keyStore.get(KeyStoreKeys.MachineTranslationKey, "").takeIf { it.isNotEmpty() }
+            val provider = keyStore.get(KeyStoreKeys.MachineTranslationProvider, 0).let {
+                MachineTranslationRepository.AVAILABLE_PROVIDERS[it]
+            }
             val mtResult = machineTranslationRepository.getTranslation(
+                provider = provider,
+                key = key,
                 message = lastMessage,
                 sourceLang = lastSourceLang,
                 targetLang = lastTargetLang,
@@ -129,8 +140,14 @@ internal class DefaultMachineTranslationComponent(
         val targetLang = lastTargetLang.takeIf { it.isNotEmpty() } ?: return
         viewModelScope.launch(dispatchers.io) {
             isLoading.value = true
+            val key = keyStore.get(KeyStoreKeys.MachineTranslationKey, "").takeIf { it.isNotEmpty() }
+            val provider = keyStore.get(KeyStoreKeys.MachineTranslationProvider, 0).let {
+                MachineTranslationRepository.AVAILABLE_PROVIDERS[it]
+            }
             val success = runCatching {
                 machineTranslationRepository.shareTranslation(
+                    provider = provider,
+                    key = key,
                     sourceMessage = sourceMessage,
                     sourceLang = sourceLang,
                     targetMessage = targetMessage,

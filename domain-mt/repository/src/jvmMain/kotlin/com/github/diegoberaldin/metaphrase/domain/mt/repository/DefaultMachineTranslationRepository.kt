@@ -11,6 +11,7 @@ internal class DefaultMachineTranslationRepository(
     private val cache = LruCache<String>(size = 50)
     override suspend fun getTranslation(
         provider: MachineTranslationProvider,
+        key: String?,
         sourceMessage: String,
         sourceLang: String,
         targetLang: String,
@@ -26,6 +27,7 @@ internal class DefaultMachineTranslationRepository(
         val remote = when (provider) {
             MachineTranslationProvider.MY_MEMORY -> {
                 myMemoryDataSource.getTranslation(
+                    key = key,
                     sourceMessage = sourceMessage,
                     sourceLang = sourceLang,
                     targetLang = targetLang,
@@ -42,6 +44,7 @@ internal class DefaultMachineTranslationRepository(
 
     override suspend fun shareTranslation(
         provider: MachineTranslationProvider,
+        key: String?,
         sourceMessage: String,
         sourceLang: String,
         targetMessage: String,
@@ -50,6 +53,7 @@ internal class DefaultMachineTranslationRepository(
         when (provider) {
             MachineTranslationProvider.MY_MEMORY -> {
                 myMemoryDataSource.contributeTranslation(
+                    key = key,
                     sourceMessage = sourceMessage,
                     sourceLang = sourceLang,
                     targetMessage = targetMessage,

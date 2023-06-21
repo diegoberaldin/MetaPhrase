@@ -20,6 +20,7 @@ import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.extensions.compose.jetbrains.lifecycle.LifecycleController
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import com.github.diegoberaldin.metaphrase.core.common.di.commonModule
+import com.github.diegoberaldin.metaphrase.core.common.keystore.KeyStoreKeys
 import com.github.diegoberaldin.metaphrase.core.common.keystore.TemporaryKeyStore
 import com.github.diegoberaldin.metaphrase.core.common.log.LogManager
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.MetaPhraseTheme
@@ -78,10 +79,10 @@ fun main() {
     runBlocking {
         val keystore: TemporaryKeyStore = getByInjection()
         val systemLanguage = Locale.getDefault().language
-        val lang = keystore.get("lang", "")
+        val lang = keystore.get(KeyStoreKeys.AppLanguage, "")
         L10n.setLanguage(lang.ifEmpty { systemLanguage })
         if (lang.isEmpty()) {
-            keystore.save("lang", "lang".localized())
+            keystore.save(KeyStoreKeys.AppLanguage, "lang".localized())
         }
     }
 

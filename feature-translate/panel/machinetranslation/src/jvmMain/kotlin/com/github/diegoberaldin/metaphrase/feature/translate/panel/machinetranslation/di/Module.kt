@@ -16,6 +16,7 @@ val panelMachineTranslationModule = module {
             languageRepository = get(),
             segmentRepository = get(),
             machineTranslationRepository = get(),
+            keyStore = get(),
         )
     }
 }

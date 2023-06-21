@@ -56,6 +56,8 @@ fun SettingsDialog(
             },
         ) {
             val uiState by component.uiState.collectAsState()
+            val languageUiState by component.languageUiState.collectAsState()
+            val machineTranslationUiState by component.machineTranslationUiState.collectAsState()
 
             Column(
                 modifier = Modifier.size(600.dp, 400.dp)
@@ -74,7 +76,7 @@ fun SettingsDialog(
                             start = Spacing.s,
                             end = Spacing.m,
                         ),
-                    verticalArrangement = Arrangement.spacedBy(Spacing.xs),
+                    verticalArrangement = Arrangement.spacedBy(Spacing.s),
                 ) {
                     Row(modifier = Modifier.fillMaxWidth()) {
                         Text(
@@ -83,7 +85,7 @@ fun SettingsDialog(
                             color = MaterialTheme.colors.onBackground,
                         )
                         Spacer(modifier = Modifier.weight(1f))
-                        val availableLanguages = uiState.availableLanguages
+                        val availableLanguages = languageUiState.availableLanguages
                         CustomSpinner(
                             modifier = Modifier.background(
                                 color = SelectedBackground,
@@ -92,7 +94,7 @@ fun SettingsDialog(
                             size = DpSize(width = 200.dp, height = 30.dp),
                             values = availableLanguages.map { it.name },
                             valueColor = MaterialTheme.colors.onBackground,
-                            current = uiState.currentLanguage?.name,
+                            current = languageUiState.currentLanguage?.name,
                             onValueChanged = {
                                 val language = availableLanguages[it]
                                 component.setLanguage(language)
@@ -108,7 +110,7 @@ fun SettingsDialog(
                         Spacer(modifier = Modifier.weight(1f))
                         CustomTextField(
                             modifier = Modifier.width(80.dp).height(26.dp),
-                            value = uiState.similarityThreshold.toString(),
+                            value = uiState.similarityThreshold,
                             onValueChange = {
                                 component.setSimilarity(it)
                             },
@@ -133,6 +135,43 @@ fun SettingsDialog(
                                 component.setSpellcheckEnabled(it)
                             },
                             colors = CheckboxDefaults.colors(checkedColor = MaterialTheme.colors.primary),
+                        )
+                    }
+                    Row(modifier = Modifier.fillMaxWidth()) {
+                        Text(
+                            text = "dialog_settings_machine_translation_provider".localized(),
+                            style = MaterialTheme.typography.caption,
+                            color = MaterialTheme.colors.onBackground,
+                        )
+                        Spacer(modifier = Modifier.weight(1f))
+                        val providers = machineTranslationUiState.availableProviders
+                        CustomSpinner(
+                            modifier = Modifier.background(
+                                color = SelectedBackground,
+                                shape = RoundedCornerShape(4.dp),
+                            ),
+                            size = DpSize(width = 200.dp, height = 30.dp),
+                            values = providers.map { it.readableName },
+                            valueColor = MaterialTheme.colors.onBackground,
+                            current = machineTranslationUiState.currentProvider?.readableName.orEmpty(),
+                            onValueChanged = {
+                                component.setMachineTranslationProvider(it)
+                            },
+                        )
+                    }
+                    Row(modifier = Modifier.fillMaxWidth()) {
+                        Text(
+                            text = "dialog_settings_machine_translation_key".localized(),
+                            style = MaterialTheme.typography.caption,
+                            color = MaterialTheme.colors.onBackground,
+                        )
+                        Spacer(modifier = Modifier.weight(1f))
+                        CustomTextField(
+                            modifier = Modifier.width(200.dp).height(26.dp),
+                            value = machineTranslationUiState.key,
+                            onValueChange = {
+                                component.setMachineTranslationKey(it)
+                            },
                         )
                     }
                     Spacer(modifier = Modifier.weight(1f))

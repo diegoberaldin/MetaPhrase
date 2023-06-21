@@ -26,6 +26,8 @@
 	<string name="create_segment_key">Chiave</string>
 	<string name="create_segment_text">Testo</string>
 	<string name="dialog_settings_language">Lingua app</string>
+	<string name="dialog_settings_machine_translation_key">Chiave API</string>
+	<string name="dialog_settings_machine_translation_provider">Servizio traduzione automatica</string>
 	<string name="dialog_settings_similarity_threshold">Soglia corrispondenza</string>
 	<string name="dialog_settings_spellcheck_enabled">Abilita controllo ortografico</string>
 	<string name="dialog_settings_version">Versione app</string>

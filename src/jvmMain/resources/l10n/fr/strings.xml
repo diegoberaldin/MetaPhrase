@@ -5,7 +5,7 @@
 	<string name="app_intro_title">Merci d\'utiliser MetaPhrase !</string>
 	<string name="button_cancel">Annuler</string>
 	<string name="button_close">Fermer</string>
-	<string name="button_copy_target"/>
+	<string name="button_copy_target">Copier la cible</string>
 	<string name="button_insert">Insérer</string>
 	<string name="button_ok">OK</string>
 	<string name="button_refresh">Rafraîchir</string>
@@ -26,6 +26,8 @@
 	<string name="create_segment_key">Clé</string>
 	<string name="create_segment_text">Texte</string>
 	<string name="dialog_settings_language">Langue de l\'application</string>
+	<string name="dialog_settings_machine_translation_key">Clé de l’API</string>
+	<string name="dialog_settings_machine_translation_provider">Fournisseur de traduction automatique</string>
 	<string name="dialog_settings_similarity_threshold">Seuil de similarité</string>
 	<string name="dialog_settings_spellcheck_enabled">Activer la vérification orthographique</string>
 	<string name="dialog_settings_version">Version de l\'application</string>

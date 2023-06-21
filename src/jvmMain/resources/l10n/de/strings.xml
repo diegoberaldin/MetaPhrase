@@ -26,6 +26,8 @@
 	<string name="create_segment_key">Schlüssel</string>
 	<string name="create_segment_text">Text</string>
 	<string name="dialog_settings_language">App-Sprache</string>
+	<string name="dialog_settings_machine_translation_key">API Schlüssel</string>
+	<string name="dialog_settings_machine_translation_provider">Anbieter von maschinellen Übersetzungen</string>
 	<string name="dialog_settings_similarity_threshold">Ähnlichkeitsschwellenwert</string>
 	<string name="dialog_settings_spellcheck_enabled">Rechtschreibprüfung aktivieren</string>
 	<string name="dialog_settings_version">App-Version</string>
