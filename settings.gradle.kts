@@ -63,6 +63,7 @@ include(
 
     ":feature-main",
     ":feature-main:dialog:settings",
+    ":feature-main:dialog:login",
     ":feature-intro",
 
     ":feature-projects",

@@ -64,4 +64,13 @@ internal class DefaultMachineTranslationRepository(
             else -> Unit
         }
     }
+
+    override suspend fun generateKey(provider: MachineTranslationProvider, username: String, password: String): String =
+        when (provider) {
+            MachineTranslationProvider.MY_MEMORY -> {
+                myMemoryDataSource.generateKey(username = username, password = password)
+            }
+
+            else -> ""
+        }
 }

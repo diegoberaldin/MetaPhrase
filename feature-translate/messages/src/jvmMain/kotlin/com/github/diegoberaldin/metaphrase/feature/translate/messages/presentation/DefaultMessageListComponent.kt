@@ -329,20 +329,18 @@ internal class DefaultMessageListComponent(
     override fun moveToPrevious() {
         val index = editingIndex.value ?: return
         val newIndex = (index - 1).coerceAtLeast(0)
-        editingIndex.value = newIndex
         viewModelScope.launch {
             // ensure previous is visible too
-            selectionEvents.emit((newIndex - 1).coerceAtLeast(0))
+            selectionEvents.emit((newIndex).coerceAtLeast(0))
         }
     }
 
     override fun moveToNext() {
         val index = editingIndex.value ?: return
         val newIndex = (index + 1).coerceAtMost(units.value.lastIndex)
-        editingIndex.value = newIndex
         viewModelScope.launch {
             // ensure previous is visible too
-            selectionEvents.emit((newIndex - 1).coerceAtLeast(0))
+            selectionEvents.emit((newIndex).coerceAtLeast(0))
         }
     }
 

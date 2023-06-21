@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.compose")
 }
 
-group = "com.github.diegoberaldin.metaphrase.feature.main.dialog.settings"
+group = "com.github.diegoberaldin.metaphrase.feature.main.dialog.login"
 version = libs.versions.appVersion.get()
 
 repositories {
@@ -29,14 +29,6 @@ kotlin {
 
                 implementation(projects.coreCommon)
                 implementation(projects.coreLocalization)
-
-                implementation(projects.featureMain.dialog.login)
-
-                implementation(projects.domainLanguage.data)
-                implementation(projects.domainLanguage.usecase)
-                implementation(projects.domainProject.data)
-                implementation(projects.domainProject.usecase)
-                implementation(projects.domainMt.repository)
             }
         }
     }

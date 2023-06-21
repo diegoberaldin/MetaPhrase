@@ -9,6 +9,7 @@ data class SettingsLanguageUiState(
 )
 
 data class SettingsUiState(
+    val isLoading: Boolean = false,
     val similarityThreshold: String = "",
     val spellcheckEnabled: Boolean = false,
     val appVersion: String = "",

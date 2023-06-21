@@ -42,6 +42,7 @@
             <option value="$PROJECT_DIR$/feature-intro" />
             <option value="$PROJECT_DIR$/feature-main" />
             <option value="$PROJECT_DIR$/feature-main/dialog" />
+            <option value="$PROJECT_DIR$/feature-main/dialog/login" />
             <option value="$PROJECT_DIR$/feature-main/dialog/settings" />
             <option value="$PROJECT_DIR$/feature-projects" />
             <option value="$PROJECT_DIR$/feature-projects/dialog" />
