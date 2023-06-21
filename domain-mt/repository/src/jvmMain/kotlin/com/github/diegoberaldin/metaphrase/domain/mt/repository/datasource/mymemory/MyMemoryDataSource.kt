@@ -2,6 +2,7 @@ package com.github.diegoberaldin.metaphrase.domain.mt.repository.datasource.myme
 
 import com.github.diegoberaldin.metaphrase.domain.mt.repository.datasource.MachineTranslationDataSource
 import com.github.diegoberaldin.metaphrase.domain.mt.repository.datasource.client
+import com.github.diegoberaldin.metaphrase.domain.mt.repository.datasource.mymemory.dto.ServiceKey
 import com.github.diegoberaldin.metaphrase.domain.mt.repository.datasource.mymemory.dto.ServiceResponse
 import io.ktor.client.call.body
 import io.ktor.client.request.HttpRequestBuilder
@@ -15,6 +16,7 @@ internal class MyMemoryDataSource : MachineTranslationDataSource {
         const val Base = "https://api.mymemory.translated.net"
         const val GetTranslation = "$Base/get"
         const val SetTranslation = "$Base/set"
+        const val GenerateKey = "$Base/keygen"
     }
 
     private object Params {
@@ -23,6 +25,8 @@ internal class MyMemoryDataSource : MachineTranslationDataSource {
         const val ApiKey = "key"
         const val Segment = "seg"
         const val Translation = "tra"
+        const val Username = "user"
+        const val Password = "pass"
     }
 
     override suspend fun getTranslation(
@@ -87,4 +91,16 @@ internal class MyMemoryDataSource : MachineTranslationDataSource {
             exceptionOrNull()?.also { exc -> exc.printStackTrace() }
         }
     }
+
+    override suspend fun generateKey(username: String, password: String): String = runCatching {
+        val response = client.get(
+            HttpRequestBuilder().apply {
+                url(Urls.GenerateKey)
+                parameter(Params.Username, username)
+                parameter(Params.Password, password)
+            },
+        )
+        val key = response.body<ServiceKey>()
+        key.key
+    }.getOrElse { "" }
 }

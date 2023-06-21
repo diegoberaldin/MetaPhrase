@@ -15,4 +15,9 @@ interface MachineTranslationDataSource {
         targetLang: String,
         key: String? = null,
     )
+
+    suspend fun generateKey(
+        username: String,
+        password: String,
+    ): String
 }

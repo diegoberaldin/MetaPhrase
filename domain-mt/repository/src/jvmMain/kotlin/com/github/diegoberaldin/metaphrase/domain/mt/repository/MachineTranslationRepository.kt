@@ -25,4 +25,10 @@ interface MachineTranslationRepository {
         targetMessage: String,
         targetLang: String,
     )
+
+    suspend fun generateKey(
+        provider: MachineTranslationProvider = MachineTranslationProvider.MY_MEMORY,
+        username: String,
+        password: String,
+    ): String
 }

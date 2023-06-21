@@ -6,6 +6,7 @@
 	<string name="button_cancel">Annuler</string>
 	<string name="button_close">Fermer</string>
 	<string name="button_copy_target">Copier la cible</string>
+	<string name="button_generate">Générer</string>
 	<string name="button_insert">Insérer</string>
 	<string name="button_ok">OK</string>
 	<string name="button_refresh">Rafraîchir</string>
@@ -43,10 +44,13 @@
 	<string name="dialog_title_edit_project">Modifier le projet</string>
 	<string name="dialog_title_generic_message">Informations</string>
 	<string name="dialog_title_invalid_segments">Messages invalides</string>
+	<string name="dialog_title_login">Login</string>
 	<string name="dialog_title_open_file">Choisir le fichier</string>
 	<string name="dialog_title_settings">Paramètres</string>
 	<string name="dialog_title_statistics">Statistiques</string>
 	<string name="dialog_title_warning">Avis</string>
+	<string name="field_password">Mot de passe</string>
+	<string name="field_username">Identifiant</string>
 	<string name="glossary_title">Glossaire</string>
 	<string name="lang">fr</string>
 	<string name="machine_translation_title">Traduction automatique</string>
@@ -105,6 +109,8 @@
 	<string name="tooltip_copy_base">Copier depuis la langue de base</string>
 	<string name="tooltip_copy_translation">Copier la traduction</string>
 	<string name="tooltip_delete">Supprimer</string>
+	<string name="tooltip_hide_password">Cacher le mot de passe</string>
+	<string name="tooltip_login">Connectez-vous pour générer une nouvelle clé API</string>
 	<string name="tooltip_make_translatable">Rendre traduisible</string>
 	<string name="tooltip_make_untranslatable">Rendre intraduisible</string>
 	<string name="tooltip_minify">Réduire</string>
@@ -113,6 +119,7 @@
 	<string name="tooltip_new_source_term">Nouveau terme source</string>
 	<string name="tooltip_new_target_term">Nouveau terme cible</string>
 	<string name="tooltip_remove_from_recent">Supprimer de la liste récente</string>
+	<string name="tooltip_show_password">Afficher le mot de passe</string>
 	<string name="tooltip_validate">Valider les espaces réservés</string>
 	<string name="translation_memory_origin">source : %s</string>
 	<string name="translation_memory_similarity">similarité : %d%%</string>

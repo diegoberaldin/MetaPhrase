@@ -22,7 +22,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Spacing
@@ -32,6 +34,8 @@ fun CustomTextField(
     modifier: Modifier = Modifier,
     label: String = "",
     hint: String = "",
+    enabled: Boolean = true,
+    secure: Boolean = false,
     labelColor: Color = Color.White,
     backgroundColor: Color = Color.White,
     textColor: Color = Color.Black,
@@ -81,6 +85,8 @@ fun CustomTextField(
             cursorBrush = SolidColor(textColor),
             textStyle = MaterialTheme.typography.caption.copy(color = textColor),
             singleLine = singleLine,
+            enabled = enabled,
+            visualTransformation = if (secure) PasswordVisualTransformation() else VisualTransformation.None,
             decorationBox = { innerTextField ->
                 Box(
                     modifier = Modifier.padding(horizontal = Spacing.xs, vertical = Dp.Hairline),

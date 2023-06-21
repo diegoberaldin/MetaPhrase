@@ -22,21 +22,31 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.PointerIcon
+import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.rememberWindowState
+import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
+import com.github.diegoberaldin.feature.main.settings.dialog.login.presentation.LoginComponent
+import com.github.diegoberaldin.feature.main.settings.dialog.login.ui.LoginDialog
 import com.github.diegoberaldin.metaphrase.core.common.ui.components.CustomSpinner
 import com.github.diegoberaldin.metaphrase.core.common.ui.components.CustomTextField
+import com.github.diegoberaldin.metaphrase.core.common.ui.components.CustomTooltipArea
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.MetaPhraseTheme
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.SelectedBackground
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Spacing
 import com.github.diegoberaldin.metaphrase.core.localization.L10n
 import com.github.diegoberaldin.metaphrase.core.localization.localized
+import com.github.diegoberaldin.metaphrase.domain.mt.repository.data.MachineTranslationProvider
 import com.github.diegoberaldin.metaphrase.feature.main.dialog.settings.presentation.SettingsComponent
+import java.awt.Cursor
 
 @Composable
 fun SettingsDialog(
@@ -58,9 +68,17 @@ fun SettingsDialog(
             val uiState by component.uiState.collectAsState()
             val languageUiState by component.languageUiState.collectAsState()
             val machineTranslationUiState by component.machineTranslationUiState.collectAsState()
+            val pointerIcon by remember(uiState.isLoading) {
+                if (uiState.isLoading) {
+                    mutableStateOf(PointerIcon(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR)))
+                } else {
+                    mutableStateOf(PointerIcon(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR)))
+                }
+            }
 
             Column(
                 modifier = Modifier.size(600.dp, 400.dp)
+                    .pointerHoverIcon(pointerIcon)
                     .background(MaterialTheme.colors.background)
                     .padding(
                         start = Spacing.s,
@@ -166,9 +184,28 @@ fun SettingsDialog(
                             color = MaterialTheme.colors.onBackground,
                         )
                         Spacer(modifier = Modifier.weight(1f))
+                        val keyGenerationEnabled =
+                            machineTranslationUiState.currentProvider == MachineTranslationProvider.MY_MEMORY
+                        if (keyGenerationEnabled) {
+                            CustomTooltipArea(
+                                text = "tooltip_login".localized(),
+                            ) {
+                                Button(
+                                    modifier = Modifier.heightIn(max = 25.dp),
+                                    contentPadding = PaddingValues(0.dp),
+                                    onClick = {
+                                        component.openLoginDialog()
+                                    },
+                                ) {
+                                    Text(text = "button_generate".localized(), style = MaterialTheme.typography.button)
+                                }
+                            }
+                            Spacer(modifier = Modifier.width(Spacing.s))
+                        }
                         CustomTextField(
                             modifier = Modifier.width(200.dp).height(26.dp),
                             value = machineTranslationUiState.key,
+                            enabled = !keyGenerationEnabled,
                             onValueChange = {
                                 component.setMachineTranslationKey(it)
                             },
@@ -205,6 +242,24 @@ fun SettingsDialog(
                         Text(text = "button_close".localized(), style = MaterialTheme.typography.button)
                     }
                 }
+            }
+
+            val dialog by component.dialog.subscribeAsState()
+            when (dialog.child?.configuration) {
+                SettingsComponent.DialogConfig.Login -> {
+                    val child = dialog.child?.instance as LoginComponent
+                    LoginDialog(
+                        component = child,
+                        onClose = { u, p ->
+                            if (u != null && p != null) {
+                                component.generateMachineTranslationKey(username = u, password = p)
+                            }
+                            component.closeDialog()
+                        },
+                    )
+                }
+
+                else -> Unit
             }
         }
     }
