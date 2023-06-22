@@ -1937,35 +1937,99 @@
 				</seg>
 			</tuv>
 		</tu>
-		<tu tuid="menu_glossary">
+		<tu tuid="menu_glossary_clear">
 			<tuv xml:lang="en">
 				<seg>
-					Glossary
+					Reset glossary
 				</seg>
 			</tuv>
 			<tuv xml:lang="it">
 				<seg>
-					Glossario
+					Pulisci glossario
 				</seg>
 			</tuv>
 			<tuv xml:lang="de">
 				<seg>
-					Glossar
+					Glossar zurücksetzen
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
-					Glossaire
+					Réinitialiser le glossaire
 				</seg>
 			</tuv>
 			<tuv xml:lang="es">
 				<seg>
-					Glosario
+					Reiniciar glosario
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
 				<seg>
-					Glossário
+					Redefinir glossário
+				</seg>
+			</tuv>
+		</tu>
+		<tu tuid="menu_glossary_export">
+			<tuv xml:lang="en">
+				<seg>
+					Export glossary…
+				</seg>
+			</tuv>
+			<tuv xml:lang="it">
+				<seg>
+					Esporta glossario…
+				</seg>
+			</tuv>
+			<tuv xml:lang="de">
+				<seg>
+					Glossar exportieren…
+				</seg>
+			</tuv>
+			<tuv xml:lang="fr">
+				<seg>
+					Exporter le glossaire…
+				</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>
+					Exportar glosario…
+				</seg>
+			</tuv>
+			<tuv xml:lang="pt">
+				<seg>
+					Exportar glossário…
+				</seg>
+			</tuv>
+		</tu>
+		<tu tuid="menu_glossary_import">
+			<tuv xml:lang="en">
+				<seg>
+					Import glossary…
+				</seg>
+			</tuv>
+			<tuv xml:lang="it">
+				<seg>
+					Importa glossario…
+				</seg>
+			</tuv>
+			<tuv xml:lang="de">
+				<seg>
+					Glossar importieren…
+				</seg>
+			</tuv>
+			<tuv xml:lang="fr">
+				<seg>
+					Importer le glossaire…
+				</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>
+					Importar glosario…
+				</seg>
+			</tuv>
+			<tuv xml:lang="pt">
+				<seg>
+					Importar glossário…
 				</seg>
 			</tuv>
 		</tu>
@@ -2609,6 +2673,38 @@
 				</seg>
 			</tuv>
 		</tu>
+		<tu tuid="menu_resources">
+			<tuv xml:lang="en">
+				<seg>
+					Translation resources
+				</seg>
+			</tuv>
+			<tuv xml:lang="it">
+				<seg>
+					Risorse di traduzione
+				</seg>
+			</tuv>
+			<tuv xml:lang="de">
+				<seg>
+					Übersetzungsressourcen
+				</seg>
+			</tuv>
+			<tuv xml:lang="fr">
+				<seg>
+					Ressources pour les traducteurs
+				</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>
+					Recursos de traducción
+				</seg>
+			</tuv>
+			<tuv xml:lang="pt">
+				<seg>
+					Recursos de tradução
+				</seg>
+			</tuv>
+		</tu>
 		<tu tuid="menu_segment">
 			<tuv xml:lang="en">
 				<seg>
@@ -2833,131 +2929,99 @@
 				</seg>
 			</tuv>
 		</tu>
-		<tu tuid="menu_translation_memory">
-			<tuv xml:lang="en">
-				<seg>
-					Memory
-				</seg>
-			</tuv>
-			<tuv xml:lang="it">
-				<seg>
-					Memoria
-				</seg>
-			</tuv>
-			<tuv xml:lang="de">
-				<seg>
-					Speicher
-				</seg>
-			</tuv>
-			<tuv xml:lang="fr">
-				<seg>
-					Mémoire
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Memoria
-				</seg>
-			</tuv>
-			<tuv xml:lang="pt">
-				<seg>
-					Memória
-				</seg>
-			</tuv>
-		</tu>
 		<tu tuid="menu_translation_memory_clear">
 			<tuv xml:lang="en">
 				<seg>
-					Reset all
+					Reset translation memory
 				</seg>
 			</tuv>
 			<tuv xml:lang="it">
 				<seg>
-					Azzera
+					Pulisci memoria di traduzione
 				</seg>
 			</tuv>
 			<tuv xml:lang="de">
 				<seg>
-					Alles zurücksetzen
+					Translation Memory zurücksetzen
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
-					Tout réinitialiser
+					Réinitialiser la mémoire de traduction
 				</seg>
 			</tuv>
 			<tuv xml:lang="es">
 				<seg>
-					Reiniciar
+					Reiniciar memoria de traducción
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
 				<seg>
-					Redefinir tudo
+					Redefinir memória de tradução
 				</seg>
 			</tuv>
 		</tu>
 		<tu tuid="menu_translation_memory_export">
 			<tuv xml:lang="en">
 				<seg>
-					Export…
+					Export translation memory…
 				</seg>
 			</tuv>
 			<tuv xml:lang="it">
 				<seg>
-					Esporta…
+					Esporta memoria di traduzione…
 				</seg>
 			</tuv>
 			<tuv xml:lang="de">
 				<seg>
-					Exportieren…
+					Translation Memory exportieren…
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
-					Exporter…
+					Exporter la mémoire de traduction…
 				</seg>
 			</tuv>
 			<tuv xml:lang="es">
 				<seg>
-					Exportar…
+					Exportar memoria de traducción…
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
 				<seg>
-					Exportar…
+					Exportar memória de tradução…
 				</seg>
 			</tuv>
 		</tu>
 		<tu tuid="menu_translation_memory_import">
 			<tuv xml:lang="en">
 				<seg>
-					Import…
+					Import translation memory…
 				</seg>
 			</tuv>
 			<tuv xml:lang="it">
 				<seg>
-					Importa…
+					Importa memoria di traduzione…
 				</seg>
 			</tuv>
 			<tuv xml:lang="de">
 				<seg>
-					Importieren…
+					Translation Memory importieren…
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
-					Importer…
+					Importer la mémoire de traduction…
 				</seg>
 			</tuv>
 			<tuv xml:lang="es">
 				<seg>
-					Importar…
+					Importar memoria de traducción…
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
 				<seg>
-					Importar…
+					Importar memória de tradução…
 				</seg>
 			</tuv>
 		</tu>
@@ -2996,32 +3060,32 @@
 		<tu tuid="menu_translation_memory_sync_project">
 			<tuv xml:lang="en">
 				<seg>
-					Sync project with TM
+					Sync project with translation memory
 				</seg>
 			</tuv>
 			<tuv xml:lang="it">
 				<seg>
-					Sincronizza progetto in TM
+					Sincronizza progetto con memoria di traduzione
 				</seg>
 			</tuv>
 			<tuv xml:lang="de">
 				<seg>
-					Projekt mit TM synchronisieren
+					Projekt mit Translation Memory synchronisieren
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
-					Synchroniser le projet avec TM
+					Synchroniser le projet avec la mémoire de traduction
 				</seg>
 			</tuv>
 			<tuv xml:lang="es">
 				<seg>
-					Sincronizar proyecto en MT
+					Sincronizar proyecto con memoria de traducción
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
 				<seg>
-					Sincronizar projeto com TM
+					Sincronizar o projecto com a memória de tradução
 				</seg>
 			</tuv>
 		</tu>

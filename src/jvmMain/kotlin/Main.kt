@@ -333,7 +333,7 @@ private fun MenuBarScope.makeMenus(
         }
     }
     Menu(
-        text = "menu_translation_memory".localized(),
+        text = "menu_resources".localized(),
     ) {
         Item(
             text = "menu_translation_memory_insert_best_match".localized(),
@@ -366,22 +366,19 @@ private fun MenuBarScope.makeMenus(
         ) {
             rootComponent.clearTm()
         }
-    }
-    Menu(
-        text = "menu_glossary".localized(),
-    ) {
+        Separator()
         Item(
-            text = "menu_translation_memory_import".localized(),
+            text = "menu_glossary_import".localized(),
         ) {
             rootComponent.openImportGlossaryDialog()
         }
         Item(
-            text = "menu_translation_memory_export".localized(),
+            text = "menu_glossary_export".localized(),
         ) {
             rootComponent.openExportGlossaryDialog()
         }
         Item(
-            text = "menu_translation_memory_clear".localized(),
+            text = "menu_glossary_clear".localized(),
         ) {
             rootComponent.clearGlossary()
         }
