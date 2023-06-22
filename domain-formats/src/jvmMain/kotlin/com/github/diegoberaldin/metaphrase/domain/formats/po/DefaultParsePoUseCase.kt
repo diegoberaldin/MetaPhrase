@@ -15,7 +15,9 @@ class DefaultParsePoUseCase(
             return emptyList()
         }
         return withContext(dispatchers.io) {
-            read(file)
+            runCatching {
+                read(file)
+            }.getOrElse { emptyList() }
         }
     }
 
@@ -24,7 +26,7 @@ class DefaultParsePoUseCase(
             val res = mutableListOf<SegmentModel>()
             val lines = reader.readLines()
 
-            val groups = buildList<List<String>> {
+            val groups = buildList {
                 val group = mutableListOf<String>()
                 for (line in lines) {
                     if (line.isEmpty()) {

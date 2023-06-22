@@ -157,6 +157,7 @@ fun RootContent(
                         ResourceFileType.PO -> it.endsWith(".po")
                         ResourceFileType.JSON -> it.endsWith(".json")
                         ResourceFileType.ARB -> it.endsWith(".arb")
+                        ResourceFileType.PROPERTIES -> it.endsWith(".properties")
                         else -> false
                     }
                 },
@@ -180,6 +181,7 @@ fun RootContent(
                     ResourceFileType.PO -> "messages.po"
                     ResourceFileType.JSON -> "strings.json"
                     ResourceFileType.ARB -> "strings.arb"
+                    ResourceFileType.PROPERTIES -> "dictionary.properties"
                     else -> "strings"
                 },
                 onCloseRequest = { path ->

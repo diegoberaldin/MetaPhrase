@@ -21,16 +21,20 @@ class DefaultExportJsonUseCase(
     override suspend fun invoke(segments: List<SegmentModel>, path: String) {
         val file = File(path)
         if (!file.exists()) {
-            file.createNewFile()
+            runCatching {
+                file.createNewFile()
+            }
         }
         if (!file.canWrite()) {
             return
         }
         withContext(dispatchers.io) {
-            FileWriter(file).use { writer ->
-                val map = convertToTree(list = segments.map { it.key to it.text })
-                json.encodeToString(map).also {
-                    writer.write(it)
+            runCatching {
+                FileWriter(file).use { writer ->
+                    val map = convertToTree(list = segments.map { it.key to it.text })
+                    json.encodeToString(map).also {
+                        writer.write(it)
+                    }
                 }
             }
         }

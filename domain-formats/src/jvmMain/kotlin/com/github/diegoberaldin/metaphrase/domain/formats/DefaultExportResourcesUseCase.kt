@@ -5,6 +5,7 @@ import com.github.diegoberaldin.metaphrase.domain.formats.flutter.ExportArbUseCa
 import com.github.diegoberaldin.metaphrase.domain.formats.ios.ExportIosResourcesUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.json.ExportJsonUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.po.ExportPoUseCase
+import com.github.diegoberaldin.metaphrase.domain.formats.properties.ExportPropertiesUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.resx.ExportResxUseCase
 import com.github.diegoberaldin.metaphrase.domain.project.data.ResourceFileType
 import com.github.diegoberaldin.metaphrase.domain.project.data.SegmentModel
@@ -16,6 +17,7 @@ internal class DefaultExportResourcesUseCase(
     private val exportPo: ExportPoUseCase,
     private val exportJson: ExportJsonUseCase,
     private val exportArb: ExportArbUseCase,
+    private val exportProperties: ExportPropertiesUseCase,
 ) : ExportResourcesUseCase {
     override suspend fun invoke(segments: List<SegmentModel>, path: String, lang: String, type: ResourceFileType) {
         when (type) {
@@ -25,6 +27,7 @@ internal class DefaultExportResourcesUseCase(
             ResourceFileType.PO -> exportPo(segments = segments, path = path, lang = lang)
             ResourceFileType.JSON -> exportJson(segments = segments, path = path)
             ResourceFileType.ARB -> exportArb(segments = segments, path = path)
+            ResourceFileType.PROPERTIES -> exportProperties(segments = segments, path = path)
 
             else -> Unit
         }
