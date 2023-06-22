@@ -3,21 +3,20 @@ package com.github.diegoberaldin.metaphrase.core.localization.repository
 import LocalizationResourceLoader
 import com.github.diegoberaldin.metaphrase.core.localization.data.LocalizableString
 import com.github.diegoberaldin.metaphrase.core.localization.localized
-import com.github.diegoberaldin.metaphrase.core.localization.usecase.ParseXmlResourceUseCase
-import java.io.InputStream
+import com.github.diegoberaldin.metaphrase.core.localization.usecase.ParseResourceUseCase
 
 internal class DefaultLocalization(
-    private val parseResource: ParseXmlResourceUseCase,
+    private val parseResource: ParseResourceUseCase,
 ) : Localization {
 
     private val defaultValues: List<LocalizableString> = LocalizationResourceLoader.loadAsStream("en")?.use {
-        load(it)
+        parseResource(inputStream = it, lang = "en")
     } ?: emptyList()
     private var localizables: List<LocalizableString> = emptyList()
 
     override fun setLanguage(lang: String) {
         localizables = LocalizationResourceLoader.loadAsStream(lang)?.use {
-            load(it)
+            parseResource(inputStream = it, lang = lang)
         } ?: defaultValues
     }
 
@@ -26,6 +25,4 @@ internal class DefaultLocalization(
     override fun get(key: String) = localizables.firstOrNull { it.key == key }?.value
         ?: defaultValues.firstOrNull { it.key == key }?.value
         ?: key
-
-    private fun load(inputStream: InputStream): List<LocalizableString> = parseResource(inputStream)
 }

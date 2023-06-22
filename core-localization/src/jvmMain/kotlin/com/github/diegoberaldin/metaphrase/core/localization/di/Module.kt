@@ -2,8 +2,8 @@ package com.github.diegoberaldin.metaphrase.core.localization.di
 
 import com.github.diegoberaldin.metaphrase.core.localization.repository.DefaultLocalization
 import com.github.diegoberaldin.metaphrase.core.localization.repository.Localization
-import com.github.diegoberaldin.metaphrase.core.localization.usecase.DefaultParseXmlResourceUseCase
-import com.github.diegoberaldin.metaphrase.core.localization.usecase.ParseXmlResourceUseCase
+import com.github.diegoberaldin.metaphrase.core.localization.usecase.ParseResourceUseCase
+import com.github.diegoberaldin.metaphrase.core.localization.usecase.TmxParseResourceUseCase
 import org.koin.dsl.module
 
 val localizationModule = module {
@@ -12,7 +12,8 @@ val localizationModule = module {
             parseResource = get(),
         )
     }
-    single<ParseXmlResourceUseCase> {
-        DefaultParseXmlResourceUseCase()
+    single<ParseResourceUseCase> {
+        // XmlParseResourceUseCase()
+        TmxParseResourceUseCase()
     }
 }
