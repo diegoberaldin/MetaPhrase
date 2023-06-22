@@ -1,5 +1,6 @@
 package com.github.diegoberaldin.metaphrase.feature.translate.presentation
 
+import androidx.compose.runtime.snapshotFlow
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.slot.ChildSlot
 import com.arkivanov.decompose.router.slot.SlotNavigation
@@ -59,6 +60,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
@@ -139,11 +141,7 @@ internal class DefaultTranslateComponent(
             .map { it != null }
             .stateIn(viewModelScope, initialValue = false, started = SharingStarted.WhileSubscribed(5000))
 
-    override val currentLanguage: StateFlow<LanguageModel?>
-        get() {
-            return toolbar.asFlow<TranslateToolbarComponent>().filterNotNull().flatMapLatest { it.currentLanguage }
-                .stateIn(viewModelScope, initialValue = null, started = SharingStarted.WhileSubscribed(5000))
-        }
+    override lateinit var currentLanguage: StateFlow<LanguageModel?>
 
     private suspend fun getCurrentLanguage(): LanguageModel? =
         toolbar.asFlow<TranslateToolbarComponent>().firstOrNull()?.currentLanguage?.value
@@ -152,6 +150,12 @@ internal class DefaultTranslateComponent(
         with(lifecycle) {
             doOnCreate {
                 viewModelScope = CoroutineScope(coroutineContext + SupervisorJob())
+                currentLanguage = toolbar.asFlow<TranslateToolbarComponent>()
+                    .flatMapConcat { it?.currentLanguage ?: snapshotFlow { null } }.stateIn(
+                        scope = viewModelScope,
+                        started = SharingStarted.WhileSubscribed(5_000),
+                        initialValue = null,
+                    )
                 // done here to reinitialize flow due to sharing started policy
                 uiState = combine(
                     project,

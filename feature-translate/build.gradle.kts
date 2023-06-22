@@ -49,6 +49,7 @@ kotlin {
                 implementation(projects.featureTranslate.dialog.newsegment)
                 implementation(projects.featureTranslate.dialog.newterm)
 
+                implementation(projects.featureTranslate.panel)
                 implementation(projects.featureTranslate.panel.validate)
                 implementation(projects.featureTranslate.panel.matches)
                 implementation(projects.featureTranslate.panel.memory)

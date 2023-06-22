@@ -3185,6 +3185,38 @@
 				</seg>
 			</tuv>
 		</tu>
+		<tu tuid="message_panel_feature_not_available">
+			<tuv xml:lang="en">
+				<seg>
+					This feature is only available for target languages 🙅
+				</seg>
+			</tuv>
+			<tuv xml:lang="it">
+				<seg>
+					Questa funzionalità è disponibile solo per le lingue di arrivo 🙅
+				</seg>
+			</tuv>
+			<tuv xml:lang="de">
+				<seg>
+					Diese Funktion ist nur für Zielsprachen verfügbar 🙅
+				</seg>
+			</tuv>
+			<tuv xml:lang="fr">
+				<seg>
+					Cette fonctionnalité n&apos;est disponible que pour les langues cibles 🙅
+				</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>
+					Esta función solamente está disponible para los idiomas meta 🙅
+				</seg>
+			</tuv>
+			<tuv xml:lang="pt">
+				<seg>
+					Este recurso está disponível apenas para os idiomas de destino 🙅
+				</seg>
+			</tuv>
+		</tu>
 		<tu tuid="message_spelling_invalid">
 			<tuv xml:lang="en">
 				<seg>
