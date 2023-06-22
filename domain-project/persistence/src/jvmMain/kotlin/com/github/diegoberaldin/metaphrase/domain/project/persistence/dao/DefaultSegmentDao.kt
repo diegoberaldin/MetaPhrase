@@ -3,10 +3,12 @@ package com.github.diegoberaldin.metaphrase.domain.project.persistence.dao
 import com.github.diegoberaldin.metaphrase.domain.project.data.SegmentModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.TranslationUnitTypeFilter
 import com.github.diegoberaldin.metaphrase.domain.project.persistence.entities.SegmentEntity
+import org.jetbrains.exposed.sql.JoinType
 import org.jetbrains.exposed.sql.LikePattern
 import org.jetbrains.exposed.sql.Op
 import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
+import org.jetbrains.exposed.sql.alias
 import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.batchInsert
 import org.jetbrains.exposed.sql.deleteWhere
@@ -56,28 +58,41 @@ class DefaultSegmentDao : SegmentDao {
 
     override suspend fun search(
         languageId: Int,
+        baseLanguageId: Int,
         filter: TranslationUnitTypeFilter,
         search: String?,
         skip: Int,
         limit: Int,
     ): List<SegmentModel> = newSuspendedTransaction {
-        SegmentEntity.select {
+        val segments1 = SegmentEntity.alias("segments1")
+        val segments2 = SegmentEntity.alias("segments2")
+        segments1.join(
+            otherTable = segments2,
+            onColumn = segments1[SegmentEntity.key],
+            otherColumn = segments2[SegmentEntity.key],
+            joinType = JoinType.INNER,
+        ).select {
             val conditions = mutableListOf<Op<Boolean>>()
-            conditions += SegmentEntity.languageId eq languageId
+            conditions += segments1[SegmentEntity.languageId] eq languageId
+            if (baseLanguageId > 0) {
+                conditions += segments2[SegmentEntity.languageId] eq baseLanguageId
+            }
             when (filter) {
                 TranslationUnitTypeFilter.TRANSLATABLE -> {
-                    conditions += (SegmentEntity.translatable eq true)
+                    conditions += (segments1[SegmentEntity.translatable] eq true)
                 }
 
                 TranslationUnitTypeFilter.UNTRANSLATED -> {
-                    conditions += (SegmentEntity.text eq "")
+                    conditions += (segments1[SegmentEntity.text] eq "")
                 }
 
                 else -> Unit
             }
             if (!search.isNullOrBlank()) {
                 val pattern = LikePattern("%$search%")
-                conditions += (SegmentEntity.text like pattern) or (SegmentEntity.key like pattern)
+                conditions += (segments1[SegmentEntity.text] like pattern)
+                    .or(segments1[SegmentEntity.key] like pattern)
+                    .or(segments2[SegmentEntity.text] like pattern)
             }
             conditions.fold<Op<Boolean>, Op<Boolean>>(Op.TRUE) { acc, it -> acc.and(it) }
         }.run {
@@ -87,8 +102,15 @@ class DefaultSegmentDao : SegmentDao {
                 this
             }
         }
-            .orderBy(SegmentEntity.key)
-            .map { it.toModel() }
+            .orderBy(segments1[SegmentEntity.key])
+            .map {
+                SegmentModel(
+                    id = it[segments1[SegmentEntity.id]].value,
+                    text = it[segments1[SegmentEntity.text]],
+                    key = it[segments1[SegmentEntity.key]],
+                    translatable = it[segments1[SegmentEntity.translatable]],
+                )
+            }
     }
 
     override suspend fun getById(id: Int): SegmentModel? = newSuspendedTransaction {

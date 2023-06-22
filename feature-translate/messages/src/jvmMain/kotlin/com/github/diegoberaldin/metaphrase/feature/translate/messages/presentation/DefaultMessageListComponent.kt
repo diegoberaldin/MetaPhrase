@@ -216,6 +216,7 @@ internal class DefaultMessageListComponent(
         val search = lastSearch.takeIf { it.isNotBlank() }
         val segments = segmentRepository.search(
             languageId = language.id,
+            baseLanguageId = baseLanguageId,
             filter = lastFilter,
             search = search,
             skip = currentPage * PAGE_SIZE,
