@@ -264,7 +264,7 @@ private fun MenuBarScope.makeMenus(
         Separator()
         Item(
             text = "menu_project_validate".localized(),
-            enabled = rootUiState.activeProject != null,
+            enabled = rootUiState.activeProject != null && rootUiState.currentLanguage?.isBase == false,
         ) {
             rootComponent.validatePlaceholders()
         }

@@ -120,18 +120,12 @@ fun TranslateContent(
                     }
 
                     PanelConfig.Validation -> {
-                        if (language?.isBase != false) {
-                            EmptyPanelContent(onMinify = {
-                                component.togglePanel(PanelConfig.Validation)
-                            })
-                        } else {
-                            val childComponent = panel.child?.instance as ValidateComponent
-                            ValidateContent(
-                                modifier = Modifier.fillMaxWidth().weight(1f),
-                                component = childComponent,
-                                onMinify = { component.togglePanel(PanelConfig.Validation) },
-                            )
-                        }
+                        val childComponent = panel.child?.instance as ValidateComponent
+                        ValidateContent(
+                            modifier = Modifier.fillMaxWidth().weight(1f),
+                            component = childComponent,
+                            onMinify = { component.togglePanel(PanelConfig.Validation) },
+                        )
                     }
 
                     PanelConfig.MemoryContent -> {

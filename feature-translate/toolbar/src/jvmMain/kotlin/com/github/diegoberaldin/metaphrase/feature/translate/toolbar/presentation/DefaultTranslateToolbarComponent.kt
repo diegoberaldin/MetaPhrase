@@ -132,7 +132,7 @@ internal class DefaultTranslateToolbarComponent(
     }
 
     override fun copyBase() {
-        if (currentLanguage.value?.isBase == true) return
+        if (currentLanguage.value?.isBase != false) return
 
         viewModelScope.launch {
             _events.emit(TranslateToolbarComponent.Events.CopyBase)
@@ -168,6 +168,8 @@ internal class DefaultTranslateToolbarComponent(
     }
 
     override fun validateUnits() {
+        if (currentLanguage.value?.isBase != false) return
+
         viewModelScope.launch {
             _events.emit(TranslateToolbarComponent.Events.ValidateUnits)
         }
