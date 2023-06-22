@@ -274,4 +274,28 @@ internal class DefaultProjectsComponent(
             childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.globalSpellcheck()
         }
     }
+
+    override fun machineTranslationRetrieve() {
+        viewModelScope.launch(dispatchers.io) {
+            childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.machineTranslationRetrieve()
+        }
+    }
+
+    override fun machineTranslationInsert() {
+        viewModelScope.launch(dispatchers.io) {
+            childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.machineTranslationInsert()
+        }
+    }
+
+    override fun machineTranslationCopyTarget() {
+        viewModelScope.launch(dispatchers.io) {
+            childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.machineTranslationCopyTarget()
+        }
+    }
+
+    override fun machineTranslationShare() {
+        viewModelScope.launch(dispatchers.io) {
+            childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.machineTranslationShare()
+        }
+    }
 }

@@ -333,7 +333,7 @@ private fun MenuBarScope.makeMenus(
         }
     }
     Menu(
-        text = "menu_translation_memory".localized(),
+        text = "menu_resources".localized(),
     ) {
         Item(
             text = "menu_translation_memory_insert_best_match".localized(),
@@ -366,24 +366,50 @@ private fun MenuBarScope.makeMenus(
         ) {
             rootComponent.clearTm()
         }
-    }
-    Menu(
-        text = "menu_glossary".localized(),
-    ) {
+        Separator()
         Item(
-            text = "menu_translation_memory_import".localized(),
+            text = "menu_glossary_import".localized(),
         ) {
             rootComponent.openImportGlossaryDialog()
         }
         Item(
-            text = "menu_translation_memory_export".localized(),
+            text = "menu_glossary_export".localized(),
         ) {
             rootComponent.openExportGlossaryDialog()
         }
         Item(
-            text = "menu_translation_memory_clear".localized(),
+            text = "menu_glossary_clear".localized(),
         ) {
             rootComponent.clearGlossary()
+        }
+        Separator()
+        Item(
+            text = "menu_machine_translation_retrieve".localized(),
+            shortcut = KeyShortcut(Key.J, meta = true, shift = true),
+            enabled = rootUiState.isEditing && rootUiState.currentLanguage?.isBase == false,
+        ) {
+            rootComponent.machineTranslationRetrieve()
+        }
+        Item(
+            text = "menu_machine_translation_insert".localized(),
+            shortcut = KeyShortcut(Key.K, meta = true, shift = true),
+            enabled = rootUiState.isEditing && rootUiState.currentLanguage?.isBase == false,
+        ) {
+            rootComponent.machineTranslationInsert()
+        }
+        Item(
+            text = "menu_machine_translation_copy_translation".localized(),
+            shortcut = KeyShortcut(Key.H, meta = true, shift = true),
+            enabled = rootUiState.isEditing && rootUiState.currentLanguage?.isBase == false,
+        ) {
+            rootComponent.machineTranslationCopyTarget()
+        }
+        Item(
+            text = "menu_machine_translation_copy_share".localized(),
+            shortcut = KeyShortcut(Key.L, meta = true, shift = true),
+            enabled = rootUiState.isEditing && rootUiState.currentLanguage?.isBase == false,
+        ) {
+            rootComponent.machineTranslationShare()
         }
     }
 }

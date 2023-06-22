@@ -535,4 +535,28 @@ internal class DefaultRootComponent(
             clearGlossaryTerms()
         }
     }
+
+    override fun machineTranslationRetrieve() {
+        viewModelScope.launch(dispatchers.io) {
+            main.asFlow<ProjectsComponent>().firstOrNull()?.machineTranslationRetrieve()
+        }
+    }
+
+    override fun machineTranslationInsert() {
+        viewModelScope.launch(dispatchers.io) {
+            main.asFlow<ProjectsComponent>().firstOrNull()?.machineTranslationInsert()
+        }
+    }
+
+    override fun machineTranslationCopyTarget() {
+        viewModelScope.launch(dispatchers.io) {
+            main.asFlow<ProjectsComponent>().firstOrNull()?.machineTranslationCopyTarget()
+        }
+    }
+
+    override fun machineTranslationShare() {
+        viewModelScope.launch(dispatchers.io) {
+            main.asFlow<ProjectsComponent>().firstOrNull()?.machineTranslationShare()
+        }
+    }
 }

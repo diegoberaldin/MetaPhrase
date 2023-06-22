@@ -50,6 +50,10 @@ interface RootComponent {
     fun openExportGlossaryDialog()
     fun exportGlossary(path: String)
     fun clearGlossary()
+    fun machineTranslationRetrieve()
+    fun machineTranslationInsert()
+    fun machineTranslationCopyTarget()
+    fun machineTranslationShare()
 
     sealed interface Config : Parcelable {
         @Parcelize
