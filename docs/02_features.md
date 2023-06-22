@@ -16,7 +16,7 @@ Conversely, the target mode allows translators to insert  a localized version of
 
 ## Import / Export
 
-MetaPhrase is designed to integrate in the most frictionless way with the standard localization formats used for mobile application development: iOS stringtables (aka `Localizable.strings`) and string resources on Android (aka `strings.xml`). For this reason, the (de)serialization from and to this format is built-in, to the point that the application uses an Android-style XML format for its own localization.
+MetaPhrase is designed to integrate in the most frictionless way with the standard localization formats used for mobile application development: iOS stringtables (aka `Localizable.strings`) and string resources on Android (aka `strings.xml`).
 
 Support for `.resx` files, a common format used in Windows applications and in general in the .NET environment was integrated as well as suport for JSON resources in the format of the popular ngx-translate library. The application also partially supports the PO format (very popular in projects using the GNU gettext utility) and Flutter ARB resources.
 
@@ -31,6 +31,8 @@ Fuzzy matching in the translation memory (TM) is a key feature to ensure consist
 ![tm](images/tm.png)
 
 The best match can be inserted via a shortcut and can be modified afterwards if needed. In addition to the "Matches" panel, the content of the TM can be browsed and searched as if it was a concordancer from the "Memory" panel.
+
+Memories can be exported and imported to/from TMX (standard _Translation Memory eXchange format_). The application is designed to work as much as possible with standard formats, so TMX is used also to save whole projects and even for the internationalization of its own UI.
 
 ## Glossary
 
