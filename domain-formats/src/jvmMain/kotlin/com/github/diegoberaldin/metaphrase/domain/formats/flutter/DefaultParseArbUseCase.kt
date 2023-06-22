@@ -20,16 +20,18 @@ internal class DefaultParseArbUseCase(
         }
 
         return withContext(dispatchers.io) {
-            FileReader(file).use { reader ->
-                val root = parseToJsonElement(reader.readText())
-                val pairs = process(root).sortedBy { it.first }
-                pairs.map {
-                    SegmentModel(
-                        key = it.first,
-                        text = it.second,
-                    )
+            runCatching {
+                FileReader(file).use { reader ->
+                    val root = parseToJsonElement(reader.readText())
+                    val pairs = process(root).sortedBy { it.first }
+                    pairs.map {
+                        SegmentModel(
+                            key = it.first,
+                            text = it.second,
+                        )
+                    }
                 }
-            }
+            }.getOrElse { emptyList() }
         }
     }
 

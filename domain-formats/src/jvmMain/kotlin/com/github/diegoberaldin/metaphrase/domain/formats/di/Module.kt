@@ -24,6 +24,10 @@ import com.github.diegoberaldin.metaphrase.domain.formats.po.DefaultExportPoReso
 import com.github.diegoberaldin.metaphrase.domain.formats.po.DefaultParsePoUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.po.ExportPoUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.po.ParsePoUseCase
+import com.github.diegoberaldin.metaphrase.domain.formats.properties.DefaultExportPropertiesUseCase
+import com.github.diegoberaldin.metaphrase.domain.formats.properties.DefaultParsePropertiesUseCase
+import com.github.diegoberaldin.metaphrase.domain.formats.properties.ExportPropertiesUseCase
+import com.github.diegoberaldin.metaphrase.domain.formats.properties.ParsePropertiesUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.resx.DefaultExportResxUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.resx.DefaultParseResxUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.resx.ExportResxUseCase
@@ -108,6 +112,19 @@ private val flutterModule = module {
     }
 }
 
+private val propertiesModule = module {
+    single<ParsePropertiesUseCase> {
+        DefaultParsePropertiesUseCase(
+            dispatchers = get(),
+        )
+    }
+    single<ExportPropertiesUseCase> {
+        DefaultExportPropertiesUseCase(
+            dispatchers = get(),
+        )
+    }
+}
+
 val formatsModule = module {
     includes(
         androidModule,
@@ -116,6 +133,7 @@ val formatsModule = module {
         poModule,
         jsonModule,
         flutterModule,
+        propertiesModule,
     )
     single<ImportResourcesUseCase> {
         DefaultImportResourcesUseCase(
@@ -125,6 +143,7 @@ val formatsModule = module {
             parsePo = get(),
             parseJson = get(),
             parseArb = get(),
+            parseProperties = get(),
         )
     }
     single<ExportResourcesUseCase> {
@@ -135,6 +154,7 @@ val formatsModule = module {
             exportPo = get(),
             exportJson = get(),
             exportArb = get(),
+            exportProperties = get(),
         )
     }
 }

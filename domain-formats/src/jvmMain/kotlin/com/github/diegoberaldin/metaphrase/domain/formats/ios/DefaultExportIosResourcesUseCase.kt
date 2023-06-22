@@ -13,7 +13,9 @@ internal class DefaultExportIosResourcesUseCase(
     override suspend operator fun invoke(segments: List<SegmentModel>, path: String) {
         val file = File(path)
         if (!file.exists()) {
-            file.createNewFile()
+            runCatching {
+                file.createNewFile()
+            }
         }
         if (!file.canWrite()) {
             return

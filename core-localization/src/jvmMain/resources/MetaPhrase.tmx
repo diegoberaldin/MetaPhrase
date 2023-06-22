@@ -2289,6 +2289,38 @@
 				</seg>
 			</tuv>
 		</tu>
+		<tu tuid="menu_project_import_properties">
+			<tuv xml:lang="en">
+				<seg>
+					Java properties…
+				</seg>
+			</tuv>
+			<tuv xml:lang="it">
+				<seg>
+					properties Java…
+				</seg>
+			</tuv>
+			<tuv xml:lang="de">
+				<seg>
+					Java properties…
+				</seg>
+			</tuv>
+			<tuv xml:lang="fr">
+				<seg>
+					properties Java…
+				</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>
+					properties Java
+				</seg>
+			</tuv>
+			<tuv xml:lang="pt">
+				<seg>
+					properties do Java…
+				</seg>
+			</tuv>
+		</tu>
 		<tu tuid="menu_project_import_windows">
 			<tuv xml:lang="en">
 				<seg>
@@ -3129,7 +3161,7 @@
 			</tuv>
 			<tuv xml:lang="it">
 				<seg>
-					Nessun risultato da visualizzare, avvia una validazione con le azioni &quot;Valida placeholder&quot; o &quot;Controllo ortografico&quot; nel menu &quot;Progetto&quot;. 
+					Nessun risultato da visualizzare, avvia una validazione con le azioni &quot;Valida placeholder&quot; o &quot;Controllo ortografico&quot; nel menu &quot;Progetto&quot;.
 				</seg>
 			</tuv>
 			<tuv xml:lang="de">

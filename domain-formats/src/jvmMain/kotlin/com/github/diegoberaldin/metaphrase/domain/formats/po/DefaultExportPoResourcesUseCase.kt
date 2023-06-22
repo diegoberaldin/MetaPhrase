@@ -12,7 +12,9 @@ class DefaultExportPoResourcesUseCase(
     override suspend fun invoke(segments: List<SegmentModel>, path: String, lang: String) {
         val file = File(path)
         if (!file.exists()) {
-            file.createNewFile()
+            runCatching {
+                file.createNewFile()
+            }
         }
         if (!file.canWrite()) {
             return
