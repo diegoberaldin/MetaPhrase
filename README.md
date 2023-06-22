@@ -42,6 +42,15 @@ The bottom part of the main screen contains an expandable panel which gives acce
   <img width="900" alt="validation" src="https://github.com/diegoberaldin/MetaPhrase/assets/2738294/5b670105-60b5-44e1-bc60-3c45b747a740">
 </div>
 
+Currently supported files:
+- Android XML
+- iOS stringtables
+- Windows resx
+- angular-translate JSON
+- Flutter ARB
+- Gettext PO
+- Java properties
+
 ## Technology
 
 If you are a developer and would like to know more about the technologies involved, here is a short list:
