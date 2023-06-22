@@ -64,7 +64,6 @@ internal class DefaultBrowseMemoryComponent(
                 )
 
                 refreshLanguages()
-                load()
             }
             doOnDestroy {
                 viewModelScope.cancel()
@@ -76,7 +75,6 @@ internal class DefaultBrowseMemoryComponent(
         sourceLanguage.value = source?.let { completeLanguage(it) }
         targetLanguage.value = target
         refreshLanguages()
-        load()
     }
 
     private fun refreshLanguages() {
@@ -93,34 +91,31 @@ internal class DefaultBrowseMemoryComponent(
 
             availableSourceLanguages.value = tmLanguages.filter { it.code != targetLang?.code }
             availableTargetLanguages.value = tmLanguages.filter { it.code != sourceLang?.code }
+
+            load()
         }
     }
 
-    private fun load() {
-        if (!::viewModelScope.isInitialized) return
+    private suspend fun load() {
         val sourceLangCode = sourceLanguage.value?.code?.takeIf { it.isNotEmpty() } ?: return
         val targetLangCode = targetLanguage.value?.code?.takeIf { it.isNotEmpty() } ?: return
         val currentSearch = search.value
 
-        viewModelScope.launch(dispatchers.io) {
-            entries.value = memoryEntryRepository.getEntries(
-                sourceLang = sourceLangCode,
-                targetLang = targetLangCode,
-                search = currentSearch,
-            )
-        }
+        entries.value = memoryEntryRepository.getEntries(
+            sourceLang = sourceLangCode,
+            targetLang = targetLangCode,
+            search = currentSearch,
+        )
     }
 
     override fun setSourceLanguage(value: LanguageModel?) {
         sourceLanguage.value = value
         refreshLanguages()
-        load()
     }
 
     override fun setTargetLanguage(value: LanguageModel?) {
         targetLanguage.value = value
         refreshLanguages()
-        load()
     }
 
     override fun setSearch(value: String) {
@@ -128,7 +123,9 @@ internal class DefaultBrowseMemoryComponent(
     }
 
     override fun onSearchFired() {
-        load()
+        viewModelScope.launch(dispatchers.io) {
+            load()
+        }
     }
 
     override fun deleteEntry(index: Int) {
