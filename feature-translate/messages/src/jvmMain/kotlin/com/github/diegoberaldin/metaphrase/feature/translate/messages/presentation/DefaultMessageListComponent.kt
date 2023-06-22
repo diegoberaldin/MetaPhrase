@@ -398,12 +398,11 @@ internal class DefaultMessageListComponent(
             if (index >= 0) {
                 notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
                 selectionEvents.emit(index)
-            } else if (canFetchMore.value && !isLoading.value) {
+            } else if (this.canFetchMore.value) {
                 notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
-                isLoading.value = true
                 currentPage++
                 loadPage()
-                isLoading.value = false
+                delay(250)
                 searchRec()
             } else {
                 notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
@@ -411,6 +410,8 @@ internal class DefaultMessageListComponent(
         }
 
         viewModelScope.launch(dispatchers.io) {
+            currentPage = 0
+            canFetchMore.value = true
             searchRec()
         }
     }
