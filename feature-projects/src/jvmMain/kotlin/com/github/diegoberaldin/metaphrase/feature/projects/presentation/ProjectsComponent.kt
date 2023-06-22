@@ -31,6 +31,10 @@ interface ProjectsComponent {
     fun insertBestMatch()
     fun globalSpellcheck()
     fun syncWithTm()
+    fun machineTranslationRetrieve()
+    fun machineTranslationInsert()
+    fun machineTranslationCopyTarget()
+    fun machineTranslationShare()
 
     sealed interface Config : Parcelable {
         @Parcelize

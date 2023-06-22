@@ -382,5 +382,34 @@ private fun MenuBarScope.makeMenus(
         ) {
             rootComponent.clearGlossary()
         }
+        Separator()
+        Item(
+            text = "menu_machine_translation_retrieve".localized(),
+            shortcut = KeyShortcut(Key.J, meta = true, shift = true),
+            enabled = rootUiState.isEditing && rootUiState.currentLanguage?.isBase == false,
+        ) {
+            rootComponent.machineTranslationRetrieve()
+        }
+        Item(
+            text = "menu_machine_translation_insert".localized(),
+            shortcut = KeyShortcut(Key.K, meta = true, shift = true),
+            enabled = rootUiState.isEditing && rootUiState.currentLanguage?.isBase == false,
+        ) {
+            rootComponent.machineTranslationInsert()
+        }
+        Item(
+            text = "menu_machine_translation_copy_translation".localized(),
+            shortcut = KeyShortcut(Key.H, meta = true, shift = true),
+            enabled = rootUiState.isEditing && rootUiState.currentLanguage?.isBase == false,
+        ) {
+            rootComponent.machineTranslationCopyTarget()
+        }
+        Item(
+            text = "menu_machine_translation_copy_share".localized(),
+            shortcut = KeyShortcut(Key.L, meta = true, shift = true),
+            enabled = rootUiState.isEditing && rootUiState.currentLanguage?.isBase == false,
+        ) {
+            rootComponent.machineTranslationShare()
+        }
     }
 }

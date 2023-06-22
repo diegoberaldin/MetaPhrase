@@ -913,7 +913,7 @@
 			</tuv>
 			<tuv xml:lang="it">
 				<seg>
-					Servizio traduzione automatica
+					Servizio trad. automatica
 				</seg>
 			</tuv>
 			<tuv xml:lang="de">
@@ -2033,6 +2033,134 @@
 				</seg>
 			</tuv>
 		</tu>
+		<tu tuid="menu_machine_translation_copy_share">
+			<tuv xml:lang="en">
+				<seg>
+					Share machine translation
+				</seg>
+			</tuv>
+			<tuv xml:lang="it">
+				<seg>
+					Condividi trad. automatica
+				</seg>
+			</tuv>
+			<tuv xml:lang="de">
+				<seg>
+					Maschinelle Übersetzung teilen
+				</seg>
+			</tuv>
+			<tuv xml:lang="fr">
+				<seg>
+					Partager la traduction automatique
+				</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>
+					Compartir traducción automática
+				</seg>
+			</tuv>
+			<tuv xml:lang="pt">
+				<seg>
+					Compartilhar tradução automática
+				</seg>
+			</tuv>
+		</tu>
+		<tu tuid="menu_machine_translation_copy_translation">
+			<tuv xml:lang="en">
+				<seg>
+					Copy to machine translation
+				</seg>
+			</tuv>
+			<tuv xml:lang="it">
+				<seg>
+					Copia trad. automatica
+				</seg>
+			</tuv>
+			<tuv xml:lang="de">
+				<seg>
+					In maschinelle Übersetzung kopieren
+				</seg>
+			</tuv>
+			<tuv xml:lang="fr">
+				<seg>
+					Copier dans la traduction automatique
+				</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>
+					Copiar traducción automática
+				</seg>
+			</tuv>
+			<tuv xml:lang="pt">
+				<seg>
+					Copiar para tradução automática
+				</seg>
+			</tuv>
+		</tu>
+		<tu tuid="menu_machine_translation_insert">
+			<tuv xml:lang="en">
+				<seg>
+					Insert machine translation
+				</seg>
+			</tuv>
+			<tuv xml:lang="it">
+				<seg>
+					Inserisci trad. automatica
+				</seg>
+			</tuv>
+			<tuv xml:lang="de">
+				<seg>
+					Maschinelle Übersetzung einfügen
+				</seg>
+			</tuv>
+			<tuv xml:lang="fr">
+				<seg>
+					Insérer une traduction automatique
+				</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>
+					Insertar traducción automática
+				</seg>
+			</tuv>
+			<tuv xml:lang="pt">
+				<seg>
+					Inserir tradução automática
+				</seg>
+			</tuv>
+		</tu>
+		<tu tuid="menu_machine_translation_retrieve">
+			<tuv xml:lang="en">
+				<seg>
+					Retrieve from machine translation
+				</seg>
+			</tuv>
+			<tuv xml:lang="it">
+				<seg>
+					Recupera trad. automatica
+				</seg>
+			</tuv>
+			<tuv xml:lang="de">
+				<seg>
+					Aus der maschinellen Übersetzung abrufen
+				</seg>
+			</tuv>
+			<tuv xml:lang="fr">
+				<seg>
+					Récupérer à partir de la traduction automatique
+				</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>
+					Recuperar de la traducción automática
+				</seg>
+			</tuv>
+			<tuv xml:lang="pt">
+				<seg>
+					Recuperar da tradução automática
+				</seg>
+			</tuv>
+		</tu>
 		<tu tuid="menu_project">
 			<tuv xml:lang="en">
 				<seg>
@@ -2676,32 +2804,32 @@
 		<tu tuid="menu_resources">
 			<tuv xml:lang="en">
 				<seg>
-					Translation resources
+					Resources
 				</seg>
 			</tuv>
 			<tuv xml:lang="it">
 				<seg>
-					Risorse di traduzione
+					Risorse
 				</seg>
 			</tuv>
 			<tuv xml:lang="de">
 				<seg>
-					Übersetzungsressourcen
+					Ressourcen
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
-					Ressources pour les traducteurs
+					Ressources
 				</seg>
 			</tuv>
 			<tuv xml:lang="es">
 				<seg>
-					Recursos de traducción
+					Recursos
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
 				<seg>
-					Recursos de tradução
+					Recursos
 				</seg>
 			</tuv>
 		</tu>
@@ -2937,7 +3065,7 @@
 			</tuv>
 			<tuv xml:lang="it">
 				<seg>
-					Pulisci memoria di traduzione
+					Pulisci memoria di trad.
 				</seg>
 			</tuv>
 			<tuv xml:lang="de">
@@ -2969,7 +3097,7 @@
 			</tuv>
 			<tuv xml:lang="it">
 				<seg>
-					Esporta memoria di traduzione…
+					Esporta memoria di trad.…
 				</seg>
 			</tuv>
 			<tuv xml:lang="de">
@@ -3001,7 +3129,7 @@
 			</tuv>
 			<tuv xml:lang="it">
 				<seg>
-					Importa memoria di traduzione…
+					Importa memoria di trad.…
 				</seg>
 			</tuv>
 			<tuv xml:lang="de">
@@ -3065,7 +3193,7 @@
 			</tuv>
 			<tuv xml:lang="it">
 				<seg>
-					Sincronizza progetto con memoria di traduzione
+					Sincronizza prog. con memoria di trad.
 				</seg>
 			</tuv>
 			<tuv xml:lang="de">

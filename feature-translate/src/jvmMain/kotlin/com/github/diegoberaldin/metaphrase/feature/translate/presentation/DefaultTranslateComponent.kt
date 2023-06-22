@@ -703,6 +703,30 @@ internal class DefaultTranslateComponent(
         startSpellcheck()
     }
 
+    override fun machineTranslationRetrieve() {
+        viewModelScope.launch(dispatchers.io) {
+            panel.asFlow<MachineTranslationComponent>().firstOrNull()?.retrieve()
+        }
+    }
+
+    override fun machineTranslationInsert() {
+        viewModelScope.launch(dispatchers.io) {
+            panel.asFlow<MachineTranslationComponent>().firstOrNull()?.insertTranslation()
+        }
+    }
+
+    override fun machineTranslationCopyTarget() {
+        viewModelScope.launch(dispatchers.io) {
+            panel.asFlow<MachineTranslationComponent>().firstOrNull()?.copyTarget()
+        }
+    }
+
+    override fun machineTranslationShare() {
+        viewModelScope.launch(dispatchers.io) {
+            panel.asFlow<MachineTranslationComponent>().firstOrNull()?.share()
+        }
+    }
+
     companion object {
         const val KEY_DIALOG_SLOT = "DialogSlot"
         const val KEY_TOOLBAR_SLOT = "ToolbarSlot"

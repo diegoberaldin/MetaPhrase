@@ -41,6 +41,10 @@ interface TranslateComponent {
     fun globalSpellcheck()
     fun syncWithTm()
     fun addGlossaryTerm(source: String?, target: String?)
+    fun machineTranslationRetrieve()
+    fun machineTranslationInsert()
+    fun machineTranslationCopyTarget()
+    fun machineTranslationShare()
 
     @Parcelize
     object ToolbarConfig : Parcelable
