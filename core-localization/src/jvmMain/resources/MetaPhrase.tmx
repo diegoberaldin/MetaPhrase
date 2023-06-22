@@ -47,7 +47,7 @@
 			</tuv>
 			<tuv xml:lang="de">
 				<seg>
-					Kein aktuelles Projekt.\n\nBitte erstellen Sie ein neues Projekt über das Menü „Projekt“ &gt; „Neu…“.\n\nAlternativ können Sie ein bestehendes Projekt über das Menü „Projekt“ &gt; „Öffnen…“ öffnen.
+					Kein aktuelles Projekt.\n\nBitte erstellen Sie ein neues über das Menü &quot;Projekt&quot; &gt; &quot;Neu...&quot;.\n\nAlternativ können Sie ein vorhandenes über das Menü &quot;Projekt&quot; &gt; &quot;Öffnen...&quot; öffnen.
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
@@ -566,7 +566,7 @@
 			</tuv>
 			<tuv xml:lang="de">
 				<seg>
-					„%s“ ignorieren
+					&quot;%s&quot; ignorieren
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
@@ -2504,7 +2504,7 @@
 			</tuv>
 			<tuv xml:lang="es">
 				<seg>
-					Corrección ortográfica
+					Comprobar ortografía
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -2568,7 +2568,7 @@
 			</tuv>
 			<tuv xml:lang="es">
 				<seg>
-					Comprobar especificadores
+					Comprobar marcadores de posición
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -3124,32 +3124,32 @@
 		<tu tuid="message_no_validation">
 			<tuv xml:lang="en">
 				<seg>
-					No validation results, run a validation with the &quot;Validate&quot; toolbar action
+					No results to show, please run a validation with the &quot;Validate placeholders&quot; or &quot;Check spelling&quot; actions in the &quot;Project&quot; menu.
 				</seg>
 			</tuv>
 			<tuv xml:lang="it">
 				<seg>
-					Nessun risultato, avvia una validazione con l&apos;azione &quot;Convalida&quot; della barra degli strumenti
+					Nessun risultato da visualizzare, avvia una validazione con le azioni &quot;Valida placeholder&quot; o &quot;Controllo ortografico&quot; nel menu &quot;Progetto&quot;. 
 				</seg>
 			</tuv>
 			<tuv xml:lang="de">
 				<seg>
-					Keine Validierungsergebnisse, führen Sie eine Validierung mit der Symbolleistenaktion „Validieren“ durch
+					Keine Ergebnisse zum Anzeigen, bitte führen Sie eine Validierung mit den Aktionen &quot;Platzhalter validieren&quot; oder &quot;Rechtschreibung überprüfen&quot; im Menü &quot;Projekt&quot; aus.
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
-					Aucun résultat de validation, exécutez une validation avec l&apos;action de barre d&apos;outils &quot;Valider&quot;
+					Aucun résultat à afficher, veuillez effectuer une validation avec les actions &quot;Valider les espaces réservés&quot; ou &quot;Vérifier l&apos;orthographe&quot; dans le menu &quot;Projet&quot;.
 				</seg>
 			</tuv>
 			<tuv xml:lang="es">
 				<seg>
-					Ningún resultado, iniciar una validación a través de la acción &quot;Convalidar&quot; desde la barra de herramientas
+					No hay resultados para mostrar, por favor ejecute una validación con las acciones &quot;Comprobar marcadores de posición&quot; o &quot;Comprobar ortografía&quot; en el menú &quot;Proyecto&quot;.
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
 				<seg>
-					Nenhum resultado de validação, execute uma validação com a ação &quot;Validar&quot; da barra de ferramentas
+					Nenhum resultado para mostrar, execute uma validação com as ações &quot;Validar espaços reservados&quot; ou &quot;Verificar ortografia&quot; no menu &quot;Projeto&quot;.
 				</seg>
 			</tuv>
 		</tu>
@@ -3182,6 +3182,38 @@
 			<tuv xml:lang="pt">
 				<seg>
 					Ocorreu um problema ao abrir o projeto.
+				</seg>
+			</tuv>
+		</tu>
+		<tu tuid="message_panel_feature_not_available">
+			<tuv xml:lang="en">
+				<seg>
+					This feature is only available for target languages 🙅
+				</seg>
+			</tuv>
+			<tuv xml:lang="it">
+				<seg>
+					Questa funzionalità è disponibile solo per le lingue di arrivo 🙅
+				</seg>
+			</tuv>
+			<tuv xml:lang="de">
+				<seg>
+					Diese Funktion ist nur für Zielsprachen verfügbar 🙅
+				</seg>
+			</tuv>
+			<tuv xml:lang="fr">
+				<seg>
+					Cette fonctionnalité n&apos;est disponible que pour les langues cibles 🙅
+				</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>
+					Esta función solamente está disponible para los idiomas meta 🙅
+				</seg>
+			</tuv>
+			<tuv xml:lang="pt">
+				<seg>
+					Este recurso está disponível apenas para os idiomas de destino 🙅
 				</seg>
 			</tuv>
 		</tu>
@@ -3304,7 +3336,7 @@
 			</tuv>
 			<tuv xml:lang="es">
 				<seg>
-					¡Enhorabuena! Todos los mensajes contienen especificadores válidos 🎉
+					¡Enhorabuena! Todos los mensajes contienen marcadores de posición válidos 🎉
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -4040,7 +4072,7 @@
 			</tuv>
 			<tuv xml:lang="es">
 				<seg>
-					Convalidar especificadores
+					Convalidar marcadores de posición
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">

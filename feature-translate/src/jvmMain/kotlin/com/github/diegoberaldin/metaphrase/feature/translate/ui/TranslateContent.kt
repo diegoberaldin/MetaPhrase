@@ -44,6 +44,7 @@ import com.github.diegoberaldin.metaphrase.feature.translate.panel.matches.prese
 import com.github.diegoberaldin.metaphrase.feature.translate.panel.matches.ui.TranslationMemoryContent
 import com.github.diegoberaldin.metaphrase.feature.translate.panel.memory.presentation.BrowseMemoryComponent
 import com.github.diegoberaldin.metaphrase.feature.translate.panel.memory.ui.BrowseMemoryContent
+import com.github.diegoberaldin.metaphrase.feature.translate.panel.ui.EmptyPanelContent
 import com.github.diegoberaldin.metaphrase.feature.translate.panel.validate.presentation.ValidateComponent
 import com.github.diegoberaldin.metaphrase.feature.translate.panel.validate.ui.ValidateContent
 import com.github.diegoberaldin.metaphrase.feature.translate.presentation.TranslateComponent
@@ -98,16 +99,23 @@ fun TranslateContent(
                     Divider()
                     Spacer(modifier = Modifier.height(Spacing.xs))
                 }
+                val language by component.currentLanguage.collectAsState()
                 when (panelConfiguration) {
                     PanelConfig.Matches -> {
-                        val childComponent = panel.child?.instance as TranslationMemoryComponent
-                        TranslationMemoryContent(
-                            modifier = Modifier.fillMaxWidth().weight(1f),
-                            component = childComponent,
-                            onMinify = { component.togglePanel(PanelConfig.Matches) },
-                        )
-                        LaunchedEffect(component) {
-                            component.tryLoadSimilarities()
+                        if (language?.isBase != false) {
+                            EmptyPanelContent(onMinify = {
+                                component.togglePanel(PanelConfig.Matches)
+                            })
+                        } else {
+                            val childComponent = panel.child?.instance as TranslationMemoryComponent
+                            TranslationMemoryContent(
+                                modifier = Modifier.fillMaxWidth().weight(1f),
+                                component = childComponent,
+                                onMinify = { component.togglePanel(PanelConfig.Matches) },
+                            )
+                            LaunchedEffect(component) {
+                                component.tryLoadSimilarities()
+                            }
                         }
                     }
 
@@ -130,26 +138,38 @@ fun TranslateContent(
                     }
 
                     PanelConfig.Glossary -> {
-                        val childComponent = panel.child?.instance as GlossaryComponent
-                        GlossaryContent(
-                            modifier = Modifier.fillMaxWidth().weight(1f),
-                            component = childComponent,
-                            onMinify = { component.togglePanel(PanelConfig.Glossary) },
-                        )
-                        LaunchedEffect(component) {
-                            component.tryLoadGlossary()
+                        if (language?.isBase != false) {
+                            EmptyPanelContent(onMinify = {
+                                component.togglePanel(PanelConfig.Glossary)
+                            })
+                        } else {
+                            val childComponent = panel.child?.instance as GlossaryComponent
+                            GlossaryContent(
+                                modifier = Modifier.fillMaxWidth().weight(1f),
+                                component = childComponent,
+                                onMinify = { component.togglePanel(PanelConfig.Glossary) },
+                            )
+                            LaunchedEffect(component) {
+                                component.tryLoadGlossary()
+                            }
                         }
                     }
 
                     PanelConfig.MachineTranslation -> {
-                        val childComponent = panel.child?.instance as MachineTranslationComponent
-                        MachineTranslationContent(
-                            modifier = Modifier.fillMaxWidth().weight(1f),
-                            component = childComponent,
-                            onMinify = { component.togglePanel(PanelConfig.MachineTranslation) },
-                        )
-                        LaunchedEffect(component) {
-                            component.tryLoadMachineTranslation()
+                        if (language?.isBase != false) {
+                            EmptyPanelContent(onMinify = {
+                                component.togglePanel(PanelConfig.MachineTranslation)
+                            })
+                        } else {
+                            val childComponent = panel.child?.instance as MachineTranslationComponent
+                            MachineTranslationContent(
+                                modifier = Modifier.fillMaxWidth().weight(1f),
+                                component = childComponent,
+                                onMinify = { component.togglePanel(PanelConfig.MachineTranslation) },
+                            )
+                            LaunchedEffect(component) {
+                                component.tryLoadMachineTranslation()
+                            }
                         }
                     }
 

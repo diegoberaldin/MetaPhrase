@@ -49,27 +49,25 @@ fun TranslateEditableField(
     }
     val spellingErrorRanges = spellingErrors.map { it.indices }
     LaunchedEffect(spellingErrorRanges, active) {
-        runCatching {
-            value = value.copy(
-                annotatedString = buildAnnotatedString {
-                    append(value.text)
-                    if (active) {
-                        for (range in spellingErrorRanges) {
-                            runCatching {
-                                addStyle(
-                                    SpanStyle(
-                                        color = Color.Red,
-                                        textDecoration = TextDecoration.Underline,
-                                    ),
-                                    start = range.first,
-                                    end = (range.last + 1).coerceAtMost(length),
-                                )
-                            }
+        value = value.copy(
+            annotatedString = buildAnnotatedString {
+                append(value.text)
+                if (active) {
+                    for (range in spellingErrorRanges) {
+                        runCatching {
+                            addStyle(
+                                SpanStyle(
+                                    color = Color.Red,
+                                    textDecoration = TextDecoration.Underline,
+                                ),
+                                start = range.first,
+                                end = (range.last + 1).coerceAtMost(length),
+                            )
                         }
                     }
-                },
-            )
-        }
+                }
+            },
+        )
     }
 
     SuggestCorrectionsForTextFieldContextMenu(
@@ -100,27 +98,11 @@ fun TranslateEditableField(
             cursorBrush = SolidColor(Color.White),
             value = value,
             onValueChange = {
-                runCatching {
-                    value = value.copy(
-                        annotatedString = buildAnnotatedString {
-                            append(it.text)
-                            if (active) {
-                                for (range in spellingErrorRanges) {
-                                    addStyle(
-                                        SpanStyle(
-                                            color = Color.Red,
-                                            textDecoration = TextDecoration.Underline,
-                                        ),
-                                        start = range.first,
-                                        end = (range.last + 1).coerceAtMost(length),
-                                    )
-                                }
-                            }
-                        },
-                        selection = it.selection,
-                    )
-                    onTextChanged(it.text)
-                }
+                value = value.copy(
+                    annotatedString = it.annotatedString,
+                    selection = it.selection,
+                )
+                onTextChanged(it.text)
             },
         )
     }

@@ -19,6 +19,7 @@ interface SegmentDao {
 
     suspend fun search(
         languageId: Int,
+        baseLanguageId: Int = 0,
         filter: TranslationUnitTypeFilter = TranslationUnitTypeFilter.ALL,
         search: String? = null,
         skip: Int = 0,
