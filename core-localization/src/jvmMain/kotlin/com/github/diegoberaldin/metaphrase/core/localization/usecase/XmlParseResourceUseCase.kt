@@ -6,14 +6,14 @@ import org.redundent.kotlin.xml.TextElement
 import org.redundent.kotlin.xml.parse
 import java.io.InputStream
 
-internal class DefaultParseXmlResourceUseCase : ParseXmlResourceUseCase {
+internal class XmlParseResourceUseCase : ParseResourceUseCase {
 
     companion object {
         private const val ELEM_STRING = "string"
         private const val ATTR_NAME = "name"
     }
 
-    override operator fun invoke(inputStream: InputStream): List<LocalizableString> {
+    override operator fun invoke(inputStream: InputStream, lang: String): List<LocalizableString> {
         return runCatching {
             val res = mutableListOf<LocalizableString>()
             val resourcesNode = parse(inputStream)
