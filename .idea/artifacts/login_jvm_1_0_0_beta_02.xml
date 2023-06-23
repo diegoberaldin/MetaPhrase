@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="login-jvm-1.0.0-beta-02">
-    <output-path>$PROJECT_DIR$/feature-main/dialog/login/build/libs</output-path>
-    <root id="archive" name="login-jvm-1.0.0-beta-02.jar">
-      <element id="module-output" name="MetaPhrase.feature-main.dialog.login.jvmMain" />
-    </root>
-  </artifact>
-</component>

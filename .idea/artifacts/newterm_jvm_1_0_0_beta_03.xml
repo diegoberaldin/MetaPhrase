@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="newterm-jvm-1.0.0-beta-03">
+    <output-path>$PROJECT_DIR$/feature-translate/dialog/newterm/build/libs</output-path>
+    <root id="archive" name="newterm-jvm-1.0.0-beta-03.jar">
+      <element id="module-output" name="MetaPhrase.feature-translate.dialog.newterm.jvmMain" />
+    </root>
+  </artifact>
+</component>
