@@ -29,6 +29,8 @@ This page contains some notes about the development of MetaPhrase, organized in 
 <a href="#top">🔝</a>
 </div>
 
+[Code documentation](../kdoc/index.md)
+
 ***
 
 Back to project [homepage](../index).

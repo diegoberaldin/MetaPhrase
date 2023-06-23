@@ -1,0 +1,17 @@
+---
+title: getUntranslatable
+---
+//[MetaPhrase](../../../index.html)/[com.github.diegoberaldin.metaphrase.domain.project.persistence.dao](../index.html)/[DefaultSegmentDao](index.html)/[getUntranslatable](get-untranslatable.html)
+
+
+
+# getUntranslatable
+
+
+
+[jvm]\
+open suspend override fun [getUntranslatable](get-untranslatable.html)(languageId: [Int](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)): [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)&lt;[SegmentModel](../../com.github.diegoberaldin.metaphrase.domain.project.data/-segment-model/index.html)&gt;
+
+
+
+
