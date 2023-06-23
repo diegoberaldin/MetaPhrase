@@ -3,6 +3,7 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
+    id("org.jetbrains.dokka") version "1.8.20"
 }
 
 group = "com.github.diegoberaldin.metaphrase"
@@ -12,6 +13,10 @@ repositories {
     google()
     mavenCentral()
     maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+}
+
+subprojects {
+    apply(plugin = "org.jetbrains.dokka")
 }
 
 kotlin {
