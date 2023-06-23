@@ -35,14 +35,6 @@ include(
     ":domain-project:usecase",
 
     ":domain-formats",
-    ":domain-formats:android",
-    ":domain-formats:ios",
-    ":domain-formats:resx",
-    ":domain-formats:po",
-
-    ":domain-language",
-    ":domain-language:repository",
-    ":domain-language:usecase",
 
     ":domain-tm",
     ":domain-tm:data",
