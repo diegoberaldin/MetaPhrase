@@ -55,6 +55,9 @@ private fun initKoin() {
     }
 }
 
+/**
+ * Main application entry point.
+ */
 @OptIn(ExperimentalDecomposeApi::class)
 fun main() {
     // init DI

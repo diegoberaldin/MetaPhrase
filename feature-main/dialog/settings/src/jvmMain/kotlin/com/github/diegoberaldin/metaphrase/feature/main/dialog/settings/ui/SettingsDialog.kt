@@ -48,6 +48,12 @@ import com.github.diegoberaldin.metaphrase.domain.mt.repository.data.MachineTran
 import com.github.diegoberaldin.metaphrase.feature.main.dialog.settings.presentation.SettingsComponent
 import java.awt.Cursor
 
+/**
+ * UI content of the settings dialog.
+ *
+ * @param component component
+ * @param onClose on close callback
+ */
 @Composable
 fun SettingsDialog(
     component: SettingsComponent,

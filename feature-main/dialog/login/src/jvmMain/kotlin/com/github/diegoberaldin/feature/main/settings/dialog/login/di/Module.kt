@@ -4,6 +4,9 @@ import com.github.diegoberaldin.feature.main.settings.dialog.login.presentation.
 import com.github.diegoberaldin.feature.main.settings.dialog.login.presentation.LoginComponent
 import org.koin.dsl.module
 
+/**
+ * DI module for the login dialog.
+ */
 val dialogLoginModule = module {
     factory<LoginComponent> {
         DefaultLoginComponent(

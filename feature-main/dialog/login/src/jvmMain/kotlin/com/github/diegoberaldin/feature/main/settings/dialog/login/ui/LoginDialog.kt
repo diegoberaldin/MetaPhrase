@@ -43,6 +43,12 @@ import com.github.diegoberaldin.metaphrase.core.localization.localized
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
+/**
+ * UI content of the login dialog.
+ *
+ * @param component component
+ * @param onClose on close callback
+ */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun LoginDialog(
