@@ -4,6 +4,9 @@ import com.github.diegoberaldin.metaphrase.feature.intro.presentation.DefaultInt
 import com.github.diegoberaldin.metaphrase.feature.intro.presentation.IntroComponent
 import org.koin.dsl.module
 
+/**
+ * DI module for the intro screen.
+ */
 val introModule = module {
     factory<IntroComponent> { params ->
         DefaultIntroComponent(

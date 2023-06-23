@@ -13,6 +13,11 @@ import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Spacing
 import com.github.diegoberaldin.metaphrase.core.localization.localized
 import com.github.diegoberaldin.metaphrase.feature.intro.presentation.IntroComponent
 
+/**
+ * UI content of the intro (welcome) screen.
+ *
+ * @param component Component
+ */
 @Composable
 fun MainEmptyContent(
     component: IntroComponent,
