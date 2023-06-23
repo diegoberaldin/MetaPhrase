@@ -11,6 +11,8 @@ import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import com.arkivanov.essenty.lifecycle.doOnStart
 import com.github.diegoberaldin.metaphrase.core.common.coroutines.CoroutineDispatcherProvider
+import com.github.diegoberaldin.metaphrase.core.common.keystore.KeyStoreKeys
+import com.github.diegoberaldin.metaphrase.core.common.keystore.TemporaryKeyStore
 import com.github.diegoberaldin.metaphrase.core.common.notification.NotificationCenter
 import com.github.diegoberaldin.metaphrase.core.common.utils.asFlow
 import com.github.diegoberaldin.metaphrase.core.common.utils.getByInjection
@@ -22,6 +24,7 @@ import com.github.diegoberaldin.metaphrase.domain.glossary.data.GlossaryTermMode
 import com.github.diegoberaldin.metaphrase.domain.glossary.repository.GlossaryTermRepository
 import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
 import com.github.diegoberaldin.metaphrase.domain.language.repository.LanguageRepository
+import com.github.diegoberaldin.metaphrase.domain.mt.repository.MachineTranslationRepository
 import com.github.diegoberaldin.metaphrase.domain.project.data.ProjectModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.RecentProjectModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.ResourceFileType
@@ -50,6 +53,7 @@ import com.github.diegoberaldin.metaphrase.feature.translate.presentation.Transl
 import com.github.diegoberaldin.metaphrase.feature.translate.toolbar.presentation.TranslateToolbarComponent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
@@ -69,10 +73,11 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.File
 import kotlin.coroutines.CoroutineContext
 import kotlin.time.Duration
 
-@OptIn(ExperimentalCoroutinesApi::class)
+@OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
 internal class DefaultTranslateComponent(
     componentContext: ComponentContext,
     private val coroutineContext: CoroutineContext,
@@ -90,7 +95,9 @@ internal class DefaultTranslateComponent(
     private val validateSpelling: ValidateSpellingUseCase,
     private val syncProjectWithTm: SyncProjectWithTmUseCase,
     private val saveProject: SaveProjectUseCase,
+    private val machineTranslationRepository: MachineTranslationRepository,
     private val notificationCenter: NotificationCenter,
+    private val keyStore: TemporaryKeyStore,
 ) : TranslateComponent, ComponentContext by componentContext {
 
     private val project = MutableStateFlow<ProjectModel?>(null)
@@ -444,7 +451,7 @@ internal class DefaultTranslateComponent(
                 clearMessages()
                 refresh()
             }
-            toolbar.asFlow<TranslateToolbarComponent>()?.firstOrNull()?.apply {
+            toolbar.asFlow<TranslateToolbarComponent>().firstOrNull()?.apply {
                 projectId = this@DefaultTranslateComponent.projectId
             }
         }
@@ -724,6 +731,26 @@ internal class DefaultTranslateComponent(
     override fun machineTranslationShare() {
         viewModelScope.launch(dispatchers.io) {
             panel.asFlow<MachineTranslationComponent>().firstOrNull()?.share()
+        }
+    }
+
+    override fun machineTranslationContributeTm() {
+        viewModelScope.launch(dispatchers.io) {
+            val project = projectRepository.getById(projectId)
+            val recentProjectModel = recentProjectRepository.getByName(project?.name.orEmpty())
+            val file = recentProjectModel?.let { File(it.path) }.takeIf { it?.canRead() == true } ?: return@launch
+
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
+            val key = keyStore.get(KeyStoreKeys.MachineTranslationKey, "").takeIf { it.isNotEmpty() }
+            val provider = keyStore.get(KeyStoreKeys.MachineTranslationProvider, 0).let {
+                MachineTranslationRepository.AVAILABLE_PROVIDERS[it]
+            }
+            machineTranslationRepository.importTm(
+                provider = provider,
+                key = key,
+                file = file,
+            )
+            notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
         }
     }
 

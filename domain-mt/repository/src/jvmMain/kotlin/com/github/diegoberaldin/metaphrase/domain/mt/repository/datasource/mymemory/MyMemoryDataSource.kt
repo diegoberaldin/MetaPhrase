@@ -6,9 +6,18 @@ import com.github.diegoberaldin.metaphrase.domain.mt.repository.datasource.mymem
 import com.github.diegoberaldin.metaphrase.domain.mt.repository.datasource.mymemory.dto.ServiceResponse
 import io.ktor.client.call.body
 import io.ktor.client.request.HttpRequestBuilder
+import io.ktor.client.request.forms.InputProvider
+import io.ktor.client.request.forms.formData
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
+import io.ktor.client.request.post
 import io.ktor.client.request.url
+import io.ktor.http.Headers
+import io.ktor.http.HttpHeaders
+import io.ktor.http.HttpMethod
+import io.ktor.http.quote
+import io.ktor.utils.io.streams.asInput
+import java.io.File
 
 internal class MyMemoryDataSource : MachineTranslationDataSource {
 
@@ -17,6 +26,7 @@ internal class MyMemoryDataSource : MachineTranslationDataSource {
         const val GetTranslation = "$Base/get"
         const val SetTranslation = "$Base/set"
         const val GenerateKey = "$Base/keygen"
+        const val Import = "$Base/v2/tmx/import"
     }
 
     private object Params {
@@ -59,10 +69,10 @@ internal class MyMemoryDataSource : MachineTranslationDataSource {
 
     private fun getLanguagePair(sourceLang: String, targetLang: String) =
         listOf(sourceLang, targetLang).zipWithNext { a, b ->
-            if (sourceLang.isEmpty() || targetLang.isEmpty()) {
+            if (a.isEmpty() || b.isEmpty()) {
                 null
             } else {
-                "$sourceLang|$targetLang"
+                "$a|$b"
             }
         }.firstOrNull()
 
@@ -103,4 +113,22 @@ internal class MyMemoryDataSource : MachineTranslationDataSource {
         val key = response.body<ServiceKey>()
         key.key
     }.getOrElse { "" }
+
+    override suspend fun import(file: File, key: String?, private: Boolean, name: String?, subject: String?) {
+        runCatching {
+            client.post(
+                HttpRequestBuilder().apply {
+                    method = HttpMethod.Post
+                    url(Urls.Import)
+                    formData {
+                        "file".quote()
+                        InputProvider(file.length()) { file.inputStream().asInput() }
+                        Headers.build {
+                            append(HttpHeaders.ContentDisposition, "filename=${file.name.quote()}")
+                        }
+                    }
+                },
+            )
+        }
+    }
 }

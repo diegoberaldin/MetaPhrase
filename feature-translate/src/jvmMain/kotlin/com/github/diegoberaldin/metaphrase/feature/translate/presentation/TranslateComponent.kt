@@ -45,6 +45,7 @@ interface TranslateComponent {
     fun machineTranslationInsert()
     fun machineTranslationCopyTarget()
     fun machineTranslationShare()
+    fun machineTranslationContributeTm()
 
     @Parcelize
     object ToolbarConfig : Parcelable

@@ -298,4 +298,10 @@ internal class DefaultProjectsComponent(
             childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.machineTranslationShare()
         }
     }
+
+    override fun machineTranslationContributeTm() {
+        viewModelScope.launch(dispatchers.io) {
+            childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.machineTranslationContributeTm()
+        }
+    }
 }

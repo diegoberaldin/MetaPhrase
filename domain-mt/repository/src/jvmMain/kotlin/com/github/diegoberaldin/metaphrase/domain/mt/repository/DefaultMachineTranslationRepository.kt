@@ -3,6 +3,7 @@ package com.github.diegoberaldin.metaphrase.domain.mt.repository
 import com.github.diegoberaldin.metaphrase.core.common.utils.LruCache
 import com.github.diegoberaldin.metaphrase.domain.mt.repository.data.MachineTranslationProvider
 import com.github.diegoberaldin.metaphrase.domain.mt.repository.datasource.mymemory.MyMemoryDataSource
+import java.io.File
 
 internal class DefaultMachineTranslationRepository(
     private val myMemoryDataSource: MyMemoryDataSource,
@@ -73,4 +74,27 @@ internal class DefaultMachineTranslationRepository(
 
             else -> ""
         }
+
+    override suspend fun importTm(
+        provider: MachineTranslationProvider,
+        file: File,
+        key: String?,
+        private: Boolean,
+        name: String?,
+        subject: String?,
+    ) {
+        when (provider) {
+            MachineTranslationProvider.MY_MEMORY -> {
+                myMemoryDataSource.import(
+                    file = file,
+                    key = key,
+                    private = private,
+                    name = name,
+                    subject = subject,
+                )
+            }
+
+            else -> ""
+        }
+    }
 }

@@ -52,6 +52,8 @@ val translateModule = module {
             syncProjectWithTm = get(),
             glossaryTermRepository = get(),
             saveProject = get(),
+            machineTranslationRepository = get(),
+            keyStore = get(),
         )
     }
 }
