@@ -1,4 +1,4 @@
-package repository.di
+package com.github.diegoberaldin.metaphrase.domain.project.di
 
 import com.github.diegoberaldin.metaphrase.domain.project.repository.di.projectRepositoryModule
 import com.github.diegoberaldin.metaphrase.domain.project.usecase.di.projectUseCaseModule

@@ -32,6 +32,7 @@ import com.github.diegoberaldin.metaphrase.core.localization.localized
 import com.github.diegoberaldin.metaphrase.core.persistence.di.persistenceModule
 import com.github.diegoberaldin.metaphrase.domain.language.di.languageModule
 import com.github.diegoberaldin.metaphrase.domain.project.data.ResourceFileType
+import com.github.diegoberaldin.metaphrase.domain.project.di.projectModule
 import com.github.diegoberaldin.metaphrase.feature.main.di.mainModule
 import com.github.diegoberaldin.metaphrase.feature.main.presentation.RootComponent
 import com.github.diegoberaldin.metaphrase.feature.main.ui.RootContent
@@ -39,7 +40,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.runBlocking
 import org.koin.core.context.startKoin
-import repository.di.projectModule
 import java.util.*
 
 private fun initKoin() {

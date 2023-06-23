@@ -2,7 +2,7 @@ package com.github.diegoberaldin.metaphrase.feature.translate.panel.glossary.di
 
 import com.github.diegoberaldin.metaphrase.feature.translate.panel.glossary.presentation.DefaultGlossaryComponent
 import com.github.diegoberaldin.metaphrase.feature.translate.panel.glossary.presentation.GlossaryComponent
-import glossary.di.glossaryModule
+import com.github.diegoberaldin.metaphrase.domain.glossary.di.glossaryModule
 import org.koin.dsl.module
 
 val panelGlossaryModule = module {
