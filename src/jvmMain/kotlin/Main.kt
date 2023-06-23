@@ -411,5 +411,11 @@ private fun MenuBarScope.makeMenus(
         ) {
             rootComponent.machineTranslationShare()
         }
+        Item(
+            text = "menu_machine_translation_contribute_memory".localized(),
+            shortcut = KeyShortcut(Key.M, meta = true, shift = true),
+        ) {
+            rootComponent.machineTranslationContributeTm()
+        }
     }
 }

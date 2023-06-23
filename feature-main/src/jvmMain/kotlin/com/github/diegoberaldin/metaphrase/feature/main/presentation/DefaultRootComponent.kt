@@ -559,4 +559,10 @@ internal class DefaultRootComponent(
             main.asFlow<ProjectsComponent>().firstOrNull()?.machineTranslationShare()
         }
     }
+
+    override fun machineTranslationContributeTm() {
+        viewModelScope.launch(dispatchers.io) {
+            main.asFlow<ProjectsComponent>().firstOrNull()?.machineTranslationContributeTm()
+        }
+    }
 }

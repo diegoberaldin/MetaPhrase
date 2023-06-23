@@ -54,6 +54,7 @@ interface RootComponent {
     fun machineTranslationInsert()
     fun machineTranslationCopyTarget()
     fun machineTranslationShare()
+    fun machineTranslationContributeTm()
 
     sealed interface Config : Parcelable {
         @Parcelize

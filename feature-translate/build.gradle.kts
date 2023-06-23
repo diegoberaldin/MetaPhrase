@@ -42,6 +42,7 @@ kotlin {
                 implementation(projects.domainTm.usecase)
                 implementation(projects.domainGlossary.data)
                 implementation(projects.domainGlossary.repository)
+                implementation(projects.domainMt.repository)
 
                 implementation(projects.featureTranslate.toolbar)
                 implementation(projects.featureTranslate.messages)

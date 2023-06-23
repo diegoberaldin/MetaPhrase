@@ -2033,6 +2033,38 @@
 				</seg>
 			</tuv>
 		</tu>
+		<tu tuid="menu_machine_translation_contribute_memory">
+			<tuv xml:lang="en">
+				<seg>
+					Share TM to machine translation
+				</seg>
+			</tuv>
+			<tuv xml:lang="it">
+				<seg>
+					Condividi TM a trad. automatica
+				</seg>
+			</tuv>
+			<tuv xml:lang="de">
+				<seg>
+					TM in maschinelle Übersetzung teilen
+				</seg>
+			</tuv>
+			<tuv xml:lang="fr">
+				<seg>
+					Partager la TM à la traduction automatique
+				</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>
+					Compartir MT a traducción automática
+				</seg>
+			</tuv>
+			<tuv xml:lang="pt">
+				<seg>
+					Compartilhar TM para tradução automática
+				</seg>
+			</tuv>
+		</tu>
 		<tu tuid="menu_machine_translation_copy_share">
 			<tuv xml:lang="en">
 				<seg>

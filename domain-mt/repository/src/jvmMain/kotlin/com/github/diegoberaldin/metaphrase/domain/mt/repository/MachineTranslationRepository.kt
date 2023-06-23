@@ -1,6 +1,7 @@
 package com.github.diegoberaldin.metaphrase.domain.mt.repository
 
 import com.github.diegoberaldin.metaphrase.domain.mt.repository.data.MachineTranslationProvider
+import java.io.File
 
 interface MachineTranslationRepository {
     companion object {
@@ -31,4 +32,13 @@ interface MachineTranslationRepository {
         username: String,
         password: String,
     ): String
+
+    suspend fun importTm(
+        provider: MachineTranslationProvider = MachineTranslationProvider.MY_MEMORY,
+        file: File,
+        key: String? = null,
+        private: Boolean = false,
+        name: String? = null,
+        subject: String? = null,
+    )
 }
