@@ -2033,6 +2033,70 @@
 				</seg>
 			</tuv>
 		</tu>
+		<tu tuid="menu_help">
+			<tuv xml:lang="en">
+				<seg>
+					Help
+				</seg>
+			</tuv>
+			<tuv xml:lang="it">
+				<seg>
+					Aiuto
+				</seg>
+			</tuv>
+			<tuv xml:lang="de">
+				<seg>
+					Aufrufen der Bedienungsanleitung.
+				</seg>
+			</tuv>
+			<tuv xml:lang="fr">
+				<seg>
+					Aide
+				</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>
+					Ayuda
+				</seg>
+			</tuv>
+			<tuv xml:lang="pt">
+				<seg>
+					Ajuda
+				</seg>
+			</tuv>
+		</tu>
+		<tu tuid="menu_help_open_manual">
+			<tuv xml:lang="en">
+				<seg>
+					Open user manual
+				</seg>
+			</tuv>
+			<tuv xml:lang="it">
+				<seg>
+					Apri manuale utente
+				</seg>
+			</tuv>
+			<tuv xml:lang="de">
+				<seg>
+					Aufrufen der Bedienungsanleitung.
+				</seg>
+			</tuv>
+			<tuv xml:lang="fr">
+				<seg>
+					Manuel de l&apos;utilisateur
+				</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>
+					Manual del usuario
+				</seg>
+			</tuv>
+			<tuv xml:lang="pt">
+				<seg>
+					Manual de Utilização
+				</seg>
+			</tuv>
+		</tu>
 		<tu tuid="menu_machine_translation_contribute_memory">
 			<tuv xml:lang="en">
 				<seg>

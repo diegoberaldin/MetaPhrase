@@ -48,6 +48,9 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.awt.Desktop
+import java.net.URI
+import java.util.*
 import kotlin.coroutines.CoroutineContext
 import kotlin.time.Duration
 
@@ -70,6 +73,7 @@ internal class DefaultRootComponent(
     companion object {
         const val KEY_MAIN_SLOT = "MainSlot"
         const val KEY_DIALOG_SLOT = "DialogSlot"
+        const val MANUAL_URL = "https://diegoberaldin.github.io/MetaPhrase/user_manual/main"
     }
 
     private lateinit var viewModelScope: CoroutineScope
@@ -563,6 +567,27 @@ internal class DefaultRootComponent(
     override fun machineTranslationContributeTm() {
         viewModelScope.launch(dispatchers.io) {
             main.asFlow<ProjectsComponent>().firstOrNull()?.machineTranslationContributeTm()
+        }
+    }
+
+    override fun openManual() {
+        runCatching {
+            openInBrowser(MANUAL_URL)
+        }.exceptionOrNull()?.also {
+            it.printStackTrace()
+        }
+    }
+
+    private fun openInBrowser(uri: String) {
+        val osName by lazy(LazyThreadSafetyMode.NONE) {
+            System.getProperty("os.name").lowercase(Locale.getDefault())
+        }
+        val desktop = Desktop.getDesktop()
+        when {
+            Desktop.isDesktopSupported() && desktop.isSupported(Desktop.Action.BROWSE) -> desktop.browse(URI(uri))
+            "mac" in osName -> Runtime.getRuntime().exec(arrayOf("open", uri))
+            "nix" in osName || "nux" in osName -> Runtime.getRuntime().exec(arrayOf("xdg-open", uri))
+            else -> throw RuntimeException("cannot open $uri")
         }
     }
 }
