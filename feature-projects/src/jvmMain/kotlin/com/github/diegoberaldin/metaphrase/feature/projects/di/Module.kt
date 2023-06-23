@@ -6,6 +6,9 @@ import com.github.diegoberaldin.metaphrase.feature.projects.presentation.Project
 import com.github.diegoberaldin.metaphrase.feature.translate.di.translateModule
 import org.koin.dsl.module
 
+/**
+ * DI module for the projects subproject.
+ */
 val projectsModule = module {
     includes(projectListModule)
     includes(translateModule)

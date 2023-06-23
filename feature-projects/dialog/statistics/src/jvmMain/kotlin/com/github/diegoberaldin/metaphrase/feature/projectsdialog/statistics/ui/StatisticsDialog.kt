@@ -36,6 +36,12 @@ import com.github.diegoberaldin.metaphrase.core.localization.localized
 import com.github.diegoberaldin.metaphrase.feature.projectsdialog.statistics.presentation.StatisticsComponent
 import com.github.diegoberaldin.metaphrase.feature.projectsdialog.statistics.presentation.StatisticsItem
 
+/**
+ * UI content of the statistics dialog.
+ *
+ * @param component component
+ * @param onClose on close callback
+ */
 @Composable
 fun StatisticsDialog(
     component: StatisticsComponent,

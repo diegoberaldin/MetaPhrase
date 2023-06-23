@@ -4,6 +4,9 @@ import com.github.diegoberaldin.metaphrase.feature.projectsdialog.statistics.pre
 import com.github.diegoberaldin.metaphrase.feature.projectsdialog.statistics.presentation.StatisticsComponent
 import org.koin.dsl.module
 
+/**
+ * DI module for statistics dialog.
+ */
 val dialogStatisticsModule = module {
     factory<StatisticsComponent> { params ->
         DefaultStatisticsComponent(
