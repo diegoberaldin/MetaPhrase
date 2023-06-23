@@ -13,6 +13,14 @@ import androidx.compose.ui.unit.dp
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.SelectedBackground
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Spacing
 
+/**
+ * Panel chip for bottom panel sections.
+ *
+ * @param title section title
+ * @param isActive whether this is the active section
+ * @param onActivate callback when chip activated
+ * @return
+ */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun PanelChip(

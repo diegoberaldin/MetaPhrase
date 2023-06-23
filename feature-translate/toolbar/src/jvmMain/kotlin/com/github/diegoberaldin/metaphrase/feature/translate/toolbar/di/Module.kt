@@ -4,6 +4,9 @@ import com.github.diegoberaldin.metaphrase.feature.translate.toolbar.presentatio
 import com.github.diegoberaldin.metaphrase.feature.translate.toolbar.presentation.TranslateToolbarComponent
 import org.koin.dsl.module
 
+/**
+ * DI module for the toolbar subproject.
+ */
 val translateToolbarModule = module {
     factory<TranslateToolbarComponent> { params ->
         DefaultTranslateToolbarComponent(
