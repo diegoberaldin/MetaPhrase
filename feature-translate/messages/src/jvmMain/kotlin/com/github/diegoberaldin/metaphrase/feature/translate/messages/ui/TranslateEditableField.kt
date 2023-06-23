@@ -23,6 +23,20 @@ import androidx.compose.ui.text.style.TextDecoration
 import com.github.diegoberaldin.metaphrase.domain.project.data.TranslationUnit
 import com.github.diegoberaldin.metaphrase.domain.spellcheck.SpellCheckCorrection
 
+/**
+ * Translation editable field.
+ *
+ * @param unit translation unit
+ * @param focusRequester focus requester
+ * @param active flag indicating whether this is the currently edited segment
+ * @param updateTextSwitch flag to trigger text updates programmatically
+ * @param enabled flag indicating whether this field should be enabled
+ * @param spellingErrors list of spelling errors detected
+ * @param onStartEditing on start editing callback
+ * @param onTextChanged on text changed callback
+ * @param onAddToGlossary on add to glossary callback
+ * @param onIgnoreWord on ignore word callback
+ */
 @Composable
 fun TranslateEditableField(
     unit: TranslationUnit,

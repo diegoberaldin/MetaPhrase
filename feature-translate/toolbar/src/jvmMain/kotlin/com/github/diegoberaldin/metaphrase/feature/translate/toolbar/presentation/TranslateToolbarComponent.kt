@@ -94,13 +94,46 @@ interface TranslateToolbarComponent {
      */
     fun setEditing(value: Boolean)
 
+    /**
+     * Events that can be emitted by the component.
+     */
     sealed interface Events {
+        /**
+         * Move to previous segment
+         */
         object MoveToPrevious : Events
+
+        /**
+         * Move to next segment
+         */
         object MoveToNext : Events
+
+        /**
+         * Search in message list.
+         *
+         * @property text query to search
+         * @constructor Create [Search]
+         */
         data class Search(val text: String) : Events
+
+        /**
+         * Add new segment
+         */
         object AddUnit : Events
+
+        /**
+         * Delete current segment
+         */
         object RemoveUnit : Events
+
+        /**
+         * Start validation (placeholder)
+         */
         object ValidateUnits : Events
+
+        /**
+         * Copy base (source) text to translation field
+         */
         object CopyBase : Events
     }
 }

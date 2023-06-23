@@ -34,6 +34,15 @@ import com.github.diegoberaldin.metaphrase.feature.translate.dialog.newterm.pres
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
+/**
+ * UI content of the new glossary term dialog. This dialog is shown whenever a new glossary term is being inserted for
+ * a target language. In this case the target term should be pre-filled with the user selection and the source term must
+ * be inserted to populate the glossary.
+ *
+ * @param targetTerm target term
+ * @param component component
+ * @param onClose on close callback
+ */
 @Composable
 fun NewGlossaryTermDialog(
     targetTerm: String? = null,
