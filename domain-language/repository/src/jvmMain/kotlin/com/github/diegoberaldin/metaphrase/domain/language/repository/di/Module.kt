@@ -8,6 +8,9 @@ import com.github.diegoberaldin.metaphrase.domain.language.repository.LanguageNa
 import com.github.diegoberaldin.metaphrase.domain.language.repository.LanguageRepository
 import org.koin.dsl.module
 
+/**
+ * DI module for the domain-language repository subproject.
+ */
 val languageRepositoryModule = module {
     single<LanguageRepository> {
         DefaultLanguageRepository(
