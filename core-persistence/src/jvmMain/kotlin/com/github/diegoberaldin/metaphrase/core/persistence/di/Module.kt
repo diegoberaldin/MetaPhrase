@@ -44,6 +44,9 @@ private val daoModule = module {
     }
 }
 
+/**
+ * DI module for the core-persistence subproject.
+ */
 val persistenceModule = module {
     includes(dbModule)
     includes(daoModule)
