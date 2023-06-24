@@ -20,7 +20,6 @@ import io.ktor.utils.io.streams.asInput
 import java.io.File
 
 internal class MyMemoryDataSource : MachineTranslationDataSource {
-
     private object Urls {
         const val Base = "https://api.mymemory.translated.net"
         const val GetTranslation = "$Base/get"
