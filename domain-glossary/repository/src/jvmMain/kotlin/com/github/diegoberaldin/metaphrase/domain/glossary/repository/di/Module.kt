@@ -4,6 +4,9 @@ import com.github.diegoberaldin.metaphrase.domain.glossary.repository.DefaultGlo
 import com.github.diegoberaldin.metaphrase.domain.glossary.repository.GlossaryTermRepository
 import org.koin.dsl.module
 
+/**
+ * DI module for the domain-glossary repository subproject.
+ */
 val glossaryRepositoryModule = module {
     single<GlossaryTermRepository> {
         DefaultGlossaryTermRepository(

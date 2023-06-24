@@ -10,6 +10,9 @@ import com.github.diegoberaldin.metaphrase.domain.glossary.usecase.GetGlossaryTe
 import com.github.diegoberaldin.metaphrase.domain.glossary.usecase.ImportGlossaryUseCase
 import org.koin.dsl.module
 
+/**
+ * DI module for the domain-glossary use case subproject.
+ */
 val glossaryUseCaseModule = module {
     single<GetGlossaryTermsUseCase> {
         DefaultGetGlossaryTermsUseCase(
