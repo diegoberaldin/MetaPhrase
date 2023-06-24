@@ -7,6 +7,15 @@ import java.awt.Frame
 import java.awt.Window
 import java.io.FilenameFilter
 
+/**
+ * Custom save file dialog.
+ *
+ * @param title Dialog title
+ * @param initialFileName Initial file name
+ * @param nameFilter Name filter (return true if and only if the name matches the wanted format)
+ * @param parent Parent
+ * @param onCloseRequest On close callback
+ */
 @Composable
 fun CustomSaveFileDialog(
     title: String = "",

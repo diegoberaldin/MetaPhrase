@@ -36,6 +36,17 @@ import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Spacing
 
+/**
+ * Custom spinner for drop-down selection.
+ *
+ * @param values Set of available values
+ * @param current Current value
+ * @param modifier Modifier
+ * @param size Size of the element and of the drop-down menu
+ * @param onValueChanged On value changed callback
+ * @param valueColor Value text color
+ * @return
+ */
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalFoundationApi::class)
 @Composable
 fun CustomSpinner(

@@ -15,6 +15,13 @@ import javax.swing.SwingUtilities
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 
+/**
+ * Helper to run a block on the UI thread.
+ *
+ * @param T Result
+ * @param block Block to execute
+ * @return [T]
+ */
 fun <T> runOnUiThread(block: () -> T): T {
     if (SwingUtilities.isEventDispatchThread()) {
         return block()
@@ -37,11 +44,24 @@ fun <T> runOnUiThread(block: () -> T): T {
     return result as T
 }
 
+/**
+ * Utility to inject dependencies outside a module scope.
+ *
+ * @param T Type to inject
+ * @return [T]
+ */
 inline fun <reified T> getByInjection(): T {
     val res by KoinJavaComponent.inject<T>(T::class.java)
     return res
 }
 
+/**
+ * Utility to inject dependencies outside a module scope with additional arguments.
+ *
+ * @param T Type to inject
+ * @param params Params assisted injection arguments.
+ * @return [T]
+ */
 inline fun <reified T> getByInjection(vararg params: Any?): T {
     val res by KoinJavaComponent.inject<T>(T::class.java) {
         parametersOf(*params)
@@ -49,6 +69,15 @@ inline fun <reified T> getByInjection(vararg params: Any?): T {
     return res
 }
 
+/**
+ * Observe a child stack as a flow.
+ *
+ * @receiver [Value] original stack
+ * @param T Type of the result
+ * @param withNullsIfNotInstance emits null if the active value is not of the correct type
+ * @param timeout Timeout to wait for emission
+ * @return [Flow]
+ */
 @OptIn(FlowPreview::class)
 inline fun <reified T> Value<ChildStack<*, *>>.activeAsFlow(
     withNullsIfNotInstance: Boolean = false,
@@ -70,6 +99,15 @@ inline fun <reified T> Value<ChildStack<*, *>>.activeAsFlow(
     }
 }.timeout(timeout).catch { emit(null) }
 
+/**
+ * Observe a child slot as a flow.
+ *
+ * @receiver [Value] original slot
+ * @param T Type of the result
+ * @param withNullsIfNotInstance emits null if the active value is not of the correct type
+ * @param timeout Timeout to wait for emission
+ * @return [Flow]
+ */
 @OptIn(FlowPreview::class)
 inline fun <reified T> Value<ChildSlot<*, *>>.asFlow(
     withNullsIfNotInstance: Boolean = false,

@@ -23,6 +23,14 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.rememberDialogState
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Spacing
 
+/**
+ * Custom dialog.
+ *
+ * @param title Dialog title
+ * @param message Dialog message
+ * @param buttonTexts Texts for the dialog's buttons
+ * @param onClose On close callback
+ */
 @Composable
 fun CustomDialog(
     title: String,

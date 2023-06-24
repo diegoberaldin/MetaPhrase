@@ -32,6 +32,14 @@ import com.github.diegoberaldin.metaphrase.core.common.utils.toRadians
 import java.text.DecimalFormat
 import kotlin.math.sin
 
+/**
+ * Custom progress indicator as a striped bar.
+ *
+ * @param progress Progress value
+ * @param progressColor Progress color
+ * @param modifier Modifier
+ * @return
+ */
 @OptIn(ExperimentalTextApi::class)
 @Composable
 fun CustomProgressIndicator(

@@ -2,6 +2,9 @@ package com.github.diegoberaldin.metaphrase.core.common.utils
 
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * Combine utility to handle more than 5 flows.
+ */
 inline fun <T1, T2, T3, T4, T5, T6, R> combine(
     flow: Flow<T1>,
     flow2: Flow<T2>,

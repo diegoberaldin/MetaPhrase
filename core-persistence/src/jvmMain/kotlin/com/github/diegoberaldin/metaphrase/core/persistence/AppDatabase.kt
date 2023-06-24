@@ -19,6 +19,13 @@ import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
 
+/**
+ * Application DB that contains shared logic to access the embedded DB on local files as well as the DAO factory methods.
+ *
+ * @property filename Name of the file to read/write to
+ * @property fileManager Utility to access files on disk
+ * @constructor Create [AppDatabase]
+ */
 internal class AppDatabase(
     private val filename: String = FILE_NAME,
     private val fileManager: FileManager,
