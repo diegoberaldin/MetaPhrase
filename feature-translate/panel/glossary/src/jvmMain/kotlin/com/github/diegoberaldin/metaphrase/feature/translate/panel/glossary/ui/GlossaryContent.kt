@@ -38,6 +38,14 @@ import com.github.diegoberaldin.metaphrase.core.localization.localized
 import com.github.diegoberaldin.metaphrase.feature.translate.panel.glossary.presentation.GlossaryComponent
 import java.awt.Cursor
 
+/**
+ * Glossary UI content.
+ *
+ * @param component Component
+ * @param modifier Modifier
+ * @param onMinify on minify callback
+ * @return
+ */
 @OptIn(ExperimentalFoundationApi::class, ExperimentalLayoutApi::class)
 @Composable
 fun GlossaryContent(

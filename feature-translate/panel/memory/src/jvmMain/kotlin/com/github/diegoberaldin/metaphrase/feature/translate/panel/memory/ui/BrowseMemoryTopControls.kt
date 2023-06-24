@@ -29,6 +29,20 @@ import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Spacing
 import com.github.diegoberaldin.metaphrase.core.localization.localized
 import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
 
+/**
+ * Top controls for the TM content panel.
+ *
+ * @param sourceLanguage Source language
+ * @param availableSourceLanguages Available source languages
+ * @param targetLanguage Target language
+ * @param availableTargetLanguages Available target languages
+ * @param currentSearch Current search query
+ * @param onSourceLanguageSelected On source language selected callback
+ * @param onTargetLanguageSelected On target language selected callback
+ * @param onSearchChanged On search changed callback
+ * @param onSearchFired On search fired callback
+ * @return
+ */
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalFoundationApi::class)
 @Composable
 fun BrowseMemoryTopControls(

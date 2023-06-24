@@ -37,6 +37,13 @@ import androidx.compose.ui.unit.dp
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Spacing
 import com.github.diegoberaldin.metaphrase.core.common.utils.toLocalPixel
 
+/**
+ * Add button UI content.
+ *
+ * @param backgroundColor Background color
+ * @param onAddTerm on add term callback
+ * @return
+ */
 @OptIn(ExperimentalFoundationApi::class, ExperimentalComposeUiApi::class)
 @Composable
 internal fun GlossaryAddButton(

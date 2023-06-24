@@ -40,6 +40,14 @@ import com.github.diegoberaldin.metaphrase.core.localization.localized
 import com.github.diegoberaldin.metaphrase.feature.translate.panel.matches.presentation.TranslationMemoryComponent
 import java.awt.Cursor
 
+/**
+ * Translation memory UI content.
+ *
+ * @param component Component
+ * @param onMinify on minify callback
+ * @param modifier Modifier
+ * @return
+ */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun TranslationMemoryContent(

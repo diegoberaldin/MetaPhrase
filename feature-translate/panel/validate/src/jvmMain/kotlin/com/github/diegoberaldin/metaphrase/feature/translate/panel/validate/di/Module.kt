@@ -4,6 +4,9 @@ import com.github.diegoberaldin.metaphrase.feature.translate.panel.validate.pres
 import com.github.diegoberaldin.metaphrase.feature.translate.panel.validate.presentation.ValidateComponent
 import org.koin.dsl.module
 
+/**
+ * DI module for the validate panel.
+ */
 val panelValidateModule = module {
     factory<ValidateComponent> { params ->
         DefaultValidateComponent(

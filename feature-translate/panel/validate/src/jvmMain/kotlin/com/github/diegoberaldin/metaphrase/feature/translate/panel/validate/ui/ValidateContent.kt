@@ -25,6 +25,14 @@ import com.github.diegoberaldin.metaphrase.core.localization.localized
 import com.github.diegoberaldin.metaphrase.feature.translate.panel.validate.presentation.ValidateComponent
 import com.github.diegoberaldin.metaphrase.feature.translate.panel.validate.presentation.ValidationContent
 
+/**
+ * UI content of the validate panel
+ *
+ * @param component Component
+ * @param onMinify On minify callback
+ * @param modifier Modifier
+ * @return
+ */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ValidateContent(
