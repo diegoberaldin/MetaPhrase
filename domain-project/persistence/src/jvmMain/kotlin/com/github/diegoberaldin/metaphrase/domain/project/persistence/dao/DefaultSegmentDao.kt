@@ -28,7 +28,7 @@ class DefaultSegmentDao : SegmentDao {
         }[SegmentEntity.id].value
     }
 
-    override suspend fun createBatch(models: List<SegmentModel>, languageId: Int) = newSuspendedTransaction {
+    override suspend fun createBatch(models: List<SegmentModel>, languageId: Int): Unit = newSuspendedTransaction {
         SegmentEntity.batchInsert(models, shouldReturnGeneratedValues = false, ignore = true) { model ->
             this[SegmentEntity.text] = model.text
             this[SegmentEntity.key] = model.key
@@ -37,14 +37,14 @@ class DefaultSegmentDao : SegmentDao {
         }
     }
 
-    override suspend fun update(model: SegmentModel) = newSuspendedTransaction {
+    override suspend fun update(model: SegmentModel): Unit = newSuspendedTransaction {
         SegmentEntity.update({ SegmentEntity.id eq model.id }) {
             it[text] = model.text
             it[translatable] = model.translatable
         }
     }
 
-    override suspend fun delete(model: SegmentModel) = newSuspendedTransaction {
+    override suspend fun delete(model: SegmentModel): Unit = newSuspendedTransaction {
         SegmentEntity.deleteWhere { SegmentEntity.id eq model.id }
     }
 
@@ -122,7 +122,7 @@ class DefaultSegmentDao : SegmentDao {
             ?.toModel()
     }
 
-    override fun ResultRow.toModel() = SegmentModel(
+    private fun ResultRow.toModel() = SegmentModel(
         id = this[SegmentEntity.id].value,
         text = this[SegmentEntity.text],
         key = this[SegmentEntity.key],

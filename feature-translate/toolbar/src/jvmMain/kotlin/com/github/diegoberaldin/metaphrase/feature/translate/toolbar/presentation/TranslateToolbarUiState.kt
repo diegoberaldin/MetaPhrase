@@ -25,7 +25,7 @@ data class TranslateToolbarUiState(
 )
 
 /**
- * Get a readable description of a message filter
+ * Get a readable description of a message filter.
  *
  * @receiver [TranslationUnitTypeFilter]
  * @return user-friendly representation of the filter
