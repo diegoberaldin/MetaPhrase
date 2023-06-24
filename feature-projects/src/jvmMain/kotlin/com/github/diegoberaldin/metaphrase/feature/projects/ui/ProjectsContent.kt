@@ -9,6 +9,11 @@ import com.github.diegoberaldin.metaphrase.feature.projects.presentation.Project
 import com.github.diegoberaldin.metaphrase.feature.translate.presentation.TranslateComponent
 import com.github.diegoberaldin.metaphrase.feature.translate.ui.TranslateContent
 
+/**
+ * UI content for the projects screen (either project list or translate editor).
+ *
+ * @param component Component
+ */
 @Composable
 fun ProjectsContent(
     component: ProjectsComponent,

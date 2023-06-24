@@ -15,7 +15,7 @@ import com.github.diegoberaldin.metaphrase.domain.project.data.TranslationUnit
 import com.github.diegoberaldin.metaphrase.domain.project.data.TranslationUnitTypeFilter
 import com.github.diegoberaldin.metaphrase.domain.project.repository.ProjectRepository
 import com.github.diegoberaldin.metaphrase.domain.project.repository.SegmentRepository
-import com.github.diegoberaldin.metaphrase.domain.spellcheck.SpellCheckCorrection
+import com.github.diegoberaldin.metaphrase.domain.spellcheck.data.SpellCheckCorrection
 import com.github.diegoberaldin.metaphrase.domain.spellcheck.repo.SpellCheckRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -70,7 +70,7 @@ internal class DefaultMessageListComponent(
     private var currentPage = -1
 
     override lateinit var uiState: StateFlow<MessageListUiState>
-    override lateinit var paginationState: StateFlow<MessageLisPaginationState>
+    override lateinit var paginationState: StateFlow<MessageListPaginationState>
     override val selectionEvents = MutableSharedFlow<Int>()
     override lateinit var editedSegment: StateFlow<SegmentModel?>
     override val spellingErrors = MutableStateFlow<List<SpellCheckCorrection>>(emptyList())
@@ -115,14 +115,14 @@ internal class DefaultMessageListComponent(
                     isLoading,
                     canFetchMore,
                 ) { isLoading, canFetchMore ->
-                    MessageLisPaginationState(
+                    MessageListPaginationState(
                         isLoading = isLoading,
                         canFetchMore = canFetchMore,
                     )
                 }.stateIn(
                     scope = viewModelScope,
                     started = SharingStarted.WhileSubscribed(5_000),
-                    initialValue = MessageLisPaginationState(),
+                    initialValue = MessageListPaginationState(),
                 )
             }
             doOnStart {

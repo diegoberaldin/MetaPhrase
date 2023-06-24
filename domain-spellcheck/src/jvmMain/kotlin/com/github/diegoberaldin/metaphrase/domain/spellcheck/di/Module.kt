@@ -10,6 +10,9 @@ import com.github.diegoberaldin.metaphrase.domain.spellcheck.usecase.DefaultVali
 import com.github.diegoberaldin.metaphrase.domain.spellcheck.usecase.ValidateSpellingUseCase
 import org.koin.dsl.module
 
+/**
+ * DI module for the domain spellcheck subproject.
+ */
 private val spellCheckInternalModule = module {
     single<UserDefinedWordsRepository> {
         DefaultUserDefinedWordsRepository(

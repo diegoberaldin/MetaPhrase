@@ -21,6 +21,14 @@ import com.github.diegoberaldin.metaphrase.core.common.ui.components.CustomToolt
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Spacing
 import com.github.diegoberaldin.metaphrase.core.localization.localized
 
+/**
+ * Empty panel UI content. This is displayed when a panel section is not available (e.g. translation memory matches
+ * for the base (source) language.
+ *
+ * @param modifier Modifier
+ * @param onMinify on minify callback
+ * @return
+ */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun EmptyPanelContent(

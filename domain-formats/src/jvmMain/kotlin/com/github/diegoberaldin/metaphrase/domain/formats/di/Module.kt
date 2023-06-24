@@ -125,6 +125,9 @@ private val propertiesModule = module {
     }
 }
 
+/**
+ * DI module for the domain-glossary subproject.
+ */
 val formatsModule = module {
     includes(
         androidModule,

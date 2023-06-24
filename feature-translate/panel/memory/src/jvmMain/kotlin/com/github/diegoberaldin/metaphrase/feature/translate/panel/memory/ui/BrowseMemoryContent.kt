@@ -34,6 +34,14 @@ import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Spacing
 import com.github.diegoberaldin.metaphrase.core.localization.localized
 import com.github.diegoberaldin.metaphrase.feature.translate.panel.memory.presentation.BrowseMemoryComponent
 
+/**
+ * UI content of the TM content panel.
+ *
+ * @param component Component
+ * @param modifier Modifier
+ * @param onMinify on minify callback
+ * @return
+ */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun BrowseMemoryContent(

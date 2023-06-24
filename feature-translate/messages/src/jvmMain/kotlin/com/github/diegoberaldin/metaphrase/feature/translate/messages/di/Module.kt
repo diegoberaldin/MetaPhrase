@@ -5,6 +5,9 @@ import com.github.diegoberaldin.metaphrase.feature.translate.messages.presentati
 import com.github.diegoberaldin.metaphrase.feature.translate.messages.presentation.MessageListComponent
 import org.koin.dsl.module
 
+/**
+ * DI module for the message list subproject
+ */
 val translateMessagesModule = module {
     includes(spellcheckModule)
 

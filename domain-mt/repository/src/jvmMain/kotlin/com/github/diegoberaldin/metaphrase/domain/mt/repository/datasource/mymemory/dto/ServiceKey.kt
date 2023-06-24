@@ -3,4 +3,4 @@ package com.github.diegoberaldin.metaphrase.domain.mt.repository.datasource.myme
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ServiceKey(val key: String = "")
+internal data class ServiceKey(val key: String = "")

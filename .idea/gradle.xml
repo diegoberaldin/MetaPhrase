@@ -12,10 +12,6 @@
             <option value="$PROJECT_DIR$/core-localization" />
             <option value="$PROJECT_DIR$/core-persistence" />
             <option value="$PROJECT_DIR$/domain-formats" />
-            <option value="$PROJECT_DIR$/domain-formats/android" />
-            <option value="$PROJECT_DIR$/domain-formats/ios" />
-            <option value="$PROJECT_DIR$/domain-formats/po" />
-            <option value="$PROJECT_DIR$/domain-formats/resx" />
             <option value="$PROJECT_DIR$/domain-glossary" />
             <option value="$PROJECT_DIR$/domain-glossary/data" />
             <option value="$PROJECT_DIR$/domain-glossary/persistence" />

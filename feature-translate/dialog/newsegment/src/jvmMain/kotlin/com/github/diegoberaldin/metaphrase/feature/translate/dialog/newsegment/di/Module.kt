@@ -4,6 +4,9 @@ import com.github.diegoberaldin.metaphrase.feature.translate.dialog.newsegment.p
 import com.github.diegoberaldin.metaphrase.feature.translate.dialog.newsegment.presentation.NewSegmentComponent
 import org.koin.dsl.module
 
+/**
+ * DI module for new segment dialog.
+ */
 val dialogNewSegmentModule = module {
     factory<NewSegmentComponent> { params ->
         DefaultNewSegmentComponent(

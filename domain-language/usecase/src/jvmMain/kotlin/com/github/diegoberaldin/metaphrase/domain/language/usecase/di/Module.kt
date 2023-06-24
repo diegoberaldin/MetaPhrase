@@ -4,6 +4,9 @@ import com.github.diegoberaldin.metaphrase.domain.language.usecase.DefaultGetCom
 import com.github.diegoberaldin.metaphrase.domain.language.usecase.GetCompleteLanguageUseCase
 import org.koin.dsl.module
 
+/**
+ * DI module for the domain-language use case subproject.
+ */
 val languageUseCaseModule = module {
     single<GetCompleteLanguageUseCase> {
         DefaultGetCompleteLanguageUseCase(

@@ -47,6 +47,14 @@ import com.github.diegoberaldin.metaphrase.core.localization.localized
 import com.github.diegoberaldin.metaphrase.feature.translate.panel.machinetranslation.presentation.MachineTranslationComponent
 import java.awt.Cursor
 
+/**
+ * Machine translation UI content.
+ *
+ * @param component Component
+ * @param modifier Modifier
+ * @param onMinify on minify callback
+ * @return
+ */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MachineTranslationContent(

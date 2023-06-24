@@ -52,6 +52,14 @@ import com.github.diegoberaldin.metaphrase.feature.translate.presentation.Transl
 import com.github.diegoberaldin.metaphrase.feature.translate.toolbar.ui.TranslateToolbar
 import org.jetbrains.skiko.Cursor
 
+/**
+ * UI content of the translation editor, divided into the following subcomponents:
+ * - toolbar
+ * - editor
+ * - status bar
+ *
+ * @param component component
+ */
 @Composable
 fun TranslateContent(
     component: TranslateComponent,

@@ -9,6 +9,9 @@ import com.github.diegoberaldin.metaphrase.feature.projects.dialog.newproject.di
 import com.github.diegoberaldin.metaphrase.feature.projectsdialog.statistics.di.dialogStatisticsModule
 import org.koin.dsl.module
 
+/**
+ * DI module for the main subproject.
+ */
 val mainModule = module {
     includes(projectsModule)
     includes(introModule)

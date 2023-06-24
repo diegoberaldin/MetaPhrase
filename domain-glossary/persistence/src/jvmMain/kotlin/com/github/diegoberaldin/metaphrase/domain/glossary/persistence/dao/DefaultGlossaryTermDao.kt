@@ -39,14 +39,14 @@ class DefaultGlossaryTermDao : GlossaryTermDao {
         }.firstOrNull()?.toModel()
     }
 
-    override suspend fun update(model: GlossaryTermModel) = newSuspendedTransaction {
+    override suspend fun update(model: GlossaryTermModel): Unit = newSuspendedTransaction {
         GlossaryTermEntity.update(where = { GlossaryTermEntity.id eq model.id }) {
             it[lemma] = model.lemma
             it[lang] = model.lang
         }
     }
 
-    override suspend fun delete(model: GlossaryTermModel) = newSuspendedTransaction {
+    override suspend fun delete(model: GlossaryTermModel): Unit = newSuspendedTransaction {
         GlossaryTermEntity.deleteWhere { GlossaryTermEntity.id eq model.id }
     }
 

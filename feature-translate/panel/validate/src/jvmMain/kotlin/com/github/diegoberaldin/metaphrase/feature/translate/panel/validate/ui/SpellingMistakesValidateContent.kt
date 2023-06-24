@@ -20,6 +20,12 @@ import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Spacing
 import com.github.diegoberaldin.metaphrase.core.localization.localized
 import com.github.diegoberaldin.metaphrase.feature.translate.panel.validate.presentation.ValidationContent
 
+/**
+ * UI content of the placeholder validation panel.
+ *
+ * @param content Content
+ * @param onItemSelected On item selected callback
+ */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun SpellingMistakesValidateContent(

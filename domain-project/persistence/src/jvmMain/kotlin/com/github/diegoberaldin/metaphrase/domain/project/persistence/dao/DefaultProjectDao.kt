@@ -41,7 +41,7 @@ class DefaultProjectDao : ProjectDao {
         ProjectEntity.select { ProjectEntity.id eq id }.firstOrNull()?.toModel()
     }
 
-    override fun ResultRow.toModel() = ProjectModel(
+    private fun ResultRow.toModel() = ProjectModel(
         id = this[ProjectEntity.id].value,
         name = this[ProjectEntity.name],
     )

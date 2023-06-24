@@ -42,6 +42,13 @@ import com.github.diegoberaldin.metaphrase.core.localization.localized
 import com.github.diegoberaldin.metaphrase.feature.translate.toolbar.presentation.TranslateToolbarComponent
 import com.github.diegoberaldin.metaphrase.feature.translate.toolbar.presentation.toReadableString
 
+/**
+ * UI content for the translation toolbar.
+ *
+ * @param component Component
+ * @param modifier Modifier
+ * @return
+ */
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalFoundationApi::class)
 @Composable
 fun TranslateToolbar(

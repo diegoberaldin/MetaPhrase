@@ -20,13 +20,13 @@ class DefaultLanguageDao : LanguageDao {
         }[LanguageEntity.id].value
     }
 
-    override suspend fun update(model: LanguageModel) = newSuspendedTransaction {
+    override suspend fun update(model: LanguageModel): Unit = newSuspendedTransaction {
         LanguageEntity.update({ LanguageEntity.id eq model.id }) {
             it[isBase] = model.isBase
         }
     }
 
-    override suspend fun delete(model: LanguageModel) = newSuspendedTransaction {
+    override suspend fun delete(model: LanguageModel): Unit = newSuspendedTransaction {
         LanguageEntity.deleteWhere { LanguageEntity.id eq model.id }
     }
 
@@ -49,7 +49,7 @@ class DefaultLanguageDao : LanguageDao {
             .firstOrNull()?.toModel()
     }
 
-    override fun ResultRow.toModel() = LanguageModel(
+    private fun ResultRow.toModel() = LanguageModel(
         id = this[LanguageEntity.id].value,
         code = this[LanguageEntity.code],
         isBase = this[LanguageEntity.isBase],

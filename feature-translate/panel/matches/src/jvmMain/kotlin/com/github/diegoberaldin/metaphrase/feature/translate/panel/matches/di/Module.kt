@@ -5,6 +5,9 @@ import com.github.diegoberaldin.metaphrase.feature.translate.panel.matches.prese
 import com.github.diegoberaldin.metaphrase.feature.translate.panel.matches.presentation.TranslationMemoryComponent
 import org.koin.dsl.module
 
+/**
+ * DI module for the TM matches panel section
+ */
 val panelMatchesModule = module {
     includes(translationMemoryModule)
 

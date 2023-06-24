@@ -17,6 +17,13 @@ import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Spacing
 import com.github.diegoberaldin.metaphrase.core.localization.localized
 import com.github.diegoberaldin.metaphrase.domain.glossary.data.GlossaryTermModel
 
+/**
+ * Term chip UI content.
+ *
+ * @param term term to show
+ * @param backgroundColor background color
+ * @param onDelete on delete callback
+ */
 @Composable
 internal fun TermChip(
     term: GlossaryTermModel,

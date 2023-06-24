@@ -46,6 +46,13 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
+/**
+ * Message list UI content.
+ *
+ * @param component Component
+ * @param modifier Modifier
+ * @return
+ */
 @OptIn(ExperimentalFoundationApi::class, FlowPreview::class)
 @Composable
 fun MessageListContent(

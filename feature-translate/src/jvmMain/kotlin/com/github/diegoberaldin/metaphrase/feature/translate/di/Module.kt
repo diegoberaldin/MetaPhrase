@@ -14,6 +14,9 @@ import com.github.diegoberaldin.metaphrase.feature.translate.presentation.Transl
 import com.github.diegoberaldin.metaphrase.feature.translate.toolbar.di.translateToolbarModule
 import org.koin.dsl.module
 
+/**
+ * DI module for translate subproject.
+ */
 val translateModule = module {
     includes(formatsModule)
 

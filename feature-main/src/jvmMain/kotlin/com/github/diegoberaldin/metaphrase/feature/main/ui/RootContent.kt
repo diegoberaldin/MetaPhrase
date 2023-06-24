@@ -33,6 +33,14 @@ import com.github.diegoberaldin.metaphrase.feature.projectsdialog.statistics.pre
 import com.github.diegoberaldin.metaphrase.feature.projectsdialog.statistics.ui.StatisticsDialog
 import java.awt.Cursor
 
+/**
+ * Root UI content of the application. This contains the logic that routes either towards the intro (welcome) screen or
+ * towards the list of projects.
+ *
+ * @param component component
+ * @param modifier compose modifier
+ * @param onExitApplication application exit callback
+ */
 @Composable
 fun RootContent(
     component: RootComponent,

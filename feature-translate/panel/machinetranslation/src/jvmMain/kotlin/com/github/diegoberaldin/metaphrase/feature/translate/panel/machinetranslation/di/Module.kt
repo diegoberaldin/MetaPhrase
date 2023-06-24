@@ -5,6 +5,9 @@ import com.github.diegoberaldin.metaphrase.feature.translate.panel.machinetransl
 import com.github.diegoberaldin.metaphrase.feature.translate.panel.machinetranslation.presentation.MachineTranslationComponent
 import org.koin.dsl.module
 
+/**
+ * DI module for machine translation panel section.
+ */
 val panelMachineTranslationModule = module {
     includes(machineTranslationModule)
 

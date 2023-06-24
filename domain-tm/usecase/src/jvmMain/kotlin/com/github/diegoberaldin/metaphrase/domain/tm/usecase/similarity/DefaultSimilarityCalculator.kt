@@ -2,6 +2,11 @@ package com.github.diegoberaldin.metaphrase.domain.tm.usecase.similarity
 
 import kotlin.math.max
 
+/**
+ * Similarity calculator that uses the Levensthein-Damrau distance to determine the similarity.
+ *
+ * @constructor Create empty constructor for default similarity calculator
+ */
 internal class DefaultSimilarityCalculator : SimilarityCalculator {
     override operator fun invoke(segment1: String, segment2: String): Float {
         val distance = levenshteinDistance(source = segment1, target = segment2)
