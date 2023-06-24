@@ -9,6 +9,9 @@ import com.github.diegoberaldin.metaphrase.core.common.notification.DefaultNotif
 import com.github.diegoberaldin.metaphrase.core.common.notification.NotificationCenter
 import org.koin.dsl.module
 
+/**
+ * DI module for the core-common subproject.
+ */
 val commonModule = module {
     single<com.github.diegoberaldin.metaphrase.core.common.coroutines.CoroutineDispatcherProvider> {
         com.github.diegoberaldin.metaphrase.core.common.coroutines.DefaultCoroutineDispatcherProvider

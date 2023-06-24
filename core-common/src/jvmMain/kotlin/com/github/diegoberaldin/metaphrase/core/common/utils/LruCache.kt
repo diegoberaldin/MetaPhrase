@@ -1,5 +1,12 @@
 package com.github.diegoberaldin.metaphrase.core.common.utils
 
+/**
+ * A simple implementation of an LRU cache.
+ *
+ * @param T type of the items to save
+ * @property size max size of the cache
+ * @constructor Create [LruCache]
+ */
 class LruCache<T>(private val size: Int) {
     private var keyList = listOf<String>()
     private val map = mutableMapOf<String, T>()

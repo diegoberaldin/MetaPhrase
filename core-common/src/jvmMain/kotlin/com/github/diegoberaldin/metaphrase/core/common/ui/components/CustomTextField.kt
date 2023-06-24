@@ -29,6 +29,24 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Spacing
 
+/**
+ * Custom text field.
+ *
+ * @param modifier Modifier
+ * @param label Label to be shown above the field
+ * @param hint Hint or placeholder
+ * @param enabled Enabled/disabled flag
+ * @param secure Secure flag
+ * @param labelColor Label color
+ * @param backgroundColor Background color
+ * @param textColor Text color
+ * @param labelExtraSpacing Label extra spacing
+ * @param labelStyle Label style
+ * @param value Initial value
+ * @param singleLine Toggle for single line fields
+ * @param onValueChange On value change callback
+ * @param endButton Button to be displayed on the right side
+ */
 @Composable
 fun CustomTextField(
     modifier: Modifier = Modifier,

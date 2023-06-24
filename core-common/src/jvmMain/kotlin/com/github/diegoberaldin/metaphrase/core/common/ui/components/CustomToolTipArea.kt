@@ -13,6 +13,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Spacing
 
+/**
+ * Custom tooltip area.
+ *
+ * @param text Text to show in the tooltip
+ * @param modifier Modifier
+ * @param content Content inner composable
+ * @return
+ */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CustomTooltipArea(

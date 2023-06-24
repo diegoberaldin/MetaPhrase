@@ -7,6 +7,14 @@ import java.awt.Frame
 import java.awt.Window
 import java.io.FilenameFilter
 
+/**
+ * Custom open file dialog.
+ *
+ * @param title Dialog title
+ * @param nameFilter Name filter
+ * @param parent Parent
+ * @param onCloseRequest On close callback
+ */
 @Composable
 fun CustomOpenFileDialog(
     title: String = "",

@@ -26,6 +26,17 @@ import androidx.compose.ui.unit.sp
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.SelectedBackground
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Spacing
 
+/**
+ * Custom tab bar.
+ *
+ * @param modifier Modifier
+ * @param tabs Tabs titles
+ * @param current Current tab
+ * @param onTabSelected On tab selected callback
+ * @param rightIcon Right icon (e.g. close button)
+ * @param onRightIconClicked On right icon clicked callack
+ * @return
+ */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CustomTabBar(
