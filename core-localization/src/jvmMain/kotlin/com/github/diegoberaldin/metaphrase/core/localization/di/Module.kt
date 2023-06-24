@@ -6,6 +6,9 @@ import com.github.diegoberaldin.metaphrase.core.localization.usecase.ParseResour
 import com.github.diegoberaldin.metaphrase.core.localization.usecase.TmxParseResourceUseCase
 import org.koin.dsl.module
 
+/**
+ * DI module for the core-localization subproject.
+ */
 val localizationModule = module {
     single<Localization> {
         DefaultLocalization(
