@@ -3,7 +3,7 @@ package com.github.diegoberaldin.metaphrase.feature.translate.messages.presentat
 import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.SegmentModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.TranslationUnitTypeFilter
-import com.github.diegoberaldin.metaphrase.domain.spellcheck.SpellCheckCorrection
+import com.github.diegoberaldin.metaphrase.domain.spellcheck.data.SpellCheckCorrection
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 

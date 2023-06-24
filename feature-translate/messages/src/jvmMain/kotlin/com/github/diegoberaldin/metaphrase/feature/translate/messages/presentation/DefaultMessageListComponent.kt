@@ -15,7 +15,7 @@ import com.github.diegoberaldin.metaphrase.domain.project.data.TranslationUnit
 import com.github.diegoberaldin.metaphrase.domain.project.data.TranslationUnitTypeFilter
 import com.github.diegoberaldin.metaphrase.domain.project.repository.ProjectRepository
 import com.github.diegoberaldin.metaphrase.domain.project.repository.SegmentRepository
-import com.github.diegoberaldin.metaphrase.domain.spellcheck.SpellCheckCorrection
+import com.github.diegoberaldin.metaphrase.domain.spellcheck.data.SpellCheckCorrection
 import com.github.diegoberaldin.metaphrase.domain.spellcheck.repo.SpellCheckRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job

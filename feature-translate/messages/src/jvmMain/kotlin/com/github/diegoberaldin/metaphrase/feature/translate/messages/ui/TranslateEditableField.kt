@@ -21,7 +21,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextDecoration
 import com.github.diegoberaldin.metaphrase.domain.project.data.TranslationUnit
-import com.github.diegoberaldin.metaphrase.domain.spellcheck.SpellCheckCorrection
+import com.github.diegoberaldin.metaphrase.domain.spellcheck.data.SpellCheckCorrection
 
 /**
  * Translation editable field.

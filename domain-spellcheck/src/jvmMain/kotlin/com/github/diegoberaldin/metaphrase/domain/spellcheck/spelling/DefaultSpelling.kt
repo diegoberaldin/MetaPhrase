@@ -1,6 +1,6 @@
 package com.github.diegoberaldin.metaphrase.domain.spellcheck.spelling
 
-import com.github.diegoberaldin.metaphrase.domain.spellcheck.SpellCheckCorrection
+import com.github.diegoberaldin.metaphrase.domain.spellcheck.data.SpellCheckCorrection
 import com.github.diegoberaldin.metaphrase.domain.spellcheck.repo.UserDefinedWordsRepository
 import org.languagetool.JLanguageTool
 import org.languagetool.Language

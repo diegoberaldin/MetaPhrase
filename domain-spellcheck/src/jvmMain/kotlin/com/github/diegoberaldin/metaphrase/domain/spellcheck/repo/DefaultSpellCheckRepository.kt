@@ -1,7 +1,7 @@
 package com.github.diegoberaldin.metaphrase.domain.spellcheck.repo
 
 import com.github.diegoberaldin.metaphrase.core.common.coroutines.CoroutineDispatcherProvider
-import com.github.diegoberaldin.metaphrase.domain.spellcheck.SpellCheckCorrection
+import com.github.diegoberaldin.metaphrase.domain.spellcheck.data.SpellCheckCorrection
 import com.github.diegoberaldin.metaphrase.domain.spellcheck.spelling.Spelling
 import kotlinx.coroutines.withContext
 

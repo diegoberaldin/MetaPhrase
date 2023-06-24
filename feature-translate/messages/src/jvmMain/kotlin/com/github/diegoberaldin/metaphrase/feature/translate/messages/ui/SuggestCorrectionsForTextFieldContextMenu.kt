@@ -9,7 +9,7 @@ import androidx.compose.foundation.text.TextContextMenu
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import com.github.diegoberaldin.metaphrase.core.localization.localized
-import com.github.diegoberaldin.metaphrase.domain.spellcheck.SpellCheckCorrection
+import com.github.diegoberaldin.metaphrase.domain.spellcheck.data.SpellCheckCorrection
 
 /**
  * Custom context menu to suggest corrections for the translation text field.
