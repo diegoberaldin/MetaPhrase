@@ -9,6 +9,7 @@ This page contains some notes about the development of MetaPhrase, organized in 
 - [technologies used](#technologies-used)
 - [architecture](#architecture)
 - [how to build](#how-to-build)
+- [code documentation](#code-documentation)
 
  
  {% include_relative 00_technologies.md %}
@@ -29,7 +30,13 @@ This page contains some notes about the development of MetaPhrase, organized in 
 <a href="#top">🔝</a>
 </div>
 
-[Code documentation](../kdoc/index.md)
+## Code documentation
+
+You can find the classes documentation, generated with Dokka by KDoc comments, [here](../kdoc/index.md)
+
+<div align="right">
+<a href="#top">🔝</a>
+</div>
 
 ***
 
