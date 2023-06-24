@@ -16,6 +16,9 @@ import com.github.diegoberaldin.metaphrase.domain.tm.usecase.similarity.DefaultS
 import com.github.diegoberaldin.metaphrase.domain.tm.usecase.similarity.SimilarityCalculator
 import org.koin.dsl.module
 
+/**
+ * DI module for the translation memory domain use case subproject.
+ */
 val tmUseCaseModule = module {
     single<SimilarityCalculator> {
         DefaultSimilarityCalculator()

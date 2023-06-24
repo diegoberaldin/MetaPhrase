@@ -6,6 +6,14 @@ import com.github.diegoberaldin.metaphrase.domain.project.data.TranslationUnit
 import com.github.diegoberaldin.metaphrase.domain.project.repository.SegmentRepository
 import com.github.diegoberaldin.metaphrase.domain.tm.usecase.similarity.SimilarityCalculator
 
+/**
+ * Data source that retrieves the matches from the current project.
+ *
+ * @property languageRepository
+ * @property segmentRepository
+ * @property calculateSimilarity
+ * @constructor Create [ProjectTranslationUnitSource]
+ */
 internal class ProjectTranslationUnitSource(
     private val languageRepository: LanguageRepository,
     private val segmentRepository: SegmentRepository,

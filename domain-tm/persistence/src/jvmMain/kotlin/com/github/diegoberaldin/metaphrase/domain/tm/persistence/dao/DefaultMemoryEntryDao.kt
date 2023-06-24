@@ -78,7 +78,7 @@ class DefaultMemoryEntryDao : MemoryEntryDao {
         Unit
     }
 
-    override suspend fun update(model: TranslationMemoryEntryModel) = newSuspendedTransaction {
+    override suspend fun update(model: TranslationMemoryEntryModel): Unit = newSuspendedTransaction {
         MemoryMessageEntity.update(where = { (MemoryMessageEntity.entryId eq model.id) and (MemoryMessageEntity.lang eq model.sourceLang) }) {
             it[text] = model.sourceText
         }

@@ -7,6 +7,15 @@ import com.github.diegoberaldin.metaphrase.domain.project.repository.SegmentRepo
 import com.github.diegoberaldin.metaphrase.domain.tm.repository.MemoryEntryRepository
 import com.github.diegoberaldin.metaphrase.domain.tm.usecase.similarity.SimilarityCalculator
 
+/**
+ * Data source that retrieves the matches from the TM.
+ *
+ * @property languageRepository
+ * @property segmentRepository
+ * @property memoryEntryRepository
+ * @property calculateSimilarity
+ * @constructor Create [MemoryTranslationUnitSource]
+ */
 internal class MemoryTranslationUnitSource(
     private val languageRepository: LanguageRepository,
     private val segmentRepository: SegmentRepository,
