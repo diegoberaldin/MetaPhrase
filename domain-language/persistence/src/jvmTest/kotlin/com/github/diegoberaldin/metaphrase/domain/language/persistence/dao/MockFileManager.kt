@@ -1,4 +1,4 @@
-package com.github.diegoberaldin.metaphrase.core.common.keystore
+package com.github.diegoberaldin.metaphrase.domain.language.persistence.dao
 
 import com.github.diegoberaldin.metaphrase.core.common.files.FileManager
 import java.io.File

@@ -26,7 +26,7 @@ import org.jetbrains.exposed.sql.transactions.transaction
  * @property fileManager Utility to access files on disk
  * @constructor Create [AppDatabase]
  */
-internal class AppDatabase(
+class AppDatabase(
     private val filename: String = FILE_NAME,
     private val fileManager: FileManager,
 ) {
@@ -64,6 +64,5 @@ internal class AppDatabase(
     fun segmentDao() = DefaultSegmentDao()
     fun memoryEntryDao() = DefaultMemoryEntryDao()
     fun glossaryTermDao() = DefaultGlossaryTermDao()
-
     fun recentProjectDao() = DefaultRecentProjectDao()
 }
