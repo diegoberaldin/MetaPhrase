@@ -1,4 +1,3 @@
-
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
@@ -30,6 +29,15 @@ kotlin {
                 implementation(libs.decompose)
             }
         }
-        val jvmTest by getting
+        val jvmTest by getting {
+            dependencies {
+                implementation(libs.kotlinx.coroutines.test)
+                implementation(kotlin("test-junit5"))
+            }
+        }
     }
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
 }
