@@ -1,6 +1,7 @@
 [versions]
 androidx_datastore = "1.0.0"
 commons_csv = "1.10.0"
+decompose = "2.0.0-alpha-02"
 guava = "31.1-jre"
 exposed = "0.41.1"
 h2 = "2.1.214"
@@ -10,7 +11,7 @@ kotlinx_serialization = "1.5.1"
 ktor = "2.3.1"
 languagetool = "6.1"
 log4j = "2.20.0"
-decompose = "2.0.0-alpha-02"
+mockk = "1.13.5"
 redundent = "1.9.0"
 sl4j = "1.7.30"
 
@@ -31,7 +32,10 @@ androidx_datastore = { module = "androidx.datastore:datastore-preferences-core",
 
 # coroutines
 kotlinx_coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx_coroutines" }
+
+# test
 kotlinx_coroutines_test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx_coroutines" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 
 # persistence
 h2database = { module = "com.h2database:h2", version.ref = "h2" }
