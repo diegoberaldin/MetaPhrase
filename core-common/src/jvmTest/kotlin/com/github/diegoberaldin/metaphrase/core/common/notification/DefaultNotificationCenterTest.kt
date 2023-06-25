@@ -8,6 +8,8 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.runBlocking
 import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 
 class DefaultNotificationCenterTest {
 
@@ -23,8 +25,8 @@ class DefaultNotificationCenterTest {
         runBlocking {
             sut.send(NotificationCenter.Event.ShowProgress(true))
             delay(100)
-            assert(evt != null)
-            assert(evt == NotificationCenter.Event.ShowProgress(true))
+            assertNotNull(evt)
+            assertEquals(NotificationCenter.Event.ShowProgress(true), evt)
         }
     }
 }

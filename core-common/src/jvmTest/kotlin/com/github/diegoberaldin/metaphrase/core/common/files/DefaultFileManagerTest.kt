@@ -3,6 +3,8 @@ package com.github.diegoberaldin.metaphrase.core.common.files
 import java.io.File
 import kotlin.test.AfterTest
 import kotlin.test.Test
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
 class DefaultFileManagerTest {
 
@@ -21,10 +23,10 @@ class DefaultFileManagerTest {
         val path = sut.getFilePath("test.txt")
         testFile = File(path)
         testFile?.also {
-            assert(!it.exists())
-            assert(it.createNewFile())
-            assert(it.exists())
-            assert(it.canRead())
+            assertFalse(it.exists())
+            assertTrue(it.createNewFile())
+            assertTrue(it.exists())
+            assertTrue(it.canRead())
         }
     }
 
@@ -33,10 +35,10 @@ class DefaultFileManagerTest {
         val path = sut.getFilePath("test.txt")
         testFile = File(path)
         testFile?.also {
-            assert(!it.exists())
-            assert(it.createNewFile())
-            assert(it.exists())
-            assert(it.canWrite())
+            assertFalse(it.exists())
+            assertTrue(it.createNewFile())
+            assertTrue(it.exists())
+            assertTrue(it.canWrite())
         }
     }
 }

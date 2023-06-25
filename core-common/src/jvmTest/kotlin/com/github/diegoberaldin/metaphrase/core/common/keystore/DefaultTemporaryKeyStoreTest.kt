@@ -4,6 +4,8 @@ import kotlinx.coroutines.test.runTest
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 
 class DefaultTemporaryKeyStoreTest {
 
@@ -23,7 +25,7 @@ class DefaultTemporaryKeyStoreTest {
     fun givenEmptyStoreWhenQueriedIntThenDefaultValueIsReturned() = runTest {
         val key = "intKey"
         val retrieved = sut.get(key, 0)
-        assert(retrieved == 0)
+        assertEquals(0, retrieved)
     }
 
     @Test
@@ -33,7 +35,7 @@ class DefaultTemporaryKeyStoreTest {
         sut.save(key, value)
 
         val retrieved = sut.get(key, 0)
-        assert(retrieved == value)
+        assertEquals(value, retrieved)
     }
 
     @Test
@@ -44,14 +46,14 @@ class DefaultTemporaryKeyStoreTest {
         sut.save(key, value)
 
         val retrieved = sut.get(otherKey, 0)
-        assert(retrieved == 0)
+        assertEquals(0, retrieved)
     }
 
     @Test
     fun givenEmptyStoreWhenQueriedFloatThenDefaultValueIsReturned() = runTest {
         val key = "intKey"
         val retrieved = sut.get(key, 0f)
-        assert(retrieved == 0f)
+        assertEquals(0f, retrieved)
     }
 
     @Test
@@ -61,7 +63,7 @@ class DefaultTemporaryKeyStoreTest {
         sut.save(key, value)
 
         val retrieved = sut.get(key, 0f)
-        assert(retrieved == value)
+        assertEquals(value, retrieved)
     }
 
     @Test
@@ -72,14 +74,14 @@ class DefaultTemporaryKeyStoreTest {
         sut.save(key, value)
 
         val retrieved = sut.get(otherKey, 0f)
-        assert(retrieved == 0f)
+        assertEquals(0f, retrieved)
     }
 
     @Test
     fun givenEmptyStoreWhenQueriedDoubleThenDefaultValueIsReturned() = runTest {
         val key = "doubleKey"
         val retrieved = sut.get(key, 0.0)
-        assert(retrieved == 0.0)
+        assertEquals(0.0, retrieved)
     }
 
     @Test
@@ -89,7 +91,7 @@ class DefaultTemporaryKeyStoreTest {
         sut.save(key, value)
 
         val retrieved = sut.get(key, 0.0)
-        assert(retrieved == value)
+        assertEquals(value, retrieved)
     }
 
     @Test
@@ -100,14 +102,14 @@ class DefaultTemporaryKeyStoreTest {
         sut.save(key, value)
 
         val retrieved = sut.get(otherKey, 0.0)
-        assert(retrieved == 0.0)
+        assertEquals(0.0, retrieved)
     }
 
     @Test
     fun givenEmptyStoreWhenQueriedBoolThenDefaultValueIsReturned() = runTest {
         val key = "boolKey"
         val retrieved = sut.get(key, false)
-        assert(!retrieved)
+        assertFalse(retrieved)
     }
 
     @Test
@@ -117,7 +119,7 @@ class DefaultTemporaryKeyStoreTest {
         sut.save(key, value)
 
         val retrieved = sut.get(key, false)
-        assert(retrieved == value)
+        assertEquals(value, retrieved)
     }
 
     @Test
@@ -128,14 +130,14 @@ class DefaultTemporaryKeyStoreTest {
         sut.save(key, value)
 
         val retrieved = sut.get(otherKey, false)
-        assert(!retrieved)
+        assertFalse(retrieved)
     }
 
     @Test
     fun givenEmptyStoreWhenQueriedStringThenDefaultValueIsReturned() = runTest {
         val key = "stringKey"
         val retrieved = sut.get(key, "")
-        assert(retrieved == "")
+        assertEquals("", retrieved)
     }
 
     @Test
@@ -145,7 +147,7 @@ class DefaultTemporaryKeyStoreTest {
         sut.save(key, value)
 
         val retrieved = sut.get(key, "")
-        assert(retrieved == value)
+        assertEquals(value, retrieved)
     }
 
     @Test
@@ -156,6 +158,6 @@ class DefaultTemporaryKeyStoreTest {
         sut.save(key, value)
 
         val retrieved = sut.get(otherKey, "")
-        assert(retrieved == "")
+        assertEquals("", retrieved)
     }
 }
