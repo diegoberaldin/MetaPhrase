@@ -10,7 +10,22 @@ title: update
 
 
 [jvm]\
-abstract suspend fun [update](update.html)(model: [LanguageModel](../../com.github.diegoberaldin.metaphrase.domain.language.data/-language-model/index.html)): [Int](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)
+abstract suspend fun [update](update.html)(model: [LanguageModel](../../com.github.diegoberaldin.metaphrase.domain.language.data/-language-model/index.html))
+
+
+
+Update a language.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| model | Language to update |
 
 
 

@@ -22,4 +22,28 @@ fun [CustomSpinner](-custom-spinner.html)(values: [List](https://kotlinlang.org/
 
 
 
+Custom spinner for drop-down selection.
+
+
+
+#### Return
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| values | Set of available values |
+| current | Current value |
+| modifier | Modifier |
+| size | Size of the element and of the drop-down menu |
+| onValueChanged | On value changed callback |
+| valueColor | Value text color |
+
+
+
 

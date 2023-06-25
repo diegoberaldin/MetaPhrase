@@ -14,4 +14,8 @@ constructor(sourceFlag: [String](https://kotlinlang.org/api/latest/jvm/stdlib/ko
 
 
 
+Create [GlossaryUiState](index.html)
+
+
+
 

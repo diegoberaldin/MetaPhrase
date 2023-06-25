@@ -10,7 +10,30 @@ title: checkSentence
 
 
 [jvm]\
-abstract fun [checkSentence](check-sentence.html)(message: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)): [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)&lt;[SpellCheckCorrection](../../com.github.diegoberaldin.metaphrase.domain.spellcheck/-spell-check-correction/index.html)&gt;
+abstract fun [checkSentence](check-sentence.html)(message: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)): [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)&lt;[SpellCheckCorrection](../../com.github.diegoberaldin.metaphrase.domain.spellcheck.data/-spell-check-correction/index.html)&gt;
+
+
+
+Check a whole sentence for spelling mistakes.
+
+
+
+#### Return
+
+
+
+list of corrections
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| message | Message to check |
 
 
 

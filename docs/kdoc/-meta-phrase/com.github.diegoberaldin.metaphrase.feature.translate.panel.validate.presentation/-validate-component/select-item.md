@@ -14,4 +14,19 @@ abstract fun [selectItem](select-item.html)(value: [Int](https://kotlinlang.org/
 
 
 
+Select an reference, triggering [selectionEvents](selection-events.html).
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| value | index of the reference to select |
+
+
+
 

@@ -9,6 +9,10 @@ title: NotificationCenter
 
 interface [NotificationCenter](index.html)
 
+Utility to publish and subscribe for broadcast notifications.
+
+
+
 #### Inheritors
 
 
@@ -22,7 +26,7 @@ interface [NotificationCenter](index.html)
 
 | Name | Summary |
 |---|---|
-| [Event](-event/index.html) | [jvm]<br>interface [Event](-event/index.html) |
+| [Event](-event/index.html) | [jvm]<br>interface [Event](-event/index.html)<br>Available event types. |
 
 
 ## Properties
@@ -30,7 +34,7 @@ interface [NotificationCenter](index.html)
 
 | Name | Summary |
 |---|---|
-| [events](events.html) | [jvm]<br>abstract val [events](events.html): SharedFlow&lt;[NotificationCenter.Event](-event/index.html)&gt; |
+| [events](events.html) | [jvm]<br>abstract val [events](events.html): SharedFlow&lt;[NotificationCenter.Event](-event/index.html)&gt;<br>Observable event flow |
 
 
 ## Functions
@@ -38,5 +42,5 @@ interface [NotificationCenter](index.html)
 
 | Name | Summary |
 |---|---|
-| [send](send.html) | [jvm]<br>abstract fun [send](send.html)(event: [NotificationCenter.Event](-event/index.html)) |
+| [send](send.html) | [jvm]<br>abstract fun [send](send.html)(event: [NotificationCenter.Event](-event/index.html))<br>Publish and event to subscribers. |
 

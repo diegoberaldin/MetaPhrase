@@ -14,4 +14,19 @@ abstract fun [startEditing](start-editing.html)(index: [Int](https://kotlinlang.
 
 
 
+Start editing a given message.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| index | index of the message to edit |
+
+
+
 

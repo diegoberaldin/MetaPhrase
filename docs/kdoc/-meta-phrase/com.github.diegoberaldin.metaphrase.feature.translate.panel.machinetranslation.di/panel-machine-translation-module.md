@@ -14,4 +14,8 @@ val [panelMachineTranslationModule](panel-machine-translation-module.html): Modu
 
 
 
+DI module for machine translation panel section.
+
+
+
 

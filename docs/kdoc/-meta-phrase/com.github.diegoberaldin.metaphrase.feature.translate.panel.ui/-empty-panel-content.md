@@ -22,4 +22,24 @@ fun [EmptyPanelContent](-empty-panel-content.html)(modifier: Modifier = Modifier
 
 
 
+Empty panel UI content. This is displayed when a panel section is not available (e.g. translation memory matches for the base (source) language.
+
+
+
+#### Return
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| modifier | Modifier |
+| onMinify | on minify callback |
+
+
+
 

@@ -15,5 +15,5 @@ title: com.github.diegoberaldin.metaphrase.core.common.files
 | Name | Summary |
 |---|---|
 | [DefaultFileManager](-default-file-manager/index.html) | [jvm]<br>object [DefaultFileManager](-default-file-manager/index.html) : [FileManager](-file-manager/index.html) |
-| [FileManager](-file-manager/index.html) | [jvm]<br>interface [FileManager](-file-manager/index.html) |
+| [FileManager](-file-manager/index.html) | [jvm]<br>interface [FileManager](-file-manager/index.html)<br>Utility to access files on disk. |
 

@@ -14,4 +14,19 @@ abstract fun [setText](set-text.html)(value: [String](https://kotlinlang.org/api
 
 
 
+Set the message text.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| value | Value |
+
+
+
 

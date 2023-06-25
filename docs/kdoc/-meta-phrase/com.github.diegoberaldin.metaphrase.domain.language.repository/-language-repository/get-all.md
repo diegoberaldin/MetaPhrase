@@ -14,4 +14,27 @@ abstract suspend fun [getAll](get-all.html)(projectId: [Int](https://kotlinlang.
 
 
 
+Get all the languages within a given project.
+
+
+
+#### Return
+
+
+
+list of languages added to the project
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| projectId | Project ID |
+
+
+
 

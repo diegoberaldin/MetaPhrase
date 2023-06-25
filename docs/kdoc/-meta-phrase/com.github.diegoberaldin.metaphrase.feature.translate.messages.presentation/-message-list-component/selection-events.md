@@ -14,4 +14,8 @@ abstract val [selectionEvents](selection-events.html): SharedFlow&lt;[Int](https
 
 
 
+Event triggered with the index of the message being edited (needed to scroll the list programmatically)
+
+
+
 

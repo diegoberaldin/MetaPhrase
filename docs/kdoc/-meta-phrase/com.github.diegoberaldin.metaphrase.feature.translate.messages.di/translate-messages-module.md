@@ -14,4 +14,8 @@ val [translateMessagesModule](translate-messages-module.html): Module
 
 
 
+DI module for the message list subproject
+
+
+
 

@@ -14,4 +14,19 @@ abstract fun [setEditingEnabled](set-editing-enabled.html)(value: [Boolean](http
 
 
 
+Enable or disable editing.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| value | flag to enable editing |
+
+
+
 

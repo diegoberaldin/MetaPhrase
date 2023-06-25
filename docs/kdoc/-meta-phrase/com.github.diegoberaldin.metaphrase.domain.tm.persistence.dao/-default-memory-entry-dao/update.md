@@ -10,7 +10,22 @@ title: update
 
 
 [jvm]\
-open suspend override fun [update](update.html)(model: [TranslationMemoryEntryModel](../../com.github.diegoberaldin.metaphrase.domain.tm.data/-translation-memory-entry-model/index.html)): [Int](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)
+open suspend override fun [update](update.html)(model: [TranslationMemoryEntryModel](../../com.github.diegoberaldin.metaphrase.domain.tm.data/-translation-memory-entry-model/index.html))
+
+
+
+Update a translation memory entry.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| model | Model to update |
 
 
 

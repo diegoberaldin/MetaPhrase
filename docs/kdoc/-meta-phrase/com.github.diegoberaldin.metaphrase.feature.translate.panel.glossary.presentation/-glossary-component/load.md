@@ -14,4 +14,21 @@ abstract fun [load](load.html)(key: [String](https://kotlinlang.org/api/latest/j
 
 
 
+Load the glossary terms for the message with a given key..
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| key | message key |
+| projectId | Project ID |
+| languageId | Language ID |
+
+
+
 

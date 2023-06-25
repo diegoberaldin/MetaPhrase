@@ -14,4 +14,8 @@ open override val [events](events.html): MutableSharedFlow&lt;[NotificationCente
 
 
 
+Observable event flow
+
+
+
 

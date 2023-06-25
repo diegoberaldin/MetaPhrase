@@ -9,6 +9,10 @@ title: ExportGlossaryUseCase
 
 interface [ExportGlossaryUseCase](index.html)
 
+Contract for the export glossary use case.
+
+
+
 #### Inheritors
 
 
@@ -22,5 +26,5 @@ interface [ExportGlossaryUseCase](index.html)
 
 | Name | Summary |
 |---|---|
-| [invoke](invoke.html) | [jvm]<br>abstract suspend operator fun [invoke](invoke.html)(path: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)) |
+| [invoke](invoke.html) | [jvm]<br>abstract suspend operator fun [invoke](invoke.html)(path: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html))<br>Export the global glossary content as a CSV file at a given path.. |
 

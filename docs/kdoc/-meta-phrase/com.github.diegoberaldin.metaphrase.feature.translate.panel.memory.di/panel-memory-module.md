@@ -14,4 +14,8 @@ val [panelMemoryModule](panel-memory-module.html): Module
 
 
 
+DI module for the TM content panel section.
+
+
+
 

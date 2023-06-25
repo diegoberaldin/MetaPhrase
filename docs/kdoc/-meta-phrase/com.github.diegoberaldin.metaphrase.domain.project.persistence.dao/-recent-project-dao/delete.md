@@ -14,4 +14,19 @@ abstract suspend fun [delete](delete.html)(model: [RecentProjectModel](../../com
 
 
 
+Delete a recent project.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| model | recent project to delete |
+
+
+
 

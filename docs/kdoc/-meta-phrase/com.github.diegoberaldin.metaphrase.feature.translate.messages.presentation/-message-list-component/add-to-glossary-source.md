@@ -14,4 +14,20 @@ abstract fun [addToGlossarySource](add-to-glossary-source.html)(lemma: [String](
 
 
 
+Opens the new glossary term dialog.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| lemma | target term (prefilled in dialog) |
+| lang | language code |
+
+
+
 

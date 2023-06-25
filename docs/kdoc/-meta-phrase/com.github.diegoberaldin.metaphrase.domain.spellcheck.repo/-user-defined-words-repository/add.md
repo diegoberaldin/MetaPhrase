@@ -14,4 +14,20 @@ abstract suspend fun [add](add.html)(word: [String](https://kotlinlang.org/api/l
 
 
 
+Add a new user-defined word.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| word | Word to ignore |
+| lang | Language code |
+
+
+
 

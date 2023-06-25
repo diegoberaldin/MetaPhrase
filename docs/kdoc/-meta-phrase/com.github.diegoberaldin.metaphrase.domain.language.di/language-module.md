@@ -14,4 +14,8 @@ val [languageModule](language-module.html): Module
 
 
 
+DI module of the domain-language subproject.
+
+
+
 

@@ -14,5 +14,5 @@ title: com.github.diegoberaldin.metaphrase.domain.glossary.usecase.di
 
 | Name | Summary |
 |---|---|
-| [glossaryUseCaseModule](glossary-use-case-module.html) | [jvm]<br>val [glossaryUseCaseModule](glossary-use-case-module.html): Module |
+| [glossaryUseCaseModule](glossary-use-case-module.html) | [jvm]<br>val [glossaryUseCaseModule](glossary-use-case-module.html): Module<br>DI module for the domain-glossary use case subproject. |
 

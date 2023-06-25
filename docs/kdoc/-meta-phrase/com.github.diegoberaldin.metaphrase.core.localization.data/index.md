@@ -14,5 +14,5 @@ title: com.github.diegoberaldin.metaphrase.core.localization.data
 
 | Name | Summary |
 |---|---|
-| [LocalizableString](-localizable-string/index.html) | [jvm]<br>data class [LocalizableString](-localizable-string/index.html)(val key: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html), val value: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)) |
+| [LocalizableString](-localizable-string/index.html) | [jvm]<br>data class [LocalizableString](-localizable-string/index.html)(val key: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html), val value: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html))<br>Representation of a UI message. |
 

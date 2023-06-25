@@ -14,5 +14,5 @@ title: com.github.diegoberaldin.metaphrase.feature.translate.panel.matches.di
 
 | Name | Summary |
 |---|---|
-| [panelMatchesModule](panel-matches-module.html) | [jvm]<br>val [panelMatchesModule](panel-matches-module.html): Module |
+| [panelMatchesModule](panel-matches-module.html) | [jvm]<br>val [panelMatchesModule](panel-matches-module.html): Module<br>DI module for the TM matches panel section |
 

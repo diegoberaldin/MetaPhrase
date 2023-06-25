@@ -12,6 +12,8 @@ title: SegmentEntity
 [jvm]\
 object [SegmentEntity](index.html) : IntIdTable
 
+Segment entity.
+
 
 
 ## Properties

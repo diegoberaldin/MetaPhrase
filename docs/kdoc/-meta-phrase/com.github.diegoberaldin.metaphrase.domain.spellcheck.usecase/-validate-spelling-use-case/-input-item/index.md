@@ -12,6 +12,8 @@ title: InputItem
 [jvm]\
 data class [InputItem](index.html)(val key: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html), val message: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html))
 
+Input parameter object.
+
 
 
 ## Constructors
@@ -19,7 +21,7 @@ data class [InputItem](index.html)(val key: [String](https://kotlinlang.org/api/
 
 | | |
 |---|---|
-| [InputItem](-input-item.html) | [jvm]<br>constructor(key: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html), message: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)) |
+| [InputItem](-input-item.html) | [jvm]<br>constructor(key: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html), message: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html))<br>Create [InputItem](index.html) |
 
 
 ## Properties
@@ -27,6 +29,6 @@ data class [InputItem](index.html)(val key: [String](https://kotlinlang.org/api/
 
 | Name | Summary |
 |---|---|
-| [key](key.html) | [jvm]<br>val [key](key.html): [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) |
-| [message](message.html) | [jvm]<br>val [message](message.html): [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) |
+| [key](key.html) | [jvm]<br>val [key](key.html): [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)<br>message key |
+| [message](message.html) | [jvm]<br>val [message](message.html): [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)<br>message text |
 

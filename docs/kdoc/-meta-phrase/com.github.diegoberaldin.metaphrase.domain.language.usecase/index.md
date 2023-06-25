@@ -14,5 +14,5 @@ title: com.github.diegoberaldin.metaphrase.domain.language.usecase
 
 | Name | Summary |
 |---|---|
-| [GetCompleteLanguageUseCase](-get-complete-language-use-case/index.html) | [jvm]<br>interface [GetCompleteLanguageUseCase](-get-complete-language-use-case/index.html) |
+| [GetCompleteLanguageUseCase](-get-complete-language-use-case/index.html) | [jvm]<br>interface [GetCompleteLanguageUseCase](-get-complete-language-use-case/index.html)<br>Contract for the get complete language use case. |
 

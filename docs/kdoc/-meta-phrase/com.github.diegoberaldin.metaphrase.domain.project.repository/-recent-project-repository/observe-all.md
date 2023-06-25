@@ -14,4 +14,16 @@ abstract suspend fun [observeAll](observe-all.html)(): Flow&lt;[List](https://ko
 
 
 
+Observe all recent projects
+
+
+
+#### Return
+
+
+
+flow of the list of recent projects
+
+
+
 

@@ -14,6 +14,6 @@ title: com.github.diegoberaldin.metaphrase.domain.formats.android
 
 | Name | Summary |
 |---|---|
-| [ExportAndroidResourcesUseCase](-export-android-resources-use-case/index.html) | [jvm]<br>interface [ExportAndroidResourcesUseCase](-export-android-resources-use-case/index.html) |
-| [ParseAndroidResourcesUseCase](-parse-android-resources-use-case/index.html) | [jvm]<br>interface [ParseAndroidResourcesUseCase](-parse-android-resources-use-case/index.html) |
+| [ExportAndroidResourcesUseCase](-export-android-resources-use-case/index.html) | [jvm]<br>interface [ExportAndroidResourcesUseCase](-export-android-resources-use-case/index.html)<br>Contract for the export Android resources use case. |
+| [ParseAndroidResourcesUseCase](-parse-android-resources-use-case/index.html) | [jvm]<br>interface [ParseAndroidResourcesUseCase](-parse-android-resources-use-case/index.html)<br>Contract for the parse Android resources use case. |
 

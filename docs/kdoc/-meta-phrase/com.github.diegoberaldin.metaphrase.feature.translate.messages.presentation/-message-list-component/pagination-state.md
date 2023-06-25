@@ -10,7 +10,11 @@ title: paginationState
 
 
 [jvm]\
-abstract val [paginationState](pagination-state.html): StateFlow&lt;[MessageLisPaginationState](../-message-lis-pagination-state/index.html)&gt;
+abstract val [paginationState](pagination-state.html): StateFlow&lt;[MessageListPaginationState](../-message-list-pagination-state/index.html)&gt;
+
+
+
+Message pagination UI state
 
 
 

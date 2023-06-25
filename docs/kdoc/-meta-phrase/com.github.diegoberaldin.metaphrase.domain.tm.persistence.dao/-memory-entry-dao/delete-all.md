@@ -14,4 +14,19 @@ abstract suspend fun [deleteAll](delete-all.html)(origin: [String](https://kotli
 
 
 
+Delete all the entries with a given origin.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| origin | entry origin |
+
+
+
 

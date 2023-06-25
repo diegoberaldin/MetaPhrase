@@ -10,7 +10,9 @@ title: ResourceFileType
 
 
 [jvm]\
-enum [ResourceFileType](index.html) : [Enum](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html)&lt;[ResourceFileType](index.html)&gt;
+enum [ResourceFileType](index.html) : [Enum](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html)&lt;[ResourceFileType](index.html)&gt; 
+
+Types of resource files supported.
 
 
 

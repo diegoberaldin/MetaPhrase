@@ -14,4 +14,27 @@ open override fun [getLemmata](get-lemmata.html)(message: [String](https://kotli
 
 
 
+Analyze a message to get a list of word stems.
+
+
+
+#### Return
+
+
+
+list of stems
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| message | Message to analyze |
+
+
+
 

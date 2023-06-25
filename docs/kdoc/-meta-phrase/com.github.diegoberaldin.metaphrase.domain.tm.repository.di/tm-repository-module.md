@@ -14,4 +14,8 @@ val [tmRepositoryModule](tm-repository-module.html): Module
 
 
 
+DI module for the translation memory domain repository subproject.
+
+
+
 

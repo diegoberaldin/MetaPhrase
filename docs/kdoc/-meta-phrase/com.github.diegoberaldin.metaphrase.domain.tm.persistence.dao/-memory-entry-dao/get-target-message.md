@@ -14,4 +14,28 @@ abstract suspend fun [getTargetMessage](get-target-message.html)(lang: [String](
 
 
 
+Get the target message for a given TM entry key.
+
+
+
+#### Return
+
+
+
+[TranslationMemoryEntryModel](../../com.github.diegoberaldin.metaphrase.domain.tm.data/-translation-memory-entry-model/index.html) or null
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| lang | target language code |
+| key | message key |
+
+
+
 

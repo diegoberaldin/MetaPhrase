@@ -14,4 +14,31 @@ abstract suspend fun [getTranslation](get-translation.html)(provider: [MachineTr
 
 
 
+Get a suggestion (translation) from machine translation.
+
+
+
+#### Return
+
+
+
+a suggestion from the MT provider
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| provider | Machine translation provider |
+| key | API key for the provider (optional) |
+| message | Message to translate |
+| sourceLang | Source language code |
+| targetLang | Target language code |
+
+
+
 

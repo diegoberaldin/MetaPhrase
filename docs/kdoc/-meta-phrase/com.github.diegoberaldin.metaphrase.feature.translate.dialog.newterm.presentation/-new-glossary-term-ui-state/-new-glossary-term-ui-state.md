@@ -14,4 +14,8 @@ constructor(sourceTerm: [String](https://kotlinlang.org/api/latest/jvm/stdlib/ko
 
 
 
+Create [NewGlossaryTermUiState](index.html)
+
+
+
 

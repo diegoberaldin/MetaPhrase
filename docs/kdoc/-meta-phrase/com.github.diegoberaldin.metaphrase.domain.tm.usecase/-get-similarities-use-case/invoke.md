@@ -14,4 +14,30 @@ abstract suspend operator fun [invoke](invoke.html)(segment: [SegmentModel](../.
 
 
 
+Get a series of matches from the translation memory or the current project for a given segment.
+
+
+
+#### Return
+
+
+
+list of matching translation units
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| segment | source message |
+| projectId | Project ID |
+| languageId | Language ID |
+| threshold | minimum similarity threshold |
+
+
+
 

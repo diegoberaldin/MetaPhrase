@@ -14,5 +14,5 @@ title: com.github.diegoberaldin.metaphrase.domain.tm.repository.di
 
 | Name | Summary |
 |---|---|
-| [tmRepositoryModule](tm-repository-module.html) | [jvm]<br>val [tmRepositoryModule](tm-repository-module.html): Module |
+| [tmRepositoryModule](tm-repository-module.html) | [jvm]<br>val [tmRepositoryModule](tm-repository-module.html): Module<br>DI module for the translation memory domain repository subproject. |
 

@@ -14,4 +14,28 @@ open suspend operator override fun [invoke](invoke.html)(input: [List](https://k
 
 
 
+Check for spelling errors a given messaeg.
+
+
+
+#### Return
+
+
+
+errors in the form of a map from message key to list of misspelled words
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| input | operation input |
+| lang | language code |
+
+
+
 

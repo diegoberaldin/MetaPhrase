@@ -14,4 +14,19 @@ open suspend override fun [deleteAll](delete-all.html)(origin: [String](https://
 
 
 
+Delete all the entries with a given origin.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| origin | entry origin |
+
+
+
 

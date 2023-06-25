@@ -12,6 +12,8 @@ title: SyncProjectWithTmUseCase
 [jvm]\
 interface [SyncProjectWithTmUseCase](index.html)
 
+Contract for the sync project with TM use case.
+
 
 
 ## Functions
@@ -19,5 +21,5 @@ interface [SyncProjectWithTmUseCase](index.html)
 
 | Name | Summary |
 |---|---|
-| [invoke](invoke.html) | [jvm]<br>abstract suspend operator fun [invoke](invoke.html)(projectId: [Int](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)) |
+| [invoke](invoke.html) | [jvm]<br>abstract suspend operator fun [invoke](invoke.html)(projectId: [Int](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html))<br>Import all the units of a project into the global TM. |
 

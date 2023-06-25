@@ -14,4 +14,27 @@ abstract suspend fun [getById](get-by-id.html)(id: [Int](https://kotlinlang.org/
 
 
 
+Get a segment by ID.
+
+
+
+#### Return
+
+
+
+[SegmentModel](../../com.github.diegoberaldin.metaphrase.domain.project.data/-segment-model/index.html) or null
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| id | segment ID |
+
+
+
 

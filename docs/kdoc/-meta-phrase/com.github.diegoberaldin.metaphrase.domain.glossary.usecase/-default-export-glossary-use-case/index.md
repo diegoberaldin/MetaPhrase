@@ -27,5 +27,5 @@ class [DefaultExportGlossaryUseCase](index.html)(repository: [GlossaryTermReposi
 
 | Name | Summary |
 |---|---|
-| [invoke](invoke.html) | [jvm]<br>open suspend operator override fun [invoke](invoke.html)(path: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)) |
+| [invoke](invoke.html) | [jvm]<br>open suspend operator override fun [invoke](invoke.html)(path: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html))<br>Export the global glossary content as a CSV file at a given path.. |
 

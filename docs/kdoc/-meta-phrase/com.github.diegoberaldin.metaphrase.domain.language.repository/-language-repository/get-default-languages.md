@@ -14,4 +14,16 @@ abstract fun [getDefaultLanguages](get-default-languages.html)(): [List](https:/
 
 
 
+Get the default languages for project creation.
+
+
+
+#### Return
+
+
+
+list of supported languages
+
+
+
 

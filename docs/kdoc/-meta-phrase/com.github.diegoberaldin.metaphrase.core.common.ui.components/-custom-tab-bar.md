@@ -22,4 +22,28 @@ fun [CustomTabBar](-custom-tab-bar.html)(modifier: Modifier = Modifier, tabs: [L
 
 
 
+Custom tab bar.
+
+
+
+#### Return
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| modifier | Modifier |
+| tabs | Tabs titles |
+| current | Current tab |
+| onTabSelected | On tab selected callback |
+| rightIcon | Right icon (e.g. close button) |
+| onRightIconClicked | On right icon clicked callack |
+
+
+
 

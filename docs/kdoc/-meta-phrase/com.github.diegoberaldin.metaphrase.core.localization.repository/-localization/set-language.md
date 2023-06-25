@@ -14,4 +14,19 @@ abstract fun [setLanguage](set-language.html)(lang: [String](https://kotlinlang.
 
 
 
+Set the app language globally.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| lang | Language code (ISO 639-1) |
+
+
+
 

@@ -14,4 +14,27 @@ abstract fun [observeById](observe-by-id.html)(id: [Int](https://kotlinlang.org/
 
 
 
+Observe a project given its ID.
+
+
+
+#### Return
+
+
+
+Flow of the project from DB
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| id | Project ID |
+
+
+
 

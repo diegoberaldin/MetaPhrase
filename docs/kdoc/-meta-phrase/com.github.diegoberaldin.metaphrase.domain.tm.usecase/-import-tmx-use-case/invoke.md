@@ -14,4 +14,19 @@ abstract suspend operator fun [invoke](invoke.html)(path: [String](https://kotli
 
 
 
+Import the content of a TMX file into the global translation memory.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| path | file path |
+
+
+
 

@@ -14,4 +14,19 @@ open suspend override fun [delete](delete.html)(model: [RecentProjectModel](../.
 
 
 
+Delete a recent project.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| model | recent project to delete |
+
+
+
 

@@ -12,6 +12,8 @@ title: KeyStoreKeys
 [jvm]\
 object [KeyStoreKeys](index.html)
 
+Collection of all the keys used in the key store.
+
 
 
 ## Properties

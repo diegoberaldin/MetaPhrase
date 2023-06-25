@@ -14,4 +14,20 @@ abstract suspend fun [associate](associate.html)(sourceId: [Int](https://kotlinl
 
 
 
+Create an association between two terms.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| sourceId | Source term ID |
+| targetId | Target term ID |
+
+
+
 

@@ -12,6 +12,8 @@ title: Constants
 [jvm]\
 object [Constants](index.html)
 
+Global constants.
+
 
 
 ## Properties
@@ -19,6 +21,6 @@ object [Constants](index.html)
 
 | Name | Summary |
 |---|---|
-| [NamedPlaceholderRegex](-named-placeholder-regex.html) | [jvm]<br>val [NamedPlaceholderRegex](-named-placeholder-regex.html): [Regex](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/index.html) |
-| [PlaceholderRegex](-placeholder-regex.html) | [jvm]<br>val [PlaceholderRegex](-placeholder-regex.html): [Regex](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/index.html) |
+| [NamedPlaceholderRegex](-named-placeholder-regex.html) | [jvm]<br>val [NamedPlaceholderRegex](-named-placeholder-regex.html): [Regex](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/index.html)<br>ngx-translate placeholder regex |
+| [PlaceholderRegex](-placeholder-regex.html) | [jvm]<br>val [PlaceholderRegex](-placeholder-regex.html): [Regex](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/index.html)<br>C-style placeholder regex |
 

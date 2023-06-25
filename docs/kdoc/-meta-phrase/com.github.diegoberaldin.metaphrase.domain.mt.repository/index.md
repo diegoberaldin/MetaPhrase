@@ -14,5 +14,5 @@ title: com.github.diegoberaldin.metaphrase.domain.mt.repository
 
 | Name | Summary |
 |---|---|
-| [MachineTranslationRepository](-machine-translation-repository/index.html) | [jvm]<br>interface [MachineTranslationRepository](-machine-translation-repository/index.html) |
+| [MachineTranslationRepository](-machine-translation-repository/index.html) | [jvm]<br>interface [MachineTranslationRepository](-machine-translation-repository/index.html)<br>Contract for the machine translation repository. |
 

@@ -14,4 +14,19 @@ open suspend override fun [clear](clear.html)(lang: [String](https://kotlinlang.
 
 
 
+Clear all the user-defined words for a language.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| lang | Language code |
+
+
+
 

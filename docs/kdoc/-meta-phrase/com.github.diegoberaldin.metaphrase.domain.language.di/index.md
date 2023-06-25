@@ -14,5 +14,5 @@ title: com.github.diegoberaldin.metaphrase.domain.language.di
 
 | Name | Summary |
 |---|---|
-| [languageModule](language-module.html) | [jvm]<br>val [languageModule](language-module.html): Module |
+| [languageModule](language-module.html) | [jvm]<br>val [languageModule](language-module.html): Module<br>DI module of the domain-language subproject. |
 

@@ -14,5 +14,5 @@ title: com.github.diegoberaldin.metaphrase.feature.translate.messages.di
 
 | Name | Summary |
 |---|---|
-| [translateMessagesModule](translate-messages-module.html) | [jvm]<br>val [translateMessagesModule](translate-messages-module.html): Module |
+| [translateMessagesModule](translate-messages-module.html) | [jvm]<br>val [translateMessagesModule](translate-messages-module.html): Module<br>DI module for the message list subproject |
 

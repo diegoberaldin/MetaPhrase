@@ -14,4 +14,16 @@ abstract suspend fun [getAll](get-all.html)(): [List](https://kotlinlang.org/api
 
 
 
+Get all recent projects.
+
+
+
+#### Return
+
+
+
+list of recent projects
+
+
+
 

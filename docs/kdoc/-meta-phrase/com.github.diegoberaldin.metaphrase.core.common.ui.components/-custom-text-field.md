@@ -22,4 +22,32 @@ fun [CustomTextField](-custom-text-field.html)(modifier: Modifier = Modifier, la
 
 
 
+Custom text field.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| modifier | Modifier |
+| label | Label to be shown above the field |
+| hint | Hint or placeholder |
+| enabled | Enabled/disabled flag |
+| secure | Secure flag |
+| labelColor | Label color |
+| backgroundColor | Background color |
+| textColor | Text color |
+| labelExtraSpacing | Label extra spacing |
+| labelStyle | Label style |
+| value | Initial value |
+| singleLine | Toggle for single line fields |
+| onValueChange | On value change callback |
+| endButton | Button to be displayed on the right side |
+
+
+
 

@@ -9,6 +9,10 @@ title: Events
 
 interface [Events](index.html)
 
+Events that can be emitted by the component.
+
+
+
 #### Inheritors
 
 
@@ -28,11 +32,11 @@ interface [Events](index.html)
 
 | Name | Summary |
 |---|---|
-| [AddUnit](-add-unit/index.html) | [jvm]<br>object [AddUnit](-add-unit/index.html) : [TranslateToolbarComponent.Events](index.html) |
-| [CopyBase](-copy-base/index.html) | [jvm]<br>object [CopyBase](-copy-base/index.html) : [TranslateToolbarComponent.Events](index.html) |
-| [MoveToNext](-move-to-next/index.html) | [jvm]<br>object [MoveToNext](-move-to-next/index.html) : [TranslateToolbarComponent.Events](index.html) |
-| [MoveToPrevious](-move-to-previous/index.html) | [jvm]<br>object [MoveToPrevious](-move-to-previous/index.html) : [TranslateToolbarComponent.Events](index.html) |
-| [RemoveUnit](-remove-unit/index.html) | [jvm]<br>object [RemoveUnit](-remove-unit/index.html) : [TranslateToolbarComponent.Events](index.html) |
-| [Search](-search/index.html) | [jvm]<br>data class [Search](-search/index.html)(val text: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)) : [TranslateToolbarComponent.Events](index.html) |
-| [ValidateUnits](-validate-units/index.html) | [jvm]<br>object [ValidateUnits](-validate-units/index.html) : [TranslateToolbarComponent.Events](index.html) |
+| [AddUnit](-add-unit/index.html) | [jvm]<br>object [AddUnit](-add-unit/index.html) : [TranslateToolbarComponent.Events](index.html)<br>Add new segment |
+| [CopyBase](-copy-base/index.html) | [jvm]<br>object [CopyBase](-copy-base/index.html) : [TranslateToolbarComponent.Events](index.html)<br>Copy base (source) text to translation field |
+| [MoveToNext](-move-to-next/index.html) | [jvm]<br>object [MoveToNext](-move-to-next/index.html) : [TranslateToolbarComponent.Events](index.html)<br>Move to next segment |
+| [MoveToPrevious](-move-to-previous/index.html) | [jvm]<br>object [MoveToPrevious](-move-to-previous/index.html) : [TranslateToolbarComponent.Events](index.html)<br>Move to previous segment |
+| [RemoveUnit](-remove-unit/index.html) | [jvm]<br>object [RemoveUnit](-remove-unit/index.html) : [TranslateToolbarComponent.Events](index.html)<br>Delete current segment |
+| [Search](-search/index.html) | [jvm]<br>data class [Search](-search/index.html)(val text: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)) : [TranslateToolbarComponent.Events](index.html)<br>Search in message list. |
+| [ValidateUnits](-validate-units/index.html) | [jvm]<br>object [ValidateUnits](-validate-units/index.html) : [TranslateToolbarComponent.Events](index.html)<br>Start validation (placeholder) |
 

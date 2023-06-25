@@ -14,4 +14,8 @@ abstract val [copyEvents](copy-events.html): SharedFlow&lt;[String](https://kotl
 
 
 
+Events triggered when a TM message should be copied into the translation editor
+
+
+
 

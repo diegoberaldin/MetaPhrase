@@ -14,4 +14,8 @@ val [NamedPlaceholderRegex](-named-placeholder-regex.html): [Regex](https://kotl
 
 
 
+ngx-translate placeholder regex
+
+
+
 

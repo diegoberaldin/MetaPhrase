@@ -14,4 +14,20 @@ abstract fun [exception](exception.html)(message: [String](https://kotlinlang.or
 
 
 
+Log an exception.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| message | Log message |
+| cause | Root cause |
+
+
+
 

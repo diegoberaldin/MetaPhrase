@@ -14,4 +14,8 @@ constructor(lemma: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/
 
 
 
+Create [AddToGlossaryEvent](index.html)
+
+
+
 

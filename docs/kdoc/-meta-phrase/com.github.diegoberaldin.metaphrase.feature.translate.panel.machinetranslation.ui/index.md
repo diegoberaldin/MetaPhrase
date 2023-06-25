@@ -14,5 +14,5 @@ title: com.github.diegoberaldin.metaphrase.feature.translate.panel.machinetransl
 
 | Name | Summary |
 |---|---|
-| [MachineTranslationContent](-machine-translation-content.html) | [jvm]<br>@Composable<br>fun [MachineTranslationContent](-machine-translation-content.html)(component: [MachineTranslationComponent](../com.github.diegoberaldin.metaphrase.feature.translate.panel.machinetranslation.presentation/-machine-translation-component/index.html), modifier: Modifier = Modifier, onMinify: () -&gt; [Unit](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)) |
+| [MachineTranslationContent](-machine-translation-content.html) | [jvm]<br>@Composable<br>fun [MachineTranslationContent](-machine-translation-content.html)(component: [MachineTranslationComponent](../com.github.diegoberaldin.metaphrase.feature.translate.panel.machinetranslation.presentation/-machine-translation-component/index.html), modifier: Modifier = Modifier, onMinify: () -&gt; [Unit](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html))<br>Machine translation UI content. |
 

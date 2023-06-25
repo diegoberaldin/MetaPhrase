@@ -14,4 +14,8 @@ abstract fun [share](share.html)()
 
 
 
+Share the suggestion field content with the remote MT provider.
+
+
+
 

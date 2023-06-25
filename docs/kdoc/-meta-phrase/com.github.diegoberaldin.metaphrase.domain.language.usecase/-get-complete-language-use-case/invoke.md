@@ -14,4 +14,27 @@ abstract operator fun [invoke](invoke.html)(lang: [LanguageModel](../../com.gith
 
 
 
+Complete the language populating its name with a user-friendly label and a flag.
+
+
+
+#### Return
+
+
+
+[LanguageModel](../../com.github.diegoberaldin.metaphrase.domain.language.data/-language-model/index.html) the completed language (ID is maintained)
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| lang | Language to complete |
+
+
+
 

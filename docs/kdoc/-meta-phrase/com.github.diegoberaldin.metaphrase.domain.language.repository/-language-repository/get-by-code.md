@@ -14,4 +14,28 @@ abstract suspend fun [getByCode](get-by-code.html)(code: [String](https://kotlin
 
 
 
+Get a language by its code.
+
+
+
+#### Return
+
+
+
+[LanguageModel](../../com.github.diegoberaldin.metaphrase.domain.language.data/-language-model/index.html) or null if no such language exists
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| code | Language code (two letters ISO 693-1 code) |
+| projectId | Project ID |
+
+
+
 

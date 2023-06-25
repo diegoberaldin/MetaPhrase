@@ -14,4 +14,8 @@ val [localizationModule](localization-module.html): Module
 
 
 
+DI module for the core-localization subproject.
+
+
+
 

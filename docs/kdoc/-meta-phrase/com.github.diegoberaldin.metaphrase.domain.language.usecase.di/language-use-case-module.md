@@ -14,4 +14,8 @@ val [languageUseCaseModule](language-use-case-module.html): Module
 
 
 
+DI module for the domain-language use case subproject.
+
+
+
 

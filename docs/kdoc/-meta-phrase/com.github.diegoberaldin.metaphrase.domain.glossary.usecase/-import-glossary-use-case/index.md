@@ -9,6 +9,10 @@ title: ImportGlossaryUseCase
 
 interface [ImportGlossaryUseCase](index.html)
 
+Contract for the import glossary use case.
+
+
+
 #### Inheritors
 
 
@@ -22,5 +26,5 @@ interface [ImportGlossaryUseCase](index.html)
 
 | Name | Summary |
 |---|---|
-| [invoke](invoke.html) | [jvm]<br>abstract suspend operator fun [invoke](invoke.html)(path: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)) |
+| [invoke](invoke.html) | [jvm]<br>abstract suspend operator fun [invoke](invoke.html)(path: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html))<br>Import the terms contained in the CSV file at a given path into the global glossary. |
 

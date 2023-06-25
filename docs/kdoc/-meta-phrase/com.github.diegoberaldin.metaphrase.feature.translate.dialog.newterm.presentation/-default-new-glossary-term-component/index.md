@@ -28,11 +28,11 @@ class [DefaultNewGlossaryTermComponent](index.html)(componentContext: ComponentC
 | Name | Summary |
 |---|---|
 | [backHandler](index.html#1029306802%2FProperties%2F2137835383) | [jvm]<br>open override val [backHandler](index.html#1029306802%2FProperties%2F2137835383): BackHandler |
-| [done](done.html) | [jvm]<br>open override val [done](done.html): MutableSharedFlow&lt;[GlossaryTermPair](../-glossary-term-pair/index.html)&gt; |
+| [done](done.html) | [jvm]<br>open override val [done](done.html): MutableSharedFlow&lt;[GlossaryTermPair](../-glossary-term-pair/index.html)&gt;<br>Event emitted after successful submission. |
 | [instanceKeeper](index.html#-47807002%2FProperties%2F2137835383) | [jvm]<br>open override val [instanceKeeper](index.html#-47807002%2FProperties%2F2137835383): InstanceKeeper |
 | [lifecycle](index.html#-1197012679%2FProperties%2F2137835383) | [jvm]<br>open override val [lifecycle](index.html#-1197012679%2FProperties%2F2137835383): Lifecycle |
 | [stateKeeper](index.html#1128392690%2FProperties%2F2137835383) | [jvm]<br>open override val [stateKeeper](index.html#1128392690%2FProperties%2F2137835383): StateKeeper |
-| [uiState](ui-state.html) | [jvm]<br>open lateinit override var [uiState](ui-state.html): StateFlow&lt;[NewGlossaryTermUiState](../-new-glossary-term-ui-state/index.html)&gt; |
+| [uiState](ui-state.html) | [jvm]<br>open lateinit override var [uiState](ui-state.html): StateFlow&lt;[NewGlossaryTermUiState](../-new-glossary-term-ui-state/index.html)&gt;<br>UI state |
 
 
 ## Functions
@@ -40,7 +40,7 @@ class [DefaultNewGlossaryTermComponent](index.html)(componentContext: ComponentC
 
 | Name | Summary |
 |---|---|
-| [setSourceTerm](set-source-term.html) | [jvm]<br>open override fun [setSourceTerm](set-source-term.html)(value: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)) |
-| [setTargetTerm](set-target-term.html) | [jvm]<br>open override fun [setTargetTerm](set-target-term.html)(value: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)) |
-| [submit](submit.html) | [jvm]<br>open override fun [submit](submit.html)() |
+| [setSourceTerm](set-source-term.html) | [jvm]<br>open override fun [setSourceTerm](set-source-term.html)(value: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html))<br>Set source term. |
+| [setTargetTerm](set-target-term.html) | [jvm]<br>open override fun [setTargetTerm](set-target-term.html)(value: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html))<br>Set target term. |
+| [submit](submit.html) | [jvm]<br>open override fun [submit](submit.html)()<br>Confirm the inserted term pair.. |
 

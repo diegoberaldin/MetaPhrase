@@ -12,6 +12,8 @@ title: MemoryMessageEntity
 [jvm]\
 object [MemoryMessageEntity](index.html) : IntIdTable
 
+TM message entity.
+
 
 
 ## Properties
@@ -22,17 +24,17 @@ object [MemoryMessageEntity](index.html) : IntIdTable
 | [autoIncColumn](index.html#-119017270%2FProperties%2F2137835383) | [jvm]<br>val [autoIncColumn](index.html#-119017270%2FProperties%2F2137835383): Column&lt;*&gt;? |
 | [columns](index.html#-527477422%2FProperties%2F2137835383) | [jvm]<br>open override val [columns](index.html#-527477422%2FProperties%2F2137835383): [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)&lt;Column&lt;*&gt;&gt; |
 | [ddl](index.html#-98631389%2FProperties%2F2137835383) | [jvm]<br>val [ddl](index.html#-98631389%2FProperties%2F2137835383): [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)&lt;[String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)&gt; |
-| [entryId](entry-id.html) | [jvm]<br>val [entryId](entry-id.html): Column&lt;EntityID&lt;[Int](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)&gt;&gt; |
+| [entryId](entry-id.html) | [jvm]<br>val [entryId](entry-id.html): Column&lt;EntityID&lt;[Int](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)&gt;&gt;<br>ID of the associated translation memory entry |
 | [fields](index.html#1767535600%2FProperties%2F2137835383) | [jvm]<br>open override val [fields](index.html#1767535600%2FProperties%2F2137835383): [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)&lt;Expression&lt;*&gt;&gt; |
 | [foreignKeys](index.html#-1277801049%2FProperties%2F2137835383) | [jvm]<br>val [foreignKeys](index.html#-1277801049%2FProperties%2F2137835383): [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)&lt;ForeignKeyConstraint&gt; |
 | [id](index.html#251999487%2FProperties%2F2137835383) | [jvm]<br>override val [id](index.html#251999487%2FProperties%2F2137835383): Column&lt;EntityID&lt;[Int](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)&gt;&gt; |
 | [indices](index.html#-1684006712%2FProperties%2F2137835383) | [jvm]<br>val [indices](index.html#-1684006712%2FProperties%2F2137835383): [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)&lt;Index&gt; |
-| [lang](lang.html) | [jvm]<br>val [lang](lang.html): Column&lt;[String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)&gt; |
+| [lang](lang.html) | [jvm]<br>val [lang](lang.html): Column&lt;[String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)&gt;<br>Language code |
 | [primaryKey](index.html#436631133%2FProperties%2F2137835383) | [jvm]<br>override val [primaryKey](index.html#436631133%2FProperties%2F2137835383): Table.PrimaryKey |
 | [realFields](index.html#-1960918000%2FProperties%2F2137835383) | [jvm]<br>open val [realFields](index.html#-1960918000%2FProperties%2F2137835383): [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)&lt;Expression&lt;*&gt;&gt; |
 | [source](index.html#1676246222%2FProperties%2F2137835383) | [jvm]<br>open override val [source](index.html#1676246222%2FProperties%2F2137835383): ColumnSet |
 | [tableName](index.html#886371510%2FProperties%2F2137835383) | [jvm]<br>open val [tableName](index.html#886371510%2FProperties%2F2137835383): [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) |
-| [text](text.html) | [jvm]<br>val [text](text.html): Column&lt;[String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)&gt; |
+| [text](text.html) | [jvm]<br>val [text](text.html): Column&lt;[String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)&gt;<br>Message content |
 
 
 ## Functions

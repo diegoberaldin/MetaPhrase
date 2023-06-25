@@ -14,4 +14,8 @@ val [translationMemoryModule](translation-memory-module.html): Module
 
 
 
+DI module for the translation memory domain subproject.
+
+
+
 

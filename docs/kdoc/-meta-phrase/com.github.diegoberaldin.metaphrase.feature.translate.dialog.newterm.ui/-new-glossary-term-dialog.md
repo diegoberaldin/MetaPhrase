@@ -22,4 +22,21 @@ fun [NewGlossaryTermDialog](-new-glossary-term-dialog.html)(targetTerm: [String]
 
 
 
+UI content of the new glossary term dialog. This dialog is shown whenever a new glossary term is being inserted for a target language. In this case the target term should be pre-filled with the user selection and the source term must be inserted to populate the glossary.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| targetTerm | target term |
+| component | component |
+| onClose | on close callback |
+
+
+
 

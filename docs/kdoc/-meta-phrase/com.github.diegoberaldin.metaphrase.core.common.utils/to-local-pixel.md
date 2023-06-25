@@ -22,4 +22,24 @@ fun Dp.[toLocalPixel](to-local-pixel.html)(): [Float](https://kotlinlang.org/api
 
 
 
+Converts a device independent measure to local pixel accounting for local density.
+
+
+
+#### Receiver
+
+
+
+Dp original measure
+
+
+
+#### Return
+
+
+
+converted measure
+
+
+
 

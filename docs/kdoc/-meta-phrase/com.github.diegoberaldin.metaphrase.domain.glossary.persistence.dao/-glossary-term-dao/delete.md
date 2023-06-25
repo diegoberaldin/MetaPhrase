@@ -10,7 +10,22 @@ title: delete
 
 
 [jvm]\
-abstract suspend fun [delete](delete.html)(model: [GlossaryTermModel](../../com.github.diegoberaldin.metaphrase.domain.glossary.data/-glossary-term-model/index.html)): [Int](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)
+abstract suspend fun [delete](delete.html)(model: [GlossaryTermModel](../../com.github.diegoberaldin.metaphrase.domain.glossary.data/-glossary-term-model/index.html))
+
+
+
+Delete a glossary term.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| model | Term to delete |
 
 
 

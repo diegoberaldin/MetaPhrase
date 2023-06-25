@@ -14,4 +14,16 @@ abstract fun [getLanguage](get-language.html)(): [String](https://kotlinlang.org
 
 
 
+Get the current language.
+
+
+
+#### Return
+
+
+
+Language code in the ISO 693-1 format
+
+
+
 

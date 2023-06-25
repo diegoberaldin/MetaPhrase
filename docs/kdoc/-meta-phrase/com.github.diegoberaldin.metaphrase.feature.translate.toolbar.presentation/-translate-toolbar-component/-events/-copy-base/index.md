@@ -12,4 +12,6 @@ title: CopyBase
 [jvm]\
 object [CopyBase](index.html) : [TranslateToolbarComponent.Events](../index.html)
 
+Copy base (source) text to translation field
+
 

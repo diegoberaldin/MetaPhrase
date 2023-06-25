@@ -27,5 +27,5 @@ class [DefaultClearGlossaryUseCase](index.html)(repository: [GlossaryTermReposit
 
 | Name | Summary |
 |---|---|
-| [invoke](invoke.html) | [jvm]<br>open suspend operator override fun [invoke](invoke.html)() |
+| [invoke](invoke.html) | [jvm]<br>open suspend operator override fun [invoke](invoke.html)()<br>Remove all terms from the glossary.. |
 

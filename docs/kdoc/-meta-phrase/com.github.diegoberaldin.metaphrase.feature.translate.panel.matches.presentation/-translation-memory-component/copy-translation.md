@@ -14,4 +14,19 @@ abstract fun [copyTranslation](copy-translation.html)(index: [Int](https://kotli
 
 
 
+Copy the match with a given index into the translation field.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| index | match index |
+
+
+
 

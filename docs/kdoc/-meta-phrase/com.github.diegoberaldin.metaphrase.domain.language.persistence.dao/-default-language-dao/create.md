@@ -14,4 +14,28 @@ open suspend override fun [create](create.html)(model: [LanguageModel](../../com
 
 
 
+Create a language within a given project.
+
+
+
+#### Return
+
+
+
+ID of the newly created language
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| model | Language to create |
+| projectId | Project ID |
+
+
+
 

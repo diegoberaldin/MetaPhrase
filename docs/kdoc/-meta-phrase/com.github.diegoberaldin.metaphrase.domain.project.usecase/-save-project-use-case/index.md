@@ -12,6 +12,8 @@ title: SaveProjectUseCase
 [jvm]\
 interface [SaveProjectUseCase](index.html)
 
+Contract for the save project use case.
+
 
 
 ## Functions
@@ -19,5 +21,5 @@ interface [SaveProjectUseCase](index.html)
 
 | Name | Summary |
 |---|---|
-| [invoke](invoke.html) | [jvm]<br>abstract suspend operator fun [invoke](invoke.html)(projectId: [Int](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html), path: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)) |
+| [invoke](invoke.html) | [jvm]<br>abstract suspend operator fun [invoke](invoke.html)(projectId: [Int](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html), path: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html))<br>Save the project under a given path as a TMX file. |
 

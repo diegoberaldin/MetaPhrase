@@ -14,4 +14,19 @@ abstract fun [info](info.html)(message: [String](https://kotlinlang.org/api/late
 
 
 
+Log a message with the INFO level.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| message | Log message |
+
+
+
 

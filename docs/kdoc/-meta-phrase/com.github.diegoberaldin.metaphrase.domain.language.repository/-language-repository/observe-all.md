@@ -14,4 +14,27 @@ abstract fun [observeAll](observe-all.html)(projectId: [Int](https://kotlinlang.
 
 
 
+Observe all the languages within a project.
+
+
+
+#### Return
+
+
+
+flow of distinct language lists
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| projectId | Project ID |
+
+
+
 

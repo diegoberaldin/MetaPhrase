@@ -22,4 +22,23 @@ fun [CustomSaveFileDialog](-custom-save-file-dialog.html)(title: [String](https:
 
 
 
+Custom save file dialog.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| title | Dialog title |
+| initialFileName | Initial file name |
+| nameFilter | Name filter (return true if and only if the name matches the wanted format) |
+| parent | Parent |
+| onCloseRequest | On close callback |
+
+
+
 

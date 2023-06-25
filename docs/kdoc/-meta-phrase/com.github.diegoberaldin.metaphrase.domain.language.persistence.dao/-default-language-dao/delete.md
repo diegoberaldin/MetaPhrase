@@ -10,7 +10,22 @@ title: delete
 
 
 [jvm]\
-open suspend override fun [delete](delete.html)(model: [LanguageModel](../../com.github.diegoberaldin.metaphrase.domain.language.data/-language-model/index.html)): [Int](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)
+open suspend override fun [delete](delete.html)(model: [LanguageModel](../../com.github.diegoberaldin.metaphrase.domain.language.data/-language-model/index.html))
+
+
+
+Delete a language.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| model | Language to delete |
 
 
 

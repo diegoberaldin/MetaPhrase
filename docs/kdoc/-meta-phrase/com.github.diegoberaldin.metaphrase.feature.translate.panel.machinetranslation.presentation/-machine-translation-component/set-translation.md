@@ -14,4 +14,19 @@ abstract fun [setTranslation](set-translation.html)(value: [String](https://kotl
 
 
 
+Set a value for the suggestion, when the event is initiated by the user.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| value | suggestion to set |
+
+
+
 

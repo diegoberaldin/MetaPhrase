@@ -14,4 +14,19 @@ abstract fun [error](error.html)(message: [String](https://kotlinlang.org/api/la
 
 
 
+Log a message with the ERROR level.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| message | Log message |
+
+
+
 

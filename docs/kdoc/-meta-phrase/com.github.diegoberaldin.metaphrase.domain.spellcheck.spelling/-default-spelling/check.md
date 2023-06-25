@@ -14,4 +14,27 @@ open override fun [check](check.html)(word: [String](https://kotlinlang.org/api/
 
 
 
+Check a word for spelling mistakes.
+
+
+
+#### Return
+
+
+
+list of suggestions
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| word | Word to check |
+
+
+
 

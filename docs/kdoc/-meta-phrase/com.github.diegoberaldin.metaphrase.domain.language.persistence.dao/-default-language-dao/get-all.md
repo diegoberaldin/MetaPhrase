@@ -14,4 +14,27 @@ open suspend override fun [getAll](get-all.html)(projectId: [Int](https://kotlin
 
 
 
+Get all the languages for a project.
+
+
+
+#### Return
+
+
+
+list of languages
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| projectId | Project ID |
+
+
+
 

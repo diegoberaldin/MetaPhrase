@@ -12,6 +12,8 @@ title: MemoryEntryEntity
 [jvm]\
 object [MemoryEntryEntity](index.html) : IntIdTable
 
+Memory entry entity.
+
 
 
 ## Properties
@@ -25,9 +27,9 @@ object [MemoryEntryEntity](index.html) : IntIdTable
 | [fields](../-memory-message-entity/index.html#1767535600%2FProperties%2F2137835383) | [jvm]<br>open override val [fields](../-memory-message-entity/index.html#1767535600%2FProperties%2F2137835383): [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)&lt;Expression&lt;*&gt;&gt; |
 | [foreignKeys](../-memory-message-entity/index.html#-1277801049%2FProperties%2F2137835383) | [jvm]<br>val [foreignKeys](../-memory-message-entity/index.html#-1277801049%2FProperties%2F2137835383): [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)&lt;ForeignKeyConstraint&gt; |
 | [id](../-memory-message-entity/index.html#251999487%2FProperties%2F2137835383) | [jvm]<br>override val [id](../-memory-message-entity/index.html#251999487%2FProperties%2F2137835383): Column&lt;EntityID&lt;[Int](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)&gt;&gt; |
-| [identifier](identifier.html) | [jvm]<br>val [identifier](identifier.html): Column&lt;[String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)&gt; |
+| [identifier](identifier.html) | [jvm]<br>val [identifier](identifier.html): Column&lt;[String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)&gt;<br>Message key or translation unit ID (equivalent of `tuid` attribute in the TMX) |
 | [indices](../-memory-message-entity/index.html#-1684006712%2FProperties%2F2137835383) | [jvm]<br>val [indices](../-memory-message-entity/index.html#-1684006712%2FProperties%2F2137835383): [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)&lt;Index&gt; |
-| [origin](origin.html) | [jvm]<br>val [origin](origin.html): Column&lt;[String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)&gt; |
+| [origin](origin.html) | [jvm]<br>val [origin](origin.html): Column&lt;[String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)&gt;<br>Origin of the entry (project name or TMX file name) |
 | [primaryKey](../-memory-message-entity/index.html#436631133%2FProperties%2F2137835383) | [jvm]<br>override val [primaryKey](../-memory-message-entity/index.html#436631133%2FProperties%2F2137835383): Table.PrimaryKey |
 | [realFields](../-memory-message-entity/index.html#-1960918000%2FProperties%2F2137835383) | [jvm]<br>open val [realFields](../-memory-message-entity/index.html#-1960918000%2FProperties%2F2137835383): [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)&lt;Expression&lt;*&gt;&gt; |
 | [source](../-memory-message-entity/index.html#1676246222%2FProperties%2F2137835383) | [jvm]<br>open override val [source](../-memory-message-entity/index.html#1676246222%2FProperties%2F2137835383): ColumnSet |

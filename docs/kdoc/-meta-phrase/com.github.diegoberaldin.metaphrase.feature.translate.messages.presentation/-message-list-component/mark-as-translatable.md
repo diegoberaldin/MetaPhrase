@@ -14,4 +14,20 @@ abstract fun [markAsTranslatable](mark-as-translatable.html)(value: [Boolean](ht
 
 
 
+Mark a segment as translatable.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| value | translatable flag |
+| key | identifier (key) of the message |
+
+
+
 

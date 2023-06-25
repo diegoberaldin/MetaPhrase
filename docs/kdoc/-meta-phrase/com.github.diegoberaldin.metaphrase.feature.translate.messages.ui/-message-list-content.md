@@ -22,4 +22,24 @@ fun [MessageListContent](-message-list-content.html)(component: [MessageListComp
 
 
 
+Message list UI content.
+
+
+
+#### Return
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| component | Component |
+| modifier | Modifier |
+
+
+
 

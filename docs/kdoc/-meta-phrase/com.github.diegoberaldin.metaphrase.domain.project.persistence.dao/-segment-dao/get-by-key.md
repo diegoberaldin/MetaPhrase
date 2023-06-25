@@ -14,4 +14,28 @@ abstract suspend fun [getByKey](get-by-key.html)(key: [String](https://kotlinlan
 
 
 
+Get a segment by key given its language within a project. There can only be at most one segment with a given key for any given language (compound index).
+
+
+
+#### Return
+
+
+
+[SegmentModel](../../com.github.diegoberaldin.metaphrase.domain.project.data/-segment-model/index.html) or null
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| key | segment key |
+| languageId | Language ID |
+
+
+
 

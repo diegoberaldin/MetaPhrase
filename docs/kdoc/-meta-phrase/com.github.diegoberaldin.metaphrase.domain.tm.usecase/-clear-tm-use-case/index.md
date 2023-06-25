@@ -12,6 +12,8 @@ title: ClearTmUseCase
 [jvm]\
 interface [ClearTmUseCase](index.html)
 
+Contract for clear translation memory use case.
+
 
 
 ## Functions
@@ -19,5 +21,5 @@ interface [ClearTmUseCase](index.html)
 
 | Name | Summary |
 |---|---|
-| [invoke](invoke.html) | [jvm]<br>abstract suspend operator fun [invoke](invoke.html)() |
+| [invoke](invoke.html) | [jvm]<br>abstract suspend operator fun [invoke](invoke.html)()<br>Clear the content of the translation memory. |
 

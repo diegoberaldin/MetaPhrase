@@ -14,5 +14,5 @@ title: com.github.diegoberaldin.metaphrase.domain.language.usecase.di
 
 | Name | Summary |
 |---|---|
-| [languageUseCaseModule](language-use-case-module.html) | [jvm]<br>val [languageUseCaseModule](language-use-case-module.html): Module |
+| [languageUseCaseModule](language-use-case-module.html) | [jvm]<br>val [languageUseCaseModule](language-use-case-module.html): Module<br>DI module for the domain-language use case subproject. |
 

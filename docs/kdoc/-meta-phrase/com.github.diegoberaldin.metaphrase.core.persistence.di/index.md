@@ -14,5 +14,5 @@ title: com.github.diegoberaldin.metaphrase.core.persistence.di
 
 | Name | Summary |
 |---|---|
-| [persistenceModule](persistence-module.html) | [jvm]<br>val [persistenceModule](persistence-module.html): Module |
+| [persistenceModule](persistence-module.html) | [jvm]<br>val [persistenceModule](persistence-module.html): Module<br>DI module for the core-persistence subproject. |
 

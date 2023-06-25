@@ -14,4 +14,20 @@ open suspend override fun [add](add.html)(word: [String](https://kotlinlang.org/
 
 
 
+Add a new user-defined word.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| word | Word to ignore |
+| lang | Language code |
+
+
+
 

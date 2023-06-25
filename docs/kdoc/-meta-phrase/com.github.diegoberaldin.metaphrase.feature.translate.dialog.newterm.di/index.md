@@ -14,5 +14,5 @@ title: com.github.diegoberaldin.metaphrase.feature.translate.dialog.newterm.di
 
 | Name | Summary |
 |---|---|
-| [dialogNewTermModule](dialog-new-term-module.html) | [jvm]<br>val [dialogNewTermModule](dialog-new-term-module.html): Module |
+| [dialogNewTermModule](dialog-new-term-module.html) | [jvm]<br>val [dialogNewTermModule](dialog-new-term-module.html): Module<br>DI module for the new glossary term dialog. |
 

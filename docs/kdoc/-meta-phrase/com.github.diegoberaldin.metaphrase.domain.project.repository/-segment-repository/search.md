@@ -14,4 +14,32 @@ abstract suspend fun [search](search.html)(languageId: [Int](https://kotlinlang.
 
 
 
+Get all the segments corresponding to a set of search criteria.
+
+
+
+#### Return
+
+
+
+the list of matching segments
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| languageId | Target language ID |
+| baseLanguageId | Source language ID |
+| filter | Message type filter |
+| search | Textual query (on the key, source text or target text) |
+| skip | offset for pagination |
+| limit | page size for pagination, if set to `0` pagination is ignored |
+
+
+
 

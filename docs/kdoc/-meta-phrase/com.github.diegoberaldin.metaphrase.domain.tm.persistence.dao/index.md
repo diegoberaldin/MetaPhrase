@@ -15,5 +15,5 @@ title: com.github.diegoberaldin.metaphrase.domain.tm.persistence.dao
 | Name | Summary |
 |---|---|
 | [DefaultMemoryEntryDao](-default-memory-entry-dao/index.html) | [jvm]<br>class [DefaultMemoryEntryDao](-default-memory-entry-dao/index.html) : [MemoryEntryDao](-memory-entry-dao/index.html) |
-| [MemoryEntryDao](-memory-entry-dao/index.html) | [jvm]<br>interface [MemoryEntryDao](-memory-entry-dao/index.html) |
+| [MemoryEntryDao](-memory-entry-dao/index.html) | [jvm]<br>interface [MemoryEntryDao](-memory-entry-dao/index.html)<br>Memory entry Data Access Object. |
 

@@ -14,4 +14,28 @@ abstract suspend fun [create](create.html)(model: [SegmentModel](../../com.githu
 
 
 
+Create a new segment.
+
+
+
+#### Return
+
+
+
+ID of the newly created segment
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| model | Segment to create |
+| languageId | Language ID |
+
+
+
 

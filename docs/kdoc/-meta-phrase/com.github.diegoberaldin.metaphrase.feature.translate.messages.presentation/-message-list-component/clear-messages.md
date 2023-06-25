@@ -14,4 +14,8 @@ abstract fun [clearMessages](clear-messages.html)()
 
 
 
+Clear the message list.
+
+
+
 

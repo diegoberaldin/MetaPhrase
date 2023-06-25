@@ -14,4 +14,8 @@ abstract val [isInitialized](is-initialized.html): [Boolean](https://kotlinlang.
 
 
 
+Flag indicating whether the spell checker is initialized
+
+
+
 

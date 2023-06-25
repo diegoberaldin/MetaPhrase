@@ -14,4 +14,8 @@ abstract val [isShowingProgress](is-showing-progress.html): StateFlow&lt;[Boolea
 
 
 
+Flag indicating whether a background operation is in progress
+
+
+
 

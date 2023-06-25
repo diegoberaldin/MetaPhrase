@@ -14,4 +14,8 @@ abstract val [events](events.html): SharedFlow&lt;[NotificationCenter.Event](-ev
 
 
 
+Observable event flow
+
+
+
 

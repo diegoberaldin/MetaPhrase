@@ -14,4 +14,19 @@ abstract suspend operator fun [invoke](invoke.html)(projectId: [Int](https://kot
 
 
 
+Import all the units of a project into the global TM.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| projectId | Project ID |
+
+
+
 

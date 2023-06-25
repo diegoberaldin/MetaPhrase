@@ -14,4 +14,24 @@ open suspend override fun [disassociate](disassociate.html)(sourceId: [Int](http
 
 
 
+Remove the association between two terms.
+
+
+
+#### Return
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| sourceId | Source term ID |
+| targetId | Target term ID |
+
+
+
 

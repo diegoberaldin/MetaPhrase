@@ -14,4 +14,19 @@ abstract suspend fun [update](update.html)(model: [ProjectModel](../../com.githu
 
 
 
+Update a project.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| model | project to update |
+
+
+
 

@@ -14,4 +14,8 @@ constructor(isLoading: [Boolean](https://kotlinlang.org/api/latest/jvm/stdlib/ko
 
 
 
+Create [TranslationMemoryUiState](index.html)
+
+
+
 

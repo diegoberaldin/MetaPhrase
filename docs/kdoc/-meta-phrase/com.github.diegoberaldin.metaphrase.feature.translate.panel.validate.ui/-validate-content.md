@@ -22,4 +22,25 @@ fun [ValidateContent](-validate-content.html)(component: [ValidateComponent](../
 
 
 
+UI content of the validate panel
+
+
+
+#### Return
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| component | Component |
+| onMinify | On minify callback |
+| modifier | Modifier |
+
+
+
 

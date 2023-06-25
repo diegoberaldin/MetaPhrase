@@ -14,5 +14,5 @@ title: com.github.diegoberaldin.metaphrase.domain.glossary.repository
 
 | Name | Summary |
 |---|---|
-| [GlossaryTermRepository](-glossary-term-repository/index.html) | [jvm]<br>interface [GlossaryTermRepository](-glossary-term-repository/index.html) |
+| [GlossaryTermRepository](-glossary-term-repository/index.html) | [jvm]<br>interface [GlossaryTermRepository](-glossary-term-repository/index.html)<br>Contract for the glossary term repository. |
 

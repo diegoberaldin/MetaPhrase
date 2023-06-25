@@ -14,4 +14,19 @@ open suspend override fun [update](update.html)(model: [ProjectModel](../../com.
 
 
 
+Update a project.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| model | project to update |
+
+
+
 

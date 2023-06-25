@@ -14,4 +14,8 @@ abstract fun [deleteSegment](delete-segment.html)()
 
 
 
+Delete the current segment.
+
+
+
 

@@ -14,4 +14,8 @@ abstract val [addToGlossaryEvents](add-to-glossary-events.html): SharedFlow&lt;[
 
 
 
+Events emitted when new terms should be added to the glossary (see [AddToGlossaryEvent](../-add-to-glossary-event/index.html))
+
+
+
 

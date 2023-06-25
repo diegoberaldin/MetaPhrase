@@ -14,6 +14,6 @@ title: com.github.diegoberaldin.metaphrase.domain.formats
 
 | Name | Summary |
 |---|---|
-| [ExportResourcesUseCase](-export-resources-use-case/index.html) | [jvm]<br>interface [ExportResourcesUseCase](-export-resources-use-case/index.html) |
-| [ImportResourcesUseCase](-import-resources-use-case/index.html) | [jvm]<br>interface [ImportResourcesUseCase](-import-resources-use-case/index.html) |
+| [ExportResourcesUseCase](-export-resources-use-case/index.html) | [jvm]<br>interface [ExportResourcesUseCase](-export-resources-use-case/index.html)<br>Contracf for the export resources use case. |
+| [ImportResourcesUseCase](-import-resources-use-case/index.html) | [jvm]<br>interface [ImportResourcesUseCase](-import-resources-use-case/index.html)<br>Contract for the import resources use case. |
 

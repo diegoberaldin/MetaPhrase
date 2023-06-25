@@ -14,4 +14,23 @@ abstract suspend fun [contributeTranslation](contribute-translation.html)(source
 
 
 
+Share a translation to the remote provider.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| sourceMessage | Source message |
+| sourceLang | Source language code |
+| targetMessage | Target message |
+| targetLang | Target language code |
+| key | API key (optional) |
+
+
+
 

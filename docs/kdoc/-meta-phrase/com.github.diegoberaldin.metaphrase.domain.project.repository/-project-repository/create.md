@@ -14,4 +14,27 @@ abstract suspend fun [create](create.html)(model: [ProjectModel](../../com.githu
 
 
 
+Create a project in the DB.
+
+
+
+#### Return
+
+
+
+ID of the newly created project
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| model | Project to create |
+
+
+
 

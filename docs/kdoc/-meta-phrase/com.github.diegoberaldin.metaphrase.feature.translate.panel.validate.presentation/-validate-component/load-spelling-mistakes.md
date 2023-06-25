@@ -14,4 +14,19 @@ abstract fun [loadSpellingMistakes](load-spelling-mistakes.html)(errors: [Map](h
 
 
 
+Load a list of spelling mistake references.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| errors | list of spelling errors (message key to list of incorrect words) |
+
+
+
 

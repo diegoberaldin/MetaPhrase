@@ -14,4 +14,8 @@ open suspend override fun [deleteAll](delete-all.html)()
 
 
 
+Delete all the terms in the glossary.
+
+
+
 

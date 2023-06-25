@@ -14,4 +14,27 @@ abstract suspend fun [create](create.html)(model: [TranslationMemoryEntryModel](
 
 
 
+Create a new translation memory.
+
+
+
+#### Return
+
+
+
+ID of the newly created entry
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| model | Model |
+
+
+
 

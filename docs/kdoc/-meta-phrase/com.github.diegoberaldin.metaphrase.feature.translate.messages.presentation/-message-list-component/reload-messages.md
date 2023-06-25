@@ -14,4 +14,21 @@ abstract fun [reloadMessages](reload-messages.html)(language: [LanguageModel](..
 
 
 
+Reload the message list. It should be called for the first loading operation, for subsequent ones the [refresh](refresh.html) method is enough
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| language | current language used in the search |
+| filter | message filter used in the search |
+| projectId | current project id |
+
+
+
 

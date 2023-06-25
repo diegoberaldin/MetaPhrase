@@ -14,4 +14,8 @@ val [glossaryUseCaseModule](glossary-use-case-module.html): Module
 
 
 
+DI module for the domain-glossary use case subproject.
+
+
+
 

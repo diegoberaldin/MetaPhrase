@@ -14,4 +14,19 @@ abstract suspend operator fun [invoke](invoke.html)(path: [String](https://kotli
 
 
 
+Import the terms contained in the CSV file at a given path into the global glossary.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| path | Source file path |
+
+
+
 

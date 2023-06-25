@@ -14,4 +14,28 @@ abstract suspend fun [generateKey](generate-key.html)(username: [String](https:/
 
 
 
+Generate an API key. This may not be supported by all providers. It is up to the implementation whether to return an empty string or throw an exception if the operation is not supported.
+
+
+
+#### Return
+
+
+
+an API key
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| username | Username of the account |
+| password | Password of the account |
+
+
+
 

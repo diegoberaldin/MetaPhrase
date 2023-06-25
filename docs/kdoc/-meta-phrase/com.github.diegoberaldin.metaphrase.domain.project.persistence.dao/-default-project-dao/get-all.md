@@ -14,4 +14,16 @@ open suspend override fun [getAll](get-all.html)(): [List](https://kotlinlang.or
 
 
 
+Get all projects in the DB.
+
+
+
+#### Return
+
+
+
+list of all projects
+
+
+
 

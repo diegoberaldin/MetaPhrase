@@ -14,4 +14,8 @@ abstract fun [copyBase](copy-base.html)()
 
 
 
+Copy the base (source) message to the target field.
+
+
+
 

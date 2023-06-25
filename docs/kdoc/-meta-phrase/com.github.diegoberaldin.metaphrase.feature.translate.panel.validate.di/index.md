@@ -14,5 +14,5 @@ title: com.github.diegoberaldin.metaphrase.feature.translate.panel.validate.di
 
 | Name | Summary |
 |---|---|
-| [panelValidateModule](panel-validate-module.html) | [jvm]<br>val [panelValidateModule](panel-validate-module.html): Module |
+| [panelValidateModule](panel-validate-module.html) | [jvm]<br>val [panelValidateModule](panel-validate-module.html): Module<br>DI module for the validate panel. |
 

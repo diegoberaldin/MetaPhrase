@@ -14,4 +14,20 @@ abstract suspend fun [createBatch](create-batch.html)(models: [List](https://kot
 
 
 
+Create multiple segments in a single transaction.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| models | Segments to create |
+| languageId | Language ID |
+
+
+
 

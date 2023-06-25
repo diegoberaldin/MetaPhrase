@@ -12,6 +12,8 @@ title: ValidatePlaceholdersUseCase
 [jvm]\
 interface [ValidatePlaceholdersUseCase](index.html)
 
+Contract for the placeholder validation use case.
+
 
 
 ## Types
@@ -19,7 +21,7 @@ interface [ValidatePlaceholdersUseCase](index.html)
 
 | Name | Summary |
 |---|---|
-| [Output](-output/index.html) | [jvm]<br>interface [Output](-output/index.html) |
+| [Output](-output/index.html) | [jvm]<br>interface [Output](-output/index.html)<br>Result of the validation. |
 
 
 ## Functions

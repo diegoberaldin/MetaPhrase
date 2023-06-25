@@ -14,4 +14,8 @@ val [entryId](entry-id.html): Column&lt;EntityID&lt;[Int](https://kotlinlang.org
 
 
 
+ID of the associated translation memory entry
+
+
+
 

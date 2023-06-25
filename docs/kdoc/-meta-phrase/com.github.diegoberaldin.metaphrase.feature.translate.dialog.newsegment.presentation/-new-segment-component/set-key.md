@@ -14,4 +14,19 @@ abstract fun [setKey](set-key.html)(value: [String](https://kotlinlang.org/api/l
 
 
 
+Set the message key.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| value | Value |
+
+
+
 

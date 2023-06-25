@@ -12,6 +12,8 @@ title: Search
 [jvm]\
 data class [Search](index.html)(val text: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)) : [TranslateToolbarComponent.Events](../index.html)
 
+Search in message list.
+
 
 
 ## Constructors
@@ -19,7 +21,7 @@ data class [Search](index.html)(val text: [String](https://kotlinlang.org/api/la
 
 | | |
 |---|---|
-| [Search](-search.html) | [jvm]<br>constructor(text: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)) |
+| [Search](-search.html) | [jvm]<br>constructor(text: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html))<br>Create [Search](index.html) |
 
 
 ## Properties
@@ -27,5 +29,5 @@ data class [Search](index.html)(val text: [String](https://kotlinlang.org/api/la
 
 | Name | Summary |
 |---|---|
-| [text](text.html) | [jvm]<br>val [text](text.html): [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) |
+| [text](text.html) | [jvm]<br>val [text](text.html): [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)<br>query to search |
 

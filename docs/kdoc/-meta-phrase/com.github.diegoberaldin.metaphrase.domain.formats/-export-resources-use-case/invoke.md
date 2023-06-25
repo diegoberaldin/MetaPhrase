@@ -14,4 +14,22 @@ abstract suspend operator fun [invoke](invoke.html)(segments: [List](https://kot
 
 
 
+Export a list of segments as a resouce file in a given fromat.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| segments | Segments to export |
+| path | Destination path |
+| lang | Language code |
+| type | Resource type |
+
+
+
 

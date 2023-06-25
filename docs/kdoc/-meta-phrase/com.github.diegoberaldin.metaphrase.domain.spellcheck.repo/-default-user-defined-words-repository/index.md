@@ -27,7 +27,7 @@ class [DefaultUserDefinedWordsRepository](index.html)(dispatchers: [CoroutineDis
 
 | Name | Summary |
 |---|---|
-| [add](add.html) | [jvm]<br>open suspend override fun [add](add.html)(word: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html), lang: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)) |
-| [clear](clear.html) | [jvm]<br>open suspend override fun [clear](clear.html)(lang: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)) |
-| [getAll](get-all.html) | [jvm]<br>open suspend override fun [getAll](get-all.html)(lang: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)): [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)&lt;[String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)&gt; |
+| [add](add.html) | [jvm]<br>open suspend override fun [add](add.html)(word: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html), lang: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html))<br>Add a new user-defined word. |
+| [clear](clear.html) | [jvm]<br>open suspend override fun [clear](clear.html)(lang: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html))<br>Clear all the user-defined words for a language. |
+| [getAll](get-all.html) | [jvm]<br>open suspend override fun [getAll](get-all.html)(lang: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)): [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)&lt;[String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)&gt;<br>Get all user-defined words. |
 

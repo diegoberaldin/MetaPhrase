@@ -14,4 +14,16 @@ open suspend override fun [getAll](get-all.html)(): [List](https://kotlinlang.or
 
 
 
+Get all recent projects.
+
+
+
+#### Return
+
+
+
+list of recent projects
+
+
+
 

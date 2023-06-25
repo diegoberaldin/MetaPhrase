@@ -14,4 +14,27 @@ open suspend override fun [getById](get-by-id.html)(id: [Int](https://kotlinlang
 
 
 
+Get a segment by ID.
+
+
+
+#### Return
+
+
+
+[SegmentModel](../../com.github.diegoberaldin.metaphrase.domain.project.data/-segment-model/index.html) or null
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| id | segment ID |
+
+
+
 

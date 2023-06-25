@@ -14,4 +14,24 @@ abstract suspend fun [importTm](import-tm.html)(provider: [MachineTranslationPro
 
 
 
+Contribute a whole TMX file to the remote service. This implies transferring data to a third party engine, so handle with care.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| provider | Provider |
+| file | File of the TM to share |
+| key | API key (optional) |
+| private | if set to `true` the TM will not be shared with other users of the service (only if API key is specified) |
+| name | Name of the TM |
+| subject | Subject of the TM |
+
+
+
 

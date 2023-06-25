@@ -14,4 +14,19 @@ abstract suspend fun [delete](delete.html)(model: [ProjectModel](../../com.githu
 
 
 
+Delete a project.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| model | project to delete |
+
+
+
 

@@ -14,4 +14,8 @@ val [identifier](identifier.html): Column&lt;[String](https://kotlinlang.org/api
 
 
 
+Message key or translation unit ID (equivalent of `tuid` attribute in the TMX)
+
+
+
 

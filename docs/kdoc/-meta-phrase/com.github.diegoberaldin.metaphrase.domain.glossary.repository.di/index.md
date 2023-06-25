@@ -14,5 +14,5 @@ title: com.github.diegoberaldin.metaphrase.domain.glossary.repository.di
 
 | Name | Summary |
 |---|---|
-| [glossaryRepositoryModule](glossary-repository-module.html) | [jvm]<br>val [glossaryRepositoryModule](glossary-repository-module.html): Module |
+| [glossaryRepositoryModule](glossary-repository-module.html) | [jvm]<br>val [glossaryRepositoryModule](glossary-repository-module.html): Module<br>DI module for the domain-glossary repository subproject. |
 

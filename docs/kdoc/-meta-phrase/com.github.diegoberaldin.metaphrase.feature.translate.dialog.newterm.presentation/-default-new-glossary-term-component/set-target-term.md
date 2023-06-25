@@ -14,4 +14,19 @@ open override fun [setTargetTerm](set-target-term.html)(value: [String](https://
 
 
 
+Set target term.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| value | term to set |
+
+
+
 

@@ -14,4 +14,27 @@ abstract fun [get](get.html)(key: [String](https://kotlinlang.org/api/latest/jvm
 
 
 
+Get a message translation for a given key.
+
+
+
+#### Return
+
+
+
+Message to show in app
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| key | Message key |
+
+
+
 

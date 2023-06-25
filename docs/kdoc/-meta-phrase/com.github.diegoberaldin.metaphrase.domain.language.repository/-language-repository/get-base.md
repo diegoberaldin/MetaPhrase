@@ -14,4 +14,27 @@ abstract suspend fun [getBase](get-base.html)(projectId: [Int](https://kotlinlan
 
 
 
+Get the source (base) language of a project.
+
+
+
+#### Return
+
+
+
+[LanguageModel](../../com.github.diegoberaldin.metaphrase.domain.language.data/-language-model/index.html) or null of no source language exists
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| projectId | Project ID |
+
+
+
 

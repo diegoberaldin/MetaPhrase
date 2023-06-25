@@ -14,4 +14,28 @@ abstract suspend operator fun [invoke](invoke.html)(path: [String](https://kotli
 
 
 
+Import the content of a resource file as a list of segments.
+
+
+
+#### Return
+
+
+
+segments to be imported
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| path | Source path |
+| type | Resource type |
+
+
+
 

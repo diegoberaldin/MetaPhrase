@@ -14,4 +14,8 @@ abstract val [copySourceEvents](copy-source-events.html): SharedFlow&lt;[String]
 
 
 
+Events triggered when the content of the suggestion field from MT needs to be copied into the translation editor.
+
+
+
 

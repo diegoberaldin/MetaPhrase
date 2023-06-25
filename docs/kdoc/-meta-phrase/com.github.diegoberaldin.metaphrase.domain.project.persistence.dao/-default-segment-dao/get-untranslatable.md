@@ -14,4 +14,27 @@ open suspend override fun [getUntranslatable](get-untranslatable.html)(languageI
 
 
 
+Get all the untranslatable segments for a language within a project.
+
+
+
+#### Return
+
+
+
+list of non-translatable (source only) segments
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| languageId | Language ID |
+
+
+
 

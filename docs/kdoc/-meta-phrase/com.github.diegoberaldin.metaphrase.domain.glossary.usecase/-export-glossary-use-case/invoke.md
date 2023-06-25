@@ -14,4 +14,19 @@ abstract suspend operator fun [invoke](invoke.html)(path: [String](https://kotli
 
 
 
+Export the global glossary content as a CSV file at a given path..
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| path | Destination file path |
+
+
+
 

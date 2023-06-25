@@ -14,4 +14,23 @@ open suspend override fun [delete](delete.html)(model: [TranslationMemoryEntryMo
 
 
 
+Delete a translation memory entry.
+
+
+
+#### Return
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| model | Model to delete |
+
+
+
 

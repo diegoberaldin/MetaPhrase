@@ -14,5 +14,5 @@ title: com.github.diegoberaldin.metaphrase.core.localization.repository
 
 | Name | Summary |
 |---|---|
-| [Localization](-localization/index.html) | [jvm]<br>interface [Localization](-localization/index.html) |
+| [Localization](-localization/index.html) | [jvm]<br>interface [Localization](-localization/index.html)<br>Defines the contract for the localization repository. |
 

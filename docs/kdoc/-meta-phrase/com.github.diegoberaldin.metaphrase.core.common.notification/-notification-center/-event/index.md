@@ -9,6 +9,10 @@ title: Event
 
 interface [Event](index.html)
 
+Available event types.
+
+
+
 #### Inheritors
 
 

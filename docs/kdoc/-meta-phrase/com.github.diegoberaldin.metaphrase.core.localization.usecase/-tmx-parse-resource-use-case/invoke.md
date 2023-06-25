@@ -14,4 +14,28 @@ open operator override fun [invoke](invoke.html)(inputStream: [InputStream](http
 
 
 
+Load the app messages from an input stream.
+
+
+
+#### Return
+
+
+
+list of message with key and translations
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| inputStream | Input stream to read |
+| lang | Language code |
+
+
+
 

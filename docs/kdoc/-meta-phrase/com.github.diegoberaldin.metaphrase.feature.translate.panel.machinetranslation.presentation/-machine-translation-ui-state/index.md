@@ -12,6 +12,8 @@ title: MachineTranslationUiState
 [jvm]\
 data class [MachineTranslationUiState](index.html)(val isLoading: [Boolean](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) = false, val translation: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) = &quot;&quot;, val updateTextSwitch: [Boolean](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) = false)
 
+Machine translation panel UI state.
+
 
 
 ## Constructors
@@ -19,7 +21,7 @@ data class [MachineTranslationUiState](index.html)(val isLoading: [Boolean](http
 
 | | |
 |---|---|
-| [MachineTranslationUiState](-machine-translation-ui-state.html) | [jvm]<br>constructor(isLoading: [Boolean](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) = false, translation: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) = &quot;&quot;, updateTextSwitch: [Boolean](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) = false) |
+| [MachineTranslationUiState](-machine-translation-ui-state.html) | [jvm]<br>constructor(isLoading: [Boolean](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) = false, translation: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) = &quot;&quot;, updateTextSwitch: [Boolean](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) = false)<br>Create [MachineTranslationUiState](index.html) |
 
 
 ## Properties
@@ -27,7 +29,7 @@ data class [MachineTranslationUiState](index.html)(val isLoading: [Boolean](http
 
 | Name | Summary |
 |---|---|
-| [isLoading](is-loading.html) | [jvm]<br>val [isLoading](is-loading.html): [Boolean](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) = false |
-| [translation](translation.html) | [jvm]<br>val [translation](translation.html): [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) |
-| [updateTextSwitch](update-text-switch.html) | [jvm]<br>val [updateTextSwitch](update-text-switch.html): [Boolean](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) = false |
+| [isLoading](is-loading.html) | [jvm]<br>val [isLoading](is-loading.html): [Boolean](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) = false<br>indication whether there is a background operation in progress |
+| [translation](translation.html) | [jvm]<br>val [translation](translation.html): [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)<br>suggestion from MT |
+| [updateTextSwitch](update-text-switch.html) | [jvm]<br>val [updateTextSwitch](update-text-switch.html): [Boolean](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) = false<br>flag to trigger suggestion updates programmatically |
 

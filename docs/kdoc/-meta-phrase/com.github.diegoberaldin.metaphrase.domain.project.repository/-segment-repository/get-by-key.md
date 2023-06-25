@@ -14,4 +14,28 @@ abstract suspend fun [getByKey](get-by-key.html)(key: [String](https://kotlinlan
 
 
 
+Get a segment by its key.
+
+
+
+#### Return
+
+
+
+[SegmentModel](../../com.github.diegoberaldin.metaphrase.domain.project.data/-segment-model/index.html) or null if no such segment exists
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| key | Message key |
+| languageId | Language ID |
+
+
+
 

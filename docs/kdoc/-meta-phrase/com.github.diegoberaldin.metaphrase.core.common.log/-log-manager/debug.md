@@ -14,4 +14,19 @@ abstract fun [debug](debug.html)(message: [String](https://kotlinlang.org/api/la
 
 
 
+Log a message with the DEBUG level.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| message | Log message |
+
+
+
 

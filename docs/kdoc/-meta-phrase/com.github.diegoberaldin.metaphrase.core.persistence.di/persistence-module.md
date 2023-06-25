@@ -14,4 +14,8 @@ val [persistenceModule](persistence-module.html): Module
 
 
 
+DI module for the core-persistence subproject.
+
+
+
 

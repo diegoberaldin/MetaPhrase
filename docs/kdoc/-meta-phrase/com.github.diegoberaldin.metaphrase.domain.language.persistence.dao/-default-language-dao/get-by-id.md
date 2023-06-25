@@ -14,4 +14,27 @@ open suspend override fun [getById](get-by-id.html)(id: [Int](https://kotlinlang
 
 
 
+Get a language given its ID.
+
+
+
+#### Return
+
+
+
+[LanguageModel](../../com.github.diegoberaldin.metaphrase.domain.language.data/-language-model/index.html) or null
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| id | Language ID |
+
+
+
 

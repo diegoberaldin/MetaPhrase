@@ -14,4 +14,21 @@ open suspend operator override fun [invoke](invoke.html)(segments: [List](https:
 
 
 
+Serialize the list of segments into the Gettext PO format and save it to a destination.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| segments | Segments to be exported |
+| path | Destination path |
+| lang | language of the message to include in the PO header |
+
+
+
 

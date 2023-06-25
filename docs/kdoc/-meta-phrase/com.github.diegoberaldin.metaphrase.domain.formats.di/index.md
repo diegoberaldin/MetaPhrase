@@ -14,5 +14,5 @@ title: com.github.diegoberaldin.metaphrase.domain.formats.di
 
 | Name | Summary |
 |---|---|
-| [formatsModule](formats-module.html) | [jvm]<br>val [formatsModule](formats-module.html): Module |
+| [formatsModule](formats-module.html) | [jvm]<br>val [formatsModule](formats-module.html): Module<br>DI module for the domain-glossary subproject. |
 

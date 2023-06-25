@@ -14,4 +14,19 @@ abstract fun [setSourceTerm](set-source-term.html)(value: [String](https://kotli
 
 
 
+Set source term.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| value | term to set |
+
+
+
 

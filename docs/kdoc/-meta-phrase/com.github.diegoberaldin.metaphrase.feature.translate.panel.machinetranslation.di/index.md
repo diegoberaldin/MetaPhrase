@@ -14,5 +14,5 @@ title: com.github.diegoberaldin.metaphrase.feature.translate.panel.machinetransl
 
 | Name | Summary |
 |---|---|
-| [panelMachineTranslationModule](panel-machine-translation-module.html) | [jvm]<br>val [panelMachineTranslationModule](panel-machine-translation-module.html): Module |
+| [panelMachineTranslationModule](panel-machine-translation-module.html) | [jvm]<br>val [panelMachineTranslationModule](panel-machine-translation-module.html): Module<br>DI module for machine translation panel section. |
 

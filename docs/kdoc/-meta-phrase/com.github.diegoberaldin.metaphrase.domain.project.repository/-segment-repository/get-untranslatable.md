@@ -14,4 +14,27 @@ abstract suspend fun [getUntranslatable](get-untranslatable.html)(languageId: [I
 
 
 
+Get all untranslatable (source only) segments.
+
+
+
+#### Return
+
+
+
+list of segments
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| languageId | Language ID |
+
+
+
 

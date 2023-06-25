@@ -14,4 +14,8 @@ abstract val [uiState](ui-state.html): StateFlow&lt;[NewGlossaryTermUiState](../
 
 
 
+UI state
+
+
+
 

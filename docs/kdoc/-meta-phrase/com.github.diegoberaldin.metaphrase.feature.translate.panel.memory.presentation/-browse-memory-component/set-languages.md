@@ -14,4 +14,20 @@ abstract fun [setLanguages](set-languages.html)(source: [LanguageModel](../../co
 
 
 
+Set the language pair.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| source | Source language |
+| target | Target language |
+
+
+
 

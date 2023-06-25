@@ -22,4 +22,22 @@ fun [CustomOpenFileDialog](-custom-open-file-dialog.html)(title: [String](https:
 
 
 
+Custom open file dialog.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| title | Dialog title |
+| nameFilter | Name filter |
+| parent | Parent |
+| onCloseRequest | On close callback |
+
+
+
 

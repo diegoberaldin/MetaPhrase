@@ -14,4 +14,19 @@ abstract fun [addSourceTerm](add-source-term.html)(lemma: [String](https://kotli
 
 
 
+Add a source term.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| lemma | source lemma |
+
+
+
 

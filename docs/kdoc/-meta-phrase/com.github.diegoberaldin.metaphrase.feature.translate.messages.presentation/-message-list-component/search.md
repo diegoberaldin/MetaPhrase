@@ -14,4 +14,19 @@ abstract fun [search](search.html)(text: [String](https://kotlinlang.org/api/lat
 
 
 
+Search for messages matching the textual query.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| text | text to search |
+
+
+
 

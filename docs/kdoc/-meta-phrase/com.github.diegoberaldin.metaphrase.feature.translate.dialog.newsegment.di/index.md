@@ -14,5 +14,5 @@ title: com.github.diegoberaldin.metaphrase.feature.translate.dialog.newsegment.d
 
 | Name | Summary |
 |---|---|
-| [dialogNewSegmentModule](dialog-new-segment-module.html) | [jvm]<br>val [dialogNewSegmentModule](dialog-new-segment-module.html): Module |
+| [dialogNewSegmentModule](dialog-new-segment-module.html) | [jvm]<br>val [dialogNewSegmentModule](dialog-new-segment-module.html): Module<br>DI module for new segment dialog. |
 

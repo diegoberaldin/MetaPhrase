@@ -14,4 +14,28 @@ open suspend override fun [areAssociated](are-associated.html)(sourceId: [Int](h
 
 
 
+Determine whether two terms are associated.
+
+
+
+#### Return
+
+
+
+true if the terms are associated, false otherwise
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| sourceId | Source term ID |
+| targetId | Target term ID |
+
+
+
 

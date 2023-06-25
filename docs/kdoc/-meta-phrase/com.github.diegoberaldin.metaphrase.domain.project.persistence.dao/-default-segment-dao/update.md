@@ -10,7 +10,22 @@ title: update
 
 
 [jvm]\
-open suspend override fun [update](update.html)(model: [SegmentModel](../../com.github.diegoberaldin.metaphrase.domain.project.data/-segment-model/index.html)): [Int](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)
+open suspend override fun [update](update.html)(model: [SegmentModel](../../com.github.diegoberaldin.metaphrase.domain.project.data/-segment-model/index.html))
+
+
+
+Update a segment.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| model | segment to update |
 
 
 

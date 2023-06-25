@@ -14,4 +14,27 @@ abstract suspend fun [create](create.html)(model: [ProjectModel](../../com.githu
 
 
 
+Create a new project.
+
+
+
+#### Return
+
+
+
+ID of the newly created project
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| model | project to create |
+
+
+
 

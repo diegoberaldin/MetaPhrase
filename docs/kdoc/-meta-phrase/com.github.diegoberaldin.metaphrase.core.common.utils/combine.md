@@ -14,4 +14,8 @@ inline fun &lt;[T1](combine.html), [T2](combine.html), [T3](combine.html), [T4](
 
 
 
+Combine utility to handle more than 5 flows.
+
+
+
 

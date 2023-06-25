@@ -12,6 +12,8 @@ title: GlossaryTermEntity
 [jvm]\
 object [GlossaryTermEntity](index.html) : IntIdTable
 
+Glossary term entity,
+
 
 
 ## Properties

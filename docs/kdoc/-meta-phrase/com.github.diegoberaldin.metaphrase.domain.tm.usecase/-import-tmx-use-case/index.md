@@ -12,6 +12,8 @@ title: ImportTmxUseCase
 [jvm]\
 interface [ImportTmxUseCase](index.html)
 
+Contract for the import TMX use case.
+
 
 
 ## Functions
@@ -19,5 +21,5 @@ interface [ImportTmxUseCase](index.html)
 
 | Name | Summary |
 |---|---|
-| [invoke](invoke.html) | [jvm]<br>abstract suspend operator fun [invoke](invoke.html)(path: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)) |
+| [invoke](invoke.html) | [jvm]<br>abstract suspend operator fun [invoke](invoke.html)(path: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html))<br>Import the content of a TMX file into the global translation memory. |
 

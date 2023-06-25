@@ -14,4 +14,16 @@ open suspend override fun [getAll](get-all.html)(): [List](https://kotlinlang.or
 
 
 
+Get all the terms in the glossary.
+
+
+
+#### Return
+
+
+
+list of terms
+
+
+
 

@@ -10,7 +10,9 @@ title: MachineTranslationProvider
 
 
 [jvm]\
-enum [MachineTranslationProvider](index.html) : [Enum](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html)&lt;[MachineTranslationProvider](index.html)&gt;
+enum [MachineTranslationProvider](index.html) : [Enum](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html)&lt;[MachineTranslationProvider](index.html)&gt; 
+
+Machine translation providers.
 
 
 

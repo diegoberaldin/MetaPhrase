@@ -14,4 +14,19 @@ fun [setLanguage](set-language.html)(lang: [String](https://kotlinlang.org/api/l
 
 
 
+Set the app language.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| lang | Language code (ISO 639-1 code as a 2 character string) |
+
+
+
 

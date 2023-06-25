@@ -14,4 +14,19 @@ abstract fun [changeSegmentText](change-segment-text.html)(text: [String](https:
 
 
 
+Change segment text programmatically (intended for application initiated interaction).
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| text | string to set |
+
+
+
 

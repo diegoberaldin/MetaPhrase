@@ -1,7 +1,7 @@
 ---
 title: [root]
 ---
-//[MetaPhrase](../../index.html)/[root](index.html)
+//[MetaPhrase](../../index.html)/[[root]](index.html)
 
 
 

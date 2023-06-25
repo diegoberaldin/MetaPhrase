@@ -14,4 +14,19 @@ open suspend operator override fun [invoke](invoke.html)(path: [String](https://
 
 
 
+Import the terms contained in the CSV file at a given path into the global glossary.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| path | Source file path |
+
+
+
 

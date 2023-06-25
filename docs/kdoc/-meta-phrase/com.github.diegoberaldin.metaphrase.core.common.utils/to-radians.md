@@ -14,4 +14,24 @@ fun [Float](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.htm
 
 
 
+Convert degrees to radians.
+
+
+
+#### Receiver
+
+
+
+angle in degree
+
+
+
+#### Return
+
+
+
+angle in radians
+
+
+
 

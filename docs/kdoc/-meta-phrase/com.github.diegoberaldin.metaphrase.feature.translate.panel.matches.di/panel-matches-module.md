@@ -14,4 +14,8 @@ val [panelMatchesModule](panel-matches-module.html): Module
 
 
 
+DI module for the TM matches panel section
+
+
+
 

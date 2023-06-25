@@ -27,5 +27,5 @@ class [DefaultParsePropertiesUseCase](index.html)(dispatchers: [CoroutineDispatc
 
 | Name | Summary |
 |---|---|
-| [invoke](invoke.html) | [jvm]<br>open suspend operator override fun [invoke](invoke.html)(path: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)): [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)&lt;[SegmentModel](../../com.github.diegoberaldin.metaphrase.domain.project.data/-segment-model/index.html)&gt; |
+| [invoke](invoke.html) | [jvm]<br>open suspend operator override fun [invoke](invoke.html)(path: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)): [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)&lt;[SegmentModel](../../com.github.diegoberaldin.metaphrase.domain.project.data/-segment-model/index.html)&gt;<br>Deserialize a list of messages from the Java properties format. |
 

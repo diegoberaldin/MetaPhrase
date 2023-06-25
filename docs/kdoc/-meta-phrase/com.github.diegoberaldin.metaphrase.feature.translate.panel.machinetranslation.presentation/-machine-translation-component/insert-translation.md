@@ -14,4 +14,8 @@ abstract fun [insertTranslation](insert-translation.html)()
 
 
 
+Signal the user intention to copy the suggestion into the editor, triggering a [copySourceEvents](copy-source-events.html) event.
+
+
+
 

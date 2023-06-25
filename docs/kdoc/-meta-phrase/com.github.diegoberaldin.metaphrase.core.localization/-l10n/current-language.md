@@ -14,4 +14,8 @@ val [currentLanguage](current-language.html): Flow&lt;[String](https://kotlinlan
 
 
 
+Exposes the ISO 693-1 code of the current language as an observable flow.
+
+
+
 

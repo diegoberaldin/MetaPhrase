@@ -14,4 +14,19 @@ open override fun [setSourceTerm](set-source-term.html)(value: [String](https://
 
 
 
+Set source term.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| value | term to set |
+
+
+
 

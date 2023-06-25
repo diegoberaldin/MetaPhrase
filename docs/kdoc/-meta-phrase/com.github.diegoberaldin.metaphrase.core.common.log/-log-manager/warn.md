@@ -14,4 +14,19 @@ abstract fun [warn](warn.html)(message: [String](https://kotlinlang.org/api/late
 
 
 
+Log a message with the WARNING level.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| message | Log message |
+
+
+
 

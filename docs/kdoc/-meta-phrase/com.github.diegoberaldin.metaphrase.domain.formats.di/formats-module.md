@@ -14,4 +14,8 @@ val [formatsModule](formats-module.html): Module
 
 
 
+DI module for the domain-glossary subproject.
+
+
+
 

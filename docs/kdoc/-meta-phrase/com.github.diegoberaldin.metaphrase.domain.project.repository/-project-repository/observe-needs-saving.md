@@ -14,4 +14,16 @@ abstract fun [observeNeedsSaving](observe-needs-saving.html)(): Flow&lt;[Boolean
 
 
 
+Observe the value of the flag indicating there are unsaved changes.
+
+
+
+#### Return
+
+
+
+a flow of distict values
+
+
+
 

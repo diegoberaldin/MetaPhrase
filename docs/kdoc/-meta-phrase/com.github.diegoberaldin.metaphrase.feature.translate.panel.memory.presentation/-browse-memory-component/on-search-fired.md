@@ -14,4 +14,8 @@ abstract fun [onSearchFired](on-search-fired.html)()
 
 
 
+Start a search.
+
+
+
 

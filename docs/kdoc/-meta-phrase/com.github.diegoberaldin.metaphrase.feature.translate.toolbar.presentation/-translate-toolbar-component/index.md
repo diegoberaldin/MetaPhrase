@@ -21,7 +21,7 @@ Translation toolbar component.
 
 | Name | Summary |
 |---|---|
-| [Events](-events/index.html) | [jvm]<br>interface [Events](-events/index.html) |
+| [Events](-events/index.html) | [jvm]<br>interface [Events](-events/index.html)<br>Events that can be emitted by the component. |
 
 
 ## Properties

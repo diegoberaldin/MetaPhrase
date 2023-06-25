@@ -14,4 +14,27 @@ abstract suspend fun [create](create.html)(model: [RecentProjectModel](../../com
 
 
 
+Create a new project.
+
+
+
+#### Return
+
+
+
+ID of the newly created project
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| model | Project to create |
+
+
+
 

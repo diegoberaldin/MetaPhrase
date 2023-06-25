@@ -14,4 +14,20 @@ open suspend override fun [associate](associate.html)(sourceId: [Int](https://ko
 
 
 
+Create an association between two terms.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| sourceId | Source term ID |
+| targetId | Target term ID |
+
+
+
 

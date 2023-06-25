@@ -14,4 +14,19 @@ abstract fun [setTargetTerm](set-target-term.html)(value: [String](https://kotli
 
 
 
+Set target term.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| value | term to set |
+
+
+
 

@@ -14,4 +14,28 @@ open suspend override fun [create](create.html)(model: [SegmentModel](../../com.
 
 
 
+Create a new segment.
+
+
+
+#### Return
+
+
+
+ID of the newly created segment
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| model | segment to creeate |
+| languageId | Language ID |
+
+
+
 

@@ -12,4 +12,6 @@ title: MoveToNext
 [jvm]\
 object [MoveToNext](index.html) : [TranslateToolbarComponent.Events](../index.html)
 
+Move to next segment
+
 

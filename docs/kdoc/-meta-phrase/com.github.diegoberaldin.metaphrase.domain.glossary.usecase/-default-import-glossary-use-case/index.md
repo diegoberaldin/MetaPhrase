@@ -27,5 +27,5 @@ class [DefaultImportGlossaryUseCase](index.html)(repository: [GlossaryTermReposi
 
 | Name | Summary |
 |---|---|
-| [invoke](invoke.html) | [jvm]<br>open suspend operator override fun [invoke](invoke.html)(path: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)) |
+| [invoke](invoke.html) | [jvm]<br>open suspend operator override fun [invoke](invoke.html)(path: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html))<br>Import the terms contained in the CSV file at a given path into the global glossary. |
 

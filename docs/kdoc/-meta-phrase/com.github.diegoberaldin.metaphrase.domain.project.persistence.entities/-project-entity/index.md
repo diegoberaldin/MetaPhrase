@@ -12,6 +12,8 @@ title: ProjectEntity
 [jvm]\
 object [ProjectEntity](index.html) : IntIdTable
 
+Project entity.
+
 
 
 ## Properties

@@ -14,4 +14,19 @@ abstract fun [send](send.html)(event: [NotificationCenter.Event](-event/index.ht
 
 
 
+Publish and event to subscribers.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| event | Event to send |
+
+
+
 

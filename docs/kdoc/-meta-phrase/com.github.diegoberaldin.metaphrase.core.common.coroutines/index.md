@@ -14,5 +14,5 @@ title: com.github.diegoberaldin.metaphrase.core.common.coroutines
 
 | Name | Summary |
 |---|---|
-| [CoroutineDispatcherProvider](-coroutine-dispatcher-provider/index.html) | [jvm]<br>interface [CoroutineDispatcherProvider](-coroutine-dispatcher-provider/index.html) |
+| [CoroutineDispatcherProvider](-coroutine-dispatcher-provider/index.html) | [jvm]<br>interface [CoroutineDispatcherProvider](-coroutine-dispatcher-provider/index.html)<br>Injectable coroutine dispatcher provider to allow dynamic dispatcher replacement. |
 

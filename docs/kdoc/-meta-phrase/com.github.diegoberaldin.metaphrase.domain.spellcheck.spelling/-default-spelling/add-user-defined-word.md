@@ -14,4 +14,19 @@ open suspend override fun [addUserDefinedWord](add-user-defined-word.html)(word:
 
 
 
+Add a user defined word.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| word | Word to ignore for spellcheck |
+
+
+
 

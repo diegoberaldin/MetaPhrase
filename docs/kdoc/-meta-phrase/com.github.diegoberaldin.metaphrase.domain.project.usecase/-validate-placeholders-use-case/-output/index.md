@@ -9,6 +9,10 @@ title: Output
 
 interface [Output](index.html)
 
+Result of the validation.
+
+
+
 #### Inheritors
 
 
@@ -23,6 +27,6 @@ interface [Output](index.html)
 
 | Name | Summary |
 |---|---|
-| [Invalid](-invalid/index.html) | [jvm]<br>data class [Invalid](-invalid/index.html)(val keys: [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)&lt;[String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)&gt; = emptyList()) : [ValidatePlaceholdersUseCase.Output](index.html) |
-| [Valid](-valid/index.html) | [jvm]<br>object [Valid](-valid/index.html) : [ValidatePlaceholdersUseCase.Output](index.html) |
+| [Invalid](-invalid/index.html) | [jvm]<br>data class [Invalid](-invalid/index.html)(val keys: [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)&lt;[String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)&gt; = emptyList()) : [ValidatePlaceholdersUseCase.Output](index.html)<br>Case where some errors were detected. |
+| [Valid](-valid/index.html) | [jvm]<br>object [Valid](-valid/index.html) : [ValidatePlaceholdersUseCase.Output](index.html)<br>Case where no errors were detected. |
 

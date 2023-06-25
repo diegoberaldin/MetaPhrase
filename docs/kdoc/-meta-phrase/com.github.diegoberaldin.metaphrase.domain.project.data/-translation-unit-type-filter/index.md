@@ -10,7 +10,9 @@ title: TranslationUnitTypeFilter
 
 
 [jvm]\
-enum [TranslationUnitTypeFilter](index.html) : [Enum](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html)&lt;[TranslationUnitTypeFilter](index.html)&gt;
+enum [TranslationUnitTypeFilter](index.html) : [Enum](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html)&lt;[TranslationUnitTypeFilter](index.html)&gt; 
+
+Message filter (used for message filtering)
 
 
 

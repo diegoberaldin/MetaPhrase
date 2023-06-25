@@ -14,4 +14,27 @@ abstract suspend fun [getById](get-by-id.html)(id: [Int](https://kotlinlang.org/
 
 
 
+Get a language given its ID.
+
+
+
+#### Return
+
+
+
+[LanguageModel](../../com.github.diegoberaldin.metaphrase.domain.language.data/-language-model/index.html) or null
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| id | Language ID |
+
+
+
 

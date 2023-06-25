@@ -14,4 +14,28 @@ abstract suspend fun [areAssociated](are-associated.html)(sourceId: [Int](https:
 
 
 
+Determine whether two glossary terms are associated.
+
+
+
+#### Return
+
+
+
+true if the terms are associated, false otherwise
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| sourceId | Source term ID |
+| targetId | Target term ID |
+
+
+
 

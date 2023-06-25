@@ -14,4 +14,23 @@ abstract suspend fun [delete](delete.html)(model: [TranslationMemoryEntryModel](
 
 
 
+Delete a translation memory entry.
+
+
+
+#### Return
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| model | Model to delete |
+
+
+
 

@@ -14,4 +14,19 @@ abstract fun [ignoreWordInSpelling](ignore-word-in-spelling.html)(word: [String]
 
 
 
+Ignore a given word in spelling for the current language adding it to a user defined dictionary.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| word | word to ignore |
+
+
+
 

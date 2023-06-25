@@ -14,4 +14,8 @@ abstract fun [moveToNext](move-to-next.html)()
 
 
 
+Move cursor to the next message.
+
+
+
 

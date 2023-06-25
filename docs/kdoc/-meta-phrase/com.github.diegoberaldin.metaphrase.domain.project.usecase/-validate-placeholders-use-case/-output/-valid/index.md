@@ -12,4 +12,6 @@ title: Valid
 [jvm]\
 object [Valid](index.html) : [ValidatePlaceholdersUseCase.Output](../index.html)
 
+Case where no errors were detected.
+
 

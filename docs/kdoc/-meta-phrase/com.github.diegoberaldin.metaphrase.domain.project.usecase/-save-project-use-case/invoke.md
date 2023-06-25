@@ -14,4 +14,20 @@ abstract suspend operator fun [invoke](invoke.html)(projectId: [Int](https://kot
 
 
 
+Save the project under a given path as a TMX file.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| projectId | ID of the project to save |
+| path | Path to write to |
+
+
+
 

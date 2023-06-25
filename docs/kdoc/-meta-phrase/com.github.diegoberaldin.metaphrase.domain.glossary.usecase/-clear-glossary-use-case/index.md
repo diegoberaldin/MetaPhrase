@@ -9,6 +9,10 @@ title: ClearGlossaryUseCase
 
 interface [ClearGlossaryUseCase](index.html)
 
+Contract for the clear glossary use case.
+
+
+
 #### Inheritors
 
 
@@ -22,5 +26,5 @@ interface [ClearGlossaryUseCase](index.html)
 
 | Name | Summary |
 |---|---|
-| [invoke](invoke.html) | [jvm]<br>abstract suspend operator fun [invoke](invoke.html)() |
+| [invoke](invoke.html) | [jvm]<br>abstract suspend operator fun [invoke](invoke.html)()<br>Remove all terms from the glossary.. |
 

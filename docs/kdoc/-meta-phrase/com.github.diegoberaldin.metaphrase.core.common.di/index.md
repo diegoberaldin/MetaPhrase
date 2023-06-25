@@ -14,5 +14,5 @@ title: com.github.diegoberaldin.metaphrase.core.common.di
 
 | Name | Summary |
 |---|---|
-| [commonModule](common-module.html) | [jvm]<br>val [commonModule](common-module.html): Module |
+| [commonModule](common-module.html) | [jvm]<br>val [commonModule](common-module.html): Module<br>DI module for the core-common subproject. |
 

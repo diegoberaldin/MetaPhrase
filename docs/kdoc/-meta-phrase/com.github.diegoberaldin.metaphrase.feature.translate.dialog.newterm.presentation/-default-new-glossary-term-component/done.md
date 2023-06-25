@@ -14,4 +14,8 @@ open override val [done](done.html): MutableSharedFlow&lt;[GlossaryTermPair](../
 
 
 
+Event emitted after successful submission.
+
+
+
 

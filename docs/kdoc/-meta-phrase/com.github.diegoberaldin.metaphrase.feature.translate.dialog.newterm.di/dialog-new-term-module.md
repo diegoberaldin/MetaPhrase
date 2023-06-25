@@ -14,4 +14,8 @@ val [dialogNewTermModule](dialog-new-term-module.html): Module
 
 
 
+DI module for the new glossary term dialog.
+
+
+
 

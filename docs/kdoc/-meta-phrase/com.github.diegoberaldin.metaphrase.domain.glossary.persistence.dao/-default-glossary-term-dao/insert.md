@@ -14,4 +14,27 @@ open suspend override fun [insert](insert.html)(model: [GlossaryTermModel](../..
 
 
 
+Create a new glossary term.
+
+
+
+#### Return
+
+
+
+ID of the newly created term
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| model | Term to insert |
+
+
+
 

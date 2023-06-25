@@ -14,4 +14,28 @@ abstract suspend fun [create](create.html)(model: [LanguageModel](../../com.gith
 
 
 
+Create a new language within a given project.
+
+
+
+#### Return
+
+
+
+ID of the newly created language
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| model | Language to create |
+| projectId | Project ID |
+
+
+
 

@@ -14,4 +14,19 @@ abstract suspend fun [setLanguage](set-language.html)(code: [String](https://kot
 
 
 
+Set language for spell check.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| code | language code |
+
+
+
 

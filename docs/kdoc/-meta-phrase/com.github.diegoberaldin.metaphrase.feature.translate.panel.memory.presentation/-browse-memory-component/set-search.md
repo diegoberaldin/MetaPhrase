@@ -14,4 +14,19 @@ abstract fun [setSearch](set-search.html)(value: [String](https://kotlinlang.org
 
 
 
+Set the search query.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| value | search string to set |
+
+
+
 

@@ -14,4 +14,8 @@ val [origin](origin.html): Column&lt;[String](https://kotlinlang.org/api/latest/
 
 
 
+Origin of the entry (project name or TMX file name)
+
+
+
 

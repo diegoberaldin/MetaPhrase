@@ -14,4 +14,16 @@ abstract fun [isNeedsSaving](is-needs-saving.html)(): [Boolean](https://kotlinla
 
 
 
+Scalar value of the flag indicating there are unsaved changes.
+
+
+
+#### Return
+
+
+
+a snapshot of the flag value
+
+
+
 

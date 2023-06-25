@@ -14,4 +14,23 @@ open suspend override fun [getAll](get-all.html)(lang: [String](https://kotlinla
 
 
 
+Get all user-defined words.
+
+
+
+#### Return
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| lang | Language code |
+
+
+
 

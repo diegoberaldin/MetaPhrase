@@ -14,4 +14,24 @@ fun [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.h
 
 
 
+Strip the extension from a file name
+
+
+
+#### Receiver
+
+
+
+File name with extension
+
+
+
+#### Return
+
+
+
+File name without extension
+
+
+
 

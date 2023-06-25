@@ -14,4 +14,20 @@ open suspend operator override fun [invoke](invoke.html)(segments: [List](https:
 
 
 
+Serialize the list of segments into Java properties format and save it to a destination.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| segments | Segments to be exported |
+| path | Destination path |
+
+
+
 

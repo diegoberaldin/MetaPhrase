@@ -14,5 +14,5 @@ title: com.github.diegoberaldin.metaphrase.core.common.log
 
 | Name | Summary |
 |---|---|
-| [LogManager](-log-manager/index.html) | [jvm]<br>interface [LogManager](-log-manager/index.html) |
+| [LogManager](-log-manager/index.html) | [jvm]<br>interface [LogManager](-log-manager/index.html)<br>Abstract log manager. |
 

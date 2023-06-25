@@ -14,4 +14,8 @@ abstract suspend operator fun [invoke](invoke.html)()
 
 
 
+Clear the content of the translation memory.
+
+
+
 

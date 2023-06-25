@@ -14,4 +14,19 @@ open suspend override fun [setLanguage](set-language.html)(code: [String](https:
 
 
 
+Set language for spell check.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| code | language code |
+
+
+
 

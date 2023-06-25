@@ -14,4 +14,28 @@ abstract suspend fun [getAssociated](get-associated.html)(model: [GlossaryTermMo
 
 
 
+Get the terms associated with a given term.
+
+
+
+#### Return
+
+
+
+list of associated terms
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| model | Term (source) |
+| otherLang | Target language code |
+
+
+
 

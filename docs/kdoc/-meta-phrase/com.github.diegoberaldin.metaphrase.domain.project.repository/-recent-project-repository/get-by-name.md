@@ -14,4 +14,27 @@ abstract suspend fun [getByName](get-by-name.html)(value: [String](https://kotli
 
 
 
+Get a project by name.
+
+
+
+#### Return
+
+
+
+[RecentProjectModel](../../com.github.diegoberaldin.metaphrase.domain.project.data/-recent-project-model/index.html) or null if no such project exists
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| value | Project name |
+
+
+
 

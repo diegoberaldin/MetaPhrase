@@ -14,4 +14,8 @@ val [commonModule](common-module.html): Module
 
 
 
+DI module for the core-common subproject.
+
+
+
 

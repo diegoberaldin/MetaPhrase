@@ -14,4 +14,27 @@ abstract suspend fun [getById](get-by-id.html)(id: [Int](https://kotlinlang.org/
 
 
 
+Get a project by id.
+
+
+
+#### Return
+
+
+
+[ProjectModel](../../com.github.diegoberaldin.metaphrase.domain.project.data/-project-model/index.html) or null if no such project exists
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| id | Project ID |
+
+
+
 

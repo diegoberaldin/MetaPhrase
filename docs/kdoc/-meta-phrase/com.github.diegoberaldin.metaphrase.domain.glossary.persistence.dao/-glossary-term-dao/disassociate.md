@@ -14,4 +14,24 @@ abstract suspend fun [disassociate](disassociate.html)(sourceId: [Int](https://k
 
 
 
+Remove the association between two terms.
+
+
+
+#### Return
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| sourceId | Source term ID |
+| targetId | Target term ID |
+
+
+
 

@@ -14,4 +14,19 @@ abstract fun [deleteEntry](delete-entry.html)(index: [Int](https://kotlinlang.or
 
 
 
+Delete an entry from the translation memory.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| index | index of the entry to delete |
+
+
+
 

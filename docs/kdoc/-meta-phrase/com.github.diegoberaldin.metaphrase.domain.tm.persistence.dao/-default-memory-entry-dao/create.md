@@ -14,4 +14,27 @@ open suspend override fun [create](create.html)(model: [TranslationMemoryEntryMo
 
 
 
+Create a new translation memory entry.
+
+
+
+#### Return
+
+
+
+ID of the newly created entry
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| model | Model to insert |
+
+
+
 

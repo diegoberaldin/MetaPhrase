@@ -15,5 +15,5 @@ title: com.github.diegoberaldin.metaphrase.domain.spellcheck.spelling
 | Name | Summary |
 |---|---|
 | [DefaultSpelling](-default-spelling/index.html) | [jvm]<br>class [DefaultSpelling](-default-spelling/index.html)(userDefinedWordsRepository: [UserDefinedWordsRepository](../com.github.diegoberaldin.metaphrase.domain.spellcheck.repo/-user-defined-words-repository/index.html)) : [Spelling](-spelling/index.html) |
-| [Spelling](-spelling/index.html) | [jvm]<br>interface [Spelling](-spelling/index.html) |
+| [Spelling](-spelling/index.html) | [jvm]<br>interface [Spelling](-spelling/index.html)<br>Contract for the spelling checker. |
 

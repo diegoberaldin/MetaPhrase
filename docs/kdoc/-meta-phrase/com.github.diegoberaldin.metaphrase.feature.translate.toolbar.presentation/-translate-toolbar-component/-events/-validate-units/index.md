@@ -12,4 +12,6 @@ title: ValidateUnits
 [jvm]\
 object [ValidateUnits](index.html) : [TranslateToolbarComponent.Events](../index.html)
 
+Start validation (placeholder)
+
 

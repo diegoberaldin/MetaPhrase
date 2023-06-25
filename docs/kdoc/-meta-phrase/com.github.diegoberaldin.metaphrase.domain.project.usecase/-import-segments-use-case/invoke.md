@@ -14,4 +14,21 @@ abstract suspend operator fun [invoke](invoke.html)(segments: [List](https://kot
 
 
 
+Save a list of segments for a given language inside a given project.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| segments | Segments to save |
+| language | Language the segments belong to |
+| projectId | Project ID |
+
+
+
 

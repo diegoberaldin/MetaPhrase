@@ -12,6 +12,8 @@ title: LanguageEntity
 [jvm]\
 object [LanguageEntity](index.html) : IntIdTable
 
+Language entity. This belongs to this subproject because of its reference to the project entity.
+
 
 
 ## Properties

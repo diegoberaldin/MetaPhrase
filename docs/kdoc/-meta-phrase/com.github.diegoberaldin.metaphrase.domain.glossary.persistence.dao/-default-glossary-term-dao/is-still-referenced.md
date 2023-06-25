@@ -14,4 +14,27 @@ open suspend override fun [isStillReferenced](is-still-referenced.html)(id: [Int
 
 
 
+Determine whether a term is still referenced by any other term in the glossary.
+
+
+
+#### Return
+
+
+
+true if there is still at least one other term referencing this one
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| id | Term ID |
+
+
+
 

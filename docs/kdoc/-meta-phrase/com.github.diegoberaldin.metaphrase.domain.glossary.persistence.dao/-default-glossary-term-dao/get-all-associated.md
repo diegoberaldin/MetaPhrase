@@ -14,4 +14,27 @@ open suspend override fun [getAllAssociated](get-all-associated.html)(model: [Gl
 
 
 
+Get all terms associated with a given term no matter the language.
+
+
+
+#### Return
+
+
+
+list of associated terms
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| model | Term (source) |
+
+
+
 

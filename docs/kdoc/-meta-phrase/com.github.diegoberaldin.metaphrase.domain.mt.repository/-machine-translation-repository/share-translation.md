@@ -14,4 +14,24 @@ abstract suspend fun [shareTranslation](share-translation.html)(provider: [Machi
 
 
 
+Share a translation with the machine translation provider i.e. contribute a segment to the remote TM. This implies transferring data to a third party engine, so handle with care.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| provider | Machine translation provider |
+| key | API key (optional) |
+| sourceMessage | Source message |
+| sourceLang | Source language code |
+| targetMessage | Target message |
+| targetLang | Target language code |
+
+
+
 

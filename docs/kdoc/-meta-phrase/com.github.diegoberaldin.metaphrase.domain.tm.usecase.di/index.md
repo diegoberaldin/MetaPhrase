@@ -14,5 +14,5 @@ title: com.github.diegoberaldin.metaphrase.domain.tm.usecase.di
 
 | Name | Summary |
 |---|---|
-| [tmUseCaseModule](tm-use-case-module.html) | [jvm]<br>val [tmUseCaseModule](tm-use-case-module.html): Module |
+| [tmUseCaseModule](tm-use-case-module.html) | [jvm]<br>val [tmUseCaseModule](tm-use-case-module.html): Module<br>DI module for the translation memory domain use case subproject. |
 

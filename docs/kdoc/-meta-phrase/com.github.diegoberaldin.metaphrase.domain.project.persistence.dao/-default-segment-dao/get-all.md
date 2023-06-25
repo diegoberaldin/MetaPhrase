@@ -14,4 +14,27 @@ open suspend override fun [getAll](get-all.html)(languageId: [Int](https://kotli
 
 
 
+Get all segments for a language within a project.
+
+
+
+#### Return
+
+
+
+list of segments of that language
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| languageId | Language ID |
+
+
+
 

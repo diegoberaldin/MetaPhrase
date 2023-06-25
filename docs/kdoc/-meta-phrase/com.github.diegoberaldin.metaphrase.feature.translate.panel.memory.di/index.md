@@ -14,5 +14,5 @@ title: com.github.diegoberaldin.metaphrase.feature.translate.panel.memory.di
 
 | Name | Summary |
 |---|---|
-| [panelMemoryModule](panel-memory-module.html) | [jvm]<br>val [panelMemoryModule](panel-memory-module.html): Module |
+| [panelMemoryModule](panel-memory-module.html) | [jvm]<br>val [panelMemoryModule](panel-memory-module.html): Module<br>DI module for the TM content panel section. |
 

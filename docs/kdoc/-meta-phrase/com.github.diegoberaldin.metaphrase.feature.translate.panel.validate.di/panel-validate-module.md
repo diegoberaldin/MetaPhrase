@@ -14,4 +14,8 @@ val [panelValidateModule](panel-validate-module.html): Module
 
 
 
+DI module for the validate panel.
+
+
+
 

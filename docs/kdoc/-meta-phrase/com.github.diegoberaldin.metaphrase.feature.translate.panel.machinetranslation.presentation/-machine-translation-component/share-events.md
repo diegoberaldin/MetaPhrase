@@ -14,4 +14,8 @@ abstract val [shareEvents](share-events.html): SharedFlow&lt;[Boolean](https://k
 
 
 
+Events triggered after a message share with the MT provider (true if successful, false otherwise)
+
+
+
 

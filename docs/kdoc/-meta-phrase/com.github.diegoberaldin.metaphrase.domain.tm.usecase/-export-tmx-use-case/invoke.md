@@ -14,4 +14,20 @@ abstract suspend operator fun [invoke](invoke.html)(sourceLang: [String](https:/
 
 
 
+Export the TM content into a TMX file.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| sourceLang | source lang (administration) code |
+| path | file path |
+
+
+
 

@@ -14,4 +14,8 @@ abstract val [done](done.html): SharedFlow&lt;[GlossaryTermPair](../-glossary-te
 
 
 
+Event emitted after successful submission.
+
+
+
 

@@ -14,4 +14,27 @@ open suspend operator override fun [invoke](invoke.html)(path: [String](https://
 
 
 
+Deserialize a list of messages from the Java properties format.
+
+
+
+#### Return
+
+
+
+list of messages
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| path | source path |
+
+
+
 

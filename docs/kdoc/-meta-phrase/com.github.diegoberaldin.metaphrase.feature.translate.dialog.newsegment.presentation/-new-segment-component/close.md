@@ -14,4 +14,8 @@ abstract fun [close](close.html)()
 
 
 
+Close the dialog.
+
+
+
 

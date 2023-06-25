@@ -14,4 +14,21 @@ abstract fun [loadInvalidPlaceholders](load-invalid-placeholders.html)(projectId
 
 
 
+Load a list of invalid placeholder references.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| projectId | Project ID |
+| languageId | Language ID |
+| invalidKeys | Invalid message keys |
+
+
+
 

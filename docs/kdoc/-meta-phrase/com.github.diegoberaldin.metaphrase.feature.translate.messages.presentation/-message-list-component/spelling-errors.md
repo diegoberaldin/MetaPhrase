@@ -10,7 +10,11 @@ title: spellingErrors
 
 
 [jvm]\
-abstract val [spellingErrors](spelling-errors.html): StateFlow&lt;[List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)&lt;[SpellCheckCorrection](../../com.github.diegoberaldin.metaphrase.domain.spellcheck/-spell-check-correction/index.html)&gt;&gt;
+abstract val [spellingErrors](spelling-errors.html): StateFlow&lt;[List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)&lt;[SpellCheckCorrection](../../com.github.diegoberaldin.metaphrase.domain.spellcheck.data/-spell-check-correction/index.html)&gt;&gt;
+
+
+
+List of spelling error detected and the corresponding corrections
 
 
 

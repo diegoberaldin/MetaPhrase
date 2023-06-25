@@ -14,4 +14,19 @@ open override fun [send](send.html)(event: [NotificationCenter.Event](../-notifi
 
 
 
+Publish and event to subscribers.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| event | Event to send |
+
+
+
 

@@ -14,4 +14,8 @@ abstract val [editedSegment](edited-segment.html): StateFlow&lt;[SegmentModel](.
 
 
 
+Currently edited segment
+
+
+
 

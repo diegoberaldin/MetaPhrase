@@ -14,4 +14,19 @@ abstract fun [setSegmentText](set-segment-text.html)(text: [String](https://kotl
 
 
 
+Set the current segment text (intended for user initiated interaction).
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| text | string to set |
+
+
+
 

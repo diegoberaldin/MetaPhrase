@@ -14,5 +14,5 @@ title: com.github.diegoberaldin.metaphrase.feature.translate.panel.glossary.di
 
 | Name | Summary |
 |---|---|
-| [panelGlossaryModule](panel-glossary-module.html) | [jvm]<br>val [panelGlossaryModule](panel-glossary-module.html): Module |
+| [panelGlossaryModule](panel-glossary-module.html) | [jvm]<br>val [panelGlossaryModule](panel-glossary-module.html): Module<br>DI module for the glossary panel. |
 

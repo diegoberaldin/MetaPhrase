@@ -14,4 +14,27 @@ open suspend override fun [create](create.html)(model: [RecentProjectModel](../.
 
 
 
+Create a recent project.
+
+
+
+#### Return
+
+
+
+ID of the newly created recent project
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| model | recent project to create |
+
+
+
 

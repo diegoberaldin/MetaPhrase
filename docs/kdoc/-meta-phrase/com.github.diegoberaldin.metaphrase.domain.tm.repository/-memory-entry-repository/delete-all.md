@@ -14,4 +14,19 @@ abstract suspend fun [deleteAll](delete-all.html)(origin: [String](https://kotli
 
 
 
+Delete all the translation memory entries having a given origin.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| origin | Origin of entries to delete |
+
+
+
 

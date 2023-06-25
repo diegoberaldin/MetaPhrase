@@ -14,7 +14,6 @@ title: MetaPhrase
 
 | Name |
 |---|
-| [[root]](-meta-phrase/root/index.html) |
 | [com.github.diegoberaldin.feature.main.settings.dialog.login.di](-meta-phrase/com.github.diegoberaldin.feature.main.settings.dialog.login.di/index.html) |
 | [com.github.diegoberaldin.feature.main.settings.dialog.login.presentation](-meta-phrase/com.github.diegoberaldin.feature.main.settings.dialog.login.presentation/index.html) |
 | [com.github.diegoberaldin.feature.main.settings.dialog.login.ui](-meta-phrase/com.github.diegoberaldin.feature.main.settings.dialog.login.ui/index.html) |
@@ -43,6 +42,7 @@ title: MetaPhrase
 | [com.github.diegoberaldin.metaphrase.domain.formats.properties](-meta-phrase/com.github.diegoberaldin.metaphrase.domain.formats.properties/index.html) |
 | [com.github.diegoberaldin.metaphrase.domain.formats.resx](-meta-phrase/com.github.diegoberaldin.metaphrase.domain.formats.resx/index.html) |
 | [com.github.diegoberaldin.metaphrase.domain.glossary.data](-meta-phrase/com.github.diegoberaldin.metaphrase.domain.glossary.data/index.html) |
+| [com.github.diegoberaldin.metaphrase.domain.glossary.di](-meta-phrase/com.github.diegoberaldin.metaphrase.domain.glossary.di/index.html) |
 | [com.github.diegoberaldin.metaphrase.domain.glossary.persistence.dao](-meta-phrase/com.github.diegoberaldin.metaphrase.domain.glossary.persistence.dao/index.html) |
 | [com.github.diegoberaldin.metaphrase.domain.glossary.persistence.entities](-meta-phrase/com.github.diegoberaldin.metaphrase.domain.glossary.persistence.entities/index.html) |
 | [com.github.diegoberaldin.metaphrase.domain.glossary.repository](-meta-phrase/com.github.diegoberaldin.metaphrase.domain.glossary.repository/index.html) |
@@ -60,16 +60,16 @@ title: MetaPhrase
 | [com.github.diegoberaldin.metaphrase.domain.mt.repository](-meta-phrase/com.github.diegoberaldin.metaphrase.domain.mt.repository/index.html) |
 | [com.github.diegoberaldin.metaphrase.domain.mt.repository.data](-meta-phrase/com.github.diegoberaldin.metaphrase.domain.mt.repository.data/index.html) |
 | [com.github.diegoberaldin.metaphrase.domain.mt.repository.datasource](-meta-phrase/com.github.diegoberaldin.metaphrase.domain.mt.repository.datasource/index.html) |
-| [com.github.diegoberaldin.metaphrase.domain.mt.repository.datasource.mymemory.dto](-meta-phrase/com.github.diegoberaldin.metaphrase.domain.mt.repository.datasource.mymemory.dto/index.html) |
 | [com.github.diegoberaldin.metaphrase.domain.mt.repository.di](-meta-phrase/com.github.diegoberaldin.metaphrase.domain.mt.repository.di/index.html) |
 | [com.github.diegoberaldin.metaphrase.domain.project.data](-meta-phrase/com.github.diegoberaldin.metaphrase.domain.project.data/index.html) |
+| [com.github.diegoberaldin.metaphrase.domain.project.di](-meta-phrase/com.github.diegoberaldin.metaphrase.domain.project.di/index.html) |
 | [com.github.diegoberaldin.metaphrase.domain.project.persistence.dao](-meta-phrase/com.github.diegoberaldin.metaphrase.domain.project.persistence.dao/index.html) |
 | [com.github.diegoberaldin.metaphrase.domain.project.persistence.entities](-meta-phrase/com.github.diegoberaldin.metaphrase.domain.project.persistence.entities/index.html) |
 | [com.github.diegoberaldin.metaphrase.domain.project.repository](-meta-phrase/com.github.diegoberaldin.metaphrase.domain.project.repository/index.html) |
 | [com.github.diegoberaldin.metaphrase.domain.project.repository.di](-meta-phrase/com.github.diegoberaldin.metaphrase.domain.project.repository.di/index.html) |
 | [com.github.diegoberaldin.metaphrase.domain.project.usecase](-meta-phrase/com.github.diegoberaldin.metaphrase.domain.project.usecase/index.html) |
 | [com.github.diegoberaldin.metaphrase.domain.project.usecase.di](-meta-phrase/com.github.diegoberaldin.metaphrase.domain.project.usecase.di/index.html) |
-| [com.github.diegoberaldin.metaphrase.domain.spellcheck](-meta-phrase/com.github.diegoberaldin.metaphrase.domain.spellcheck/index.html) |
+| [com.github.diegoberaldin.metaphrase.domain.spellcheck.data](-meta-phrase/com.github.diegoberaldin.metaphrase.domain.spellcheck.data/index.html) |
 | [com.github.diegoberaldin.metaphrase.domain.spellcheck.di](-meta-phrase/com.github.diegoberaldin.metaphrase.domain.spellcheck.di/index.html) |
 | [com.github.diegoberaldin.metaphrase.domain.spellcheck.repo](-meta-phrase/com.github.diegoberaldin.metaphrase.domain.spellcheck.repo/index.html) |
 | [com.github.diegoberaldin.metaphrase.domain.spellcheck.spelling](-meta-phrase/com.github.diegoberaldin.metaphrase.domain.spellcheck.spelling/index.html) |
@@ -135,6 +135,4 @@ title: MetaPhrase
 | [com.github.diegoberaldin.metaphrase.feature.translate.toolbar.presentation](-meta-phrase/com.github.diegoberaldin.metaphrase.feature.translate.toolbar.presentation/index.html) |
 | [com.github.diegoberaldin.metaphrase.feature.translate.toolbar.ui](-meta-phrase/com.github.diegoberaldin.metaphrase.feature.translate.toolbar.ui/index.html) |
 | [com.github.diegoberaldin.metaphrase.feature.translate.ui](-meta-phrase/com.github.diegoberaldin.metaphrase.feature.translate.ui/index.html) |
-| [glossary.di](-meta-phrase/glossary.di/index.html) |
-| [repository.di](-meta-phrase/repository.di/index.html) |
 

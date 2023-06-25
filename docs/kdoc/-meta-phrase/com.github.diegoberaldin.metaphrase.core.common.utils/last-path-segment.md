@@ -14,4 +14,24 @@ fun [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.h
 
 
 
+Retrieves the last path segment (considering platform-specific separator).
+
+
+
+#### Receiver
+
+
+
+Full path
+
+
+
+#### Return
+
+
+
+last path component (e.g. file name)
+
+
+
 

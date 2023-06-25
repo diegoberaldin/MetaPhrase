@@ -14,4 +14,27 @@ abstract suspend fun [getAll](get-all.html)(languageId: [Int](https://kotlinlang
 
 
 
+Get all segments for a given language within a given project.
+
+
+
+#### Return
+
+
+
+list of segments
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| languageId | Language ID |
+
+
+
 

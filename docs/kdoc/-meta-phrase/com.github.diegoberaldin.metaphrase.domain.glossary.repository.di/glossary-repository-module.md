@@ -14,4 +14,8 @@ val [glossaryRepositoryModule](glossary-repository-module.html): Module
 
 
 
+DI module for the domain-glossary repository subproject.
+
+
+
 

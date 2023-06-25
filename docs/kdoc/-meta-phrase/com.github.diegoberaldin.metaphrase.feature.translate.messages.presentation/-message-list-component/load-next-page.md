@@ -14,4 +14,8 @@ abstract fun [loadNextPage](load-next-page.html)()
 
 
 
+Load the next page of messages from the DB.
+
+
+
 

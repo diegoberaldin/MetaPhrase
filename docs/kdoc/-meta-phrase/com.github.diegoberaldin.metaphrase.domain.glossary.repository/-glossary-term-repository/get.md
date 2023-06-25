@@ -14,4 +14,28 @@ abstract suspend fun [get](get.html)(lemma: [String](https://kotlinlang.org/api/
 
 
 
+Get a term by its lemma and language
+
+
+
+#### Return
+
+
+
+[GlossaryTermModel](../../com.github.diegoberaldin.metaphrase.domain.glossary.data/-glossary-term-model/index.html) or null if no such term exists
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| lemma | Term lemma |
+| lang | Language code |
+
+
+
 

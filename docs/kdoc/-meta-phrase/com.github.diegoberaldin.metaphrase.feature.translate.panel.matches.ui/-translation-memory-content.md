@@ -22,4 +22,25 @@ fun [TranslationMemoryContent](-translation-memory-content.html)(component: [Tra
 
 
 
+Translation memory UI content.
+
+
+
+#### Return
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| component | Component |
+| onMinify | on minify callback |
+| modifier | Modifier |
+
+
+
 

@@ -14,4 +14,19 @@ abstract fun [scrollToMessage](scroll-to-message.html)(key: [String](https://kot
 
 
 
+Scroll to a given message.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| key | identifier (key) of the message |
+
+
+
 

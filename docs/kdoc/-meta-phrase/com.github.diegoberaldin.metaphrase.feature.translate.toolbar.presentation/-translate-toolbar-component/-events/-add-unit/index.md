@@ -12,4 +12,6 @@ title: AddUnit
 [jvm]\
 object [AddUnit](index.html) : [TranslateToolbarComponent.Events](../index.html)
 
+Add new segment
+
 

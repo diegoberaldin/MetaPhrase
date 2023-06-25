@@ -14,4 +14,32 @@ open suspend override fun [search](search.html)(languageId: [Int](https://kotlin
 
 
 
+Get the list of segments corresponding to some search criteria.
+
+
+
+#### Return
+
+
+
+list of segment corresponding to the criteria
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| languageId | target language ID |
+| baseLanguageId | source language ID |
+| filter | message type filter |
+| search | textual query |
+| skip | offset for pagination |
+| limit | page size for pagination, if set to `0` no pagination will be performed |
+
+
+
 

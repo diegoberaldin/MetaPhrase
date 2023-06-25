@@ -14,4 +14,8 @@ constructor(content: [ValidationContent](../-validation-content/index.html)? = n
 
 
 
+Create [InvalidSegmentUiState](index.html)
+
+
+
 

@@ -22,4 +22,25 @@ fun [GlossaryContent](-glossary-content.html)(component: [GlossaryComponent](../
 
 
 
+Glossary UI content.
+
+
+
+#### Return
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| component | Component |
+| modifier | Modifier |
+| onMinify | on minify callback |
+
+
+
 

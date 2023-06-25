@@ -14,4 +14,19 @@ abstract fun [trace](trace.html)(message: [String](https://kotlinlang.org/api/la
 
 
 
+Log a message with the TRACE level.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| message | Log message |
+
+
+
 

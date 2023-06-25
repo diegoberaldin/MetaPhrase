@@ -14,4 +14,19 @@ open suspend operator override fun [invoke](invoke.html)(path: [String](https://
 
 
 
+Export the global glossary content as a CSV file at a given path..
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| path | Destination file path |
+
+
+
 

@@ -10,7 +10,22 @@ title: update
 
 
 [jvm]\
-open suspend override fun [update](update.html)(model: [GlossaryTermModel](../../com.github.diegoberaldin.metaphrase.domain.glossary.data/-glossary-term-model/index.html)): [Int](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)
+open suspend override fun [update](update.html)(model: [GlossaryTermModel](../../com.github.diegoberaldin.metaphrase.domain.glossary.data/-glossary-term-model/index.html))
+
+
+
+Update a glossary term.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| model | Term to update |
 
 
 

@@ -14,4 +14,8 @@ constructor(sourceLemma: [String](https://kotlinlang.org/api/latest/jvm/stdlib/k
 
 
 
+Create [GlossaryTermPair](index.html)
+
+
+
 

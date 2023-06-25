@@ -14,4 +14,16 @@ abstract suspend fun [getAll](get-all.html)(): [List](https://kotlinlang.org/api
 
 
 
+Get all projects in the DB.
+
+
+
+#### Return
+
+
+
+list of all projects
+
+
+
 

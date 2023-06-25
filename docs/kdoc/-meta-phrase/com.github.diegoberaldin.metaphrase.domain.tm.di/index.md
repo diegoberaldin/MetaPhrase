@@ -14,5 +14,5 @@ title: com.github.diegoberaldin.metaphrase.domain.tm.di
 
 | Name | Summary |
 |---|---|
-| [translationMemoryModule](translation-memory-module.html) | [jvm]<br>val [translationMemoryModule](translation-memory-module.html): Module |
+| [translationMemoryModule](translation-memory-module.html) | [jvm]<br>val [translationMemoryModule](translation-memory-module.html): Module<br>DI module for the translation memory domain subproject. |
 

@@ -14,4 +14,8 @@ constructor(units: [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.co
 
 
 
+Create [MessageListUiState](index.html)
+
+
+
 

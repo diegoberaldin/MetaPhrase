@@ -14,4 +14,8 @@ abstract val [selectionEvents](selection-events.html): SharedFlow&lt;[String](ht
 
 
 
+Events triggered when a reference to a message is selected with the key of the message
+
+
+
 

@@ -12,4 +12,6 @@ title: RemoveUnit
 [jvm]\
 object [RemoveUnit](index.html) : [TranslateToolbarComponent.Events](../index.html)
 
+Delete current segment
+
 

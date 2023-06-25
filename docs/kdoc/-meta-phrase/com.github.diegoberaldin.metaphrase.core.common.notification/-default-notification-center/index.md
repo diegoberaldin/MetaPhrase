@@ -19,7 +19,7 @@ object [DefaultNotificationCenter](index.html) : [NotificationCenter](../-notifi
 
 | Name | Summary |
 |---|---|
-| [events](events.html) | [jvm]<br>open override val [events](events.html): MutableSharedFlow&lt;[NotificationCenter.Event](../-notification-center/-event/index.html)&gt; |
+| [events](events.html) | [jvm]<br>open override val [events](events.html): MutableSharedFlow&lt;[NotificationCenter.Event](../-notification-center/-event/index.html)&gt;<br>Observable event flow |
 
 
 ## Functions
@@ -27,5 +27,5 @@ object [DefaultNotificationCenter](index.html) : [NotificationCenter](../-notifi
 
 | Name | Summary |
 |---|---|
-| [send](send.html) | [jvm]<br>open override fun [send](send.html)(event: [NotificationCenter.Event](../-notification-center/-event/index.html)) |
+| [send](send.html) | [jvm]<br>open override fun [send](send.html)(event: [NotificationCenter.Event](../-notification-center/-event/index.html))<br>Publish and event to subscribers. |
 

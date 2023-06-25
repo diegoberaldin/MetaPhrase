@@ -22,4 +22,25 @@ fun [CustomTooltipArea](-custom-tooltip-area.html)(text: [String](https://kotlin
 
 
 
+Custom tooltip area.
+
+
+
+#### Return
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| text | Text to show in the tooltip |
+| modifier | Modifier |
+| content | Content inner composable |
+
+
+
 

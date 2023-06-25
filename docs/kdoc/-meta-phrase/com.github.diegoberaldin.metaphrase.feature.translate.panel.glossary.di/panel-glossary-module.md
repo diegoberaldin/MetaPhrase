@@ -14,4 +14,8 @@ val [panelGlossaryModule](panel-glossary-module.html): Module
 
 
 
+DI module for the glossary panel.
+
+
+
 

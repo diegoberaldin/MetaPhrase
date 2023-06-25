@@ -14,4 +14,30 @@ abstract suspend fun [getByIdentifier](get-by-identifier.html)(identifier: [Stri
 
 
 
+Get translation memory entries by identifier.
+
+
+
+#### Return
+
+
+
+[TranslationMemoryEntryModel](../../com.github.diegoberaldin.metaphrase.domain.tm.data/-translation-memory-entry-model/index.html) or null
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| identifier | Identifier (message key or tuid) |
+| origin | Origin of translation memory entries |
+| sourceLang | Source language code |
+| targetLang | Target language code |
+
+
+
 

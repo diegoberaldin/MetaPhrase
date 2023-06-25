@@ -14,4 +14,8 @@ abstract fun [refresh](refresh.html)()
 
 
 
+Reload the message list.
+
+
+
 

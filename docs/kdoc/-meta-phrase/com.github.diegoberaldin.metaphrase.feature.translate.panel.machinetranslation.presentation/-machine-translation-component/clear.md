@@ -14,4 +14,8 @@ abstract fun [clear](clear.html)()
 
 
 
+Clear the content of the panel.
+
+
+
 

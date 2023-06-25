@@ -14,4 +14,30 @@ abstract suspend fun [getTranslation](get-translation.html)(sourceMessage: [Stri
 
 
 
+Get a suggestion (translation) from the remote provider.
+
+
+
+#### Return
+
+
+
+a translation for the message
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| sourceMessage | Source message |
+| sourceLang | Source language code |
+| targetLang | Target language code |
+| key | API key (optional) |
+
+
+
 

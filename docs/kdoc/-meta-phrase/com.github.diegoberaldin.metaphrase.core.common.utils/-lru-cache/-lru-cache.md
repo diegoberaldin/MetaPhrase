@@ -14,4 +14,19 @@ constructor(size: [Int](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int
 
 
 
+Create [LruCache](index.html)
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| T | type of the items to save |
+
+
+
 

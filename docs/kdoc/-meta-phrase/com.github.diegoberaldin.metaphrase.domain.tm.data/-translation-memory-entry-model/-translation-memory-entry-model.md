@@ -14,4 +14,8 @@ constructor(id: [Int](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/i
 
 
 
+Create [TranslationMemoryEntryModel](index.html)
+
+
+
 

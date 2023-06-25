@@ -14,4 +14,19 @@ abstract suspend fun [addUserDefineWord](add-user-define-word.html)(word: [Strin
 
 
 
+Add a user-defined word.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| word | Word to ignore |
+
+
+
 

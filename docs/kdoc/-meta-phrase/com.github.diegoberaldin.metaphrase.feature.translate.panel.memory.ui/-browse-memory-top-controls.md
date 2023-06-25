@@ -22,4 +22,31 @@ fun [BrowseMemoryTopControls](-browse-memory-top-controls.html)(sourceLanguage: 
 
 
 
+Top controls for the TM content panel.
+
+
+
+#### Return
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| sourceLanguage | Source language |
+| availableSourceLanguages | Available source languages |
+| targetLanguage | Target language |
+| availableTargetLanguages | Available target languages |
+| currentSearch | Current search query |
+| onSourceLanguageSelected | On source language selected callback |
+| onTargetLanguageSelected | On target language selected callback |
+| onSearchChanged | On search changed callback |
+| onSearchFired | On search fired callback |
+
+
+
 

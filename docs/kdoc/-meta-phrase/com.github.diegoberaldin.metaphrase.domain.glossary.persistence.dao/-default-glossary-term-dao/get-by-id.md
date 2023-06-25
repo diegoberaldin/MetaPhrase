@@ -14,4 +14,27 @@ open suspend override fun [getById](get-by-id.html)(id: [Int](https://kotlinlang
 
 
 
+Get a tern given its id.
+
+
+
+#### Return
+
+
+
+[GlossaryTermModel](../../com.github.diegoberaldin.metaphrase.domain.glossary.data/-glossary-term-model/index.html) or null
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| id | Term ID |
+
+
+
 

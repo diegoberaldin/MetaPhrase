@@ -22,4 +22,25 @@ fun [BrowseMemoryContent](-browse-memory-content.html)(component: [BrowseMemoryC
 
 
 
+UI content of the TM content panel.
+
+
+
+#### Return
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| component | Component |
+| modifier | Modifier |
+| onMinify | on minify callback |
+
+
+
 

@@ -22,4 +22,25 @@ fun [MachineTranslationContent](-machine-translation-content.html)(component: [M
 
 
 
+Machine translation UI content.
+
+
+
+#### Return
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| component | Component |
+| modifier | Modifier |
+| onMinify | on minify callback |
+
+
+
 

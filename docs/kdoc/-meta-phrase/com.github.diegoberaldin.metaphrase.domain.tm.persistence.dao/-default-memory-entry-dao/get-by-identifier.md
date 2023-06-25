@@ -14,4 +14,30 @@ open suspend override fun [getByIdentifier](get-by-identifier.html)(identifier: 
 
 
 
+Get a TM entry by identifier.
+
+
+
+#### Return
+
+
+
+[TranslationMemoryEntryModel](../../com.github.diegoberaldin.metaphrase.domain.tm.data/-translation-memory-entry-model/index.html) or null
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| identifier | Identifier (key or tuid) |
+| origin | Origin |
+| sourceLang | Source language code |
+| targetLang | Target language code |
+
+
+
 

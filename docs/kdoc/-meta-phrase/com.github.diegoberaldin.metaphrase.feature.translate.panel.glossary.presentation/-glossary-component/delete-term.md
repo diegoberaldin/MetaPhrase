@@ -14,4 +14,19 @@ abstract fun [deleteTerm](delete-term.html)(term: [GlossaryTermModel](../../com.
 
 
 
+Delete a term.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| term | term to delete |
+
+
+
 

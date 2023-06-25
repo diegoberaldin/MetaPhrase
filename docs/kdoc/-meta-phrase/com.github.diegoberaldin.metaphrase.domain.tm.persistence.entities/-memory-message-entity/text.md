@@ -14,4 +14,8 @@ val [text](text.html): Column&lt;[String](https://kotlinlang.org/api/latest/jvm/
 
 
 
+Message content
+
+
+
 

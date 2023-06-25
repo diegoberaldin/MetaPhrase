@@ -14,4 +14,16 @@ open suspend override fun [getLanguageCodes](get-language-codes.html)(): [List](
 
 
 
+Get the list of distinct language codes in the TM.
+
+
+
+#### Return
+
+
+
+list of langauge codes.
+
+
+
 

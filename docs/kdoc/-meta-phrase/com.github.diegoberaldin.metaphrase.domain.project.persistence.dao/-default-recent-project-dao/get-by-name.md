@@ -14,4 +14,27 @@ open suspend override fun [getByName](get-by-name.html)(value: [String](https://
 
 
 
+Get a recent project by name.
+
+
+
+#### Return
+
+
+
+[RecentProjectModel](../../com.github.diegoberaldin.metaphrase.domain.project.data/-recent-project-model/index.html) or null
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| value | name of the project |
+
+
+
 

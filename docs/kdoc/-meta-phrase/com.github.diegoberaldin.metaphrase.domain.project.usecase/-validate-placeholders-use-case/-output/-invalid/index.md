@@ -12,6 +12,8 @@ title: Invalid
 [jvm]\
 data class [Invalid](index.html)(val keys: [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)&lt;[String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)&gt; = emptyList()) : [ValidatePlaceholdersUseCase.Output](../index.html)
 
+Case where some errors were detected.
+
 
 
 ## Constructors
@@ -19,7 +21,7 @@ data class [Invalid](index.html)(val keys: [List](https://kotlinlang.org/api/lat
 
 | | |
 |---|---|
-| [Invalid](-invalid.html) | [jvm]<br>constructor(keys: [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)&lt;[String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)&gt; = emptyList()) |
+| [Invalid](-invalid.html) | [jvm]<br>constructor(keys: [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)&lt;[String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)&gt; = emptyList())<br>Create [Invalid](index.html) |
 
 
 ## Properties
@@ -27,5 +29,5 @@ data class [Invalid](index.html)(val keys: [List](https://kotlinlang.org/api/lat
 
 | Name | Summary |
 |---|---|
-| [keys](keys.html) | [jvm]<br>val [keys](keys.html): [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)&lt;[String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)&gt; |
+| [keys](keys.html) | [jvm]<br>val [keys](keys.html): [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)&lt;[String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)&gt;<br>list of the keys of the messages where errors were detected |
 

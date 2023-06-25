@@ -14,4 +14,37 @@ inline fun &lt;[T](active-as-flow.html)&gt; Value&lt;ChildStack&lt;*, *&gt;&gt;.
 
 
 
+Observe a child stack as a flow.
+
+
+
+#### Receiver
+
+
+
+Value original stack
+
+
+
+#### Return
+
+
+
+Flow
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| T | Type of the result |
+| withNullsIfNotInstance | emits null if the active value is not of the correct type |
+| timeout | Timeout to wait for emission |
+
+
+
 

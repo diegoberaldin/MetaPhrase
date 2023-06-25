@@ -14,4 +14,8 @@ val [dialogNewSegmentModule](dialog-new-segment-module.html): Module
 
 
 
+DI module for new segment dialog.
+
+
+
 

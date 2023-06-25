@@ -14,4 +14,19 @@ abstract suspend fun [clear](clear.html)(lang: [String](https://kotlinlang.org/a
 
 
 
+Clear all the user-defined words for a language.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| lang | Language code |
+
+
+
 

@@ -12,6 +12,8 @@ title: LocalizableString
 [jvm]\
 data class [LocalizableString](index.html)(val key: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html), val value: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html))
 
+Representation of a UI message.
+
 
 
 ## Constructors
@@ -19,7 +21,7 @@ data class [LocalizableString](index.html)(val key: [String](https://kotlinlang.
 
 | | |
 |---|---|
-| [LocalizableString](-localizable-string.html) | [jvm]<br>constructor(key: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html), value: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)) |
+| [LocalizableString](-localizable-string.html) | [jvm]<br>constructor(key: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html), value: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html))<br>Create [LocalizableString](index.html) |
 
 
 ## Properties
@@ -27,6 +29,6 @@ data class [LocalizableString](index.html)(val key: [String](https://kotlinlang.
 
 | Name | Summary |
 |---|---|
-| [key](key.html) | [jvm]<br>val [key](key.html): [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) |
-| [value](value.html) | [jvm]<br>val [value](value.html): [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) |
+| [key](key.html) | [jvm]<br>val [key](key.html): [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)<br>Message key (ID) |
+| [value](value.html) | [jvm]<br>val [value](value.html): [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)<br>Message translation |
 

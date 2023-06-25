@@ -14,4 +14,16 @@ abstract suspend fun [getLanguageCodes](get-language-codes.html)(): [List](https
 
 
 
+Get the list of distinct language codes that are found in the TM.
+
+
+
+#### Return
+
+
+
+list of language codes
+
+
+
 

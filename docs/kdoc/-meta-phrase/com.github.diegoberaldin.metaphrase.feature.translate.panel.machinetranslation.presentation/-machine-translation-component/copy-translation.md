@@ -14,4 +14,19 @@ abstract fun [copyTranslation](copy-translation.html)(value: [String](https://ko
 
 
 
+Programmatically update the value of the suggestion.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| value | suggestion to set |
+
+
+
 

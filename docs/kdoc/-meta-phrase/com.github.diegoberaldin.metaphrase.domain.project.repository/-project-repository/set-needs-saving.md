@@ -14,4 +14,19 @@ abstract fun [setNeedsSaving](set-needs-saving.html)(value: [Boolean](https://ko
 
 
 
+Set the flag indicating there are unsaved changes.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| value | Value of the flag |
+
+
+
 

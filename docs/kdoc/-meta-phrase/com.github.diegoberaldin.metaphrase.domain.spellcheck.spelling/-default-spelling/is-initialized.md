@@ -14,4 +14,8 @@ open override val [isInitialized](is-initialized.html): [Boolean](https://kotlin
 
 
 
+Flag indicating whether the spell checker is initialized
+
+
+
 

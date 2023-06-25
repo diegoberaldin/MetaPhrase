@@ -14,4 +14,8 @@ abstract val [copyTargetEvents](copy-target-events.html): SharedFlow&lt;[Unit](h
 
 
 
+Events triggered when the content of the translation editor needs to be copied to the suggestion field.
+
+
+
 

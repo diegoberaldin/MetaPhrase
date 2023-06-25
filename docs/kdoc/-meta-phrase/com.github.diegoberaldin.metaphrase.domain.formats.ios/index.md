@@ -14,6 +14,6 @@ title: com.github.diegoberaldin.metaphrase.domain.formats.ios
 
 | Name | Summary |
 |---|---|
-| [ExportIosResourcesUseCase](-export-ios-resources-use-case/index.html) | [jvm]<br>interface [ExportIosResourcesUseCase](-export-ios-resources-use-case/index.html) |
-| [ParseIosResourcesUseCase](-parse-ios-resources-use-case/index.html) | [jvm]<br>interface [ParseIosResourcesUseCase](-parse-ios-resources-use-case/index.html) |
+| [ExportIosResourcesUseCase](-export-ios-resources-use-case/index.html) | [jvm]<br>interface [ExportIosResourcesUseCase](-export-ios-resources-use-case/index.html)<br>Contract for the export iOS resources use case. |
+| [ParseIosResourcesUseCase](-parse-ios-resources-use-case/index.html) | [jvm]<br>interface [ParseIosResourcesUseCase](-parse-ios-resources-use-case/index.html)<br>Contract for the parse iOS resources use case. |
 

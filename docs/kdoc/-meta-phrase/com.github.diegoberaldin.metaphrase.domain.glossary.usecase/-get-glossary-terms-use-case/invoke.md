@@ -14,4 +14,28 @@ abstract suspend operator fun [invoke](invoke.html)(message: [String](https://ko
 
 
 
+Retrieve the glossary terms (source) for a source message. This should consider the stem of the words contained in the message.
+
+
+
+#### Return
+
+
+
+list of all the matches from the glossary for the text
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| message | Message text |
+| lang | Language code |
+
+
+
 

@@ -14,4 +14,27 @@ abstract suspend operator fun [invoke](invoke.html)(path: [String](https://kotli
 
 
 
+Deserialize a list of messages from the Gettext PO format.
+
+
+
+#### Return
+
+
+
+list of messages
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| path | source path |
+
+
+
 

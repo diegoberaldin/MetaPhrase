@@ -22,4 +22,25 @@ fun [CustomProgressIndicator](-custom-progress-indicator.html)(progress: [Float]
 
 
 
+Custom progress indicator as a striped bar.
+
+
+
+#### Return
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| progress | Progress value |
+| progressColor | Progress color |
+| modifier | Modifier |
+
+
+
 

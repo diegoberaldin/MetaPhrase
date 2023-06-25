@@ -7,10 +7,20 @@ title: LruCache
 
 # LruCache
 
-
-
-[jvm]\
 class [LruCache](index.html)&lt;[T](index.html)&gt;(size: [Int](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html))
+
+A simple implementation of an LRU cache.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| T | type of the items to save |
 
 
 
@@ -19,7 +29,7 @@ class [LruCache](index.html)&lt;[T](index.html)&gt;(size: [Int](https://kotlinla
 
 | | |
 |---|---|
-| [LruCache](-lru-cache.html) | [jvm]<br>constructor(size: [Int](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)) |
+| [LruCache](-lru-cache.html) | [jvm]<br>constructor(size: [Int](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html))<br>Create [LruCache](index.html) |
 
 
 ## Functions

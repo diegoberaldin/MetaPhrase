@@ -14,5 +14,5 @@ title: com.github.diegoberaldin.metaphrase.domain.tm.repository
 
 | Name | Summary |
 |---|---|
-| [MemoryEntryRepository](-memory-entry-repository/index.html) | [jvm]<br>interface [MemoryEntryRepository](-memory-entry-repository/index.html) |
+| [MemoryEntryRepository](-memory-entry-repository/index.html) | [jvm]<br>interface [MemoryEntryRepository](-memory-entry-repository/index.html)<br>Contrast of the memory entry repository. |
 

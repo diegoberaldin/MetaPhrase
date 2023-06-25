@@ -12,6 +12,8 @@ title: GlossaryTermRelationshipEntity
 [jvm]\
 object [GlossaryTermRelationshipEntity](index.html) : IntIdTable
 
+Association table for the M:N relationship between terms.
+
 
 
 ## Properties

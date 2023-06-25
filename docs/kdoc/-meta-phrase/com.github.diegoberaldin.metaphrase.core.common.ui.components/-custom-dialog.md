@@ -22,4 +22,22 @@ fun [CustomDialog](-custom-dialog.html)(title: [String](https://kotlinlang.org/a
 
 
 
+Custom dialog.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| title | Dialog title |
+| message | Dialog message |
+| buttonTexts | Texts for the dialog's buttons |
+| onClose | On close callback |
+
+
+
 

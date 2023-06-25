@@ -14,5 +14,5 @@ title: com.github.diegoberaldin.metaphrase.domain.mt.repository.data
 
 | Name | Summary |
 |---|---|
-| [MachineTranslationProvider](-machine-translation-provider/index.html) | [jvm]<br>enum [MachineTranslationProvider](-machine-translation-provider/index.html) : [Enum](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html)&lt;[MachineTranslationProvider](-machine-translation-provider/index.html)&gt; |
+| [MachineTranslationProvider](-machine-translation-provider/index.html) | [jvm]<br>enum [MachineTranslationProvider](-machine-translation-provider/index.html) : [Enum](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html)&lt;[MachineTranslationProvider](-machine-translation-provider/index.html)&gt; <br>Machine translation providers. |
 

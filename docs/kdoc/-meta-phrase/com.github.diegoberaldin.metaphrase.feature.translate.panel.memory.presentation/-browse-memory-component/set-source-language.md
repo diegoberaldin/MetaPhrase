@@ -14,4 +14,19 @@ abstract fun [setSourceLanguage](set-source-language.html)(value: [LanguageModel
 
 
 
+Set the source language.
+
+
+
+#### Parameters
+
+
+jvm
+
+| | |
+|---|---|
+| value | language to set |
+
+
+
 

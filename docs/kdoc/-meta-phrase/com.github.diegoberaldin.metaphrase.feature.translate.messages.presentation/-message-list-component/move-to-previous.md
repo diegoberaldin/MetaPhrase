@@ -14,4 +14,8 @@ abstract fun [moveToPrevious](move-to-previous.html)()
 
 
 
+Move cursor to the previous message.
+
+
+
 

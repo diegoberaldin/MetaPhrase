@@ -14,4 +14,8 @@ open lateinit override var [uiState](ui-state.html): StateFlow&lt;[NewGlossaryTe
 
 
 
+UI state
+
+
+
 
