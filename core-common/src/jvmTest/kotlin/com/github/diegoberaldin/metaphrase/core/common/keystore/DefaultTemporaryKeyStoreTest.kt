@@ -13,7 +13,10 @@ class DefaultTemporaryKeyStoreTest {
 
     @BeforeTest
     fun setup() {
-        MockFileManager.setup()
+        MockFileManager.setup(
+            name = "test",
+            extension = ".preferences_pb",
+        )
     }
 
     @AfterTest
