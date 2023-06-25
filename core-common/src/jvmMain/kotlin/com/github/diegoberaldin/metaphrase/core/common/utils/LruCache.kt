@@ -19,7 +19,9 @@ class LruCache<T>(private val size: Int) {
             map[key] = value
         } else {
             if (keyList.size >= size) {
+                val keyToRemove = keyList.last()
                 keyList = keyList.dropLast(1)
+                map.remove(keyToRemove)
             }
             keyList = listOf(key) + keyList
             map[key] = value
