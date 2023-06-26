@@ -1,5 +1,7 @@
 # MetaPhrase
 
+![gradle_build](https://github.com/diegoberaldin/MetaPhrase/actions/workflows/gradle.yml/badge.svg)
+
 An open source translation editor specifically designed having in mind the issues localizers of native mobile apps (Android and iOS apps) have to deal with in their everyday tasks.
 
 After the translation is complete, the files can be exported backwards to native formats (`.xml` or `.strings`) for each individual language so that translators can work to one language at a time.
