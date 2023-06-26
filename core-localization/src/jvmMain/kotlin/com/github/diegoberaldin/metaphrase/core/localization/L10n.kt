@@ -4,14 +4,14 @@ import com.github.diegoberaldin.metaphrase.core.localization.repository.Localiza
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.isActive
-import org.koin.java.KoinJavaComponent.get
+import org.koin.java.KoinJavaComponent.inject
 
 /**
  * Global entry point for the app localization.
  */
 object L10n {
 
-    private val default: Localization = get(Localization::class.java)
+    private val default: Localization by inject(Localization::class.java)
 
     /**
      * Exposes the ISO 693-1 code of the current language as an observable flow.
