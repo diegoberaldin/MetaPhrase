@@ -6,7 +6,7 @@ import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileWriter
 
-class DefaultExportPoResourcesUseCase(
+class DefaultExportPoUseCase(
     private val dispatchers: CoroutineDispatcherProvider,
 ) : ExportPoUseCase {
     override suspend fun invoke(segments: List<SegmentModel>, path: String, lang: String) {
