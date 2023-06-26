@@ -57,7 +57,6 @@ interface GlossaryTermDao {
      * Delete all the terms in the glossary.
      */
     suspend fun deleteAll()
-    fun ResultRow.toModel(): GlossaryTermModel
 
     /**
      * Determine whether two terms are associated.

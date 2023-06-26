@@ -54,7 +54,7 @@ class DefaultGlossaryTermDao : GlossaryTermDao {
         GlossaryTermEntity.deleteAll()
     }
 
-    override fun ResultRow.toModel(): GlossaryTermModel = GlossaryTermModel(
+    private fun ResultRow.toModel(): GlossaryTermModel = GlossaryTermModel(
         id = this[GlossaryTermEntity.id].value,
         lemma = this[GlossaryTermEntity.lemma],
         lang = this[GlossaryTermEntity.lang],

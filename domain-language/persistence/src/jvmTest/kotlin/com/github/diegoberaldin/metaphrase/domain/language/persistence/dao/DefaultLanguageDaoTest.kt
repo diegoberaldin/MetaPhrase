@@ -8,8 +8,12 @@ import kotlinx.coroutines.test.runTest
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
+import kotlin.test.assertNull
+import kotlin.test.assertTrue
 
-class DefaultLanguageDAOTest {
+class DefaultLanguageDaoTest {
 
     private lateinit var appDb: AppDatabase
     private lateinit var sut: DefaultLanguageDao
@@ -39,10 +43,10 @@ class DefaultLanguageDAOTest {
     }
 
     @Test
-    fun givenEmptyTermbaseWhenLanguageCreatedThenRowIsCreated() = runTest {
+    fun givenEmptyProjectWhenLanguageCreatedThenRowIsCreated() = runTest {
         val model = LanguageModel(code = "en")
         val id = sut.create(model = model, projectId = projectId)
-        assert(id > 0)
+        assertTrue(id > 0)
     }
 
     @Test
@@ -51,8 +55,8 @@ class DefaultLanguageDAOTest {
         val id = sut.create(model = model, projectId = projectId)
 
         val res = sut.getById(id)
-        assert(res != null)
-        assert(res?.code == "en")
+        assertNotNull(res)
+        assertEquals("en", res.code)
     }
 
     @Test
@@ -61,8 +65,8 @@ class DefaultLanguageDAOTest {
         sut.create(model = model, projectId = projectId)
 
         val res = sut.getByCode(code = "en", projectId = projectId)
-        assert(res != null)
-        assert(res?.code == "en")
+        assertNotNull(res)
+        assertEquals("en", res.code)
     }
 
     @Test
@@ -71,7 +75,7 @@ class DefaultLanguageDAOTest {
         sut.create(model = model, projectId = projectId)
 
         val res = sut.getByCode(code = "it", projectId = projectId)
-        assert(res == null)
+        assertNotNull(res)
     }
 
     @Test
@@ -79,12 +83,12 @@ class DefaultLanguageDAOTest {
         val model = LanguageModel(code = "en")
         val id = sut.create(model = model, projectId = projectId)
         val old = sut.getById(id)
-        assert(old != null)
+        assertNotNull(old)
 
         sut.delete(model.copy(id = id))
 
         val res = sut.getById(id)
-        assert(res == null)
+        assertNull(res)
     }
 
     @Test
@@ -96,6 +100,6 @@ class DefaultLanguageDAOTest {
 
         val res = sut.getAll(projectId = projectId)
 
-        assert(res.size == 2)
+        assertEquals(2, res.size)
     }
 }

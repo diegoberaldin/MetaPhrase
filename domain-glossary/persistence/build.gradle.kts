@@ -29,5 +29,18 @@ kotlin {
                 implementation(projects.domainGlossary.data)
             }
         }
+        val jvmTest by getting {
+            dependencies {
+                implementation(libs.kotlinx.coroutines.test)
+                implementation(kotlin("test-junit5"))
+                implementation(projects.coreCommon)
+                implementation(projects.corePersistence)
+                implementation(projects.domainGlossary.data)
+            }
+        }
     }
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
 }
