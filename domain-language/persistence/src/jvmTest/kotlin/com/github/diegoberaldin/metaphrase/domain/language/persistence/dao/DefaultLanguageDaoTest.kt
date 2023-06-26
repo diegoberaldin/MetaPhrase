@@ -87,7 +87,7 @@ class DefaultLanguageDaoTest {
         sut.create(model = model, projectId = projectId)
 
         val res = sut.getByCode(code = "it", projectId = projectId)
-        assertNotNull(res)
+        assertNull(res)
     }
 
     @Test
