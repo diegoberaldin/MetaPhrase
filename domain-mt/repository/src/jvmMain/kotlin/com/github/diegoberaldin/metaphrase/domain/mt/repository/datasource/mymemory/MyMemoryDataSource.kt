@@ -1,9 +1,9 @@
 package com.github.diegoberaldin.metaphrase.domain.mt.repository.datasource.mymemory
 
 import com.github.diegoberaldin.metaphrase.domain.mt.repository.datasource.MachineTranslationDataSource
-import com.github.diegoberaldin.metaphrase.domain.mt.repository.datasource.client
 import com.github.diegoberaldin.metaphrase.domain.mt.repository.datasource.mymemory.dto.ServiceKey
 import com.github.diegoberaldin.metaphrase.domain.mt.repository.datasource.mymemory.dto.ServiceResponse
+import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.HttpRequestBuilder
 import io.ktor.client.request.forms.InputProvider
@@ -19,7 +19,9 @@ import io.ktor.http.quote
 import io.ktor.utils.io.streams.asInput
 import java.io.File
 
-internal class MyMemoryDataSource : MachineTranslationDataSource {
+internal class MyMemoryDataSource(
+    private val client: HttpClient,
+) : MachineTranslationDataSource {
     private object Urls {
         const val Base = "https://api.mymemory.translated.net"
         const val GetTranslation = "$Base/get"
@@ -120,11 +122,40 @@ internal class MyMemoryDataSource : MachineTranslationDataSource {
                     method = HttpMethod.Post
                     url(Urls.Import)
                     formData {
-                        "file".quote()
-                        InputProvider(file.length()) { file.inputStream().asInput() }
-                        Headers.build {
-                            append(HttpHeaders.ContentDisposition, "filename=${file.name.quote()}")
+                        if (!key.isNullOrEmpty()) {
+                            append(
+                                key = "key".quote(),
+                                value = key,
+                                headers = Headers.build { append(HttpHeaders.ContentType, "text") },
+                            )
                         }
+                        append(
+                            key = "private".quote(),
+                            value = private,
+                            headers = Headers.build { append(HttpHeaders.ContentType, "text") },
+                        )
+                        if (!name.isNullOrEmpty()) {
+                            append(
+                                key = "name".quote(),
+                                value = name,
+                                headers = Headers.build { append(HttpHeaders.ContentType, "text") },
+                            )
+                        }
+                        if (!subject.isNullOrEmpty()) {
+                            append(
+                                key = "subj".quote(),
+                                value = subject,
+                                headers = Headers.build { append(HttpHeaders.ContentType, "text") },
+                            )
+                        }
+
+                        append(
+                            key = "file".quote(),
+                            value = InputProvider(file.length()) { file.inputStream().asInput() },
+                            headers = Headers.build {
+                                append(HttpHeaders.ContentDisposition, "filename=${file.name.quote()}")
+                            },
+                        )
                     }
                 },
             )
