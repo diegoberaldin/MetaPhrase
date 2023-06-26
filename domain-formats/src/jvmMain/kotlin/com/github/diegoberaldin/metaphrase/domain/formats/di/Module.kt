@@ -20,7 +20,7 @@ import com.github.diegoberaldin.metaphrase.domain.formats.json.DefaultExportJson
 import com.github.diegoberaldin.metaphrase.domain.formats.json.DefaultParseJsonUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.json.ExportJsonUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.json.ParseJsonUseCase
-import com.github.diegoberaldin.metaphrase.domain.formats.po.DefaultExportPoResourcesUseCase
+import com.github.diegoberaldin.metaphrase.domain.formats.po.DefaultExportPoUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.po.DefaultParsePoUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.po.ExportPoUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.po.ParsePoUseCase
@@ -80,7 +80,7 @@ private val poModule = module {
         )
     }
     single<ExportPoUseCase> {
-        DefaultExportPoResourcesUseCase(
+        DefaultExportPoUseCase(
             dispatchers = get(),
         )
     }
