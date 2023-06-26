@@ -60,11 +60,23 @@ class DefaultLanguageDaoTest {
     }
 
     @Test
-    fun givenExistingLanguageWhenGeyByCodeIsCalledThenValueIsReturned() = runTest {
+    fun givenExistingLanguageWhenGetByCodeIsCalledThenValueIsReturned() = runTest {
         val model = LanguageModel(code = "en")
         sut.create(model = model, projectId = projectId)
 
         val res = sut.getByCode(code = "en", projectId = projectId)
+        assertNotNull(res)
+        assertEquals("en", res.code)
+    }
+
+    @Test
+    fun givenExistingLanguageWhenGetBaseIsCalledThenValueIsReturned() = runTest {
+        val model1 = LanguageModel(code = "en", isBase = true)
+        val model2 = LanguageModel(code = "it")
+        sut.create(model = model1, projectId = projectId)
+        sut.create(model = model2, projectId = projectId)
+
+        val res = sut.getBase(projectId)
         assertNotNull(res)
         assertEquals("en", res.code)
     }

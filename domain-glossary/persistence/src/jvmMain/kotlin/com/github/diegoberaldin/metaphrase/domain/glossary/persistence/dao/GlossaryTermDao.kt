@@ -1,7 +1,6 @@
 package com.github.diegoberaldin.metaphrase.domain.glossary.persistence.dao
 
 import com.github.diegoberaldin.metaphrase.domain.glossary.data.GlossaryTermModel
-import org.jetbrains.exposed.sql.ResultRow
 
 /**
  * Contract for the glossary term dao.
@@ -13,7 +12,7 @@ interface GlossaryTermDao {
      * @param model Term to insert
      * @return ID of the newly created term
      */
-    suspend fun insert(model: GlossaryTermModel): Int
+    suspend fun create(model: GlossaryTermModel): Int
 
     /**
      * Get all the terms in the glossary.
@@ -97,9 +96,8 @@ interface GlossaryTermDao {
      *
      * @param sourceId Source term ID
      * @param targetId Target term ID
-     * @return
      */
-    suspend fun disassociate(sourceId: Int, targetId: Int): Int
+    suspend fun disassociate(sourceId: Int, targetId: Int)
 
     /**
      * Determine whether a term is still referenced by any other term in the glossary.

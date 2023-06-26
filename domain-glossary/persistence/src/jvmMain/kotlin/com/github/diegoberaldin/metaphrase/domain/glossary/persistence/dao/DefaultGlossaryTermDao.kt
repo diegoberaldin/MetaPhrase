@@ -18,7 +18,7 @@ import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransacti
 import org.jetbrains.exposed.sql.update
 
 class DefaultGlossaryTermDao : GlossaryTermDao {
-    override suspend fun insert(model: GlossaryTermModel): Int = newSuspendedTransaction {
+    override suspend fun create(model: GlossaryTermModel): Int = newSuspendedTransaction {
         GlossaryTermEntity.insertIgnore {
             it[lemma] = model.lemma
             it[lang] = model.lang
@@ -166,7 +166,7 @@ class DefaultGlossaryTermDao : GlossaryTermDao {
         }
     }
 
-    override suspend fun disassociate(sourceId: Int, targetId: Int) = newSuspendedTransaction {
+    override suspend fun disassociate(sourceId: Int, targetId: Int): Unit = newSuspendedTransaction {
         GlossaryTermRelationshipEntity.deleteWhere {
             ((id1 eq sourceId) and (id2 eq targetId)).or(((id2 eq sourceId) and (id1 eq targetId)))
         }

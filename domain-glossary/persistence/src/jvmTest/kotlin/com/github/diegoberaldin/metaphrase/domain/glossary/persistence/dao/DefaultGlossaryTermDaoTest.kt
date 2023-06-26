@@ -37,7 +37,7 @@ class DefaultGlossaryTermDaoTest {
     @Test
     fun givenEmptyDatabaseWhenTermInsertedThenRowIsCreated() = runTest {
         val model = GlossaryTermModel(lemma = "test", lang = "en")
-        val id = sut.insert(model = model)
+        val id = sut.create(model = model)
         assertTrue(id > 0)
     }
 
@@ -50,7 +50,7 @@ class DefaultGlossaryTermDaoTest {
     @Test
     fun givenNonEmptyDatabaseWhenGetAllIsInvokedThenTermsAreRetrieved() = runTest {
         val model = GlossaryTermModel(lemma = "test", lang = "en")
-        sut.insert(model = model)
+        sut.create(model = model)
 
         val res = sut.getAll()
         assertEquals(1, res.size)
@@ -59,7 +59,7 @@ class DefaultGlossaryTermDaoTest {
     @Test
     fun givenExistingTermWhenGetByIdIsInvokedThenTermIsRetrieved() = runTest {
         val model = GlossaryTermModel(lemma = "test", lang = "en")
-        val id = sut.insert(model = model)
+        val id = sut.create(model = model)
 
         val res = sut.getById(id)
         assertNotNull(res)
@@ -69,7 +69,7 @@ class DefaultGlossaryTermDaoTest {
     @Test
     fun givenNonExistingTermWhenGetByIdIsInvokedThenNoTermIsRetrieved() = runTest {
         val model = GlossaryTermModel(lemma = "test", lang = "en")
-        sut.insert(model = model)
+        sut.create(model = model)
 
         val res = sut.getById(2)
         assertNull(res)
@@ -78,7 +78,7 @@ class DefaultGlossaryTermDaoTest {
     @Test
     fun givenExistingTermWhenGetByLemmaIsInvokedThenTermIsRetrieved() = runTest {
         val model = GlossaryTermModel(lemma = "test", lang = "en")
-        val id = sut.insert(model = model)
+        val id = sut.create(model = model)
 
         val res = sut.getBy(lemma = "test", lang = "en")
         assertNotNull(res)
@@ -88,7 +88,7 @@ class DefaultGlossaryTermDaoTest {
     @Test
     fun givenNonExistingTermWhenGetByLemmaIsInvokedThenNoTermIsRetrieved() = runTest {
         val model = GlossaryTermModel(lemma = "test", lang = "en")
-        sut.insert(model = model)
+        sut.create(model = model)
 
         val res = sut.getBy(lemma = "other", lang = "en")
         assertNull(res)
@@ -97,7 +97,7 @@ class DefaultGlossaryTermDaoTest {
     @Test
     fun givenExistingTermWhenGetByLemmaIsInvokedWithOtherLanguageThenNoTermIsRetrieved() = runTest {
         val model = GlossaryTermModel(lemma = "test", lang = "en")
-        val id = sut.insert(model = model)
+        val id = sut.create(model = model)
 
         val res = sut.getBy(lemma = "test", lang = "it")
         assertNull(res)
@@ -106,7 +106,7 @@ class DefaultGlossaryTermDaoTest {
     @Test
     fun givenExistingTermWhenUpdateIsInvokedThenTermIsUpdated() = runTest {
         val model = GlossaryTermModel(lemma = "test", lang = "en")
-        val id = sut.insert(model = model)
+        val id = sut.create(model = model)
 
         sut.update(model.copy(id = id, lemma = "updated"))
 
@@ -118,7 +118,7 @@ class DefaultGlossaryTermDaoTest {
     @Test
     fun givenExistingTermWhenDeleteIsInvokedThenTermIsDeleted() = runTest {
         val model = GlossaryTermModel(lemma = "test", lang = "en")
-        val id = sut.insert(model = model)
+        val id = sut.create(model = model)
 
         sut.delete(model.copy(id = id, lemma = "updated"))
 
@@ -130,8 +130,8 @@ class DefaultGlossaryTermDaoTest {
     fun givenExistingTermsWhenDeleteAllIsInvokedThenNoTermsAreRetrieved() = runTest {
         val term1 = GlossaryTermModel(lemma = "test 1", lang = "en")
         val term2 = GlossaryTermModel(lemma = "test 2", lang = "en")
-        sut.insert(model = term1)
-        sut.insert(model = term2)
+        sut.create(model = term1)
+        sut.create(model = term2)
         var before = sut.getAll()
         assertEquals(2, before.size)
 
@@ -145,8 +145,8 @@ class DefaultGlossaryTermDaoTest {
     fun givenExistingTermsWhenAssociatedThenRelationshipIsRetrieved() = runTest {
         val term1 = GlossaryTermModel(lemma = "test en", lang = "en")
         val term2 = GlossaryTermModel(lemma = "test it", lang = "it")
-        val id1 = sut.insert(model = term1)
-        val id2 = sut.insert(model = term2)
+        val id1 = sut.create(model = term1)
+        val id2 = sut.create(model = term2)
 
         val associatedBefore = sut.areAssociated(id1, id2)
         assertFalse(associatedBefore)
@@ -164,7 +164,7 @@ class DefaultGlossaryTermDaoTest {
     @Test
     fun givenNoAssociatedTermsWhenGetAssociatedByLangThenNoResultIsRetrieved() = runTest {
         val term1 = GlossaryTermModel(lemma = "test en", lang = "en")
-        val id1 = sut.insert(model = term1)
+        val id1 = sut.create(model = term1)
 
         val res = sut.getAssociated(term1.copy(id = id1), "it")
         assertEquals(0, res.size)
@@ -175,9 +175,9 @@ class DefaultGlossaryTermDaoTest {
         val term1 = GlossaryTermModel(lemma = "test en", lang = "en")
         val term2 = GlossaryTermModel(lemma = "test it", lang = "it")
         val term3 = GlossaryTermModel(lemma = "test it", lang = "es")
-        val id1 = sut.insert(model = term1)
-        val id2 = sut.insert(model = term2)
-        val id3 = sut.insert(model = term3)
+        val id1 = sut.create(model = term1)
+        val id2 = sut.create(model = term2)
+        val id3 = sut.create(model = term3)
         sut.associate(id1, id2)
         sut.associate(id1, id3)
 
@@ -193,9 +193,9 @@ class DefaultGlossaryTermDaoTest {
         val term1 = GlossaryTermModel(lemma = "test en", lang = "en")
         val term2 = GlossaryTermModel(lemma = "test it", lang = "it")
         val term3 = GlossaryTermModel(lemma = "test it", lang = "es")
-        val id1 = sut.insert(model = term1)
-        val id2 = sut.insert(model = term2)
-        val id3 = sut.insert(model = term3)
+        val id1 = sut.create(model = term1)
+        val id2 = sut.create(model = term2)
+        val id3 = sut.create(model = term3)
         sut.associate(id1, id2)
         sut.associate(id1, id3)
 
@@ -207,8 +207,8 @@ class DefaultGlossaryTermDaoTest {
     fun givenExistingAssociatedTermsWhenDisassociatedThenNoResultIsRetrieved() = runTest {
         val term1 = GlossaryTermModel(lemma = "test en", lang = "en")
         val term2 = GlossaryTermModel(lemma = "test it", lang = "it")
-        val id1 = sut.insert(model = term1)
-        val id2 = sut.insert(model = term2)
+        val id1 = sut.create(model = term1)
+        val id2 = sut.create(model = term2)
         sut.associate(id1, id2)
 
         val resBefore = sut.getAssociated(term1.copy(id = id1), "it")
@@ -222,7 +222,7 @@ class DefaultGlossaryTermDaoTest {
     @Test
     fun givenNoAssociatedTermsWhenIsStillReferencedThenCorrectResultIsRetrieved() = runTest {
         val term1 = GlossaryTermModel(lemma = "test en", lang = "en")
-        val id1 = sut.insert(model = term1)
+        val id1 = sut.create(model = term1)
 
         val res = sut.isStillReferenced(id1)
         assertFalse(res)
@@ -232,8 +232,8 @@ class DefaultGlossaryTermDaoTest {
     fun givenAssociatedTermsWhenIsStillReferencedThenCorrectResultIsRetrieved() = runTest {
         val term1 = GlossaryTermModel(lemma = "test en", lang = "en")
         val term2 = GlossaryTermModel(lemma = "test it", lang = "it")
-        val id1 = sut.insert(model = term1)
-        val id2 = sut.insert(model = term2)
+        val id1 = sut.create(model = term1)
+        val id2 = sut.create(model = term2)
         sut.associate(id1, id2)
 
         val res1 = sut.isStillReferenced(id1)
@@ -246,8 +246,8 @@ class DefaultGlossaryTermDaoTest {
     fun givenAssociationDeletedWhenIsStillReferencedThenCorrectResultIsRetrieved() = runTest {
         val term1 = GlossaryTermModel(lemma = "test en", lang = "en")
         val term2 = GlossaryTermModel(lemma = "test it", lang = "it")
-        val id1 = sut.insert(model = term1)
-        val id2 = sut.insert(model = term2)
+        val id1 = sut.create(model = term1)
+        val id2 = sut.create(model = term2)
         sut.associate(id1, id2)
 
         sut.disassociate(id1, id2)
