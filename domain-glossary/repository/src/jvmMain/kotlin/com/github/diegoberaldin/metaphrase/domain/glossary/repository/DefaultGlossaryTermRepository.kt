@@ -6,7 +6,7 @@ import com.github.diegoberaldin.metaphrase.domain.glossary.persistence.dao.Gloss
 internal class DefaultGlossaryTermRepository(
     private val dao: GlossaryTermDao,
 ) : GlossaryTermRepository {
-    override suspend fun create(model: GlossaryTermModel) = dao.insert(model)
+    override suspend fun create(model: GlossaryTermModel) = dao.create(model)
 
     override suspend fun getById(id: Int) = dao.getById(id)
 

@@ -24,8 +24,9 @@ class DefaultImportGlossaryUseCase(
                     val parseResult = CSVFormat.Builder.create(CSVFormat.DEFAULT).apply {
                         setIgnoreSurroundingSpaces(true)
                     }.build().parse(reader)
-                    val headers = parseResult.first().toList()
-                    for (record in parseResult.drop(1)) {
+                    val records = parseResult.records.toList()
+                    val headers = records.first().values().toList()
+                    for (record in records.subList(1, records.size)) {
                         processRecord(record, headers)
                     }
                 }
@@ -35,7 +36,7 @@ class DefaultImportGlossaryUseCase(
 
     private suspend fun processRecord(
         record: CSVRecord,
-        headers: MutableList<String>,
+        headers: List<String>,
     ) {
         val associationMap = mutableMapOf<String, List<Int>>()
         for (index in 0 until record.size()) {

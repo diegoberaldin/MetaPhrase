@@ -96,9 +96,8 @@ interface GlossaryTermRepository {
      *
      * @param sourceId Source term ID
      * @param targetId Target term ID
-     * @return
      */
-    suspend fun disassociate(sourceId: Int, targetId: Int): Int
+    suspend fun disassociate(sourceId: Int, targetId: Int)
 
     /**
      * Determine whether a term still referenced by at least another term in the glossary.

@@ -38,10 +38,18 @@ class DefaultExportGlossaryUseCase(
                                 set += aTerm.id
                             }
                         }
-                        val listOfMaps = conceptSets.map { set ->
+                        val cleanConceptSets = mutableListOf<MutableSet<Int>>()
+                        for (set in conceptSets) {
+                            if (cleanConceptSets.all { it.intersect(set).isEmpty() }) {
+                                cleanConceptSets += set
+                            }
+                        }
+                        val listOfMaps = cleanConceptSets.map { set ->
                             set.mapNotNull { termId -> repository.getById(termId) }
                                 .groupBy { term -> term.lang }
-                                .map { entry -> entry.key to entry.value.joinToString(",") { term -> term.lemma } }
+                                .map { entry ->
+                                    entry.key to entry.value.joinToString(",") { term -> term.lemma }
+                                }
                                 .toMap()
                         }
 

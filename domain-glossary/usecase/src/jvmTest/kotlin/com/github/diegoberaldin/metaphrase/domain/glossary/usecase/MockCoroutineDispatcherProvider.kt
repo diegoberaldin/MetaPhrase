@@ -1,4 +1,4 @@
-package com.github.diegoberaldin.metaphrase.domain.formats
+package com.github.diegoberaldin.metaphrase.domain.glossary.usecase
 
 import com.github.diegoberaldin.metaphrase.core.common.coroutines.CoroutineDispatcherProvider
 import kotlinx.coroutines.CoroutineDispatcher
