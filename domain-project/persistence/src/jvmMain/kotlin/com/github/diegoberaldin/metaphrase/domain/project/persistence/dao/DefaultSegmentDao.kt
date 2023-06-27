@@ -53,7 +53,8 @@ class DefaultSegmentDao : SegmentDao {
     }
 
     override suspend fun getUntranslatable(languageId: Int): List<SegmentModel> = newSuspendedTransaction {
-        SegmentEntity.select { SegmentEntity.languageId eq languageId }.orderBy(SegmentEntity.key).map { it.toModel() }
+        SegmentEntity.select { (SegmentEntity.languageId eq languageId) and (SegmentEntity.translatable eq false) }
+            .orderBy(SegmentEntity.key).map { it.toModel() }
     }
 
     override suspend fun search(
