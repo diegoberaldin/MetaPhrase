@@ -1,7 +1,7 @@
 # MetaPhrase
 
-![kotlin](https://img.shields.io/badge/kotlin-1.8.0-blue?logo=kotlin)
-![compose](https://img.shields.io/badge/Jetpack_Compose-1.4.0-green?logo=jetpackcompose)
+![kotlin](https://img.shields.io/badge/kotlin-1.8.0-7f52ff?logo=kotlin)
+![compose](https://img.shields.io/badge/Jetpack_Compose-1.4.0-3e7fea?logo=jetpackcompose)
 ![license](https://img.shields.io/github/license/diegoberaldin/MetaPhrase)
 ![gradle_build](https://github.com/diegoberaldin/MetaPhrase/actions/workflows/gradle.yml/badge.svg)
 
