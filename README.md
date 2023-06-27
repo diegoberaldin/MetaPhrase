@@ -1,5 +1,8 @@
 # MetaPhrase
 
+![kotlin](https://img.shields.io/badge/kotlin-1.8.0-blue?logo=kotlin)
+![compose](https://img.shields.io/badge/Jetpack_Compose-1.4.0-green?logo=jetpackcompose)
+![license](https://img.shields.io/github/license/diegoberaldin/MetaPhrase)
 ![gradle_build](https://github.com/diegoberaldin/MetaPhrase/actions/workflows/gradle.yml/badge.svg)
 
 An open source translation editor specifically designed having in mind the issues localizers of native mobile apps (Android and iOS apps) have to deal with in their everyday tasks.
