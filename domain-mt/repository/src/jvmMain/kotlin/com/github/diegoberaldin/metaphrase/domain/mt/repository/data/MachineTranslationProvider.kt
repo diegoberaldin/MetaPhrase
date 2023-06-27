@@ -12,6 +12,5 @@ enum class MachineTranslationProvider {
     val readableName: String
         get() = when (this) {
             MY_MEMORY -> "MyMemory"
-            else -> ""
         }
 }

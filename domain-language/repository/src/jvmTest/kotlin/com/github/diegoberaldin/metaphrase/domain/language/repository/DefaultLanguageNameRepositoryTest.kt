@@ -2,12 +2,11 @@ package com.github.diegoberaldin.metaphrase.domain.language.repository
 
 import com.github.diegoberaldin.metaphrase.core.localization.L10n
 import com.github.diegoberaldin.metaphrase.core.localization.di.localizationModule
-import org.koin.core.component.KoinComponent
 import org.koin.core.context.startKoin
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class DefaultLanguageNameRepositoryTest : KoinComponent {
+class DefaultLanguageNameRepositoryTest {
 
     private val sut = DefaultLanguageNameRepository()
 

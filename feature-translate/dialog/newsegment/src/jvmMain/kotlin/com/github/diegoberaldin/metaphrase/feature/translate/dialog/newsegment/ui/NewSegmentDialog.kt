@@ -44,7 +44,7 @@ fun NewSegmentDialog(
 ) {
     LaunchedEffect(component) {
         component.done.onEach {
-            onClose?.invoke()
+            onClose.invoke()
         }.launchIn(this)
     }
     MetaPhraseTheme {

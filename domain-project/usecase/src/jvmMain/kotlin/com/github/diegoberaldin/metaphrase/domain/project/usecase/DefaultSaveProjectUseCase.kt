@@ -48,6 +48,8 @@ internal class DefaultSaveProjectUseCase(
                 FileWriter(file).use {
                     it.write(content)
                 }
+            }.exceptionOrNull()?.also {
+                it.printStackTrace()
             }
         }
     }
