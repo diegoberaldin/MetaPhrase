@@ -11,7 +11,7 @@ import kotlinx.serialization.json.JsonPrimitive
 import java.io.File
 import java.io.FileWriter
 
-class DefaultExportArbUseCase(
+internal class DefaultExportArbUseCase(
     private val dispatchers: CoroutineDispatcherProvider,
 ) : ExportArbUseCase {
     private val json = Json {
