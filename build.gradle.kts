@@ -71,3 +71,7 @@ compose.desktop {
         }
     }
 }
+
+tasks.withType<Test>() {
+    useJUnitPlatform()
+}

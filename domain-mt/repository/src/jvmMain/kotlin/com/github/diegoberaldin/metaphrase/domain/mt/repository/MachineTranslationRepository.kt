@@ -21,7 +21,7 @@ interface MachineTranslationRepository {
      *
      * @param provider Machine translation provider
      * @param key API key for the provider (optional)
-     * @param message Message to translate
+     * @param sourceMessage Message to translate
      * @param sourceLang Source language code
      * @param targetLang Target language code
      * @return a suggestion from the MT provider
@@ -29,7 +29,7 @@ interface MachineTranslationRepository {
     suspend fun getTranslation(
         provider: MachineTranslationProvider = MachineTranslationProvider.MY_MEMORY,
         key: String? = null,
-        message: String,
+        sourceMessage: String,
         sourceLang: String,
         targetLang: String,
     ): String

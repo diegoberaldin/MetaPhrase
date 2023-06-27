@@ -34,8 +34,6 @@ internal class DefaultMachineTranslationRepository(
                     targetLang = targetLang,
                 )
             }
-
-            else -> ""
         }
 
         // save result in cache
@@ -61,8 +59,6 @@ internal class DefaultMachineTranslationRepository(
                     targetLang = targetLang,
                 )
             }
-
-            else -> Unit
         }
     }
 
@@ -71,8 +67,6 @@ internal class DefaultMachineTranslationRepository(
             MachineTranslationProvider.MY_MEMORY -> {
                 myMemoryDataSource.generateKey(username = username, password = password)
             }
-
-            else -> ""
         }
 
     override suspend fun importTm(
@@ -93,8 +87,6 @@ internal class DefaultMachineTranslationRepository(
                     subject = subject,
                 )
             }
-
-            else -> ""
         }
     }
 }

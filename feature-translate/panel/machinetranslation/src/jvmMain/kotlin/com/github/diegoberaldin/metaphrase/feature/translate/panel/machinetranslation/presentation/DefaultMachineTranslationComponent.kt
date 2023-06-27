@@ -102,7 +102,7 @@ internal class DefaultMachineTranslationComponent(
             val mtResult = machineTranslationRepository.getTranslation(
                 provider = provider,
                 key = key,
-                message = lastMessage,
+                sourceMessage = lastMessage,
                 sourceLang = lastSourceLang,
                 targetLang = lastTargetLang,
             )
