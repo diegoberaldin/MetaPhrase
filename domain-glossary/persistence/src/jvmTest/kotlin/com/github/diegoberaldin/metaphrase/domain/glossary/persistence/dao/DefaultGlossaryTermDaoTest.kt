@@ -98,7 +98,7 @@ class DefaultGlossaryTermDaoTest {
     @Test
     fun givenExistingTermWhenGetByLemmaIsInvokedWithOtherLanguageThenNoTermIsRetrieved() = runTest {
         val model = GlossaryTermModel(lemma = "test", lang = "en")
-        val id = sut.create(model = model)
+        sut.create(model = model)
 
         val res = sut.getBy(lemma = "test", lang = "it")
         assertNull(res)
