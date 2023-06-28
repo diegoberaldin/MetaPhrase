@@ -20,7 +20,6 @@ class LruCacheTest {
     @Test
     fun givenCacheWhenQueriedNonExistingKeyThenNullIsRetrieved() {
         val key = "key"
-        val value = "test"
         assertNull(sut[key])
     }
 

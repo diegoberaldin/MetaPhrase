@@ -58,7 +58,7 @@ class DefaultRecentProjectDaoTest {
     @Test
     fun givenDatabaseWhenGetByNameThenEntityIsRetrieved() = runTest {
         val model = RecentProjectModel(name = "test")
-        val id = sut.create(model)
+        sut.create(model)
 
         val res = sut.getByName("test")
         assertNotNull(res)
