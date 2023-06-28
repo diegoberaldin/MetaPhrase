@@ -20,7 +20,7 @@ interface MemoryEntryDao {
      * @param model Model to delete
      * @return
      */
-    suspend fun delete(model: TranslationMemoryEntryModel): Int
+    suspend fun delete(model: TranslationMemoryEntryModel)
 
     /**
      * Delete all the entries with a given origin.

@@ -65,7 +65,7 @@ class DefaultMemoryEntryDao : MemoryEntryDao {
         entryId
     }
 
-    override suspend fun delete(model: TranslationMemoryEntryModel) = newSuspendedTransaction {
+    override suspend fun delete(model: TranslationMemoryEntryModel): Unit = newSuspendedTransaction {
         MemoryEntryEntity.deleteWhere { MemoryEntryEntity.id eq model.id }
     }
 
@@ -193,7 +193,7 @@ class DefaultMemoryEntryDao : MemoryEntryDao {
                     joinType = JoinType.INNER,
                 ).select {
                     MemoryMessageEntity.text.like(pattern)
-                }
+                }.distinctBy { it[MemoryEntryEntity.identifier] }
             }.mapNotNull {
                 val entryId = it[MemoryEntryEntity.id].value
                 val identifier = it[MemoryEntryEntity.identifier]

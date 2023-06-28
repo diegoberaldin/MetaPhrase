@@ -1,5 +1,6 @@
 package com.github.diegoberaldin.metaphrase.domain.glossary.persistence.dao
 
+import com.github.diegoberaldin.metaphrase.core.common.testutils.MockFileManager
 import com.github.diegoberaldin.metaphrase.core.persistence.AppDatabase
 import com.github.diegoberaldin.metaphrase.domain.glossary.data.GlossaryTermModel
 import kotlinx.coroutines.test.runTest

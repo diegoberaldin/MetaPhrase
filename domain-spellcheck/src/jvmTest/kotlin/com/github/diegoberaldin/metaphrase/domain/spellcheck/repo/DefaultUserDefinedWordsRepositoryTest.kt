@@ -1,8 +1,8 @@
 package com.github.diegoberaldin.metaphrase.domain.spellcheck.repo
 
 import com.github.diegoberaldin.metaphrase.core.common.files.FileManager
-import com.github.diegoberaldin.metaphrase.domain.spellcheck.MockCoroutineDispatcherProvider
-import com.github.diegoberaldin.metaphrase.domain.spellcheck.MockFileManager
+import com.github.diegoberaldin.metaphrase.core.common.testutils.MockCoroutineDispatcherProvider
+import com.github.diegoberaldin.metaphrase.core.common.testutils.MockFileManager
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest

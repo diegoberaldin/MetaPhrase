@@ -34,6 +34,7 @@ kotlin {
                 implementation(libs.kotlinx.coroutines.test)
                 implementation(kotlin("test-junit5"))
                 implementation(projects.coreCommon)
+                implementation(projects.coreCommon.testutils)
                 implementation(projects.corePersistence)
                 implementation(projects.domainProject.data)
                 implementation(projects.domainLanguage.data)
