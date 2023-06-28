@@ -1,5 +1,6 @@
 package com.github.diegoberaldin.metaphrase.domain.project.usecase
 
+import com.github.diegoberaldin.metaphrase.core.common.testutils.MockCoroutineDispatcherProvider
 import com.github.diegoberaldin.metaphrase.domain.project.data.SegmentModel
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test

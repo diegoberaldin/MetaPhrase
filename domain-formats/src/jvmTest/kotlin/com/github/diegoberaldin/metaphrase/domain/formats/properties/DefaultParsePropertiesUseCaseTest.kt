@@ -1,7 +1,7 @@
 package com.github.diegoberaldin.metaphrase.domain.formats.properties
 
-import com.github.diegoberaldin.metaphrase.domain.formats.MockCoroutineDispatcherProvider
-import com.github.diegoberaldin.metaphrase.domain.formats.MockFileManager
+import com.github.diegoberaldin.metaphrase.core.common.testutils.MockCoroutineDispatcherProvider
+import com.github.diegoberaldin.metaphrase.core.common.testutils.MockFileManager
 import kotlinx.coroutines.test.runTest
 import java.io.File
 import java.io.FileWriter

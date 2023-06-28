@@ -1,7 +1,7 @@
 package com.github.diegoberaldin.metaphrase.domain.formats.ios
 
-import com.github.diegoberaldin.metaphrase.domain.formats.MockCoroutineDispatcherProvider
-import com.github.diegoberaldin.metaphrase.domain.formats.MockFileManager
+import com.github.diegoberaldin.metaphrase.core.common.testutils.MockCoroutineDispatcherProvider
+import com.github.diegoberaldin.metaphrase.core.common.testutils.MockFileManager
 import com.github.diegoberaldin.metaphrase.domain.project.data.SegmentModel
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.fail

@@ -1,5 +1,6 @@
 package com.github.diegoberaldin.metaphrase.domain.glossary.usecase
 
+import com.github.diegoberaldin.metaphrase.core.common.testutils.MockCoroutineDispatcherProvider
 import com.github.diegoberaldin.metaphrase.domain.glossary.data.GlossaryTermModel
 import com.github.diegoberaldin.metaphrase.domain.glossary.repository.GlossaryTermRepository
 import com.github.diegoberaldin.metaphrase.domain.spellcheck.spelling.Spelling

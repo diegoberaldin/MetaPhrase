@@ -1,5 +1,6 @@
 package com.github.diegoberaldin.metaphrase.core.persistence
 
+import com.github.diegoberaldin.metaphrase.core.common.testutils.MockFileManager
 import com.github.diegoberaldin.metaphrase.domain.glossary.persistence.dao.GlossaryTermDao
 import com.github.diegoberaldin.metaphrase.domain.language.persistence.dao.LanguageDao
 import com.github.diegoberaldin.metaphrase.domain.project.persistence.dao.ProjectDao

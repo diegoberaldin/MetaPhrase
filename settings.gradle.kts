@@ -19,6 +19,7 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 include(
     ":core-common",
+    ":core-common:testutils",
     ":core-localization",
     ":core-persistence",
 

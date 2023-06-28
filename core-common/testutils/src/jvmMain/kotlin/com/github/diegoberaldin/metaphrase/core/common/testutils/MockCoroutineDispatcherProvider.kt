@@ -1,4 +1,4 @@
-package com.github.diegoberaldin.metaphrase.domain.spellcheck
+package com.github.diegoberaldin.metaphrase.core.common.testutils
 
 import com.github.diegoberaldin.metaphrase.core.common.coroutines.CoroutineDispatcherProvider
 import kotlinx.coroutines.CoroutineDispatcher

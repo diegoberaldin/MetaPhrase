@@ -34,6 +34,7 @@ kotlin {
                 implementation(libs.kotlinx.coroutines.test)
                 implementation(kotlin("test-junit5"))
                 implementation(libs.mockk)
+                implementation(projects.coreCommon.testutils)
             }
         }
     }

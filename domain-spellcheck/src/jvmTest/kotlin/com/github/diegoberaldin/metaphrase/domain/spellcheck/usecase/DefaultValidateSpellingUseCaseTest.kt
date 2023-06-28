@@ -1,7 +1,6 @@
 package com.github.diegoberaldin.metaphrase.domain.spellcheck.usecase
 
-import androidx.compose.runtime.key
-import com.github.diegoberaldin.metaphrase.domain.spellcheck.MockCoroutineDispatcherProvider
+import com.github.diegoberaldin.metaphrase.core.common.testutils.MockCoroutineDispatcherProvider
 import com.github.diegoberaldin.metaphrase.domain.spellcheck.data.SpellCheckCorrection
 import com.github.diegoberaldin.metaphrase.domain.spellcheck.repo.SpellCheckRepository
 import io.mockk.coEvery

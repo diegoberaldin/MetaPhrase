@@ -1,5 +1,6 @@
 package com.github.diegoberaldin.metaphrase.core.common.keystore
 
+import com.github.diegoberaldin.metaphrase.core.common.testutils.MockFileManager
 import kotlinx.coroutines.test.runTest
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest

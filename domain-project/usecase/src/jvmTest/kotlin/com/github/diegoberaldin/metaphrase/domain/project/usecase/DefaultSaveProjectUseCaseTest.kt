@@ -1,5 +1,7 @@
 package com.github.diegoberaldin.metaphrase.domain.project.usecase
 
+import com.github.diegoberaldin.metaphrase.core.common.testutils.MockCoroutineDispatcherProvider
+import com.github.diegoberaldin.metaphrase.core.common.testutils.MockFileManager
 import com.github.diegoberaldin.metaphrase.core.localization.L10n
 import com.github.diegoberaldin.metaphrase.core.localization.di.localizationModule
 import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel

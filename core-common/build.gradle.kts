@@ -33,6 +33,7 @@ kotlin {
             dependencies {
                 implementation(libs.kotlinx.coroutines.test)
                 implementation(kotlin("test-junit5"))
+                implementation(projects.coreCommon.testutils)
             }
         }
     }

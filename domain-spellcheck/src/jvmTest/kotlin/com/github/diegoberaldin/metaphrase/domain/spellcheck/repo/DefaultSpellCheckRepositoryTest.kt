@@ -1,6 +1,6 @@
 package com.github.diegoberaldin.metaphrase.domain.spellcheck.repo
 
-import com.github.diegoberaldin.metaphrase.domain.spellcheck.MockCoroutineDispatcherProvider
+import com.github.diegoberaldin.metaphrase.core.common.testutils.MockCoroutineDispatcherProvider
 import com.github.diegoberaldin.metaphrase.domain.spellcheck.data.SpellCheckCorrection
 import com.github.diegoberaldin.metaphrase.domain.spellcheck.spelling.Spelling
 import io.mockk.coEvery
