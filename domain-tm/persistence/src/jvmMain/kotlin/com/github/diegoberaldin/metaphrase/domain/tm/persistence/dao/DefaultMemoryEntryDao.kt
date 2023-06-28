@@ -193,7 +193,7 @@ class DefaultMemoryEntryDao : MemoryEntryDao {
                     joinType = JoinType.INNER,
                 ).select {
                     MemoryMessageEntity.text.like(pattern)
-                }
+                }.distinctBy { it[MemoryEntryEntity.identifier] }
             }.mapNotNull {
                 val entryId = it[MemoryEntryEntity.id].value
                 val identifier = it[MemoryEntryEntity.identifier]
