@@ -25,9 +25,8 @@ interface MemoryEntryRepository {
      * Delete a translation memory entry.
      *
      * @param model Model to delete
-     * @return
      */
-    suspend fun delete(model: TranslationMemoryEntryModel): Int
+    suspend fun delete(model: TranslationMemoryEntryModel): Unit
 
     /**
      * Delete all the translation memory entries having a given origin.

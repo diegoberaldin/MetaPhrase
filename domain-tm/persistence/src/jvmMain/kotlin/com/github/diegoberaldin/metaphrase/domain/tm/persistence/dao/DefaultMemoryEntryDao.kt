@@ -65,7 +65,7 @@ class DefaultMemoryEntryDao : MemoryEntryDao {
         entryId
     }
 
-    override suspend fun delete(model: TranslationMemoryEntryModel) = newSuspendedTransaction {
+    override suspend fun delete(model: TranslationMemoryEntryModel): Unit = newSuspendedTransaction {
         MemoryEntryEntity.deleteWhere { MemoryEntryEntity.id eq model.id }
     }
 
