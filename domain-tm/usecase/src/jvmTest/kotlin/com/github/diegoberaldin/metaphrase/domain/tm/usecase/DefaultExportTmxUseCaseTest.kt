@@ -65,7 +65,7 @@ class DefaultExportTmxUseCaseTest {
 <tmx version="1.4">
 	<header creationTool="MetaPhrase" creationToolVersion="1.0.0" segtype="sentence" o-tmf="tmx" adminLang="en-US" srcLang="en" datatype="plaintext"/>
 	<body>
-		<tu tuid="app_intro">
+		<tu>
 			<tuv xml:lang="en">
 				<seg>
 					Please open a project by selecting one of the following items.
