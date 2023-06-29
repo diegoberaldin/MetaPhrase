@@ -14,6 +14,7 @@ log4j = "2.20.0"
 mockk = "1.13.5"
 redundent = "1.9.0"
 sl4j = "1.7.30"
+turbine = "1.0.0"
 
 appVersion = "1.0.0-beta-03"
 buildNumber = "5"
@@ -37,6 +38,7 @@ kotlinx_coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing"
 kotlinx_coroutines_test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx_coroutines" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 ktor_client_mock = { module = "io.ktor:ktor-client-mock", version.ref = "ktor" }
+turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 
 # persistence
 h2database = { module = "com.h2database:h2", version.ref = "h2" }
