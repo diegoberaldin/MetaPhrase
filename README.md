@@ -1,8 +1,8 @@
 # MetaPhrase
 
-![kotlin](https://img.shields.io/badge/Kotlin-1.8.0-7f52ff?logo=kotlin)
+![kotlin](https://img.shields.io/badge/Kotlin-1.8.20-7f52ff?logo=kotlin)
 ![kotlin](https://img.shields.io/badge/platform-JVM-blue)
-![compose](https://img.shields.io/badge/Jetpack_Compose-1.4.0-3e7fea?logo=jetpackcompose)
+![compose](https://img.shields.io/badge/Jetpack_Compose-1.4.1-3e7fea?logo=jetpackcompose)
 ![license](https://img.shields.io/github/license/diegoberaldin/MetaPhrase)
 ![gradle_build](https://github.com/diegoberaldin/MetaPhrase/actions/workflows/gradle.yml/badge.svg)
 

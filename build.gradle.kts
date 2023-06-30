@@ -4,6 +4,7 @@ plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
     id("org.jetbrains.dokka") version "1.8.20"
+    id("com.github.ben-manes.versions") version "0.47.0"
 }
 
 group = "com.github.diegoberaldin.metaphrase"
