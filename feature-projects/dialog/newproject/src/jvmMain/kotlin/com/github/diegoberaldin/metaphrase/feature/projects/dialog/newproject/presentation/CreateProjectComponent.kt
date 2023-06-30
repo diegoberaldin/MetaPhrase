@@ -8,7 +8,6 @@ interface CreateProjectComponent {
 
     var projectId: Int
     val uiState: StateFlow<CreateProjectUiState>
-    val languagesUiState: StateFlow<CreateProjectLanguagesUiState>
     val done: SharedFlow<Int?>
 
     fun setName(value: String)

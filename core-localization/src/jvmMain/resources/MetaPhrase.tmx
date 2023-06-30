@@ -13,19 +13,14 @@
 					Apri un progetto selezionando una delle seguenti voci.
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Bitte öffnen Sie ein Projekt, indem Sie eines der folgenden Elemente auswählen.
+					Abrir un proyecto eligiendo entre las siguientes opciones.
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Veuillez ouvrir un projet en sélectionnant l&apos;un des éléments suivants.
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Abrir un proyecto eligiendo entre las siguientes opciones.
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -45,19 +40,14 @@
 					Nessun progetto recente.\n\nPuoi crearne uno nuovo utilizzando il menu &quot;Progetto&quot; &gt; &quot;Nuovo…&quot;.\n\nIn alternativa, puoi aprirne uno esistente dal menu &quot;Progetto&quot; &gt; &quot;Apri…&quot;.
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Kein aktuelles Projekt.\n\nBitte erstellen Sie ein neues über das Menü &quot;Projekt&quot; &gt; &quot;Neu...&quot;.\n\nAlternativ können Sie ein vorhandenes über das Menü &quot;Projekt&quot; &gt; &quot;Öffnen...&quot; öffnen.
+					Ningún proyecto reciente.\n\nPara crear uno nuevo, utilizar el menú &quot;Proyecto&quot; &gt; &quot;Nuevo…&quot;.\n\nDe otra forma, es posible abir uno existente a través del menu &quot;Proyecto&quot; &gt; &quot;Abrir…&quot;.!!!
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Aucun projet récent.\n\nVeuillez en créer un nouveau en utilisant le menu &quot;Projet&quot; &gt; &quot;Nouveau…&quot;.\n\nAlternativement, vous pouvez ouvrir un projet existant avec le menu &quot;Projet&quot; &gt; &quot;Ouvrir…&quot;.
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Ningún proyecto reciente.\n\nPara crear uno nuevo, utilizar el menú &quot;Proyecto&quot; &gt; &quot;Nuevo…&quot;.\n\nDe otra forma, es posible abir uno existente a través del menu &quot;Proyecto&quot; &gt; &quot;Abrir…&quot;.
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -77,19 +67,14 @@
 					Grazie per utilizzare MetaPhrase!
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Vielen Dank, dass Sie MetaPhrase verwenden!
+					¡Gracias por utilizar MetaPhrase!
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Merci d&apos;utiliser MetaPhrase !
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					¡Gracias por utilizar MetaPhrase!
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -100,6 +85,16 @@
 		</tu>
 		<tu tuid="app_name">
 			<tuv xml:lang="en">
+				<seg>
+					MetaPhrase
+				</seg>
+			</tuv>
+			<tuv xml:lang="fr">
+				<seg>
+					MetaPhrase
+				</seg>
+			</tuv>
+			<tuv xml:lang="pt">
 				<seg>
 					MetaPhrase
 				</seg>
@@ -116,19 +111,14 @@
 					Annulla
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Abbrechen
+					Cancelar
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Annuler
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Cancelar
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -148,9 +138,9 @@
 					Chiudi
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Schließen
+					Cerrar
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
@@ -158,110 +148,9 @@
 					Fermer
 				</seg>
 			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Cerrar
-				</seg>
-			</tuv>
 			<tuv xml:lang="pt">
 				<seg>
 					Fechar
-				</seg>
-			</tuv>
-		</tu>
-		<tu tuid="button_copy_target">
-			<tuv xml:lang="en">
-				<seg>
-					Copy target
-				</seg>
-			</tuv>
-			<tuv xml:lang="it">
-				<seg>
-					Copia destinazione
-				</seg>
-			</tuv>
-			<tuv xml:lang="de">
-				<seg>
-					Ziel kopieren
-				</seg>
-			</tuv>
-			<tuv xml:lang="fr">
-				<seg>
-					Copier la cible
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Copiar meta
-				</seg>
-			</tuv>
-			<tuv xml:lang="pt">
-				<seg>
-					Copiar meta
-				</seg>
-			</tuv>
-		</tu>
-		<tu tuid="button_generate">
-			<tuv xml:lang="en">
-				<seg>
-					Generate
-				</seg>
-			</tuv>
-			<tuv xml:lang="it">
-				<seg>
-					Genera
-				</seg>
-			</tuv>
-			<tuv xml:lang="de">
-				<seg>
-					Generator
-				</seg>
-			</tuv>
-			<tuv xml:lang="fr">
-				<seg>
-					Générer
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Generar
-				</seg>
-			</tuv>
-			<tuv xml:lang="pt">
-				<seg>
-					Gerar
-				</seg>
-			</tuv>
-		</tu>
-		<tu tuid="button_insert">
-			<tuv xml:lang="en">
-				<seg>
-					Insert
-				</seg>
-			</tuv>
-			<tuv xml:lang="it">
-				<seg>
-					Inserisci
-				</seg>
-			</tuv>
-			<tuv xml:lang="de">
-				<seg>
-					Einfügen
-				</seg>
-			</tuv>
-			<tuv xml:lang="fr">
-				<seg>
-					Insérer
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Insertar
-				</seg>
-			</tuv>
-			<tuv xml:lang="pt">
-				<seg>
-					Inserir
 				</seg>
 			</tuv>
 		</tu>
@@ -276,7 +165,7 @@
 					OK
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
 					OK
 				</seg>
@@ -286,110 +175,9 @@
 					OK
 				</seg>
 			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					OK
-				</seg>
-			</tuv>
 			<tuv xml:lang="pt">
 				<seg>
 					OK
-				</seg>
-			</tuv>
-		</tu>
-		<tu tuid="button_refresh">
-			<tuv xml:lang="en">
-				<seg>
-					Refresh
-				</seg>
-			</tuv>
-			<tuv xml:lang="it">
-				<seg>
-					Ricarica
-				</seg>
-			</tuv>
-			<tuv xml:lang="de">
-				<seg>
-					Aktualisieren
-				</seg>
-			</tuv>
-			<tuv xml:lang="fr">
-				<seg>
-					Rafraîchir
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Actualizar
-				</seg>
-			</tuv>
-			<tuv xml:lang="pt">
-				<seg>
-					Atualizar
-				</seg>
-			</tuv>
-		</tu>
-		<tu tuid="button_retrieve">
-			<tuv xml:lang="en">
-				<seg>
-					Retrieve
-				</seg>
-			</tuv>
-			<tuv xml:lang="it">
-				<seg>
-					Ottieni
-				</seg>
-			</tuv>
-			<tuv xml:lang="de">
-				<seg>
-					Aktualisieren
-				</seg>
-			</tuv>
-			<tuv xml:lang="fr">
-				<seg>
-					Récupérer
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Descargar
-				</seg>
-			</tuv>
-			<tuv xml:lang="pt">
-				<seg>
-					Recuperar
-				</seg>
-			</tuv>
-		</tu>
-		<tu tuid="button_share">
-			<tuv xml:lang="en">
-				<seg>
-					Share
-				</seg>
-			</tuv>
-			<tuv xml:lang="it">
-				<seg>
-					Condividi
-				</seg>
-			</tuv>
-			<tuv xml:lang="de">
-				<seg>
-					Abrufen
-				</seg>
-			</tuv>
-			<tuv xml:lang="fr">
-				<seg>
-					Partager
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Compartir
-				</seg>
-			</tuv>
-			<tuv xml:lang="pt">
-				<seg>
-					Partilhar
 				</seg>
 			</tuv>
 		</tu>
@@ -404,19 +192,14 @@
 					Extra
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Extra
+					De sobra
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Extra
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					De sobra
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -436,19 +219,14 @@
 					Chiave
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Schlüssel
+					Llave
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Clé
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Clave
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -468,19 +246,14 @@
 					Mancante
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Fehlt
+					De falta
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Manquant
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					De falta
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -500,19 +273,14 @@
 					Errori ortografici
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Rechtschreibfehler
+					Errores de ortografía
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Les fautes d&apos;orthographe
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Errores de ortografía
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -532,19 +300,14 @@
 					Aggiungi al glossario
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Zum Glossar hinzufügen
+					Añadir al glosario
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Ajouter au glossaire
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Añadir al glosario
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -564,19 +327,14 @@
 					Ignora &quot;%s&quot;
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					&quot;%s&quot; ignorieren
+					Ignorar &quot;%s&quot;
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Ignorer &quot;%s&quot;
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Ignorar &quot;%s&quot;
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -596,19 +354,14 @@
 					Inserisci: %s
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Einfügen: %s
+					Insertar: %s
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Insérer : %s
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Insertar: %s
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -628,19 +381,14 @@
 					Termine di partenza
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Quellbegriff
+					Término fuente
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Terme source
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Término fuente
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -660,19 +408,14 @@
 					Termine di arrivo
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Zielbegriff
+					Término meta
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Terme cible
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Término meta
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -692,19 +435,14 @@
 					Nome
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Name
+					Nombre
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Nom
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Nombre
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -724,19 +462,14 @@
 					Lingue
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Sprachen
+					Idiomas
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Langues
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Idiomas
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -756,19 +489,14 @@
 					Ogni progetto deve avere esattamente una lingua base (o di default)
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Jedes Projekt muss genau eine Basissprache (oder Standardsprache) haben
+					En cada proyecto tiene que haber exactamente un idioma de base (predefinido)
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Chaque projet doit avoir exactement une langue de base (ou par défaut)
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					En cada proyecto tiene que haber exactamente un idioma de base (predefinido)
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -788,19 +516,14 @@
 					Chiave
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Schlüssel
+					Llave
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Clé
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Clave
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -820,19 +543,14 @@
 					Testo
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Text
+					Texto
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Texte
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Texto
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -852,9 +570,9 @@
 					Lingua app
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					App-Sprache
+					Idioma de la aplicación
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
@@ -862,78 +580,9 @@
 					Langue de l&apos;application
 				</seg>
 			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Idioma de la aplicación
-				</seg>
-			</tuv>
 			<tuv xml:lang="pt">
 				<seg>
 					Idioma do aplicativo
-				</seg>
-			</tuv>
-		</tu>
-		<tu tuid="dialog_settings_machine_translation_key">
-			<tuv xml:lang="en">
-				<seg>
-					API key
-				</seg>
-			</tuv>
-			<tuv xml:lang="it">
-				<seg>
-					Chiave API
-				</seg>
-			</tuv>
-			<tuv xml:lang="de">
-				<seg>
-					API Schlüssel
-				</seg>
-			</tuv>
-			<tuv xml:lang="fr">
-				<seg>
-					Clé de l’API
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Clave de API
-				</seg>
-			</tuv>
-			<tuv xml:lang="pt">
-				<seg>
-					Chave de API
-				</seg>
-			</tuv>
-		</tu>
-		<tu tuid="dialog_settings_machine_translation_provider">
-			<tuv xml:lang="en">
-				<seg>
-					Machine translation provider
-				</seg>
-			</tuv>
-			<tuv xml:lang="it">
-				<seg>
-					Servizio trad. automatica
-				</seg>
-			</tuv>
-			<tuv xml:lang="de">
-				<seg>
-					Anbieter von maschinellen Übersetzungen
-				</seg>
-			</tuv>
-			<tuv xml:lang="fr">
-				<seg>
-					Fournisseur de traduction automatique
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Proveedor te traducción automática
-				</seg>
-			</tuv>
-			<tuv xml:lang="pt">
-				<seg>
-					Provedor de tradução automática
 				</seg>
 			</tuv>
 		</tu>
@@ -948,19 +597,14 @@
 					Soglia corrispondenza
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Ähnlichkeitsschwellenwert
+					Límite de semejanza
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Seuil de similarité
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Límite de semejanza
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -980,19 +624,14 @@
 					Abilita controllo ortografico
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Rechtschreibprüfung aktivieren
+					Activar corrector ortográfico
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Activer la vérification orthographique
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Activar corrector ortográfico
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -1012,19 +651,14 @@
 					Versione app
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					App-Version
+					Versión de la aplicación
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Version de l&apos;application
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Versión de la aplicación
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -1044,19 +678,14 @@
 					% completamento
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Abschlussrate
+					% de terminación
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Taux d&apos;achèvement
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					% de terminación
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -1076,9 +705,9 @@
 					Numero lingue
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Sprachnummer
+					Número de idiomas
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
@@ -1086,14 +715,9 @@
 					Nombre de langues
 				</seg>
 			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Número de idiomas
-				</seg>
-			</tuv>
 			<tuv xml:lang="pt">
 				<seg>
-					Número de idiomas
+					Número do idioma
 				</seg>
 			</tuv>
 		</tu>
@@ -1108,9 +732,9 @@
 					Numero messaggi
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Nachrichtennummer
+					Número de mensajes
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
@@ -1118,14 +742,9 @@
 					Nombre de messages
 				</seg>
 			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Número de mensajes
-				</seg>
-			</tuv>
 			<tuv xml:lang="pt">
 				<seg>
-					Número de mensagens
+					Número da mensagem
 				</seg>
 			</tuv>
 		</tu>
@@ -1140,9 +759,9 @@
 					Numero messaggi traducibili
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Übersetzbare Nachrichtennummer
+					Número de mensajes traducibles
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
@@ -1150,46 +769,9 @@
 					Nombre de messages traduisibles
 				</seg>
 			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Número de mensajes traducibles
-				</seg>
-			</tuv>
 			<tuv xml:lang="pt">
 				<seg>
-					Número de mensagens traduzíveis
-				</seg>
-			</tuv>
-		</tu>
-		<tu tuid="dialog_statistics_item_translatable_words">
-			<tuv xml:lang="en">
-				<seg>
-					Word count (translatable messages)
-				</seg>
-			</tuv>
-			<tuv xml:lang="it">
-				<seg>
-					Conteggio parole (messaggi traducibili)
-				</seg>
-			</tuv>
-			<tuv xml:lang="de">
-				<seg>
-					Wortzahl (übersetzbare Nachrichten)
-				</seg>
-			</tuv>
-			<tuv xml:lang="fr">
-				<seg>
-					Nombre de mots (messages traduisibles)
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Número de palabras (mensajes traducibles)
-				</seg>
-			</tuv>
-			<tuv xml:lang="pt">
-				<seg>
-					Contagem de palavras (mensagens traduzíveis)
+					Número da mensagem traduzível
 				</seg>
 			</tuv>
 		</tu>
@@ -1204,19 +786,14 @@
 					Generali
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Allgemein
+					Generales
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Général
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Generales
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -1236,19 +813,14 @@
 					Crea voce di glossario
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Glossarbegriff erstellen
+					Crear entrada de glosario
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Créer un terme de glossaire
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Crear entrada de glosario
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -1268,19 +840,14 @@
 					Nuovo progetto
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Neues Projekt
+					Nuevo proyecto
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Nouveau projet
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Nuevo proyecto
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -1300,19 +867,14 @@
 					Nuovo messaggio
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Neue Nachricht
+					Nuevo mensaje
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Nouveau message
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Nuevo mensaje
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -1332,19 +894,14 @@
 					Modifica progetto
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Projekt bearbeiten
+					Modificar proyecto
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Modifier le projet
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Modificar proyecto
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -1364,19 +921,14 @@
 					Informazioni
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Info
+					Información
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Informations
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Información
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -1396,9 +948,9 @@
 					Messaggi non validi
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Ungültige Nachrichten
+					Mensajes no válidos
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
@@ -1406,46 +958,9 @@
 					Messages invalides
 				</seg>
 			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Mensajes no válidos
-				</seg>
-			</tuv>
 			<tuv xml:lang="pt">
 				<seg>
 					Mensagens inválidas
-				</seg>
-			</tuv>
-		</tu>
-		<tu tuid="dialog_title_login">
-			<tuv xml:lang="en">
-				<seg>
-					Login
-				</seg>
-			</tuv>
-			<tuv xml:lang="it">
-				<seg>
-					Login
-				</seg>
-			</tuv>
-			<tuv xml:lang="de">
-				<seg>
-					Anmelden
-				</seg>
-			</tuv>
-			<tuv xml:lang="fr">
-				<seg>
-					Login
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Acceso
-				</seg>
-			</tuv>
-			<tuv xml:lang="pt">
-				<seg>
-					Acceso
 				</seg>
 			</tuv>
 		</tu>
@@ -1460,19 +975,14 @@
 					Scegli file
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Datei auswählen
+					Elegir archivo
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Choisir le fichier
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Elegir archivo
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -1492,19 +1002,14 @@
 					Impostazioni
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Einstellungen
+					Ajustes
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Paramètres
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Ajustes
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -1524,19 +1029,14 @@
 					Statistiche
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Statistiken
+					Estadísticas
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Statistiques
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Estadísticas
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -1556,16 +1056,6 @@
 					Avviso
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
-				<seg>
-					Warnung
-				</seg>
-			</tuv>
-			<tuv xml:lang="fr">
-				<seg>
-					Avis
-				</seg>
-			</tuv>
 			<tuv xml:lang="es">
 				<seg>
 					Aviso
@@ -1574,70 +1064,6 @@
 			<tuv xml:lang="pt">
 				<seg>
 					Aviso
-				</seg>
-			</tuv>
-		</tu>
-		<tu tuid="field_password">
-			<tuv xml:lang="en">
-				<seg>
-					Password
-				</seg>
-			</tuv>
-			<tuv xml:lang="it">
-				<seg>
-					Nome utente
-				</seg>
-			</tuv>
-			<tuv xml:lang="de">
-				<seg>
-					Passwort
-				</seg>
-			</tuv>
-			<tuv xml:lang="fr">
-				<seg>
-					Mot de passe
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Contraseña
-				</seg>
-			</tuv>
-			<tuv xml:lang="pt">
-				<seg>
-					Palavra-passe
-				</seg>
-			</tuv>
-		</tu>
-		<tu tuid="field_username">
-			<tuv xml:lang="en">
-				<seg>
-					Username
-				</seg>
-			</tuv>
-			<tuv xml:lang="it">
-				<seg>
-					Password
-				</seg>
-			</tuv>
-			<tuv xml:lang="de">
-				<seg>
-					Benutzername
-				</seg>
-			</tuv>
-			<tuv xml:lang="fr">
-				<seg>
-					Identifiant
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Usuario
-				</seg>
-			</tuv>
-			<tuv xml:lang="pt">
-				<seg>
-					Nome de utilizador
 				</seg>
 			</tuv>
 		</tu>
@@ -1652,19 +1078,14 @@
 					Glossario
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Glossar
+					Glosario
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Glossaire
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Glosario
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -1684,19 +1105,14 @@
 					it
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					de
+					es
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					fr
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					es
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -1873,38 +1289,6 @@
 				</seg>
 			</tuv>
 		</tu>
-		<tu tuid="machine_translation_title">
-			<tuv xml:lang="en">
-				<seg>
-					Machine translation
-				</seg>
-			</tuv>
-			<tuv xml:lang="it">
-				<seg>
-					Traduzione automatica
-				</seg>
-			</tuv>
-			<tuv xml:lang="de">
-				<seg>
-					Maschinelle Übersetzung
-				</seg>
-			</tuv>
-			<tuv xml:lang="fr">
-				<seg>
-					Traduction automatique
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Traducción automática
-				</seg>
-			</tuv>
-			<tuv xml:lang="pt">
-				<seg>
-					Tradução automática
-				</seg>
-			</tuv>
-		</tu>
 		<tu tuid="memory_content_title">
 			<tuv xml:lang="en">
 				<seg>
@@ -1916,19 +1300,14 @@
 					Contenuto TM
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					TM-Inhalt
+					Contenido MT
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Contenu de la MT
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Contenido MT
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -1937,323 +1316,30 @@
 				</seg>
 			</tuv>
 		</tu>
-		<tu tuid="menu_glossary_clear">
+		<tu tuid="menu_glossary">
 			<tuv xml:lang="en">
 				<seg>
-					Reset glossary
+					Glossary
 				</seg>
 			</tuv>
 			<tuv xml:lang="it">
 				<seg>
-					Pulisci glossario
-				</seg>
-			</tuv>
-			<tuv xml:lang="de">
-				<seg>
-					Glossar zurücksetzen
-				</seg>
-			</tuv>
-			<tuv xml:lang="fr">
-				<seg>
-					Réinitialiser le glossaire
+					Glossario
 				</seg>
 			</tuv>
 			<tuv xml:lang="es">
 				<seg>
-					Reiniciar glosario
-				</seg>
-			</tuv>
-			<tuv xml:lang="pt">
-				<seg>
-					Redefinir glossário
-				</seg>
-			</tuv>
-		</tu>
-		<tu tuid="menu_glossary_export">
-			<tuv xml:lang="en">
-				<seg>
-					Export glossary…
-				</seg>
-			</tuv>
-			<tuv xml:lang="it">
-				<seg>
-					Esporta glossario…
-				</seg>
-			</tuv>
-			<tuv xml:lang="de">
-				<seg>
-					Glossar exportieren…
+					Glosario
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
-					Exporter le glossaire…
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Exportar glosario…
+					Glossaire
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
 				<seg>
-					Exportar glossário…
-				</seg>
-			</tuv>
-		</tu>
-		<tu tuid="menu_glossary_import">
-			<tuv xml:lang="en">
-				<seg>
-					Import glossary…
-				</seg>
-			</tuv>
-			<tuv xml:lang="it">
-				<seg>
-					Importa glossario…
-				</seg>
-			</tuv>
-			<tuv xml:lang="de">
-				<seg>
-					Glossar importieren…
-				</seg>
-			</tuv>
-			<tuv xml:lang="fr">
-				<seg>
-					Importer le glossaire…
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Importar glosario…
-				</seg>
-			</tuv>
-			<tuv xml:lang="pt">
-				<seg>
-					Importar glossário…
-				</seg>
-			</tuv>
-		</tu>
-		<tu tuid="menu_help">
-			<tuv xml:lang="en">
-				<seg>
-					Help
-				</seg>
-			</tuv>
-			<tuv xml:lang="it">
-				<seg>
-					Aiuto
-				</seg>
-			</tuv>
-			<tuv xml:lang="de">
-				<seg>
-					Aufrufen der Bedienungsanleitung.
-				</seg>
-			</tuv>
-			<tuv xml:lang="fr">
-				<seg>
-					Aide
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Ayuda
-				</seg>
-			</tuv>
-			<tuv xml:lang="pt">
-				<seg>
-					Ajuda
-				</seg>
-			</tuv>
-		</tu>
-		<tu tuid="menu_help_open_manual">
-			<tuv xml:lang="en">
-				<seg>
-					Open user manual
-				</seg>
-			</tuv>
-			<tuv xml:lang="it">
-				<seg>
-					Apri manuale utente
-				</seg>
-			</tuv>
-			<tuv xml:lang="de">
-				<seg>
-					Aufrufen der Bedienungsanleitung.
-				</seg>
-			</tuv>
-			<tuv xml:lang="fr">
-				<seg>
-					Manuel de l&apos;utilisateur
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Manual del usuario
-				</seg>
-			</tuv>
-			<tuv xml:lang="pt">
-				<seg>
-					Manual de Utilização
-				</seg>
-			</tuv>
-		</tu>
-		<tu tuid="menu_machine_translation_contribute_memory">
-			<tuv xml:lang="en">
-				<seg>
-					Share TM to machine translation
-				</seg>
-			</tuv>
-			<tuv xml:lang="it">
-				<seg>
-					Condividi TM a trad. automatica
-				</seg>
-			</tuv>
-			<tuv xml:lang="de">
-				<seg>
-					TM in maschinelle Übersetzung teilen
-				</seg>
-			</tuv>
-			<tuv xml:lang="fr">
-				<seg>
-					Partager la TM à la traduction automatique
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Compartir MT a traducción automática
-				</seg>
-			</tuv>
-			<tuv xml:lang="pt">
-				<seg>
-					Compartilhar TM para tradução automática
-				</seg>
-			</tuv>
-		</tu>
-		<tu tuid="menu_machine_translation_copy_share">
-			<tuv xml:lang="en">
-				<seg>
-					Share machine translation
-				</seg>
-			</tuv>
-			<tuv xml:lang="it">
-				<seg>
-					Condividi trad. automatica
-				</seg>
-			</tuv>
-			<tuv xml:lang="de">
-				<seg>
-					Maschinelle Übersetzung teilen
-				</seg>
-			</tuv>
-			<tuv xml:lang="fr">
-				<seg>
-					Partager la traduction automatique
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Compartir traducción automática
-				</seg>
-			</tuv>
-			<tuv xml:lang="pt">
-				<seg>
-					Compartilhar tradução automática
-				</seg>
-			</tuv>
-		</tu>
-		<tu tuid="menu_machine_translation_copy_translation">
-			<tuv xml:lang="en">
-				<seg>
-					Copy to machine translation
-				</seg>
-			</tuv>
-			<tuv xml:lang="it">
-				<seg>
-					Copia trad. automatica
-				</seg>
-			</tuv>
-			<tuv xml:lang="de">
-				<seg>
-					In maschinelle Übersetzung kopieren
-				</seg>
-			</tuv>
-			<tuv xml:lang="fr">
-				<seg>
-					Copier dans la traduction automatique
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Copiar traducción automática
-				</seg>
-			</tuv>
-			<tuv xml:lang="pt">
-				<seg>
-					Copiar para tradução automática
-				</seg>
-			</tuv>
-		</tu>
-		<tu tuid="menu_machine_translation_insert">
-			<tuv xml:lang="en">
-				<seg>
-					Insert machine translation
-				</seg>
-			</tuv>
-			<tuv xml:lang="it">
-				<seg>
-					Inserisci trad. automatica
-				</seg>
-			</tuv>
-			<tuv xml:lang="de">
-				<seg>
-					Maschinelle Übersetzung einfügen
-				</seg>
-			</tuv>
-			<tuv xml:lang="fr">
-				<seg>
-					Insérer une traduction automatique
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Insertar traducción automática
-				</seg>
-			</tuv>
-			<tuv xml:lang="pt">
-				<seg>
-					Inserir tradução automática
-				</seg>
-			</tuv>
-		</tu>
-		<tu tuid="menu_machine_translation_retrieve">
-			<tuv xml:lang="en">
-				<seg>
-					Retrieve from machine translation
-				</seg>
-			</tuv>
-			<tuv xml:lang="it">
-				<seg>
-					Recupera trad. automatica
-				</seg>
-			</tuv>
-			<tuv xml:lang="de">
-				<seg>
-					Aus der maschinellen Übersetzung abrufen
-				</seg>
-			</tuv>
-			<tuv xml:lang="fr">
-				<seg>
-					Récupérer à partir de la traduction automatique
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Recuperar de la traducción automática
-				</seg>
-			</tuv>
-			<tuv xml:lang="pt">
-				<seg>
-					Recuperar da tradução automática
+					Glossário
 				</seg>
 			</tuv>
 		</tu>
@@ -2268,19 +1354,14 @@
 					Progetto
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Projekt
+					Proyecto
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Projet
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Proyecto
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -2300,19 +1381,14 @@
 					Chiudi
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Schließen
+					Cerrar
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Fermer
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Cerrar
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -2332,19 +1408,14 @@
 					Modifica…
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Bearbeiten…
+					Modificar…
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Modifier…
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Modificar…
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -2364,19 +1435,14 @@
 					Esporta
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Exportieren
+					Exportar
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Exporter
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Exportar
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -2396,19 +1462,14 @@
 					Importa
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Importieren
+					Importar
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Importer
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Importar
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -2428,17 +1489,12 @@
 					XML Android…
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
-				<seg>
-					Android XML…
-				</seg>
-			</tuv>
-			<tuv xml:lang="fr">
+			<tuv xml:lang="es">
 				<seg>
 					XML Android…
 				</seg>
 			</tuv>
-			<tuv xml:lang="es">
+			<tuv xml:lang="fr">
 				<seg>
 					XML Android…
 				</seg>
@@ -2460,17 +1516,12 @@
 					ARB Flutter…
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
-				<seg>
-					Flutter ARB…
-				</seg>
-			</tuv>
-			<tuv xml:lang="fr">
+			<tuv xml:lang="es">
 				<seg>
 					ARB Flutter…
 				</seg>
 			</tuv>
-			<tuv xml:lang="es">
+			<tuv xml:lang="fr">
 				<seg>
 					ARB Flutter…
 				</seg>
@@ -2492,17 +1543,12 @@
 					stringtable iOS…
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
-				<seg>
-					iOS stringtable…
-				</seg>
-			</tuv>
-			<tuv xml:lang="fr">
+			<tuv xml:lang="es">
 				<seg>
 					stringtable iOS…
 				</seg>
 			</tuv>
-			<tuv xml:lang="es">
+			<tuv xml:lang="fr">
 				<seg>
 					stringtable iOS…
 				</seg>
@@ -2524,17 +1570,12 @@
 					JSON…
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
 					JSON…
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
-				<seg>
-					JSON…
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
 				<seg>
 					JSON…
 				</seg>
@@ -2556,17 +1597,12 @@
 					PO Gettext
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
-				<seg>
-					Gettext PO
-				</seg>
-			</tuv>
-			<tuv xml:lang="fr">
+			<tuv xml:lang="es">
 				<seg>
 					PO Gettext
 				</seg>
 			</tuv>
-			<tuv xml:lang="es">
+			<tuv xml:lang="fr">
 				<seg>
 					PO Gettext
 				</seg>
@@ -2574,38 +1610,6 @@
 			<tuv xml:lang="pt">
 				<seg>
 					PO do Gettext…
-				</seg>
-			</tuv>
-		</tu>
-		<tu tuid="menu_project_import_properties">
-			<tuv xml:lang="en">
-				<seg>
-					Java properties…
-				</seg>
-			</tuv>
-			<tuv xml:lang="it">
-				<seg>
-					properties Java…
-				</seg>
-			</tuv>
-			<tuv xml:lang="de">
-				<seg>
-					Java properties…
-				</seg>
-			</tuv>
-			<tuv xml:lang="fr">
-				<seg>
-					properties Java…
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					properties Java
-				</seg>
-			</tuv>
-			<tuv xml:lang="pt">
-				<seg>
-					properties do Java…
 				</seg>
 			</tuv>
 		</tu>
@@ -2620,17 +1624,12 @@
 					resx Windows…
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
-				<seg>
-					Windows resx…
-				</seg>
-			</tuv>
-			<tuv xml:lang="fr">
+			<tuv xml:lang="es">
 				<seg>
 					resx Windows…
 				</seg>
 			</tuv>
-			<tuv xml:lang="es">
+			<tuv xml:lang="fr">
 				<seg>
 					resx Windows…
 				</seg>
@@ -2652,19 +1651,14 @@
 					Nuovo…
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Neu…
+					Nuevo…
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Nouveau…
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Nuevo…
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -2684,19 +1678,14 @@
 					Apri…
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Öffnen…
+					Abrir…
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Ouvrir…
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Abrir…
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -2716,19 +1705,14 @@
 					Salva
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Speichern
+					Guardar
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Enregistrer
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Guardar
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -2748,19 +1732,14 @@
 					Salva con nome…
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Speichern unter…
+					Guardar como…
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Enregistrer sous…
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Guardar como…
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -2780,19 +1759,14 @@
 					Impostazioni…
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Einstellungen…
+					Ajustes…
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Paramètres…
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Ajustes…
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -2812,19 +1786,14 @@
 					Controllo ortografico
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Rechtschreibung prüfen
+					Corrección ortográfica
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Vérifier l&apos;orthographe
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Comprobar ortografía
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -2844,19 +1813,14 @@
 					Statistiche…
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Statistik…
+					Estadísticas…
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Statistiques…
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Estadísticas…
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -2876,9 +1840,9 @@
 					Valida placeholder
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Platzhalter validieren
+					Comprobar especificadores
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
@@ -2886,46 +1850,9 @@
 					Valider les espaces réservés
 				</seg>
 			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Comprobar marcadores de posición
-				</seg>
-			</tuv>
 			<tuv xml:lang="pt">
 				<seg>
 					Validar espaços reservados
-				</seg>
-			</tuv>
-		</tu>
-		<tu tuid="menu_resources">
-			<tuv xml:lang="en">
-				<seg>
-					Resources
-				</seg>
-			</tuv>
-			<tuv xml:lang="it">
-				<seg>
-					Risorse
-				</seg>
-			</tuv>
-			<tuv xml:lang="de">
-				<seg>
-					Ressourcen
-				</seg>
-			</tuv>
-			<tuv xml:lang="fr">
-				<seg>
-					Ressources
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Recursos
-				</seg>
-			</tuv>
-			<tuv xml:lang="pt">
-				<seg>
-					Recursos
 				</seg>
 			</tuv>
 		</tu>
@@ -2940,19 +1867,14 @@
 					Messaggio
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Nachricht
+					Mensaje
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Message
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Mensaje
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -2972,19 +1894,14 @@
 					Copia base
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Basis kopieren
+					Copiar base
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Copier la base
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Copiar base
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -3004,19 +1921,14 @@
 					Elimina
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Löschen
+					Eliminar
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Supprimer
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Eliminar
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -3036,19 +1948,14 @@
 					Termina modifica
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Bearbeitung beenden
+					Terminar cambio
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Fin de la modification
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Terminar cambio
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -3068,19 +1975,14 @@
 					Nuovo
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Neu…
+					Nuevo
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Nouveau…
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Nuevo
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -3100,19 +2002,14 @@
 					Successivo
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Weiter
+					Siguiente
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Suivant
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Siguiente
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -3132,9 +2029,9 @@
 					Precedente
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Vorherige
+					Anterior
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
@@ -3142,110 +2039,117 @@
 					Précédent
 				</seg>
 			</tuv>
-			<tuv xml:lang="es">
+			<tuv xml:lang="pt">
 				<seg>
 					Anterior
 				</seg>
 			</tuv>
+		</tu>
+		<tu tuid="menu_translation_memory">
+			<tuv xml:lang="en">
+				<seg>
+					Memory
+				</seg>
+			</tuv>
+			<tuv xml:lang="it">
+				<seg>
+					Memoria
+				</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>
+					Memoria
+				</seg>
+			</tuv>
+			<tuv xml:lang="fr">
+				<seg>
+					Mémoire
+				</seg>
+			</tuv>
 			<tuv xml:lang="pt">
 				<seg>
-					Anterior
+					Memória
 				</seg>
 			</tuv>
 		</tu>
 		<tu tuid="menu_translation_memory_clear">
 			<tuv xml:lang="en">
 				<seg>
-					Reset translation memory
+					Reset all
 				</seg>
 			</tuv>
 			<tuv xml:lang="it">
 				<seg>
-					Pulisci memoria di trad.
-				</seg>
-			</tuv>
-			<tuv xml:lang="de">
-				<seg>
-					Translation Memory zurücksetzen
-				</seg>
-			</tuv>
-			<tuv xml:lang="fr">
-				<seg>
-					Réinitialiser la mémoire de traduction
+					Azzera
 				</seg>
 			</tuv>
 			<tuv xml:lang="es">
 				<seg>
-					Reiniciar memoria de traducción
+					Reiniciar
+				</seg>
+			</tuv>
+			<tuv xml:lang="fr">
+				<seg>
+					Tout réinitialiser
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
 				<seg>
-					Redefinir memória de tradução
+					Redefinir tudo
 				</seg>
 			</tuv>
 		</tu>
 		<tu tuid="menu_translation_memory_export">
 			<tuv xml:lang="en">
 				<seg>
-					Export translation memory…
+					Export…
 				</seg>
 			</tuv>
 			<tuv xml:lang="it">
 				<seg>
-					Esporta memoria di trad.…
-				</seg>
-			</tuv>
-			<tuv xml:lang="de">
-				<seg>
-					Translation Memory exportieren…
-				</seg>
-			</tuv>
-			<tuv xml:lang="fr">
-				<seg>
-					Exporter la mémoire de traduction…
+					Esporta…
 				</seg>
 			</tuv>
 			<tuv xml:lang="es">
 				<seg>
-					Exportar memoria de traducción…
+					Exportar…
+				</seg>
+			</tuv>
+			<tuv xml:lang="fr">
+				<seg>
+					Exporter…
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
 				<seg>
-					Exportar memória de tradução…
+					Exportar…
 				</seg>
 			</tuv>
 		</tu>
 		<tu tuid="menu_translation_memory_import">
 			<tuv xml:lang="en">
 				<seg>
-					Import translation memory…
+					Import…
 				</seg>
 			</tuv>
 			<tuv xml:lang="it">
 				<seg>
-					Importa memoria di trad.…
-				</seg>
-			</tuv>
-			<tuv xml:lang="de">
-				<seg>
-					Translation Memory importieren…
-				</seg>
-			</tuv>
-			<tuv xml:lang="fr">
-				<seg>
-					Importer la mémoire de traduction…
+					Importa…
 				</seg>
 			</tuv>
 			<tuv xml:lang="es">
 				<seg>
-					Importar memoria de traducción…
+					Importar…
+				</seg>
+			</tuv>
+			<tuv xml:lang="fr">
+				<seg>
+					Importer…
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
 				<seg>
-					Importar memória de tradução…
+					Importar…
 				</seg>
 			</tuv>
 		</tu>
@@ -3260,19 +2164,14 @@
 					Inserisci corrispondenza migliore
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Beste Übereinstimmung einfügen
+					Insertar correspondencia mejor
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Insérer la meilleure correspondance
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Insertar correspondencia mejor
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -3284,32 +2183,27 @@
 		<tu tuid="menu_translation_memory_sync_project">
 			<tuv xml:lang="en">
 				<seg>
-					Sync project with translation memory
+					Sync project with TM
 				</seg>
 			</tuv>
 			<tuv xml:lang="it">
 				<seg>
-					Sincronizza prog. con memoria di trad.
-				</seg>
-			</tuv>
-			<tuv xml:lang="de">
-				<seg>
-					Projekt mit Translation Memory synchronisieren
-				</seg>
-			</tuv>
-			<tuv xml:lang="fr">
-				<seg>
-					Synchroniser le projet avec la mémoire de traduction
+					Sincronizza progetto in TM
 				</seg>
 			</tuv>
 			<tuv xml:lang="es">
 				<seg>
-					Sincronizar proyecto con memoria de traducción
+					Sincronizar proyecto en MT
+				</seg>
+			</tuv>
+			<tuv xml:lang="fr">
+				<seg>
+					Synchroniser le projet avec TM
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
 				<seg>
-					Sincronizar o projecto com a memória de tradução
+					Sincronizar projeto com TM
 				</seg>
 			</tuv>
 		</tu>
@@ -3324,19 +2218,14 @@
 					Il progetto contiene delle modifiche non salvate.\nConfermi di volerlo chiudere?
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Das Projekt enthält einige nicht gespeicherte Änderungen.\nSind Sie sicher, dass Sie es schließen wollen?
+					El proyecto contiene algunos cambios no guardados.\n¿Se quiere cerrarlo igualmente?
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Le projet contient des modifications non enregistrées.\nÊtes-vous sûr de vouloir le fermer ?
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					El proyecto contiene algunos cambios no guardados.\n¿Se quiere cerrarlo igualmente?
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -3356,19 +2245,14 @@
 					Esiste già un messaggio con la stessa chiave
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Eine Nachricht mit demselben Schlüssel existiert bereits
+					Ya existe un mensaje con la misma llave
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Un message avec la même clé existe déjà
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Ya existe un mensaje con la misma clave
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -3388,19 +2272,14 @@
 					Campo obbligatorio
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Fehlendes Feld
+					Información obligatoria
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Champ manquant
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Información obligatoria
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -3420,19 +2299,14 @@
 					Nessun dato da visualizzare
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Kein Element zum Anzeigen
+					Ningún elemento para visualizar
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Aucun élément à afficher
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Ningún elemento para visualizar
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -3444,32 +2318,27 @@
 		<tu tuid="message_no_validation">
 			<tuv xml:lang="en">
 				<seg>
-					No results to show, please run a validation with the &quot;Validate placeholders&quot; or &quot;Check spelling&quot; actions in the &quot;Project&quot; menu.
+					No validation results, run a validation with the &quot;Validate&quot; toolbar action
 				</seg>
 			</tuv>
 			<tuv xml:lang="it">
 				<seg>
-					Nessun risultato da visualizzare, avvia una validazione con le azioni &quot;Valida placeholder&quot; o &quot;Controllo ortografico&quot; nel menu &quot;Progetto&quot;.
-				</seg>
-			</tuv>
-			<tuv xml:lang="de">
-				<seg>
-					Keine Ergebnisse zum Anzeigen, bitte führen Sie eine Validierung mit den Aktionen &quot;Platzhalter validieren&quot; oder &quot;Rechtschreibung überprüfen&quot; im Menü &quot;Projekt&quot; aus.
-				</seg>
-			</tuv>
-			<tuv xml:lang="fr">
-				<seg>
-					Aucun résultat à afficher, veuillez effectuer une validation avec les actions &quot;Valider les espaces réservés&quot; ou &quot;Vérifier l&apos;orthographe&quot; dans le menu &quot;Projet&quot;.
+					Nessun risultato, avvia una validazione con l&apos;azione &quot;Convalida&quot; della barra degli strumenti
 				</seg>
 			</tuv>
 			<tuv xml:lang="es">
 				<seg>
-					No hay resultados para mostrar, por favor ejecute una validación con las acciones &quot;Comprobar marcadores de posición&quot; o &quot;Comprobar ortografía&quot; en el menú &quot;Proyecto&quot;.
+					Ningún resultado, iniciar una validación a través de la acción &quot;Convalidar&quot; desde la barra de herramientas
+				</seg>
+			</tuv>
+			<tuv xml:lang="fr">
+				<seg>
+					Aucun résultat de validation, exécutez une validation avec l&apos;action de barre d&apos;outils &quot;Valider&quot;
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
 				<seg>
-					Nenhum resultado para mostrar, execute uma validação com as ações &quot;Validar espaços reservados&quot; ou &quot;Verificar ortografia&quot; no menu &quot;Projeto&quot;.
+					Nenhum resultado de validação, execute uma validação com a ação &quot;Validar&quot; da barra de ferramentas
 				</seg>
 			</tuv>
 		</tu>
@@ -3484,19 +2353,14 @@
 					Si è verificato un problema durante l&apos;apertura del progetto
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Beim Öffnen des Projekts ist ein Problem aufgetreten.
+					Se ha encontrado un problema al abrir el proyecto
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Un problème s&apos;est produit lors de l&apos;ouverture du projet.
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Se ha encontrado un problema al abrir el proyecto
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -3505,35 +2369,30 @@
 				</seg>
 			</tuv>
 		</tu>
-		<tu tuid="message_panel_feature_not_available">
+		<tu tuid="message_select_one_language">
 			<tuv xml:lang="en">
 				<seg>
-					This feature is only available for target languages 🙅
+					Please select at least one language
 				</seg>
 			</tuv>
 			<tuv xml:lang="it">
 				<seg>
-					Questa funzionalità è disponibile solo per le lingue di arrivo 🙅
-				</seg>
-			</tuv>
-			<tuv xml:lang="de">
-				<seg>
-					Diese Funktion ist nur für Zielsprachen verfügbar 🙅
-				</seg>
-			</tuv>
-			<tuv xml:lang="fr">
-				<seg>
-					Cette fonctionnalité n&apos;est disponible que pour les langues cibles 🙅
+					Selezionare almeno una lingua
 				</seg>
 			</tuv>
 			<tuv xml:lang="es">
 				<seg>
-					Esta función solamente está disponible para los idiomas meta 🙅
+					Seleccionar al menos un idioma
+				</seg>
+			</tuv>
+			<tuv xml:lang="fr">
+				<seg>
+					Veuillez sélectionner au moins une langue
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
 				<seg>
-					Este recurso está disponível apenas para os idiomas de destino 🙅
+					Selecione ao menos um idioma
 				</seg>
 			</tuv>
 		</tu>
@@ -3548,19 +2407,14 @@
 					Sono stati rilevati alcuni errori ortografici:
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Es wurden einige Rechtschreibfehler gefunden:
+					Se han detectado algunas faltas de ortografía:
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Certaines fautes d&apos;orthographe ont été trouvées :
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Se han detectado algunas faltas de ortografía:
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -3580,19 +2434,14 @@
 					Evviva! Nessun errore ortografico rilevato 🎉
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Hurra! Es wurden keine Rechtschreibfehler gefunden 🎉
+					¡Enhorabuena! No se ha detectado ninguna falta de ortografía 🎉
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Hourra ! Aucune faute d&apos;orthographe n&apos;a été trouvée 🎉
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					¡Enhorabuena! No se ha detectado ninguna falta de ortografía 🎉
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -3612,19 +2461,14 @@
 					Sono stati rilevati alcuni messaggi non validi:
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Es wurden einige ungültige Nachrichten gefunden:
+					Se han detectado algunos mensajes no válidos:
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Certains messages invalides ont été trouvés :
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Se han detectado algunos mensajes no válidos:
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -3644,19 +2488,14 @@
 					Evviva! Tutti i messaggi contengono placeholder validi 🎉
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Hurra! Alle Nachrichten enthalten gültige Platzhalter 🎉
+					¡Enhorabuena! Todos los mensajes contienen especificadores válidos 🎉
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Hourra ! Tous les messages contiennent des espaces réservés valides 🎉
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					¡Enhorabuena! Todos los mensajes contienen marcadores de posición válidos 🎉
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -3676,19 +2515,14 @@
 					Convalida
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Validierung
+					Validación
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Validation
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Validación
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -3708,9 +2542,9 @@
 					Glossario
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Glossar
+					Glosario
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
@@ -3718,46 +2552,9 @@
 					Glossaire
 				</seg>
 			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Glosario
-				</seg>
-			</tuv>
 			<tuv xml:lang="pt">
 				<seg>
 					Glossário
-				</seg>
-			</tuv>
-		</tu>
-		<tu tuid="panel_section_machine_translation">
-			<tuv xml:lang="en">
-				<seg>
-					Machine Translation
-				</seg>
-			</tuv>
-			<tuv xml:lang="it">
-				<seg>
-					Traduzione automatica
-				</seg>
-			</tuv>
-			<tuv xml:lang="de">
-				<seg>
-					Maschinelle Übersetzung
-				</seg>
-			</tuv>
-			<tuv xml:lang="fr">
-				<seg>
-					Traduction automatique
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Traducción automática
-				</seg>
-			</tuv>
-			<tuv xml:lang="pt">
-				<seg>
-					Tradução automática
 				</seg>
 			</tuv>
 		</tu>
@@ -3772,19 +2569,14 @@
 					Corrispondenze
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Übereinstimmungen
+					Correspondencias
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Correspondances
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Correspondencias
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -3804,19 +2596,14 @@
 					Memoria
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Speicher
+					Memoria
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Mémoire
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Memoria
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -3836,19 +2623,14 @@
 					messaggi: %d
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Nachrichten: %d
+					mensajes: %d
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					messages : %d
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					mensajes: %d
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -3868,19 +2650,14 @@
 					Cerca…
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Suchen…
+					Buscar…
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Rechercher…
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Buscar…
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -3900,19 +2677,14 @@
 					Aggiungi
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Hinzufügen
+					Añadir
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Ajouter
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Añadir
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -3932,19 +2704,14 @@
 					Copia da lingua base
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Aus der Basissprache kopieren
+					Copiar desde idioma de base
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Copier depuis la langue de base
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Copiar desde idioma de base
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -3964,19 +2731,14 @@
 					Copia traduzione
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Übersetzung kopieren
+					Copiar traducción
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Copier la traduction
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Copiar traducción
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -3996,9 +2758,9 @@
 					Elimina
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Löschen
+					Eliminar
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
@@ -4006,78 +2768,9 @@
 					Supprimer
 				</seg>
 			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Eliminar
-				</seg>
-			</tuv>
 			<tuv xml:lang="pt">
 				<seg>
 					Excluir
-				</seg>
-			</tuv>
-		</tu>
-		<tu tuid="tooltip_hide_password">
-			<tuv xml:lang="en">
-				<seg>
-					Hide password
-				</seg>
-			</tuv>
-			<tuv xml:lang="it">
-				<seg>
-					Nascondi password
-				</seg>
-			</tuv>
-			<tuv xml:lang="de">
-				<seg>
-					Passwort verstecken
-				</seg>
-			</tuv>
-			<tuv xml:lang="fr">
-				<seg>
-					Cacher le mot de passe
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Ocultar la contraseña
-				</seg>
-			</tuv>
-			<tuv xml:lang="pt">
-				<seg>
-					Ocultar palavra-passe
-				</seg>
-			</tuv>
-		</tu>
-		<tu tuid="tooltip_login">
-			<tuv xml:lang="en">
-				<seg>
-					Login to generate a new API key
-				</seg>
-			</tuv>
-			<tuv xml:lang="it">
-				<seg>
-					Effettua il login per generare una nuova API key
-				</seg>
-			</tuv>
-			<tuv xml:lang="de">
-				<seg>
-					Melden Sie sich an, um einen neuen API-Schlüssel zu generieren
-				</seg>
-			</tuv>
-			<tuv xml:lang="fr">
-				<seg>
-					Connectez-vous pour générer une nouvelle clé API
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Acceder para generar una nueva clave de API
-				</seg>
-			</tuv>
-			<tuv xml:lang="pt">
-				<seg>
-					Entrar para gerar uma nova chave de API
 				</seg>
 			</tuv>
 		</tu>
@@ -4092,19 +2785,14 @@
 					Rendi traducibile
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Übersetzbar machen
+					Marcar como traducible
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Rendre traduisible
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Marcar como traducible
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -4124,19 +2812,14 @@
 					Rendi non traducibile
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Unübersetzbar machen
+					Marcar como no traducible
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Rendre intraduisible
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Marcar como no traducible
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -4156,19 +2839,14 @@
 					Minimizza
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Minimieren
+					Minimizar
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Réduire
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Minimizar
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -4188,19 +2866,14 @@
 					Vai a precedente
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Zum nächsten
+					Pasar al siguiente
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Passer au suivant
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Pasar al siguiente
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -4220,19 +2893,14 @@
 					Vai a successivo
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Zum vorherigen
+					Pasar al anterior
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Passer au précédent
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Pasar al anterior
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -4252,19 +2920,14 @@
 					Nuovo termine sorgente
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Neuer Quellbegriff
+					Nuevo término fuente
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Nouveau terme source
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Nuevo término fuente
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -4284,19 +2947,14 @@
 					Nuovo termine destinazione
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Neuer Zielbegriff
+					Nuevo término meta
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Nouveau terme cible
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Nuevo término meta
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -4311,14 +2969,9 @@
 					Remove from recent
 				</seg>
 			</tuv>
-			<tuv xml:lang="it">
+			<tuv xml:lang="es">
 				<seg>
-					Rimuovi da recenti
-				</seg>
-			</tuv>
-			<tuv xml:lang="de">
-				<seg>
-					Aus den letzten entfernen
+					Eliminar de recientes
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
@@ -4326,46 +2979,9 @@
 					Supprimer de la liste récente
 				</seg>
 			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Eliminar de recientes
-				</seg>
-			</tuv>
 			<tuv xml:lang="pt">
 				<seg>
 					Remover dos recentes
-				</seg>
-			</tuv>
-		</tu>
-		<tu tuid="tooltip_show_password">
-			<tuv xml:lang="en">
-				<seg>
-					Show password
-				</seg>
-			</tuv>
-			<tuv xml:lang="it">
-				<seg>
-					Mostra password
-				</seg>
-			</tuv>
-			<tuv xml:lang="de">
-				<seg>
-					Passwort anzeigen
-				</seg>
-			</tuv>
-			<tuv xml:lang="fr">
-				<seg>
-					Afficher le mot de passe
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Mostrar contraseña
-				</seg>
-			</tuv>
-			<tuv xml:lang="pt">
-				<seg>
-					Mostrar palavra-passe
 				</seg>
 			</tuv>
 		</tu>
@@ -4380,19 +2996,14 @@
 					Valida placeholder
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Platzhalter validieren
+					Convalidar especificadores
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Valider les espaces réservés
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Convalidar marcadores de posición
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -4412,19 +3023,14 @@
 					fonte: %s
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Quelle: %s
+					fuente: %s
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					source : %s
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					fuente: %s
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -4444,19 +3050,14 @@
 					somiglianza: %d%%
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Ähnlichkeit: %d%%
+					semejanza: %d%%
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					similarité : %d%%
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					semejanza: %d%%
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -4476,19 +3077,14 @@
 					Memoria di traduzione
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Übersetzungsspeicher
+					Memoria de traducción
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Mémoire de traduction
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Memoria de traducción
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -4508,19 +3104,14 @@
 					questo progetto
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					dieses Projekt
+					este proyecto
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					ce projet
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					este proyecto
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -4540,19 +3131,14 @@
 					Tutti
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Alle
+					Todos
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Tous
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Todos
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -4572,19 +3158,14 @@
 					Traducibili
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Übersetzbar
+					Traducibles
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Traductible
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Traducibles
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -4604,19 +3185,14 @@
 					Da tradurre
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Unübersetzt
+					No traducidos
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Non traduit
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					No traducidos
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
@@ -4636,19 +3212,14 @@
 					Risultati convalida
 				</seg>
 			</tuv>
-			<tuv xml:lang="de">
+			<tuv xml:lang="es">
 				<seg>
-					Validierungsergebnisse
+					Resultados de la validación
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
 					Résultats de la validation
-				</seg>
-			</tuv>
-			<tuv xml:lang="es">
-				<seg>
-					Resultados de la validación
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
