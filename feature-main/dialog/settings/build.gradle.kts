@@ -39,5 +39,18 @@ kotlin {
                 implementation(projects.domainMt.repository)
             }
         }
+        val jvmTest by getting {
+            dependencies {
+                implementation(libs.kotlinx.coroutines.test)
+                implementation(kotlin("test-junit5"))
+                implementation(libs.mockk)
+                implementation(libs.turbine)
+                implementation(projects.coreCommon.testutils)
+            }
+        }
     }
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
 }

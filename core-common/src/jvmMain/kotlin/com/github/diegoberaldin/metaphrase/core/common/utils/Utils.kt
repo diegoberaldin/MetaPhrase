@@ -70,7 +70,7 @@ inline fun <reified T> getByInjection(vararg params: Any?): T {
 }
 
 /**
- * Observe a child stack as a flow.
+ * Observe the instance of a child stack as a flow.
  *
  * @receiver [Value] original stack
  * @param T Type of the result
@@ -100,13 +100,13 @@ inline fun <reified T> Value<ChildStack<*, *>>.activeAsFlow(
 }.timeout(timeout).catch { emit(null) }
 
 /**
- * Observe a child slot as a flow.
+ * Observe the instance of a child slot as a flow.
  *
- * @receiver [Value] original slot
+ * @receiver [Value] Original slot
  * @param T Type of the result
- * @param withNullsIfNotInstance emits null if the active value is not of the correct type
+ * @param withNullsIfNotInstance Emits null if the current value is not of the correct type
  * @param timeout Timeout to wait for emission
- * @return [Flow]
+ * @return [Flow] Flow of instance
  */
 @OptIn(FlowPreview::class)
 inline fun <reified T> Value<ChildSlot<*, *>>.asFlow(
@@ -128,3 +128,23 @@ inline fun <reified T> Value<ChildSlot<*, *>>.asFlow(
         unsubscribe(observer)
     }
 }.timeout(timeout).catch { emit(null) }
+
+/**
+ * Observe the configuration of a child slot as a flow.
+ *
+ * @receiver [Value] Original slot
+ * @param C Configuration type
+ * @return [Flow] Flow of configuration
+ */
+inline fun <reified C> Value<ChildSlot<*, *>>.configAsFlow(): Flow<C?> = callbackFlow {
+    val observer: (ChildSlot<*, *>) -> Unit = {
+        val config = it.child?.configuration
+        if (C::class.isInstance(config)) {
+            trySend(config as C)
+        }
+    }
+    subscribe(observer)
+    awaitClose {
+        unsubscribe(observer)
+    }
+}
