@@ -14,7 +14,6 @@ import org.koin.java.KoinJavaComponent
 import javax.swing.SwingUtilities
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
-import kotlin.time.Duration.Companion.seconds
 
 /**
  * Helper to run a block on the UI thread.
