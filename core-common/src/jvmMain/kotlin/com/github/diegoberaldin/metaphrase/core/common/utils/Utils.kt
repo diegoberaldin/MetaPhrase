@@ -148,3 +148,23 @@ inline fun <reified C> Value<ChildSlot<*, *>>.configAsFlow(): Flow<C?> = callbac
         unsubscribe(observer)
     }
 }
+
+/**
+ * Observe the configuration of a child stack as a flow.
+ *
+ * @receiver [Value] Original stack
+ * @param C Configuration type
+ * @return [Flow] Flow of configuration
+ */
+inline fun <reified C> Value<ChildStack<*, *>>.activeConfigAsFlow(): Flow<C?> = callbackFlow {
+    val observer: (ChildStack<*, *>) -> Unit = {
+        val config = it.active.configuration
+        if (C::class.isInstance(config)) {
+            trySend(config as C)
+        }
+    }
+    subscribe(observer)
+    awaitClose {
+        unsubscribe(observer)
+    }
+}
