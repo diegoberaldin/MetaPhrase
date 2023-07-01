@@ -16,7 +16,6 @@ import com.github.diegoberaldin.metaphrase.domain.project.data.RecentProjectMode
 import com.github.diegoberaldin.metaphrase.domain.project.repository.RecentProjectRepository
 import com.github.diegoberaldin.metaphrase.domain.project.usecase.OpenProjectUseCase
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableSharedFlow

@@ -65,7 +65,6 @@ fun CreateProjectDialog(
                 modifier = Modifier.size(600.dp, 400.dp).background(MaterialTheme.colors.background),
             ) {
                 val uiState by component.uiState.collectAsState()
-                val languagesUiState by component.languagesUiState.collectAsState()
                 val pointerIcon by remember(uiState.isLoading) {
                     if (uiState.isLoading) {
                         mutableStateOf(PointerIcon(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR)))
@@ -121,7 +120,7 @@ fun CreateProjectDialog(
                             }
                             SelectLanguageDropDown(
                                 expanded = languageDropdownExpanded,
-                                languages = languagesUiState.availableLanguages,
+                                languages = uiState.availableLanguages,
                                 onDismiss = {
                                     languageDropdownExpanded = false
                                 },
@@ -143,7 +142,7 @@ fun CreateProjectDialog(
                         modifier = Modifier.weight(1f),
                         verticalArrangement = Arrangement.spacedBy(Spacing.xs),
                     ) {
-                        items(languagesUiState.languages) { language ->
+                        items(uiState.languages) { language ->
                             LanguageCell(
                                 language = language,
                                 onSelected = {
@@ -157,7 +156,7 @@ fun CreateProjectDialog(
                     }
                     Text(
                         modifier = Modifier.padding(top = Spacing.xxs, start = Spacing.xxs),
-                        text = languagesUiState.languagesError,
+                        text = uiState.languagesError,
                         color = MaterialTheme.colors.error,
                         style = MaterialTheme.typography.caption,
                     )

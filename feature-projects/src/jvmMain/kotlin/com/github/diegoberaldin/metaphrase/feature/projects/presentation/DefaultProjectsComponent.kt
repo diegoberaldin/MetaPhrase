@@ -51,7 +51,6 @@ internal class DefaultProjectsComponent(
     private val openProjectUseCase: OpenProjectUseCase,
 ) : ProjectsComponent, ComponentContext by componentContext {
 
-
     private val navigation = StackNavigation<ProjectsComponent.Config>()
     private lateinit var viewModelScope: CoroutineScope
 
