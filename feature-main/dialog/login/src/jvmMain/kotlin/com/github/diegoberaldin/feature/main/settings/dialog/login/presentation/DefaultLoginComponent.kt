@@ -10,10 +10,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
@@ -23,36 +20,15 @@ internal class DefaultLoginComponent(
     private val dispatchers: CoroutineDispatcherProvider,
 ) : LoginComponent, ComponentContext by componentContext {
 
-    private val username = MutableStateFlow("")
-    private val usernameError = MutableStateFlow("")
-    private val password = MutableStateFlow("")
-    private val passwordError = MutableStateFlow("")
     private lateinit var viewModelScope: CoroutineScope
 
-    override lateinit var uiState: StateFlow<LoginUiState>
+    override val uiState = MutableStateFlow(LoginUiState())
     override val done = MutableSharedFlow<Pair<String, String>>()
 
     init {
         with(lifecycle) {
             doOnCreate {
                 viewModelScope = CoroutineScope(coroutineContext + SupervisorJob())
-                uiState = combine(
-                    username,
-                    usernameError,
-                    password,
-                    passwordError,
-                ) { username, usernameError, password, passwordError ->
-                    LoginUiState(
-                        username = username,
-                        usernameError = usernameError,
-                        password = password,
-                        passwordError = passwordError,
-                    )
-                }.stateIn(
-                    scope = viewModelScope,
-                    started = SharingStarted.WhileSubscribed(5_000),
-                    initialValue = LoginUiState(),
-                )
             }
             doOnDestroy {
                 viewModelScope.cancel()
@@ -61,25 +37,39 @@ internal class DefaultLoginComponent(
     }
 
     override fun setUsername(value: String) {
-        username.value = value
+        uiState.update { it.copy(username = value) }
     }
 
     override fun setPassword(value: String) {
-        password.value = value
+        uiState.update {
+            it.copy(password = value)
+        }
     }
 
     override fun submit() {
-        usernameError.value = ""
-        passwordError.value = ""
+        uiState.update {
+            it.copy(
+                usernameError = "",
+                passwordError = "",
+            )
+        }
         var valid = true
-        val username = username.value
-        val password = password.value
+        val username = uiState.value.username
+        val password = uiState.value.password
         if (username.isEmpty()) {
-            usernameError.value = "message_missing_field".localized()
+            uiState.update {
+                it.copy(
+                    usernameError = "message_missing_field".localized(),
+                )
+            }
             valid = false
         }
         if (password.isEmpty()) {
-            passwordError.value = "message_missing_field".localized()
+            uiState.update {
+                it.copy(
+                    passwordError = "message_missing_field".localized(),
+                )
+            }
             valid = false
         }
         if (!valid) {

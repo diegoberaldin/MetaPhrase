@@ -17,16 +17,6 @@ interface SettingsComponent {
     val uiState: StateFlow<SettingsUiState>
 
     /**
-     * Language UI state.
-     */
-    val languageUiState: StateFlow<SettingsLanguageUiState>
-
-    /**
-     * Machine transaltion UI state.
-     */
-    val machineTranslationUiState: StateFlow<SettingsMachineTranslationUiState>
-
-    /**
      * Current sub-dialog configuration.
      */
     val dialog: Value<ChildSlot<DialogConfig, *>>
