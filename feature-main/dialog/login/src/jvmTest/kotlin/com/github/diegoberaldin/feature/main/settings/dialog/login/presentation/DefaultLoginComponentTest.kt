@@ -10,7 +10,6 @@ import com.github.diegoberaldin.metaphrase.core.localization.di.localizationModu
 import com.github.diegoberaldin.metaphrase.core.localization.localized
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
 import org.koin.core.context.startKoin
@@ -45,11 +44,9 @@ class DefaultLoginComponentTest {
     fun givenEmptyFieldsWhenSubmitThenErrorStateIsEmitted() = runTest {
         lifecycle.create()
         sut.submit()
-        sut.uiState.drop(1).test {
-            val item = awaitItem()
-            assertEquals("message_missing_field".localized(), item.usernameError)
-            assertEquals("message_missing_field".localized(), item.passwordError)
-        }
+        val uiState = sut.uiState.value
+        assertEquals("message_missing_field".localized(), uiState.usernameError)
+        assertEquals("message_missing_field".localized(), uiState.passwordError)
     }
 
     @Test
@@ -57,25 +54,19 @@ class DefaultLoginComponentTest {
         lifecycle.create()
         sut.setPassword("test")
         sut.submit()
-        sut.uiState.drop(1).test {
-            val item = awaitItem()
-            assertEquals("message_missing_field".localized(), item.usernameError)
-            assertEquals("", item.passwordError)
-        }
+        val uiState = sut.uiState.value
+        assertEquals("message_missing_field".localized(), uiState.usernameError)
+        assertEquals("", uiState.passwordError)
     }
 
     @Test
     fun givenEmptyPasswordFieldWhenSubmitThenErrorStateIsEmitted() = runTest {
         lifecycle.create()
         sut.setUsername("test")
-        launch {
-            sut.submit()
-        }
-        sut.uiState.drop(1).test {
-            val item = awaitItem()
-            assertEquals("", item.usernameError)
-            assertEquals("message_missing_field".localized(), item.passwordError)
-        }
+        sut.submit()
+        val uiState = sut.uiState.value
+        assertEquals("", uiState.usernameError)
+        assertEquals("message_missing_field".localized(), uiState.passwordError)
     }
 
     @Test
@@ -87,6 +78,7 @@ class DefaultLoginComponentTest {
         launch {
             sut.submit()
         }
+
         sut.done.test {
             val item = awaitItem()
             assertEquals("test_user", item.first)
