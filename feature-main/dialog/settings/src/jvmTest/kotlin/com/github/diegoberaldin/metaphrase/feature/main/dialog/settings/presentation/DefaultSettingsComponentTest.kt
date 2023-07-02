@@ -21,9 +21,6 @@ import io.mockk.mockk
 import io.mockk.slot
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.drop
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
 import org.koin.core.context.startKoin
 import kotlin.test.BeforeTest
@@ -80,23 +77,15 @@ class DefaultSettingsComponentTest {
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationKey, any<String>()) } returns "key"
         lifecycle.create()
 
-        sut.uiState.drop(1).test {
-            val item = awaitItem()
-            assertEquals("70", item.similarityThreshold)
-            assertTrue(item.spellcheckEnabled)
-        }
-        sut.machineTranslationUiState.drop(1).test {
-            val item = awaitItem()
-            assertEquals(MachineTranslationRepository.AVAILABLE_PROVIDERS.first(), item.currentProvider)
-            assertEquals(MachineTranslationRepository.AVAILABLE_PROVIDERS, item.availableProviders)
-            assertEquals("key", item.key)
-        }
-        sut.languageUiState.drop(1).test {
-            val item = awaitItem()
-            assertTrue(item.availableLanguages.isNotEmpty())
-            assertNotNull(item.currentLanguage)
-            assertEquals("en", item.currentLanguage?.code)
-        }
+        val uiState = sut.uiState.value
+        assertEquals("70", uiState.similarityThreshold)
+        assertTrue(uiState.spellcheckEnabled)
+        assertEquals(MachineTranslationRepository.AVAILABLE_PROVIDERS.first(), uiState.currentProvider)
+        assertEquals(MachineTranslationRepository.AVAILABLE_PROVIDERS, uiState.availableProviders)
+        assertEquals("key", uiState.key)
+        assertTrue(uiState.availableLanguages.isNotEmpty())
+        assertNotNull(uiState.currentLanguage)
+        assertEquals("en", uiState.currentLanguage?.code)
     }
 
     @Test
@@ -113,13 +102,9 @@ class DefaultSettingsComponentTest {
         coEvery { mockKeyStore.save(any(), any<String>()) } returns Unit
         lifecycle.create()
 
-        launch {
-            sut.setLanguage(LanguageModel(code = "it"))
-        }
-        sut.languageUiState.debounce(100).test {
-            val item = awaitItem()
-            assertEquals("it", item.currentLanguage?.code)
-        }
+        sut.setLanguage(LanguageModel(code = "it"))
+        val uiState = sut.uiState.value
+        assertEquals("it", uiState.currentLanguage?.code)
         coVerify { mockKeyStore.save(KeyStoreKeys.AppLanguage, "it") }
     }
 
@@ -137,13 +122,9 @@ class DefaultSettingsComponentTest {
         coEvery { mockKeyStore.save(any(), any<Int>()) } returns Unit
         lifecycle.create()
 
-        launch {
-            sut.setSimilarity("80")
-        }
-        sut.uiState.debounce(100).test {
-            val item = awaitItem()
-            assertEquals("80", item.similarityThreshold)
-        }
+        sut.setSimilarity("80")
+        val uiState = sut.uiState.value
+        assertEquals("80", uiState.similarityThreshold)
         coVerify { mockKeyStore.save(KeyStoreKeys.SimilarityThreshold, 80) }
     }
 
@@ -161,13 +142,9 @@ class DefaultSettingsComponentTest {
         coEvery { mockKeyStore.save(any(), any<Boolean>()) } returns Unit
         lifecycle.create()
 
-        launch {
-            sut.setSpellcheckEnabled(false)
-        }
-        sut.uiState.debounce(100).test {
-            val item = awaitItem()
-            assertEquals(false, item.spellcheckEnabled)
-        }
+        sut.setSpellcheckEnabled(false)
+        val uiState = sut.uiState.value
+        assertEquals(false, uiState.spellcheckEnabled)
         coVerify { mockKeyStore.save(KeyStoreKeys.SpellcheckEnabled, false) }
     }
 
@@ -186,13 +163,9 @@ class DefaultSettingsComponentTest {
         lifecycle.create()
 
         val index = 0
-        launch {
-            sut.setMachineTranslationProvider(index)
-        }
-        sut.machineTranslationUiState.debounce(100).test {
-            val item = awaitItem()
-            assertEquals(MachineTranslationRepository.AVAILABLE_PROVIDERS[index], item.currentProvider)
-        }
+        sut.setMachineTranslationProvider(index)
+        val uiState = sut.uiState.value
+        assertEquals(MachineTranslationRepository.AVAILABLE_PROVIDERS[index], uiState.currentProvider)
         coVerify { mockKeyStore.save(KeyStoreKeys.MachineTranslationProvider, index) }
     }
 
@@ -211,13 +184,9 @@ class DefaultSettingsComponentTest {
         lifecycle.create()
 
         val key = "key"
-        launch {
-            sut.setMachineTranslationKey(key)
-        }
-        sut.machineTranslationUiState.debounce(100).test {
-            val item = awaitItem()
-            assertEquals(key, item.key)
-        }
+        sut.setMachineTranslationKey(key)
+        val uiState = sut.uiState.value
+        assertEquals(key, uiState.key)
         coVerify { mockKeyStore.save(KeyStoreKeys.MachineTranslationKey, key) }
     }
 
@@ -236,14 +205,9 @@ class DefaultSettingsComponentTest {
         coEvery { mockMachineTranslationRepository.generateKey(any(), any(), any()) } returns "new_key"
         lifecycle.create()
 
-        launch {
-            sut.generateMachineTranslationKey("username", "password")
-        }
-        sut.machineTranslationUiState.debounce(100).test {
-            val item = awaitItem()
-            assertEquals("new_key", item.key)
-        }
-
+        sut.generateMachineTranslationKey("username", "password")
+        val uiState = sut.uiState.value
+        assertEquals("new_key", uiState.key)
         coVerify { mockMachineTranslationRepository.generateKey(username = "username", password = "password") }
     }
 

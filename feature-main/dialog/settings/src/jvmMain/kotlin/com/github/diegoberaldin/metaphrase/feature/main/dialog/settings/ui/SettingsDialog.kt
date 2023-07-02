@@ -72,8 +72,6 @@ fun SettingsDialog(
             },
         ) {
             val uiState by component.uiState.collectAsState()
-            val languageUiState by component.languageUiState.collectAsState()
-            val machineTranslationUiState by component.machineTranslationUiState.collectAsState()
             val pointerIcon by remember(uiState.isLoading) {
                 if (uiState.isLoading) {
                     mutableStateOf(PointerIcon(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR)))
@@ -109,7 +107,7 @@ fun SettingsDialog(
                             color = MaterialTheme.colors.onBackground,
                         )
                         Spacer(modifier = Modifier.weight(1f))
-                        val availableLanguages = languageUiState.availableLanguages
+                        val availableLanguages = uiState.availableLanguages
                         CustomSpinner(
                             modifier = Modifier.background(
                                 color = SelectedBackground,
@@ -118,7 +116,7 @@ fun SettingsDialog(
                             size = DpSize(width = 200.dp, height = 30.dp),
                             values = availableLanguages.map { it.name },
                             valueColor = MaterialTheme.colors.onBackground,
-                            current = languageUiState.currentLanguage?.name,
+                            current = uiState.currentLanguage?.name,
                             onValueChanged = {
                                 val language = availableLanguages[it]
                                 component.setLanguage(language)
@@ -168,7 +166,7 @@ fun SettingsDialog(
                             color = MaterialTheme.colors.onBackground,
                         )
                         Spacer(modifier = Modifier.weight(1f))
-                        val providers = machineTranslationUiState.availableProviders
+                        val providers = uiState.availableProviders
                         CustomSpinner(
                             modifier = Modifier.background(
                                 color = SelectedBackground,
@@ -177,7 +175,7 @@ fun SettingsDialog(
                             size = DpSize(width = 200.dp, height = 30.dp),
                             values = providers.map { it.readableName },
                             valueColor = MaterialTheme.colors.onBackground,
-                            current = machineTranslationUiState.currentProvider?.readableName.orEmpty(),
+                            current = uiState.currentProvider?.readableName.orEmpty(),
                             onValueChanged = {
                                 component.setMachineTranslationProvider(it)
                             },
@@ -191,7 +189,7 @@ fun SettingsDialog(
                         )
                         Spacer(modifier = Modifier.weight(1f))
                         val keyGenerationEnabled =
-                            machineTranslationUiState.currentProvider == MachineTranslationProvider.MY_MEMORY
+                            uiState.currentProvider == MachineTranslationProvider.MY_MEMORY
                         if (keyGenerationEnabled) {
                             CustomTooltipArea(
                                 text = "tooltip_login".localized(),
@@ -210,7 +208,7 @@ fun SettingsDialog(
                         }
                         CustomTextField(
                             modifier = Modifier.width(200.dp).height(26.dp),
-                            value = machineTranslationUiState.key,
+                            value = uiState.key,
                             enabled = !keyGenerationEnabled,
                             onValueChange = {
                                 component.setMachineTranslationKey(it)
