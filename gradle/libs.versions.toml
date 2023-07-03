@@ -1,7 +1,7 @@
 [versions]
 androidx_datastore = "1.0.0"
 commons_csv = "1.10.0"
-decompose = "2.0.0-alpha-02"
+decompose = "2.0.0"
 guava = "31.1-jre"
 exposed = "0.41.1"
 h2 = "2.1.214"
