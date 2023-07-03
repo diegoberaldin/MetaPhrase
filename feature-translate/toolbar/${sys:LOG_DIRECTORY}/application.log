@@ -1,0 +1,724 @@
+2023-07-03 23:03:10.876 [DEBUG] Creating mockk for LanguageRepository name=#1
+2023-07-03 23:03:11.767 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#2
+2023-07-03 23:03:12.483 [DEBUG] Creating mockk for List name=child of #1#3
+2023-07-03 23:03:12.580 [DEBUG] Creating mockk for LanguageModel name=child of #2#4
+2023-07-03 23:03:12.650 [DEBUG] Creating mockk for LanguageRepository name=#5
+2023-07-03 23:03:12.651 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#6
+2023-07-03 23:03:12.662 [DEBUG] Creating mockk for List name=child of #5#7
+2023-07-03 23:03:12.666 [DEBUG] Creating mockk for LanguageModel name=child of #6#8
+2023-07-03 23:03:12.671 [DEBUG] Creating mockk for LanguageRepository name=#9
+2023-07-03 23:03:12.671 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#10
+2023-07-03 23:03:12.679 [DEBUG] Creating mockk for List name=child of #9#11
+2023-07-03 23:03:12.683 [DEBUG] Creating mockk for LanguageModel name=child of #10#12
+2023-07-03 23:03:12.687 [DEBUG] Creating mockk for LanguageRepository name=#13
+2023-07-03 23:03:12.688 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#14
+2023-07-03 23:03:12.697 [DEBUG] Creating mockk for List name=child of #13#15
+2023-07-03 23:03:12.701 [DEBUG] Creating mockk for LanguageModel name=child of #14#16
+2023-07-03 23:03:15.766 [DEBUG] Creating mockk for LanguageRepository name=#17
+2023-07-03 23:03:15.766 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#18
+2023-07-03 23:03:15.774 [DEBUG] Creating mockk for List name=child of #17#19
+2023-07-03 23:03:15.778 [DEBUG] Creating mockk for LanguageModel name=child of #18#20
+2023-07-03 23:03:15.782 [DEBUG] Creating mockk for LanguageRepository name=#21
+2023-07-03 23:03:15.782 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#22
+2023-07-03 23:03:15.790 [DEBUG] Creating mockk for List name=child of #21#23
+2023-07-03 23:03:15.795 [DEBUG] Creating mockk for LanguageModel name=child of #22#24
+2023-07-03 23:04:46.852 [DEBUG] Creating mockk for LanguageRepository name=#1
+2023-07-03 23:04:47.553 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#2
+2023-07-03 23:04:48.210 [DEBUG] Creating mockk for List name=child of #1#3
+2023-07-03 23:04:48.306 [DEBUG] Creating mockk for LanguageModel name=child of #2#4
+2023-07-03 23:04:48.343 [DEBUG] Answering LanguageRepository(#1) on LanguageRepository(#1).toString()
+2023-07-03 23:04:48.346 [DEBUG] Throwing io.mockk.MockKException: no answer found for LanguageRepository(#1).observeAll(1) among the configured answers: (LanguageRepository(#1).getAll(any(), any()))) on LanguageRepository(#1).observeAll(1)
+2023-07-03 23:04:48.439 [DEBUG] Creating mockk for LanguageRepository name=#5
+2023-07-03 23:04:48.441 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#6
+2023-07-03 23:04:48.474 [DEBUG] Creating mockk for List name=child of #5#7
+2023-07-03 23:04:48.477 [DEBUG] Creating mockk for LanguageModel name=child of #6#8
+2023-07-03 23:04:48.480 [DEBUG] Answering LanguageRepository(#5) on LanguageRepository(#5).toString()
+2023-07-03 23:04:48.481 [DEBUG] Throwing io.mockk.MockKException: no answer found for LanguageRepository(#5).observeAll(1) among the configured answers: (LanguageRepository(#5).getAll(any(), any()))) on LanguageRepository(#5).observeAll(1)
+2023-07-03 23:04:48.496 [DEBUG] Creating mockk for LanguageRepository name=#9
+2023-07-03 23:04:48.496 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#10
+2023-07-03 23:04:48.507 [DEBUG] Creating mockk for List name=child of #9#11
+2023-07-03 23:04:48.512 [DEBUG] Creating mockk for LanguageModel name=child of #10#12
+2023-07-03 23:04:48.515 [DEBUG] Answering LanguageRepository(#9) on LanguageRepository(#9).toString()
+2023-07-03 23:04:48.516 [DEBUG] Throwing io.mockk.MockKException: no answer found for LanguageRepository(#9).observeAll(1) among the configured answers: (LanguageRepository(#9).getAll(any(), any()))) on LanguageRepository(#9).observeAll(1)
+2023-07-03 23:04:48.528 [DEBUG] Creating mockk for LanguageRepository name=#13
+2023-07-03 23:04:48.529 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#14
+2023-07-03 23:04:48.545 [DEBUG] Creating mockk for List name=child of #13#15
+2023-07-03 23:04:48.554 [DEBUG] Creating mockk for LanguageModel name=child of #14#16
+2023-07-03 23:04:48.559 [DEBUG] Answering LanguageRepository(#13) on LanguageRepository(#13).toString()
+2023-07-03 23:04:48.560 [DEBUG] Throwing io.mockk.MockKException: no answer found for LanguageRepository(#13).observeAll(1) among the configured answers: (LanguageRepository(#13).getAll(any(), any()))) on LanguageRepository(#13).observeAll(1)
+2023-07-03 23:04:51.624 [DEBUG] Creating mockk for LanguageRepository name=#17
+2023-07-03 23:04:51.625 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#18
+2023-07-03 23:04:51.634 [DEBUG] Creating mockk for List name=child of #17#19
+2023-07-03 23:04:51.638 [DEBUG] Creating mockk for LanguageModel name=child of #18#20
+2023-07-03 23:04:51.642 [DEBUG] Answering LanguageRepository(#17) on LanguageRepository(#17).toString()
+2023-07-03 23:04:51.643 [DEBUG] Throwing io.mockk.MockKException: no answer found for LanguageRepository(#17).observeAll(1) among the configured answers: (LanguageRepository(#17).getAll(any(), any()))) on LanguageRepository(#17).observeAll(1)
+2023-07-03 23:04:51.648 [DEBUG] Creating mockk for LanguageRepository name=#21
+2023-07-03 23:04:51.648 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#22
+2023-07-03 23:04:51.661 [DEBUG] Creating mockk for List name=child of #21#23
+2023-07-03 23:04:51.666 [DEBUG] Creating mockk for LanguageModel name=child of #22#24
+2023-07-03 23:04:51.669 [DEBUG] Answering LanguageRepository(#21) on LanguageRepository(#21).toString()
+2023-07-03 23:04:51.670 [DEBUG] Throwing io.mockk.MockKException: no answer found for LanguageRepository(#21).observeAll(1) among the configured answers: (LanguageRepository(#21).getAll(any(), any()))) on LanguageRepository(#21).observeAll(1)
+2023-07-03 23:05:59.481 [DEBUG] Creating mockk for LanguageRepository name=#1
+2023-07-03 23:06:00.168 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#2
+2023-07-03 23:06:00.627 [DEBUG] Creating mockk for Flow name=child of #1#3
+2023-07-03 23:06:00.761 [DEBUG] Creating mockk for LanguageModel name=child of #2#4
+2023-07-03 23:06:00.793 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@514377fc on LanguageRepository(#1).observeAll(1)
+2023-07-03 23:06:00.807 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=false) on GetCompleteLanguageUseCase(#2).invoke(LanguageModel(id=0, code=en, name=, isBase=false))
+2023-07-03 23:06:00.808 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#2).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:06:00.810 [DEBUG] Answering LanguageRepository(#1) on LanguageRepository(#1).toString()
+2023-07-03 23:06:00.813 [DEBUG] Throwing io.mockk.MockKException: no answer found for LanguageRepository(#1).getBase(1, continuation {}) among the configured answers: (LanguageRepository(#1).observeAll(any()))) on LanguageRepository(#1).getBase(1, continuation {})
+2023-07-03 23:06:00.862 [DEBUG] Creating mockk for LanguageRepository name=#5
+2023-07-03 23:06:00.862 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#6
+2023-07-03 23:06:00.873 [DEBUG] Creating mockk for Flow name=child of #5#7
+2023-07-03 23:06:00.876 [DEBUG] Creating mockk for LanguageModel name=child of #6#8
+2023-07-03 23:06:00.878 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@5f56424d on LanguageRepository(#5).observeAll(1)
+2023-07-03 23:06:00.878 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=false) on GetCompleteLanguageUseCase(#6).invoke(LanguageModel(id=0, code=en, name=, isBase=false))
+2023-07-03 23:06:00.878 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#6).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:06:00.879 [DEBUG] Answering LanguageRepository(#5) on LanguageRepository(#5).toString()
+2023-07-03 23:06:00.879 [DEBUG] Throwing io.mockk.MockKException: no answer found for LanguageRepository(#5).getBase(1, continuation {}) among the configured answers: (LanguageRepository(#5).observeAll(any()))) on LanguageRepository(#5).getBase(1, continuation {})
+2023-07-03 23:06:00.882 [DEBUG] Creating mockk for LanguageRepository name=#9
+2023-07-03 23:06:00.882 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#10
+2023-07-03 23:06:00.888 [DEBUG] Creating mockk for Flow name=child of #9#11
+2023-07-03 23:06:00.891 [DEBUG] Creating mockk for LanguageModel name=child of #10#12
+2023-07-03 23:06:00.892 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@3855d9b2 on LanguageRepository(#9).observeAll(1)
+2023-07-03 23:06:00.893 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=false) on GetCompleteLanguageUseCase(#10).invoke(LanguageModel(id=0, code=en, name=, isBase=false))
+2023-07-03 23:06:00.893 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#10).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:06:00.893 [DEBUG] Answering LanguageRepository(#9) on LanguageRepository(#9).toString()
+2023-07-03 23:06:00.894 [DEBUG] Throwing io.mockk.MockKException: no answer found for LanguageRepository(#9).getBase(1, continuation {}) among the configured answers: (LanguageRepository(#9).observeAll(any()))) on LanguageRepository(#9).getBase(1, continuation {})
+2023-07-03 23:06:00.899 [DEBUG] Creating mockk for LanguageRepository name=#13
+2023-07-03 23:06:00.899 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#14
+2023-07-03 23:06:00.907 [DEBUG] Creating mockk for Flow name=child of #13#15
+2023-07-03 23:06:00.910 [DEBUG] Creating mockk for LanguageModel name=child of #14#16
+2023-07-03 23:06:00.913 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@f017dd0 on LanguageRepository(#13).observeAll(1)
+2023-07-03 23:06:00.914 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=false) on GetCompleteLanguageUseCase(#14).invoke(LanguageModel(id=0, code=en, name=, isBase=false))
+2023-07-03 23:06:00.914 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#14).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:06:00.915 [DEBUG] Answering LanguageRepository(#13) on LanguageRepository(#13).toString()
+2023-07-03 23:06:00.917 [DEBUG] Throwing io.mockk.MockKException: no answer found for LanguageRepository(#13).getBase(1, continuation {}) among the configured answers: (LanguageRepository(#13).observeAll(any()))) on LanguageRepository(#13).getBase(1, continuation {})
+2023-07-03 23:06:03.984 [DEBUG] Creating mockk for LanguageRepository name=#17
+2023-07-03 23:06:03.985 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#18
+2023-07-03 23:06:03.993 [DEBUG] Creating mockk for Flow name=child of #17#19
+2023-07-03 23:06:03.996 [DEBUG] Creating mockk for LanguageModel name=child of #18#20
+2023-07-03 23:06:03.998 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@5a85b4e6 on LanguageRepository(#17).observeAll(1)
+2023-07-03 23:06:04.001 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=false) on GetCompleteLanguageUseCase(#18).invoke(LanguageModel(id=0, code=en, name=, isBase=false))
+2023-07-03 23:06:04.002 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#18).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:06:04.002 [DEBUG] Answering LanguageRepository(#17) on LanguageRepository(#17).toString()
+2023-07-03 23:06:04.003 [DEBUG] Throwing io.mockk.MockKException: no answer found for LanguageRepository(#17).getBase(1, continuation {}) among the configured answers: (LanguageRepository(#17).observeAll(any()))) on LanguageRepository(#17).getBase(1, continuation {})
+2023-07-03 23:06:04.009 [DEBUG] Creating mockk for LanguageRepository name=#21
+2023-07-03 23:06:04.009 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#22
+2023-07-03 23:06:04.019 [DEBUG] Creating mockk for Flow name=child of #21#23
+2023-07-03 23:06:04.024 [DEBUG] Creating mockk for LanguageModel name=child of #22#24
+2023-07-03 23:06:04.026 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@6def0632 on LanguageRepository(#21).observeAll(1)
+2023-07-03 23:06:04.027 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=false) on GetCompleteLanguageUseCase(#22).invoke(LanguageModel(id=0, code=en, name=, isBase=false))
+2023-07-03 23:06:04.028 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#22).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:06:04.028 [DEBUG] Answering LanguageRepository(#21) on LanguageRepository(#21).toString()
+2023-07-03 23:06:04.029 [DEBUG] Throwing io.mockk.MockKException: no answer found for LanguageRepository(#21).getBase(1, continuation {}) among the configured answers: (LanguageRepository(#21).observeAll(any()))) on LanguageRepository(#21).getBase(1, continuation {})
+2023-07-03 23:07:14.625 [DEBUG] Creating mockk for LanguageRepository name=#1
+2023-07-03 23:07:15.352 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#2
+2023-07-03 23:07:15.851 [DEBUG] Creating mockk for Flow name=child of #1#3
+2023-07-03 23:07:15.970 [DEBUG] Creating mockk for LanguageModel name=child of #1#4
+2023-07-03 23:07:15.996 [DEBUG] Creating mockk for LanguageModel name=child of #2#5
+2023-07-03 23:07:16.024 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@62e73ab6 on LanguageRepository(#1).observeAll(1)
+2023-07-03 23:07:16.036 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#2).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:07:16.037 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#2).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:07:16.038 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#1).getBase(1, continuation {})
+2023-07-03 23:07:16.039 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#2).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:07:16.079 [DEBUG] Creating mockk for LanguageRepository name=#6
+2023-07-03 23:07:16.079 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#7
+2023-07-03 23:07:16.089 [DEBUG] Creating mockk for Flow name=child of #6#8
+2023-07-03 23:07:16.094 [DEBUG] Creating mockk for LanguageModel name=child of #6#9
+2023-07-03 23:07:16.097 [DEBUG] Creating mockk for LanguageModel name=child of #7#10
+2023-07-03 23:07:16.098 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@7f4e5a39 on LanguageRepository(#6).observeAll(1)
+2023-07-03 23:07:16.099 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#7).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:07:16.100 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#7).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:07:16.100 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#6).getBase(1, continuation {})
+2023-07-03 23:07:16.100 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#7).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:07:16.103 [DEBUG] Creating mockk for LanguageRepository name=#11
+2023-07-03 23:07:16.103 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#12
+2023-07-03 23:07:16.111 [DEBUG] Creating mockk for Flow name=child of #11#13
+2023-07-03 23:07:16.114 [DEBUG] Creating mockk for LanguageModel name=child of #11#14
+2023-07-03 23:07:16.116 [DEBUG] Creating mockk for LanguageModel name=child of #12#15
+2023-07-03 23:07:16.118 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@550c973e on LanguageRepository(#11).observeAll(1)
+2023-07-03 23:07:16.118 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#12).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:07:16.119 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#12).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:07:16.119 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#11).getBase(1, continuation {})
+2023-07-03 23:07:16.120 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#12).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:07:16.128 [DEBUG] Creating mockk for LanguageRepository name=#16
+2023-07-03 23:07:16.128 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#17
+2023-07-03 23:07:16.136 [DEBUG] Creating mockk for Flow name=child of #16#18
+2023-07-03 23:07:16.142 [DEBUG] Creating mockk for LanguageModel name=child of #16#19
+2023-07-03 23:07:16.148 [DEBUG] Creating mockk for LanguageModel name=child of #17#20
+2023-07-03 23:07:16.151 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@4357524b on LanguageRepository(#16).observeAll(1)
+2023-07-03 23:07:16.151 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#17).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:07:16.152 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#17).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:07:16.152 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#16).getBase(1, continuation {})
+2023-07-03 23:07:16.153 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#17).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:07:19.241 [DEBUG] Creating mockk for LanguageRepository name=#21
+2023-07-03 23:07:19.241 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#22
+2023-07-03 23:07:19.247 [DEBUG] Creating mockk for Flow name=child of #21#23
+2023-07-03 23:07:19.251 [DEBUG] Creating mockk for LanguageModel name=child of #21#24
+2023-07-03 23:07:19.254 [DEBUG] Creating mockk for LanguageModel name=child of #22#25
+2023-07-03 23:07:19.255 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@3d512652 on LanguageRepository(#21).observeAll(1)
+2023-07-03 23:07:19.256 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#22).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:07:19.256 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#22).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:07:19.257 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#21).getBase(1, continuation {})
+2023-07-03 23:07:19.257 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#22).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:07:19.261 [DEBUG] Creating mockk for LanguageRepository name=#26
+2023-07-03 23:07:19.262 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#27
+2023-07-03 23:07:19.267 [DEBUG] Creating mockk for Flow name=child of #26#28
+2023-07-03 23:07:19.270 [DEBUG] Creating mockk for LanguageModel name=child of #26#29
+2023-07-03 23:07:19.272 [DEBUG] Creating mockk for LanguageModel name=child of #27#30
+2023-07-03 23:07:19.274 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@26ca12a2 on LanguageRepository(#26).observeAll(1)
+2023-07-03 23:07:19.274 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#27).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:07:19.275 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#27).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:07:19.276 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#26).getBase(1, continuation {})
+2023-07-03 23:07:19.277 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#27).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:08:39.096 [DEBUG] Creating mockk for LanguageRepository name=#1
+2023-07-03 23:08:39.827 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#2
+2023-07-03 23:08:40.288 [DEBUG] Creating mockk for Flow name=child of #1#3
+2023-07-03 23:08:40.416 [DEBUG] Creating mockk for LanguageModel name=child of #1#4
+2023-07-03 23:08:40.441 [DEBUG] Creating mockk for LanguageModel name=child of #2#5
+2023-07-03 23:08:40.473 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@62e73ab6 on LanguageRepository(#1).observeAll(1)
+2023-07-03 23:08:40.484 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#2).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:08:40.485 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#2).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:08:40.487 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#1).getBase(1, continuation {})
+2023-07-03 23:08:40.487 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#2).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:08:40.528 [DEBUG] Creating mockk for LanguageRepository name=#6
+2023-07-03 23:08:40.529 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#7
+2023-07-03 23:08:40.538 [DEBUG] Creating mockk for Flow name=child of #6#8
+2023-07-03 23:08:40.542 [DEBUG] Creating mockk for LanguageModel name=child of #6#9
+2023-07-03 23:08:40.545 [DEBUG] Creating mockk for LanguageModel name=child of #7#10
+2023-07-03 23:08:40.546 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@7f4e5a39 on LanguageRepository(#6).observeAll(1)
+2023-07-03 23:08:40.547 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#7).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:08:40.547 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#7).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:08:40.548 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#6).getBase(1, continuation {})
+2023-07-03 23:08:40.548 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#7).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:08:40.550 [DEBUG] Creating mockk for LanguageRepository name=#11
+2023-07-03 23:08:40.551 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#12
+2023-07-03 23:08:40.559 [DEBUG] Creating mockk for Flow name=child of #11#13
+2023-07-03 23:08:40.563 [DEBUG] Creating mockk for LanguageModel name=child of #11#14
+2023-07-03 23:08:40.566 [DEBUG] Creating mockk for LanguageModel name=child of #12#15
+2023-07-03 23:08:40.568 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@550c973e on LanguageRepository(#11).observeAll(1)
+2023-07-03 23:08:40.568 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#12).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:08:40.569 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#12).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:08:40.570 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#11).getBase(1, continuation {})
+2023-07-03 23:08:40.570 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#12).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:08:40.577 [DEBUG] Creating mockk for LanguageRepository name=#16
+2023-07-03 23:08:40.577 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#17
+2023-07-03 23:08:40.583 [DEBUG] Creating mockk for Flow name=child of #16#18
+2023-07-03 23:08:40.587 [DEBUG] Creating mockk for LanguageModel name=child of #16#19
+2023-07-03 23:08:40.590 [DEBUG] Creating mockk for LanguageModel name=child of #17#20
+2023-07-03 23:08:40.592 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@38de5daf on LanguageRepository(#16).observeAll(1)
+2023-07-03 23:08:40.593 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#17).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:08:40.593 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#17).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:08:40.594 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#16).getBase(1, continuation {})
+2023-07-03 23:08:40.594 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#17).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:08:43.650 [DEBUG] Creating mockk for LanguageRepository name=#21
+2023-07-03 23:08:43.651 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#22
+2023-07-03 23:08:43.656 [DEBUG] Creating mockk for Flow name=child of #21#23
+2023-07-03 23:08:43.662 [DEBUG] Creating mockk for LanguageModel name=child of #21#24
+2023-07-03 23:08:43.665 [DEBUG] Creating mockk for LanguageModel name=child of #22#25
+2023-07-03 23:08:43.667 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@44da7eb3 on LanguageRepository(#21).observeAll(1)
+2023-07-03 23:08:43.667 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#22).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:08:43.667 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#22).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:08:43.667 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#21).getBase(1, continuation {})
+2023-07-03 23:08:43.668 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#22).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:08:43.670 [DEBUG] Creating mockk for LanguageRepository name=#26
+2023-07-03 23:08:43.670 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#27
+2023-07-03 23:08:43.675 [DEBUG] Creating mockk for Flow name=child of #26#28
+2023-07-03 23:08:43.679 [DEBUG] Creating mockk for LanguageModel name=child of #26#29
+2023-07-03 23:08:43.681 [DEBUG] Creating mockk for LanguageModel name=child of #27#30
+2023-07-03 23:08:43.683 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@14a1769d on LanguageRepository(#26).observeAll(1)
+2023-07-03 23:08:43.683 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#27).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:08:43.684 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#27).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:08:43.684 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#26).getBase(1, continuation {})
+2023-07-03 23:08:43.685 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#27).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:10:14.921 [DEBUG] Creating mockk for LanguageRepository name=#1
+2023-07-03 23:10:15.600 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#2
+2023-07-03 23:10:16.024 [DEBUG] Creating mockk for Flow name=child of #1#3
+2023-07-03 23:10:16.137 [DEBUG] Creating mockk for LanguageModel name=child of #1#4
+2023-07-03 23:10:16.164 [DEBUG] Creating mockk for LanguageModel name=child of #2#5
+2023-07-03 23:10:16.192 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@177ede17 on LanguageRepository(#1).observeAll(1)
+2023-07-03 23:10:16.209 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#2).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:10:16.210 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#2).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:10:16.211 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#1).getBase(1, continuation {})
+2023-07-03 23:10:16.212 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#2).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:12:41.238 [DEBUG] Creating mockk for LanguageRepository name=#1
+2023-07-03 23:12:41.935 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#2
+2023-07-03 23:12:42.359 [DEBUG] Creating mockk for Flow name=child of #1#3
+2023-07-03 23:12:42.471 [DEBUG] Creating mockk for LanguageModel name=child of #1#4
+2023-07-03 23:12:42.497 [DEBUG] Creating mockk for LanguageModel name=child of #2#5
+2023-07-03 23:12:42.526 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@2a04ab05 on LanguageRepository(#1).observeAll(1)
+2023-07-03 23:12:42.537 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#2).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:12:42.538 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#2).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:12:42.540 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#1).getBase(1, continuation {})
+2023-07-03 23:12:42.541 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#2).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:16:28.531 [DEBUG] Creating mockk for LanguageRepository name=#1
+2023-07-03 23:16:29.243 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#2
+2023-07-03 23:16:29.683 [DEBUG] Creating mockk for Flow name=child of #1#3
+2023-07-03 23:16:29.806 [DEBUG] Creating mockk for LanguageModel name=child of #1#4
+2023-07-03 23:16:29.833 [DEBUG] Creating mockk for LanguageModel name=child of #2#5
+2023-07-03 23:16:29.862 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@74c121d4 on LanguageRepository(#1).observeAll(1)
+2023-07-03 23:16:29.874 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#2).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:16:29.874 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#2).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:16:29.876 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#1).getBase(1, continuation {})
+2023-07-03 23:16:29.877 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#2).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:16:43.992 [DEBUG] Creating mockk for LanguageRepository name=#1
+2023-07-03 23:16:44.675 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#2
+2023-07-03 23:16:45.114 [DEBUG] Creating mockk for Flow name=child of #1#3
+2023-07-03 23:16:45.250 [DEBUG] Creating mockk for LanguageModel name=child of #1#4
+2023-07-03 23:16:45.277 [DEBUG] Creating mockk for LanguageModel name=child of #2#5
+2023-07-03 23:16:45.310 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@7ae590f6 on LanguageRepository(#1).observeAll(1)
+2023-07-03 23:16:45.322 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#2).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:16:45.323 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#2).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:16:45.325 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#1).getBase(1, continuation {})
+2023-07-03 23:16:45.326 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#2).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:16:45.422 [DEBUG] Creating mockk for LanguageRepository name=#6
+2023-07-03 23:16:45.423 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#7
+2023-07-03 23:16:45.433 [DEBUG] Creating mockk for Flow name=child of #6#8
+2023-07-03 23:16:45.437 [DEBUG] Creating mockk for LanguageModel name=child of #6#9
+2023-07-03 23:16:45.441 [DEBUG] Creating mockk for LanguageModel name=child of #7#10
+2023-07-03 23:16:45.443 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@baa9ce4 on LanguageRepository(#6).observeAll(1)
+2023-07-03 23:16:45.444 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#7).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:16:45.444 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#7).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:16:45.445 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#6).getBase(1, continuation {})
+2023-07-03 23:16:45.445 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#7).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:16:45.451 [DEBUG] Creating mockk for LanguageRepository name=#11
+2023-07-03 23:16:45.451 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#12
+2023-07-03 23:16:45.459 [DEBUG] Creating mockk for Flow name=child of #11#13
+2023-07-03 23:16:45.464 [DEBUG] Creating mockk for LanguageModel name=child of #11#14
+2023-07-03 23:16:45.467 [DEBUG] Creating mockk for LanguageModel name=child of #12#15
+2023-07-03 23:16:45.469 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@638afcaa on LanguageRepository(#11).observeAll(1)
+2023-07-03 23:16:45.470 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#12).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:16:45.471 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#12).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:16:45.471 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#11).getBase(1, continuation {})
+2023-07-03 23:16:45.473 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#12).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:16:48.494 [DEBUG] Creating mockk for LanguageRepository name=#16
+2023-07-03 23:16:48.494 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#17
+2023-07-03 23:16:48.499 [DEBUG] Creating mockk for Flow name=child of #16#18
+2023-07-03 23:16:48.504 [DEBUG] Creating mockk for LanguageModel name=child of #16#19
+2023-07-03 23:16:48.506 [DEBUG] Creating mockk for LanguageModel name=child of #17#20
+2023-07-03 23:16:48.507 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@6b9697ae on LanguageRepository(#16).observeAll(1)
+2023-07-03 23:16:48.508 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#17).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:16:48.508 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#17).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:16:48.508 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#16).getBase(1, continuation {})
+2023-07-03 23:16:48.509 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#17).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:16:48.517 [DEBUG] Creating mockk for LanguageRepository name=#21
+2023-07-03 23:16:48.517 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#22
+2023-07-03 23:16:48.521 [DEBUG] Creating mockk for Flow name=child of #21#23
+2023-07-03 23:16:48.525 [DEBUG] Creating mockk for LanguageModel name=child of #21#24
+2023-07-03 23:16:48.527 [DEBUG] Creating mockk for LanguageModel name=child of #22#25
+2023-07-03 23:16:48.529 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@6c6928c on LanguageRepository(#21).observeAll(1)
+2023-07-03 23:16:48.529 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#22).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:16:48.530 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#22).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:16:48.530 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#21).getBase(1, continuation {})
+2023-07-03 23:16:48.530 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#22).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:16:48.536 [DEBUG] Creating mockk for LanguageRepository name=#26
+2023-07-03 23:16:48.536 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#27
+2023-07-03 23:16:48.541 [DEBUG] Creating mockk for Flow name=child of #26#28
+2023-07-03 23:16:48.544 [DEBUG] Creating mockk for LanguageModel name=child of #26#29
+2023-07-03 23:16:48.547 [DEBUG] Creating mockk for LanguageModel name=child of #27#30
+2023-07-03 23:16:48.549 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@5ce3409b on LanguageRepository(#26).observeAll(1)
+2023-07-03 23:16:48.550 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#27).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:16:48.551 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#27).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:16:48.551 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#26).getBase(1, continuation {})
+2023-07-03 23:16:48.552 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#27).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:16:51.564 [DEBUG] Creating mockk for LanguageRepository name=#31
+2023-07-03 23:16:51.565 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#32
+2023-07-03 23:16:51.570 [DEBUG] Creating mockk for Flow name=child of #31#33
+2023-07-03 23:16:51.573 [DEBUG] Creating mockk for LanguageModel name=child of #31#34
+2023-07-03 23:16:51.575 [DEBUG] Creating mockk for LanguageModel name=child of #32#35
+2023-07-03 23:16:51.577 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@25ae1f80 on LanguageRepository(#31).observeAll(1)
+2023-07-03 23:16:51.577 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#32).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:16:51.578 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#32).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:16:51.578 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#31).getBase(1, continuation {})
+2023-07-03 23:16:51.579 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#32).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:16:51.583 [DEBUG] Creating mockk for LanguageRepository name=#36
+2023-07-03 23:16:51.584 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#37
+2023-07-03 23:16:51.595 [DEBUG] Creating mockk for Flow name=child of #36#38
+2023-07-03 23:16:51.600 [DEBUG] Creating mockk for LanguageModel name=child of #36#39
+2023-07-03 23:16:51.602 [DEBUG] Creating mockk for LanguageModel name=child of #37#40
+2023-07-03 23:16:51.603 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@27bb4dc5 on LanguageRepository(#36).observeAll(1)
+2023-07-03 23:16:51.604 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#37).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:16:51.604 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#37).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:16:51.605 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#36).getBase(1, continuation {})
+2023-07-03 23:16:51.605 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#37).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:16:51.610 [DEBUG] Creating mockk for LanguageRepository name=#41
+2023-07-03 23:16:51.611 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#42
+2023-07-03 23:16:51.615 [DEBUG] Creating mockk for Flow name=child of #41#43
+2023-07-03 23:16:51.618 [DEBUG] Creating mockk for LanguageModel name=child of #41#44
+2023-07-03 23:16:51.620 [DEBUG] Creating mockk for LanguageModel name=child of #42#45
+2023-07-03 23:16:51.621 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@37b1149b on LanguageRepository(#41).observeAll(1)
+2023-07-03 23:16:51.622 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#42).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:16:51.622 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#42).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:16:51.623 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#41).getBase(1, continuation {})
+2023-07-03 23:16:51.623 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#42).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:16:51.626 [DEBUG] Creating mockk for LanguageRepository name=#46
+2023-07-03 23:16:51.626 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#47
+2023-07-03 23:16:51.630 [DEBUG] Creating mockk for Flow name=child of #46#48
+2023-07-03 23:16:51.633 [DEBUG] Creating mockk for LanguageModel name=child of #46#49
+2023-07-03 23:16:51.635 [DEBUG] Creating mockk for LanguageModel name=child of #47#50
+2023-07-03 23:16:51.637 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@45f9d394 on LanguageRepository(#46).observeAll(1)
+2023-07-03 23:16:51.637 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#47).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:16:51.637 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#47).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:16:51.638 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#46).getBase(1, continuation {})
+2023-07-03 23:16:51.638 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#47).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:16:51.643 [DEBUG] Creating mockk for LanguageRepository name=#51
+2023-07-03 23:16:51.644 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#52
+2023-07-03 23:16:51.649 [DEBUG] Creating mockk for Flow name=child of #51#53
+2023-07-03 23:16:51.653 [DEBUG] Creating mockk for LanguageModel name=child of #51#54
+2023-07-03 23:16:51.656 [DEBUG] Creating mockk for LanguageModel name=child of #52#55
+2023-07-03 23:16:51.660 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@4c2ab536 on LanguageRepository(#51).observeAll(1)
+2023-07-03 23:16:51.662 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#52).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:16:51.663 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#52).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:16:51.663 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#51).getBase(1, continuation {})
+2023-07-03 23:16:51.664 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#52).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:16:51.666 [DEBUG] Creating mockk for LanguageRepository name=#56
+2023-07-03 23:16:51.667 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#57
+2023-07-03 23:16:51.672 [DEBUG] Creating mockk for Flow name=child of #56#58
+2023-07-03 23:16:51.678 [DEBUG] Creating mockk for LanguageModel name=child of #56#59
+2023-07-03 23:16:51.682 [DEBUG] Creating mockk for LanguageModel name=child of #57#60
+2023-07-03 23:16:51.684 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@64fdcf99 on LanguageRepository(#56).observeAll(1)
+2023-07-03 23:16:51.685 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#57).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:16:51.685 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#57).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:16:51.685 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#56).getBase(1, continuation {})
+2023-07-03 23:16:51.686 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#57).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:12.470 [DEBUG] Creating mockk for LanguageRepository name=#1
+2023-07-03 23:18:13.177 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#2
+2023-07-03 23:18:13.649 [DEBUG] Creating mockk for Flow name=child of #1#3
+2023-07-03 23:18:13.768 [DEBUG] Creating mockk for LanguageModel name=child of #1#4
+2023-07-03 23:18:13.794 [DEBUG] Creating mockk for LanguageModel name=child of #2#5
+2023-07-03 23:18:13.822 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@7ae590f6 on LanguageRepository(#1).observeAll(1)
+2023-07-03 23:18:13.834 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#2).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:13.835 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#2).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:18:13.836 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#1).getBase(1, continuation {})
+2023-07-03 23:18:13.837 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#2).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:13.927 [DEBUG] Creating mockk for LanguageRepository name=#6
+2023-07-03 23:18:13.928 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#7
+2023-07-03 23:18:13.941 [DEBUG] Creating mockk for Flow name=child of #6#8
+2023-07-03 23:18:13.945 [DEBUG] Creating mockk for LanguageModel name=child of #6#9
+2023-07-03 23:18:13.947 [DEBUG] Creating mockk for LanguageModel name=child of #7#10
+2023-07-03 23:18:13.949 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@baa9ce4 on LanguageRepository(#6).observeAll(1)
+2023-07-03 23:18:13.950 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#7).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:13.952 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#7).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:18:13.953 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#6).getBase(1, continuation {})
+2023-07-03 23:18:13.953 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#7).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:13.959 [DEBUG] Creating mockk for LanguageRepository name=#11
+2023-07-03 23:18:13.960 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#12
+2023-07-03 23:18:13.967 [DEBUG] Creating mockk for Flow name=child of #11#13
+2023-07-03 23:18:13.973 [DEBUG] Creating mockk for LanguageModel name=child of #11#14
+2023-07-03 23:18:13.977 [DEBUG] Creating mockk for LanguageModel name=child of #12#15
+2023-07-03 23:18:13.979 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@638afcaa on LanguageRepository(#11).observeAll(1)
+2023-07-03 23:18:13.979 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#12).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:13.980 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#12).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:18:13.981 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#11).getBase(1, continuation {})
+2023-07-03 23:18:13.981 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#12).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:16.999 [DEBUG] Creating mockk for LanguageRepository name=#16
+2023-07-03 23:18:17.000 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#17
+2023-07-03 23:18:17.005 [DEBUG] Creating mockk for Flow name=child of #16#18
+2023-07-03 23:18:17.009 [DEBUG] Creating mockk for LanguageModel name=child of #16#19
+2023-07-03 23:18:17.011 [DEBUG] Creating mockk for LanguageModel name=child of #17#20
+2023-07-03 23:18:17.012 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@6b9697ae on LanguageRepository(#16).observeAll(1)
+2023-07-03 23:18:17.013 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#17).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:17.013 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#17).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:18:17.013 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#16).getBase(1, continuation {})
+2023-07-03 23:18:17.014 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#17).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:17.019 [DEBUG] Creating mockk for LanguageRepository name=#21
+2023-07-03 23:18:17.020 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#22
+2023-07-03 23:18:17.024 [DEBUG] Creating mockk for Flow name=child of #21#23
+2023-07-03 23:18:17.027 [DEBUG] Creating mockk for LanguageModel name=child of #21#24
+2023-07-03 23:18:17.029 [DEBUG] Creating mockk for LanguageModel name=child of #22#25
+2023-07-03 23:18:17.030 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@6c6928c on LanguageRepository(#21).observeAll(1)
+2023-07-03 23:18:17.031 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#22).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:17.031 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#22).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:18:17.031 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#21).getBase(1, continuation {})
+2023-07-03 23:18:17.032 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#22).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:17.038 [DEBUG] Creating mockk for LanguageRepository name=#26
+2023-07-03 23:18:17.038 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#27
+2023-07-03 23:18:17.043 [DEBUG] Creating mockk for Flow name=child of #26#28
+2023-07-03 23:18:17.045 [DEBUG] Creating mockk for LanguageModel name=child of #26#29
+2023-07-03 23:18:17.047 [DEBUG] Creating mockk for LanguageModel name=child of #27#30
+2023-07-03 23:18:17.048 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@5ce3409b on LanguageRepository(#26).observeAll(1)
+2023-07-03 23:18:17.049 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#27).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:17.049 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#27).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:18:17.050 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#26).getBase(1, continuation {})
+2023-07-03 23:18:17.050 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#27).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:20.063 [DEBUG] Creating mockk for LanguageRepository name=#31
+2023-07-03 23:18:20.063 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#32
+2023-07-03 23:18:20.069 [DEBUG] Creating mockk for Flow name=child of #31#33
+2023-07-03 23:18:20.072 [DEBUG] Creating mockk for LanguageModel name=child of #31#34
+2023-07-03 23:18:20.074 [DEBUG] Creating mockk for LanguageModel name=child of #32#35
+2023-07-03 23:18:20.075 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@577bfadb on LanguageRepository(#31).observeAll(1)
+2023-07-03 23:18:20.075 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#32).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:20.075 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#32).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:18:20.076 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#31).getBase(1, continuation {})
+2023-07-03 23:18:20.076 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#32).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:20.077 [DEBUG] Creating mockk for LanguageRepository name=#36
+2023-07-03 23:18:20.078 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#37
+2023-07-03 23:18:20.082 [DEBUG] Creating mockk for Flow name=child of #36#38
+2023-07-03 23:18:20.084 [DEBUG] Creating mockk for LanguageModel name=child of #36#39
+2023-07-03 23:18:20.086 [DEBUG] Creating mockk for LanguageModel name=child of #37#40
+2023-07-03 23:18:20.087 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@49e7e8f1 on LanguageRepository(#36).observeAll(1)
+2023-07-03 23:18:20.088 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#37).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:20.088 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#37).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:18:20.089 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#36).getBase(1, continuation {})
+2023-07-03 23:18:20.089 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#37).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:20.094 [DEBUG] Creating mockk for LanguageRepository name=#41
+2023-07-03 23:18:20.094 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#42
+2023-07-03 23:18:20.098 [DEBUG] Creating mockk for Flow name=child of #41#43
+2023-07-03 23:18:20.100 [DEBUG] Creating mockk for LanguageModel name=child of #41#44
+2023-07-03 23:18:20.102 [DEBUG] Creating mockk for LanguageModel name=child of #42#45
+2023-07-03 23:18:20.103 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@356b6b5d on LanguageRepository(#41).observeAll(1)
+2023-07-03 23:18:20.104 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#42).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:20.104 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#42).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:18:20.104 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#41).getBase(1, continuation {})
+2023-07-03 23:18:20.105 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#42).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:20.108 [DEBUG] Creating mockk for LanguageRepository name=#46
+2023-07-03 23:18:20.108 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#47
+2023-07-03 23:18:20.112 [DEBUG] Creating mockk for Flow name=child of #46#48
+2023-07-03 23:18:20.115 [DEBUG] Creating mockk for LanguageModel name=child of #46#49
+2023-07-03 23:18:20.117 [DEBUG] Creating mockk for LanguageModel name=child of #47#50
+2023-07-03 23:18:20.118 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@5409dfdd on LanguageRepository(#46).observeAll(1)
+2023-07-03 23:18:20.119 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#47).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:20.119 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#47).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:18:20.119 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#46).getBase(1, continuation {})
+2023-07-03 23:18:20.119 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#47).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:20.125 [DEBUG] Creating mockk for LanguageRepository name=#51
+2023-07-03 23:18:20.126 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#52
+2023-07-03 23:18:20.130 [DEBUG] Creating mockk for Flow name=child of #51#53
+2023-07-03 23:18:20.132 [DEBUG] Creating mockk for LanguageModel name=child of #51#54
+2023-07-03 23:18:20.134 [DEBUG] Creating mockk for LanguageModel name=child of #52#55
+2023-07-03 23:18:20.136 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@8b670c0 on LanguageRepository(#51).observeAll(1)
+2023-07-03 23:18:20.137 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#52).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:20.137 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#52).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:18:20.138 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#51).getBase(1, continuation {})
+2023-07-03 23:18:20.138 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#52).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:20.139 [DEBUG] Creating mockk for LanguageRepository name=#56
+2023-07-03 23:18:20.139 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#57
+2023-07-03 23:18:20.143 [DEBUG] Creating mockk for Flow name=child of #56#58
+2023-07-03 23:18:20.145 [DEBUG] Creating mockk for LanguageModel name=child of #56#59
+2023-07-03 23:18:20.147 [DEBUG] Creating mockk for LanguageModel name=child of #57#60
+2023-07-03 23:18:20.148 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@1805383 on LanguageRepository(#56).observeAll(1)
+2023-07-03 23:18:20.149 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#57).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:20.149 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#57).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:18:20.149 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#56).getBase(1, continuation {})
+2023-07-03 23:18:20.150 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#57).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:51.536 [DEBUG] Creating mockk for LanguageRepository name=#1
+2023-07-03 23:18:52.252 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#2
+2023-07-03 23:18:52.705 [DEBUG] Creating mockk for Flow name=child of #1#3
+2023-07-03 23:18:52.813 [DEBUG] Creating mockk for LanguageModel name=child of #1#4
+2023-07-03 23:18:52.840 [DEBUG] Creating mockk for LanguageModel name=child of #2#5
+2023-07-03 23:18:52.866 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@7ae590f6 on LanguageRepository(#1).observeAll(1)
+2023-07-03 23:18:52.877 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#2).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:52.878 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#2).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:18:52.880 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#1).getBase(1, continuation {})
+2023-07-03 23:18:52.880 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#2).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:52.968 [DEBUG] Creating mockk for LanguageRepository name=#6
+2023-07-03 23:18:52.969 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#7
+2023-07-03 23:18:52.979 [DEBUG] Creating mockk for Flow name=child of #6#8
+2023-07-03 23:18:52.983 [DEBUG] Creating mockk for LanguageModel name=child of #6#9
+2023-07-03 23:18:52.985 [DEBUG] Creating mockk for LanguageModel name=child of #7#10
+2023-07-03 23:18:52.987 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@baa9ce4 on LanguageRepository(#6).observeAll(1)
+2023-07-03 23:18:52.987 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#7).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:52.988 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#7).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:18:52.988 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#6).getBase(1, continuation {})
+2023-07-03 23:18:52.989 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#7).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:52.993 [DEBUG] Creating mockk for LanguageRepository name=#11
+2023-07-03 23:18:52.994 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#12
+2023-07-03 23:18:52.999 [DEBUG] Creating mockk for Flow name=child of #11#13
+2023-07-03 23:18:53.003 [DEBUG] Creating mockk for LanguageModel name=child of #11#14
+2023-07-03 23:18:53.005 [DEBUG] Creating mockk for LanguageModel name=child of #12#15
+2023-07-03 23:18:53.007 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@638afcaa on LanguageRepository(#11).observeAll(1)
+2023-07-03 23:18:53.008 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#12).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:53.008 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#12).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:18:53.009 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#11).getBase(1, continuation {})
+2023-07-03 23:18:53.009 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#12).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:56.027 [DEBUG] Creating mockk for LanguageRepository name=#16
+2023-07-03 23:18:56.028 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#17
+2023-07-03 23:18:56.034 [DEBUG] Creating mockk for Flow name=child of #16#18
+2023-07-03 23:18:56.042 [DEBUG] Creating mockk for LanguageModel name=child of #16#19
+2023-07-03 23:18:56.046 [DEBUG] Creating mockk for LanguageModel name=child of #17#20
+2023-07-03 23:18:56.048 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@6b9697ae on LanguageRepository(#16).observeAll(1)
+2023-07-03 23:18:56.049 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#17).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:56.049 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#17).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:18:56.050 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#16).getBase(1, continuation {})
+2023-07-03 23:18:56.050 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#17).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:56.059 [DEBUG] Creating mockk for LanguageRepository name=#21
+2023-07-03 23:18:56.059 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#22
+2023-07-03 23:18:56.065 [DEBUG] Creating mockk for Flow name=child of #21#23
+2023-07-03 23:18:56.067 [DEBUG] Creating mockk for LanguageModel name=child of #21#24
+2023-07-03 23:18:56.069 [DEBUG] Creating mockk for LanguageModel name=child of #22#25
+2023-07-03 23:18:56.071 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@6c6928c on LanguageRepository(#21).observeAll(1)
+2023-07-03 23:18:56.071 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#22).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:56.072 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#22).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:18:56.072 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#21).getBase(1, continuation {})
+2023-07-03 23:18:56.073 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#22).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:56.078 [DEBUG] Creating mockk for LanguageRepository name=#26
+2023-07-03 23:18:56.079 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#27
+2023-07-03 23:18:56.084 [DEBUG] Creating mockk for Flow name=child of #26#28
+2023-07-03 23:18:56.088 [DEBUG] Creating mockk for LanguageModel name=child of #26#29
+2023-07-03 23:18:56.090 [DEBUG] Creating mockk for LanguageModel name=child of #27#30
+2023-07-03 23:18:56.091 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@5ce3409b on LanguageRepository(#26).observeAll(1)
+2023-07-03 23:18:56.092 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#27).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:56.092 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#27).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:18:56.093 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#26).getBase(1, continuation {})
+2023-07-03 23:18:56.093 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#27).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:59.101 [DEBUG] Creating mockk for LanguageRepository name=#31
+2023-07-03 23:18:59.102 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#32
+2023-07-03 23:18:59.109 [DEBUG] Creating mockk for Flow name=child of #31#33
+2023-07-03 23:18:59.112 [DEBUG] Creating mockk for LanguageModel name=child of #31#34
+2023-07-03 23:18:59.115 [DEBUG] Creating mockk for LanguageModel name=child of #32#35
+2023-07-03 23:18:59.117 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@25ae1f80 on LanguageRepository(#31).observeAll(1)
+2023-07-03 23:18:59.117 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#32).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:59.118 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#32).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:18:59.118 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#31).getBase(1, continuation {})
+2023-07-03 23:18:59.118 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#32).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:59.120 [DEBUG] Creating mockk for LanguageRepository name=#36
+2023-07-03 23:18:59.121 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#37
+2023-07-03 23:18:59.127 [DEBUG] Creating mockk for Flow name=child of #36#38
+2023-07-03 23:18:59.130 [DEBUG] Creating mockk for LanguageModel name=child of #36#39
+2023-07-03 23:18:59.132 [DEBUG] Creating mockk for LanguageModel name=child of #37#40
+2023-07-03 23:18:59.134 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@27bb4dc5 on LanguageRepository(#36).observeAll(1)
+2023-07-03 23:18:59.134 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#37).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:59.135 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#37).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:18:59.135 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#36).getBase(1, continuation {})
+2023-07-03 23:18:59.136 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#37).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:59.142 [DEBUG] Creating mockk for LanguageRepository name=#41
+2023-07-03 23:18:59.143 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#42
+2023-07-03 23:18:59.148 [DEBUG] Creating mockk for Flow name=child of #41#43
+2023-07-03 23:18:59.151 [DEBUG] Creating mockk for LanguageModel name=child of #41#44
+2023-07-03 23:18:59.154 [DEBUG] Creating mockk for LanguageModel name=child of #42#45
+2023-07-03 23:18:59.156 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@37b1149b on LanguageRepository(#41).observeAll(1)
+2023-07-03 23:18:59.157 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#42).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:59.158 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#42).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:18:59.158 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#41).getBase(1, continuation {})
+2023-07-03 23:18:59.159 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#42).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:59.162 [DEBUG] Creating mockk for LanguageRepository name=#46
+2023-07-03 23:18:59.163 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#47
+2023-07-03 23:18:59.168 [DEBUG] Creating mockk for Flow name=child of #46#48
+2023-07-03 23:18:59.172 [DEBUG] Creating mockk for LanguageModel name=child of #46#49
+2023-07-03 23:18:59.174 [DEBUG] Creating mockk for LanguageModel name=child of #47#50
+2023-07-03 23:18:59.176 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@45f9d394 on LanguageRepository(#46).observeAll(1)
+2023-07-03 23:18:59.177 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#47).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:59.177 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#47).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:18:59.178 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#46).getBase(1, continuation {})
+2023-07-03 23:18:59.178 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#47).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:59.187 [DEBUG] Creating mockk for LanguageRepository name=#51
+2023-07-03 23:18:59.187 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#52
+2023-07-03 23:18:59.195 [DEBUG] Creating mockk for Flow name=child of #51#53
+2023-07-03 23:18:59.200 [DEBUG] Creating mockk for LanguageModel name=child of #51#54
+2023-07-03 23:18:59.202 [DEBUG] Creating mockk for LanguageModel name=child of #52#55
+2023-07-03 23:18:59.204 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@4c2ab536 on LanguageRepository(#51).observeAll(1)
+2023-07-03 23:18:59.205 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#52).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:59.205 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#52).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:18:59.206 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#51).getBase(1, continuation {})
+2023-07-03 23:18:59.206 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#52).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:59.210 [DEBUG] Creating mockk for LanguageRepository name=#56
+2023-07-03 23:18:59.210 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#57
+2023-07-03 23:18:59.216 [DEBUG] Creating mockk for Flow name=child of #56#58
+2023-07-03 23:18:59.220 [DEBUG] Creating mockk for LanguageModel name=child of #56#59
+2023-07-03 23:18:59.224 [DEBUG] Creating mockk for LanguageModel name=child of #57#60
+2023-07-03 23:18:59.227 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@64fdcf99 on LanguageRepository(#56).observeAll(1)
+2023-07-03 23:18:59.228 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#57).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:18:59.228 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#57).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:18:59.229 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#56).getBase(1, continuation {})
+2023-07-03 23:18:59.230 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#57).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:19:28.060 [DEBUG] Creating mockk for LanguageRepository name=#1
+2023-07-03 23:19:28.806 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#2
+2023-07-03 23:19:29.310 [DEBUG] Creating mockk for Flow name=child of #1#3
+2023-07-03 23:19:29.428 [DEBUG] Creating mockk for LanguageModel name=child of #1#4
+2023-07-03 23:19:29.459 [DEBUG] Creating mockk for LanguageModel name=child of #2#5
+2023-07-03 23:19:29.494 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@2eb1c615 on LanguageRepository(#1).observeAll(1)
+2023-07-03 23:19:29.508 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#2).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:19:29.509 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#2).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:19:29.511 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#1).getBase(1, continuation {})
+2023-07-03 23:19:29.513 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#2).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:19:29.612 [DEBUG] Creating mockk for LanguageRepository name=#6
+2023-07-03 23:19:29.613 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#7
+2023-07-03 23:19:29.624 [DEBUG] Creating mockk for Flow name=child of #6#8
+2023-07-03 23:19:29.628 [DEBUG] Creating mockk for LanguageModel name=child of #6#9
+2023-07-03 23:19:29.632 [DEBUG] Creating mockk for LanguageModel name=child of #7#10
+2023-07-03 23:19:29.634 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@23e2c1ca on LanguageRepository(#6).observeAll(1)
+2023-07-03 23:19:29.635 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#7).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:19:29.638 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#7).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:19:29.639 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#6).getBase(1, continuation {})
+2023-07-03 23:19:29.640 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#7).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:19:29.648 [DEBUG] Creating mockk for LanguageRepository name=#11
+2023-07-03 23:19:29.649 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#12
+2023-07-03 23:19:29.659 [DEBUG] Creating mockk for Flow name=child of #11#13
+2023-07-03 23:19:29.669 [DEBUG] Creating mockk for LanguageModel name=child of #11#14
+2023-07-03 23:19:29.678 [DEBUG] Creating mockk for LanguageModel name=child of #12#15
+2023-07-03 23:19:29.682 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@635ff2a5 on LanguageRepository(#11).observeAll(1)
+2023-07-03 23:19:29.683 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#12).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:19:29.683 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#12).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:19:29.684 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#11).getBase(1, continuation {})
+2023-07-03 23:19:29.684 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#12).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:19:29.716 [DEBUG] Creating mockk for LanguageRepository name=#16
+2023-07-03 23:19:29.717 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#17
+2023-07-03 23:19:29.727 [DEBUG] Creating mockk for Flow name=child of #16#18
+2023-07-03 23:19:29.737 [DEBUG] Creating mockk for LanguageModel name=child of #16#19
+2023-07-03 23:19:29.749 [DEBUG] Creating mockk for LanguageModel name=child of #17#20
+2023-07-03 23:19:29.751 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@78065fcd on LanguageRepository(#16).observeAll(1)
+2023-07-03 23:19:29.752 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#17).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:19:29.753 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#17).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:19:29.753 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#16).getBase(1, continuation {})
+2023-07-03 23:19:29.754 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#17).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:19:29.766 [DEBUG] Creating mockk for LanguageRepository name=#21
+2023-07-03 23:19:29.768 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#22
+2023-07-03 23:19:29.784 [DEBUG] Creating mockk for Flow name=child of #21#23
+2023-07-03 23:19:29.791 [DEBUG] Creating mockk for LanguageModel name=child of #21#24
+2023-07-03 23:19:29.795 [DEBUG] Creating mockk for LanguageModel name=child of #22#25
+2023-07-03 23:19:29.799 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@49ced9c7 on LanguageRepository(#21).observeAll(1)
+2023-07-03 23:19:29.800 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#22).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:19:29.801 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#22).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:19:29.802 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#21).getBase(1, continuation {})
+2023-07-03 23:19:29.803 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#22).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:19:29.805 [DEBUG] Creating mockk for LanguageRepository name=#26
+2023-07-03 23:19:29.806 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#27
+2023-07-03 23:19:29.815 [DEBUG] Creating mockk for Flow name=child of #26#28
+2023-07-03 23:19:29.821 [DEBUG] Creating mockk for LanguageModel name=child of #26#29
+2023-07-03 23:19:29.825 [DEBUG] Creating mockk for LanguageModel name=child of #27#30
+2023-07-03 23:19:29.827 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@6c6928c on LanguageRepository(#26).observeAll(1)
+2023-07-03 23:19:29.829 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#27).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:19:29.830 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#27).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:19:29.830 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#26).getBase(1, continuation {})
+2023-07-03 23:19:29.831 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#27).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:19:29.865 [DEBUG] Creating mockk for LanguageRepository name=#31
+2023-07-03 23:19:29.866 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#32
+2023-07-03 23:19:29.873 [DEBUG] Creating mockk for Flow name=child of #31#33
+2023-07-03 23:19:29.878 [DEBUG] Creating mockk for LanguageModel name=child of #31#34
+2023-07-03 23:19:29.882 [DEBUG] Creating mockk for LanguageModel name=child of #32#35
+2023-07-03 23:19:29.886 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@69eb544f on LanguageRepository(#31).observeAll(1)
+2023-07-03 23:19:29.886 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#32).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:19:29.887 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#32).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:19:29.887 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#31).getBase(1, continuation {})
+2023-07-03 23:19:29.888 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#32).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:19:29.895 [DEBUG] Creating mockk for LanguageRepository name=#36
+2023-07-03 23:19:29.896 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#37
+2023-07-03 23:19:29.905 [DEBUG] Creating mockk for Flow name=child of #36#38
+2023-07-03 23:19:29.909 [DEBUG] Creating mockk for LanguageModel name=child of #36#39
+2023-07-03 23:19:29.912 [DEBUG] Creating mockk for LanguageModel name=child of #37#40
+2023-07-03 23:19:29.914 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@37d0d373 on LanguageRepository(#36).observeAll(1)
+2023-07-03 23:19:29.915 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#37).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:19:29.916 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#37).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:19:29.916 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#36).getBase(1, continuation {})
+2023-07-03 23:19:29.916 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#37).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:19:29.924 [DEBUG] Creating mockk for LanguageRepository name=#41
+2023-07-03 23:19:29.924 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#42
+2023-07-03 23:19:29.931 [DEBUG] Creating mockk for Flow name=child of #41#43
+2023-07-03 23:19:29.936 [DEBUG] Creating mockk for LanguageModel name=child of #41#44
+2023-07-03 23:19:29.939 [DEBUG] Creating mockk for LanguageModel name=child of #42#45
+2023-07-03 23:19:29.940 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@334540a0 on LanguageRepository(#41).observeAll(1)
+2023-07-03 23:19:29.941 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#42).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:19:29.941 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#42).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:19:29.942 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#41).getBase(1, continuation {})
+2023-07-03 23:19:29.942 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#42).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:19:29.945 [DEBUG] Creating mockk for LanguageRepository name=#46
+2023-07-03 23:19:29.946 [DEBUG] Creating mockk for GetCompleteLanguageUseCase name=#47
+2023-07-03 23:19:29.953 [DEBUG] Creating mockk for Flow name=child of #46#48
+2023-07-03 23:19:29.957 [DEBUG] Creating mockk for LanguageModel name=child of #46#49
+2023-07-03 23:19:29.960 [DEBUG] Creating mockk for LanguageModel name=child of #47#50
+2023-07-03 23:19:29.963 [DEBUG] Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@5e385b6f on LanguageRepository(#46).observeAll(1)
+2023-07-03 23:19:29.964 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#47).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
+2023-07-03 23:19:29.965 [DEBUG] Answering LanguageModel(id=0, code=it, name=it, isBase=false) on GetCompleteLanguageUseCase(#47).invoke(LanguageModel(id=0, code=it, name=, isBase=false))
+2023-07-03 23:19:29.965 [DEBUG] Answering LanguageModel(id=0, code=en, name=, isBase=true) on LanguageRepository(#46).getBase(1, continuation {})
+2023-07-03 23:19:29.966 [DEBUG] Answering LanguageModel(id=0, code=en, name=en, isBase=true) on GetCompleteLanguageUseCase(#47).invoke(LanguageModel(id=0, code=en, name=, isBase=true))
