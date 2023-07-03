@@ -25,7 +25,6 @@ import com.github.diegoberaldin.metaphrase.domain.glossary.repository.GlossaryTe
 import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
 import com.github.diegoberaldin.metaphrase.domain.language.repository.LanguageRepository
 import com.github.diegoberaldin.metaphrase.domain.mt.repository.MachineTranslationRepository
-import com.github.diegoberaldin.metaphrase.domain.project.data.ProjectModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.RecentProjectModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.ResourceFileType
 import com.github.diegoberaldin.metaphrase.domain.project.data.SegmentModel
@@ -60,7 +59,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.firstOrNull
@@ -71,6 +69,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -100,9 +99,6 @@ internal class DefaultTranslateComponent(
     private val keyStore: TemporaryKeyStore,
 ) : TranslateComponent, ComponentContext by componentContext {
 
-    private val project = MutableStateFlow<ProjectModel?>(null)
-    private val unitCount = MutableStateFlow(0)
-
     private val toolbarNavigation = SlotNavigation<ToolbarConfig>()
     private val messageListNavigation = SlotNavigation<MessageListConfig>()
     private val dialogNavigation = SlotNavigation<DialogConfig>()
@@ -116,7 +112,7 @@ internal class DefaultTranslateComponent(
             loadProject()
         }
 
-    override lateinit var uiState: StateFlow<TranslateUiState>
+    override val uiState = MutableStateFlow(TranslateUiState())
     override val toolbar: Value<ChildSlot<ToolbarConfig, TranslateToolbarComponent>> = childSlot(
         source = toolbarNavigation,
         key = KEY_TOOLBAR_SLOT,
@@ -163,28 +159,14 @@ internal class DefaultTranslateComponent(
                         started = SharingStarted.WhileSubscribed(5_000),
                         initialValue = null,
                     )
-                // done here to reinitialize flow due to sharing started policy
-                uiState = combine(
-                    project,
-                    unitCount,
-                    projectRepository.observeNeedsSaving(),
-                ) { project, unitCount, needsSaving ->
-                    TranslateUiState(
-                        project = project,
-                        unitCount = unitCount,
-                        needsSaving = needsSaving,
-                    )
-                }.stateIn(
-                    scope = viewModelScope,
-                    started = SharingStarted.WhileSubscribed(5_000),
-                    initialValue = TranslateUiState(),
-                )
-
                 viewModelScope.launch {
                     configureToolbar()
                     configureMessageList()
                     configurePanel()
                 }
+                projectRepository.observeNeedsSaving().onEach { needsSaving ->
+                    uiState.update { it.copy(needsSaving = needsSaving) }
+                }.launchIn(viewModelScope)
 
                 toolbarNavigation.activate(ToolbarConfig)
                 messageListNavigation.activate(MessageListConfig)
@@ -194,9 +176,10 @@ internal class DefaultTranslateComponent(
                 viewModelScope.launch(dispatchers.io) {
                     updateUnitCount()
 
-                    projectRepository.observeById(projectId).onEach {
-                        if (it.name != project.value?.name) {
-                            project.value = it
+                    projectRepository.observeById(projectId).onEach { proj ->
+                        val currentProjectName = uiState.value.project?.name
+                        if (proj.name != currentProjectName) {
+                            uiState.update { it.copy(project = proj) }
                         }
                     }.launchIn(this)
                 }
@@ -444,7 +427,7 @@ internal class DefaultTranslateComponent(
 
         viewModelScope.launch(dispatchers.io) {
             val proj = projectRepository.getById(projectId)
-            project.value = proj
+            uiState.update { it.copy(project = proj) }
             updateUnitCount()
 
             messageList.asFlow<MessageListComponent>().firstOrNull()?.apply {
@@ -461,7 +444,7 @@ internal class DefaultTranslateComponent(
         val baseLanguage = languageRepository.getBase(projectId)
         if (baseLanguage != null) {
             val baseSegments = segmentRepository.getAll(baseLanguage.id)
-            unitCount.value = baseSegments.size
+            uiState.update { it.copy(unitCount = baseSegments.size) }
         }
     }
 

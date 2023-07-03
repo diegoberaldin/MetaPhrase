@@ -2,6 +2,7 @@ package com.github.diegoberaldin.metaphrase.feature.translate.panel.machinetrans
 
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.doOnCreate
+import com.arkivanov.essenty.lifecycle.doOnDestroy
 import com.github.diegoberaldin.metaphrase.core.common.coroutines.CoroutineDispatcherProvider
 import com.github.diegoberaldin.metaphrase.core.common.keystore.KeyStoreKeys
 import com.github.diegoberaldin.metaphrase.core.common.keystore.TemporaryKeyStore
@@ -10,13 +11,10 @@ import com.github.diegoberaldin.metaphrase.domain.mt.repository.MachineTranslati
 import com.github.diegoberaldin.metaphrase.domain.project.repository.SegmentRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.getAndUpdate
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
@@ -30,15 +28,12 @@ internal class DefaultMachineTranslationComponent(
     private val keyStore: TemporaryKeyStore,
 ) : MachineTranslationComponent, ComponentContext by componentContext {
 
-    private val isLoading = MutableStateFlow(false)
-    private val translation = MutableStateFlow("")
-    private val updateTextSwitch = MutableStateFlow(false)
     private lateinit var viewModelScope: CoroutineScope
     private var lastSourceLang = ""
     private var lastTargetLang = ""
     private var lastMessage = ""
 
-    override lateinit var uiState: StateFlow<MachineTranslationUiState>
+    override val uiState = MutableStateFlow(MachineTranslationUiState())
     override val copySourceEvents = MutableSharedFlow<String>()
     override val copyTargetEvents = MutableSharedFlow<Unit>()
     override val shareEvents = MutableSharedFlow<Boolean>()
@@ -47,36 +42,32 @@ internal class DefaultMachineTranslationComponent(
         with(lifecycle) {
             doOnCreate {
                 viewModelScope = CoroutineScope(coroutineContext + SupervisorJob())
-                uiState = combine(
-                    isLoading,
-                    translation,
-                    updateTextSwitch,
-                ) { isLoading, translation, updateTextSwitch ->
-                    MachineTranslationUiState(
-                        isLoading = isLoading,
-                        translation = translation,
-                        updateTextSwitch = updateTextSwitch,
-                    )
-                }.stateIn(
-                    scope = viewModelScope,
-                    started = SharingStarted.WhileSubscribed(5_000),
-                    initialValue = MachineTranslationUiState(),
-                )
+            }
+            doOnDestroy {
+                viewModelScope.cancel()
             }
         }
     }
 
     override fun clear() {
-        translation.value = ""
-        updateTextSwitch.getAndUpdate { !it }
+        uiState.update {
+            it.copy(
+                translation = "",
+                updateTextSwitch = !it.updateTextSwitch,
+            )
+        }
         lastSourceLang = ""
         lastTargetLang = ""
         lastMessage = ""
     }
 
     override fun load(key: String, projectId: Int, languageId: Int) {
-        translation.value = ""
-        updateTextSwitch.getAndUpdate { !it }
+        uiState.update {
+            it.copy(
+                translation = "",
+                updateTextSwitch = !it.updateTextSwitch,
+            )
+        }
         lastSourceLang = ""
         lastTargetLang = ""
         lastMessage = ""
@@ -94,7 +85,7 @@ internal class DefaultMachineTranslationComponent(
         if (listOf(lastSourceLang, lastTargetLang, lastMessage).any { it.isEmpty() }) return
 
         viewModelScope.launch(dispatchers.io) {
-            isLoading.value = true
+            uiState.update { it.copy(isLoading = true) }
             val key = keyStore.get(KeyStoreKeys.MachineTranslationKey, "").takeIf { it.isNotEmpty() }
             val provider = keyStore.get(KeyStoreKeys.MachineTranslationProvider, 0).let {
                 MachineTranslationRepository.AVAILABLE_PROVIDERS[it]
@@ -106,14 +97,18 @@ internal class DefaultMachineTranslationComponent(
                 sourceLang = lastSourceLang,
                 targetLang = lastTargetLang,
             )
-            translation.value = mtResult
-            updateTextSwitch.getAndUpdate { !it }
-            isLoading.value = false
+            uiState.update {
+                it.copy(
+                    translation = mtResult,
+                    updateTextSwitch = !it.updateTextSwitch,
+                    isLoading = false,
+                )
+            }
         }
     }
 
     override fun setTranslation(value: String) {
-        translation.value = value
+        uiState.update { it.copy(translation = value) }
     }
 
     override fun copyTarget() {
@@ -123,23 +118,28 @@ internal class DefaultMachineTranslationComponent(
     }
 
     override fun copyTranslation(value: String) {
-        translation.value = value
-        updateTextSwitch.getAndUpdate { !it }
+        uiState.update {
+            it.copy(
+                translation = value,
+                updateTextSwitch = !it.updateTextSwitch,
+            )
+        }
     }
 
     override fun insertTranslation() {
         viewModelScope.launch(dispatchers.io) {
-            copySourceEvents.emit(translation.value)
+            val translation = uiState.value.translation
+            copySourceEvents.emit(translation)
         }
     }
 
     override fun share() {
         val sourceMessage = lastMessage.takeIf { it.isNotEmpty() } ?: return
         val sourceLang = lastSourceLang.takeIf { it.isNotEmpty() } ?: return
-        val targetMessage = translation.value.takeIf { it.isNotEmpty() } ?: return
+        val targetMessage = uiState.value.translation.takeIf { it.isNotEmpty() } ?: return
         val targetLang = lastTargetLang.takeIf { it.isNotEmpty() } ?: return
         viewModelScope.launch(dispatchers.io) {
-            isLoading.value = true
+            uiState.update { it.copy(isLoading = true) }
             val key = keyStore.get(KeyStoreKeys.MachineTranslationKey, "").takeIf { it.isNotEmpty() }
             val provider = keyStore.get(KeyStoreKeys.MachineTranslationProvider, 0).let {
                 MachineTranslationRepository.AVAILABLE_PROVIDERS[it]
@@ -154,7 +154,7 @@ internal class DefaultMachineTranslationComponent(
                     targetLang = targetLang,
                 )
             }.isSuccess
-            isLoading.value = false
+            uiState.update { it.copy(isLoading = false) }
             shareEvents.emit(success)
         }
     }

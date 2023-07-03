@@ -14,10 +14,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
@@ -29,14 +26,9 @@ internal class DefaultNewSegmentComponent(
     private val segmentRepository: SegmentRepository,
 ) : NewSegmentComponent, ComponentContext by componentContext {
 
-    private val text = MutableStateFlow("")
-    private val textError = MutableStateFlow("")
-    private val key = MutableStateFlow("")
-    private val keyError = MutableStateFlow("")
-    private val isLoading = MutableStateFlow(false)
     private lateinit var viewModelScope: CoroutineScope
 
-    override lateinit var uiState: StateFlow<NewSegmentUiState>
+    override val uiState = MutableStateFlow(NewSegmentUiState())
     override val done = MutableSharedFlow<SegmentModel?>()
     override lateinit var language: LanguageModel
     override var projectId = 0
@@ -45,25 +37,6 @@ internal class DefaultNewSegmentComponent(
         with(lifecycle) {
             doOnCreate {
                 viewModelScope = CoroutineScope(coroutineContext + SupervisorJob())
-                uiState = combine(
-                    key,
-                    keyError,
-                    text,
-                    textError,
-                    isLoading,
-                ) { key, keyError, text, textError, isLoading ->
-                    NewSegmentUiState(
-                        key = key,
-                        keyError = keyError,
-                        text = text,
-                        textError = textError,
-                        isLoading = isLoading,
-                    )
-                }.stateIn(
-                    scope = viewModelScope,
-                    started = SharingStarted.WhileSubscribed(5_000),
-                    initialValue = NewSegmentUiState(),
-                )
             }
             doOnDestroy {
                 viewModelScope.cancel()
@@ -72,11 +45,11 @@ internal class DefaultNewSegmentComponent(
     }
 
     override fun setKey(value: String) {
-        key.value = value
+        uiState.update { it.copy(key = value) }
     }
 
     override fun setText(value: String) {
-        text.value = value
+        uiState.update { it.copy(text = value) }
     }
 
     override fun close() {
@@ -86,31 +59,35 @@ internal class DefaultNewSegmentComponent(
     }
 
     override fun submit() {
-        keyError.value = ""
-        textError.value = ""
-        val key = key.value.trim()
-        val text = text.value.trim()
+        uiState.update {
+            it.copy(
+                keyError = "",
+                textError = "",
+            )
+        }
+        val key = uiState.value.key.trim()
+        val text = uiState.value.text.trim()
         var valid = true
         viewModelScope.launch(dispatchers.io) {
             if (key.isEmpty()) {
-                keyError.value = "message_missing_field".localized()
+                uiState.update { it.copy(keyError = "message_missing_field".localized()) }
                 valid = false
             } else {
                 val existing = segmentRepository.getByKey(key = key, languageId = language.id)
                 if (existing != null) {
-                    keyError.value = "message_duplicate_key".localized()
+                    uiState.update { it.copy(keyError = "message_duplicate_key".localized()) }
                     valid = false
                 }
             }
             if (text.isEmpty()) {
-                textError.value = "message_missing_field".localized()
+                uiState.update { it.copy(textError = "message_missing_field".localized()) }
                 valid = false
             }
             if (!valid) {
                 return@launch
             }
 
-            isLoading.value = true
+            uiState.update { it.copy(isLoading = true) }
             val res = SegmentModel(
                 key = key,
                 text = text,
@@ -118,15 +95,15 @@ internal class DefaultNewSegmentComponent(
             val id = segmentRepository.create(model = res, languageId = language.id)
 
             // ensures segment is present in other languages
-            val otherLanguaes = languageRepository.getAll(projectId).filter { it.code != language.code }
-            for (lang in otherLanguaes) {
+            val otherLanguages = languageRepository.getAll(projectId).filter { it.code != language.code }
+            for (lang in otherLanguages) {
                 val existing = segmentRepository.getByKey(key = key, languageId = lang.id)
                 if (existing == null) {
                     segmentRepository.create(model = SegmentModel(key = key), languageId = lang.id)
                 }
             }
 
-            isLoading.value = false
+            uiState.update { it.copy(isLoading = false) }
             done.emit(res.copy(id = id))
         }
     }

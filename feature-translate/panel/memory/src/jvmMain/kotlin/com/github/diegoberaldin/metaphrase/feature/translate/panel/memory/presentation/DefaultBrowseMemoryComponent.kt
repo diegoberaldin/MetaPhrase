@@ -4,18 +4,14 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import com.github.diegoberaldin.metaphrase.core.common.coroutines.CoroutineDispatcherProvider
-import com.github.diegoberaldin.metaphrase.core.common.utils.combine
 import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
 import com.github.diegoberaldin.metaphrase.domain.language.usecase.GetCompleteLanguageUseCase
-import com.github.diegoberaldin.metaphrase.domain.tm.data.TranslationMemoryEntryModel
 import com.github.diegoberaldin.metaphrase.domain.tm.repository.MemoryEntryRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
@@ -27,42 +23,14 @@ internal class DefaultBrowseMemoryComponent(
     private val completeLanguage: GetCompleteLanguageUseCase,
 ) : BrowseMemoryComponent, ComponentContext by componentContext {
 
-    private val sourceLanguage = MutableStateFlow<LanguageModel?>(null)
-    private val targetLanguage = MutableStateFlow<LanguageModel?>(null)
-    private val availableSourceLanguages = MutableStateFlow<List<LanguageModel>>(emptyList())
-    private val availableTargetLanguages = MutableStateFlow<List<LanguageModel>>(emptyList())
-    private val search = MutableStateFlow("")
-    private val entries = MutableStateFlow<List<TranslationMemoryEntryModel>>(emptyList())
     private lateinit var viewModelScope: CoroutineScope
 
-    override lateinit var uiState: StateFlow<BrowseMemoryUiState>
+    override val uiState = MutableStateFlow(BrowseMemoryUiState())
 
     init {
         with(lifecycle) {
             doOnCreate {
                 viewModelScope = CoroutineScope(coroutineContext + SupervisorJob())
-                uiState = combine(
-                    sourceLanguage,
-                    availableSourceLanguages,
-                    targetLanguage,
-                    availableTargetLanguages,
-                    search,
-                    entries,
-                ) { sourceLanguage, availableSourceLanguages, targetLanguage, availableTargetLanguages, search, entries ->
-                    BrowseMemoryUiState(
-                        sourceLanguage,
-                        availableSourceLanguages,
-                        targetLanguage,
-                        availableTargetLanguages,
-                        search,
-                        entries,
-                    )
-                }.stateIn(
-                    scope = viewModelScope,
-                    started = SharingStarted.WhileSubscribed(5_000),
-                    initialValue = BrowseMemoryUiState(),
-                )
-
                 refreshLanguages()
             }
             doOnDestroy {
@@ -72,8 +40,12 @@ internal class DefaultBrowseMemoryComponent(
     }
 
     override fun setLanguages(source: LanguageModel?, target: LanguageModel?) {
-        sourceLanguage.value = source?.let { completeLanguage(it) }
-        targetLanguage.value = target
+        uiState.update {
+            it.copy(
+                sourceLanguage = source?.let { completeLanguage(it) },
+                targetLanguage = target,
+            )
+        }
         refreshLanguages()
     }
 
@@ -83,43 +55,48 @@ internal class DefaultBrowseMemoryComponent(
             val tmLanguages = memoryEntryRepository.getLanguageCodes().map {
                 completeLanguage(LanguageModel(code = it))
             }
-            if (targetLanguage.value?.code == sourceLanguage.value?.code) {
-                targetLanguage.value = tmLanguages.firstOrNull { it.code != sourceLanguage.value?.code }
+            var targetLanguage = uiState.value.targetLanguage
+            val sourceLanguage = uiState.value.sourceLanguage
+            if (targetLanguage?.code == sourceLanguage?.code) {
+                targetLanguage = tmLanguages.firstOrNull { it.code != sourceLanguage?.code }
             }
-            val sourceLang = sourceLanguage.value
-            val targetLang = targetLanguage.value
 
-            availableSourceLanguages.value = tmLanguages.filter { it.code != targetLang?.code }
-            availableTargetLanguages.value = tmLanguages.filter { it.code != sourceLang?.code }
+            uiState.update {
+                it.copy(
+                    availableSourceLanguages = tmLanguages.filter { l -> l.code != targetLanguage?.code },
+                    availableTargetLanguages = tmLanguages.filter { l -> l.code != sourceLanguage?.code },
+                )
+            }
 
             load()
         }
     }
 
     private suspend fun load() {
-        val sourceLangCode = sourceLanguage.value?.code?.takeIf { it.isNotEmpty() } ?: return
-        val targetLangCode = targetLanguage.value?.code?.takeIf { it.isNotEmpty() } ?: return
-        val currentSearch = search.value
+        val sourceLangCode = uiState.value.sourceLanguage?.code?.takeIf { it.isNotEmpty() } ?: return
+        val targetLangCode = uiState.value.targetLanguage?.code?.takeIf { it.isNotEmpty() } ?: return
+        val currentSearch = uiState.value.currentSearch
 
-        entries.value = memoryEntryRepository.getEntries(
+        val entries = memoryEntryRepository.getEntries(
             sourceLang = sourceLangCode,
             targetLang = targetLangCode,
             search = currentSearch,
         )
+        uiState.update { it.copy(entries = entries) }
     }
 
     override fun setSourceLanguage(value: LanguageModel?) {
-        sourceLanguage.value = value
+        uiState.update { it.copy(sourceLanguage = value) }
         refreshLanguages()
     }
 
     override fun setTargetLanguage(value: LanguageModel?) {
-        targetLanguage.value = value
+        uiState.update { it.copy(targetLanguage = value) }
         refreshLanguages()
     }
 
     override fun setSearch(value: String) {
-        search.value = value
+        uiState.update { it.copy(currentSearch = value) }
     }
 
     override fun onSearchFired() {
@@ -129,7 +106,7 @@ internal class DefaultBrowseMemoryComponent(
     }
 
     override fun deleteEntry(index: Int) {
-        val entry = entries.value[index]
+        val entry = uiState.value.entries[index]
         viewModelScope.launch(dispatchers.io) {
             memoryEntryRepository.delete(entry)
             load()

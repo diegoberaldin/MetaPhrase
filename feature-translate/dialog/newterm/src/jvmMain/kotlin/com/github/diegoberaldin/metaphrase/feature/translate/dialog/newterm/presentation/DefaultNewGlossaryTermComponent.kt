@@ -10,10 +10,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
@@ -23,36 +20,15 @@ class DefaultNewGlossaryTermComponent(
     private val dispatchers: CoroutineDispatcherProvider,
 ) : NewGlossaryTermComponent, ComponentContext by componentContext {
 
-    private val sourceTerm = MutableStateFlow("")
-    private val sourceTermError = MutableStateFlow("")
-    private val targetTerm = MutableStateFlow("")
-    private val targetTermError = MutableStateFlow("")
     private lateinit var viewModelScope: CoroutineScope
 
-    override lateinit var uiState: StateFlow<NewGlossaryTermUiState>
+    override val uiState = MutableStateFlow(NewGlossaryTermUiState())
     override val done = MutableSharedFlow<GlossaryTermPair>()
 
     init {
         with(lifecycle) {
             doOnCreate {
                 viewModelScope = CoroutineScope(coroutineContext + SupervisorJob())
-                uiState = combine(
-                    sourceTerm,
-                    sourceTermError,
-                    targetTerm,
-                    targetTermError,
-                ) { sourceTerm, sourceTermError, targetTerm, targetTermError ->
-                    NewGlossaryTermUiState(
-                        sourceTerm = sourceTerm,
-                        sourceTermError = sourceTermError,
-                        targetTerm = targetTerm,
-                        targetTermError = targetTermError,
-                    )
-                }.stateIn(
-                    scope = viewModelScope,
-                    started = SharingStarted.WhileSubscribed(5_000),
-                    initialValue = NewGlossaryTermUiState(),
-                )
             }
             doOnDestroy {
                 viewModelScope.cancel()
@@ -61,25 +37,29 @@ class DefaultNewGlossaryTermComponent(
     }
 
     override fun setSourceTerm(value: String) {
-        sourceTerm.value = value
+        uiState.update { it.copy(sourceTerm = value) }
     }
 
     override fun setTargetTerm(value: String) {
-        targetTerm.value = value
+        uiState.update { it.copy(targetTerm = value) }
     }
 
     override fun submit() {
-        sourceTermError.value = ""
-        targetTermError.value = ""
-        val source = sourceTerm.value.trim()
-        val target = targetTerm.value.trim()
+        uiState.update {
+            it.copy(
+                sourceTermError = "",
+                targetTermError = "",
+            )
+        }
+        val source = uiState.value.sourceTerm.trim()
+        val target = uiState.value.targetTerm.trim()
         var valid = true
         if (source.isEmpty()) {
-            sourceTermError.value = "message_missing_field".localized()
+            uiState.update { it.copy(sourceTermError = "message_missing_field".localized()) }
             valid = false
         }
         if (target.isEmpty()) {
-            sourceTermError.value = "message_missing_field".localized()
+            uiState.update { it.copy(targetTermError = "message_missing_field".localized()) }
             valid = false
         }
         if (!valid) {

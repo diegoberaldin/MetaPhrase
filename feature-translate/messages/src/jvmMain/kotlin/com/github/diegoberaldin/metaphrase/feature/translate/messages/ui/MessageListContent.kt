@@ -62,7 +62,6 @@ fun MessageListContent(
     val uiState by component.uiState.collectAsState()
     val lazyListState = rememberLazyListState()
     val spellingErrors by component.spellingErrors.collectAsState()
-    val paginationState by component.paginationState.collectAsState()
     val focusManager = LocalFocusManager.current
 
     LaunchedEffect(component) {
@@ -234,12 +233,12 @@ fun MessageListContent(
                 contentAlignment = Alignment.Center,
             ) {
                 val isShowingProgress by component.isShowingProgress.collectAsState()
-                if (paginationState.canFetchMore && !isShowingProgress) {
+                if (uiState.canFetchMore && !isShowingProgress) {
                     CircularProgressIndicator(
                         modifier = Modifier.size(20.dp),
                         color = MaterialTheme.colors.primary,
                     )
-                    if (!paginationState.isLoading) {
+                    if (!uiState.isLoading) {
                         component.loadNextPage()
                     }
                 }
