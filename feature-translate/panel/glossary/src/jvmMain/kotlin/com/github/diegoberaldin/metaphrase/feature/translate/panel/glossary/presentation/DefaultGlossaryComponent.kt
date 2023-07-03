@@ -15,10 +15,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
@@ -36,38 +33,14 @@ internal class DefaultGlossaryComponent(
     private var lastSourceLanguage: LanguageModel? = null
     private var lastTargetLanguage: LanguageModel? = null
     private var lastSourceMessage: String? = null
-    private val isLoading = MutableStateFlow(false)
-    private val isBaseLanguage = MutableStateFlow(false)
-    private val sourceFlag = MutableStateFlow("")
-    private val targetFlag = MutableStateFlow("")
-    private val terms = MutableStateFlow<List<Pair<GlossaryTermModel, List<GlossaryTermModel>>>>(emptyList())
     private lateinit var viewModelScope: CoroutineScope
 
-    override lateinit var uiState: StateFlow<GlossaryUiState>
+    override val uiState = MutableStateFlow(GlossaryUiState())
 
     init {
         with(lifecycle) {
             doOnCreate {
                 viewModelScope = CoroutineScope(coroutineContext + SupervisorJob())
-                uiState = combine(
-                    isLoading,
-                    isBaseLanguage,
-                    sourceFlag,
-                    targetFlag,
-                    terms,
-                ) { isLoading, isBaseLanguage, sourceFlag, targetFlag, terms ->
-                    GlossaryUiState(
-                        isLoading = isLoading,
-                        isBaseLanguage = isBaseLanguage,
-                        sourceFlag = sourceFlag,
-                        targetFlag = targetFlag,
-                        terms = terms,
-                    )
-                }.stateIn(
-                    scope = viewModelScope,
-                    started = SharingStarted.WhileSubscribed(5_000),
-                    initialValue = GlossaryUiState(),
-                )
             }
             doOnDestroy {
                 viewModelScope.cancel()
@@ -76,7 +49,7 @@ internal class DefaultGlossaryComponent(
     }
 
     override fun clear() {
-        terms.value = emptyList()
+        uiState.update { it.copy(terms = emptyList()) }
     }
 
     override fun load(key: String, projectId: Int, languageId: Int) {
@@ -89,9 +62,13 @@ internal class DefaultGlossaryComponent(
             lastSourceLanguage = sourceLanguage
             lastTargetLanguage = targetLanguage
             lastSourceMessage = sourceMessage
-            isBaseLanguage.value = sourceLanguage == targetLanguage
-            sourceFlag.value = flagsRepository.getFlag(sourceLanguage.code)
-            targetFlag.value = flagsRepository.getFlag(targetLanguage.code)
+            uiState.update {
+                it.copy(
+                    isBaseLanguage = sourceLanguage == targetLanguage,
+                    sourceFlag = flagsRepository.getFlag(sourceLanguage.code),
+                    targetFlag = flagsRepository.getFlag(targetLanguage.code),
+                )
+            }
 
             innerReload()
         }
@@ -101,8 +78,8 @@ internal class DefaultGlossaryComponent(
         val sourceLanguage = lastSourceLanguage ?: return
         val targetLanguage = lastTargetLanguage ?: return
         val message = lastSourceMessage.orEmpty()
-        isLoading.value = true
-        terms.value =
+        uiState.update { it.copy(isLoading = true) }
+        val terms =
             getGlossaryTerms(
                 message = message.lowercase(),
                 lang = sourceLanguage.code,
@@ -113,7 +90,12 @@ internal class DefaultGlossaryComponent(
                 )
                 model to targetTerms
             }
-        isLoading.value = false
+        uiState.update {
+            it.copy(
+                terms = terms,
+                isLoading = false,
+            )
+        }
     }
 
     override fun addSourceTerm(lemma: String) {
