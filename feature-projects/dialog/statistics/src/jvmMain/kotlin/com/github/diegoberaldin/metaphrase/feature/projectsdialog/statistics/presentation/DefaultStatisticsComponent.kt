@@ -83,8 +83,9 @@ internal class DefaultStatisticsComponent(
                         )
 
                         this += StatisticsItem.Divider
+                        this += StatisticsItem.Header("dialog_statistics_section_languages".localized())
 
-                        val otherLanguages = languages.filter { it.code != baseLanguage.code }
+                        val otherLanguages = languages.filter { l -> l.code != baseLanguage.code }
                         for (language in otherLanguages) {
                             this += StatisticsItem.LanguageHeader(language.name)
                             val untranslatedCount =
