@@ -107,7 +107,7 @@ internal class DefaultTranslateToolbarComponent(
     }
 
     override fun onSearchFired() {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.io) {
             _events.emit(TranslateToolbarComponent.Events.Search(uiState.value.currentSearch))
         }
     }
@@ -115,7 +115,7 @@ internal class DefaultTranslateToolbarComponent(
     override fun copyBase() {
         if (currentLanguage.value?.isBase != false) return
 
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.io) {
             _events.emit(TranslateToolbarComponent.Events.CopyBase)
         }
     }
@@ -125,25 +125,25 @@ internal class DefaultTranslateToolbarComponent(
     }
 
     override fun moveToPrevious() {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.io) {
             _events.emit(TranslateToolbarComponent.Events.MoveToPrevious)
         }
     }
 
     override fun moveToNext() {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.io) {
             _events.emit(TranslateToolbarComponent.Events.MoveToNext)
         }
     }
 
     override fun addUnit() {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.io) {
             _events.emit(TranslateToolbarComponent.Events.AddUnit)
         }
     }
 
     override fun removeUnit() {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.io) {
             _events.emit(TranslateToolbarComponent.Events.RemoveUnit)
         }
     }
@@ -151,7 +151,7 @@ internal class DefaultTranslateToolbarComponent(
     override fun validateUnits() {
         if (currentLanguage.value?.isBase != false) return
 
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.io) {
             _events.emit(TranslateToolbarComponent.Events.ValidateUnits)
         }
     }
