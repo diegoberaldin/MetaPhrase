@@ -26,6 +26,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
@@ -39,11 +40,10 @@ internal class DefaultProjectListComponent(
     private val notificationCenter: NotificationCenter,
 ) : ProjectListComponent, ComponentContext by componentContext {
 
-    private val projects = MutableStateFlow<List<RecentProjectModel>>(emptyList())
     private lateinit var viewModelScope: CoroutineScope
     private val dialogNavigation = SlotNavigation<ProjectListComponent.DialogConfiguration>()
 
-    override lateinit var uiState: StateFlow<ProjectListUiState>
+    override val uiState = MutableStateFlow(ProjectListUiState())
     override val projectSelected = MutableSharedFlow<ProjectModel>()
     override val dialog: Value<ChildSlot<ProjectListComponent.DialogConfiguration, *>> = childSlot(
         source = dialogNavigation,
@@ -57,18 +57,11 @@ internal class DefaultProjectListComponent(
         with(lifecycle) {
             doOnCreate {
                 viewModelScope = CoroutineScope(coroutineContext + SupervisorJob())
-                uiState = projects.map {
-                    ProjectListUiState(projects = it)
-                }.stateIn(
-                    scope = viewModelScope,
-                    started = SharingStarted.WhileSubscribed(5_000),
-                    initialValue = ProjectListUiState(),
-                )
             }
             doOnResume {
                 viewModelScope.launch(dispatchers.io) {
                     projectRepository.observeAll().onEach { values ->
-                        projects.value = values
+                        uiState.update { it.copy(projects = values) }
                     }.launchIn(this)
                 }
             }

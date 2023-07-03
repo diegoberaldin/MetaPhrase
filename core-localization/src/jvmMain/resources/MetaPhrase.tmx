@@ -1225,6 +1225,38 @@
 				</seg>
 			</tuv>
 		</tu>
+		<tu tuid="dialog_statistics_section_languages">
+			<tuv xml:lang="en">
+				<seg>
+					Languages
+				</seg>
+			</tuv>
+			<tuv xml:lang="it">
+				<seg>
+					Lingue
+				</seg>
+			</tuv>
+			<tuv xml:lang="de">
+				<seg>
+					Sprache
+				</seg>
+			</tuv>
+			<tuv xml:lang="fr">
+				<seg>
+					Langues
+				</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>
+					Idiomas
+				</seg>
+			</tuv>
+			<tuv xml:lang="pt">
+				<seg>
+					Idiomas
+				</seg>
+			</tuv>
+		</tu>
 		<tu tuid="dialog_title_create_glossary_term">
 			<tuv xml:lang="en">
 				<seg>
@@ -3534,6 +3566,38 @@
 			<tuv xml:lang="pt">
 				<seg>
 					Este recurso está disponível apenas para os idiomas de destino 🙅
+				</seg>
+			</tuv>
+		</tu>
+		<tu tuid="message_select_one_language">
+			<tuv xml:lang="en">
+				<seg>
+					Please select at least one language
+				</seg>
+			</tuv>
+			<tuv xml:lang="it">
+				<seg>
+					Selezionare almeno una lingua
+				</seg>
+			</tuv>
+			<tuv xml:lang="de">
+				<seg>
+					Bitte wählen Sie mindestens eine Sprachversion aus
+				</seg>
+			</tuv>
+			<tuv xml:lang="fr">
+				<seg>
+					Veuillez sélectionner au moins une langue
+				</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>
+					Seleccionar al menos un idioma
+				</seg>
+			</tuv>
+			<tuv xml:lang="pt">
+				<seg>
+					Selecione ao menos um idioma
 				</seg>
 			</tuv>
 		</tu>

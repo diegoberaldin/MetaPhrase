@@ -39,13 +39,13 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.awt.Desktop
@@ -83,8 +83,6 @@ internal class DefaultRootComponent(
     private lateinit var activeProject: StateFlow<ProjectModel?>
     private lateinit var isEditing: StateFlow<Boolean>
     private lateinit var currentLanguage: StateFlow<LanguageModel?>
-    private val isLoading = MutableStateFlow(false)
-    private val isSaveEnabled = MutableStateFlow(false)
     private var projectIdToOpen: Int? = null
 
     override val main: Value<ChildSlot<RootComponent.Config, *>> = childSlot(
@@ -97,7 +95,7 @@ internal class DefaultRootComponent(
         key = KEY_DIALOG_SLOT,
         childFactory = ::createDialogChild,
     )
-    override lateinit var uiState: StateFlow<RootUiState>
+    override val uiState = MutableStateFlow(RootUiState())
 
     init {
         with(lifecycle) {
@@ -124,26 +122,15 @@ internal class DefaultRootComponent(
                     started = SharingStarted.WhileSubscribed(5_000),
                     initialValue = null,
                 )
-                uiState = combine(
-                    activeProject,
-                    isEditing,
-                    currentLanguage,
-                    isLoading,
-                    isSaveEnabled,
-                ) { activeProject, isEditing, currentLanguage, isLoading, saveEnabled ->
-                    RootUiState(
-                        activeProject = activeProject,
-                        isEditing = isEditing,
-                        isLoading = isLoading,
-                        currentLanguage = currentLanguage,
-                        isSaveEnabled = saveEnabled,
-
-                    )
-                }.stateIn(
-                    scope = viewModelScope,
-                    started = SharingStarted.WhileSubscribed(5_000),
-                    initialValue = RootUiState(),
-                )
+                activeProject.onEach { proj ->
+                    uiState.update { it.copy(activeProject = proj) }
+                }.launchIn(viewModelScope)
+                currentLanguage.onEach { lang ->
+                    uiState.update { it.copy(currentLanguage = lang) }
+                }.launchIn(viewModelScope)
+                isEditing.onEach { editing ->
+                    uiState.update { it.copy(isEditing = editing) }
+                }.launchIn(viewModelScope)
 
                 // initial cleanup
                 viewModelScope.launch {
@@ -154,7 +141,7 @@ internal class DefaultRootComponent(
                         notificationCenter.events.filter { it is NotificationCenter.Event.ShowProgress }.onEach { evt ->
                             when (evt) {
                                 is NotificationCenter.Event.ShowProgress -> {
-                                    isLoading.value = evt.visible
+                                    uiState.update { it.copy(isLoading = evt.visible) }
                                 }
 
                                 else -> Unit
@@ -172,7 +159,7 @@ internal class DefaultRootComponent(
                     }
                     launch {
                         projectRepository.observeNeedsSaving().onEach { needsSaving ->
-                            isSaveEnabled.value = needsSaving
+                            uiState.update { it.copy(isSaveEnabled = needsSaving) }
                         }.launchIn(this)
                     }
                 }
