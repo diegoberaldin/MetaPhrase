@@ -105,6 +105,7 @@ class DefaultTranslateComponentTest {
         coEvery { mockLanguageRepository.getBase(any()) } returns LanguageModel(code = "en", isBase = true)
         coEvery { mockSegmentRepository.getAll(any()) } returns listOf()
         coEvery { mockProjectRepository.observeById(any()) } returns flowOf(ProjectModel(name = "test"))
+        coEvery { mockProjectRepository.observeNeedsSaving() } returns flowOf(false)
         runOnUiThread {
             lifecycle.resume()
         }
@@ -119,6 +120,7 @@ class DefaultTranslateComponentTest {
         coEvery { mockLanguageRepository.getBase(any()) } returns LanguageModel(code = "en", isBase = true)
         coEvery { mockSegmentRepository.getAll(any()) } returns listOf(SegmentModel())
         coEvery { mockProjectRepository.observeById(any()) } returns flowOf(ProjectModel(name = "test"))
+        coEvery { mockProjectRepository.observeNeedsSaving() } returns flowOf(false)
         runOnUiThread {
             lifecycle.resume()
         }
