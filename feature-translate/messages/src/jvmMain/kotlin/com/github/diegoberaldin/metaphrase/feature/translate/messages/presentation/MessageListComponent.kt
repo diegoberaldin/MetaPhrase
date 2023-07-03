@@ -47,11 +47,6 @@ interface MessageListComponent {
     val spellingErrors: StateFlow<List<SpellCheckCorrection>>
 
     /**
-     * Message pagination UI state
-     */
-    val paginationState: StateFlow<MessageListPaginationState>
-
-    /**
      * Events emitted when new terms should be added to the glossary (see [AddToGlossaryEvent])
      */
     val addToGlossaryEvents: SharedFlow<AddToGlossaryEvent>

@@ -26,14 +26,13 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlin.coroutines.CoroutineContext
@@ -54,13 +53,6 @@ internal class DefaultMessageListComponent(
         private const val PAGE_SIZE = 15
     }
 
-    private val units = MutableStateFlow<List<TranslationUnit>>(emptyList())
-    private val editingIndex = MutableStateFlow<Int?>(null)
-    private val currentLanguage = MutableStateFlow<LanguageModel?>(null)
-    private val editingEnabled = MutableStateFlow(true)
-    private val updateTextSwitch = MutableStateFlow(false)
-    private val isLoading = MutableStateFlow(false)
-    private val canFetchMore = MutableStateFlow(true)
     private lateinit var viewModelScope: CoroutineScope
     private var saveJob: Job? = null
     private var spellcheckJob: Job? = null
@@ -69,8 +61,7 @@ internal class DefaultMessageListComponent(
     private var projectId: Int = 0
     private var currentPage = -1
 
-    override lateinit var uiState: StateFlow<MessageListUiState>
-    override lateinit var paginationState: StateFlow<MessageListPaginationState>
+    override val uiState = MutableStateFlow(MessageListUiState())
     override val selectionEvents = MutableSharedFlow<Int>()
     override lateinit var editedSegment: StateFlow<SegmentModel?>
     override val spellingErrors = MutableStateFlow<List<SpellCheckCorrection>>(emptyList())
@@ -81,28 +72,9 @@ internal class DefaultMessageListComponent(
         with(lifecycle) {
             doOnCreate {
                 viewModelScope = CoroutineScope(coroutineContext + SupervisorJob())
-                uiState = combine(
-                    units,
-                    editingIndex,
-                    currentLanguage,
-                    editingEnabled,
-                    updateTextSwitch,
-                ) { units, editingIndex, currentLanguage, editingEnabled, updateTextSwitch ->
-                    MessageListUiState(
-                        units = units,
-                        editingIndex = editingIndex,
-                        currentLanguage = currentLanguage,
-                        editingEnabled = editingEnabled,
-                        updateTextSwitch = updateTextSwitch,
-                    )
-                }.stateIn(
-                    scope = viewModelScope,
-                    started = SharingStarted.WhileSubscribed(5_000),
-                    initialValue = MessageListUiState(),
-                )
-                editedSegment = editingIndex.map {
+                editedSegment = uiState.map { it.editingIndex }.map {
                     if (it != null) {
-                        units.value[it].segment
+                        uiState.value.units[it].segment
                     } else {
                         null
                     }
@@ -110,19 +82,6 @@ internal class DefaultMessageListComponent(
                     scope = viewModelScope,
                     started = SharingStarted.WhileSubscribed(5_000),
                     initialValue = null,
-                )
-                paginationState = combine(
-                    isLoading,
-                    canFetchMore,
-                ) { isLoading, canFetchMore ->
-                    MessageListPaginationState(
-                        isLoading = isLoading,
-                        canFetchMore = canFetchMore,
-                    )
-                }.stateIn(
-                    scope = viewModelScope,
-                    started = SharingStarted.WhileSubscribed(5_000),
-                    initialValue = MessageListPaginationState(),
                 )
             }
             doOnStart {
@@ -138,12 +97,16 @@ internal class DefaultMessageListComponent(
     }
 
     override fun setEditingEnabled(value: Boolean) {
-        editingEnabled.value = value
+        uiState.update { it.copy(editingEnabled = value) }
     }
 
     override fun clearMessages() {
-        canFetchMore.value = false
-        units.value = emptyList()
+        uiState.update {
+            it.copy(
+                canFetchMore = false,
+                units = emptyList(),
+            )
+        }
     }
 
     override fun search(text: String) {
@@ -154,16 +117,20 @@ internal class DefaultMessageListComponent(
 
     override fun reloadMessages(language: LanguageModel, filter: TranslationUnitTypeFilter, projectId: Int) {
         if (!this::viewModelScope.isInitialized) return
-        if (currentLanguage.value == language && lastFilter == filter && this.projectId == projectId) return
+        if (uiState.value.currentLanguage == language && lastFilter == filter && this.projectId == projectId) return
 
-        currentLanguage.value = language
         lastFilter = filter
         this.projectId = projectId
 
-        units.getAndUpdate { oldList ->
-            oldList.map { it.copy(segment = it.segment.copy(text = "")) }
+        uiState.update {
+            it.copy(
+                currentLanguage = language,
+                units = it.units.let { oldList ->
+                    oldList.map { unit -> unit.copy(segment = unit.segment.copy(text = "")) }
+                },
+                updateTextSwitch = !it.updateTextSwitch,
+            )
         }
-        updateTextSwitch.getAndUpdate { !it }
         refresh()
     }
 
@@ -174,38 +141,39 @@ internal class DefaultMessageListComponent(
     }
 
     private suspend fun innerReload() {
-        val language = currentLanguage.value ?: return
-        editingIndex.value = null
+        val language = uiState.value.currentLanguage ?: return
         notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
-        isLoading.value = true
-        canFetchMore.value = false
-
-        currentLanguage.value = language
+        uiState.update {
+            it.copy(
+                isLoading = true,
+                canFetchMore = false,
+                editingIndex = null,
+                units = emptyList(),
+            )
+        }
         spellCheckRepository.setLanguage(language.code)
-
-        units.value = emptyList()
         currentPage = 0
         loadPage()
         notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
-        isLoading.value = false
+        uiState.update { it.copy(isLoading = false) }
     }
 
     override fun loadNextPage() {
-        if (isLoading.value) {
+        if (uiState.value.isLoading) {
             return
         }
-        isLoading.value = true
+        uiState.update { it.copy(isLoading = true) }
         viewModelScope.launch(dispatchers.io) {
             delay(100)
             currentPage++
             loadPage()
-            isLoading.value = false
+            uiState.update { it.copy(isLoading = false) }
         }
     }
 
     private suspend fun loadPage() {
-        val language = currentLanguage.value ?: run {
-            canFetchMore.value = false
+        val language = uiState.value.currentLanguage ?: run {
+            uiState.update { it.copy(canFetchMore = false) }
             return
         }
         val baseLanguageId = if (language.isBase) {
@@ -236,52 +204,58 @@ internal class DefaultMessageListComponent(
                 )
             }
         }
-        canFetchMore.value = unitsToAdd.isNotEmpty()
-        units.getAndUpdate {
-            it + unitsToAdd
+        uiState.update {
+            it.copy(
+                canFetchMore = unitsToAdd.isNotEmpty(),
+                units = it.units + unitsToAdd,
+            )
         }
     }
 
     override fun startEditing(index: Int) {
-        if (!editingEnabled.value) return
+        if (!uiState.value.editingEnabled) return
 
         spellingErrors.value = emptyList()
-        val oldIndex = editingIndex.value
-        editingIndex.value = index
+        val oldIndex = uiState.value.editingIndex
+        uiState.update { it.copy(editingIndex = index) }
         if (oldIndex != null) {
             viewModelScope.launch(dispatchers.io) {
-                val segment = units.value[oldIndex].segment
+                val segment = uiState.value.units[oldIndex].segment
                 segmentRepository.update(segment)
             }
         }
 
-        val text = units.value[index].segment.text
+        val text = uiState.value.units[index].segment.text
         checkSpelling(text)
     }
 
     override fun endEditing() {
-        if (!editingEnabled.value) return
+        if (!uiState.value.editingEnabled) return
 
-        editingIndex.value = null
+        uiState.update { it.copy(editingIndex = null) }
         spellcheckJob?.cancel()
         spellcheckJob = null
         spellingErrors.value = emptyList()
     }
 
     override fun setSegmentText(text: String) {
-        val editingIndex = editingIndex.value ?: return
-        val oldText = units.value[editingIndex].segment.text
+        val editingIndex = uiState.value.editingIndex ?: return
+        val oldText = uiState.value.units[editingIndex].segment.text
         if (text == oldText) return
 
         projectRepository.setNeedsSaving(true)
-        units.getAndUpdate { oldList ->
-            oldList.mapIndexed { idx, unit ->
-                if (idx == editingIndex) {
-                    unit.copy(segment = unit.segment.copy(text = text))
-                } else {
-                    unit
-                }
-            }
+        uiState.update {
+            it.copy(
+                units = it.units.let { oldList ->
+                    oldList.mapIndexed { idx, unit ->
+                        if (idx == editingIndex) {
+                            unit.copy(segment = unit.segment.copy(text = text))
+                        } else {
+                            unit
+                        }
+                    }
+                },
+            )
         }
 
         saveCurrentSegmentDebounced(editingIndex)
@@ -309,14 +283,14 @@ internal class DefaultMessageListComponent(
     override fun changeSegmentText(text: String) {
         projectRepository.setNeedsSaving(true)
         setSegmentText(text)
-        updateTextSwitch.getAndUpdate { !it }
+        uiState.update { it.copy(updateTextSwitch = !it.updateTextSwitch) }
     }
 
     private fun saveCurrentSegmentDebounced(index: Int) {
         saveJob?.cancel()
         saveJob = viewModelScope.launch(dispatchers.io) {
             delay(1000)
-            val segment = units.value[index].segment.let {
+            val segment = uiState.value.units[index].segment.let {
                 if (it.text.isBlank()) {
                     it.copy(text = "")
                 } else {
@@ -328,7 +302,7 @@ internal class DefaultMessageListComponent(
     }
 
     override fun moveToPrevious() {
-        val index = editingIndex.value ?: return
+        val index = uiState.value.editingIndex ?: return
         val newIndex = (index - 1).coerceAtLeast(0)
         viewModelScope.launch {
             // ensure previous is visible too
@@ -337,8 +311,8 @@ internal class DefaultMessageListComponent(
     }
 
     override fun moveToNext() {
-        val index = editingIndex.value ?: return
-        val newIndex = (index + 1).coerceAtMost(units.value.lastIndex)
+        val index = uiState.value.editingIndex ?: return
+        val newIndex = (index + 1).coerceAtMost(uiState.value.units.lastIndex)
         viewModelScope.launch {
             // ensure previous is visible too
             selectionEvents.emit((newIndex).coerceAtLeast(0))
@@ -346,36 +320,40 @@ internal class DefaultMessageListComponent(
     }
 
     override fun copyBase() {
-        val index = editingIndex.value ?: return
-        editingIndex.value = null
+        val index = uiState.value.editingIndex ?: return
+        uiState.update { it.copy(editingIndex = null) }
         viewModelScope.launch(dispatchers.io) {
             delay(250) // to update textfield value
-            units.getAndUpdate { oldList ->
-                oldList.mapIndexed { idx, unit ->
-                    if (idx == index) {
-                        val baseText = unit.original?.text ?: unit.segment.text
-                        unit.copy(segment = unit.segment.copy(text = baseText))
-                    } else {
-                        unit
-                    }
-                }
+            uiState.update {
+                it.copy(
+                    units = it.units.let { oldList ->
+                        oldList.mapIndexed { idx, unit ->
+                            if (idx == index) {
+                                val baseText = unit.original?.text ?: unit.segment.text
+                                unit.copy(segment = unit.segment.copy(text = baseText))
+                            } else {
+                                unit
+                            }
+                        }
+                    },
+                )
             }
             saveCurrentSegmentDebounced(index)
-            editingIndex.value = index
+            uiState.update { it.copy(editingIndex = index) }
         }
     }
 
     override fun deleteSegment() {
-        val index = editingIndex.value ?: return
+        val index = uiState.value.editingIndex ?: return
         projectRepository.setNeedsSaving(true)
         viewModelScope.launch(dispatchers.io) {
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
-            val toDelete = units.value[index].segment
+            val toDelete = uiState.value.units[index].segment
             val key = toDelete.key
             segmentRepository.delete(toDelete)
 
             // remove segments with the same key in other languages too
-            currentLanguage.value?.also { language ->
+            uiState.value.currentLanguage?.also { language ->
                 val otherLanguages = languageRepository.getAll(projectId).filter { it.code != language.code }
                 for (lang in otherLanguages) {
                     val existing = segmentRepository.getByKey(key = key, languageId = lang.id)
@@ -385,9 +363,13 @@ internal class DefaultMessageListComponent(
                 }
             }
 
-            editingIndex.value = null
-            units.getAndUpdate { oldList ->
-                oldList.filterIndexed { idx, _ -> idx != index }
+            uiState.update {
+                it.copy(
+                    editingIndex = null,
+                    units = it.units.let { oldList ->
+                        oldList.filterIndexed { idx, _ -> idx != index }
+                    },
+                )
             }
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
         }
@@ -395,11 +377,11 @@ internal class DefaultMessageListComponent(
 
     override fun scrollToMessage(key: String) {
         suspend fun searchRec() {
-            val index = units.value.indexOfFirst { it.segment.key == key }
+            val index = uiState.value.units.indexOfFirst { it.segment.key == key }
             if (index >= 0) {
                 notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
                 selectionEvents.emit(index)
-            } else if (this.canFetchMore.value) {
+            } else if (uiState.value.canFetchMore) {
                 notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
                 currentPage++
                 loadPage()
@@ -412,29 +394,33 @@ internal class DefaultMessageListComponent(
 
         viewModelScope.launch(dispatchers.io) {
             currentPage = 0
-            canFetchMore.value = true
+            uiState.update { it.copy(canFetchMore = true) }
             searchRec()
         }
     }
 
     override fun markAsTranslatable(value: Boolean, key: String) {
-        val index = units.value.indexOfFirst { it.segment.key == key }
-        val segment = units.value[index].segment
-        val language = currentLanguage.value ?: return
+        val index = uiState.value.units.indexOfFirst { it.segment.key == key }
+        val segment = uiState.value.units[index].segment
+        val language = uiState.value.currentLanguage ?: return
         projectRepository.setNeedsSaving(true)
         viewModelScope.launch(dispatchers.io) {
             val otherLanguages = languageRepository.getAll(projectId).filter { it.code != language.code }
             val toUpdate = segment.copy(translatable = value)
             segmentRepository.update(toUpdate)
 
-            units.getAndUpdate { oldList ->
-                oldList.mapIndexed { idx, it ->
-                    if (idx != index) {
-                        it
-                    } else {
-                        it.copy(segment = toUpdate)
-                    }
-                }
+            uiState.update {
+                it.copy(
+                    units = it.units.let { oldList ->
+                        oldList.mapIndexed { idx, it ->
+                            if (idx != index) {
+                                it
+                            } else {
+                                it.copy(segment = toUpdate)
+                            }
+                        }
+                    },
+                )
             }
 
             if (!value) {
@@ -467,7 +453,7 @@ internal class DefaultMessageListComponent(
     override fun ignoreWordInSpelling(word: String) {
         viewModelScope.launch(dispatchers.io) {
             spellCheckRepository.addUserDefineWord(word)
-            val index = editingIndex.value
+            val index = uiState.value.editingIndex
             if (index != null) {
                 startEditing(index)
             }
