@@ -4,7 +4,6 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import com.github.diegoberaldin.metaphrase.core.common.coroutines.CoroutineDispatcherProvider
-import com.github.diegoberaldin.metaphrase.core.common.utils.combine
 import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
 import com.github.diegoberaldin.metaphrase.domain.language.repository.LanguageRepository
 import com.github.diegoberaldin.metaphrase.domain.language.usecase.GetCompleteLanguageUseCase
@@ -22,6 +21,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
@@ -38,49 +38,30 @@ internal class DefaultTranslateToolbarComponent(
             field = value
             loadLanguages()
         }
-    override val currentLanguage = MutableStateFlow<LanguageModel?>(null)
-    private val currentTypeFilter = MutableStateFlow(TranslationUnitTypeFilter.ALL)
-    private val availableLanguages = MutableStateFlow<List<LanguageModel>>(emptyList())
-    private val availableFilters = MutableStateFlow(
-        listOf(
-            TranslationUnitTypeFilter.ALL,
-            TranslationUnitTypeFilter.TRANSLATABLE,
-            TranslationUnitTypeFilter.UNTRANSLATED,
-        ),
-    )
-    private val currentSearch = MutableStateFlow("")
-    private val isEditing = MutableStateFlow(false)
     private lateinit var viewModelScope: CoroutineScope
     private var _events = MutableSharedFlow<TranslateToolbarComponent.Events>()
 
-    override lateinit var uiState: StateFlow<TranslateToolbarUiState>
-
+    override val uiState = MutableStateFlow(TranslateToolbarUiState())
+    override lateinit var currentLanguage: StateFlow<LanguageModel?>
     override val events: SharedFlow<TranslateToolbarComponent.Events> = _events.asSharedFlow()
 
     init {
         with(lifecycle) {
             doOnCreate {
                 viewModelScope = CoroutineScope(coroutineContext + SupervisorJob())
-                uiState = combine(
-                    currentLanguage,
-                    currentTypeFilter,
-                    availableLanguages,
-                    availableFilters,
-                    currentSearch,
-                    isEditing,
-                ) { currentLanguage, currentTypeFilter, availableLanguages, availableFilters, currentSearch, isEditing ->
-                    TranslateToolbarUiState(
-                        currentLanguage = currentLanguage,
-                        currentTypeFilter = currentTypeFilter,
-                        availableLanguages = availableLanguages,
-                        availableFilters = availableFilters,
-                        currentSearch = currentSearch,
-                        isEditing = isEditing,
+                uiState.update {
+                    it.copy(
+                        availableFilters = listOf(
+                            TranslationUnitTypeFilter.ALL,
+                            TranslationUnitTypeFilter.TRANSLATABLE,
+                            TranslationUnitTypeFilter.UNTRANSLATED,
+                        ),
                     )
-                }.stateIn(
+                }
+                currentLanguage = uiState.map { it.currentLanguage }.stateIn(
                     scope = viewModelScope,
+                    initialValue = null,
                     started = SharingStarted.WhileSubscribed(5_000),
-                    initialValue = TranslateToolbarUiState(),
                 )
             }
             doOnDestroy {
@@ -96,7 +77,7 @@ internal class DefaultTranslateToolbarComponent(
             languageRepository.observeAll(projectId)
                 .map { it.map { l -> completeLanguage(l) } }
                 .onEach { projectLanguages ->
-                    availableLanguages.value = projectLanguages
+                    uiState.update { it.copy(availableLanguages = projectLanguages) }
                     val baseLanguage = languageRepository.getBase(projectId)?.let { completeLanguage(it) }
                     if (baseLanguage != null && baseLanguage != currentLanguage.value) {
                         setLanguage(baseLanguage)
@@ -110,24 +91,24 @@ internal class DefaultTranslateToolbarComponent(
             return
         }
 
-        currentLanguage.value = value
+        uiState.update { it.copy(currentLanguage = value) }
     }
 
     override fun setTypeFilter(value: TranslationUnitTypeFilter) {
-        if (currentTypeFilter.value == value) {
+        if (uiState.value.currentTypeFilter == value) {
             return
         }
 
-        currentTypeFilter.value = value
+        uiState.update { it.copy(currentTypeFilter = value) }
     }
 
     override fun setSearch(value: String) {
-        currentSearch.value = value
+        uiState.update { it.copy(currentSearch = value) }
     }
 
     override fun onSearchFired() {
         viewModelScope.launch {
-            _events.emit(TranslateToolbarComponent.Events.Search(currentSearch.value))
+            _events.emit(TranslateToolbarComponent.Events.Search(uiState.value.currentSearch))
         }
     }
 
@@ -140,7 +121,7 @@ internal class DefaultTranslateToolbarComponent(
     }
 
     override fun setEditing(value: Boolean) {
-        isEditing.value = value
+        uiState.update { it.copy(isEditing = value) }
     }
 
     override fun moveToPrevious() {
