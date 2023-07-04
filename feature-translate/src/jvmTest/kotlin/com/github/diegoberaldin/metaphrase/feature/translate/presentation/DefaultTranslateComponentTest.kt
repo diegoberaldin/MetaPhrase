@@ -1,5 +1,6 @@
 package com.github.diegoberaldin.metaphrase.feature.translate.presentation
 
+import app.cash.turbine.test
 import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import com.arkivanov.essenty.lifecycle.resume
@@ -7,6 +8,7 @@ import com.github.diegoberaldin.metaphrase.core.common.di.commonModule
 import com.github.diegoberaldin.metaphrase.core.common.keystore.TemporaryKeyStore
 import com.github.diegoberaldin.metaphrase.core.common.notification.NotificationCenter
 import com.github.diegoberaldin.metaphrase.core.common.testutils.MockCoroutineDispatcherProvider
+import com.github.diegoberaldin.metaphrase.core.common.utils.configAsFlow
 import com.github.diegoberaldin.metaphrase.core.common.utils.runOnUiThread
 import com.github.diegoberaldin.metaphrase.core.localization.L10n
 import com.github.diegoberaldin.metaphrase.core.localization.di.localizationModule
@@ -19,6 +21,7 @@ import com.github.diegoberaldin.metaphrase.domain.language.di.languageModule
 import com.github.diegoberaldin.metaphrase.domain.language.repository.LanguageRepository
 import com.github.diegoberaldin.metaphrase.domain.mt.repository.MachineTranslationRepository
 import com.github.diegoberaldin.metaphrase.domain.project.data.ProjectModel
+import com.github.diegoberaldin.metaphrase.domain.project.data.RecentProjectModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.SegmentModel
 import com.github.diegoberaldin.metaphrase.domain.project.di.projectModule
 import com.github.diegoberaldin.metaphrase.domain.project.repository.ProjectRepository
@@ -32,6 +35,7 @@ import com.github.diegoberaldin.metaphrase.domain.tm.usecase.ExportTmxUseCase
 import com.github.diegoberaldin.metaphrase.domain.tm.usecase.SyncProjectWithTmUseCase
 import com.github.diegoberaldin.metaphrase.feature.translate.di.translateModule
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.TestScope
@@ -39,6 +43,7 @@ import kotlinx.coroutines.test.runTest
 import org.koin.core.context.startKoin
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertIs
 
 class DefaultTranslateComponentTest {
     companion object {
@@ -128,5 +133,60 @@ class DefaultTranslateComponentTest {
         val uiState = sut.uiState.value
         assertEquals(1, uiState.unitCount)
         assertEquals("test", uiState.project?.name)
+    }
+
+    @Test
+    fun givenComponentResumedWhenCloseDialogThenConfigChangesAccordingly() = runTest {
+        coEvery { mockLanguageRepository.getBase(any()) } returns LanguageModel(code = "en", isBase = true)
+        coEvery { mockSegmentRepository.getAll(any()) } returns listOf(SegmentModel())
+        coEvery { mockProjectRepository.observeById(any()) } returns flowOf(ProjectModel(name = "test"))
+        coEvery { mockProjectRepository.observeNeedsSaving() } returns flowOf(false)
+        runOnUiThread {
+            lifecycle.resume()
+        }
+
+        sut.closeDialog()
+        sut.dialog.configAsFlow<TranslateComponent.DialogConfig>().test {
+            val item = awaitItem()
+            assertIs<TranslateComponent.DialogConfig.None>(item)
+        }
+    }
+
+    @Test
+    fun givenComponentResumedWhenAddSegmentThenConfigChangesAccordingly() = runTest {
+        coEvery { mockLanguageRepository.getBase(any()) } returns LanguageModel(code = "en", isBase = true)
+        coEvery { mockSegmentRepository.getAll(any()) } returns listOf(SegmentModel())
+        coEvery { mockProjectRepository.observeById(any()) } returns flowOf(ProjectModel(name = "test"))
+        coEvery { mockProjectRepository.observeNeedsSaving() } returns flowOf(false)
+        runOnUiThread {
+            lifecycle.resume()
+        }
+
+        sut.addSegment()
+
+        sut.dialog.configAsFlow<TranslateComponent.DialogConfig>().test {
+            val item = awaitItem()
+            assertIs<TranslateComponent.DialogConfig.NewSegment>(item)
+        }
+    }
+
+    @Test
+    fun givenComponentResumedWhenSaveThenLogicIsCalled() = runTest {
+        coEvery { mockLanguageRepository.getBase(any()) } returns LanguageModel(code = "en", isBase = true)
+        coEvery { mockSegmentRepository.getAll(any()) } returns listOf(SegmentModel())
+        coEvery { mockProjectRepository.observeById(any()) } returns flowOf(ProjectModel(name = "test"))
+        coEvery { mockProjectRepository.observeNeedsSaving() } returns flowOf(false)
+        coEvery { mockProjectRepository.setNeedsSaving(any()) } returns Unit
+        coEvery { mockProjectRepository.getById(any()) } returns ProjectModel()
+        coEvery { mockRecentProjectRepository.getByName(any()) } returns RecentProjectModel()
+        coEvery { mockSaveProject.invoke(any(), any()) } returns Unit
+        coEvery { mockNotificationCenter.send(any()) } returns Unit
+        runOnUiThread {
+            lifecycle.resume()
+        }
+
+        sut.save("path")
+
+        coVerify { mockSaveProject.invoke(any(), "path") }
     }
 }
