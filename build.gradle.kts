@@ -60,14 +60,14 @@ compose.desktop {
             version = libs.versions.buildNumber.get()
             includeAllModules = true
             macOS {
-                iconFile.set(project.file("res/icon.icns"))
+                iconFile.set(project.file("src/jvmMain/resources/icon.icns"))
                 setDockNameSameAsPackageName = true
             }
             windows {
-                iconFile.set(project.file("res/icon.ico"))
+                iconFile.set(project.file("src/jvmMain/resources/icon.ico"))
             }
             linux {
-                iconFile.set(project.file("res/icon.png"))
+                iconFile.set(project.file("src/jvmMain/resources/icon.png"))
             }
         }
     }
