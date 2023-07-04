@@ -32,6 +32,7 @@ kotlin {
         val jvmTest by getting {
             dependencies {
                 implementation(libs.kotlinx.coroutines.test)
+                implementation(libs.turbine)
                 implementation(kotlin("test-junit5"))
                 implementation(projects.coreCommon.testutils)
             }
