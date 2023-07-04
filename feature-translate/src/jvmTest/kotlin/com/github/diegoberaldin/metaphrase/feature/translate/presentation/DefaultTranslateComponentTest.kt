@@ -5,9 +5,11 @@ import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import com.arkivanov.essenty.lifecycle.resume
 import com.github.diegoberaldin.metaphrase.core.common.di.commonModule
+import com.github.diegoberaldin.metaphrase.core.common.keystore.KeyStoreKeys
 import com.github.diegoberaldin.metaphrase.core.common.keystore.TemporaryKeyStore
 import com.github.diegoberaldin.metaphrase.core.common.notification.NotificationCenter
 import com.github.diegoberaldin.metaphrase.core.common.testutils.MockCoroutineDispatcherProvider
+import com.github.diegoberaldin.metaphrase.core.common.testutils.MockFileManager
 import com.github.diegoberaldin.metaphrase.core.common.utils.configAsFlow
 import com.github.diegoberaldin.metaphrase.core.common.utils.runOnUiThread
 import com.github.diegoberaldin.metaphrase.core.localization.L10n
@@ -20,8 +22,10 @@ import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
 import com.github.diegoberaldin.metaphrase.domain.language.di.languageModule
 import com.github.diegoberaldin.metaphrase.domain.language.repository.LanguageRepository
 import com.github.diegoberaldin.metaphrase.domain.mt.repository.MachineTranslationRepository
+import com.github.diegoberaldin.metaphrase.domain.mt.repository.data.MachineTranslationProvider
 import com.github.diegoberaldin.metaphrase.domain.project.data.ProjectModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.RecentProjectModel
+import com.github.diegoberaldin.metaphrase.domain.project.data.ResourceFileType
 import com.github.diegoberaldin.metaphrase.domain.project.data.SegmentModel
 import com.github.diegoberaldin.metaphrase.domain.project.di.projectModule
 import com.github.diegoberaldin.metaphrase.domain.project.repository.ProjectRepository
@@ -34,18 +38,23 @@ import com.github.diegoberaldin.metaphrase.domain.spellcheck.usecase.ValidateSpe
 import com.github.diegoberaldin.metaphrase.domain.tm.usecase.ExportTmxUseCase
 import com.github.diegoberaldin.metaphrase.domain.tm.usecase.SyncProjectWithTmUseCase
 import com.github.diegoberaldin.metaphrase.feature.translate.di.translateModule
+import com.github.diegoberaldin.metaphrase.feature.translate.toolbar.presentation.TranslateToolbarComponent
 import io.mockk.coEvery
 import io.mockk.coVerify
+import io.mockk.every
 import io.mockk.mockk
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
 import org.koin.core.context.startKoin
+import org.koin.dsl.module
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertIs
 
 class DefaultTranslateComponentTest {
+
     companion object {
         private val setup by lazy {
             startKoin {
@@ -56,6 +65,13 @@ class DefaultTranslateComponentTest {
                     languageModule,
                     projectModule,
                     translateModule,
+                    module {
+                        single<TranslateToolbarComponent> {
+                            mockk<TranslateToolbarComponent> {
+                                every { currentLanguage } returns MutableStateFlow(LanguageModel(code = "en"))
+                            }
+                        }
+                    },
                 )
             }
             L10n.setLanguage("en")
@@ -188,5 +204,185 @@ class DefaultTranslateComponentTest {
         sut.save("path")
 
         coVerify { mockSaveProject.invoke(any(), "path") }
+    }
+
+    @Test
+    fun givenComponentResumedWhenImportAndroidThenLogicIsCalled() = runTest {
+        coEvery { mockLanguageRepository.getBase(any()) } returns LanguageModel(code = "en", isBase = true)
+        coEvery { mockSegmentRepository.getAll(any()) } returns listOf(SegmentModel(), SegmentModel())
+        coEvery { mockProjectRepository.observeById(any()) } returns flowOf(ProjectModel(name = "test"))
+        coEvery { mockProjectRepository.observeNeedsSaving() } returns flowOf(false)
+        coEvery { mockProjectRepository.setNeedsSaving(any()) } returns Unit
+        coEvery { mockNotificationCenter.send(any()) } returns Unit
+        coEvery { mockImportResources.invoke(any(), any()) } returns listOf(
+            SegmentModel(key = "key 1", text = "text 1"),
+            SegmentModel(key = "key 2", text = "text 2"),
+        )
+        coEvery {
+            mockImportSegments.invoke(
+                any(),
+                any(),
+                any(),
+            )
+        } returns Unit
+        runOnUiThread {
+            lifecycle.resume()
+        }
+
+        sut.import("path", ResourceFileType.ANDROID_XML)
+
+        val uiState = sut.uiState.value
+        assertEquals(2, uiState.unitCount)
+        coVerify { mockImportResources.invoke("path", ResourceFileType.ANDROID_XML) }
+    }
+
+    @Test
+    fun givenComponentResumedWhenExportAndroidThenLogicIsCalled() = runTest {
+        coEvery { mockLanguageRepository.getBase(any()) } returns LanguageModel(code = "en", isBase = true)
+        coEvery { mockSegmentRepository.getAll(any()) } returns listOf(SegmentModel())
+        coEvery { mockSegmentRepository.getUntranslatable(any()) } returns emptyList()
+        coEvery { mockProjectRepository.observeById(any()) } returns flowOf(ProjectModel(name = "test"))
+        coEvery { mockProjectRepository.observeNeedsSaving() } returns flowOf(false)
+        coEvery { mockNotificationCenter.send(any()) } returns Unit
+        coEvery { mockExportResources.invoke(any(), any(), any(), any()) } returns Unit
+        runOnUiThread {
+            lifecycle.resume()
+        }
+
+        sut.export("path", ResourceFileType.ANDROID_XML)
+
+        coVerify {
+            mockExportResources.invoke(
+                segments = any(),
+                path = "path",
+                lang = "en",
+                type = ResourceFileType.ANDROID_XML,
+            )
+        }
+    }
+
+    @Test
+    fun givenComponentResumedWhenTogglePanelThenConfigChangesAccordingly() = runTest {
+        coEvery { mockLanguageRepository.getBase(any()) } returns LanguageModel(code = "en", isBase = true)
+        coEvery { mockSegmentRepository.getAll(any()) } returns listOf(SegmentModel())
+        coEvery { mockSegmentRepository.getUntranslatable(any()) } returns emptyList()
+        coEvery { mockProjectRepository.observeById(any()) } returns flowOf(ProjectModel(name = "test"))
+        coEvery { mockProjectRepository.observeNeedsSaving() } returns flowOf(false)
+        runOnUiThread {
+            lifecycle.resume()
+        }
+
+        sut.togglePanel(TranslateComponent.PanelConfig.Validation)
+
+        sut.panel.configAsFlow<TranslateComponent.PanelConfig>().test {
+            val item = awaitItem()
+            assertEquals(TranslateComponent.PanelConfig.Validation, item)
+        }
+    }
+
+    @Test
+    fun givenComponentResumedWhenExportTmxThenConfigChangesAccordingly() = runTest {
+        coEvery { mockLanguageRepository.getBase(any()) } returns LanguageModel(code = "en", isBase = true)
+        coEvery { mockSegmentRepository.getAll(any()) } returns listOf(SegmentModel())
+        coEvery { mockSegmentRepository.getUntranslatable(any()) } returns emptyList()
+        coEvery { mockProjectRepository.observeById(any()) } returns flowOf(ProjectModel(name = "test"))
+        coEvery { mockProjectRepository.observeNeedsSaving() } returns flowOf(false)
+        coEvery { mockNotificationCenter.send(any()) } returns Unit
+        coEvery { mockExportToTmx.invoke(any(), any()) } returns Unit
+        runOnUiThread {
+            lifecycle.resume()
+        }
+
+        sut.exportTmx("path")
+
+        coVerify { mockExportToTmx.invoke("en", "path") }
+    }
+
+    @Test
+    fun givenComponentResumedWhenSyncWithTmThenConfigChangesAccordingly() = runTest {
+        coEvery { mockLanguageRepository.getBase(any()) } returns LanguageModel(code = "en", isBase = true)
+        coEvery { mockSegmentRepository.getAll(any()) } returns listOf(SegmentModel())
+        coEvery { mockSegmentRepository.getUntranslatable(any()) } returns emptyList()
+        coEvery { mockProjectRepository.observeById(any()) } returns flowOf(ProjectModel(name = "test"))
+        coEvery { mockProjectRepository.observeNeedsSaving() } returns flowOf(false)
+        coEvery { mockNotificationCenter.send(any()) } returns Unit
+        coEvery { mockSyncProjectWithTm.invoke(any()) } returns Unit
+        runOnUiThread {
+            lifecycle.resume()
+        }
+
+        sut.syncWithTm()
+
+        coVerify { mockSyncProjectWithTm.invoke(any()) }
+    }
+
+    @Test
+    fun givenComponentResumedWhenValidatePlaceholdersThenConfigChangesAccordingly() = runTest {
+        coEvery { mockLanguageRepository.getBase(any()) } returns LanguageModel(code = "en", isBase = true)
+        coEvery { mockSegmentRepository.getAll(any()) } returns listOf(SegmentModel())
+        coEvery { mockSegmentRepository.getUntranslatable(any()) } returns emptyList()
+        coEvery { mockSegmentRepository.getByKey(any(), any()) } returns SegmentModel()
+        coEvery { mockProjectRepository.observeById(any()) } returns flowOf(ProjectModel(name = "test"))
+        coEvery { mockProjectRepository.observeNeedsSaving() } returns flowOf(false)
+        coEvery { mockNotificationCenter.send(any()) } returns Unit
+        coEvery { mockValidatePlaceholders.invoke(any()) } returns ValidatePlaceholdersUseCase.Output.Valid
+        runOnUiThread {
+            lifecycle.resume()
+        }
+
+        sut.validatePlaceholders()
+
+        coVerify { mockValidatePlaceholders.invoke(any()) }
+    }
+
+    @Test
+    fun givenComponentResumedWhenGlobalSpellcheckPlaceholdersThenConfigChangesAccordingly() = runTest {
+        coEvery { mockLanguageRepository.getBase(any()) } returns LanguageModel(code = "en", isBase = true)
+        coEvery { mockSegmentRepository.getAll(any()) } returns listOf(SegmentModel())
+        coEvery { mockSegmentRepository.getUntranslatable(any()) } returns emptyList()
+        coEvery { mockProjectRepository.observeById(any()) } returns flowOf(ProjectModel(name = "test"))
+        coEvery { mockProjectRepository.observeNeedsSaving() } returns flowOf(false)
+        coEvery { mockNotificationCenter.send(any()) } returns Unit
+        coEvery { mockValidateSpelling.invoke(any(), any()) } returns emptyMap()
+        runOnUiThread {
+            lifecycle.resume()
+        }
+
+        sut.globalSpellcheck()
+
+        coVerify { mockValidateSpelling.invoke(any(), any()) }
+    }
+
+    @Test
+    fun givenComponentResumedWhenContributeTmPlaceholdersThenConfigChangesAccordingly() = runTest {
+        coEvery { mockLanguageRepository.getBase(any()) } returns LanguageModel(code = "en", isBase = true)
+        coEvery { mockSegmentRepository.getAll(any()) } returns listOf(SegmentModel())
+        coEvery { mockSegmentRepository.getUntranslatable(any()) } returns emptyList()
+        coEvery { mockProjectRepository.observeById(any()) } returns flowOf(ProjectModel(name = "test"))
+        coEvery { mockProjectRepository.observeNeedsSaving() } returns flowOf(false)
+        coEvery { mockProjectRepository.getById(any()) } returns ProjectModel()
+        MockFileManager.setup("test", ".tmx")
+        coEvery { mockRecentProjectRepository.getByName(any()) } returns RecentProjectModel(path = MockFileManager.getFilePath())
+        coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationProvider, any<Int>()) } returns 0
+        coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationKey, any<String>()) } returns "key"
+        coEvery { mockNotificationCenter.send(any()) } returns Unit
+        coEvery { mockMachineTranslationRepository.importTm(any(), any(), any(), any(), any(), any()) } returns Unit
+        runOnUiThread {
+            lifecycle.resume()
+        }
+
+        sut.machineTranslationContributeTm()
+
+        coVerify {
+            mockMachineTranslationRepository.importTm(
+                provider = MachineTranslationProvider.MY_MEMORY,
+                any(),
+                key = "key",
+                any(),
+                any(),
+                any(),
+            )
+        }
+        MockFileManager.teardown()
     }
 }
