@@ -4,6 +4,8 @@ import app.cash.turbine.test
 import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import com.arkivanov.essenty.lifecycle.create
+import com.github.diegoberaldin.feature.main.settings.dialog.login.di.dialogLoginModule
+import com.github.diegoberaldin.metaphrase.core.common.di.commonModule
 import com.github.diegoberaldin.metaphrase.core.common.keystore.KeyStoreKeys
 import com.github.diegoberaldin.metaphrase.core.common.keystore.TemporaryKeyStore
 import com.github.diegoberaldin.metaphrase.core.common.testutils.MockCoroutineDispatcherProvider
@@ -19,8 +21,7 @@ import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.slot
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
 import org.koin.core.context.startKoin
 import kotlin.test.BeforeTest
@@ -35,20 +36,21 @@ class DefaultSettingsComponentTest {
         val setup by lazy {
             startKoin {
                 modules(
+                    commonModule,
                     localizationModule,
+                    dialogLoginModule,
                 )
             }
         }
     }
 
-    private val scope = CoroutineScope(SupervisorJob())
     private val lifecycle = LifecycleRegistry()
     private val mockCompleteLanguage = mockk<GetCompleteLanguageUseCase>()
     private val mockKeyStore = mockk<TemporaryKeyStore>()
     private val mockMachineTranslationRepository = mockk<MachineTranslationRepository>()
     private val sut = DefaultSettingsComponent(
         componentContext = DefaultComponentContext(lifecycle = lifecycle),
-        coroutineContext = scope.coroutineContext,
+        coroutineContext = TestScope().coroutineContext,
         dispatchers = MockCoroutineDispatcherProvider,
         completeLanguage = mockCompleteLanguage,
         keyStore = mockKeyStore,
@@ -211,7 +213,7 @@ class DefaultSettingsComponentTest {
         coVerify { mockMachineTranslationRepository.generateKey(username = "username", password = "password") }
     }
 
-    /*@Test
+    @Test
     fun givenComponentCreatedWhenOpenLoginDialogThenDialogConfigIsChangedAccordingly() = runTest {
         val languageSlot = slot<LanguageModel>()
         every { mockCompleteLanguage.invoke(capture(languageSlot)) } answers {
@@ -232,7 +234,7 @@ class DefaultSettingsComponentTest {
             val item = awaitItem()
             assertIs<SettingsComponent.DialogConfig.Login>(item)
         }
-    }*/
+    }
 
     @Test
     fun givenComponentCreatedWhenCloseDialogThenDialogConfigIsChangedAccordingly() = runTest {

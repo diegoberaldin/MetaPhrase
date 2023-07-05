@@ -113,7 +113,9 @@ internal class DefaultTranslateToolbarComponent(
     }
 
     override fun copyBase() {
-        if (currentLanguage.value?.isBase != false) return
+        if (uiState.value.currentLanguage?.isBase != false) {
+            return
+        }
 
         viewModelScope.launch(dispatchers.io) {
             _events.emit(TranslateToolbarComponent.Events.CopyBase)
@@ -149,7 +151,9 @@ internal class DefaultTranslateToolbarComponent(
     }
 
     override fun validateUnits() {
-        if (currentLanguage.value?.isBase != false) return
+        if (uiState.value.currentLanguage?.isBase != false) {
+            return
+        }
 
         viewModelScope.launch(dispatchers.io) {
             _events.emit(TranslateToolbarComponent.Events.ValidateUnits)

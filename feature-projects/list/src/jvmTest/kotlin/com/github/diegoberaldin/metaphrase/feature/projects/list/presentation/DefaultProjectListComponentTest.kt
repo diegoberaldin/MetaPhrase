@@ -19,7 +19,6 @@ import io.mockk.coVerify
 import io.mockk.coVerifyOrder
 import io.mockk.mockk
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
 import org.koin.core.context.startKoin
@@ -70,15 +69,16 @@ class DefaultProjectListComponentTest {
         }
     }
 
-    /*@Test
+    @Test
     fun givenComponentResumedWhenListNotEmptyThenProjectsAreDisplayed() = runTest {
-        coEvery { mockProjectRepository.observeAll() } returns flowOf(emptyList())
+        coEvery { mockProjectRepository.observeAll() } returns flowOf(listOf(RecentProjectModel()))
         lifecycle.resume()
+
         sut.uiState.test {
             val item = awaitItem()
             assertEquals(1, item.projects.size)
         }
-    }*/
+    }
 
     @Test
     fun givenComponentResumedWhenCloseDialogTheChildSlotChangesAccordingly() = runTest {
@@ -101,11 +101,8 @@ class DefaultProjectListComponentTest {
         coEvery { mockOpenProjectUseCase.invoke(any()) } returns ProjectModel(name = "test")
         lifecycle.resume()
 
-        launch {
-            sut.openRecent(RecentProjectModel(name = "test", path = "path"))
-        }
-
         sut.projectSelected.test {
+            sut.openRecent(RecentProjectModel(name = "test", path = "path"))
             val item = awaitItem()
             assertEquals("test", item.name)
         }
@@ -134,10 +131,9 @@ class DefaultProjectListComponentTest {
         coEvery { mockOpenProjectUseCase.invoke(any()) } returns null
         lifecycle.resume()
 
-        launch {
+        runOnUiThread {
             sut.openRecent(RecentProjectModel(name = "test", path = "path"))
         }
-
         sut.dialog.configAsFlow<ProjectListComponent.DialogConfiguration>().test {
             val item = awaitItem()
             assertIs<ProjectListComponent.DialogConfiguration.OpenError>(item)

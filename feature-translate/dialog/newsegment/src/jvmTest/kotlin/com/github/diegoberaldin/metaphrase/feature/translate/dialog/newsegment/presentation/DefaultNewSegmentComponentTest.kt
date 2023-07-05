@@ -14,7 +14,6 @@ import com.github.diegoberaldin.metaphrase.domain.project.data.SegmentModel
 import com.github.diegoberaldin.metaphrase.domain.project.repository.SegmentRepository
 import io.mockk.coEvery
 import io.mockk.mockk
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
 import org.koin.core.context.startKoin
@@ -113,19 +112,15 @@ class DefaultNewSegmentComponentTest {
         sut.setKey("key")
         sut.setText("test")
 
-        launch {
-            sut.submit()
-        }
-
-        val uiState = sut.uiState.value
-        assertEquals("", uiState.keyError)
-        assertEquals("", uiState.textError)
-
         sut.done.test {
+            sut.submit()
             val item = awaitItem()
             assertNotNull(item)
             assertEquals(1, item.id)
             assertEquals("key", item.key)
         }
+        val uiState = sut.uiState.value
+        assertEquals("", uiState.keyError)
+        assertEquals("", uiState.textError)
     }
 }

@@ -161,7 +161,9 @@ class DefaultTranslateComponentTest {
             lifecycle.resume()
         }
 
-        sut.closeDialog()
+        runOnUiThread {
+            sut.closeDialog()
+        }
         sut.dialog.configAsFlow<TranslateComponent.DialogConfig>().test {
             val item = awaitItem()
             assertIs<TranslateComponent.DialogConfig.None>(item)
@@ -178,7 +180,9 @@ class DefaultTranslateComponentTest {
             lifecycle.resume()
         }
 
-        sut.addSegment()
+        runOnUiThread {
+            sut.addSegment()
+        }
 
         sut.dialog.configAsFlow<TranslateComponent.DialogConfig>().test {
             val item = awaitItem()

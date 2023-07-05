@@ -17,7 +17,6 @@ import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.slot
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
 import org.koin.core.context.startKoin
@@ -253,11 +252,8 @@ class DefaultCreateProjectComponentTest {
         sut.setName("test")
         sut.addLanguage(LanguageModel(code = "en"))
 
-        launch {
-            sut.submit()
-        }
-
         sut.done.test {
+            sut.submit()
             val item = awaitItem()
             assertNotNull(item)
         }
