@@ -10,7 +10,6 @@ import com.github.diegoberaldin.metaphrase.core.localization.di.localizationModu
 import com.github.diegoberaldin.metaphrase.core.localization.localized
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
 import org.koin.core.context.startKoin
 import kotlin.test.Test
@@ -75,11 +74,8 @@ class DefaultLoginComponentTest {
         sut.setUsername("test_user")
         sut.setPassword("test_pass")
 
-        launch {
-            sut.submit()
-        }
-
         sut.done.test {
+            sut.submit()
             val item = awaitItem()
             assertEquals("test_user", item.first)
             assertEquals("test_pass", item.second)

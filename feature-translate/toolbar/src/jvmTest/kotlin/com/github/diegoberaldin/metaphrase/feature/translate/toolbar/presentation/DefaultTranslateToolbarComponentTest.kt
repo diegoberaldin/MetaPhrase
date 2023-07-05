@@ -5,6 +5,7 @@ import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import com.arkivanov.essenty.lifecycle.create
 import com.github.diegoberaldin.metaphrase.core.common.testutils.MockCoroutineDispatcherProvider
+import com.github.diegoberaldin.metaphrase.core.common.utils.runOnUiThread
 import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
 import com.github.diegoberaldin.metaphrase.domain.language.repository.LanguageRepository
 import com.github.diegoberaldin.metaphrase.domain.language.usecase.GetCompleteLanguageUseCase
@@ -13,7 +14,6 @@ import io.mockk.coEvery
 import io.mockk.mockk
 import io.mockk.slot
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
@@ -175,18 +175,16 @@ class DefaultTranslateToolbarComponentTest {
         sut.projectId = 1
 
         sut.setSearch("test")
-        launch {
-            sut.onSearchFired()
-        }
 
         sut.events.test {
+            sut.onSearchFired()
             val item = awaitItem()
             assertIs<TranslateToolbarComponent.Events.Search>(item)
             assertEquals("test", item.text)
         }
     }
 
-    /*@Test
+    @Test
     fun givenComponentCreatedWhenCopyBaseThenEventIsEmitted() = runTest {
         coEvery { mockLanguageRepository.observeAll(any()) } returns flowOf(
             listOf(
@@ -202,16 +200,14 @@ class DefaultTranslateToolbarComponentTest {
         }
         lifecycle.create()
         sut.projectId = 1
-
-        launch {
-            sut.copyBase()
-        }
+        sut.setLanguage(LanguageModel(code = "it"))
 
         sut.events.test {
+            sut.copyBase()
             val item = awaitItem()
             assertIs<TranslateToolbarComponent.Events.CopyBase>(item)
         }
-    }*/
+    }
 
     @Test
     fun givenComponentCreatedWhenMoveToPreviousThenEventIsEmitted() = runTest {
@@ -230,11 +226,8 @@ class DefaultTranslateToolbarComponentTest {
         lifecycle.create()
         sut.projectId = 1
 
-        launch {
-            sut.moveToPrevious()
-        }
-
         sut.events.test {
+            sut.moveToPrevious()
             val item = awaitItem()
             assertIs<TranslateToolbarComponent.Events.MoveToPrevious>(item)
         }
@@ -257,11 +250,8 @@ class DefaultTranslateToolbarComponentTest {
         lifecycle.create()
         sut.projectId = 1
 
-        launch {
-            sut.moveToNext()
-        }
-
         sut.events.test {
+            sut.moveToNext()
             val item = awaitItem()
             assertIs<TranslateToolbarComponent.Events.MoveToNext>(item)
         }
@@ -284,11 +274,8 @@ class DefaultTranslateToolbarComponentTest {
         lifecycle.create()
         sut.projectId = 1
 
-        launch {
-            sut.addUnit()
-        }
-
         sut.events.test {
+            sut.addUnit()
             val item = awaitItem()
             assertIs<TranslateToolbarComponent.Events.AddUnit>(item)
         }
@@ -311,17 +298,14 @@ class DefaultTranslateToolbarComponentTest {
         lifecycle.create()
         sut.projectId = 1
 
-        launch {
-            sut.removeUnit()
-        }
-
         sut.events.test {
+            sut.removeUnit()
             val item = awaitItem()
             assertIs<TranslateToolbarComponent.Events.RemoveUnit>(item)
         }
     }
 
-    /*@Test
+    @Test
     fun givenComponentCreatedWhenValidateUnitsThenEventIsEmitted() = runTest {
         coEvery { mockLanguageRepository.observeAll(any()) } returns flowOf(
             listOf(
@@ -337,14 +321,12 @@ class DefaultTranslateToolbarComponentTest {
         }
         lifecycle.create()
         sut.projectId = 1
-
-        launch {
-            sut.validateUnits()
-        }
+        sut.setLanguage(LanguageModel(code = "it"))
 
         sut.events.test {
+            sut.validateUnits()
             val item = awaitItem()
             assertIs<TranslateToolbarComponent.Events.ValidateUnits>(item)
         }
-    }*/
+    }
 }

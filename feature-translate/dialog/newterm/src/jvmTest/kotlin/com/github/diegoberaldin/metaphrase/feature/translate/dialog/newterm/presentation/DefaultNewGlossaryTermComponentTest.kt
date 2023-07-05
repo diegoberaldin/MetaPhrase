@@ -8,7 +8,6 @@ import com.github.diegoberaldin.metaphrase.core.common.testutils.MockCoroutineDi
 import com.github.diegoberaldin.metaphrase.core.localization.L10n
 import com.github.diegoberaldin.metaphrase.core.localization.di.localizationModule
 import com.github.diegoberaldin.metaphrase.core.localization.localized
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
 import org.koin.core.context.startKoin
@@ -77,18 +76,15 @@ class DefaultNewGlossaryTermComponentTest {
         sut.setSourceTerm("test source")
         sut.setTargetTerm("test target")
 
-        launch {
+        sut.done.test {
             sut.submit()
+            val item = awaitItem()
+            assertEquals("test source", item.sourceLemma)
+            assertEquals("test target", item.targetLemma)
         }
 
         val uiState = sut.uiState.value
         assertEquals("", uiState.sourceTermError)
         assertEquals("", uiState.targetTermError)
-
-        sut.done.test {
-            val item = awaitItem()
-            assertEquals("test source", item.sourceLemma)
-            assertEquals("test target", item.targetLemma)
-        }
     }
 }

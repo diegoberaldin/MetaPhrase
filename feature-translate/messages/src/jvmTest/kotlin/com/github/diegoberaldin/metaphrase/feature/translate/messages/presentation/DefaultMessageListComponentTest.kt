@@ -18,7 +18,6 @@ import com.github.diegoberaldin.metaphrase.domain.spellcheck.repo.SpellCheckRepo
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
@@ -477,10 +476,8 @@ class DefaultMessageListComponentTest {
         val stateBefore = sut.uiState.value
         assertEquals(1, stateBefore.editingIndex)
 
-        launch {
-            sut.moveToPrevious()
-        }
         sut.selectionEvents.test {
+            sut.moveToPrevious()
             val item = awaitItem()
             assertEquals(0, item)
         }
@@ -518,10 +515,8 @@ class DefaultMessageListComponentTest {
         val stateBefore = sut.uiState.value
         assertEquals(0, stateBefore.editingIndex)
 
-        launch {
-            sut.moveToNext()
-        }
         sut.selectionEvents.test {
+            sut.moveToNext()
             val item = awaitItem()
             assertEquals(1, item)
         }
@@ -632,10 +627,8 @@ class DefaultMessageListComponentTest {
             projectId = 1,
         )
 
-        launch {
-            sut.scrollToMessage("key 2")
-        }
         sut.selectionEvents.test {
+            sut.scrollToMessage("key 2")
             val item = awaitItem()
             assertEquals(1, item)
         }
@@ -683,10 +676,8 @@ class DefaultMessageListComponentTest {
     fun givenComponentCreatedWhenAddToGlossaryThenEventIsEmitted() = runTest {
         lifecycle.create()
 
-        launch {
-            sut.addToGlossarySource("term", "en")
-        }
         sut.addToGlossaryEvents.test {
+            sut.addToGlossarySource("term", "en")
             val item = awaitItem()
             assertEquals("term", item.lemma)
             assertEquals("en", item.lang)

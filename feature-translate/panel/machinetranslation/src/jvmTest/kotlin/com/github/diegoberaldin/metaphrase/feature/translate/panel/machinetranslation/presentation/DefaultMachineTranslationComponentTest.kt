@@ -16,7 +16,6 @@ import com.github.diegoberaldin.metaphrase.domain.project.repository.SegmentRepo
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Test
@@ -115,11 +114,8 @@ class DefaultMachineTranslationComponentTest {
         lifecycle.create()
         sut.load(key = "key", projectId = 1, languageId = 1)
 
-        launch {
-            sut.copyTarget()
-        }
-
         sut.copyTargetEvents.test {
+            sut.copyTarget()
             val item = awaitItem()
             assertNotNull(item)
         }
@@ -168,11 +164,9 @@ class DefaultMachineTranslationComponentTest {
         sut.load(key = "key", projectId = 1, languageId = 1)
 
         sut.setTranslation("translation")
-        launch {
-            sut.insertTranslation()
-        }
 
         sut.copySourceEvents.test {
+            sut.insertTranslation()
             val item = awaitItem()
             assertEquals("translation", item)
         }
