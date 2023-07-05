@@ -4,6 +4,7 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import com.github.diegoberaldin.metaphrase.core.common.coroutines.CoroutineDispatcherProvider
+import com.github.diegoberaldin.metaphrase.core.common.keystore.KeyStoreKeys
 import com.github.diegoberaldin.metaphrase.core.common.keystore.TemporaryKeyStore
 import com.github.diegoberaldin.metaphrase.domain.project.repository.SegmentRepository
 import com.github.diegoberaldin.metaphrase.domain.tm.usecase.GetSimilaritiesUseCase
@@ -48,7 +49,7 @@ internal class DefaultTranslationMemoryComponent(
         viewModelScope.launch(dispatchers.io) {
             uiState.update { it.copy(isLoading = true) }
             val segment = segmentRepository.getByKey(key = key, languageId = languageId) ?: return@launch
-            val similarityThreshold = keyStore.get("similarity_threshold", 75) / 100f
+            val similarityThreshold = keyStore.get(KeyStoreKeys.SimilarityThreshold, 75) / 100f
 
             val newUnits = getSimilarities(
                 segment = segment,
@@ -66,7 +67,7 @@ internal class DefaultTranslationMemoryComponent(
     }
 
     override fun copyTranslation(index: Int) {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.io) {
             val unit = uiState.value.units.getOrNull(index) ?: return@launch
             copyEvents.emit(unit.segment.text)
         }
