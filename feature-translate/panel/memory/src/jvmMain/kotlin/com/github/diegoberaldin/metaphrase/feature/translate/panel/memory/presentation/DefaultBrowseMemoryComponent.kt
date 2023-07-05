@@ -42,7 +42,7 @@ internal class DefaultBrowseMemoryComponent(
     override fun setLanguages(source: LanguageModel?, target: LanguageModel?) {
         uiState.update {
             it.copy(
-                sourceLanguage = source?.let { completeLanguage(it) },
+                sourceLanguage = source?.let { lang -> completeLanguage(lang) },
                 targetLanguage = target,
             )
         }
@@ -51,6 +51,7 @@ internal class DefaultBrowseMemoryComponent(
 
     private fun refreshLanguages() {
         if (!::viewModelScope.isInitialized) return
+
         viewModelScope.launch(dispatchers.io) {
             val tmLanguages = memoryEntryRepository.getLanguageCodes().map {
                 completeLanguage(LanguageModel(code = it))
