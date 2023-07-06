@@ -1,7 +1,7 @@
 package com.github.diegoberaldin.metaphrase.domain.language.persistence.dao
 
 import com.github.diegoberaldin.metaphrase.core.common.testutils.MockFileManager
-import com.github.diegoberaldin.metaphrase.core.persistence.AppDatabase
+import com.github.diegoberaldin.metaphrase.core.persistence.DefaultAppDatabase
 import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.ProjectModel
 import kotlinx.coroutines.runBlocking
@@ -16,7 +16,6 @@ import kotlin.test.assertTrue
 
 class DefaultLanguageDaoTest {
 
-    private lateinit var appDb: AppDatabase
     private lateinit var sut: DefaultLanguageDao
     private var projectId: Int = 0
 
@@ -26,7 +25,7 @@ class DefaultLanguageDaoTest {
             name = "test",
             extension = ".db",
         )
-        appDb = AppDatabase(
+        val appDb = DefaultAppDatabase(
             filename = "test",
             fileManager = MockFileManager,
         )

@@ -1,7 +1,7 @@
 package com.github.diegoberaldin.metaphrase.domain.glossary.persistence.dao
 
 import com.github.diegoberaldin.metaphrase.core.common.testutils.MockFileManager
-import com.github.diegoberaldin.metaphrase.core.persistence.AppDatabase
+import com.github.diegoberaldin.metaphrase.core.persistence.DefaultAppDatabase
 import com.github.diegoberaldin.metaphrase.domain.glossary.data.GlossaryTermModel
 import kotlinx.coroutines.test.runTest
 import kotlin.test.AfterTest
@@ -14,7 +14,7 @@ import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 class DefaultGlossaryTermDaoTest {
-    private lateinit var appDb: AppDatabase
+
     private lateinit var sut: DefaultGlossaryTermDao
 
     @BeforeTest
@@ -23,7 +23,7 @@ class DefaultGlossaryTermDaoTest {
             name = "test",
             extension = ".db",
         )
-        appDb = AppDatabase(
+        val appDb = DefaultAppDatabase(
             filename = "test",
             fileManager = MockFileManager,
         )

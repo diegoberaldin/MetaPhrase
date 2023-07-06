@@ -1,6 +1,7 @@
 package com.github.diegoberaldin.metaphrase.core.persistence.di
 
 import com.github.diegoberaldin.metaphrase.core.persistence.AppDatabase
+import com.github.diegoberaldin.metaphrase.core.persistence.DefaultAppDatabase
 import com.github.diegoberaldin.metaphrase.domain.glossary.persistence.dao.GlossaryTermDao
 import com.github.diegoberaldin.metaphrase.domain.language.persistence.dao.LanguageDao
 import com.github.diegoberaldin.metaphrase.domain.project.persistence.dao.ProjectDao
@@ -10,8 +11,8 @@ import com.github.diegoberaldin.metaphrase.domain.tm.persistence.dao.MemoryEntry
 import org.koin.dsl.module
 
 private val dbModule = module {
-    single {
-        AppDatabase(
+    single<AppDatabase> {
+        DefaultAppDatabase(
             fileManager = get(),
         )
     }
