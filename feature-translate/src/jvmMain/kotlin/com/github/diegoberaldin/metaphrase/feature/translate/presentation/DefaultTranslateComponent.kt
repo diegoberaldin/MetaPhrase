@@ -148,14 +148,14 @@ internal class DefaultTranslateComponent(
     override lateinit var currentLanguage: StateFlow<LanguageModel?>
 
     private suspend fun getCurrentLanguage(): LanguageModel? =
-        toolbar.asFlow<TranslateToolbarComponent>().firstOrNull()?.currentLanguage?.value
+        toolbar.asFlow<TranslateToolbarComponent>().firstOrNull()?.uiState?.value?.currentLanguage
 
     init {
         with(lifecycle) {
             doOnCreate {
                 viewModelScope = CoroutineScope(coroutineContext + SupervisorJob())
                 currentLanguage = toolbar.asFlow<TranslateToolbarComponent>()
-                    .flatMapConcat { it?.currentLanguage ?: snapshotFlow { null } }.stateIn(
+                    .flatMapConcat { it?.uiState ?: snapshotFlow { null } }.map { it?.currentLanguage }.stateIn(
                         scope = viewModelScope,
                         started = SharingStarted.WhileSubscribed(5_000),
                         initialValue = null,
@@ -196,7 +196,7 @@ internal class DefaultTranslateComponent(
         val toolbarComponent = toolbar.asFlow<TranslateToolbarComponent>().firstOrNull() ?: return
         messageListComponent.editedSegment.onEach { segment ->
             val isEditing = segment != null
-            toolbarComponent.setEditing(isEditing)
+            toolbarComponent.reduce(TranslateToolbarComponent.ViewIntent.SetEditing(isEditing))
             if (!isEditing) {
                 panel.asFlow<TranslationMemoryComponent>().firstOrNull()?.clear()
                 panel.asFlow<GlossaryComponent>().firstOrNull()?.clear()
@@ -328,34 +328,34 @@ internal class DefaultTranslateComponent(
                     target = getCurrentLanguage(),
                 )
             }.launchIn(this)
-        toolbarComponent.events.onEach { evt ->
+        toolbarComponent.effects.onEach { evt ->
             when (evt) {
-                TranslateToolbarComponent.Events.MoveToPrevious -> {
+                TranslateToolbarComponent.Effect.MoveToPrevious -> {
                     moveToPrevious()
                 }
 
-                TranslateToolbarComponent.Events.MoveToNext -> {
+                TranslateToolbarComponent.Effect.MoveToNext -> {
                     moveToNext()
                 }
 
-                is TranslateToolbarComponent.Events.Search -> {
+                is TranslateToolbarComponent.Effect.Search -> {
                     val searchText = evt.text
                     messageListComponent.reduce(MessageListComponent.ViewIntent.Search(searchText))
                 }
 
-                TranslateToolbarComponent.Events.CopyBase -> {
+                TranslateToolbarComponent.Effect.CopyBase -> {
                     copyBase()
                 }
 
-                TranslateToolbarComponent.Events.AddUnit -> {
+                TranslateToolbarComponent.Effect.AddUnit -> {
                     addSegment()
                 }
 
-                TranslateToolbarComponent.Events.RemoveUnit -> {
+                TranslateToolbarComponent.Effect.RemoveUnit -> {
                     deleteSegment()
                 }
 
-                TranslateToolbarComponent.Events.ValidateUnits -> {
+                TranslateToolbarComponent.Effect.ValidateUnits -> {
                     startPlaceholderValidation()
                 }
 

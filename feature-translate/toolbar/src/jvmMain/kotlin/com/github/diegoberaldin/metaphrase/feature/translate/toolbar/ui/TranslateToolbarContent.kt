@@ -39,8 +39,8 @@ import com.github.diegoberaldin.metaphrase.core.common.ui.components.CustomToolt
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.SelectedBackground
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Spacing
 import com.github.diegoberaldin.metaphrase.core.localization.localized
+import com.github.diegoberaldin.metaphrase.domain.project.data.TranslationUnitTypeFilter
 import com.github.diegoberaldin.metaphrase.feature.translate.toolbar.presentation.TranslateToolbarComponent
-import com.github.diegoberaldin.metaphrase.feature.translate.toolbar.presentation.toReadableString
 
 /**
  * UI content for the translation toolbar.
@@ -68,7 +68,7 @@ fun TranslateToolbar(
             text = "tooltip_move_to_previous".localized(),
         ) {
             Icon(
-                modifier = buttonModifier.onClick { component.moveToPrevious() },
+                modifier = buttonModifier.onClick { component.reduce(TranslateToolbarComponent.ViewIntent.MoveToPrevious) },
                 imageVector = Icons.Default.ArrowCircleUp,
                 contentDescription = null,
                 tint = if (uiState.isEditing) MaterialTheme.colors.primary else Color.Gray,
@@ -78,7 +78,7 @@ fun TranslateToolbar(
             text = "tooltip_move_to_next".localized(),
         ) {
             Icon(
-                modifier = buttonModifier.onClick { component.moveToNext() },
+                modifier = buttonModifier.onClick { component.reduce(TranslateToolbarComponent.ViewIntent.MoveToNext) },
                 imageVector = Icons.Default.ArrowCircleDown,
                 contentDescription = null,
                 tint = if (uiState.isEditing) MaterialTheme.colors.primary else Color.Gray,
@@ -88,7 +88,7 @@ fun TranslateToolbar(
             text = "tooltip_copy_base".localized(),
         ) {
             Icon(
-                modifier = buttonModifier.onClick { component.copyBase() },
+                modifier = buttonModifier.onClick { component.reduce(TranslateToolbarComponent.ViewIntent.CopyBase) },
                 imageVector = Icons.Default.SwapHorizontalCircle,
                 contentDescription = null,
                 tint = if (uiState.currentLanguage?.isBase == false) MaterialTheme.colors.primary else Color.Gray,
@@ -98,7 +98,7 @@ fun TranslateToolbar(
             text = "tooltip_add".localized(),
         ) {
             Icon(
-                modifier = buttonModifier.onClick { component.addUnit() },
+                modifier = buttonModifier.onClick { component.reduce(TranslateToolbarComponent.ViewIntent.AddUnit) },
                 imageVector = Icons.Default.AddCircle,
                 contentDescription = null,
                 tint = MaterialTheme.colors.primary,
@@ -108,7 +108,7 @@ fun TranslateToolbar(
             text = "tooltip_delete".localized(),
         ) {
             Icon(
-                modifier = buttonModifier.onClick { component.removeUnit() },
+                modifier = buttonModifier.onClick { component.reduce(TranslateToolbarComponent.ViewIntent.RemoveUnit) },
                 imageVector = Icons.Default.RemoveCircle,
                 contentDescription = null,
                 tint = if (uiState.isEditing) MaterialTheme.colors.primary else Color.Gray,
@@ -118,7 +118,7 @@ fun TranslateToolbar(
             text = "tooltip_validate".localized(),
         ) {
             Icon(
-                modifier = buttonModifier.onClick { component.validateUnits() },
+                modifier = buttonModifier.onClick { component.reduce(TranslateToolbarComponent.ViewIntent.ValidateUnits) },
                 imageVector = Icons.Default.CheckCircle,
                 contentDescription = null,
                 tint = if (uiState.currentLanguage?.isBase == false) MaterialTheme.colors.primary else Color.Gray,
@@ -136,7 +136,7 @@ fun TranslateToolbar(
             current = uiState.currentLanguage?.name.orEmpty(),
             onValueChanged = {
                 val lang = uiState.availableLanguages[it]
-                component.setLanguage(lang)
+                component.reduce(TranslateToolbarComponent.ViewIntent.SetLanguage(lang))
             },
         )
         CustomSpinner(
@@ -146,7 +146,7 @@ fun TranslateToolbar(
             current = uiState.currentTypeFilter.toReadableString(),
             onValueChanged = {
                 val filter = uiState.availableFilters[it]
-                component.setTypeFilter(filter)
+                component.reduce(TranslateToolbarComponent.ViewIntent.SetTypeFilter(filter))
             },
         )
 
@@ -155,7 +155,7 @@ fun TranslateToolbar(
             modifier = Modifier.weight(1f).height(elementHeight).onPreviewKeyEvent {
                 when {
                     it.type == KeyEventType.KeyDown && it.key == Key.Enter -> {
-                        component.onSearchFired()
+                        component.reduce(TranslateToolbarComponent.ViewIntent.OnSearchFired)
                         true
                     }
 
@@ -168,7 +168,7 @@ fun TranslateToolbar(
             backgroundColor = SelectedBackground,
             textColor = MaterialTheme.colors.onBackground,
             onValueChange = {
-                component.setSearch(it)
+                component.reduce(TranslateToolbarComponent.ViewIntent.SetSearch(it))
             },
             endButton = {
                 if (uiState.currentSearch.isEmpty()) {
@@ -179,8 +179,8 @@ fun TranslateToolbar(
                 } else {
                     Icon(
                         modifier = Modifier.onClick {
-                            component.setSearch("")
-                            component.onSearchFired()
+                            component.reduce(TranslateToolbarComponent.ViewIntent.SetSearch(""))
+                            component.reduce(TranslateToolbarComponent.ViewIntent.OnSearchFired)
                         },
                         imageVector = Icons.Default.Clear,
                         contentDescription = null,
@@ -189,4 +189,16 @@ fun TranslateToolbar(
             },
         )
     }
+}
+
+/**
+ * Get a readable description of a message filter.
+ *
+ * @receiver [TranslationUnitTypeFilter]
+ * @return user-friendly representation of the filter
+ */
+internal fun TranslationUnitTypeFilter.toReadableString(): String = when (this) {
+    TranslationUnitTypeFilter.ALL -> "unit_filter_all".localized()
+    TranslationUnitTypeFilter.TRANSLATABLE -> "unit_filter_translatable".localized()
+    TranslationUnitTypeFilter.UNTRANSLATED -> "unit_filter_untranslated".localized()
 }

@@ -81,6 +81,7 @@ interface TranslateComponent {
      * Moves the cursor to the previous message.
      */
     fun moveToPrevious()
+
     /**
      * Moves the cursor to the next message.
      */

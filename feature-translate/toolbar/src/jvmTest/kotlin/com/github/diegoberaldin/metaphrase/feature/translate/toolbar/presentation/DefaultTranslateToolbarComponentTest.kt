@@ -5,7 +5,6 @@ import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import com.arkivanov.essenty.lifecycle.create
 import com.github.diegoberaldin.metaphrase.core.common.testutils.MockCoroutineDispatcherProvider
-import com.github.diegoberaldin.metaphrase.core.common.utils.runOnUiThread
 import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
 import com.github.diegoberaldin.metaphrase.domain.language.repository.LanguageRepository
 import com.github.diegoberaldin.metaphrase.domain.language.usecase.GetCompleteLanguageUseCase
@@ -80,7 +79,7 @@ class DefaultTranslateToolbarComponentTest {
         lifecycle.create()
         sut.projectId = 1
 
-        sut.setEditing(true)
+        sut.reduce(TranslateToolbarComponent.ViewIntent.SetEditing(true))
 
         val uiState = sut.uiState.value
         assertTrue(uiState.isEditing)
@@ -103,7 +102,7 @@ class DefaultTranslateToolbarComponentTest {
         lifecycle.create()
         sut.projectId = 1
 
-        sut.setLanguage(LanguageModel(code = "en"))
+        sut.reduce(TranslateToolbarComponent.ViewIntent.SetLanguage(LanguageModel(code = "en")))
 
         val uiState = sut.uiState.value
         val currentLanguage = uiState.currentLanguage
@@ -128,7 +127,7 @@ class DefaultTranslateToolbarComponentTest {
         lifecycle.create()
         sut.projectId = 1
 
-        sut.setTypeFilter(TranslationUnitTypeFilter.TRANSLATABLE)
+        sut.reduce(TranslateToolbarComponent.ViewIntent.SetTypeFilter(TranslationUnitTypeFilter.TRANSLATABLE))
 
         val uiState = sut.uiState.value
         assertEquals(TranslationUnitTypeFilter.TRANSLATABLE, uiState.currentTypeFilter)
@@ -151,7 +150,7 @@ class DefaultTranslateToolbarComponentTest {
         lifecycle.create()
         sut.projectId = 1
 
-        sut.setSearch("test")
+        sut.reduce(TranslateToolbarComponent.ViewIntent.SetSearch("test"))
 
         val uiState = sut.uiState.value
         assertEquals("test", uiState.currentSearch)
@@ -174,12 +173,12 @@ class DefaultTranslateToolbarComponentTest {
         lifecycle.create()
         sut.projectId = 1
 
-        sut.setSearch("test")
+        sut.reduce(TranslateToolbarComponent.ViewIntent.SetSearch("test"))
 
-        sut.events.test {
-            sut.onSearchFired()
+        sut.effects.test {
+            sut.reduce(TranslateToolbarComponent.ViewIntent.OnSearchFired)
             val item = awaitItem()
-            assertIs<TranslateToolbarComponent.Events.Search>(item)
+            assertIs<TranslateToolbarComponent.Effect.Search>(item)
             assertEquals("test", item.text)
         }
     }
@@ -200,12 +199,12 @@ class DefaultTranslateToolbarComponentTest {
         }
         lifecycle.create()
         sut.projectId = 1
-        sut.setLanguage(LanguageModel(code = "it"))
+        sut.reduce(TranslateToolbarComponent.ViewIntent.SetLanguage(LanguageModel(code = "it")))
 
-        sut.events.test {
-            sut.copyBase()
+        sut.effects.test {
+            sut.reduce(TranslateToolbarComponent.ViewIntent.CopyBase)
             val item = awaitItem()
-            assertIs<TranslateToolbarComponent.Events.CopyBase>(item)
+            assertIs<TranslateToolbarComponent.Effect.CopyBase>(item)
         }
     }
 
@@ -226,10 +225,10 @@ class DefaultTranslateToolbarComponentTest {
         lifecycle.create()
         sut.projectId = 1
 
-        sut.events.test {
-            sut.moveToPrevious()
+        sut.effects.test {
+            sut.reduce(TranslateToolbarComponent.ViewIntent.MoveToPrevious)
             val item = awaitItem()
-            assertIs<TranslateToolbarComponent.Events.MoveToPrevious>(item)
+            assertIs<TranslateToolbarComponent.Effect.MoveToPrevious>(item)
         }
     }
 
@@ -250,10 +249,10 @@ class DefaultTranslateToolbarComponentTest {
         lifecycle.create()
         sut.projectId = 1
 
-        sut.events.test {
-            sut.moveToNext()
+        sut.effects.test {
+            sut.reduce(TranslateToolbarComponent.ViewIntent.MoveToNext)
             val item = awaitItem()
-            assertIs<TranslateToolbarComponent.Events.MoveToNext>(item)
+            assertIs<TranslateToolbarComponent.Effect.MoveToNext>(item)
         }
     }
 
@@ -274,10 +273,10 @@ class DefaultTranslateToolbarComponentTest {
         lifecycle.create()
         sut.projectId = 1
 
-        sut.events.test {
-            sut.addUnit()
+        sut.effects.test {
+            sut.reduce(TranslateToolbarComponent.ViewIntent.AddUnit)
             val item = awaitItem()
-            assertIs<TranslateToolbarComponent.Events.AddUnit>(item)
+            assertIs<TranslateToolbarComponent.Effect.AddUnit>(item)
         }
     }
 
@@ -298,10 +297,10 @@ class DefaultTranslateToolbarComponentTest {
         lifecycle.create()
         sut.projectId = 1
 
-        sut.events.test {
-            sut.removeUnit()
+        sut.effects.test {
+            sut.reduce(TranslateToolbarComponent.ViewIntent.RemoveUnit)
             val item = awaitItem()
-            assertIs<TranslateToolbarComponent.Events.RemoveUnit>(item)
+            assertIs<TranslateToolbarComponent.Effect.RemoveUnit>(item)
         }
     }
 
@@ -321,12 +320,12 @@ class DefaultTranslateToolbarComponentTest {
         }
         lifecycle.create()
         sut.projectId = 1
-        sut.setLanguage(LanguageModel(code = "it"))
+        sut.reduce(TranslateToolbarComponent.ViewIntent.SetLanguage(LanguageModel(code = "it")))
 
-        sut.events.test {
-            sut.validateUnits()
+        sut.effects.test {
+            sut.reduce(TranslateToolbarComponent.ViewIntent.ValidateUnits)
             val item = awaitItem()
-            assertIs<TranslateToolbarComponent.Events.ValidateUnits>(item)
+            assertIs<TranslateToolbarComponent.Effect.ValidateUnits>(item)
         }
     }
 }
