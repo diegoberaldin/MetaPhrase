@@ -43,6 +43,7 @@ import com.github.diegoberaldin.metaphrase.core.localization.localized
 import com.github.diegoberaldin.metaphrase.feature.translate.messages.presentation.MessageListComponent
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -61,19 +62,19 @@ fun MessageListContent(
 ) {
     val uiState by component.uiState.collectAsState()
     val lazyListState = rememberLazyListState()
-    val spellingErrors by component.spellingErrors.collectAsState()
     val focusManager = LocalFocusManager.current
 
     LaunchedEffect(component) {
-        component.selectionEvents
+        component.effects.filterIsInstance<MessageListComponent.Effect.Selection>()
             .debounce(250)
-            .onEach { index ->
+            .onEach { evt ->
+                val index = evt.index
                 if (index < lazyListState.firstVisibleItemIndex) {
                     lazyListState.scrollToItem(index = (index - 1).coerceAtLeast(0))
                 } else {
                     lazyListState.animateScrollToItem(index = (index - 1).coerceAtLeast(0))
                 }
-                component.startEditing(index)
+                component.reduce(MessageListComponent.ViewIntent.StartEditing(index))
             }.launchIn(this)
     }
 
@@ -123,7 +124,12 @@ fun MessageListContent(
                                 modifier = Modifier.size(22.dp)
                                     .padding(4.dp)
                                     .onClick {
-                                        component.markAsTranslatable(value = !isTranslatable, key = key)
+                                        component.reduce(
+                                            MessageListComponent.ViewIntent.MarkAsTranslatable(
+                                                value = !isTranslatable,
+                                                key = key,
+                                            ),
+                                        )
                                     },
                                 imageVector = if (isTranslatable) Icons.Default.LockOpen else Icons.Default.Lock,
                                 contentDescription = null,
@@ -154,22 +160,26 @@ fun MessageListContent(
                             active = idx == uiState.editingIndex,
                             updateTextSwitch = uiState.updateTextSwitch,
                             enabled = uiState.editingEnabled,
-                            spellingErrors = spellingErrors,
+                            spellingErrors = uiState.spellingErrors,
                             onStartEditing = {
-                                component.startEditing(idx)
+                                component.reduce(MessageListComponent.ViewIntent.StartEditing(idx))
                             },
                             onTextChanged = {
-                                component.setSegmentText(it)
+                                component.reduce(MessageListComponent.ViewIntent.SetSegmentText(it))
                             },
                             onAddToGlossary = { word ->
-                                component.addToGlossarySource(
-                                    lemma = word,
-                                    lang = uiState.currentLanguage?.code.orEmpty(),
+                                component.reduce(
+                                    MessageListComponent.ViewIntent.AddToGlossarySource(
+                                        lemma = word,
+                                        lang = uiState.currentLanguage?.code.orEmpty(),
+                                    ),
                                 )
                             },
                             onIgnoreWord = { word ->
-                                component.ignoreWordInSpelling(
-                                    word = word,
+                                component.reduce(
+                                    MessageListComponent.ViewIntent.IgnoreWordInSpelling(
+                                        word = word,
+                                    ),
                                 )
                             },
                         )
@@ -204,22 +214,26 @@ fun MessageListContent(
                             active = idx == uiState.editingIndex,
                             updateTextSwitch = uiState.updateTextSwitch,
                             enabled = uiState.editingEnabled,
-                            spellingErrors = spellingErrors,
+                            spellingErrors = uiState.spellingErrors,
                             onStartEditing = {
-                                component.startEditing(idx)
+                                component.reduce(MessageListComponent.ViewIntent.StartEditing(idx))
                             },
                             onTextChanged = {
-                                component.setSegmentText(it)
+                                component.reduce(MessageListComponent.ViewIntent.SetSegmentText(it))
                             },
                             onAddToGlossary = { word ->
-                                component.addToGlossarySource(
-                                    lemma = word,
-                                    lang = uiState.currentLanguage?.code.orEmpty(),
+                                component.reduce(
+                                    MessageListComponent.ViewIntent.AddToGlossarySource(
+                                        lemma = word,
+                                        lang = uiState.currentLanguage?.code.orEmpty(),
+                                    ),
                                 )
                             },
                             onIgnoreWord = { word ->
-                                component.ignoreWordInSpelling(
-                                    word = word,
+                                component.reduce(
+                                    MessageListComponent.ViewIntent.IgnoreWordInSpelling(
+                                        word = word,
+                                    ),
                                 )
                             },
                         )
@@ -232,14 +246,13 @@ fun MessageListContent(
                 modifier = Modifier.fillMaxWidth().padding(vertical = Spacing.xxs),
                 contentAlignment = Alignment.Center,
             ) {
-                val isShowingProgress by component.isShowingProgress.collectAsState()
-                if (uiState.canFetchMore && !isShowingProgress) {
+                if (uiState.canFetchMore && !uiState.isShowingGlobalProgress) {
                     CircularProgressIndicator(
                         modifier = Modifier.size(20.dp),
                         color = MaterialTheme.colors.primary,
                     )
                     if (!uiState.isLoading) {
-                        component.loadNextPage()
+                        component.reduce(MessageListComponent.ViewIntent.LoadNextPage)
                     }
                 }
             }

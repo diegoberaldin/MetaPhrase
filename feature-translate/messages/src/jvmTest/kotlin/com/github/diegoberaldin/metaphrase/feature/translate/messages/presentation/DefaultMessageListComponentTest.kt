@@ -23,6 +23,7 @@ import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
+import kotlin.test.assertIs
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
@@ -64,7 +65,7 @@ class DefaultMessageListComponentTest {
     fun givenComponentCreatedWhenSetEditingEnabledThenStateIsDefault() = runTest {
         lifecycle.create()
 
-        sut.setEditingEnabled(false)
+        sut.reduce(MessageListComponent.ViewIntent.SetEditingEnabled(false))
 
         val uiState = sut.uiState.value
         assertNull(uiState.currentLanguage)
@@ -92,10 +93,12 @@ class DefaultMessageListComponentTest {
         coEvery { mockSpellCheckRepository.setLanguage(any()) } returns Unit
         lifecycle.create()
 
-        sut.reloadMessages(
-            language = LanguageModel(code = "en", isBase = true),
-            filter = TranslationUnitTypeFilter.ALL,
-            projectId = 1,
+        sut.reduce(
+            MessageListComponent.ViewIntent.ReloadMessages(
+                language = LanguageModel(code = "en", isBase = true),
+                filter = TranslationUnitTypeFilter.ALL,
+                projectId = 1,
+            ),
         )
 
         val uiState = sut.uiState.value
@@ -126,10 +129,12 @@ class DefaultMessageListComponentTest {
         coEvery { mockSpellCheckRepository.setLanguage(any()) } returns Unit
         lifecycle.create()
 
-        sut.reloadMessages(
-            language = LanguageModel(code = "it"),
-            filter = TranslationUnitTypeFilter.ALL,
-            projectId = 1,
+        sut.reduce(
+            MessageListComponent.ViewIntent.ReloadMessages(
+                language = LanguageModel(code = "it"),
+                filter = TranslationUnitTypeFilter.ALL,
+                projectId = 1,
+            ),
         )
 
         val uiState = sut.uiState.value
@@ -160,13 +165,15 @@ class DefaultMessageListComponentTest {
         coEvery { mockNotificationCenter.send(any()) } returns Unit
         coEvery { mockSpellCheckRepository.setLanguage(any()) } returns Unit
         lifecycle.create()
-        sut.reloadMessages(
-            language = LanguageModel(code = "en", isBase = true),
-            filter = TranslationUnitTypeFilter.ALL,
-            projectId = 1,
+        sut.reduce(
+            MessageListComponent.ViewIntent.ReloadMessages(
+                language = LanguageModel(code = "en", isBase = true),
+                filter = TranslationUnitTypeFilter.ALL,
+                projectId = 1,
+            ),
         )
 
-        sut.clearMessages()
+        sut.reduce(MessageListComponent.ViewIntent.ClearMessages)
 
         val uiState = sut.uiState.value
         assertEquals(0, uiState.units.size)
@@ -189,13 +196,15 @@ class DefaultMessageListComponentTest {
         coEvery { mockNotificationCenter.send(any()) } returns Unit
         coEvery { mockSpellCheckRepository.setLanguage(any()) } returns Unit
         lifecycle.create()
-        sut.reloadMessages(
-            language = LanguageModel(code = "en", isBase = true),
-            filter = TranslationUnitTypeFilter.ALL,
-            projectId = 1,
+        sut.reduce(
+            MessageListComponent.ViewIntent.ReloadMessages(
+                language = LanguageModel(code = "en", isBase = true),
+                filter = TranslationUnitTypeFilter.ALL,
+                projectId = 1,
+            ),
         )
 
-        sut.search("search")
+        sut.reduce(MessageListComponent.ViewIntent.Search("search"))
 
         val uiState = sut.uiState.value
         assertNotNull(uiState.currentLanguage)
@@ -234,13 +243,15 @@ class DefaultMessageListComponentTest {
         coEvery { mockNotificationCenter.send(any()) } returns Unit
         coEvery { mockSpellCheckRepository.setLanguage(any()) } returns Unit
         lifecycle.create()
-        sut.reloadMessages(
-            language = LanguageModel(code = "en", isBase = true),
-            filter = TranslationUnitTypeFilter.ALL,
-            projectId = 1,
+        sut.reduce(
+            MessageListComponent.ViewIntent.ReloadMessages(
+                language = LanguageModel(code = "en", isBase = true),
+                filter = TranslationUnitTypeFilter.ALL,
+                projectId = 1,
+            ),
         )
 
-        sut.refresh()
+        sut.reduce(MessageListComponent.ViewIntent.Refresh)
 
         val uiState = sut.uiState.value
         assertNotNull(uiState.currentLanguage)
@@ -279,13 +290,15 @@ class DefaultMessageListComponentTest {
         coEvery { mockNotificationCenter.send(any()) } returns Unit
         coEvery { mockSpellCheckRepository.setLanguage(any()) } returns Unit
         lifecycle.create()
-        sut.reloadMessages(
-            language = LanguageModel(code = "en", isBase = true),
-            filter = TranslationUnitTypeFilter.ALL,
-            projectId = 1,
+        sut.reduce(
+            MessageListComponent.ViewIntent.ReloadMessages(
+                language = LanguageModel(code = "en", isBase = true),
+                filter = TranslationUnitTypeFilter.ALL,
+                projectId = 1,
+            ),
         )
 
-        sut.loadNextPage()
+        sut.reduce(MessageListComponent.ViewIntent.LoadNextPage)
 
         val uiState = sut.uiState.value
         assertNotNull(uiState.currentLanguage)
@@ -326,13 +339,15 @@ class DefaultMessageListComponentTest {
         coEvery { mockSpellCheckRepository.check(any()) } returns emptyList()
         coEvery { mockKeyStore.get(KeyStoreKeys.SpellcheckEnabled, any<Boolean>()) } returns true
         lifecycle.create()
-        sut.reloadMessages(
-            language = LanguageModel(code = "en", isBase = true),
-            filter = TranslationUnitTypeFilter.ALL,
-            projectId = 1,
+        sut.reduce(
+            MessageListComponent.ViewIntent.ReloadMessages(
+                language = LanguageModel(code = "en", isBase = true),
+                filter = TranslationUnitTypeFilter.ALL,
+                projectId = 1,
+            ),
         )
 
-        sut.startEditing(0)
+        sut.reduce(MessageListComponent.ViewIntent.StartEditing(0))
 
         val uiState = sut.uiState.value
         assertEquals(0, uiState.editingIndex)
@@ -358,16 +373,18 @@ class DefaultMessageListComponentTest {
         coEvery { mockSpellCheckRepository.check(any()) } returns emptyList()
         coEvery { mockKeyStore.get(KeyStoreKeys.SpellcheckEnabled, any<Boolean>()) } returns true
         lifecycle.create()
-        sut.reloadMessages(
-            language = LanguageModel(code = "en", isBase = true),
-            filter = TranslationUnitTypeFilter.ALL,
-            projectId = 1,
+        sut.reduce(
+            MessageListComponent.ViewIntent.ReloadMessages(
+                language = LanguageModel(code = "en", isBase = true),
+                filter = TranslationUnitTypeFilter.ALL,
+                projectId = 1,
+            ),
         )
-        sut.startEditing(0)
+        sut.reduce(MessageListComponent.ViewIntent.StartEditing(0))
         val stateBefore = sut.uiState.value
         assertEquals(0, stateBefore.editingIndex)
 
-        sut.endEditing()
+        sut.reduce(MessageListComponent.ViewIntent.EndEditing)
         val stateAfter = sut.uiState.value
         assertNull(stateAfter.editingIndex)
     }
@@ -392,16 +409,18 @@ class DefaultMessageListComponentTest {
         coEvery { mockKeyStore.get(KeyStoreKeys.SpellcheckEnabled, any<Boolean>()) } returns true
         coEvery { mockProjectRepository.setNeedsSaving(any()) } returns Unit
         lifecycle.create()
-        sut.reloadMessages(
-            language = LanguageModel(code = "en", isBase = true),
-            filter = TranslationUnitTypeFilter.ALL,
-            projectId = 1,
+        sut.reduce(
+            MessageListComponent.ViewIntent.ReloadMessages(
+                language = LanguageModel(code = "en", isBase = true),
+                filter = TranslationUnitTypeFilter.ALL,
+                projectId = 1,
+            ),
         )
-        sut.startEditing(0)
+        sut.reduce(MessageListComponent.ViewIntent.StartEditing(0))
         val stateBefore = sut.uiState.value
         assertEquals("text", stateBefore.units.first().segment.text)
 
-        sut.setSegmentText("updated")
+        sut.reduce(MessageListComponent.ViewIntent.SetSegmentText("updated"))
         val stateAfter = sut.uiState.value
         assertEquals("updated", stateAfter.units.first().segment.text)
         coVerify { mockProjectRepository.setNeedsSaving(true) }
@@ -427,17 +446,19 @@ class DefaultMessageListComponentTest {
         coEvery { mockKeyStore.get(KeyStoreKeys.SpellcheckEnabled, any<Boolean>()) } returns true
         coEvery { mockProjectRepository.setNeedsSaving(any()) } returns Unit
         lifecycle.create()
-        sut.reloadMessages(
-            language = LanguageModel(code = "en", isBase = true),
-            filter = TranslationUnitTypeFilter.ALL,
-            projectId = 1,
+        sut.reduce(
+            MessageListComponent.ViewIntent.ReloadMessages(
+                language = LanguageModel(code = "en", isBase = true),
+                filter = TranslationUnitTypeFilter.ALL,
+                projectId = 1,
+            ),
         )
-        sut.startEditing(0)
+        sut.reduce(MessageListComponent.ViewIntent.StartEditing(0))
         val stateBefore = sut.uiState.value
         assertEquals("text", stateBefore.units.first().segment.text)
         val switch = stateBefore.updateTextSwitch
 
-        sut.changeSegmentText("updated")
+        sut.reduce(MessageListComponent.ViewIntent.ChangeSegmentText("updated"))
         val stateAfter = sut.uiState.value
         assertEquals("updated", stateAfter.units.first().segment.text)
         assertEquals(!switch, stateAfter.updateTextSwitch)
@@ -467,19 +488,22 @@ class DefaultMessageListComponentTest {
         coEvery { mockKeyStore.get(KeyStoreKeys.SpellcheckEnabled, any<Boolean>()) } returns true
         coEvery { mockProjectRepository.setNeedsSaving(any()) } returns Unit
         lifecycle.create()
-        sut.reloadMessages(
-            language = LanguageModel(code = "en", isBase = true),
-            filter = TranslationUnitTypeFilter.ALL,
-            projectId = 1,
+        sut.reduce(
+            MessageListComponent.ViewIntent.ReloadMessages(
+                language = LanguageModel(code = "en", isBase = true),
+                filter = TranslationUnitTypeFilter.ALL,
+                projectId = 1,
+            ),
         )
-        sut.startEditing(1)
+        sut.reduce(MessageListComponent.ViewIntent.StartEditing(1))
         val stateBefore = sut.uiState.value
         assertEquals(1, stateBefore.editingIndex)
 
-        sut.selectionEvents.test {
-            sut.moveToPrevious()
+        sut.effects.test {
+            sut.reduce(MessageListComponent.ViewIntent.MoveToPrevious)
             val item = awaitItem()
-            assertEquals(0, item)
+            assertIs<MessageListComponent.Effect.Selection>(item)
+            assertEquals(0, item.index)
         }
     }
 
@@ -506,19 +530,22 @@ class DefaultMessageListComponentTest {
         coEvery { mockKeyStore.get(KeyStoreKeys.SpellcheckEnabled, any<Boolean>()) } returns true
         coEvery { mockProjectRepository.setNeedsSaving(any()) } returns Unit
         lifecycle.create()
-        sut.reloadMessages(
-            language = LanguageModel(code = "en", isBase = true),
-            filter = TranslationUnitTypeFilter.ALL,
-            projectId = 1,
+        sut.reduce(
+            MessageListComponent.ViewIntent.ReloadMessages(
+                language = LanguageModel(code = "en", isBase = true),
+                filter = TranslationUnitTypeFilter.ALL,
+                projectId = 1,
+            ),
         )
-        sut.startEditing(0)
+        sut.reduce(MessageListComponent.ViewIntent.StartEditing(0))
         val stateBefore = sut.uiState.value
         assertEquals(0, stateBefore.editingIndex)
 
-        sut.selectionEvents.test {
-            sut.moveToNext()
+        sut.effects.test {
+            sut.reduce(MessageListComponent.ViewIntent.MoveToNext)
             val item = awaitItem()
-            assertEquals(1, item)
+            assertIs<MessageListComponent.Effect.Selection>(item)
+            assertEquals(1, item.index)
         }
     }
 
@@ -540,14 +567,16 @@ class DefaultMessageListComponentTest {
         coEvery { mockSpellCheckRepository.setLanguage(any()) } returns Unit
         coEvery { mockKeyStore.get(KeyStoreKeys.SpellcheckEnabled, any<Boolean>()) } returns false
         lifecycle.create()
-        sut.reloadMessages(
-            language = LanguageModel(code = "it"),
-            filter = TranslationUnitTypeFilter.ALL,
-            projectId = 1,
+        sut.reduce(
+            MessageListComponent.ViewIntent.ReloadMessages(
+                language = LanguageModel(code = "it"),
+                filter = TranslationUnitTypeFilter.ALL,
+                projectId = 1,
+            ),
         )
-        sut.startEditing(0)
+        sut.reduce(MessageListComponent.ViewIntent.StartEditing(0))
 
-        sut.copyBase()
+        sut.reduce(MessageListComponent.ViewIntent.CopyBase)
 
         runCatching {
             Thread.sleep(300)
@@ -584,16 +613,18 @@ class DefaultMessageListComponentTest {
         coEvery { mockProjectRepository.setNeedsSaving(any()) } returns Unit
         coEvery { mockSegmentRepository.delete(any()) } returns Unit
         lifecycle.create()
-        sut.reloadMessages(
-            language = LanguageModel(code = "en", isBase = true),
-            filter = TranslationUnitTypeFilter.ALL,
-            projectId = 1,
+        sut.reduce(
+            MessageListComponent.ViewIntent.ReloadMessages(
+                language = LanguageModel(code = "en", isBase = true),
+                filter = TranslationUnitTypeFilter.ALL,
+                projectId = 1,
+            ),
         )
-        sut.startEditing(0)
+        sut.reduce(MessageListComponent.ViewIntent.StartEditing(0))
         val stateBefore = sut.uiState.value
         assertEquals(2, stateBefore.units.size)
 
-        sut.deleteSegment()
+        sut.reduce(MessageListComponent.ViewIntent.DeleteSegment)
         val stateAfter = sut.uiState.value
         assertEquals(1, stateAfter.units.size)
     }
@@ -621,16 +652,19 @@ class DefaultMessageListComponentTest {
         coEvery { mockKeyStore.get(KeyStoreKeys.SpellcheckEnabled, any<Boolean>()) } returns true
         coEvery { mockProjectRepository.setNeedsSaving(any()) } returns Unit
         lifecycle.create()
-        sut.reloadMessages(
-            language = LanguageModel(code = "en", isBase = true),
-            filter = TranslationUnitTypeFilter.ALL,
-            projectId = 1,
+        sut.reduce(
+            MessageListComponent.ViewIntent.ReloadMessages(
+                language = LanguageModel(code = "en", isBase = true),
+                filter = TranslationUnitTypeFilter.ALL,
+                projectId = 1,
+            ),
         )
 
-        sut.selectionEvents.test {
-            sut.scrollToMessage("key 2")
+        sut.effects.test {
+            sut.reduce(MessageListComponent.ViewIntent.ScrollToMessage("key 2"))
             val item = awaitItem()
-            assertEquals(1, item)
+            assertIs<MessageListComponent.Effect.Selection>(item)
+            assertEquals(1, item.index)
         }
     }
 
@@ -659,15 +693,17 @@ class DefaultMessageListComponentTest {
         coEvery { mockKeyStore.get(KeyStoreKeys.SpellcheckEnabled, any<Boolean>()) } returns true
         coEvery { mockProjectRepository.setNeedsSaving(any()) } returns Unit
         lifecycle.create()
-        sut.reloadMessages(
-            language = LanguageModel(code = "en", isBase = true),
-            filter = TranslationUnitTypeFilter.ALL,
-            projectId = 1,
+        sut.reduce(
+            MessageListComponent.ViewIntent.ReloadMessages(
+                language = LanguageModel(code = "en", isBase = true),
+                filter = TranslationUnitTypeFilter.ALL,
+                projectId = 1,
+            ),
         )
         val stateBefore = sut.uiState.value
         assertFalse(stateBefore.units.first().segment.translatable)
 
-        sut.markAsTranslatable(value = true, key = "key 1")
+        sut.reduce(MessageListComponent.ViewIntent.MarkAsTranslatable(value = true, key = "key 1"))
         val stateAfter = sut.uiState.value
         assertTrue(stateAfter.units.first().segment.translatable)
     }
@@ -676,9 +712,10 @@ class DefaultMessageListComponentTest {
     fun givenComponentCreatedWhenAddToGlossaryThenEventIsEmitted() = runTest {
         lifecycle.create()
 
-        sut.addToGlossaryEvents.test {
-            sut.addToGlossarySource("term", "en")
+        sut.effects.test {
+            sut.reduce(MessageListComponent.ViewIntent.AddToGlossarySource("term", "en"))
             val item = awaitItem()
+            assertIs<MessageListComponent.Effect.AddToGlossary>(item)
             assertEquals("term", item.lemma)
             assertEquals("en", item.lang)
         }
@@ -689,7 +726,7 @@ class DefaultMessageListComponentTest {
         coEvery { mockSpellCheckRepository.addUserDefineWord(any()) } returns Unit
         lifecycle.create()
 
-        sut.ignoreWordInSpelling("mistake")
+        sut.reduce(MessageListComponent.ViewIntent.IgnoreWordInSpelling("mistake"))
         coVerify { mockSpellCheckRepository.addUserDefineWord("mistake") }
     }
 }
