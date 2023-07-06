@@ -12,7 +12,7 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertIs
 
-class AppDatabaseTest {
+class DefaultAppDatabaseTest {
 
     private lateinit var sut: AppDatabase
 
@@ -22,7 +22,7 @@ class AppDatabaseTest {
             name = "test",
             extension = ".db",
         )
-        sut = AppDatabase(
+        sut = DefaultAppDatabase(
             filename = "test",
             fileManager = MockFileManager,
         )

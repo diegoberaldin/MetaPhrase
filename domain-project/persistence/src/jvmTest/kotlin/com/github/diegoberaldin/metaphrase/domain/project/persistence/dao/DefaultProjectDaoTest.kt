@@ -1,7 +1,7 @@
 package com.github.diegoberaldin.metaphrase.domain.project.persistence.dao
 
 import com.github.diegoberaldin.metaphrase.core.common.testutils.MockFileManager
-import com.github.diegoberaldin.metaphrase.core.persistence.AppDatabase
+import com.github.diegoberaldin.metaphrase.core.persistence.DefaultAppDatabase
 import com.github.diegoberaldin.metaphrase.domain.project.data.ProjectModel
 import kotlinx.coroutines.test.runTest
 import kotlin.test.AfterTest
@@ -13,7 +13,7 @@ import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 class DefaultProjectDaoTest {
-    private lateinit var appDb: AppDatabase
+
     private lateinit var sut: DefaultProjectDao
 
     @BeforeTest
@@ -22,7 +22,7 @@ class DefaultProjectDaoTest {
             name = "test",
             extension = ".db",
         )
-        appDb = AppDatabase(
+        val appDb = DefaultAppDatabase(
             filename = "test",
             fileManager = MockFileManager,
         )

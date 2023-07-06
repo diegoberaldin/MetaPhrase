@@ -1,7 +1,7 @@
 package com.github.diegoberaldin.metaphrase.domain.tm.persistence.dao
 
 import com.github.diegoberaldin.metaphrase.core.common.testutils.MockFileManager
-import com.github.diegoberaldin.metaphrase.core.persistence.AppDatabase
+import com.github.diegoberaldin.metaphrase.core.persistence.DefaultAppDatabase
 import com.github.diegoberaldin.metaphrase.domain.tm.data.TranslationMemoryEntryModel
 import kotlinx.coroutines.test.runTest
 import kotlin.test.AfterTest
@@ -14,7 +14,7 @@ import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 class DefaultMemoryEntryDaoTest {
-    private lateinit var appDb: AppDatabase
+
     private lateinit var sut: DefaultMemoryEntryDao
 
     @BeforeTest
@@ -23,7 +23,7 @@ class DefaultMemoryEntryDaoTest {
             name = "test",
             extension = ".db",
         )
-        appDb = AppDatabase(
+        val appDb = DefaultAppDatabase(
             filename = "test",
             fileManager = MockFileManager,
         )

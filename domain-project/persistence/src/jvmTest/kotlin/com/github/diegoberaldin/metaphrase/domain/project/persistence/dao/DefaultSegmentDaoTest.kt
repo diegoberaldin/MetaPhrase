@@ -1,7 +1,7 @@
 package com.github.diegoberaldin.metaphrase.domain.project.persistence.dao
 
 import com.github.diegoberaldin.metaphrase.core.common.testutils.MockFileManager
-import com.github.diegoberaldin.metaphrase.core.persistence.AppDatabase
+import com.github.diegoberaldin.metaphrase.core.persistence.DefaultAppDatabase
 import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.ProjectModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.SegmentModel
@@ -17,7 +17,7 @@ import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 class DefaultSegmentDaoTest {
-    private lateinit var appDb: AppDatabase
+
     private lateinit var sut: DefaultSegmentDao
     private var projectId: Int = 0
     private var languageId: Int = 0
@@ -28,7 +28,7 @@ class DefaultSegmentDaoTest {
             name = "test",
             extension = ".db",
         )
-        appDb = AppDatabase(
+        val appDb = DefaultAppDatabase(
             filename = "test",
             fileManager = MockFileManager,
         )
