@@ -43,8 +43,12 @@ fun NewSegmentDialog(
     onClose: () -> Unit,
 ) {
     LaunchedEffect(component) {
-        component.done.onEach {
-            onClose.invoke()
+        component.effects.onEach {
+            when (it) {
+                is NewSegmentComponent.Effect.Done -> {
+                    onClose.invoke()
+                }
+            }
         }.launchIn(this)
     }
     MetaPhraseTheme {
@@ -53,7 +57,7 @@ fun NewSegmentDialog(
             state = rememberWindowState(width = Dp.Unspecified, height = Dp.Unspecified),
             resizable = false,
             onCloseRequest = {
-                component.close()
+                component.reduce(NewSegmentComponent.ViewIntent.Close)
             },
         ) {
             Surface(
@@ -80,7 +84,7 @@ fun NewSegmentDialog(
                         label = "create_segment_key".localized(),
                         value = uiState.key,
                         onValueChange = {
-                            component.setKey(it)
+                            component.reduce(NewSegmentComponent.ViewIntent.SetKey(it))
                         },
                     )
                     Text(
@@ -95,7 +99,7 @@ fun NewSegmentDialog(
                         label = "create_segment_text".localized(),
                         value = uiState.text,
                         onValueChange = {
-                            component.setText(it)
+                            component.reduce(NewSegmentComponent.ViewIntent.SetText(it))
                         },
                     )
                     Text(
@@ -114,7 +118,7 @@ fun NewSegmentDialog(
                             modifier = Modifier.heightIn(max = 25.dp),
                             contentPadding = PaddingValues(0.dp),
                             onClick = {
-                                component.close()
+                                component.reduce(NewSegmentComponent.ViewIntent.Close)
                             },
                         ) {
                             Text(text = "button_cancel".localized(), style = MaterialTheme.typography.button)
@@ -123,7 +127,7 @@ fun NewSegmentDialog(
                             modifier = Modifier.heightIn(max = 25.dp),
                             contentPadding = PaddingValues(0.dp),
                             onClick = {
-                                component.submit()
+                                component.reduce(NewSegmentComponent.ViewIntent.Submit)
                             },
                         ) {
                             Text(text = "button_ok".localized(), style = MaterialTheme.typography.button)

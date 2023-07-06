@@ -1,24 +1,68 @@
 package com.github.diegoberaldin.metaphrase.feature.translate.dialog.newsegment.presentation
 
+import com.github.diegoberaldin.metaphrase.core.common.architecture.MviModel
 import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.SegmentModel
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.StateFlow
 
 /**
- * New segment component.
+ * New segment component contract.
  */
-interface NewSegmentComponent {
+interface NewSegmentComponent :
+    MviModel<NewSegmentComponent.ViewIntent, NewSegmentComponent.UiState, NewSegmentComponent.Effect> {
 
     /**
-     * UI state
+     * View intents.
      */
-    val uiState: StateFlow<NewSegmentUiState>
+    sealed interface ViewIntent {
+        /**
+         * Set the message key.
+         *
+         * @param value Value
+         */
+        data class SetKey(val value: String) : ViewIntent
+
+        /**
+         * Set the message text.
+         *
+         * @param value Value
+         */
+        data class SetText(val value: String) : ViewIntent
+
+        /**
+         * Close the dialog.
+         */
+        object Close : ViewIntent
+
+        /**
+         * Confirm creation of segment with current key and message.
+         */
+        object Submit : ViewIntent
+    }
 
     /**
-     * Events emitted after a successful [submit]
+     * New segment dialog UI state.
+     *
+     * @property key message key
+     * @property keyError error for the key field
+     * @property text message text
+     * @property textError error for the text field
+     * @property isLoading boolean indicating whether a background operation is in progress
+     * @constructor Create [UiState]
      */
-    val done: SharedFlow<SegmentModel?>
+    data class UiState(
+        val key: String = "",
+        val keyError: String = "",
+        val text: String = "",
+        val textError: String = "",
+        val isLoading: Boolean = false,
+    )
+
+    /**
+     * Effects.
+     */
+    sealed interface Effect {
+        data class Done(val segment: SegmentModel?) : Effect
+    }
 
     /**
      * Current project ID
@@ -29,28 +73,4 @@ interface NewSegmentComponent {
      * Language for which the message should be added
      */
     var language: LanguageModel
-
-    /**
-     * Set the message key.
-     *
-     * @param value Value
-     */
-    fun setKey(value: String)
-
-    /**
-     * Set the message text.
-     *
-     * @param value Value
-     */
-    fun setText(value: String)
-
-    /**
-     * Close the dialog.
-     */
-    fun close()
-
-    /**
-     * Confirm creation of segment with current key and message.
-     */
-    fun submit()
 }

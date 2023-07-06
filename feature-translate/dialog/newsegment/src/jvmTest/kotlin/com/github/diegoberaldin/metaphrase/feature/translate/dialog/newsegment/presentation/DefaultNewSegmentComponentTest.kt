@@ -19,6 +19,7 @@ import kotlinx.coroutines.test.runTest
 import org.koin.core.context.startKoin
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertIs
 import kotlin.test.assertNotNull
 
 class DefaultNewSegmentComponentTest {
@@ -52,7 +53,7 @@ class DefaultNewSegmentComponentTest {
         lifecycle.create()
         sut.language = LanguageModel(code = "en")
 
-        sut.submit()
+        sut.reduce(NewSegmentComponent.ViewIntent.Submit)
 
         val uiState = sut.uiState.value
         assertEquals("message_missing_field".localized(), uiState.keyError)
@@ -64,9 +65,9 @@ class DefaultNewSegmentComponentTest {
         coEvery { mockSegmentRepository.getByKey(any(), any()) } returns null
         lifecycle.create()
         sut.language = LanguageModel(code = "en")
-        sut.setText("test")
+        sut.reduce(NewSegmentComponent.ViewIntent.SetText("test"))
 
-        sut.submit()
+        sut.reduce(NewSegmentComponent.ViewIntent.Submit)
 
         val uiState = sut.uiState.value
         assertEquals("message_missing_field".localized(), uiState.keyError)
@@ -78,9 +79,9 @@ class DefaultNewSegmentComponentTest {
         coEvery { mockSegmentRepository.getByKey(any(), any()) } returns null
         lifecycle.create()
         sut.language = LanguageModel(code = "en")
-        sut.setKey("test")
+        sut.reduce(NewSegmentComponent.ViewIntent.SetKey("test"))
 
-        sut.submit()
+        sut.reduce(NewSegmentComponent.ViewIntent.Submit)
 
         val uiState = sut.uiState.value
         assertEquals("", uiState.keyError)
@@ -92,10 +93,10 @@ class DefaultNewSegmentComponentTest {
         coEvery { mockSegmentRepository.getByKey(any(), any()) } returns SegmentModel()
         lifecycle.create()
         sut.language = LanguageModel(code = "en")
-        sut.setKey("key")
-        sut.setText("test")
+        sut.reduce(NewSegmentComponent.ViewIntent.SetKey("key"))
+        sut.reduce(NewSegmentComponent.ViewIntent.SetText("test"))
 
-        sut.submit()
+        sut.reduce(NewSegmentComponent.ViewIntent.Submit)
 
         val uiState = sut.uiState.value
         assertEquals("message_duplicate_key".localized(), uiState.keyError)
@@ -109,15 +110,17 @@ class DefaultNewSegmentComponentTest {
         coEvery { mockLanguageRepository.getAll(any()) } returns listOf(LanguageModel(id = 1, code = "en"))
         lifecycle.create()
         sut.language = LanguageModel(code = "en")
-        sut.setKey("key")
-        sut.setText("test")
+        sut.reduce(NewSegmentComponent.ViewIntent.SetKey("key"))
+        sut.reduce(NewSegmentComponent.ViewIntent.SetText("test"))
 
-        sut.done.test {
-            sut.submit()
+        sut.effects.test {
+            sut.reduce(NewSegmentComponent.ViewIntent.Submit)
             val item = awaitItem()
-            assertNotNull(item)
-            assertEquals(1, item.id)
-            assertEquals("key", item.key)
+            assertIs<NewSegmentComponent.Effect.Done>(item)
+            val segment = item.segment
+            assertNotNull(segment)
+            assertEquals(1, segment.id)
+            assertEquals("key", segment.key)
         }
         val uiState = sut.uiState.value
         assertEquals("", uiState.keyError)

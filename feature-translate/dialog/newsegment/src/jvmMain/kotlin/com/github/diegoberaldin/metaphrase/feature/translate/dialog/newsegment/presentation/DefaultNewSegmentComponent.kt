@@ -3,6 +3,8 @@ package com.github.diegoberaldin.metaphrase.feature.translate.dialog.newsegment.
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
+import com.github.diegoberaldin.metaphrase.core.common.architecture.DefaultMviModel
+import com.github.diegoberaldin.metaphrase.core.common.architecture.MviModel
 import com.github.diegoberaldin.metaphrase.core.common.coroutines.CoroutineDispatcherProvider
 import com.github.diegoberaldin.metaphrase.core.localization.localized
 import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
@@ -12,9 +14,6 @@ import com.github.diegoberaldin.metaphrase.domain.project.repository.SegmentRepo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
@@ -22,16 +21,19 @@ internal class DefaultNewSegmentComponent(
     componentContext: ComponentContext,
     coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,
+    private val mvi: DefaultMviModel<NewSegmentComponent.ViewIntent, NewSegmentComponent.UiState, NewSegmentComponent.Effect> = DefaultMviModel(
+        NewSegmentComponent.UiState(),
+    ),
     private val languageRepository: LanguageRepository,
     private val segmentRepository: SegmentRepository,
-) : NewSegmentComponent, ComponentContext by componentContext {
+) : NewSegmentComponent,
+    MviModel<NewSegmentComponent.ViewIntent, NewSegmentComponent.UiState, NewSegmentComponent.Effect> by mvi,
+    ComponentContext by componentContext {
 
     private lateinit var viewModelScope: CoroutineScope
 
-    override val uiState = MutableStateFlow(NewSegmentUiState())
-    override val done = MutableSharedFlow<SegmentModel?>()
-    override lateinit var language: LanguageModel
     override var projectId = 0
+    override lateinit var language: LanguageModel
 
     init {
         with(lifecycle) {
@@ -44,22 +46,31 @@ internal class DefaultNewSegmentComponent(
         }
     }
 
-    override fun setKey(value: String) {
-        uiState.update { it.copy(key = value) }
-    }
-
-    override fun setText(value: String) {
-        uiState.update { it.copy(text = value) }
-    }
-
-    override fun close() {
-        viewModelScope.launch(dispatchers.io) {
-            done.emit(null)
+    override fun reduce(intent: NewSegmentComponent.ViewIntent) {
+        when (intent) {
+            NewSegmentComponent.ViewIntent.Close -> close()
+            is NewSegmentComponent.ViewIntent.SetKey -> setKey(intent.value)
+            is NewSegmentComponent.ViewIntent.SetText -> setText(intent.value)
+            NewSegmentComponent.ViewIntent.Submit -> submit()
         }
     }
 
-    override fun submit() {
-        uiState.update {
+    private fun setKey(value: String) {
+        mvi.updateState { it.copy(key = value) }
+    }
+
+    private fun setText(value: String) {
+        mvi.updateState { it.copy(text = value) }
+    }
+
+    private fun close() {
+        viewModelScope.launch(dispatchers.io) {
+            mvi.emitEffect(NewSegmentComponent.Effect.Done(null))
+        }
+    }
+
+    private fun submit() {
+        mvi.updateState {
             it.copy(
                 keyError = "",
                 textError = "",
@@ -70,24 +81,24 @@ internal class DefaultNewSegmentComponent(
         var valid = true
         viewModelScope.launch(dispatchers.io) {
             if (key.isEmpty()) {
-                uiState.update { it.copy(keyError = "message_missing_field".localized()) }
+                mvi.updateState { it.copy(keyError = "message_missing_field".localized()) }
                 valid = false
             } else {
                 val existing = segmentRepository.getByKey(key = key, languageId = language.id)
                 if (existing != null) {
-                    uiState.update { it.copy(keyError = "message_duplicate_key".localized()) }
+                    mvi.updateState { it.copy(keyError = "message_duplicate_key".localized()) }
                     valid = false
                 }
             }
             if (text.isEmpty()) {
-                uiState.update { it.copy(textError = "message_missing_field".localized()) }
+                mvi.updateState { it.copy(textError = "message_missing_field".localized()) }
                 valid = false
             }
             if (!valid) {
                 return@launch
             }
 
-            uiState.update { it.copy(isLoading = true) }
+            mvi.updateState { it.copy(isLoading = true) }
             val res = SegmentModel(
                 key = key,
                 text = text,
@@ -103,8 +114,8 @@ internal class DefaultNewSegmentComponent(
                 }
             }
 
-            uiState.update { it.copy(isLoading = false) }
-            done.emit(res.copy(id = id))
+            mvi.updateState { it.copy(isLoading = false) }
+            mvi.emitEffect(NewSegmentComponent.Effect.Done(res.copy(id = id)))
         }
     }
 }
