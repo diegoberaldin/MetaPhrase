@@ -29,6 +29,7 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flatMapLatest
@@ -68,9 +69,10 @@ internal class DefaultProjectsComponent(
         with(lifecycle) {
             doOnCreate {
                 viewModelScope = CoroutineScope(coroutineContext + SupervisorJob())
-                childStack.activeAsFlow<ProjectListComponent>().filterNotNull().flatMapLatest { it.projectSelected }
-                    .onEach { project ->
-                        openProject(project.id)
+                childStack.activeAsFlow<ProjectListComponent>().filterNotNull().flatMapLatest { it.effects }
+                    .filterIsInstance<ProjectListComponent.Effect.ProjectSelected>()
+                    .onEach { event ->
+                        openProject(event.value.id)
                     }.launchIn(viewModelScope)
                 isEditing = childStack.activeAsFlow<TranslateComponent>(true, Duration.INFINITE).flatMapLatest {
                     it?.isEditing ?: snapshotFlow { false }
