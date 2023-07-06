@@ -105,7 +105,7 @@ class DefaultRootComponentTest {
             lifecycle.create()
 
             runOnUiThread {
-                sut.openProject("path")
+                sut.reduce(RootComponent.ViewIntent.OpenProject("path"))
             }
 
             sut.main.configAsFlow<RootComponent.Config>().test {
@@ -139,7 +139,7 @@ class DefaultRootComponentTest {
         lifecycle.create()
 
         runOnUiThread {
-            sut.openDialog()
+            sut.reduce(RootComponent.ViewIntent.OpenDialog)
         }
 
         sut.dialog.configAsFlow<RootComponent.DialogConfig>().test {
@@ -154,7 +154,7 @@ class DefaultRootComponentTest {
         lifecycle.create()
 
         runOnUiThread {
-            sut.openNewDialog()
+            sut.reduce(RootComponent.ViewIntent.OpenNewDialog)
         }
 
         sut.dialog.configAsFlow<RootComponent.DialogConfig>().test {
@@ -168,7 +168,7 @@ class DefaultRootComponentTest {
         lifecycle.create()
 
         runOnUiThread {
-            sut.closeDialog()
+            sut.reduce(RootComponent.ViewIntent.CloseDialog)
         }
 
         sut.dialog.configAsFlow<RootComponent.DialogConfig>().test {
@@ -184,7 +184,7 @@ class DefaultRootComponentTest {
             coEvery { mockProjectRepository.isNeedsSaving() } returns true
 
             runOnUiThread {
-                sut.closeCurrentProject(closeAfter = true)
+                sut.reduce(RootComponent.ViewIntent.CloseCurrentProject(closeAfter = true))
             }
 
             sut.dialog.configAsFlow<RootComponent.DialogConfig>().test {
@@ -199,7 +199,7 @@ class DefaultRootComponentTest {
         lifecycle.create()
 
         runOnUiThread {
-            sut.openImportDialog(ResourceFileType.ANDROID_XML)
+            sut.reduce(RootComponent.ViewIntent.OpenImportDialog(ResourceFileType.ANDROID_XML))
         }
 
         sut.dialog.configAsFlow<RootComponent.DialogConfig>().test {
@@ -214,7 +214,7 @@ class DefaultRootComponentTest {
         lifecycle.create()
 
         runOnUiThread {
-            sut.openExportDialog(ResourceFileType.ANDROID_XML)
+            sut.reduce(RootComponent.ViewIntent.OpenExportDialog(ResourceFileType.ANDROID_XML))
         }
 
         sut.dialog.configAsFlow<RootComponent.DialogConfig>().test {
@@ -229,7 +229,7 @@ class DefaultRootComponentTest {
         lifecycle.create()
 
         runOnUiThread {
-            sut.openStatistics()
+            sut.reduce(RootComponent.ViewIntent.OpenStatistics)
         }
 
         sut.dialog.configAsFlow<RootComponent.DialogConfig>().test {
@@ -243,7 +243,7 @@ class DefaultRootComponentTest {
         lifecycle.create()
 
         runOnUiThread {
-            sut.openSettings()
+            sut.reduce(RootComponent.ViewIntent.OpenSettings)
         }
 
         delay(100)
@@ -258,7 +258,7 @@ class DefaultRootComponentTest {
         lifecycle.create()
 
         runOnUiThread {
-            sut.openExportTmxDialog()
+            sut.reduce(RootComponent.ViewIntent.OpenExportTmxDialog)
         }
 
         sut.dialog.configAsFlow<RootComponent.DialogConfig>().test {
@@ -272,7 +272,7 @@ class DefaultRootComponentTest {
         lifecycle.create()
 
         runOnUiThread {
-            sut.openImportTmxDialog()
+            sut.reduce(RootComponent.ViewIntent.OpenImportTmxDialog)
         }
 
         sut.dialog.configAsFlow<RootComponent.DialogConfig>().test {
@@ -286,7 +286,7 @@ class DefaultRootComponentTest {
         coEvery { mockImportTmxUseCase.invoke(any()) } returns Unit
         lifecycle.create()
 
-        sut.importTmx("path")
+        sut.reduce(RootComponent.ViewIntent.ImportTmx("path"))
 
         coVerify { mockImportTmxUseCase.invoke("path") }
         coVerifyOrder {
@@ -310,7 +310,7 @@ class DefaultRootComponentTest {
         coEvery { mockClearTranslationMemory.invoke() } returns Unit
         lifecycle.create()
 
-        sut.clearTm()
+        sut.reduce(RootComponent.ViewIntent.ClearTm)
 
         coVerify { mockClearTranslationMemory.invoke() }
         coVerifyOrder {
@@ -334,7 +334,7 @@ class DefaultRootComponentTest {
         lifecycle.create()
 
         runOnUiThread {
-            sut.openImportGlossaryDialog()
+            sut.reduce(RootComponent.ViewIntent.OpenImportGlossaryDialog)
         }
 
         sut.dialog.configAsFlow<RootComponent.DialogConfig>().test {
@@ -348,7 +348,7 @@ class DefaultRootComponentTest {
         coEvery { mockImportGlossaryTerms.invoke(any()) } returns Unit
         lifecycle.create()
 
-        sut.importGlossary("path")
+        sut.reduce(RootComponent.ViewIntent.ImportGlossary("path"))
 
         coVerify { mockImportGlossaryTerms.invoke("path") }
     }
@@ -358,7 +358,7 @@ class DefaultRootComponentTest {
         lifecycle.create()
 
         runOnUiThread {
-            sut.openExportGlossaryDialog()
+            sut.reduce(RootComponent.ViewIntent.OpenExportGlossaryDialog)
         }
 
         sut.dialog.configAsFlow<RootComponent.DialogConfig>().test {
@@ -372,7 +372,7 @@ class DefaultRootComponentTest {
         coEvery { mockExportGlossaryTerms.invoke(any()) } returns Unit
         lifecycle.create()
 
-        sut.exportGlossary("path")
+        sut.reduce(RootComponent.ViewIntent.ExportGlossary("path"))
 
         coVerify { mockExportGlossaryTerms.invoke("path") }
     }
@@ -382,7 +382,7 @@ class DefaultRootComponentTest {
         coEvery { mockClearGlossaryTerms.invoke() } returns Unit
         lifecycle.create()
 
-        sut.clearGlossary()
+        sut.reduce(RootComponent.ViewIntent.ClearGlossary)
 
         coVerify { mockClearGlossaryTerms.invoke() }
     }

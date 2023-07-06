@@ -99,7 +99,7 @@ fun main() {
         Window(
             onCloseRequest = {
                 if (rootComponent.hasUnsavedChanges()) {
-                    rootComponent.closeCurrentProject(closeAfter = true)
+                    rootComponent.reduce(RootComponent.ViewIntent.CloseCurrentProject(closeAfter = true))
                 } else {
                     exitApplication()
                 }
@@ -153,53 +153,53 @@ private fun MenuBarScope.projectMenu(component: RootComponent) {
             text = "menu_project_open".localized(),
             shortcut = KeyShortcut(Key.O, meta = true),
         ) {
-            component.openDialog()
+            component.reduce(RootComponent.ViewIntent.OpenDialog)
         }
         Item(
             text = "menu_project_new".localized(),
             shortcut = KeyShortcut(Key.N, meta = true),
         ) {
-            component.openNewDialog()
+            component.reduce(RootComponent.ViewIntent.OpenNewDialog)
         }
         Item(
             text = "menu_project_edit".localized(),
             enabled = rootUiState.activeProject != null,
         ) {
-            component.openEditProject()
+            component.reduce(RootComponent.ViewIntent.OpenEditProject)
         }
         Item(
             text = "menu_project_save".localized(),
             enabled = rootUiState.isSaveEnabled,
             shortcut = KeyShortcut(Key.S, meta = true),
         ) {
-            component.saveCurrentProject()
+            component.reduce(RootComponent.ViewIntent.SaveCurrentProject)
         }
         Item(
             text = "menu_project_save_as".localized(),
             enabled = rootUiState.activeProject != null,
             shortcut = KeyShortcut(Key.S, meta = true, shift = true),
         ) {
-            component.saveProjectAs()
+            component.reduce(RootComponent.ViewIntent.SaveProjectAs)
         }
         Item(
             text = "menu_project_close".localized(),
             enabled = rootUiState.activeProject != null,
             shortcut = KeyShortcut(Key.W, meta = true),
         ) {
-            component.closeCurrentProject()
+            component.reduce(RootComponent.ViewIntent.CloseCurrentProject())
         }
         Separator()
         Item(
             text = "menu_project_statistics".localized(),
             enabled = rootUiState.activeProject != null,
         ) {
-            component.openStatistics()
+            component.reduce(RootComponent.ViewIntent.OpenStatistics)
         }
         Item(
             text = "menu_project_settings".localized(),
             shortcut = KeyShortcut(Key.Comma, meta = true),
         ) {
-            component.openSettings()
+            component.reduce(RootComponent.ViewIntent.OpenSettings)
         }
         Separator()
         Menu(
@@ -209,37 +209,37 @@ private fun MenuBarScope.projectMenu(component: RootComponent) {
             Item(
                 text = "menu_project_import_android".localized(),
             ) {
-                component.openImportDialog(ResourceFileType.ANDROID_XML)
+                component.reduce(RootComponent.ViewIntent.OpenImportDialog(ResourceFileType.ANDROID_XML))
             }
             Item(
                 text = "menu_project_import_ios".localized(),
             ) {
-                component.openImportDialog(ResourceFileType.IOS_STRINGS)
+                component.reduce(RootComponent.ViewIntent.OpenImportDialog(ResourceFileType.IOS_STRINGS))
             }
             Item(
                 text = "menu_project_import_windows".localized(),
             ) {
-                component.openImportDialog(ResourceFileType.RESX)
+                component.reduce(RootComponent.ViewIntent.OpenImportDialog(ResourceFileType.RESX))
             }
             Item(
                 text = "menu_project_import_po".localized(),
             ) {
-                component.openImportDialog(ResourceFileType.PO)
+                component.reduce(RootComponent.ViewIntent.OpenImportDialog(ResourceFileType.PO))
             }
             Item(
                 text = "menu_project_import_json".localized(),
             ) {
-                component.openImportDialog(ResourceFileType.JSON)
+                component.reduce(RootComponent.ViewIntent.OpenImportDialog(ResourceFileType.JSON))
             }
             Item(
                 text = "menu_project_import_arb".localized(),
             ) {
-                component.openImportDialog(ResourceFileType.ARB)
+                component.reduce(RootComponent.ViewIntent.OpenImportDialog(ResourceFileType.ARB))
             }
             Item(
                 text = "menu_project_import_properties".localized(),
             ) {
-                component.openImportDialog(ResourceFileType.PROPERTIES)
+                component.reduce(RootComponent.ViewIntent.OpenImportDialog(ResourceFileType.PROPERTIES))
             }
         }
         Menu(
@@ -249,37 +249,37 @@ private fun MenuBarScope.projectMenu(component: RootComponent) {
             Item(
                 text = "menu_project_import_android".localized(),
             ) {
-                component.openExportDialog(ResourceFileType.ANDROID_XML)
+                component.reduce(RootComponent.ViewIntent.OpenExportDialog(ResourceFileType.ANDROID_XML))
             }
             Item(
                 text = "menu_project_import_ios".localized(),
             ) {
-                component.openExportDialog(ResourceFileType.IOS_STRINGS)
+                component.reduce(RootComponent.ViewIntent.OpenExportDialog(ResourceFileType.IOS_STRINGS))
             }
             Item(
                 text = "menu_project_import_windows".localized(),
             ) {
-                component.openExportDialog(ResourceFileType.RESX)
+                component.reduce(RootComponent.ViewIntent.OpenExportDialog(ResourceFileType.RESX))
             }
             Item(
                 text = "menu_project_import_po".localized(),
             ) {
-                component.openExportDialog(ResourceFileType.PO)
+                component.reduce(RootComponent.ViewIntent.OpenExportDialog(ResourceFileType.PO))
             }
             Item(
                 text = "menu_project_import_json".localized(),
             ) {
-                component.openExportDialog(ResourceFileType.JSON)
+                component.reduce(RootComponent.ViewIntent.OpenExportDialog(ResourceFileType.JSON))
             }
             Item(
                 text = "menu_project_import_arb".localized(),
             ) {
-                component.openExportDialog(ResourceFileType.ARB)
+                component.reduce(RootComponent.ViewIntent.OpenExportDialog(ResourceFileType.ARB))
             }
             Item(
                 text = "menu_project_import_properties".localized(),
             ) {
-                component.openExportDialog(ResourceFileType.PROPERTIES)
+                component.reduce(RootComponent.ViewIntent.OpenExportDialog(ResourceFileType.PROPERTIES))
             }
         }
         Separator()
@@ -287,13 +287,13 @@ private fun MenuBarScope.projectMenu(component: RootComponent) {
             text = "menu_project_validate".localized(),
             enabled = rootUiState.activeProject != null && rootUiState.currentLanguage?.isBase == false,
         ) {
-            component.validatePlaceholders()
+            component.reduce(RootComponent.ViewIntent.ValidatePlaceholders)
         }
         Item(
             text = "menu_project_spellcheck".localized(),
             enabled = rootUiState.activeProject != null,
         ) {
-            component.globalSpellcheck()
+            component.reduce(RootComponent.ViewIntent.GlobalSpellcheck)
         }
     }
 }
@@ -310,14 +310,14 @@ private fun MenuBarScope.messageMenu(component: RootComponent) {
             shortcut = KeyShortcut(Key.P, meta = true, shift = true),
             enabled = rootUiState.isEditing,
         ) {
-            component.moveToPreviousSegment()
+            component.reduce(RootComponent.ViewIntent.MoveToPreviousSegment)
         }
         Item(
             text = "menu_segment_next".localized(),
             shortcut = KeyShortcut(Key.N, meta = true, shift = true),
             enabled = rootUiState.isEditing,
         ) {
-            component.moveToNextSegment()
+            component.reduce(RootComponent.ViewIntent.MoveToNextSegment)
         }
         Separator()
         Item(
@@ -325,28 +325,28 @@ private fun MenuBarScope.messageMenu(component: RootComponent) {
             shortcut = KeyShortcut(Key.Plus, meta = true),
             enabled = rootUiState.activeProject != null,
         ) {
-            component.addSegment()
+            component.reduce(RootComponent.ViewIntent.AddSegment)
         }
         Item(
             text = "menu_segment_delete".localized(),
             shortcut = KeyShortcut(Key.Minus, meta = true),
             enabled = rootUiState.isEditing,
         ) {
-            component.deleteSegment()
+            component.reduce(RootComponent.ViewIntent.DeleteSegment)
         }
         Item(
             text = "menu_segment_copy_base".localized(),
             shortcut = KeyShortcut(Key.B, meta = true, shift = true),
             enabled = rootUiState.isEditing && rootUiState.currentLanguage?.isBase == false,
         ) {
-            component.copyBase()
+            component.reduce(RootComponent.ViewIntent.CopyBase)
         }
         Item(
             text = "menu_segment_end_edit".localized(),
             shortcut = KeyShortcut(Key.Escape),
             enabled = rootUiState.isEditing,
         ) {
-            component.endEditing()
+            component.reduce(RootComponent.ViewIntent.EndEditing)
         }
     }
 }
@@ -363,47 +363,47 @@ private fun MenuBarScope.resourcesMenu(component: RootComponent) {
             shortcut = KeyShortcut(Key.M, meta = true, shift = true),
             enabled = rootUiState.isEditing,
         ) {
-            component.insertBestMatch()
+            component.reduce(RootComponent.ViewIntent.InsertBestMatch)
         }
         Separator()
         Item(
             text = "menu_translation_memory_import".localized(),
         ) {
-            component.openImportTmxDialog()
+            component.reduce(RootComponent.ViewIntent.OpenImportTmxDialog)
         }
         Item(
             text = "menu_translation_memory_export".localized(),
             enabled = rootUiState.activeProject != null,
         ) {
-            component.openExportTmxDialog()
+            component.reduce(RootComponent.ViewIntent.OpenExportTmxDialog)
         }
         Separator()
         Item(
             text = "menu_translation_memory_sync_project".localized(),
             enabled = rootUiState.activeProject != null,
         ) {
-            component.syncTm()
+            component.reduce(RootComponent.ViewIntent.SyncTm)
         }
         Item(
             text = "menu_translation_memory_clear".localized(),
         ) {
-            component.clearTm()
+            component.reduce(RootComponent.ViewIntent.ClearTm)
         }
         Separator()
         Item(
             text = "menu_glossary_import".localized(),
         ) {
-            component.openImportGlossaryDialog()
+            component.reduce(RootComponent.ViewIntent.OpenImportGlossaryDialog)
         }
         Item(
             text = "menu_glossary_export".localized(),
         ) {
-            component.openExportGlossaryDialog()
+            component.reduce(RootComponent.ViewIntent.OpenExportGlossaryDialog)
         }
         Item(
             text = "menu_glossary_clear".localized(),
         ) {
-            component.clearGlossary()
+            component.reduce(RootComponent.ViewIntent.ClearGlossary)
         }
         Separator()
         Item(
@@ -411,34 +411,34 @@ private fun MenuBarScope.resourcesMenu(component: RootComponent) {
             shortcut = KeyShortcut(Key.J, meta = true, shift = true),
             enabled = rootUiState.isEditing && rootUiState.currentLanguage?.isBase == false,
         ) {
-            component.machineTranslationRetrieve()
+            component.reduce(RootComponent.ViewIntent.MachineTranslationRetrieve)
         }
         Item(
             text = "menu_machine_translation_insert".localized(),
             shortcut = KeyShortcut(Key.K, meta = true, shift = true),
             enabled = rootUiState.isEditing && rootUiState.currentLanguage?.isBase == false,
         ) {
-            component.machineTranslationInsert()
+            component.reduce(RootComponent.ViewIntent.MachineTranslationInsert)
         }
         Item(
             text = "menu_machine_translation_copy_translation".localized(),
             shortcut = KeyShortcut(Key.H, meta = true, shift = true),
             enabled = rootUiState.isEditing && rootUiState.currentLanguage?.isBase == false,
         ) {
-            component.machineTranslationCopyTarget()
+            component.reduce(RootComponent.ViewIntent.MachineTranslationCopyTarget)
         }
         Item(
             text = "menu_machine_translation_copy_share".localized(),
             shortcut = KeyShortcut(Key.L, meta = true, shift = true),
             enabled = rootUiState.isEditing && rootUiState.currentLanguage?.isBase == false,
         ) {
-            component.machineTranslationShare()
+            component.reduce(RootComponent.ViewIntent.MachineTranslationShare)
         }
         Item(
             text = "menu_machine_translation_contribute_memory".localized(),
             shortcut = KeyShortcut(Key.M, meta = true, shift = true),
         ) {
-            component.machineTranslationContributeTm()
+            component.reduce(RootComponent.ViewIntent.MachineTranslationContributeTm)
         }
     }
 }
@@ -453,7 +453,7 @@ private fun MenuBarScope.helpMenu(component: RootComponent) {
             text = "menu_help_open_manual".localized(),
             shortcut = KeyShortcut(Key.M, meta = true, shift = true),
         ) {
-            component.openManual()
+            component.reduce(RootComponent.ViewIntent.OpenManual)
         }
     }
 }

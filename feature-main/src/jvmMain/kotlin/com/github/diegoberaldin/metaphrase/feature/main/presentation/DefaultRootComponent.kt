@@ -10,6 +10,8 @@ import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import com.arkivanov.essenty.lifecycle.doOnResume
+import com.github.diegoberaldin.metaphrase.core.common.architecture.MviModel
+import com.github.diegoberaldin.metaphrase.core.common.architecture.DefaultMviModel
 import com.github.diegoberaldin.metaphrase.core.common.coroutines.CoroutineDispatcherProvider
 import com.github.diegoberaldin.metaphrase.core.common.notification.NotificationCenter
 import com.github.diegoberaldin.metaphrase.core.common.utils.asFlow
@@ -33,19 +35,17 @@ import com.github.diegoberaldin.metaphrase.feature.projects.presentation.Project
 import com.github.diegoberaldin.metaphrase.feature.projectsdialog.statistics.presentation.StatisticsComponent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.awt.Desktop
@@ -54,11 +54,14 @@ import java.util.*
 import kotlin.coroutines.CoroutineContext
 import kotlin.time.Duration
 
-@OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
+@OptIn(ExperimentalCoroutinesApi::class)
 internal class DefaultRootComponent(
     componentContext: ComponentContext,
     private val coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,
+    private val mvi: DefaultMviModel<RootComponent.ViewIntent, RootComponent.UiState, RootComponent.Effect> = DefaultMviModel(
+        RootComponent.UiState(),
+    ),
     private val recentProjectRepository: RecentProjectRepository,
     private val projectRepository: ProjectRepository,
     private val importFromTmx: ImportTmxUseCase,
@@ -68,7 +71,9 @@ internal class DefaultRootComponent(
     private val clearGlossaryTerms: ClearGlossaryUseCase,
     private val openProjectUseCase: OpenProjectUseCase,
     private val notificationCenter: NotificationCenter,
-) : RootComponent, ComponentContext by componentContext {
+) : RootComponent,
+    MviModel<RootComponent.ViewIntent, RootComponent.UiState, RootComponent.Effect> by mvi,
+    ComponentContext by componentContext {
 
     companion object {
         const val KEY_MAIN_SLOT = "MainSlot"
@@ -95,7 +100,6 @@ internal class DefaultRootComponent(
         key = KEY_DIALOG_SLOT,
         childFactory = ::createDialogChild,
     )
-    override val uiState = MutableStateFlow(RootUiState())
 
     init {
         with(lifecycle) {
@@ -123,13 +127,13 @@ internal class DefaultRootComponent(
                     initialValue = null,
                 )
                 activeProject.onEach { proj ->
-                    uiState.update { it.copy(activeProject = proj) }
+                    mvi.updateState { it.copy(activeProject = proj) }
                 }.launchIn(viewModelScope)
                 currentLanguage.onEach { lang ->
-                    uiState.update { it.copy(currentLanguage = lang) }
+                    mvi.updateState { it.copy(currentLanguage = lang) }
                 }.launchIn(viewModelScope)
                 isEditing.onEach { editing ->
-                    uiState.update { it.copy(isEditing = editing) }
+                    mvi.updateState { it.copy(isEditing = editing) }
                 }.launchIn(viewModelScope)
 
                 // initial cleanup
@@ -141,7 +145,7 @@ internal class DefaultRootComponent(
                         notificationCenter.events.filter { it is NotificationCenter.Event.ShowProgress }.onEach { evt ->
                             when (evt) {
                                 is NotificationCenter.Event.ShowProgress -> {
-                                    uiState.update { it.copy(isLoading = evt.visible) }
+                                    mvi.updateState { it.copy(isLoading = evt.visible) }
                                 }
 
                                 else -> Unit
@@ -159,7 +163,7 @@ internal class DefaultRootComponent(
                     }
                     launch {
                         projectRepository.observeNeedsSaving().onEach { needsSaving ->
-                            uiState.update { it.copy(isSaveEnabled = needsSaving) }
+                            mvi.updateState { it.copy(isSaveEnabled = needsSaving) }
                         }.launchIn(this)
                     }
                 }
@@ -185,6 +189,59 @@ internal class DefaultRootComponent(
         }
     }
 
+    override fun hasUnsavedChanges(): Boolean = projectRepository.isNeedsSaving()
+
+    override fun reduce(intent: RootComponent.ViewIntent) {
+        when (intent) {
+            RootComponent.ViewIntent.AddSegment -> addSegment()
+            RootComponent.ViewIntent.ClearGlossary -> clearGlossary()
+            RootComponent.ViewIntent.ClearTm -> clearTm()
+            is RootComponent.ViewIntent.CloseCurrentProject -> closeCurrentProject(intent.closeAfter)
+            RootComponent.ViewIntent.CloseDialog -> closeDialog()
+            is RootComponent.ViewIntent.ConfirmCloseCurrentProject -> confirmCloseCurrentProject(
+                openAfter = intent.openAfter,
+                newAfter = intent.newAfter,
+            )
+
+            RootComponent.ViewIntent.CopyBase -> copyBase()
+            RootComponent.ViewIntent.DeleteSegment -> deleteSegment()
+            RootComponent.ViewIntent.EndEditing -> endEditing()
+            is RootComponent.ViewIntent.Export -> export(path = intent.path, type = intent.type)
+            is RootComponent.ViewIntent.ExportGlossary -> exportGlossary(intent.path)
+            is RootComponent.ViewIntent.ExportTmx -> exportTmx(intent.path)
+            RootComponent.ViewIntent.GlobalSpellcheck -> globalSpellcheck()
+            is RootComponent.ViewIntent.Import -> import(path = intent.path, type = intent.type)
+            is RootComponent.ViewIntent.ImportGlossary -> importGlossary(intent.path)
+            is RootComponent.ViewIntent.ImportTmx -> importTmx(intent.path)
+            RootComponent.ViewIntent.InsertBestMatch -> insertBestMatch()
+            RootComponent.ViewIntent.MachineTranslationContributeTm -> machineTranslationContributeTm()
+            RootComponent.ViewIntent.MachineTranslationCopyTarget -> machineTranslationCopyTarget()
+            RootComponent.ViewIntent.MachineTranslationInsert -> machineTranslationInsert()
+            RootComponent.ViewIntent.MachineTranslationRetrieve -> machineTranslationRetrieve()
+            RootComponent.ViewIntent.MachineTranslationShare -> machineTranslationShare()
+            RootComponent.ViewIntent.MoveToNextSegment -> moveToNextSegment()
+            RootComponent.ViewIntent.MoveToPreviousSegment -> moveToPreviousSegment()
+            RootComponent.ViewIntent.OpenDialog -> openDialog()
+            RootComponent.ViewIntent.OpenEditProject -> openEditProject()
+            is RootComponent.ViewIntent.OpenExportDialog -> openExportDialog(intent.type)
+            RootComponent.ViewIntent.OpenExportGlossaryDialog -> openExportGlossaryDialog()
+            RootComponent.ViewIntent.OpenExportTmxDialog -> openExportTmxDialog()
+            is RootComponent.ViewIntent.OpenImportDialog -> openImportDialog(intent.type)
+            RootComponent.ViewIntent.OpenImportGlossaryDialog -> openImportGlossaryDialog()
+            RootComponent.ViewIntent.OpenImportTmxDialog -> openImportTmxDialog()
+            RootComponent.ViewIntent.OpenManual -> openManual()
+            RootComponent.ViewIntent.OpenNewDialog -> openNewDialog()
+            is RootComponent.ViewIntent.OpenProject -> openProject(intent.path)
+            RootComponent.ViewIntent.OpenSettings -> openSettings()
+            RootComponent.ViewIntent.OpenStatistics -> openStatistics()
+            RootComponent.ViewIntent.SaveCurrentProject -> saveCurrentProject()
+            is RootComponent.ViewIntent.SaveProject -> saveProject(intent.path)
+            RootComponent.ViewIntent.SaveProjectAs -> saveProjectAs()
+            RootComponent.ViewIntent.SyncTm -> syncTm()
+            RootComponent.ViewIntent.ValidatePlaceholders -> validatePlaceholders()
+        }
+    }
+
     private fun createMainChild(config: RootComponent.Config, componentContext: ComponentContext): Any = when (config) {
         RootComponent.Config.Projects -> getByInjection<ProjectsComponent>(componentContext, coroutineContext)
         else -> getByInjection<IntroComponent>(componentContext, coroutineContext)
@@ -194,7 +251,7 @@ internal class DefaultRootComponent(
         when (config) {
             RootComponent.DialogConfig.NewDialog -> {
                 getByInjection<CreateProjectComponent>(componentContext, coroutineContext).apply {
-                    done.onEach { projectId ->
+                    effects.filterIsInstance<CreateProjectComponent.Effect.Done>().onEach {
                         withContext(dispatchers.main) {
                             closeDialog()
                         }
@@ -222,7 +279,7 @@ internal class DefaultRootComponent(
             is RootComponent.DialogConfig.EditDialog -> {
                 getByInjection<CreateProjectComponent>(componentContext, coroutineContext).apply {
                     projectId = activeProject.value?.id ?: 0
-                    done.onEach {
+                    effects.filterIsInstance<CreateProjectComponent.Effect.Done>().onEach {
                         withContext(dispatchers.main) {
                             closeDialog()
                         }
@@ -243,9 +300,7 @@ internal class DefaultRootComponent(
             else -> Unit
         }
 
-    override fun hasUnsavedChanges(): Boolean = projectRepository.isNeedsSaving()
-
-    override fun openProject(path: String) {
+    private fun openProject(path: String) {
         viewModelScope.launch(dispatchers.io) {
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
             val project = openProjectUseCase(path = path)
@@ -263,7 +318,7 @@ internal class DefaultRootComponent(
         }
     }
 
-    override fun openEditProject() {
+    private fun openEditProject() {
         val projectId = activeProject.value?.id
         if (projectId != null) {
             viewModelScope.launch(dispatchers.main) {
@@ -272,7 +327,7 @@ internal class DefaultRootComponent(
         }
     }
 
-    override fun saveProjectAs() {
+    private fun saveProjectAs() {
         val name = activeProject.value?.name
         if (name != null) {
             viewModelScope.launch(dispatchers.main) {
@@ -281,13 +336,13 @@ internal class DefaultRootComponent(
         }
     }
 
-    override fun saveProject(path: String) {
+    private fun saveProject(path: String) {
         viewModelScope.launch(dispatchers.io) {
             main.asFlow<ProjectsComponent>().firstOrNull()?.saveCurrentProject(path = path)
         }
     }
 
-    override fun saveCurrentProject() {
+    private fun saveCurrentProject() {
         viewModelScope.launch(dispatchers.io) {
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
             val recentProjectModel = recentProjectRepository.getByName(activeProject.value?.name.orEmpty())
@@ -300,7 +355,7 @@ internal class DefaultRootComponent(
         }
     }
 
-    override fun openDialog() {
+    private fun openDialog() {
         viewModelScope.launch(dispatchers.main) {
             if (projectRepository.isNeedsSaving()) {
                 viewModelScope.launch(dispatchers.main) {
@@ -312,7 +367,7 @@ internal class DefaultRootComponent(
         }
     }
 
-    override fun openNewDialog() {
+    private fun openNewDialog() {
         viewModelScope.launch(dispatchers.main) {
             if (projectRepository.isNeedsSaving()) {
                 viewModelScope.launch(dispatchers.main) {
@@ -324,23 +379,23 @@ internal class DefaultRootComponent(
         }
     }
 
-    override fun closeDialog() {
+    private fun closeDialog() {
         viewModelScope.launch(dispatchers.main) {
             dialogNavigation.activate(RootComponent.DialogConfig.None)
         }
     }
 
-    override fun closeCurrentProject(closeAfter: Boolean) {
+    private fun closeCurrentProject(closeAfter: Boolean) {
         if (projectRepository.isNeedsSaving()) {
             viewModelScope.launch(dispatchers.main) {
                 dialogNavigation.activate(RootComponent.DialogConfig.ConfirmCloseDialog(closeAfter = closeAfter))
             }
         } else {
-            confirmCloseCurrentProject()
+            confirmCloseCurrentProject(openAfter = false, newAfter = false)
         }
     }
 
-    override fun confirmCloseCurrentProject(openAfter: Boolean, newAfter: Boolean) {
+    private fun confirmCloseCurrentProject(openAfter: Boolean, newAfter: Boolean) {
         projectIdToOpen = null
         viewModelScope.launch(dispatchers.io) {
             main.asFlow<ProjectsComponent>().firstOrNull()?.closeCurrentProject()
@@ -361,19 +416,19 @@ internal class DefaultRootComponent(
         }
     }
 
-    override fun openImportDialog(type: ResourceFileType) {
+    private fun openImportDialog(type: ResourceFileType) {
         viewModelScope.launch(dispatchers.main) {
             dialogNavigation.activate(RootComponent.DialogConfig.ImportDialog(type))
         }
     }
 
-    override fun openExportDialog(type: ResourceFileType) {
+    private fun openExportDialog(type: ResourceFileType) {
         viewModelScope.launch(dispatchers.main) {
             dialogNavigation.activate(RootComponent.DialogConfig.ExportDialog(type))
         }
     }
 
-    override fun import(path: String, type: ResourceFileType) {
+    private fun import(path: String, type: ResourceFileType) {
         viewModelScope.launch(dispatchers.io) {
             main.asFlow<ProjectsComponent>().firstOrNull()?.import(
                 path = path,
@@ -382,7 +437,7 @@ internal class DefaultRootComponent(
         }
     }
 
-    override fun export(path: String, type: ResourceFileType) {
+    private fun export(path: String, type: ResourceFileType) {
         viewModelScope.launch(dispatchers.io) {
             main.asFlow<ProjectsComponent>().firstOrNull()?.export(
                 path = path,
@@ -391,73 +446,73 @@ internal class DefaultRootComponent(
         }
     }
 
-    override fun moveToPreviousSegment() {
+    private fun moveToPreviousSegment() {
         viewModelScope.launch(dispatchers.io) {
             main.asFlow<ProjectsComponent>().firstOrNull()?.moveToPrevious()
         }
     }
 
-    override fun moveToNextSegment() {
+    private fun moveToNextSegment() {
         viewModelScope.launch(dispatchers.io) {
             main.asFlow<ProjectsComponent>().firstOrNull()?.moveToNext()
         }
     }
 
-    override fun endEditing() {
+    private fun endEditing() {
         viewModelScope.launch(dispatchers.io) {
             main.asFlow<ProjectsComponent>().firstOrNull()?.endEditing()
         }
     }
 
-    override fun copyBase() {
+    private fun copyBase() {
         viewModelScope.launch(dispatchers.io) {
             main.asFlow<ProjectsComponent>().firstOrNull()?.copyBase()
         }
     }
 
-    override fun addSegment() {
+    private fun addSegment() {
         viewModelScope.launch(dispatchers.io) {
             main.asFlow<ProjectsComponent>().firstOrNull()?.addSegment()
         }
     }
 
-    override fun deleteSegment() {
+    private fun deleteSegment() {
         viewModelScope.launch(dispatchers.io) {
             main.asFlow<ProjectsComponent>().firstOrNull()?.deleteSegment()
         }
     }
 
-    override fun openStatistics() {
+    private fun openStatistics() {
         viewModelScope.launch(dispatchers.main) {
             dialogNavigation.activate(RootComponent.DialogConfig.StatisticsDialog)
         }
     }
 
-    override fun openSettings() {
+    private fun openSettings() {
         viewModelScope.launch(dispatchers.main) {
             dialogNavigation.activate(RootComponent.DialogConfig.SettingsDialog)
         }
     }
 
-    override fun openExportTmxDialog() {
+    private fun openExportTmxDialog() {
         viewModelScope.launch(dispatchers.main) {
             dialogNavigation.activate(RootComponent.DialogConfig.ExportTmxDialog)
         }
     }
 
-    override fun exportTmx(path: String) {
+    private fun exportTmx(path: String) {
         viewModelScope.launch(dispatchers.io) {
             main.asFlow<ProjectsComponent>().firstOrNull()?.exportTmx(path = path)
         }
     }
 
-    override fun openImportTmxDialog() {
+    private fun openImportTmxDialog() {
         viewModelScope.launch(dispatchers.main) {
             dialogNavigation.activate(RootComponent.DialogConfig.ImportTmxDialog)
         }
     }
 
-    override fun importTmx(path: String) {
+    private fun importTmx(path: String) {
         viewModelScope.launch(dispatchers.io) {
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
             importFromTmx(path = path)
@@ -465,7 +520,7 @@ internal class DefaultRootComponent(
         }
     }
 
-    override fun clearTm() {
+    private fun clearTm() {
         viewModelScope.launch(dispatchers.io) {
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
             clearTranslationMemory()
@@ -473,91 +528,91 @@ internal class DefaultRootComponent(
         }
     }
 
-    override fun syncTm() {
+    private fun syncTm() {
         viewModelScope.launch(dispatchers.io) {
             main.asFlow<ProjectsComponent>().firstOrNull()?.syncWithTm()
         }
     }
 
-    override fun validatePlaceholders() {
+    private fun validatePlaceholders() {
         viewModelScope.launch(dispatchers.io) {
             main.asFlow<ProjectsComponent>().firstOrNull()?.validatePlaceholders()
         }
     }
 
-    override fun insertBestMatch() {
+    private fun insertBestMatch() {
         viewModelScope.launch(dispatchers.io) {
             main.asFlow<ProjectsComponent>().firstOrNull()?.insertBestMatch()
         }
     }
 
-    override fun globalSpellcheck() {
+    private fun globalSpellcheck() {
         viewModelScope.launch(dispatchers.io) {
             main.asFlow<ProjectsComponent>().firstOrNull()?.globalSpellcheck()
         }
     }
 
-    override fun openImportGlossaryDialog() {
+    private fun openImportGlossaryDialog() {
         viewModelScope.launch(dispatchers.main) {
             dialogNavigation.activate(RootComponent.DialogConfig.ImportGlossaryDialog)
         }
     }
 
-    override fun importGlossary(path: String) {
+    private fun importGlossary(path: String) {
         viewModelScope.launch(dispatchers.io) {
             importGlossaryTerms(path)
         }
     }
 
-    override fun openExportGlossaryDialog() {
+    private fun openExportGlossaryDialog() {
         viewModelScope.launch(dispatchers.main) {
             dialogNavigation.activate(RootComponent.DialogConfig.ExportGlossaryDialog)
         }
     }
 
-    override fun exportGlossary(path: String) {
+    private fun exportGlossary(path: String) {
         viewModelScope.launch(dispatchers.io) {
             exportGlossaryTerms(path = path)
         }
     }
 
-    override fun clearGlossary() {
+    private fun clearGlossary() {
         viewModelScope.launch(dispatchers.io) {
             clearGlossaryTerms()
         }
     }
 
-    override fun machineTranslationRetrieve() {
+    private fun machineTranslationRetrieve() {
         viewModelScope.launch(dispatchers.io) {
             main.asFlow<ProjectsComponent>().firstOrNull()?.machineTranslationRetrieve()
         }
     }
 
-    override fun machineTranslationInsert() {
+    private fun machineTranslationInsert() {
         viewModelScope.launch(dispatchers.io) {
             main.asFlow<ProjectsComponent>().firstOrNull()?.machineTranslationInsert()
         }
     }
 
-    override fun machineTranslationCopyTarget() {
+    private fun machineTranslationCopyTarget() {
         viewModelScope.launch(dispatchers.io) {
             main.asFlow<ProjectsComponent>().firstOrNull()?.machineTranslationCopyTarget()
         }
     }
 
-    override fun machineTranslationShare() {
+    private fun machineTranslationShare() {
         viewModelScope.launch(dispatchers.io) {
             main.asFlow<ProjectsComponent>().firstOrNull()?.machineTranslationShare()
         }
     }
 
-    override fun machineTranslationContributeTm() {
+    private fun machineTranslationContributeTm() {
         viewModelScope.launch(dispatchers.io) {
             main.asFlow<ProjectsComponent>().firstOrNull()?.machineTranslationContributeTm()
         }
     }
 
-    override fun openManual() {
+    private fun openManual() {
         runCatching {
             openInBrowser(MANUAL_URL)
         }.exceptionOrNull()?.also {
