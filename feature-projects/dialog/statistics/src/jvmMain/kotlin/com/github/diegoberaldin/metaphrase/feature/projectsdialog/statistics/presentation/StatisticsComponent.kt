@@ -1,15 +1,30 @@
 package com.github.diegoberaldin.metaphrase.feature.projectsdialog.statistics.presentation
 
-import kotlinx.coroutines.flow.StateFlow
+import com.github.diegoberaldin.metaphrase.core.common.architecture.MviModel
 
 /**
  * Statistics component.
  */
-interface StatisticsComponent {
+interface StatisticsComponent :
+    MviModel<StatisticsComponent.ViewIntent, StatisticsComponent.UiState, StatisticsComponent.Effect> {
+    /**
+     * View intents.
+     */
+    sealed interface ViewIntent
+
+    /**
+     * Effects.
+     */
+
+    sealed interface Effect
+
     /**
      * UI state.
+     *
+     * @property items
+     * @constructor Create [UiState]
      */
-    val uiState: StateFlow<StatisticsUiState>
+    data class UiState(val items: List<StatisticsItem> = emptyList())
 
     /**
      * Project ID.
