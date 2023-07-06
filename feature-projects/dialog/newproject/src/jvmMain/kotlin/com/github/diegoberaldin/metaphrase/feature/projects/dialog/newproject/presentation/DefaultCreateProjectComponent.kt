@@ -3,6 +3,8 @@ package com.github.diegoberaldin.metaphrase.feature.projects.dialog.newproject.p
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
+import com.github.diegoberaldin.metaphrase.core.common.architecture.DefaultMviModel
+import com.github.diegoberaldin.metaphrase.core.common.architecture.MviModel
 import com.github.diegoberaldin.metaphrase.core.common.coroutines.CoroutineDispatcherProvider
 import com.github.diegoberaldin.metaphrase.core.localization.localized
 import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
@@ -14,9 +16,6 @@ import com.github.diegoberaldin.metaphrase.domain.project.repository.SegmentRepo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
@@ -24,11 +23,16 @@ internal class DefaultCreateProjectComponent(
     componentContext: ComponentContext,
     coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,
+    private val mvi: DefaultMviModel<CreateProjectComponent.ViewIntent, CreateProjectComponent.UiState, CreateProjectComponent.Effect> = DefaultMviModel(
+        CreateProjectComponent.UiState(),
+    ),
     private val languageRepository: LanguageRepository,
     private val projectRepository: ProjectRepository,
     private val segmentRepository: SegmentRepository,
     private val completeLanguage: GetCompleteLanguageUseCase,
-) : CreateProjectComponent, ComponentContext by componentContext {
+) : CreateProjectComponent,
+    MviModel<CreateProjectComponent.ViewIntent, CreateProjectComponent.UiState, CreateProjectComponent.Effect> by mvi,
+    ComponentContext by componentContext {
 
     override var projectId: Int = 0
         set(value) {
@@ -37,9 +41,6 @@ internal class DefaultCreateProjectComponent(
         }
 
     private lateinit var viewModelScope: CoroutineScope
-
-    override val uiState = MutableStateFlow(CreateProjectUiState())
-    override val done = MutableSharedFlow<Int?>()
 
     init {
         with(lifecycle) {
@@ -57,9 +58,19 @@ internal class DefaultCreateProjectComponent(
         }
     }
 
+    override fun reduce(intent: CreateProjectComponent.ViewIntent) {
+        when (intent) {
+            is CreateProjectComponent.ViewIntent.AddLanguage -> addLanguage(intent.value)
+            is CreateProjectComponent.ViewIntent.RemoveLanguage -> removeLanguage(intent.value)
+            is CreateProjectComponent.ViewIntent.SetBaseLanguage -> setBaseLanguage(intent.value)
+            is CreateProjectComponent.ViewIntent.SetName -> setName(intent.value)
+            CreateProjectComponent.ViewIntent.Submit -> submit()
+        }
+    }
+
     private fun refreshAvailableLanguages() {
         val allLanguages = languageRepository.getDefaultLanguages().map { completeLanguage(it) }
-        uiState.update {
+        mvi.updateState {
             it.copy(availableLanguages = allLanguages - it.languages.toSet())
         }
     }
@@ -68,34 +79,34 @@ internal class DefaultCreateProjectComponent(
         if (!this::viewModelScope.isInitialized) return
         viewModelScope.launch {
             val project = projectRepository.getById(projectId)
-            uiState.update { it.copy(name = project?.name.orEmpty()) }
+            mvi.updateState { it.copy(name = project?.name.orEmpty()) }
             val projectLanguages = languageRepository.getAll(projectId).map { completeLanguage(it) }
-            uiState.update {
+            mvi.updateState {
                 it.copy(languages = projectLanguages)
             }
             refreshAvailableLanguages()
         }
     }
 
-    override fun setName(value: String) {
-        uiState.update { it.copy(name = value) }
+    private fun setName(value: String) {
+        mvi.updateState { it.copy(name = value) }
     }
 
-    override fun addLanguage(value: LanguageModel) {
-        uiState.update {
+    private fun addLanguage(value: LanguageModel) {
+        mvi.updateState {
             it.copy(languages = it.languages.let { oldList -> oldList + value.copy(isBase = oldList.isEmpty()) })
         }
         refreshAvailableLanguages()
     }
 
-    override fun setBaseLanguage(value: LanguageModel) {
-        uiState.update {
+    private fun setBaseLanguage(value: LanguageModel) {
+        mvi.updateState {
             it.copy(languages = it.languages.let { oldList -> oldList.map { lang -> lang.copy(isBase = lang.code == value.code) } })
         }
     }
 
-    override fun removeLanguage(value: LanguageModel) {
-        uiState.update {
+    private fun removeLanguage(value: LanguageModel) {
+        mvi.updateState {
             it.copy(
                 languages = it.languages.let { oldList ->
                     val newList = oldList - value
@@ -114,25 +125,25 @@ internal class DefaultCreateProjectComponent(
         refreshAvailableLanguages()
     }
 
-    override fun submit() {
-        uiState.update { it.copy(nameError = "") }
-        uiState.update { it.copy(languagesError = "") }
+    private fun submit() {
+        mvi.updateState { it.copy(nameError = "") }
+        mvi.updateState { it.copy(languagesError = "") }
         val name = uiState.value.name.trim()
         var valid = true
         if (name.isEmpty()) {
-            uiState.update { it.copy(nameError = "message_missing_field".localized()) }
+            mvi.updateState { it.copy(nameError = "message_missing_field".localized()) }
             valid = false
         }
         val languages = uiState.value.languages
         if (languages.isEmpty()) {
-            uiState.update { it.copy(languagesError = "message_select_one_language".localized()) }
+            mvi.updateState { it.copy(languagesError = "message_select_one_language".localized()) }
             valid = false
         }
         if (!valid) {
             return
         }
         viewModelScope.launch(dispatchers.io) {
-            uiState.update { it.copy(isLoading = true) }
+            mvi.updateState { it.copy(isLoading = true) }
             val oldBaseLanguage: LanguageModel?
             val newProjectId = if (projectId == 0) {
                 val project = ProjectModel(
@@ -182,9 +193,10 @@ internal class DefaultCreateProjectComponent(
                 }
             }
 
-            uiState.update { it.copy(isLoading = false) }
+            mvi.updateState { it.copy(isLoading = false) }
             val isNew = oldBaseLanguage == null
-            done.emit(if (isNew) newProjectId else null)
+            val res = if (isNew) newProjectId else null
+            mvi.emitEffect(CreateProjectComponent.Effect.Done(res))
         }
     }
 }

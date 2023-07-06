@@ -10,8 +10,8 @@ import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import com.arkivanov.essenty.lifecycle.doOnResume
-import com.github.diegoberaldin.metaphrase.core.common.architecture.MviModel
 import com.github.diegoberaldin.metaphrase.core.common.architecture.DefaultMviModel
+import com.github.diegoberaldin.metaphrase.core.common.architecture.MviModel
 import com.github.diegoberaldin.metaphrase.core.common.coroutines.CoroutineDispatcherProvider
 import com.github.diegoberaldin.metaphrase.core.common.notification.NotificationCenter
 import com.github.diegoberaldin.metaphrase.core.common.utils.asFlow
@@ -251,10 +251,11 @@ internal class DefaultRootComponent(
         when (config) {
             RootComponent.DialogConfig.NewDialog -> {
                 getByInjection<CreateProjectComponent>(componentContext, coroutineContext).apply {
-                    effects.filterIsInstance<CreateProjectComponent.Effect.Done>().onEach {
+                    effects.filterIsInstance<CreateProjectComponent.Effect.Done>().onEach { event ->
                         withContext(dispatchers.main) {
                             closeDialog()
                         }
+                        val projectId = event.projectId
                         if (projectId != null) {
                             projectRepository.setNeedsSaving(true)
 
