@@ -1,50 +1,57 @@
 package com.github.diegoberaldin.metaphrase.feature.translate.dialog.newterm.presentation
 
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.StateFlow
+import com.github.diegoberaldin.metaphrase.core.common.architecture.MviModel
 
 /**
- * Glossary term pair.
- *
- * @property sourceLemma lemma in the source language
- * @property targetLemma lemma in the target language
- * @constructor Create [GlossaryTermPair]
+ * New glossary term component contract.
  */
-data class GlossaryTermPair(
-    val sourceLemma: String,
-    val targetLemma: String,
-)
+interface NewGlossaryTermComponent :
+    MviModel<NewGlossaryTermComponent.ViewIntent, NewGlossaryTermComponent.UiState, NewGlossaryTermComponent.Effect> {
 
-/**
- * New glossary term component.
- */
-interface NewGlossaryTermComponent {
     /**
-     * UI state
+     * View intents.
      */
-    val uiState: StateFlow<NewGlossaryTermUiState>
+    sealed interface ViewIntent {
+        /**
+         * Set source term.
+         *
+         * @param value term to set
+         */
+        data class SetSourceTerm(val value: String) : ViewIntent
+
+        /**
+         * Set target term.
+         *
+         * @param value term to set
+         */
+        data class SetTargetTerm(val value: String) : ViewIntent
+
+        /**
+         * Confirm the inserted term pair.
+         */
+        object Submit : ViewIntent
+    }
 
     /**
-     * Event emitted after successful submission.
-     */
-    val done: SharedFlow<GlossaryTermPair>
-
-    /**
-     * Set source term.
+     * New glossary term UI state.
      *
-     * @param value term to set
+     * @property sourceTerm source term
+     * @property sourceTermError error for the source term field
+     * @property targetTerm target get
+     * @property targetTermError error for the target term field
+     * @constructor Create [NewGlossaryTermUiState]
      */
-    fun setSourceTerm(value: String)
+    data class UiState(
+        val sourceTerm: String = "",
+        val sourceTermError: String = "",
+        val targetTerm: String = "",
+        val targetTermError: String = "",
+    )
 
-    /**
-     * Set target term.
-     *
-     * @param value term to set
-     */
-    fun setTargetTerm(value: String)
-
-    /**
-     * Confirm the inserted term pair..
-     */
-    fun submit()
+    sealed interface Effect {
+        /**
+         * Event emitted after successful submission.
+         */
+        data class Done(val pair: GlossaryTermPair) : Effect
+    }
 }

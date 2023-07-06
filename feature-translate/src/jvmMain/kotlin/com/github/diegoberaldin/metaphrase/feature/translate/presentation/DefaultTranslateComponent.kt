@@ -60,6 +60,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flatMapConcat
@@ -203,11 +204,11 @@ internal class DefaultTranslateComponent(
             }
         }.launchIn(this)
         dialog.asFlow<NewSegmentComponent>(timeout = Duration.INFINITE).filterNotNull().onEach {
-            it.done.onEach { newSegment ->
+            it.effects.filterIsInstance<NewSegmentComponent.Effect.Done>().onEach { event ->
                 withContext(dispatchers.main) {
                     dialogNavigation.activate(DialogConfig.None)
                 }
-                if (newSegment != null) {
+                if (event.segment != null) {
                     projectRepository.setNeedsSaving(true)
                     updateUnitCount()
                     messageListComponent.refresh()

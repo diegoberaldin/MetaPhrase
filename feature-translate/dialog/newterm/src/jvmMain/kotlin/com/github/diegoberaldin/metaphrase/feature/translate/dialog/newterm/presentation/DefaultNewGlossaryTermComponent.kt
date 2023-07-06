@@ -3,14 +3,13 @@ package com.github.diegoberaldin.metaphrase.feature.translate.dialog.newterm.pre
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
+import com.github.diegoberaldin.metaphrase.core.common.architecture.DefaultMviModel
+import com.github.diegoberaldin.metaphrase.core.common.architecture.MviModel
 import com.github.diegoberaldin.metaphrase.core.common.coroutines.CoroutineDispatcherProvider
 import com.github.diegoberaldin.metaphrase.core.localization.localized
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
@@ -18,12 +17,14 @@ class DefaultNewGlossaryTermComponent(
     componentContext: ComponentContext,
     coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,
-) : NewGlossaryTermComponent, ComponentContext by componentContext {
+    private val mvi: DefaultMviModel<NewGlossaryTermComponent.ViewIntent, NewGlossaryTermComponent.UiState, NewGlossaryTermComponent.Effect> = DefaultMviModel(
+        NewGlossaryTermComponent.UiState(),
+    ),
+) : NewGlossaryTermComponent,
+    MviModel<NewGlossaryTermComponent.ViewIntent, NewGlossaryTermComponent.UiState, NewGlossaryTermComponent.Effect> by mvi,
+    ComponentContext by componentContext {
 
     private lateinit var viewModelScope: CoroutineScope
-
-    override val uiState = MutableStateFlow(NewGlossaryTermUiState())
-    override val done = MutableSharedFlow<GlossaryTermPair>()
 
     init {
         with(lifecycle) {
@@ -36,16 +37,24 @@ class DefaultNewGlossaryTermComponent(
         }
     }
 
-    override fun setSourceTerm(value: String) {
-        uiState.update { it.copy(sourceTerm = value) }
+    override fun reduce(intent: NewGlossaryTermComponent.ViewIntent) {
+        when (intent) {
+            is NewGlossaryTermComponent.ViewIntent.SetSourceTerm -> setSourceTerm(intent.value)
+            is NewGlossaryTermComponent.ViewIntent.SetTargetTerm -> setTargetTerm(intent.value)
+            NewGlossaryTermComponent.ViewIntent.Submit -> submit()
+        }
     }
 
-    override fun setTargetTerm(value: String) {
-        uiState.update { it.copy(targetTerm = value) }
+    private fun setSourceTerm(value: String) {
+        mvi.updateState { it.copy(sourceTerm = value) }
     }
 
-    override fun submit() {
-        uiState.update {
+    private fun setTargetTerm(value: String) {
+        mvi.updateState { it.copy(targetTerm = value) }
+    }
+
+    private fun submit() {
+        mvi.updateState {
             it.copy(
                 sourceTermError = "",
                 targetTermError = "",
@@ -55,11 +64,11 @@ class DefaultNewGlossaryTermComponent(
         val target = uiState.value.targetTerm.trim()
         var valid = true
         if (source.isEmpty()) {
-            uiState.update { it.copy(sourceTermError = "message_missing_field".localized()) }
+            mvi.updateState { it.copy(sourceTermError = "message_missing_field".localized()) }
             valid = false
         }
         if (target.isEmpty()) {
-            uiState.update { it.copy(targetTermError = "message_missing_field".localized()) }
+            mvi.updateState { it.copy(targetTermError = "message_missing_field".localized()) }
             valid = false
         }
         if (!valid) {
@@ -67,7 +76,8 @@ class DefaultNewGlossaryTermComponent(
         }
 
         viewModelScope.launch(dispatchers.io) {
-            done.emit(GlossaryTermPair(sourceLemma = source, targetLemma = target))
+            val res = GlossaryTermPair(sourceLemma = source, targetLemma = target)
+            mvi.emitEffect(NewGlossaryTermComponent.Effect.Done(res))
         }
     }
 }
