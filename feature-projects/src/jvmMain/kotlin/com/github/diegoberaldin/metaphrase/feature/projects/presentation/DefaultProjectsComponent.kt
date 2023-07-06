@@ -9,13 +9,13 @@ import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import com.arkivanov.essenty.lifecycle.doOnStart
+import com.github.diegoberaldin.metaphrase.core.common.architecture.DefaultMviModel
+import com.github.diegoberaldin.metaphrase.core.common.architecture.MviModel
 import com.github.diegoberaldin.metaphrase.core.common.coroutines.CoroutineDispatcherProvider
 import com.github.diegoberaldin.metaphrase.core.common.keystore.KeyStoreKeys
 import com.github.diegoberaldin.metaphrase.core.common.keystore.TemporaryKeyStore
 import com.github.diegoberaldin.metaphrase.core.common.utils.activeAsFlow
 import com.github.diegoberaldin.metaphrase.core.common.utils.getByInjection
-import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
-import com.github.diegoberaldin.metaphrase.domain.project.data.ProjectModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.ResourceFileType
 import com.github.diegoberaldin.metaphrase.domain.project.repository.ProjectRepository
 import com.github.diegoberaldin.metaphrase.domain.project.repository.RecentProjectRepository
@@ -26,16 +26,12 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
@@ -46,11 +42,16 @@ internal class DefaultProjectsComponent(
     private val componentContext: ComponentContext,
     private val coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,
+    private val mvi: DefaultMviModel<ProjectsComponent.ViewIntent, ProjectsComponent.UiState, ProjectsComponent.Effect> = DefaultMviModel(
+        ProjectsComponent.UiState(),
+    ),
     private val keyStore: TemporaryKeyStore,
     private val projectRepository: ProjectRepository,
     private val recentProjectRepository: RecentProjectRepository,
     private val openProjectUseCase: OpenProjectUseCase,
-) : ProjectsComponent, ComponentContext by componentContext {
+) : ProjectsComponent,
+    MviModel<ProjectsComponent.ViewIntent, ProjectsComponent.UiState, ProjectsComponent.Effect> by mvi,
+    ComponentContext by componentContext {
 
     private val navigation = StackNavigation<ProjectsComponent.Config>()
     private lateinit var viewModelScope: CoroutineScope
@@ -61,9 +62,6 @@ internal class DefaultProjectsComponent(
         handleBackButton = true,
         childFactory = ::createChild,
     )
-    override val activeProject = MutableStateFlow<ProjectModel?>(null)
-    override lateinit var isEditing: StateFlow<Boolean>
-    override lateinit var currentLanguage: StateFlow<LanguageModel?>
 
     init {
         with(lifecycle) {
@@ -74,20 +72,16 @@ internal class DefaultProjectsComponent(
                     .onEach { event ->
                         openProject(event.value.id)
                     }.launchIn(viewModelScope)
-                isEditing = childStack.activeAsFlow<TranslateComponent>(true, Duration.INFINITE).flatMapLatest {
+                childStack.activeAsFlow<TranslateComponent>(true, Duration.INFINITE).flatMapLatest {
                     it?.isEditing ?: snapshotFlow { false }
-                }.stateIn(
-                    scope = viewModelScope,
-                    started = SharingStarted.WhileSubscribed(5_000),
-                    initialValue = false,
-                )
-                currentLanguage = childStack.activeAsFlow<TranslateComponent>(true, Duration.INFINITE).flatMapLatest {
+                }.onEach { value ->
+                    mvi.updateState { it.copy(isEditing = value) }
+                }.launchIn(viewModelScope)
+                childStack.activeAsFlow<TranslateComponent>(true, Duration.INFINITE).flatMapLatest {
                     it?.currentLanguage ?: snapshotFlow { null }
-                }.stateIn(
-                    scope = viewModelScope,
-                    started = SharingStarted.WhileSubscribed(5_000),
-                    initialValue = null,
-                )
+                }.onEach { value ->
+                    mvi.updateState { it.copy(currentLanguage = value) }
+                }.launchIn(viewModelScope)
             }
             doOnStart {
                 viewModelScope.launch(dispatchers.io) {
@@ -106,13 +100,39 @@ internal class DefaultProjectsComponent(
         }
     }
 
-    override fun open(projectId: Int) {
+    override fun reduce(intent: ProjectsComponent.ViewIntent) {
+        when (intent) {
+            ProjectsComponent.ViewIntent.AddSegment -> addSegment()
+            ProjectsComponent.ViewIntent.CloseCurrentProject -> closeCurrentProject()
+            ProjectsComponent.ViewIntent.CopyBase -> copyBase()
+            ProjectsComponent.ViewIntent.DeleteSegment -> deleteSegment()
+            ProjectsComponent.ViewIntent.EndEditing -> endEditing()
+            is ProjectsComponent.ViewIntent.Export -> export(path = intent.path, type = intent.type)
+            is ProjectsComponent.ViewIntent.ExportTmx -> exportTmx(intent.path)
+            ProjectsComponent.ViewIntent.GlobalSpellcheck -> globalSpellcheck()
+            is ProjectsComponent.ViewIntent.Import -> import(path = intent.path, type = intent.type)
+            ProjectsComponent.ViewIntent.InsertBestMatch -> insertBestMatch()
+            ProjectsComponent.ViewIntent.MachineTranslationContributeTm -> machineTranslationContributeTm()
+            ProjectsComponent.ViewIntent.MachineTranslationCopyTarget -> machineTranslationCopyTarget()
+            ProjectsComponent.ViewIntent.MachineTranslationInsert -> machineTranslationInsert()
+            ProjectsComponent.ViewIntent.MachineTranslationRetrieve -> machineTranslationRetrieve()
+            ProjectsComponent.ViewIntent.MachineTranslationShare -> machineTranslationShare()
+            ProjectsComponent.ViewIntent.MoveToNext -> moveToNext()
+            ProjectsComponent.ViewIntent.MoveToPrevious -> moveToPrevious()
+            is ProjectsComponent.ViewIntent.Open -> open(intent.projectId)
+            is ProjectsComponent.ViewIntent.SaveCurrentProject -> saveCurrentProject(intent.path)
+            ProjectsComponent.ViewIntent.SyncWithTm -> syncWithTm()
+            ProjectsComponent.ViewIntent.ValidatePlaceholders -> validatePlaceholders()
+        }
+    }
+
+    private fun open(projectId: Int) {
         when (childStack.value.active.configuration) {
             is ProjectsComponent.Config.Detail -> {
                 viewModelScope.launch(dispatchers.io) {
                     val translateComponent = childStack.activeAsFlow<TranslateComponent>().firstOrNull()
                     if (translateComponent != null && translateComponent.projectId != projectId) {
-                        val current = activeProject.value
+                        val current = uiState.value.activeProject
                         if (current != null) {
                             projectRepository.delete(current)
                         }
@@ -123,7 +143,7 @@ internal class DefaultProjectsComponent(
                                 keyStore.save(KeyStoreKeys.LastOpenedProject, project.name)
                             }
                         }
-                        activeProject.value = project
+                        mvi.updateState { it.copy(activeProject = project) }
 
                         translateComponent.projectId = projectId
                     }
@@ -139,7 +159,7 @@ internal class DefaultProjectsComponent(
     }
 
     private suspend fun openProject(projectId: Int) {
-        if (activeProject.value?.id == projectId) {
+        if (uiState.value.activeProject?.id == projectId) {
             return
         }
 
@@ -149,7 +169,7 @@ internal class DefaultProjectsComponent(
                 keyStore.save(KeyStoreKeys.LastOpenedProject, project.name)
             }
         }
-        activeProject.value = project
+        mvi.updateState { it.copy(activeProject = project) }
         withContext(dispatchers.main) {
             navigation.push(ProjectsComponent.Config.Detail(projectId = projectId))
         }
@@ -169,22 +189,22 @@ internal class DefaultProjectsComponent(
         }
     }
 
-    override fun closeCurrentProject() {
+    private fun closeCurrentProject() {
         viewModelScope.launch(dispatchers.io) {
             keyStore.save(KeyStoreKeys.LastOpenedProject, "")
-            val current = activeProject.value
+            val current = uiState.value.activeProject
             if (current != null) {
                 projectRepository.delete(current)
             }
             projectRepository.setNeedsSaving(false)
-            activeProject.value = null
+            mvi.updateState { it.copy(activeProject = null) }
             withContext(dispatchers.main) {
                 navigation.pop()
             }
         }
     }
 
-    override fun saveCurrentProject(path: String) {
+    private fun saveCurrentProject(path: String) {
         viewModelScope.launch(dispatchers.io) {
             runCatching {
                 childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.save(path = path)
@@ -192,7 +212,7 @@ internal class DefaultProjectsComponent(
         }
     }
 
-    override fun import(path: String, type: ResourceFileType) {
+    private fun import(path: String, type: ResourceFileType) {
         viewModelScope.launch(dispatchers.io) {
             childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.import(
                 path = path,
@@ -201,7 +221,7 @@ internal class DefaultProjectsComponent(
         }
     }
 
-    override fun export(path: String, type: ResourceFileType) {
+    private fun export(path: String, type: ResourceFileType) {
         viewModelScope.launch(dispatchers.io) {
             childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.export(
                 path = path,
@@ -210,97 +230,97 @@ internal class DefaultProjectsComponent(
         }
     }
 
-    override fun moveToPrevious() {
+    private fun moveToPrevious() {
         viewModelScope.launch(dispatchers.io) {
             childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.moveToPrevious()
         }
     }
 
-    override fun moveToNext() {
+    private fun moveToNext() {
         viewModelScope.launch(dispatchers.io) {
             childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.moveToNext()
         }
     }
 
-    override fun endEditing() {
+    private fun endEditing() {
         viewModelScope.launch(dispatchers.io) {
             childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.endEditing()
         }
     }
 
-    override fun copyBase() {
+    private fun copyBase() {
         viewModelScope.launch(dispatchers.io) {
             childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.copyBase()
         }
     }
 
-    override fun addSegment() {
+    private fun addSegment() {
         viewModelScope.launch(dispatchers.io) {
             childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.addSegment()
         }
     }
 
-    override fun deleteSegment() {
+    private fun deleteSegment() {
         viewModelScope.launch(dispatchers.io) {
             childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.deleteSegment()
         }
     }
 
-    override fun exportTmx(path: String) {
+    private fun exportTmx(path: String) {
         viewModelScope.launch(dispatchers.io) {
             childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.exportTmx(path = path)
         }
     }
 
-    override fun syncWithTm() {
+    private fun syncWithTm() {
         viewModelScope.launch(dispatchers.io) {
             childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.syncWithTm()
         }
     }
 
-    override fun validatePlaceholders() {
+    private fun validatePlaceholders() {
         viewModelScope.launch(dispatchers.io) {
             childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.validatePlaceholders()
         }
     }
 
-    override fun insertBestMatch() {
+    private fun insertBestMatch() {
         viewModelScope.launch(dispatchers.io) {
             childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.insertBestMatch()
         }
     }
 
-    override fun globalSpellcheck() {
+    private fun globalSpellcheck() {
         viewModelScope.launch(dispatchers.io) {
             childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.globalSpellcheck()
         }
     }
 
-    override fun machineTranslationRetrieve() {
+    private fun machineTranslationRetrieve() {
         viewModelScope.launch(dispatchers.io) {
             childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.machineTranslationRetrieve()
         }
     }
 
-    override fun machineTranslationInsert() {
+    private fun machineTranslationInsert() {
         viewModelScope.launch(dispatchers.io) {
             childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.machineTranslationInsert()
         }
     }
 
-    override fun machineTranslationCopyTarget() {
+    private fun machineTranslationCopyTarget() {
         viewModelScope.launch(dispatchers.io) {
             childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.machineTranslationCopyTarget()
         }
     }
 
-    override fun machineTranslationShare() {
+    private fun machineTranslationShare() {
         viewModelScope.launch(dispatchers.io) {
             childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.machineTranslationShare()
         }
     }
 
-    override fun machineTranslationContributeTm() {
+    private fun machineTranslationContributeTm() {
         viewModelScope.launch(dispatchers.io) {
             childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.machineTranslationContributeTm()
         }

@@ -19,8 +19,6 @@ import com.github.diegoberaldin.metaphrase.core.common.utils.getByInjection
 import com.github.diegoberaldin.metaphrase.domain.glossary.usecase.ClearGlossaryUseCase
 import com.github.diegoberaldin.metaphrase.domain.glossary.usecase.ExportGlossaryUseCase
 import com.github.diegoberaldin.metaphrase.domain.glossary.usecase.ImportGlossaryUseCase
-import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
-import com.github.diegoberaldin.metaphrase.domain.project.data.ProjectModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.RecentProjectModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.ResourceFileType
 import com.github.diegoberaldin.metaphrase.domain.project.repository.ProjectRepository
@@ -37,15 +35,12 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.awt.Desktop
@@ -85,9 +80,6 @@ internal class DefaultRootComponent(
 
     private val mainNavigation = SlotNavigation<RootComponent.Config>()
     private val dialogNavigation = SlotNavigation<RootComponent.DialogConfig>()
-    private lateinit var activeProject: StateFlow<ProjectModel?>
-    private lateinit var isEditing: StateFlow<Boolean>
-    private lateinit var currentLanguage: StateFlow<LanguageModel?>
     private var projectIdToOpen: Int? = null
 
     override val main: Value<ChildSlot<RootComponent.Config, *>> = childSlot(
@@ -105,36 +97,18 @@ internal class DefaultRootComponent(
         with(lifecycle) {
             doOnCreate {
                 viewModelScope = CoroutineScope(coroutineContext + SupervisorJob())
-                activeProject = main.asFlow<ProjectsComponent>(true, timeout = Duration.INFINITE).flatMapLatest {
-                    it?.activeProject ?: snapshotFlow { null }
-                }.stateIn(
-                    scope = viewModelScope,
-                    started = SharingStarted.WhileSubscribed(5_000),
-                    initialValue = null,
-                )
-                isEditing = main.asFlow<ProjectsComponent>(true, timeout = Duration.INFINITE).flatMapLatest {
-                    it?.isEditing ?: snapshotFlow { false }
-                }.stateIn(
-                    scope = viewModelScope,
-                    started = SharingStarted.WhileSubscribed(5_000),
-                    initialValue = false,
-                )
-                currentLanguage = main.asFlow<ProjectsComponent>(true, timeout = Duration.INFINITE).flatMapLatest {
-                    it?.currentLanguage ?: snapshotFlow { null }
-                }.stateIn(
-                    scope = viewModelScope,
-                    started = SharingStarted.WhileSubscribed(5_000),
-                    initialValue = null,
-                )
-                activeProject.onEach { proj ->
-                    mvi.updateState { it.copy(activeProject = proj) }
-                }.launchIn(viewModelScope)
-                currentLanguage.onEach { lang ->
-                    mvi.updateState { it.copy(currentLanguage = lang) }
-                }.launchIn(viewModelScope)
-                isEditing.onEach { editing ->
-                    mvi.updateState { it.copy(isEditing = editing) }
-                }.launchIn(viewModelScope)
+
+                main.asFlow<ProjectsComponent>(true, timeout = Duration.INFINITE)
+                    .flatMapLatest { it?.uiState ?: snapshotFlow { ProjectsComponent.UiState() } }
+                    .onEach { projectsUiState ->
+                        mvi.updateState {
+                            it.copy(
+                                isEditing = projectsUiState.isEditing,
+                                activeProject = projectsUiState.activeProject,
+                                currentLanguage = projectsUiState.currentLanguage,
+                            )
+                        }
+                    }.launchIn(viewModelScope)
 
                 // initial cleanup
                 viewModelScope.launch {
@@ -156,7 +130,7 @@ internal class DefaultRootComponent(
                         main.asFlow<ProjectsComponent>(timeout = Duration.INFINITE).onEach { child ->
                             val projectId = projectIdToOpen
                             if (child != null && projectId != null) {
-                                child.open(projectId)
+                                child.reduce(ProjectsComponent.ViewIntent.Open(projectId))
                                 projectIdToOpen = null
                             }
                         }.launchIn(this)
@@ -261,7 +235,7 @@ internal class DefaultRootComponent(
 
                             when (val child = main.asFlow<Any>().firstOrNull()) {
                                 is ProjectsComponent -> {
-                                    child.open(projectId)
+                                    child.reduce(ProjectsComponent.ViewIntent.Open(projectId))
                                 }
 
                                 is IntroComponent -> {
@@ -279,7 +253,7 @@ internal class DefaultRootComponent(
 
             is RootComponent.DialogConfig.EditDialog -> {
                 getByInjection<CreateProjectComponent>(componentContext, coroutineContext).apply {
-                    projectId = activeProject.value?.id ?: 0
+                    projectId = this@DefaultRootComponent.uiState.value.activeProject?.id ?: 0
                     effects.filterIsInstance<CreateProjectComponent.Effect.Done>().onEach {
                         withContext(dispatchers.main) {
                             closeDialog()
@@ -290,7 +264,7 @@ internal class DefaultRootComponent(
 
             is RootComponent.DialogConfig.StatisticsDialog -> {
                 getByInjection<StatisticsComponent>(componentContext, coroutineContext).apply {
-                    projectId = activeProject.value?.id ?: 0
+                    projectId = this@DefaultRootComponent.uiState.value.activeProject?.id ?: 0
                 }
             }
 
@@ -320,7 +294,7 @@ internal class DefaultRootComponent(
     }
 
     private fun openEditProject() {
-        val projectId = activeProject.value?.id
+        val projectId = uiState.value.activeProject?.id
         if (projectId != null) {
             viewModelScope.launch(dispatchers.main) {
                 dialogNavigation.activate(RootComponent.DialogConfig.EditDialog)
@@ -329,7 +303,7 @@ internal class DefaultRootComponent(
     }
 
     private fun saveProjectAs() {
-        val name = activeProject.value?.name
+        val name = uiState.value.activeProject?.name
         if (name != null) {
             viewModelScope.launch(dispatchers.main) {
                 dialogNavigation.activate(RootComponent.DialogConfig.SaveAsDialog(name = name))
@@ -339,17 +313,19 @@ internal class DefaultRootComponent(
 
     private fun saveProject(path: String) {
         viewModelScope.launch(dispatchers.io) {
-            main.asFlow<ProjectsComponent>().firstOrNull()?.saveCurrentProject(path = path)
+            main.asFlow<ProjectsComponent>().firstOrNull()
+                ?.reduce(ProjectsComponent.ViewIntent.SaveCurrentProject(path = path))
         }
     }
 
     private fun saveCurrentProject() {
         viewModelScope.launch(dispatchers.io) {
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
-            val recentProjectModel = recentProjectRepository.getByName(activeProject.value?.name.orEmpty())
+            val recentProjectModel = recentProjectRepository.getByName(uiState.value.activeProject?.name.orEmpty())
             if (recentProjectModel != null) {
                 val path = recentProjectModel.path
-                main.asFlow<ProjectsComponent>().firstOrNull()?.saveCurrentProject(path = path)
+                main.asFlow<ProjectsComponent>().firstOrNull()
+                    ?.reduce(ProjectsComponent.ViewIntent.SaveCurrentProject(path = path))
             } else {
                 saveProjectAs()
             }
@@ -399,7 +375,7 @@ internal class DefaultRootComponent(
     private fun confirmCloseCurrentProject(openAfter: Boolean, newAfter: Boolean) {
         projectIdToOpen = null
         viewModelScope.launch(dispatchers.io) {
-            main.asFlow<ProjectsComponent>().firstOrNull()?.closeCurrentProject()
+            main.asFlow<ProjectsComponent>().firstOrNull()?.reduce(ProjectsComponent.ViewIntent.CloseCurrentProject)
             projectRepository.setNeedsSaving(false)
 
             // if no more projects, goes back to intro
@@ -431,55 +407,59 @@ internal class DefaultRootComponent(
 
     private fun import(path: String, type: ResourceFileType) {
         viewModelScope.launch(dispatchers.io) {
-            main.asFlow<ProjectsComponent>().firstOrNull()?.import(
-                path = path,
-                type = type,
+            main.asFlow<ProjectsComponent>().firstOrNull()?.reduce(
+                ProjectsComponent.ViewIntent.Import(
+                    path = path,
+                    type = type,
+                ),
             )
         }
     }
 
     private fun export(path: String, type: ResourceFileType) {
         viewModelScope.launch(dispatchers.io) {
-            main.asFlow<ProjectsComponent>().firstOrNull()?.export(
-                path = path,
-                type = type,
+            main.asFlow<ProjectsComponent>().firstOrNull()?.reduce(
+                ProjectsComponent.ViewIntent.Export(
+                    path = path,
+                    type = type,
+                ),
             )
         }
     }
 
     private fun moveToPreviousSegment() {
         viewModelScope.launch(dispatchers.io) {
-            main.asFlow<ProjectsComponent>().firstOrNull()?.moveToPrevious()
+            main.asFlow<ProjectsComponent>().firstOrNull()?.reduce(ProjectsComponent.ViewIntent.MoveToPrevious)
         }
     }
 
     private fun moveToNextSegment() {
         viewModelScope.launch(dispatchers.io) {
-            main.asFlow<ProjectsComponent>().firstOrNull()?.moveToNext()
+            main.asFlow<ProjectsComponent>().firstOrNull()?.reduce(ProjectsComponent.ViewIntent.MoveToNext)
         }
     }
 
     private fun endEditing() {
         viewModelScope.launch(dispatchers.io) {
-            main.asFlow<ProjectsComponent>().firstOrNull()?.endEditing()
+            main.asFlow<ProjectsComponent>().firstOrNull()?.reduce(ProjectsComponent.ViewIntent.EndEditing)
         }
     }
 
     private fun copyBase() {
         viewModelScope.launch(dispatchers.io) {
-            main.asFlow<ProjectsComponent>().firstOrNull()?.copyBase()
+            main.asFlow<ProjectsComponent>().firstOrNull()?.reduce(ProjectsComponent.ViewIntent.CopyBase)
         }
     }
 
     private fun addSegment() {
         viewModelScope.launch(dispatchers.io) {
-            main.asFlow<ProjectsComponent>().firstOrNull()?.addSegment()
+            main.asFlow<ProjectsComponent>().firstOrNull()?.reduce(ProjectsComponent.ViewIntent.AddSegment)
         }
     }
 
     private fun deleteSegment() {
         viewModelScope.launch(dispatchers.io) {
-            main.asFlow<ProjectsComponent>().firstOrNull()?.deleteSegment()
+            main.asFlow<ProjectsComponent>().firstOrNull()?.reduce(ProjectsComponent.ViewIntent.DeleteSegment)
         }
     }
 
@@ -503,7 +483,7 @@ internal class DefaultRootComponent(
 
     private fun exportTmx(path: String) {
         viewModelScope.launch(dispatchers.io) {
-            main.asFlow<ProjectsComponent>().firstOrNull()?.exportTmx(path = path)
+            main.asFlow<ProjectsComponent>().firstOrNull()?.reduce(ProjectsComponent.ViewIntent.ExportTmx(path = path))
         }
     }
 
@@ -531,25 +511,25 @@ internal class DefaultRootComponent(
 
     private fun syncTm() {
         viewModelScope.launch(dispatchers.io) {
-            main.asFlow<ProjectsComponent>().firstOrNull()?.syncWithTm()
+            main.asFlow<ProjectsComponent>().firstOrNull()?.reduce(ProjectsComponent.ViewIntent.SyncWithTm)
         }
     }
 
     private fun validatePlaceholders() {
         viewModelScope.launch(dispatchers.io) {
-            main.asFlow<ProjectsComponent>().firstOrNull()?.validatePlaceholders()
+            main.asFlow<ProjectsComponent>().firstOrNull()?.reduce(ProjectsComponent.ViewIntent.ValidatePlaceholders)
         }
     }
 
     private fun insertBestMatch() {
         viewModelScope.launch(dispatchers.io) {
-            main.asFlow<ProjectsComponent>().firstOrNull()?.insertBestMatch()
+            main.asFlow<ProjectsComponent>().firstOrNull()?.reduce(ProjectsComponent.ViewIntent.InsertBestMatch)
         }
     }
 
     private fun globalSpellcheck() {
         viewModelScope.launch(dispatchers.io) {
-            main.asFlow<ProjectsComponent>().firstOrNull()?.globalSpellcheck()
+            main.asFlow<ProjectsComponent>().firstOrNull()?.reduce(ProjectsComponent.ViewIntent.GlobalSpellcheck)
         }
     }
 
@@ -585,31 +565,35 @@ internal class DefaultRootComponent(
 
     private fun machineTranslationRetrieve() {
         viewModelScope.launch(dispatchers.io) {
-            main.asFlow<ProjectsComponent>().firstOrNull()?.machineTranslationRetrieve()
+            main.asFlow<ProjectsComponent>().firstOrNull()
+                ?.reduce(ProjectsComponent.ViewIntent.MachineTranslationRetrieve)
         }
     }
 
     private fun machineTranslationInsert() {
         viewModelScope.launch(dispatchers.io) {
-            main.asFlow<ProjectsComponent>().firstOrNull()?.machineTranslationInsert()
+            main.asFlow<ProjectsComponent>().firstOrNull()
+                ?.reduce(ProjectsComponent.ViewIntent.MachineTranslationInsert)
         }
     }
 
     private fun machineTranslationCopyTarget() {
         viewModelScope.launch(dispatchers.io) {
-            main.asFlow<ProjectsComponent>().firstOrNull()?.machineTranslationCopyTarget()
+            main.asFlow<ProjectsComponent>().firstOrNull()
+                ?.reduce(ProjectsComponent.ViewIntent.MachineTranslationCopyTarget)
         }
     }
 
     private fun machineTranslationShare() {
         viewModelScope.launch(dispatchers.io) {
-            main.asFlow<ProjectsComponent>().firstOrNull()?.machineTranslationShare()
+            main.asFlow<ProjectsComponent>().firstOrNull()?.reduce(ProjectsComponent.ViewIntent.MachineTranslationShare)
         }
     }
 
     private fun machineTranslationContributeTm() {
         viewModelScope.launch(dispatchers.io) {
-            main.asFlow<ProjectsComponent>().firstOrNull()?.machineTranslationContributeTm()
+            main.asFlow<ProjectsComponent>().firstOrNull()
+                ?.reduce(ProjectsComponent.ViewIntent.MachineTranslationContributeTm)
         }
     }
 
