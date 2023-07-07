@@ -1,50 +1,75 @@
 package com.github.diegoberaldin.metaphrase.feature.translate.panel.glossary.presentation
 
+import com.github.diegoberaldin.metaphrase.core.common.architecture.MviModel
 import com.github.diegoberaldin.metaphrase.domain.glossary.data.GlossaryTermModel
-import kotlinx.coroutines.flow.StateFlow
 
 /**
  * Glossary component.
  */
-interface GlossaryComponent {
-    /**
-     * UI state
-     */
-    val uiState: StateFlow<GlossaryUiState>
+interface GlossaryComponent :
+    MviModel<GlossaryComponent.ViewIntent, GlossaryComponent.UiState, GlossaryComponent.Effect> {
 
     /**
-     * Clear the section content.
+     * View intents.
      */
-    fun clear()
+    sealed interface ViewIntent {
+        /**
+         * Clear the section content.
+         */
+        object Clear : ViewIntent
+
+        /**
+         * Load the glossary terms for the message with a given key..
+         *
+         * @param key message key
+         * @param projectId Project ID
+         * @param languageId Language ID
+         */
+        data class Load(val key: String, val projectId: Int, val languageId: Int) : ViewIntent
+
+        /**
+         * Add a source term.
+         *
+         * @param lemma source lemma
+         */
+        data class AddSourceTerm(val lemma: String) : ViewIntent
+
+        /**
+         * Add a target term.
+         *
+         * @param lemma target lemma
+         * @param source source term
+         */
+        data class AddTargetTerm(val lemma: String, val source: GlossaryTermModel) : ViewIntent
+
+        /**
+         * Delete a term.
+         *
+         * @param term term to delete
+         */
+        data class DeleteTerm(val term: GlossaryTermModel) : ViewIntent
+    }
 
     /**
-     * Load the glossary terms for the message with a given key..
+     * Glossary panel UI state.
      *
-     * @param key message key
-     * @param projectId Project ID
-     * @param languageId Language ID
+     * @property sourceFlag flag of the source language
+     * @property targetFlag flag of the target language
+     * @property isLoading indicating whether there is a background operation in progress
+     * @property isBaseLanguage indicating whether this is the base (deprecated) glossary panel, now it is displayed only for target languages
+     * @property terms terms to show (1 source term for _n_ target terms)
+     * @constructor Create [UiState]
      */
-    fun load(key: String, projectId: Int, languageId: Int)
+    data class UiState(
+        val sourceFlag: String = "",
+        val targetFlag: String = "",
+        val isLoading: Boolean = false,
+        val isBaseLanguage: Boolean = false,
+        val terms: List<Pair<GlossaryTermModel, List<GlossaryTermModel>>> = emptyList(),
+    )
 
     /**
-     * Add a source term.
-     *
-     * @param lemma source lemma
+     * Effects.
      */
-    fun addSourceTerm(lemma: String)
-
-    /**
-     * Add a target term.
-     *
-     * @param lemma target lemma
-     * @param source source term
-     */
-    fun addTargetTerm(lemma: String, source: GlossaryTermModel)
-
-    /**
-     * Delete a term.
-     *
-     * @param term term to delete
-     */
-    fun deleteTerm(term: GlossaryTermModel)
+    sealed interface Effect
 }
