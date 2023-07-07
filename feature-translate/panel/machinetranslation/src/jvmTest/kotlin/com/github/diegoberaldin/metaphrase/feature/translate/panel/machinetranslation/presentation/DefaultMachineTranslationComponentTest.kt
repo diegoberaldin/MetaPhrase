@@ -20,9 +20,8 @@ import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertIs
 import kotlin.test.assertNotEquals
-import kotlin.test.assertNotNull
-import kotlin.test.assertTrue
 
 class DefaultMachineTranslationComponentTest {
     private val lifecycle = LifecycleRegistry()
@@ -58,8 +57,8 @@ class DefaultMachineTranslationComponentTest {
         } returns "suggestion"
         lifecycle.create()
 
-        sut.load(key = "key", projectId = 1, languageId = 1)
-        sut.retrieve()
+        sut.reduce(MachineTranslationComponent.ViewIntent.Load(key = "key", projectId = 1, languageId = 1))
+        sut.reduce(MachineTranslationComponent.ViewIntent.Retrieve)
 
         val uiState = sut.uiState.value
         assertEquals("suggestion", uiState.translation)
@@ -89,9 +88,9 @@ class DefaultMachineTranslationComponentTest {
             )
         } returns "suggestion"
         lifecycle.create()
-        sut.load(key = "key", projectId = 1, languageId = 1)
+        sut.reduce(MachineTranslationComponent.ViewIntent.Load(key = "key", projectId = 1, languageId = 1))
 
-        sut.setTranslation("translation")
+        sut.reduce(MachineTranslationComponent.ViewIntent.SetTranslation("translation"))
 
         val uiState = sut.uiState.value
         assertEquals("translation", uiState.translation)
@@ -112,12 +111,12 @@ class DefaultMachineTranslationComponentTest {
             )
         } returns "suggestion"
         lifecycle.create()
-        sut.load(key = "key", projectId = 1, languageId = 1)
+        sut.reduce(MachineTranslationComponent.ViewIntent.Load(key = "key", projectId = 1, languageId = 1))
 
-        sut.copyTargetEvents.test {
-            sut.copyTarget()
+        sut.effects.test {
+            sut.reduce(MachineTranslationComponent.ViewIntent.CopyTarget)
             val item = awaitItem()
-            assertNotNull(item)
+            assertIs<MachineTranslationComponent.Effect.CopyTarget>(item)
         }
     }
 
@@ -136,10 +135,10 @@ class DefaultMachineTranslationComponentTest {
             )
         } returns "suggestion"
         lifecycle.create()
-        sut.load(key = "key", projectId = 1, languageId = 1)
+        sut.reduce(MachineTranslationComponent.ViewIntent.Load(key = "key", projectId = 1, languageId = 1))
         val stateBefore = sut.uiState.value
 
-        sut.copyTranslation("translation")
+        sut.reduce(MachineTranslationComponent.ViewIntent.CopyTranslation("translation"))
 
         val stateAfter = sut.uiState.value
         assertNotEquals(stateAfter.updateTextSwitch, stateBefore.updateTextSwitch)
@@ -161,14 +160,15 @@ class DefaultMachineTranslationComponentTest {
             )
         } returns "suggestion"
         lifecycle.create()
-        sut.load(key = "key", projectId = 1, languageId = 1)
+        sut.reduce(MachineTranslationComponent.ViewIntent.Load(key = "key", projectId = 1, languageId = 1))
 
-        sut.setTranslation("translation")
+        sut.reduce(MachineTranslationComponent.ViewIntent.SetTranslation("translation"))
 
-        sut.copySourceEvents.test {
-            sut.insertTranslation()
+        sut.effects.test {
+            sut.reduce(MachineTranslationComponent.ViewIntent.InsertTranslation)
             val item = awaitItem()
-            assertEquals("translation", item)
+            assertIs<MachineTranslationComponent.Effect.CopySource>(item)
+            assertEquals("translation", item.value)
         }
     }
 
@@ -190,13 +190,13 @@ class DefaultMachineTranslationComponentTest {
             )
         } returns Unit
         lifecycle.create()
-        sut.load(key = "key", projectId = 1, languageId = 1)
-        sut.setTranslation("translation")
+        sut.reduce(MachineTranslationComponent.ViewIntent.Load(key = "key", projectId = 1, languageId = 1))
+        sut.reduce(MachineTranslationComponent.ViewIntent.SetTranslation("translation"))
 
-        sut.shareEvents.test {
-            sut.share()
+        sut.effects.test {
+            sut.reduce(MachineTranslationComponent.ViewIntent.Share)
             val item = awaitItem()
-            assertTrue(item)
+            assertIs<MachineTranslationComponent.Effect.Share>(item)
         }
 
         coVerify {
