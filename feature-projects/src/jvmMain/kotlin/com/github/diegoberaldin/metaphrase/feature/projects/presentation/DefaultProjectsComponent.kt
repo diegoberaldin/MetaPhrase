@@ -73,14 +73,14 @@ internal class DefaultProjectsComponent(
                         openProject(event.value.id)
                     }.launchIn(viewModelScope)
                 childStack.activeAsFlow<TranslateComponent>(true, Duration.INFINITE).flatMapLatest {
-                    it?.isEditing ?: snapshotFlow { false }
-                }.onEach { value ->
-                    mvi.updateState { it.copy(isEditing = value) }
+                    it?.uiState ?: snapshotFlow { null }
+                }.onEach { state ->
+                    mvi.updateState { it.copy(isEditing = state?.isEditing == true) }
                 }.launchIn(viewModelScope)
                 childStack.activeAsFlow<TranslateComponent>(true, Duration.INFINITE).flatMapLatest {
-                    it?.currentLanguage ?: snapshotFlow { null }
-                }.onEach { value ->
-                    mvi.updateState { it.copy(currentLanguage = value) }
+                    it?.uiState ?: snapshotFlow { null }
+                }.onEach { state ->
+                    mvi.updateState { it.copy(currentLanguage = state?.currentLanguage) }
                 }.launchIn(viewModelScope)
             }
             doOnStart {
@@ -207,122 +207,142 @@ internal class DefaultProjectsComponent(
     private fun saveCurrentProject(path: String) {
         viewModelScope.launch(dispatchers.io) {
             runCatching {
-                childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.save(path = path)
+                childStack.activeAsFlow<TranslateComponent>().firstOrNull()
+                    ?.reduce(TranslateComponent.ViewIntent.Save(path = path))
             }
         }
     }
 
     private fun import(path: String, type: ResourceFileType) {
         viewModelScope.launch(dispatchers.io) {
-            childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.import(
-                path = path,
-                type = type,
+            childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.reduce(
+                TranslateComponent.ViewIntent.Import(
+                    path = path,
+                    type = type,
+                ),
             )
         }
     }
 
     private fun export(path: String, type: ResourceFileType) {
         viewModelScope.launch(dispatchers.io) {
-            childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.export(
-                path = path,
-                type = type,
+            childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.reduce(
+                TranslateComponent.ViewIntent.Export(
+                    path = path,
+                    type = type,
+                ),
             )
         }
     }
 
     private fun moveToPrevious() {
         viewModelScope.launch(dispatchers.io) {
-            childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.moveToPrevious()
+            childStack.activeAsFlow<TranslateComponent>().firstOrNull()
+                ?.reduce(TranslateComponent.ViewIntent.MoveToPrevious)
         }
     }
 
     private fun moveToNext() {
         viewModelScope.launch(dispatchers.io) {
-            childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.moveToNext()
+            childStack.activeAsFlow<TranslateComponent>().firstOrNull()
+                ?.reduce(TranslateComponent.ViewIntent.MoveToNext)
         }
     }
 
     private fun endEditing() {
         viewModelScope.launch(dispatchers.io) {
-            childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.endEditing()
+            childStack.activeAsFlow<TranslateComponent>().firstOrNull()
+                ?.reduce(TranslateComponent.ViewIntent.EndEditing)
         }
     }
 
     private fun copyBase() {
         viewModelScope.launch(dispatchers.io) {
-            childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.copyBase()
+            childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.reduce(TranslateComponent.ViewIntent.CopyBase)
         }
     }
 
     private fun addSegment() {
         viewModelScope.launch(dispatchers.io) {
-            childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.addSegment()
+            childStack.activeAsFlow<TranslateComponent>().firstOrNull()
+                ?.reduce(TranslateComponent.ViewIntent.AddSegment)
         }
     }
 
     private fun deleteSegment() {
         viewModelScope.launch(dispatchers.io) {
-            childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.deleteSegment()
+            childStack.activeAsFlow<TranslateComponent>().firstOrNull()
+                ?.reduce(TranslateComponent.ViewIntent.DeleteSegment)
         }
     }
 
     private fun exportTmx(path: String) {
         viewModelScope.launch(dispatchers.io) {
-            childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.exportTmx(path = path)
+            childStack.activeAsFlow<TranslateComponent>().firstOrNull()
+                ?.reduce(TranslateComponent.ViewIntent.ExportTmx(path = path))
         }
     }
 
     private fun syncWithTm() {
         viewModelScope.launch(dispatchers.io) {
-            childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.syncWithTm()
+            childStack.activeAsFlow<TranslateComponent>().firstOrNull()
+                ?.reduce(TranslateComponent.ViewIntent.SyncWithTm)
         }
     }
 
     private fun validatePlaceholders() {
         viewModelScope.launch(dispatchers.io) {
-            childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.validatePlaceholders()
+            childStack.activeAsFlow<TranslateComponent>().firstOrNull()
+                ?.reduce(TranslateComponent.ViewIntent.ValidatePlaceholders)
         }
     }
 
     private fun insertBestMatch() {
         viewModelScope.launch(dispatchers.io) {
-            childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.insertBestMatch()
+            childStack.activeAsFlow<TranslateComponent>().firstOrNull()
+                ?.reduce(TranslateComponent.ViewIntent.InsertBestMatch)
         }
     }
 
     private fun globalSpellcheck() {
         viewModelScope.launch(dispatchers.io) {
-            childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.globalSpellcheck()
+            childStack.activeAsFlow<TranslateComponent>().firstOrNull()
+                ?.reduce(TranslateComponent.ViewIntent.GlobalSpellcheck)
         }
     }
 
     private fun machineTranslationRetrieve() {
         viewModelScope.launch(dispatchers.io) {
-            childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.machineTranslationRetrieve()
+            childStack.activeAsFlow<TranslateComponent>().firstOrNull()
+                ?.reduce(TranslateComponent.ViewIntent.MachineTranslationRetrieve)
         }
     }
 
     private fun machineTranslationInsert() {
         viewModelScope.launch(dispatchers.io) {
-            childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.machineTranslationInsert()
+            childStack.activeAsFlow<TranslateComponent>().firstOrNull()
+                ?.reduce(TranslateComponent.ViewIntent.MachineTranslationInsert)
         }
     }
 
     private fun machineTranslationCopyTarget() {
         viewModelScope.launch(dispatchers.io) {
-            childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.machineTranslationCopyTarget()
+            childStack.activeAsFlow<TranslateComponent>().firstOrNull()
+                ?.reduce(TranslateComponent.ViewIntent.MachineTranslationCopyTarget)
         }
     }
 
     private fun machineTranslationShare() {
         viewModelScope.launch(dispatchers.io) {
-            childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.machineTranslationShare()
+            childStack.activeAsFlow<TranslateComponent>().firstOrNull()
+                ?.reduce(TranslateComponent.ViewIntent.MachineTranslationShare)
         }
     }
 
     private fun machineTranslationContributeTm() {
         viewModelScope.launch(dispatchers.io) {
-            childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.machineTranslationContributeTm()
+            childStack.activeAsFlow<TranslateComponent>().firstOrNull()
+                ?.reduce(TranslateComponent.ViewIntent.MachineTranslationContributeTm)
         }
     }
 }

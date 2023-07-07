@@ -10,6 +10,8 @@ import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import com.arkivanov.essenty.lifecycle.doOnStart
+import com.github.diegoberaldin.metaphrase.core.common.architecture.DefaultMviModel
+import com.github.diegoberaldin.metaphrase.core.common.architecture.MviModel
 import com.github.diegoberaldin.metaphrase.core.common.coroutines.CoroutineDispatcherProvider
 import com.github.diegoberaldin.metaphrase.core.common.keystore.KeyStoreKeys
 import com.github.diegoberaldin.metaphrase.core.common.keystore.TemporaryKeyStore
@@ -56,21 +58,15 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flatMapConcat
-import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -82,6 +78,9 @@ internal class DefaultTranslateComponent(
     componentContext: ComponentContext,
     private val coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,
+    private val mvi: DefaultMviModel<TranslateComponent.ViewIntent, TranslateComponent.UiState, TranslateComponent.Effect> = DefaultMviModel(
+        TranslateComponent.UiState(),
+    ),
     private val projectRepository: ProjectRepository,
     private val recentProjectRepository: RecentProjectRepository,
     private val languageRepository: LanguageRepository,
@@ -98,7 +97,9 @@ internal class DefaultTranslateComponent(
     private val machineTranslationRepository: MachineTranslationRepository,
     private val notificationCenter: NotificationCenter,
     private val keyStore: TemporaryKeyStore,
-) : TranslateComponent, ComponentContext by componentContext {
+) : TranslateComponent,
+    MviModel<TranslateComponent.ViewIntent, TranslateComponent.UiState, TranslateComponent.Effect> by mvi,
+    ComponentContext by componentContext {
 
     private val toolbarNavigation = SlotNavigation<ToolbarConfig>()
     private val messageListNavigation = SlotNavigation<MessageListConfig>()
@@ -113,7 +114,6 @@ internal class DefaultTranslateComponent(
             loadProject()
         }
 
-    override val uiState = MutableStateFlow(TranslateUiState())
     override val toolbar: Value<ChildSlot<ToolbarConfig, TranslateToolbarComponent>> = childSlot(
         source = toolbarNavigation,
         key = KEY_TOOLBAR_SLOT,
@@ -139,14 +139,6 @@ internal class DefaultTranslateComponent(
         childFactory = ::createDialogComponent,
     )
 
-    @OptIn(ExperimentalCoroutinesApi::class)
-    override val isEditing: StateFlow<Boolean>
-        get() = messageList.asFlow<MessageListComponent>().filterNotNull().flatMapLatest { it.editedSegment }
-            .map { it != null }
-            .stateIn(viewModelScope, initialValue = false, started = SharingStarted.WhileSubscribed(5000))
-
-    override lateinit var currentLanguage: StateFlow<LanguageModel?>
-
     private suspend fun getCurrentLanguage(): LanguageModel? =
         toolbar.asFlow<TranslateToolbarComponent>().firstOrNull()?.uiState?.value?.currentLanguage
 
@@ -154,19 +146,21 @@ internal class DefaultTranslateComponent(
         with(lifecycle) {
             doOnCreate {
                 viewModelScope = CoroutineScope(coroutineContext + SupervisorJob())
-                currentLanguage = toolbar.asFlow<TranslateToolbarComponent>()
-                    .flatMapConcat { it?.uiState ?: snapshotFlow { null } }.map { it?.currentLanguage }.stateIn(
-                        scope = viewModelScope,
-                        started = SharingStarted.WhileSubscribed(5_000),
-                        initialValue = null,
-                    )
+                toolbar.asFlow<TranslateToolbarComponent>()
+                    .flatMapConcat { it?.uiState ?: snapshotFlow { null } }.map { it?.currentLanguage }.onEach { lang ->
+                        mvi.updateState { it.copy(currentLanguage = lang) }
+                    }.launchIn(viewModelScope)
+                messageList.asFlow<MessageListComponent>().flatMapConcat { it?.editedSegment ?: snapshotFlow { null } }
+                    .onEach { message ->
+                        mvi.updateState { it.copy(isEditing = message != null) }
+                    }.launchIn(viewModelScope)
                 viewModelScope.launch {
                     configureToolbar()
                     configureMessageList()
                     configurePanel()
                 }
                 projectRepository.observeNeedsSaving().onEach { needsSaving ->
-                    uiState.update { it.copy(needsSaving = needsSaving) }
+                    mvi.updateState { it.copy(needsSaving = needsSaving) }
                 }.launchIn(viewModelScope)
 
                 toolbarNavigation.activate(ToolbarConfig)
@@ -180,7 +174,7 @@ internal class DefaultTranslateComponent(
                     projectRepository.observeById(projectId).onEach { proj ->
                         val currentProjectName = uiState.value.project?.name
                         if (proj.name != currentProjectName) {
-                            uiState.update { it.copy(project = proj) }
+                            mvi.updateState { it.copy(project = proj) }
                         }
                     }.launchIn(this)
                 }
@@ -188,6 +182,40 @@ internal class DefaultTranslateComponent(
             doOnDestroy {
                 viewModelScope.cancel()
             }
+        }
+    }
+
+    override fun reduce(intent: TranslateComponent.ViewIntent) {
+        when (intent) {
+            is TranslateComponent.ViewIntent.AddGlossaryTerm -> addGlossaryTerm(
+                source = intent.source,
+                target = intent.target,
+            )
+
+            TranslateComponent.ViewIntent.AddSegment -> addSegment()
+            TranslateComponent.ViewIntent.CloseDialog -> closeDialog()
+            TranslateComponent.ViewIntent.CopyBase -> copyBase()
+            TranslateComponent.ViewIntent.DeleteSegment -> deleteSegment()
+            TranslateComponent.ViewIntent.EndEditing -> endEditing()
+            is TranslateComponent.ViewIntent.Export -> export(path = intent.path, type = intent.type)
+            is TranslateComponent.ViewIntent.ExportTmx -> exportTmx(intent.path)
+            TranslateComponent.ViewIntent.GlobalSpellcheck -> globalSpellcheck()
+            is TranslateComponent.ViewIntent.Import -> import(path = intent.path, type = intent.type)
+            TranslateComponent.ViewIntent.InsertBestMatch -> insertBestMatch()
+            TranslateComponent.ViewIntent.MachineTranslationContributeTm -> machineTranslationContributeTm()
+            TranslateComponent.ViewIntent.MachineTranslationCopyTarget -> machineTranslationCopyTarget()
+            TranslateComponent.ViewIntent.MachineTranslationInsert -> machineTranslationInsert()
+            TranslateComponent.ViewIntent.MachineTranslationRetrieve -> machineTranslationRetrieve()
+            TranslateComponent.ViewIntent.MachineTranslationShare -> machineTranslationShare()
+            TranslateComponent.ViewIntent.MoveToNext -> moveToNext()
+            TranslateComponent.ViewIntent.MoveToPrevious -> moveToPrevious()
+            is TranslateComponent.ViewIntent.Save -> save(intent.path)
+            TranslateComponent.ViewIntent.SyncWithTm -> syncWithTm()
+            is TranslateComponent.ViewIntent.TogglePanel -> togglePanel(intent.config)
+            TranslateComponent.ViewIntent.TryLoadGlossary -> tryLoadGlossary()
+            TranslateComponent.ViewIntent.TryLoadMachineTranslation -> tryLoadMachineTranslation()
+            TranslateComponent.ViewIntent.TryLoadSimilarities -> tryLoadSimilarities()
+            TranslateComponent.ViewIntent.ValidatePlaceholders -> validatePlaceholders()
         }
     }
 
@@ -264,7 +292,7 @@ internal class DefaultTranslateComponent(
             }.launchIn(this)
     }
 
-    override fun addGlossaryTerm(source: String?, target: String?) {
+    private fun addGlossaryTerm(source: String?, target: String?) {
         val sourceTerm = source?.lowercase() ?: return
         val targetTerm = target?.lowercase() ?: return
         viewModelScope.launch(dispatchers.io) {
@@ -431,7 +459,7 @@ internal class DefaultTranslateComponent(
 
         viewModelScope.launch(dispatchers.io) {
             val proj = projectRepository.getById(projectId)
-            uiState.update { it.copy(project = proj) }
+            mvi.updateState { it.copy(project = proj) }
             updateUnitCount()
 
             messageList.asFlow<MessageListComponent>().firstOrNull()?.apply {
@@ -448,17 +476,17 @@ internal class DefaultTranslateComponent(
         val baseLanguage = languageRepository.getBase(projectId)
         if (baseLanguage != null) {
             val baseSegments = segmentRepository.getAll(baseLanguage.id)
-            uiState.update { it.copy(unitCount = baseSegments.size) }
+            mvi.updateState { it.copy(unitCount = baseSegments.size) }
         }
     }
 
-    override fun closeDialog() {
+    private fun closeDialog() {
         viewModelScope.launch(dispatchers.main) {
             dialogNavigation.activate(DialogConfig.None)
         }
     }
 
-    override fun save(path: String) {
+    private fun save(path: String) {
         viewModelScope.launch(dispatchers.io) {
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
             saveProject(path = path, projectId = projectId)
@@ -480,7 +508,7 @@ internal class DefaultTranslateComponent(
         }
     }
 
-    override fun import(path: String, type: ResourceFileType) {
+    private fun import(path: String, type: ResourceFileType) {
         viewModelScope.launch(dispatchers.io) {
             val language = getCurrentLanguage() ?: return@launch
             projectRepository.setNeedsSaving(true)
@@ -503,7 +531,7 @@ internal class DefaultTranslateComponent(
         }
     }
 
-    override fun export(path: String, type: ResourceFileType) {
+    private fun export(path: String, type: ResourceFileType) {
         viewModelScope.launch(dispatchers.io) {
             val language = getCurrentLanguage() ?: return@launch
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
@@ -531,38 +559,38 @@ internal class DefaultTranslateComponent(
         }
     }
 
-    override fun moveToPrevious() {
+    private fun moveToPrevious() {
         viewModelScope.launch(dispatchers.io) {
             messageList.asFlow<MessageListComponent>().firstOrNull()
                 ?.reduce(MessageListComponent.ViewIntent.MoveToPrevious)
         }
     }
 
-    override fun moveToNext() {
+    private fun moveToNext() {
         viewModelScope.launch(dispatchers.io) {
             messageList.asFlow<MessageListComponent>().firstOrNull()?.reduce(MessageListComponent.ViewIntent.MoveToNext)
         }
     }
 
-    override fun endEditing() {
+    private fun endEditing() {
         viewModelScope.launch(dispatchers.io) {
             messageList.asFlow<MessageListComponent>().firstOrNull()?.reduce(MessageListComponent.ViewIntent.EndEditing)
         }
     }
 
-    override fun copyBase() {
+    private fun copyBase() {
         viewModelScope.launch(dispatchers.io) {
             messageList.asFlow<MessageListComponent>().firstOrNull()?.reduce(MessageListComponent.ViewIntent.CopyBase)
         }
     }
 
-    override fun addSegment() {
+    private fun addSegment() {
         viewModelScope.launch(dispatchers.main) {
             dialogNavigation.activate(DialogConfig.NewSegment)
         }
     }
 
-    override fun deleteSegment() {
+    private fun deleteSegment() {
         viewModelScope.launch(dispatchers.io) {
             messageList.asFlow<MessageListComponent>().firstOrNull()
                 ?.reduce(MessageListComponent.ViewIntent.DeleteSegment)
@@ -619,14 +647,14 @@ internal class DefaultTranslateComponent(
         }
     }
 
-    override fun togglePanel(config: PanelConfig) {
+    private fun togglePanel(config: PanelConfig) {
         when (panel.value.child?.configuration) {
             config -> panelNavigation.activate(PanelConfig.None)
             else -> panelNavigation.activate(config)
         }
     }
 
-    override fun tryLoadSimilarities() {
+    private fun tryLoadSimilarities() {
         viewModelScope.launch(dispatchers.io) {
             delay(100)
             val currentKey = messageList.asFlow<MessageListComponent>().firstOrNull()?.editedSegment?.value?.key
@@ -640,7 +668,7 @@ internal class DefaultTranslateComponent(
         }
     }
 
-    override fun tryLoadGlossary() {
+    private fun tryLoadGlossary() {
         viewModelScope.launch(dispatchers.io) {
             delay(100)
             val currentKey = messageList.asFlow<MessageListComponent>().firstOrNull()?.editedSegment?.value?.key
@@ -654,7 +682,7 @@ internal class DefaultTranslateComponent(
         }
     }
 
-    override fun tryLoadMachineTranslation() {
+    private fun tryLoadMachineTranslation() {
         viewModelScope.launch(dispatchers.io) {
             delay(100)
             val currentKey = messageList.asFlow<MessageListComponent>().firstOrNull()?.editedSegment?.value?.key
@@ -668,7 +696,7 @@ internal class DefaultTranslateComponent(
         }
     }
 
-    override fun exportTmx(path: String) {
+    private fun exportTmx(path: String) {
         viewModelScope.launch(dispatchers.io) {
             val baseLanguage = languageRepository.getBase(projectId) ?: return@launch
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
@@ -677,7 +705,7 @@ internal class DefaultTranslateComponent(
         }
     }
 
-    override fun syncWithTm() {
+    private fun syncWithTm() {
         viewModelScope.launch(dispatchers.io) {
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
             syncProjectWithTm(projectId = projectId)
@@ -685,45 +713,45 @@ internal class DefaultTranslateComponent(
         }
     }
 
-    override fun validatePlaceholders() {
+    private fun validatePlaceholders() {
         startPlaceholderValidation()
     }
 
-    override fun insertBestMatch() {
+    private fun insertBestMatch() {
         viewModelScope.launch(dispatchers.io) {
             panel.asFlow<TranslationMemoryComponent>().firstOrNull()?.copyTranslation(0)
         }
     }
 
-    override fun globalSpellcheck() {
+    private fun globalSpellcheck() {
         startSpellcheck()
     }
 
-    override fun machineTranslationRetrieve() {
+    private fun machineTranslationRetrieve() {
         viewModelScope.launch(dispatchers.io) {
             panel.asFlow<MachineTranslationComponent>().firstOrNull()?.retrieve()
         }
     }
 
-    override fun machineTranslationInsert() {
+    private fun machineTranslationInsert() {
         viewModelScope.launch(dispatchers.io) {
             panel.asFlow<MachineTranslationComponent>().firstOrNull()?.insertTranslation()
         }
     }
 
-    override fun machineTranslationCopyTarget() {
+    private fun machineTranslationCopyTarget() {
         viewModelScope.launch(dispatchers.io) {
             panel.asFlow<MachineTranslationComponent>().firstOrNull()?.copyTarget()
         }
     }
 
-    override fun machineTranslationShare() {
+    private fun machineTranslationShare() {
         viewModelScope.launch(dispatchers.io) {
             panel.asFlow<MachineTranslationComponent>().firstOrNull()?.share()
         }
     }
 
-    override fun machineTranslationContributeTm() {
+    private fun machineTranslationContributeTm() {
         viewModelScope.launch(dispatchers.io) {
             val project = projectRepository.getById(projectId)
             val recentProjectModel = recentProjectRepository.getByName(project?.name.orEmpty())
