@@ -3,18 +3,18 @@ package com.github.diegoberaldin.metaphrase.feature.translate.panel.validate.pre
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
+import com.github.diegoberaldin.metaphrase.core.common.architecture.DefaultMviModel
+import com.github.diegoberaldin.metaphrase.core.common.architecture.MviModel
 import com.github.diegoberaldin.metaphrase.core.common.coroutines.CoroutineDispatcherProvider
 import com.github.diegoberaldin.metaphrase.core.common.utils.Constants
 import com.github.diegoberaldin.metaphrase.domain.language.repository.LanguageRepository
 import com.github.diegoberaldin.metaphrase.domain.project.repository.SegmentRepository
 import com.github.diegoberaldin.metaphrase.feature.translate.panel.validate.data.InvalidPlaceholderReference
 import com.github.diegoberaldin.metaphrase.feature.translate.panel.validate.data.SpellingMistakeReference
+import com.github.diegoberaldin.metaphrase.feature.translate.panel.validate.data.ValidationContent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
@@ -22,14 +22,16 @@ internal class DefaultValidateComponent(
     componentContext: ComponentContext,
     coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,
+    private val mvi: DefaultMviModel<ValidateComponent.Intent, ValidateComponent.UiState, ValidateComponent.Effect> = DefaultMviModel(
+        ValidateComponent.UiState(),
+    ),
     private val languageRepository: LanguageRepository,
     private val segmentRepository: SegmentRepository,
-) : ValidateComponent, ComponentContext by componentContext {
+) : ValidateComponent,
+    MviModel<ValidateComponent.Intent, ValidateComponent.UiState, ValidateComponent.Effect> by mvi,
+    ComponentContext by componentContext {
 
     private lateinit var viewModelScope: CoroutineScope
-
-    override val selectionEvents = MutableSharedFlow<String>()
-    override val uiState = MutableStateFlow(InvalidSegmentUiState())
 
     init {
         with(lifecycle) {
@@ -42,7 +44,21 @@ internal class DefaultValidateComponent(
         }
     }
 
-    override fun loadInvalidPlaceholders(projectId: Int, languageId: Int, invalidKeys: List<String>) {
+    override fun reduce(intent: ValidateComponent.Intent) {
+        when (intent) {
+            ValidateComponent.Intent.Clear -> clear()
+            is ValidateComponent.Intent.LoadInvalidPlaceholders -> loadInvalidPlaceholders(
+                invalidKeys = intent.invalidKeys,
+                projectId = intent.projectId,
+                languageId = intent.languageId,
+            )
+
+            is ValidateComponent.Intent.LoadSpellingMistakes -> loadSpellingMistakes(intent.errors)
+            is ValidateComponent.Intent.SelectItem -> selectItem(intent.value)
+        }
+    }
+
+    private fun loadInvalidPlaceholders(projectId: Int, languageId: Int, invalidKeys: List<String>) {
         viewModelScope.launch(dispatchers.io) {
             val baseLanguage = languageRepository.getBase(projectId) ?: return@launch
             val references = invalidKeys.mapNotNull { key ->
@@ -57,7 +73,7 @@ internal class DefaultValidateComponent(
 
                 InvalidPlaceholderReference(key = key, extraPlaceholders = exceeding, missingPlaceholders = missing)
             }
-            uiState.update {
+            mvi.updateState {
                 it.copy(content = ValidationContent.InvalidPlaceholders(references = references))
             }
         }
@@ -68,35 +84,35 @@ internal class DefaultValidateComponent(
         return res + Constants.NamedPlaceholderRegex.findAll(message).map { it.value }.toList()
     }
 
-    override fun loadSpellingMistakes(errors: Map<String, List<String>>) {
+    private fun loadSpellingMistakes(errors: Map<String, List<String>>) {
         val references = errors.keys.map {
             SpellingMistakeReference(
                 key = it,
                 mistakes = errors[it].orEmpty(),
             )
         }
-        uiState.update {
+        mvi.updateState {
             it.copy(content = ValidationContent.SpellingMistakes(references = references))
         }
     }
 
-    override fun clear() {
-        uiState.update { it.copy(content = null) }
+    private fun clear() {
+        mvi.updateState { it.copy(content = null) }
     }
 
-    override fun selectItem(value: Int) {
+    private fun selectItem(value: Int) {
         when (val content = uiState.value.content) {
             is ValidationContent.InvalidPlaceholders -> {
                 val reference = content.references[value]
                 viewModelScope.launch(dispatchers.io) {
-                    selectionEvents.emit(reference.key)
+                    mvi.emitEffect(ValidateComponent.Effect.Selection(reference.key))
                 }
             }
 
             is ValidationContent.SpellingMistakes -> {
                 val reference = content.references[value]
                 viewModelScope.launch(dispatchers.io) {
-                    selectionEvents.emit(reference.key)
+                    mvi.emitEffect(ValidateComponent.Effect.Selection(reference.key))
                 }
             }
 

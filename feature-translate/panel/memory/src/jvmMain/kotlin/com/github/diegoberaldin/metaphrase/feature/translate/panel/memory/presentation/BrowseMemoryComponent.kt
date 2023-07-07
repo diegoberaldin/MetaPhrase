@@ -1,55 +1,82 @@
 package com.github.diegoberaldin.metaphrase.feature.translate.panel.memory.presentation
 
+import com.github.diegoberaldin.metaphrase.core.common.architecture.MviModel
 import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
-import kotlinx.coroutines.flow.StateFlow
+import com.github.diegoberaldin.metaphrase.domain.tm.data.TranslationMemoryEntryModel
 
 /**
  * Browse memory component.
  */
-interface BrowseMemoryComponent {
+interface BrowseMemoryComponent :
+    MviModel<BrowseMemoryComponent.Intent, BrowseMemoryComponent.UiState, BrowseMemoryComponent.Effect> {
     /**
-     * UI state
+     * View intents.
      */
-    val uiState: StateFlow<BrowseMemoryUiState>
+    sealed interface Intent {
+        /**
+         * Set the language pair.
+         *
+         * @param source Source language
+         * @param target Target language
+         */
+        data class SetLanguages(val source: LanguageModel? = null, val target: LanguageModel? = null) : Intent
+
+        /**
+         * Set the source language.
+         *
+         * @param value language to set
+         */
+        data class SetSourceLanguage(val value: LanguageModel?) : Intent
+
+        /**
+         * Set the target language.
+         *
+         * @param value langauge to set
+         */
+        data class SetTargetLanguage(val value: LanguageModel?) : Intent
+
+        /**
+         * Set the search query.
+         *
+         * @param value search string to set
+         */
+        data class SetSearch(val value: String) : Intent
+
+        /**
+         * Start a search.
+         */
+        object OnSearchFired : Intent
+
+        /**
+         * Delete an entry from the translation memory.
+         *
+         * @param index index of the entry to delete
+         */
+        data class DeleteEntry(val index: Int) : Intent
+    }
 
     /**
-     * Set the language pair.
+     * UI state from the TM content panel.
      *
-     * @param source Source language
-     * @param target Target language
+     * @property sourceLanguage source language
+     * @property availableSourceLanguages available source languages
+     * @property targetLanguage target language
+     * @property availableTargetLanguages available target languages
+     * @property currentSearch search string
+     * @property entries memory entries to display
+     * @constructor Create [UiState]
      */
-    fun setLanguages(source: LanguageModel? = null, target: LanguageModel? = null)
+    data class UiState(
+        val sourceLanguage: LanguageModel? = null,
+        val availableSourceLanguages: List<LanguageModel> = emptyList(),
+        val targetLanguage: LanguageModel? = null,
+        val availableTargetLanguages: List<LanguageModel> = emptyList(),
+        val currentSearch: String = "",
+        val entries: List<TranslationMemoryEntryModel> = emptyList(),
+    )
 
     /**
-     * Set the source language.
-     *
-     * @param value language to set
+     * Effects.
      */
-    fun setSourceLanguage(value: LanguageModel?)
-
-    /**
-     * Set the target language.
-     *
-     * @param value langauge to set
-     */
-    fun setTargetLanguage(value: LanguageModel?)
-
-    /**
-     * Set the search query.
-     *
-     * @param value search string to set
-     */
-    fun setSearch(value: String)
-
-    /**
-     * Start a search.
-     */
-    fun onSearchFired()
-
-    /**
-     * Delete an entry from the translation memory.
-     *
-     * @param index index of the entry to delete
-     */
-    fun deleteEntry(index: Int)
+    sealed interface Effect
 }

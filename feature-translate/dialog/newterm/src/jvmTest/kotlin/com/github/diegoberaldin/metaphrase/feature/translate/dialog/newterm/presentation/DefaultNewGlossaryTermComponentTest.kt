@@ -13,6 +13,8 @@ import kotlinx.coroutines.test.runTest
 import org.koin.core.context.startKoin
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertIs
+import kotlin.test.assertNotNull
 
 class DefaultNewGlossaryTermComponentTest {
 
@@ -39,7 +41,7 @@ class DefaultNewGlossaryTermComponentTest {
     @Test
     fun givenComponentCreatedWhenSubmitWithEmptyFieldsThenStateIsError() = runTest {
         lifecycle.create()
-        sut.submit()
+        sut.reduce(NewGlossaryTermComponent.Intent.Submit)
 
         val uiState = sut.uiState.value
         assertEquals("message_missing_field".localized(), uiState.sourceTermError)
@@ -49,9 +51,9 @@ class DefaultNewGlossaryTermComponentTest {
     @Test
     fun givenComponentCreatedWhenSubmitWithEmptyTargetThenStateIsError() = runTest {
         lifecycle.create()
-        sut.setSourceTerm("test")
+        sut.reduce(NewGlossaryTermComponent.Intent.SetSourceTerm("test"))
 
-        sut.submit()
+        sut.reduce(NewGlossaryTermComponent.Intent.Submit)
 
         val uiState = sut.uiState.value
         assertEquals("", uiState.sourceTermError)
@@ -61,9 +63,9 @@ class DefaultNewGlossaryTermComponentTest {
     @Test
     fun givenComponentCreatedWhenSubmitWithEmptySourceThenStateIsError() = runTest {
         lifecycle.create()
-        sut.setTargetTerm("test")
+        sut.reduce(NewGlossaryTermComponent.Intent.SetTargetTerm("test"))
 
-        sut.submit()
+        sut.reduce(NewGlossaryTermComponent.Intent.Submit)
 
         val uiState = sut.uiState.value
         assertEquals("message_missing_field".localized(), uiState.sourceTermError)
@@ -73,14 +75,17 @@ class DefaultNewGlossaryTermComponentTest {
     @Test
     fun givenComponentCreatedWhenSubmitWithValidDataTheDoneIsEmitted() = runTest {
         lifecycle.create()
-        sut.setSourceTerm("test source")
-        sut.setTargetTerm("test target")
+        sut.reduce(NewGlossaryTermComponent.Intent.SetSourceTerm("test source"))
+        sut.reduce(NewGlossaryTermComponent.Intent.SetTargetTerm("test target"))
 
-        sut.done.test {
-            sut.submit()
+        sut.effects.test {
+            sut.reduce(NewGlossaryTermComponent.Intent.Submit)
             val item = awaitItem()
-            assertEquals("test source", item.sourceLemma)
-            assertEquals("test target", item.targetLemma)
+            assertIs<NewGlossaryTermComponent.Effect.Done>(item)
+            val pair = item.pair
+            assertNotNull(pair)
+            assertEquals("test source", pair.sourceLemma)
+            assertEquals("test target", pair.targetLemma)
         }
 
         val uiState = sut.uiState.value

@@ -58,8 +58,10 @@ fun LoginDialog(
     val uiState by component.uiState.collectAsState()
 
     LaunchedEffect(component) {
-        component.done.onEach {
-            onClose(it.first, it.second)
+        component.effects.onEach {
+            if (it is LoginComponent.Effect.Done) {
+                onClose(it.username, it.password)
+            }
         }.launchIn(this)
     }
 
@@ -86,7 +88,7 @@ fun LoginDialog(
                         value = uiState.username,
                         singleLine = true,
                         onValueChange = {
-                            component.setUsername(it)
+                            component.reduce(LoginComponent.Intent.SetUsername(value = it))
                         },
                     )
                     Text(
@@ -106,7 +108,7 @@ fun LoginDialog(
                         value = uiState.password,
                         singleLine = true,
                         onValueChange = {
-                            component.setPassword(it)
+                            component.reduce(LoginComponent.Intent.SetPassword(value = it))
                         },
                         endButton = {
                             CustomTooltipArea(
@@ -148,7 +150,7 @@ fun LoginDialog(
                             modifier = Modifier.heightIn(max = 25.dp),
                             contentPadding = PaddingValues(0.dp),
                             onClick = {
-                                component.submit()
+                                component.reduce(LoginComponent.Intent.Submit)
                             },
                         ) {
                             Text(text = "button_ok".localized(), style = MaterialTheme.typography.button)

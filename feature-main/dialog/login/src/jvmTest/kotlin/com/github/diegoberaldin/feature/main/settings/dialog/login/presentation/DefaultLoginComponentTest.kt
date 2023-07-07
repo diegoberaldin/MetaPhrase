@@ -14,6 +14,7 @@ import kotlinx.coroutines.test.runTest
 import org.koin.core.context.startKoin
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertIs
 
 class DefaultLoginComponentTest {
     companion object {
@@ -42,7 +43,7 @@ class DefaultLoginComponentTest {
     @Test
     fun givenEmptyFieldsWhenSubmitThenErrorStateIsEmitted() = runTest {
         lifecycle.create()
-        sut.submit()
+        sut.reduce(LoginComponent.Intent.Submit)
         val uiState = sut.uiState.value
         assertEquals("message_missing_field".localized(), uiState.usernameError)
         assertEquals("message_missing_field".localized(), uiState.passwordError)
@@ -51,8 +52,8 @@ class DefaultLoginComponentTest {
     @Test
     fun givenEmptyUsernameFieldWhenSubmitThenErrorStateIsEmitted() = runTest {
         lifecycle.create()
-        sut.setPassword("test")
-        sut.submit()
+        sut.reduce(LoginComponent.Intent.SetPassword("test"))
+        sut.reduce(LoginComponent.Intent.Submit)
         val uiState = sut.uiState.value
         assertEquals("message_missing_field".localized(), uiState.usernameError)
         assertEquals("", uiState.passwordError)
@@ -61,8 +62,8 @@ class DefaultLoginComponentTest {
     @Test
     fun givenEmptyPasswordFieldWhenSubmitThenErrorStateIsEmitted() = runTest {
         lifecycle.create()
-        sut.setUsername("test")
-        sut.submit()
+        sut.reduce(LoginComponent.Intent.SetUsername("test"))
+        sut.reduce(LoginComponent.Intent.Submit)
         val uiState = sut.uiState.value
         assertEquals("", uiState.usernameError)
         assertEquals("message_missing_field".localized(), uiState.passwordError)
@@ -71,14 +72,15 @@ class DefaultLoginComponentTest {
     @Test
     fun givenFieldsCompletedWhenSubmitThenDoneIsEmitted() = runTest {
         lifecycle.create()
-        sut.setUsername("test_user")
-        sut.setPassword("test_pass")
+        sut.reduce(LoginComponent.Intent.SetUsername("test_user"))
+        sut.reduce(LoginComponent.Intent.SetPassword("test_pass"))
 
-        sut.done.test {
-            sut.submit()
+        sut.effects.test {
+            sut.reduce(LoginComponent.Intent.Submit)
             val item = awaitItem()
-            assertEquals("test_user", item.first)
-            assertEquals("test_pass", item.second)
+            assertIs<LoginComponent.Effect.Done>(item)
+            assertEquals("test_user", item.username)
+            assertEquals("test_pass", item.password)
         }
     }
 }

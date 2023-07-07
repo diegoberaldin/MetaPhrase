@@ -43,5 +43,3 @@ sealed interface StatisticsItem {
      */
     data class BarChartRow(val title: String = "", val value: Float = 0f) : StatisticsItem
 }
-
-data class StatisticsUiState(val items: List<StatisticsItem> = emptyList())

@@ -3,6 +3,8 @@ package com.github.diegoberaldin.metaphrase.feature.translate.panel.glossary.pre
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
+import com.github.diegoberaldin.metaphrase.core.common.architecture.DefaultMviModel
+import com.github.diegoberaldin.metaphrase.core.common.architecture.MviModel
 import com.github.diegoberaldin.metaphrase.core.common.coroutines.CoroutineDispatcherProvider
 import com.github.diegoberaldin.metaphrase.domain.glossary.data.GlossaryTermModel
 import com.github.diegoberaldin.metaphrase.domain.glossary.repository.GlossaryTermRepository
@@ -14,8 +16,6 @@ import com.github.diegoberaldin.metaphrase.domain.project.repository.SegmentRepo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
@@ -23,19 +23,22 @@ internal class DefaultGlossaryComponent(
     componentContext: ComponentContext,
     coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,
+    private val mvi: DefaultMviModel<GlossaryComponent.Intent, GlossaryComponent.UiState, GlossaryComponent.Effect> = DefaultMviModel(
+        GlossaryComponent.UiState(),
+    ),
     private val languageRepository: LanguageRepository,
     private val flagsRepository: FlagsRepository,
     private val segmentRepository: SegmentRepository,
     private val glossaryTermRepository: GlossaryTermRepository,
     private val getGlossaryTerms: GetGlossaryTermsUseCase,
-) : GlossaryComponent, ComponentContext by componentContext {
+) : GlossaryComponent,
+    MviModel<GlossaryComponent.Intent, GlossaryComponent.UiState, GlossaryComponent.Effect> by mvi,
+    ComponentContext by componentContext {
 
     private var lastSourceLanguage: LanguageModel? = null
     private var lastTargetLanguage: LanguageModel? = null
     private var lastSourceMessage: String? = null
     private lateinit var viewModelScope: CoroutineScope
-
-    override val uiState = MutableStateFlow(GlossaryUiState())
 
     init {
         with(lifecycle) {
@@ -48,11 +51,25 @@ internal class DefaultGlossaryComponent(
         }
     }
 
-    override fun clear() {
-        uiState.update { it.copy(terms = emptyList()) }
+    override fun reduce(intent: GlossaryComponent.Intent) {
+        when (intent) {
+            is GlossaryComponent.Intent.AddSourceTerm -> addSourceTerm(intent.lemma)
+            is GlossaryComponent.Intent.AddTargetTerm -> addTargetTerm(lemma = intent.lemma, source = intent.source)
+            GlossaryComponent.Intent.Clear -> clear()
+            is GlossaryComponent.Intent.DeleteTerm -> deleteTerm(intent.term)
+            is GlossaryComponent.Intent.Load -> load(
+                key = intent.key,
+                projectId = intent.projectId,
+                languageId = intent.languageId,
+            )
+        }
     }
 
-    override fun load(key: String, projectId: Int, languageId: Int) {
+    private fun clear() {
+        mvi.updateState { it.copy(terms = emptyList()) }
+    }
+
+    private fun load(key: String, projectId: Int, languageId: Int) {
         viewModelScope.launch(dispatchers.io) {
             val sourceLanguage = languageRepository.getBase(projectId) ?: return@launch
             val targetLanguage = languageRepository.getById(languageId) ?: return@launch
@@ -62,7 +79,7 @@ internal class DefaultGlossaryComponent(
             lastSourceLanguage = sourceLanguage
             lastTargetLanguage = targetLanguage
             lastSourceMessage = sourceMessage
-            uiState.update {
+            mvi.updateState {
                 it.copy(
                     isBaseLanguage = sourceLanguage == targetLanguage,
                     sourceFlag = flagsRepository.getFlag(sourceLanguage.code),
@@ -78,7 +95,7 @@ internal class DefaultGlossaryComponent(
         val sourceLanguage = lastSourceLanguage ?: return
         val targetLanguage = lastTargetLanguage ?: return
         val message = lastSourceMessage.orEmpty()
-        uiState.update { it.copy(isLoading = true) }
+        mvi.updateState { it.copy(isLoading = true) }
         val terms =
             getGlossaryTerms(
                 message = message.lowercase(),
@@ -90,7 +107,7 @@ internal class DefaultGlossaryComponent(
                 )
                 model to targetTerms
             }
-        uiState.update {
+        mvi.updateState {
             it.copy(
                 terms = terms,
                 isLoading = false,
@@ -98,7 +115,7 @@ internal class DefaultGlossaryComponent(
         }
     }
 
-    override fun addSourceTerm(lemma: String) {
+    private fun addSourceTerm(lemma: String) {
         val langCode = lastSourceLanguage?.code ?: return
         val trimmedLemma = lemma.trim()
         viewModelScope.launch(dispatchers.io) {
@@ -112,7 +129,7 @@ internal class DefaultGlossaryComponent(
         }
     }
 
-    override fun addTargetTerm(lemma: String, source: GlossaryTermModel) {
+    private fun addTargetTerm(lemma: String, source: GlossaryTermModel) {
         val langCode = lastTargetLanguage?.code ?: return
         val trimmedLemma = lemma.trim()
         viewModelScope.launch(dispatchers.io) {
@@ -132,7 +149,7 @@ internal class DefaultGlossaryComponent(
         }
     }
 
-    override fun deleteTerm(term: GlossaryTermModel) {
+    private fun deleteTerm(term: GlossaryTermModel) {
         viewModelScope.launch(dispatchers.io) {
             glossaryTermRepository.delete(term)
             innerReload()

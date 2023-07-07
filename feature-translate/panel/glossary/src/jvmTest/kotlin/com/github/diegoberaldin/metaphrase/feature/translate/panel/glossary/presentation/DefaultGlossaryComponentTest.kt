@@ -48,7 +48,7 @@ class DefaultGlossaryComponentTest {
         coEvery { mockGlossaryTermRepository.getAssociated(any(), any()) } returns emptyList()
         lifecycle.create()
 
-        sut.load(key = "key", projectId = 1, languageId = 1)
+        sut.reduce(GlossaryComponent.Intent.Load(key = "key", projectId = 1, languageId = 1))
 
         val uiState = sut.uiState.value
         assertEquals(1, uiState.terms.size)
@@ -64,11 +64,11 @@ class DefaultGlossaryComponentTest {
         coEvery { mockGlossaryTermRepository.getAssociated(any(), any()) } returns emptyList()
         lifecycle.create()
 
-        sut.load(key = "key", projectId = 1, languageId = 1)
+        sut.reduce(GlossaryComponent.Intent.Load(key = "key", projectId = 1, languageId = 1))
         val stateBefore = sut.uiState.value
         assertEquals(1, stateBefore.terms.size)
 
-        sut.clear()
+        sut.reduce(GlossaryComponent.Intent.Clear)
 
         val stateAfter = sut.uiState.value
         assertEquals(0, stateAfter.terms.size)
@@ -85,9 +85,9 @@ class DefaultGlossaryComponentTest {
         coEvery { mockGlossaryTermRepository.get(any(), any()) } returns null
         coEvery { mockGlossaryTermRepository.create(any()) } returns 1
         lifecycle.create()
-        sut.load(key = "key", projectId = 1, languageId = 1)
+        sut.reduce(GlossaryComponent.Intent.Load(key = "key", projectId = 1, languageId = 1))
 
-        sut.addSourceTerm("lemma")
+        sut.reduce(GlossaryComponent.Intent.AddSourceTerm("lemma"))
 
         coVerify { mockGlossaryTermRepository.create(withArg { assertEquals("lemma", it.lemma) }) }
     }
@@ -105,9 +105,9 @@ class DefaultGlossaryComponentTest {
         coEvery { mockGlossaryTermRepository.areAssociated(any(), any()) } returns false
         coEvery { mockGlossaryTermRepository.associate(any(), any()) } returns Unit
         lifecycle.create()
-        sut.load(key = "key", projectId = 1, languageId = 1)
+        sut.reduce(GlossaryComponent.Intent.Load(key = "key", projectId = 1, languageId = 1))
 
-        sut.addTargetTerm("lemma", GlossaryTermModel(lemma = "lemma", lang = "en"))
+        sut.reduce(GlossaryComponent.Intent.AddTargetTerm("lemma", GlossaryTermModel(lemma = "lemma", lang = "en")))
 
         coVerify { mockGlossaryTermRepository.create(withArg { assertEquals("lemma", it.lemma) }) }
         coVerify { mockGlossaryTermRepository.associate(any(), any()) }
@@ -124,9 +124,9 @@ class DefaultGlossaryComponentTest {
         coEvery { mockGlossaryTermRepository.get(any(), any()) } returns null
         coEvery { mockGlossaryTermRepository.delete(any()) } returns Unit
         lifecycle.create()
-        sut.load(key = "key", projectId = 1, languageId = 1)
+        sut.reduce(GlossaryComponent.Intent.Load(key = "key", projectId = 1, languageId = 1))
 
-        sut.deleteTerm(GlossaryTermModel(lemma = "lemma"))
+        sut.reduce(GlossaryComponent.Intent.DeleteTerm(GlossaryTermModel(lemma = "lemma")))
 
         coVerify { mockGlossaryTermRepository.delete(withArg { assertEquals("lemma", it.lemma) }) }
     }

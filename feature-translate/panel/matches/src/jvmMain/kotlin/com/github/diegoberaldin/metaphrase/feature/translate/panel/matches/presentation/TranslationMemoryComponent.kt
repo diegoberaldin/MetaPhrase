@@ -1,40 +1,58 @@
 package com.github.diegoberaldin.metaphrase.feature.translate.panel.matches.presentation
 
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.StateFlow
+import com.github.diegoberaldin.metaphrase.core.common.architecture.MviModel
+import com.github.diegoberaldin.metaphrase.domain.project.data.TranslationUnit
 
 /**
  * Translation memory component.
  */
-interface TranslationMemoryComponent {
+interface TranslationMemoryComponent :
+    MviModel<TranslationMemoryComponent.Intent, TranslationMemoryComponent.UiState, TranslationMemoryComponent.Effect> {
     /**
-     * UI state
+     * View intents.
      */
-    val uiState: StateFlow<TranslationMemoryUiState>
+    sealed interface Intent {
+        /**
+         * Clear the content of the panel.
+         */
+        object Clear : Intent
+
+        /**
+         * Load the TM matches for the message with a given key.
+         *
+         * @param key message key
+         * @param projectId Project ID
+         * @param languageId Language ID
+         */
+        data class Load(val key: String, val projectId: Int, val languageId: Int) : Intent
+
+        /**
+         * Copy the match with a given index into the translation field.
+         *
+         * @param index match index
+         */
+        data class CopyTranslation(val index: Int) : Intent
+    }
 
     /**
-     * Events triggered when a TM message should be copied into the translation editor
-     */
-    val copyEvents: SharedFlow<String>
-
-    /**
-     * Clear the content of the panel.
-     */
-    fun clear()
-
-    /**
-     * Load the TM matches for the message with a given key.
+     * Translation memory UI state.
      *
-     * @param key message key
-     * @param projectId Project ID
-     * @param languageId Language ID
+     * @property isLoading flag indicating whether there is a background operation in progress
+     * @property units translation units to display
+     * @constructor Create [UiState]
      */
-    fun load(key: String, projectId: Int, languageId: Int)
+    data class UiState(
+        val isLoading: Boolean = false,
+        val units: List<TranslationUnit> = emptyList(),
+    )
 
     /**
-     * Copy the match with a given index into the translation field.
-     *
-     * @param index match index
+     * Effects.
      */
-    fun copyTranslation(index: Int)
+    sealed interface Effect {
+        /**
+         * Events triggered when a TM message should be copied into the translation editor
+         */
+        data class Copy(val value: String) : Effect
+    }
 }

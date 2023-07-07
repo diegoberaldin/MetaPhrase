@@ -22,8 +22,8 @@ import androidx.compose.ui.unit.dp
 import com.github.diegoberaldin.metaphrase.core.common.ui.components.CustomTooltipArea
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Spacing
 import com.github.diegoberaldin.metaphrase.core.localization.localized
+import com.github.diegoberaldin.metaphrase.feature.translate.panel.validate.data.ValidationContent
 import com.github.diegoberaldin.metaphrase.feature.translate.panel.validate.presentation.ValidateComponent
-import com.github.diegoberaldin.metaphrase.feature.translate.panel.validate.presentation.ValidationContent
 
 /**
  * UI content of the validate panel
@@ -78,7 +78,7 @@ fun ValidateContent(
                 InvalidPlaceholderValidateContent(
                     content = content,
                     onItemSelected = {
-                        component.selectItem(it)
+                        component.reduce(ValidateComponent.Intent.SelectItem(it))
                     },
                 )
             }
@@ -89,7 +89,7 @@ fun ValidateContent(
                 SpellingMistakesValidateContent(
                     content = content,
                     onItemSelected = {
-                        component.selectItem(it)
+                        component.reduce(ValidateComponent.Intent.SelectItem(it))
                     },
                 )
             }

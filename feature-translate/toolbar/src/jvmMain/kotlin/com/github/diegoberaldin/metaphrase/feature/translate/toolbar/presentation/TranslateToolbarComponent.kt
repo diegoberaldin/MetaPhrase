@@ -1,112 +1,114 @@
 package com.github.diegoberaldin.metaphrase.feature.translate.toolbar.presentation
 
+import com.github.diegoberaldin.metaphrase.core.common.architecture.MviModel
 import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.TranslationUnitTypeFilter
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.StateFlow
 
 /**
  * Translation toolbar component.
  */
-interface TranslateToolbarComponent {
+interface TranslateToolbarComponent :
+    MviModel<TranslateToolbarComponent.Intent, TranslateToolbarComponent.UiState, TranslateToolbarComponent.Effect> {
+
+    sealed interface Intent {
+        /**
+         * Change the current language.
+         *
+         * @param value language to set
+         */
+        data class SetLanguage(val value: LanguageModel) : Intent
+
+        /**
+         * Change the message filter.
+         *
+         * @param value filter to set
+         */
+        data class SetTypeFilter(val value: TranslationUnitTypeFilter) : Intent
+
+        /**
+         * Trigger the [Effect.Search] event to be emitted in the [effects] flow with the last value passed along in the the [SetSearch] intent.
+         */
+        object OnSearchFired : Intent
+
+        /**
+         * Set a search query string
+         *
+         * @param value query to set
+         */
+        data class SetSearch(val value: String) : Intent
+
+        /**
+         * Trigger the [Effect.CopyBase] event to be emitted in the [effects] flow.
+         */
+        object CopyBase : Intent
+
+        /**
+         * Trigger the [Effect.MoveToPrevious] event to be emitted in the [effects] flow.
+         */
+        object MoveToPrevious : Intent
+
+        /**
+         * Trigger the [Effect.MoveToNext] event to be emitted in the [effects] flow.
+         */
+        object MoveToNext : Intent
+
+        /**
+         * Trigger the [Effect.AddUnit] event to be emitted in the [effects] flow.
+         */
+        object AddUnit : Intent
+
+        /**
+         * Trigger the [Effect.RemoveUnit] event to be emitted in the [effects] flow.
+         */
+        object RemoveUnit : Intent
+
+        /**
+         * Trigger the [Effect.ValidateUnits] event to be emitted in the [effects] flow.
+         * This is intended for placeholder validation.
+         */
+        object ValidateUnits : Intent
+
+        /**
+         * Set the editing state.
+         *
+         * @param value state to set
+         */
+        data class SetEditing(val value: Boolean) : Intent
+    }
 
     /**
-     * Current project ID
-     */
-    var projectId: Int
-
-    /**
-     * UI state
-     */
-    val uiState: StateFlow<TranslateToolbarUiState>
-
-    /**
-     * Event flow
-     */
-    val events: SharedFlow<Events>
-
-    /**
-     * Current language selected in the toolbar
-     */
-    val currentLanguage: StateFlow<LanguageModel?>
-
-    /**
-     * Change the current language.
+     * UI state for the translation toolbar
      *
-     * @param value language to set
+     * @property currentLanguage currently selected language
+     * @property currentTypeFilter currently selected message filter
+     * @property availableFilters available message filters
+     * @property availableLanguages available languages
+     * @property currentSearch currently selected search query
+     * @property isEditing a boolean indicating whether a message is being edited
+     * @constructor Create [UiState]
      */
-    fun setLanguage(value: LanguageModel)
-
-    /**
-     * Change the message filter.
-     *
-     * @param value filter to set
-     */
-    fun setTypeFilter(value: TranslationUnitTypeFilter)
-
-    /**
-     * Trigger the [Events.Search] event to be emitted in the [events] flow with the last value passed to the [setSearch] method.
-     */
-    fun onSearchFired()
-
-    /**
-     * Set a search query string
-     *
-     * @param value query to set
-     */
-    fun setSearch(value: String)
-
-    /**
-     * Trigger the [Events.CopyBase] event to be emitted in the [events] flow.
-     */
-    fun copyBase()
-
-    /**
-     * Trigger the [Events.MoveToPrevious] event to be emitted in the [events] flow.
-     */
-    fun moveToPrevious()
-
-    /**
-     * Trigger the [Events.MoveToNext] event to be emitted in the [events] flow.
-     */
-    fun moveToNext()
-
-    /**
-     * Trigger the [Events.AddUnit] event to be emitted in the [events] flow.
-     */
-    fun addUnit()
-
-    /**
-     * Trigger the [Events.RemoveUnit] event to be emitted in the [events] flow.
-     */
-    fun removeUnit()
-
-    /**
-     * Trigger the [Events.ValidateUnits] event to be emitted in the [events] flow.
-     * This is intended for placeholder validation.
-     */
-    fun validateUnits()
-
-    /**
-     * Set the editing state.
-     *
-     * @param value state to set
-     */
-    fun setEditing(value: Boolean)
+    data class UiState(
+        val currentLanguage: LanguageModel? = null,
+        val currentTypeFilter: TranslationUnitTypeFilter = TranslationUnitTypeFilter.ALL,
+        val availableFilters: List<TranslationUnitTypeFilter> = emptyList(),
+        val availableLanguages: List<LanguageModel> = emptyList(),
+        val currentSearch: String = "",
+        val isEditing: Boolean = false,
+    )
 
     /**
      * Events that can be emitted by the component.
      */
-    sealed interface Events {
+    sealed interface Effect {
         /**
          * Move to previous segment
          */
-        object MoveToPrevious : Events
+        object MoveToPrevious : Effect
 
         /**
          * Move to next segment
          */
-        object MoveToNext : Events
+        object MoveToNext : Effect
 
         /**
          * Search in message list.
@@ -114,26 +116,31 @@ interface TranslateToolbarComponent {
          * @property text query to search
          * @constructor Create [Search]
          */
-        data class Search(val text: String) : Events
+        data class Search(val text: String) : Effect
 
         /**
          * Add new segment
          */
-        object AddUnit : Events
+        object AddUnit : Effect
 
         /**
          * Delete current segment
          */
-        object RemoveUnit : Events
+        object RemoveUnit : Effect
 
         /**
          * Start validation (placeholder)
          */
-        object ValidateUnits : Events
+        object ValidateUnits : Effect
 
         /**
          * Copy base (source) text to translation field
          */
-        object CopyBase : Events
+        object CopyBase : Effect
     }
+
+    /**
+     * Current project ID
+     */
+    var projectId: Int
 }

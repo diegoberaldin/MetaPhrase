@@ -119,7 +119,7 @@ fun MachineTranslationContent(
                     maxLines = 5,
                     onValueChange = {
                         textFieldValue = it
-                        component.setTranslation(it.text)
+                        component.reduce(MachineTranslationComponent.Intent.SetTranslation(it.text))
                     },
                 )
             }
@@ -128,16 +128,16 @@ fun MachineTranslationContent(
                 modifier = Modifier.fillMaxWidth(),
                 isEmpty = uiState.translation.isEmpty(),
                 onShare = {
-                    component.share()
+                    component.reduce(MachineTranslationComponent.Intent.Share)
                 },
                 onAccept = {
-                    component.insertTranslation()
+                    component.reduce(MachineTranslationComponent.Intent.InsertTranslation)
                 },
                 onDownload = {
-                    component.retrieve()
+                    component.reduce(MachineTranslationComponent.Intent.Retrieve)
                 },
                 onCopyTarget = {
-                    component.copyTarget()
+                    component.reduce(MachineTranslationComponent.Intent.CopyTarget)
                 },
             )
             Spacer(modifier = Modifier.height(Spacing.m))

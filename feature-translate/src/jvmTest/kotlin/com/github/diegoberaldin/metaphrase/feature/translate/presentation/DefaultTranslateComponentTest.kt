@@ -68,7 +68,14 @@ class DefaultTranslateComponentTest {
                     module {
                         single<TranslateToolbarComponent> {
                             mockk<TranslateToolbarComponent> {
-                                every { currentLanguage } returns MutableStateFlow(LanguageModel(code = "en"))
+                                every { uiState } returns MutableStateFlow(
+                                    TranslateToolbarComponent.UiState(
+                                        currentLanguage = LanguageModel(
+                                            code = "en",
+                                            isBase = true,
+                                        ),
+                                    ),
+                                )
                             }
                         }
                     },
@@ -162,7 +169,7 @@ class DefaultTranslateComponentTest {
         }
 
         runOnUiThread {
-            sut.closeDialog()
+            sut.reduce(TranslateComponent.Intent.CloseDialog)
         }
         sut.dialog.configAsFlow<TranslateComponent.DialogConfig>().test {
             val item = awaitItem()
@@ -181,7 +188,7 @@ class DefaultTranslateComponentTest {
         }
 
         runOnUiThread {
-            sut.addSegment()
+            sut.reduce(TranslateComponent.Intent.AddSegment)
         }
 
         sut.dialog.configAsFlow<TranslateComponent.DialogConfig>().test {
@@ -205,7 +212,7 @@ class DefaultTranslateComponentTest {
             lifecycle.resume()
         }
 
-        sut.save("path")
+        sut.reduce(TranslateComponent.Intent.Save("path"))
 
         coVerify { mockSaveProject.invoke(any(), "path") }
     }
@@ -233,7 +240,7 @@ class DefaultTranslateComponentTest {
             lifecycle.resume()
         }
 
-        sut.import("path", ResourceFileType.ANDROID_XML)
+        sut.reduce(TranslateComponent.Intent.Import("path", ResourceFileType.ANDROID_XML))
 
         val uiState = sut.uiState.value
         assertEquals(2, uiState.unitCount)
@@ -253,7 +260,7 @@ class DefaultTranslateComponentTest {
             lifecycle.resume()
         }
 
-        sut.export("path", ResourceFileType.ANDROID_XML)
+        sut.reduce(TranslateComponent.Intent.Export("path", ResourceFileType.ANDROID_XML))
 
         coVerify {
             mockExportResources.invoke(
@@ -276,7 +283,7 @@ class DefaultTranslateComponentTest {
             lifecycle.resume()
         }
 
-        sut.togglePanel(TranslateComponent.PanelConfig.Validation)
+        sut.reduce(TranslateComponent.Intent.TogglePanel(TranslateComponent.PanelConfig.Validation))
 
         sut.panel.configAsFlow<TranslateComponent.PanelConfig>().test {
             val item = awaitItem()
@@ -297,7 +304,7 @@ class DefaultTranslateComponentTest {
             lifecycle.resume()
         }
 
-        sut.exportTmx("path")
+        sut.reduce(TranslateComponent.Intent.ExportTmx("path"))
 
         coVerify { mockExportToTmx.invoke("en", "path") }
     }
@@ -315,7 +322,7 @@ class DefaultTranslateComponentTest {
             lifecycle.resume()
         }
 
-        sut.syncWithTm()
+        sut.reduce(TranslateComponent.Intent.SyncWithTm)
 
         coVerify { mockSyncProjectWithTm.invoke(any()) }
     }
@@ -334,7 +341,7 @@ class DefaultTranslateComponentTest {
             lifecycle.resume()
         }
 
-        sut.validatePlaceholders()
+        sut.reduce(TranslateComponent.Intent.ValidatePlaceholders)
 
         coVerify { mockValidatePlaceholders.invoke(any()) }
     }
@@ -352,7 +359,7 @@ class DefaultTranslateComponentTest {
             lifecycle.resume()
         }
 
-        sut.globalSpellcheck()
+        sut.reduce(TranslateComponent.Intent.GlobalSpellcheck)
 
         coVerify { mockValidateSpelling.invoke(any(), any()) }
     }
@@ -375,7 +382,7 @@ class DefaultTranslateComponentTest {
             lifecycle.resume()
         }
 
-        sut.machineTranslationContributeTm()
+        sut.reduce(TranslateComponent.Intent.MachineTranslationContributeTm)
 
         coVerify {
             mockMachineTranslationRepository.importTm(

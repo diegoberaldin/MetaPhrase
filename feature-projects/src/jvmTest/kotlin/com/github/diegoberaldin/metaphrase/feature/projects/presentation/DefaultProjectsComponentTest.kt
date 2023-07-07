@@ -24,7 +24,6 @@ import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
 import io.mockk.slot
-import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
 import org.koin.core.context.startKoin
@@ -75,20 +74,24 @@ class DefaultProjectsComponentTest {
     @Test
     fun givenComponentCreatedWhenOpenProjectThenActiveProjectIsUpdateAndNavigationChangesAccordingly() = runTest {
         val idSlot = slot<Int>()
-        coEvery { mockProjectRepository.getById(capture(idSlot)) } answers { ProjectModel(id = idSlot.captured, name = "${idSlot.captured}") }
+        coEvery { mockProjectRepository.getById(capture(idSlot)) } answers {
+            ProjectModel(
+                id = idSlot.captured,
+                name = "${idSlot.captured}",
+            )
+        }
         coEvery { mockKeyStore.save(KeyStoreKeys.LastOpenedProject, any<String>()) } returns Unit
         lifecycle.create()
 
         val projectId = 1
         runOnUiThread {
-            sut.open(projectId)
+            sut.reduce(ProjectsComponent.Intent.Open(projectId))
         }
 
-        sut.activeProject.debounce(100).test {
-            val item = awaitItem()
-            assertNotNull(item)
-            assertEquals(projectId, item.id)
-        }
+        val uiState = sut.uiState.value
+        assertNotNull(uiState.activeProject)
+        assertEquals(projectId, uiState.activeProject?.id)
+
         sut.childStack.activeConfigAsFlow<ProjectsComponent.Config>().test {
             val item = awaitItem()
             assertIs<ProjectsComponent.Config.Detail>(item)
@@ -107,13 +110,11 @@ class DefaultProjectsComponentTest {
             lifecycle.create()
 
             runOnUiThread {
-                sut.closeCurrentProject()
+                sut.reduce(ProjectsComponent.Intent.CloseCurrentProject)
             }
 
-            sut.activeProject.debounce(100).test {
-                val item = awaitItem()
-                assertNull(item)
-            }
+            val uiState = sut.uiState.value
+            assertNull(uiState.activeProject)
             sut.childStack.activeConfigAsFlow<ProjectsComponent.Config>().test {
                 val item = awaitItem()
                 assertIs<ProjectsComponent.Config.List>(item)

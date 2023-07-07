@@ -9,6 +9,8 @@ import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import com.github.diegoberaldin.feature.main.settings.dialog.login.presentation.LoginComponent
+import com.github.diegoberaldin.metaphrase.core.common.architecture.DefaultMviModel
+import com.github.diegoberaldin.metaphrase.core.common.architecture.MviModel
 import com.github.diegoberaldin.metaphrase.core.common.coroutines.CoroutineDispatcherProvider
 import com.github.diegoberaldin.metaphrase.core.common.keystore.KeyStoreKeys
 import com.github.diegoberaldin.metaphrase.core.common.keystore.TemporaryKeyStore
@@ -21,8 +23,6 @@ import com.github.diegoberaldin.metaphrase.domain.mt.repository.MachineTranslati
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
@@ -30,10 +30,15 @@ internal class DefaultSettingsComponent(
     componentContext: ComponentContext,
     coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,
+    private val mvi: DefaultMviModel<SettingsComponent.Intent, SettingsComponent.UiState, SettingsComponent.Effect> = DefaultMviModel(
+        SettingsComponent.UiState(),
+    ),
     private val completeLanguage: GetCompleteLanguageUseCase,
     private val keyStore: TemporaryKeyStore,
     private val machineTranslationRepository: MachineTranslationRepository,
-) : SettingsComponent, ComponentContext by componentContext {
+) : SettingsComponent,
+    MviModel<SettingsComponent.Intent, SettingsComponent.UiState, SettingsComponent.Effect> by mvi,
+    ComponentContext by componentContext {
 
     companion object {
         private val SUPPORTED_LANGUAGES = listOf(
@@ -49,7 +54,6 @@ internal class DefaultSettingsComponent(
     private lateinit var viewModelScope: CoroutineScope
     private val dialogNavigation = SlotNavigation<SettingsComponent.DialogConfig>()
 
-    override val uiState = MutableStateFlow(SettingsUiState())
     override val dialog: Value<ChildSlot<SettingsComponent.DialogConfig, *>> = childSlot(
         source = dialogNavigation,
         key = "SettingsComponentDialogSlot",
@@ -67,7 +71,7 @@ internal class DefaultSettingsComponent(
             doOnCreate {
                 viewModelScope = CoroutineScope(coroutineContext + SupervisorJob())
                 viewModelScope.launch(dispatchers.io) {
-                    uiState.update { it.copy(isLoading = true) }
+                    mvi.updateState { it.copy(isLoading = true) }
                     val version = System.getProperty("jpackage.app-version") ?: "[debug]"
                     val langCode = "lang".localized()
                     val currentLanguage = completeLanguage(LanguageModel(code = langCode))
@@ -79,7 +83,7 @@ internal class DefaultSettingsComponent(
                         completeLanguage(LanguageModel(code = l))
                     }
                     val currentProvider = MachineTranslationRepository.AVAILABLE_PROVIDERS[providerIndex]
-                    uiState.update {
+                    mvi.updateState {
                         it.copy(
                             currentLanguage = currentLanguage,
                             similarityThreshold = similarity.toString(),
@@ -100,8 +104,24 @@ internal class DefaultSettingsComponent(
         }
     }
 
-    override fun setLanguage(value: LanguageModel) {
-        uiState.update { it.copy(currentLanguage = value) }
+    override fun reduce(intent: SettingsComponent.Intent) {
+        when (intent) {
+            is SettingsComponent.Intent.SetLanguage -> setLanguage(intent.value)
+            is SettingsComponent.Intent.SetSimilarity -> setSimilarity(intent.value)
+            is SettingsComponent.Intent.SetSpellcheckEnabled -> setSpellcheckEnabled(intent.value)
+            is SettingsComponent.Intent.SetMachineTranslationProvider -> setMachineTranslationProvider(intent.index)
+            is SettingsComponent.Intent.SetMachineTranslationKey -> setMachineTranslationKey(intent.value)
+            SettingsComponent.Intent.OpenLoginDialog -> openLoginDialog()
+            SettingsComponent.Intent.CloseDialog -> closeDialog()
+            is SettingsComponent.Intent.GenerateMachineTranslationKey -> generateMachineTranslationKey(
+                username = intent.username,
+                password = intent.password,
+            )
+        }
+    }
+
+    private fun setLanguage(value: LanguageModel) {
+        mvi.updateState { it.copy(currentLanguage = value) }
 
         val langCode = value.code
         L10n.setLanguage(lang = langCode)
@@ -110,61 +130,61 @@ internal class DefaultSettingsComponent(
         }
     }
 
-    override fun setSimilarity(value: String) {
+    private fun setSimilarity(value: String) {
         val newValue = (value.toIntOrNull() ?: 75).coerceIn(0, 100)
-        uiState.update { it.copy(similarityThreshold = newValue.toString()) }
+        mvi.updateState { it.copy(similarityThreshold = newValue.toString()) }
         viewModelScope.launch(dispatchers.io) {
             keyStore.save(KeyStoreKeys.SimilarityThreshold, newValue)
         }
     }
 
-    override fun setSpellcheckEnabled(value: Boolean) {
-        uiState.update { it.copy(spellcheckEnabled = value) }
+    private fun setSpellcheckEnabled(value: Boolean) {
+        mvi.updateState { it.copy(spellcheckEnabled = value) }
         viewModelScope.launch(dispatchers.io) {
             keyStore.save(KeyStoreKeys.SpellcheckEnabled, value)
         }
     }
 
-    override fun setMachineTranslationProvider(index: Int) {
+    private fun setMachineTranslationProvider(index: Int) {
         if (index !in MachineTranslationRepository.AVAILABLE_PROVIDERS.indices) return
 
         val provider = MachineTranslationRepository.AVAILABLE_PROVIDERS[index]
-        uiState.update { it.copy(currentProvider = provider) }
+        mvi.updateState { it.copy(currentProvider = provider) }
         viewModelScope.launch(dispatchers.io) {
             keyStore.save(KeyStoreKeys.MachineTranslationProvider, index)
         }
     }
 
-    override fun setMachineTranslationKey(value: String) {
-        uiState.update { it.copy(key = value) }
+    private fun setMachineTranslationKey(value: String) {
+        mvi.updateState { it.copy(key = value) }
         viewModelScope.launch(dispatchers.io) {
             keyStore.save(KeyStoreKeys.MachineTranslationKey, value)
         }
     }
 
-    override fun openLoginDialog() {
+    private fun openLoginDialog() {
         viewModelScope.launch(dispatchers.main) {
             dialogNavigation.activate(SettingsComponent.DialogConfig.Login)
         }
     }
 
-    override fun closeDialog() {
+    private fun closeDialog() {
         viewModelScope.launch(dispatchers.main) {
             dialogNavigation.activate(SettingsComponent.DialogConfig.None)
         }
     }
 
-    override fun generateMachineTranslationKey(username: String, password: String) {
+    private fun generateMachineTranslationKey(username: String, password: String) {
         val provider = uiState.value.currentProvider ?: return
         viewModelScope.launch(dispatchers.io) {
-            uiState.update { it.copy(isLoading = true) }
+            mvi.updateState { it.copy(isLoading = true) }
             val key = machineTranslationRepository.generateKey(
                 provider = provider,
                 username = username,
                 password = password,
             )
             setMachineTranslationKey(key)
-            uiState.update { it.copy(isLoading = false) }
+            mvi.updateState { it.copy(isLoading = false) }
         }
     }
 }
