@@ -1,0 +1,17 @@
+---
+title: currentSearch
+---
+//[MetaPhrase](../../../../index.html)/[com.github.diegoberaldin.metaphrase.feature.translate.panel.memory.presentation](../../index.html)/[BrowseMemoryComponent](../index.html)/[UiState](index.html)/[currentSearch](current-search.html)
+
+
+
+# currentSearch
+
+
+
+[jvm]\
+val [currentSearch](current-search.html): [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)
+
+
+
+

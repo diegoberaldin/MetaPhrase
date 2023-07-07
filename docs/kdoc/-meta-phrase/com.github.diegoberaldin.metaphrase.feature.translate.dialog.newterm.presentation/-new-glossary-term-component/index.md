@@ -7,9 +7,9 @@ title: NewGlossaryTermComponent
 
 # NewGlossaryTermComponent
 
-interface [NewGlossaryTermComponent](index.html)
+interface [NewGlossaryTermComponent](index.html) : [MviModel](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/index.html)&lt;[NewGlossaryTermComponent.Intent](-intent/index.html), [NewGlossaryTermComponent.UiState](-ui-state/index.html), [NewGlossaryTermComponent.Effect](-effect/index.html)&gt; 
 
-New glossary term component.
+New glossary term component contract.
 
 
 
@@ -21,13 +21,23 @@ New glossary term component.
 | [DefaultNewGlossaryTermComponent](../-default-new-glossary-term-component/index.html) |
 
 
+## Types
+
+
+| Name | Summary |
+|---|---|
+| [Effect](-effect/index.html) | [jvm]<br>interface [Effect](-effect/index.html) |
+| [Intent](-intent/index.html) | [jvm]<br>interface [Intent](-intent/index.html)<br>View intents. |
+| [UiState](-ui-state/index.html) | [jvm]<br>data class [UiState](-ui-state/index.html)(val sourceTerm: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) = &quot;&quot;, val sourceTermError: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) = &quot;&quot;, val targetTerm: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) = &quot;&quot;, val targetTermError: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) = &quot;&quot;)<br>New glossary term UI state. |
+
+
 ## Properties
 
 
 | Name | Summary |
 |---|---|
-| [done](done.html) | [jvm]<br>abstract val [done](done.html): SharedFlow&lt;[GlossaryTermPair](../-glossary-term-pair/index.html)&gt;<br>Event emitted after successful submission. |
-| [uiState](ui-state.html) | [jvm]<br>abstract val [uiState](ui-state.html): StateFlow&lt;[NewGlossaryTermUiState](../-new-glossary-term-ui-state/index.html)&gt;<br>UI state |
+| [effects](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/effects.html) | [jvm]<br>abstract val [effects](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/effects.html): SharedFlow&lt;[NewGlossaryTermComponent.Effect](-effect/index.html)&gt; |
+| [uiState](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/ui-state.html) | [jvm]<br>abstract val [uiState](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/ui-state.html): StateFlow&lt;[NewGlossaryTermComponent.UiState](-ui-state/index.html)&gt; |
 
 
 ## Functions
@@ -35,7 +45,5 @@ New glossary term component.
 
 | Name | Summary |
 |---|---|
-| [setSourceTerm](set-source-term.html) | [jvm]<br>abstract fun [setSourceTerm](set-source-term.html)(value: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html))<br>Set source term. |
-| [setTargetTerm](set-target-term.html) | [jvm]<br>abstract fun [setTargetTerm](set-target-term.html)(value: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html))<br>Set target term. |
-| [submit](submit.html) | [jvm]<br>abstract fun [submit](submit.html)()<br>Confirm the inserted term pair.. |
+| [reduce](index.html#530473964%2FFunctions%2F2137835383) | [jvm]<br>abstract fun [reduce](index.html#530473964%2FFunctions%2F2137835383)(intent: [NewGlossaryTermComponent.Intent](-intent/index.html)) |
 

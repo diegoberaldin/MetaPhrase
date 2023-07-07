@@ -10,10 +10,20 @@ title: TranslationMemoryComponent
 
 
 [jvm]\
-interface [TranslationMemoryComponent](index.html)
+interface [TranslationMemoryComponent](index.html) : [MviModel](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/index.html)&lt;[TranslationMemoryComponent.Intent](-intent/index.html), [TranslationMemoryComponent.UiState](-ui-state/index.html), [TranslationMemoryComponent.Effect](-effect/index.html)&gt; 
 
 Translation memory component.
 
+
+
+## Types
+
+
+| Name | Summary |
+|---|---|
+| [Effect](-effect/index.html) | [jvm]<br>interface [Effect](-effect/index.html)<br>Effects. |
+| [Intent](-intent/index.html) | [jvm]<br>interface [Intent](-intent/index.html)<br>View intents. |
+| [UiState](-ui-state/index.html) | [jvm]<br>data class [UiState](-ui-state/index.html)(val isLoading: [Boolean](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) = false, val units: [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)&lt;[TranslationUnit](../../com.github.diegoberaldin.metaphrase.domain.project.data/-translation-unit/index.html)&gt; = emptyList())<br>Translation memory UI state. |
 
 
 ## Properties
@@ -21,8 +31,8 @@ Translation memory component.
 
 | Name | Summary |
 |---|---|
-| [copyEvents](copy-events.html) | [jvm]<br>abstract val [copyEvents](copy-events.html): SharedFlow&lt;[String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)&gt;<br>Events triggered when a TM message should be copied into the translation editor |
-| [uiState](ui-state.html) | [jvm]<br>abstract val [uiState](ui-state.html): StateFlow&lt;[TranslationMemoryUiState](../-translation-memory-ui-state/index.html)&gt;<br>UI state |
+| [effects](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/effects.html) | [jvm]<br>abstract val [effects](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/effects.html): SharedFlow&lt;[TranslationMemoryComponent.Effect](-effect/index.html)&gt; |
+| [uiState](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/ui-state.html) | [jvm]<br>abstract val [uiState](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/ui-state.html): StateFlow&lt;[TranslationMemoryComponent.UiState](-ui-state/index.html)&gt; |
 
 
 ## Functions
@@ -30,7 +40,5 @@ Translation memory component.
 
 | Name | Summary |
 |---|---|
-| [clear](clear.html) | [jvm]<br>abstract fun [clear](clear.html)()<br>Clear the content of the panel. |
-| [copyTranslation](copy-translation.html) | [jvm]<br>abstract fun [copyTranslation](copy-translation.html)(index: [Int](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html))<br>Copy the match with a given index into the translation field. |
-| [load](load.html) | [jvm]<br>abstract fun [load](load.html)(key: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html), projectId: [Int](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html), languageId: [Int](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html))<br>Load the TM matches for the message with a given key. |
+| [reduce](index.html#1725299291%2FFunctions%2F2137835383) | [jvm]<br>abstract fun [reduce](index.html#1725299291%2FFunctions%2F2137835383)(intent: [TranslationMemoryComponent.Intent](-intent/index.html)) |
 

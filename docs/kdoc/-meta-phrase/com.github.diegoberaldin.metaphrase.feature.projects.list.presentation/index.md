@@ -14,6 +14,5 @@ title: com.github.diegoberaldin.metaphrase.feature.projects.list.presentation
 
 | Name | Summary |
 |---|---|
-| [ProjectListComponent](-project-list-component/index.html) | [jvm]<br>interface [ProjectListComponent](-project-list-component/index.html) |
-| [ProjectListUiState](-project-list-ui-state/index.html) | [jvm]<br>data class [ProjectListUiState](-project-list-ui-state/index.html)(val projects: [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)&lt;[RecentProjectModel](../com.github.diegoberaldin.metaphrase.domain.project.data/-recent-project-model/index.html)&gt; = emptyList()) |
+| [ProjectListComponent](-project-list-component/index.html) | [jvm]<br>interface [ProjectListComponent](-project-list-component/index.html) : [MviModel](../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/index.html)&lt;[ProjectListComponent.Intent](-project-list-component/-intent/index.html), [ProjectListComponent.UiState](-project-list-component/-ui-state/index.html), [ProjectListComponent.Effect](-project-list-component/-effect/index.html)&gt; <br>Recent project list component contract. |
 

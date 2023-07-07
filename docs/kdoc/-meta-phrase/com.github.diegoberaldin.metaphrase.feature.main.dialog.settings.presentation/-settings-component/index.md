@@ -10,9 +10,9 @@ title: SettingsComponent
 
 
 [jvm]\
-interface [SettingsComponent](index.html)
+interface [SettingsComponent](index.html) : [MviModel](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/index.html)&lt;[SettingsComponent.Intent](-intent/index.html), [SettingsComponent.UiState](-ui-state/index.html), [SettingsComponent.Effect](-effect/index.html)&gt; 
 
-Settings component.
+Settings component contract.
 
 
 
@@ -22,6 +22,9 @@ Settings component.
 | Name | Summary |
 |---|---|
 | [DialogConfig](-dialog-config/index.html) | [jvm]<br>interface [DialogConfig](-dialog-config/index.html) : Parcelable<br>Available sub-dialog configurations. |
+| [Effect](-effect/index.html) | [jvm]<br>interface [Effect](-effect/index.html)<br>Effects. |
+| [Intent](-intent/index.html) | [jvm]<br>interface [Intent](-intent/index.html)<br>View intents. |
+| [UiState](-ui-state/index.html) | [jvm]<br>data class [UiState](-ui-state/index.html)(val availableLanguages: [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)&lt;[LanguageModel](../../com.github.diegoberaldin.metaphrase.domain.language.data/-language-model/index.html)&gt; = emptyList(), val currentLanguage: [LanguageModel](../../com.github.diegoberaldin.metaphrase.domain.language.data/-language-model/index.html)? = null, val isLoading: [Boolean](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) = false, val similarityThreshold: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) = &quot;&quot;, val spellcheckEnabled: [Boolean](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) = false, val appVersion: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) = &quot;&quot;, val availableProviders: [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)&lt;[MachineTranslationProvider](../../com.github.diegoberaldin.metaphrase.domain.mt.repository.data/-machine-translation-provider/index.html)&gt; = emptyList(), val currentProvider: [MachineTranslationProvider](../../com.github.diegoberaldin.metaphrase.domain.mt.repository.data/-machine-translation-provider/index.html)? = null, val key: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) = &quot;&quot;)<br>UI state for general settings. |
 
 
 ## Properties
@@ -30,9 +33,8 @@ Settings component.
 | Name | Summary |
 |---|---|
 | [dialog](dialog.html) | [jvm]<br>abstract val [dialog](dialog.html): Value&lt;ChildSlot&lt;[SettingsComponent.DialogConfig](-dialog-config/index.html), *&gt;&gt;<br>Current sub-dialog configuration. |
-| [languageUiState](language-ui-state.html) | [jvm]<br>abstract val [languageUiState](language-ui-state.html): StateFlow&lt;[SettingsLanguageUiState](../-settings-language-ui-state/index.html)&gt;<br>Language UI state. |
-| [machineTranslationUiState](machine-translation-ui-state.html) | [jvm]<br>abstract val [machineTranslationUiState](machine-translation-ui-state.html): StateFlow&lt;[SettingsMachineTranslationUiState](../-settings-machine-translation-ui-state/index.html)&gt;<br>Machine transaltion UI state. |
-| [uiState](ui-state.html) | [jvm]<br>abstract val [uiState](ui-state.html): StateFlow&lt;[SettingsUiState](../-settings-ui-state/index.html)&gt;<br>General UI state. |
+| [effects](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/effects.html) | [jvm]<br>abstract val [effects](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/effects.html): SharedFlow&lt;[SettingsComponent.Effect](-effect/index.html)&gt; |
+| [uiState](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/ui-state.html) | [jvm]<br>abstract val [uiState](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/ui-state.html): StateFlow&lt;[SettingsComponent.UiState](-ui-state/index.html)&gt; |
 
 
 ## Functions
@@ -40,12 +42,5 @@ Settings component.
 
 | Name | Summary |
 |---|---|
-| [closeDialog](close-dialog.html) | [jvm]<br>abstract fun [closeDialog](close-dialog.html)()<br>Close the current sub-dialog. |
-| [generateMachineTranslationKey](generate-machine-translation-key.html) | [jvm]<br>abstract fun [generateMachineTranslationKey](generate-machine-translation-key.html)(username: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html), password: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html))<br>Generate a machine translation API key. |
-| [openLoginDialog](open-login-dialog.html) | [jvm]<br>abstract fun [openLoginDialog](open-login-dialog.html)()<br>Open the login sub-dialog. |
-| [setLanguage](set-language.html) | [jvm]<br>abstract fun [setLanguage](set-language.html)(value: [LanguageModel](../../com.github.diegoberaldin.metaphrase.domain.language.data/-language-model/index.html))<br>Set language. |
-| [setMachineTranslationKey](set-machine-translation-key.html) | [jvm]<br>abstract fun [setMachineTranslationKey](set-machine-translation-key.html)(value: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html))<br>Set machine translation API key. |
-| [setMachineTranslationProvider](set-machine-translation-provider.html) | [jvm]<br>abstract fun [setMachineTranslationProvider](set-machine-translation-provider.html)(index: [Int](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html))<br>Set machine translation provider. |
-| [setSimilarity](set-similarity.html) | [jvm]<br>abstract fun [setSimilarity](set-similarity.html)(value: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html))<br>Set similarity threshold |
-| [setSpellcheckEnabled](set-spellcheck-enabled.html) | [jvm]<br>abstract fun [setSpellcheckEnabled](set-spellcheck-enabled.html)(value: [Boolean](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html))<br>Enabled/disabled the spelling check. |
+| [reduce](index.html#-1298201823%2FFunctions%2F2137835383) | [jvm]<br>abstract fun [reduce](index.html#-1298201823%2FFunctions%2F2137835383)(intent: [SettingsComponent.Intent](-intent/index.html)) |
 

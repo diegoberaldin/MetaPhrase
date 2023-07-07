@@ -10,8 +10,18 @@ title: CreateProjectComponent
 
 
 [jvm]\
-interface [CreateProjectComponent](index.html)
+interface [CreateProjectComponent](index.html) : [MviModel](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/index.html)&lt;[CreateProjectComponent.Intent](-intent/index.html), [CreateProjectComponent.UiState](-ui-state/index.html), [CreateProjectComponent.Effect](-effect/index.html)&gt;
 
+
+
+## Types
+
+
+| Name | Summary |
+|---|---|
+| [Effect](-effect/index.html) | [jvm]<br>interface [Effect](-effect/index.html)<br>Effects. |
+| [Intent](-intent/index.html) | [jvm]<br>interface [Intent](-intent/index.html)<br>View intents. |
+| [UiState](-ui-state/index.html) | [jvm]<br>data class [UiState](-ui-state/index.html)(val name: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) = &quot;&quot;, val nameError: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) = &quot;&quot;, val isLoading: [Boolean](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) = false, val languages: [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)&lt;[LanguageModel](../../com.github.diegoberaldin.metaphrase.domain.language.data/-language-model/index.html)&gt; = emptyList(), val languagesError: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) = &quot;&quot;, val availableLanguages: [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)&lt;[LanguageModel](../../com.github.diegoberaldin.metaphrase.domain.language.data/-language-model/index.html)&gt; = emptyList())<br>Create project UI state. |
 
 
 ## Properties
@@ -19,10 +29,9 @@ interface [CreateProjectComponent](index.html)
 
 | Name | Summary |
 |---|---|
-| [done](done.html) | [jvm]<br>abstract val [done](done.html): SharedFlow&lt;[Int](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)?&gt; |
-| [languagesUiState](languages-ui-state.html) | [jvm]<br>abstract val [languagesUiState](languages-ui-state.html): StateFlow&lt;[CreateProjectLanguagesUiState](../-create-project-languages-ui-state/index.html)&gt; |
+| [effects](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/effects.html) | [jvm]<br>abstract val [effects](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/effects.html): SharedFlow&lt;[CreateProjectComponent.Effect](-effect/index.html)&gt; |
 | [projectId](project-id.html) | [jvm]<br>abstract var [projectId](project-id.html): [Int](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html) |
-| [uiState](ui-state.html) | [jvm]<br>abstract val [uiState](ui-state.html): StateFlow&lt;[CreateProjectUiState](../-create-project-ui-state/index.html)&gt; |
+| [uiState](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/ui-state.html) | [jvm]<br>abstract val [uiState](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/ui-state.html): StateFlow&lt;[CreateProjectComponent.UiState](-ui-state/index.html)&gt; |
 
 
 ## Functions
@@ -30,9 +39,5 @@ interface [CreateProjectComponent](index.html)
 
 | Name | Summary |
 |---|---|
-| [addLanguage](add-language.html) | [jvm]<br>abstract fun [addLanguage](add-language.html)(value: [LanguageModel](../../com.github.diegoberaldin.metaphrase.domain.language.data/-language-model/index.html)) |
-| [removeLanguage](remove-language.html) | [jvm]<br>abstract fun [removeLanguage](remove-language.html)(value: [LanguageModel](../../com.github.diegoberaldin.metaphrase.domain.language.data/-language-model/index.html)) |
-| [setBaseLanguage](set-base-language.html) | [jvm]<br>abstract fun [setBaseLanguage](set-base-language.html)(value: [LanguageModel](../../com.github.diegoberaldin.metaphrase.domain.language.data/-language-model/index.html)) |
-| [setName](set-name.html) | [jvm]<br>abstract fun [setName](set-name.html)(value: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)) |
-| [submit](submit.html) | [jvm]<br>abstract fun [submit](submit.html)() |
+| [reduce](index.html#1887169182%2FFunctions%2F2137835383) | [jvm]<br>abstract fun [reduce](index.html#1887169182%2FFunctions%2F2137835383)(intent: [CreateProjectComponent.Intent](-intent/index.html)) |
 

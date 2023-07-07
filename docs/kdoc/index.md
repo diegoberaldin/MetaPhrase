@@ -17,12 +17,14 @@ title: MetaPhrase
 | [com.github.diegoberaldin.feature.main.settings.dialog.login.di](-meta-phrase/com.github.diegoberaldin.feature.main.settings.dialog.login.di/index.html) |
 | [com.github.diegoberaldin.feature.main.settings.dialog.login.presentation](-meta-phrase/com.github.diegoberaldin.feature.main.settings.dialog.login.presentation/index.html) |
 | [com.github.diegoberaldin.feature.main.settings.dialog.login.ui](-meta-phrase/com.github.diegoberaldin.feature.main.settings.dialog.login.ui/index.html) |
+| [com.github.diegoberaldin.metaphrase.core.common.architecture](-meta-phrase/com.github.diegoberaldin.metaphrase.core.common.architecture/index.html) |
 | [com.github.diegoberaldin.metaphrase.core.common.coroutines](-meta-phrase/com.github.diegoberaldin.metaphrase.core.common.coroutines/index.html) |
 | [com.github.diegoberaldin.metaphrase.core.common.di](-meta-phrase/com.github.diegoberaldin.metaphrase.core.common.di/index.html) |
 | [com.github.diegoberaldin.metaphrase.core.common.files](-meta-phrase/com.github.diegoberaldin.metaphrase.core.common.files/index.html) |
 | [com.github.diegoberaldin.metaphrase.core.common.keystore](-meta-phrase/com.github.diegoberaldin.metaphrase.core.common.keystore/index.html) |
 | [com.github.diegoberaldin.metaphrase.core.common.log](-meta-phrase/com.github.diegoberaldin.metaphrase.core.common.log/index.html) |
 | [com.github.diegoberaldin.metaphrase.core.common.notification](-meta-phrase/com.github.diegoberaldin.metaphrase.core.common.notification/index.html) |
+| [com.github.diegoberaldin.metaphrase.core.common.testutils](-meta-phrase/com.github.diegoberaldin.metaphrase.core.common.testutils/index.html) |
 | [com.github.diegoberaldin.metaphrase.core.common.ui.components](-meta-phrase/com.github.diegoberaldin.metaphrase.core.common.ui.components/index.html) |
 | [com.github.diegoberaldin.metaphrase.core.common.ui.theme](-meta-phrase/com.github.diegoberaldin.metaphrase.core.common.ui.theme/index.html) |
 | [com.github.diegoberaldin.metaphrase.core.common.utils](-meta-phrase/com.github.diegoberaldin.metaphrase.core.common.utils/index.html) |
@@ -31,6 +33,7 @@ title: MetaPhrase
 | [com.github.diegoberaldin.metaphrase.core.localization.di](-meta-phrase/com.github.diegoberaldin.metaphrase.core.localization.di/index.html) |
 | [com.github.diegoberaldin.metaphrase.core.localization.repository](-meta-phrase/com.github.diegoberaldin.metaphrase.core.localization.repository/index.html) |
 | [com.github.diegoberaldin.metaphrase.core.localization.usecase](-meta-phrase/com.github.diegoberaldin.metaphrase.core.localization.usecase/index.html) |
+| [com.github.diegoberaldin.metaphrase.core.persistence](-meta-phrase/com.github.diegoberaldin.metaphrase.core.persistence/index.html) |
 | [com.github.diegoberaldin.metaphrase.core.persistence.di](-meta-phrase/com.github.diegoberaldin.metaphrase.core.persistence.di/index.html) |
 | [com.github.diegoberaldin.metaphrase.domain.formats](-meta-phrase/com.github.diegoberaldin.metaphrase.domain.formats/index.html) |
 | [com.github.diegoberaldin.metaphrase.domain.formats.android](-meta-phrase/com.github.diegoberaldin.metaphrase.domain.formats.android/index.html) |

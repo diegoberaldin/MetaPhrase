@@ -14,6 +14,5 @@ title: com.github.diegoberaldin.feature.main.settings.dialog.login.presentation
 
 | Name | Summary |
 |---|---|
-| [LoginComponent](-login-component/index.html) | [jvm]<br>interface [LoginComponent](-login-component/index.html)<br>Login component. |
-| [LoginUiState](-login-ui-state/index.html) | [jvm]<br>data class [LoginUiState](-login-ui-state/index.html)(val username: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) = &quot;&quot;, val usernameError: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) = &quot;&quot;, val password: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) = &quot;&quot;, val passwordError: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) = &quot;&quot;)<br>Login ui state. |
+| [LoginComponent](-login-component/index.html) | [jvm]<br>interface [LoginComponent](-login-component/index.html) : [MviModel](../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/index.html)&lt;[LoginComponent.Intent](-login-component/-intent/index.html), [LoginComponent.UiState](-login-component/-ui-state/index.html), [LoginComponent.Effect](-login-component/-effect/index.html)&gt; <br>Login component contract. |
 

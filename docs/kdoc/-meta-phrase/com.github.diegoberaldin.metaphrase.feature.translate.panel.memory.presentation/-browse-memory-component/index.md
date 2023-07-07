@@ -10,10 +10,20 @@ title: BrowseMemoryComponent
 
 
 [jvm]\
-interface [BrowseMemoryComponent](index.html)
+interface [BrowseMemoryComponent](index.html) : [MviModel](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/index.html)&lt;[BrowseMemoryComponent.Intent](-intent/index.html), [BrowseMemoryComponent.UiState](-ui-state/index.html), [BrowseMemoryComponent.Effect](-effect/index.html)&gt; 
 
 Browse memory component.
 
+
+
+## Types
+
+
+| Name | Summary |
+|---|---|
+| [Effect](-effect/index.html) | [jvm]<br>interface [Effect](-effect/index.html)<br>Effects. |
+| [Intent](-intent/index.html) | [jvm]<br>interface [Intent](-intent/index.html)<br>View intents. |
+| [UiState](-ui-state/index.html) | [jvm]<br>data class [UiState](-ui-state/index.html)(val sourceLanguage: [LanguageModel](../../com.github.diegoberaldin.metaphrase.domain.language.data/-language-model/index.html)? = null, val availableSourceLanguages: [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)&lt;[LanguageModel](../../com.github.diegoberaldin.metaphrase.domain.language.data/-language-model/index.html)&gt; = emptyList(), val targetLanguage: [LanguageModel](../../com.github.diegoberaldin.metaphrase.domain.language.data/-language-model/index.html)? = null, val availableTargetLanguages: [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)&lt;[LanguageModel](../../com.github.diegoberaldin.metaphrase.domain.language.data/-language-model/index.html)&gt; = emptyList(), val currentSearch: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) = &quot;&quot;, val entries: [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)&lt;[TranslationMemoryEntryModel](../../com.github.diegoberaldin.metaphrase.domain.tm.data/-translation-memory-entry-model/index.html)&gt; = emptyList())<br>UI state from the TM content panel. |
 
 
 ## Properties
@@ -21,7 +31,8 @@ Browse memory component.
 
 | Name | Summary |
 |---|---|
-| [uiState](ui-state.html) | [jvm]<br>abstract val [uiState](ui-state.html): StateFlow&lt;[BrowseMemoryUiState](../-browse-memory-ui-state/index.html)&gt;<br>UI state |
+| [effects](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/effects.html) | [jvm]<br>abstract val [effects](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/effects.html): SharedFlow&lt;[BrowseMemoryComponent.Effect](-effect/index.html)&gt; |
+| [uiState](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/ui-state.html) | [jvm]<br>abstract val [uiState](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/ui-state.html): StateFlow&lt;[BrowseMemoryComponent.UiState](-ui-state/index.html)&gt; |
 
 
 ## Functions
@@ -29,10 +40,5 @@ Browse memory component.
 
 | Name | Summary |
 |---|---|
-| [deleteEntry](delete-entry.html) | [jvm]<br>abstract fun [deleteEntry](delete-entry.html)(index: [Int](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html))<br>Delete an entry from the translation memory. |
-| [onSearchFired](on-search-fired.html) | [jvm]<br>abstract fun [onSearchFired](on-search-fired.html)()<br>Start a search. |
-| [setLanguages](set-languages.html) | [jvm]<br>abstract fun [setLanguages](set-languages.html)(source: [LanguageModel](../../com.github.diegoberaldin.metaphrase.domain.language.data/-language-model/index.html)? = null, target: [LanguageModel](../../com.github.diegoberaldin.metaphrase.domain.language.data/-language-model/index.html)? = null)<br>Set the language pair. |
-| [setSearch](set-search.html) | [jvm]<br>abstract fun [setSearch](set-search.html)(value: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html))<br>Set the search query. |
-| [setSourceLanguage](set-source-language.html) | [jvm]<br>abstract fun [setSourceLanguage](set-source-language.html)(value: [LanguageModel](../../com.github.diegoberaldin.metaphrase.domain.language.data/-language-model/index.html)?)<br>Set the source language. |
-| [setTargetLanguage](set-target-language.html) | [jvm]<br>abstract fun [setTargetLanguage](set-target-language.html)(value: [LanguageModel](../../com.github.diegoberaldin.metaphrase.domain.language.data/-language-model/index.html)?)<br>Set the target language. |
+| [reduce](index.html#-2109143678%2FFunctions%2F2137835383) | [jvm]<br>abstract fun [reduce](index.html#-2109143678%2FFunctions%2F2137835383)(intent: [BrowseMemoryComponent.Intent](-intent/index.html)) |
 

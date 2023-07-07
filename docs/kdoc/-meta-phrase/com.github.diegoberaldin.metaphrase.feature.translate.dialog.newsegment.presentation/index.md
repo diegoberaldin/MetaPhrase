@@ -14,6 +14,5 @@ title: com.github.diegoberaldin.metaphrase.feature.translate.dialog.newsegment.p
 
 | Name | Summary |
 |---|---|
-| [NewSegmentComponent](-new-segment-component/index.html) | [jvm]<br>interface [NewSegmentComponent](-new-segment-component/index.html)<br>New segment component. |
-| [NewSegmentUiState](-new-segment-ui-state/index.html) | [jvm]<br>data class [NewSegmentUiState](-new-segment-ui-state/index.html)(val key: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) = &quot;&quot;, val keyError: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) = &quot;&quot;, val text: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) = &quot;&quot;, val textError: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) = &quot;&quot;, val isLoading: [Boolean](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) = false)<br>New segment dialog UI state. |
+| [NewSegmentComponent](-new-segment-component/index.html) | [jvm]<br>interface [NewSegmentComponent](-new-segment-component/index.html) : [MviModel](../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/index.html)&lt;[NewSegmentComponent.Intent](-new-segment-component/-intent/index.html), [NewSegmentComponent.UiState](-new-segment-component/-ui-state/index.html), [NewSegmentComponent.Effect](-new-segment-component/-effect/index.html)&gt; <br>New segment component contract. |
 

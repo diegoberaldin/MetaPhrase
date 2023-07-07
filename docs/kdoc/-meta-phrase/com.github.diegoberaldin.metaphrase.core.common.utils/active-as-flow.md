@@ -14,7 +14,7 @@ inline fun &lt;[T](active-as-flow.html)&gt; Value&lt;ChildStack&lt;*, *&gt;&gt;.
 
 
 
-Observe a child stack as a flow.
+Observe the instance of a child stack as a flow.
 
 
 

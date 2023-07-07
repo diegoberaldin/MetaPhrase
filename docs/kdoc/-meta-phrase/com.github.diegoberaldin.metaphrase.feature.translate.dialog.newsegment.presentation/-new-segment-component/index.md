@@ -10,10 +10,20 @@ title: NewSegmentComponent
 
 
 [jvm]\
-interface [NewSegmentComponent](index.html)
+interface [NewSegmentComponent](index.html) : [MviModel](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/index.html)&lt;[NewSegmentComponent.Intent](-intent/index.html), [NewSegmentComponent.UiState](-ui-state/index.html), [NewSegmentComponent.Effect](-effect/index.html)&gt; 
 
-New segment component.
+New segment component contract.
 
+
+
+## Types
+
+
+| Name | Summary |
+|---|---|
+| [Effect](-effect/index.html) | [jvm]<br>interface [Effect](-effect/index.html)<br>Effects. |
+| [Intent](-intent/index.html) | [jvm]<br>interface [Intent](-intent/index.html)<br>View intents. |
+| [UiState](-ui-state/index.html) | [jvm]<br>data class [UiState](-ui-state/index.html)(val key: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) = &quot;&quot;, val keyError: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) = &quot;&quot;, val text: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) = &quot;&quot;, val textError: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) = &quot;&quot;, val isLoading: [Boolean](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) = false)<br>New segment dialog UI state. |
 
 
 ## Properties
@@ -21,10 +31,10 @@ New segment component.
 
 | Name | Summary |
 |---|---|
-| [done](done.html) | [jvm]<br>abstract val [done](done.html): SharedFlow&lt;[SegmentModel](../../com.github.diegoberaldin.metaphrase.domain.project.data/-segment-model/index.html)?&gt;<br>Events emitted after a successful [submit](submit.html) |
+| [effects](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/effects.html) | [jvm]<br>abstract val [effects](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/effects.html): SharedFlow&lt;[NewSegmentComponent.Effect](-effect/index.html)&gt; |
 | [language](language.html) | [jvm]<br>abstract var [language](language.html): [LanguageModel](../../com.github.diegoberaldin.metaphrase.domain.language.data/-language-model/index.html)<br>Language for which the message should be added |
 | [projectId](project-id.html) | [jvm]<br>abstract var [projectId](project-id.html): [Int](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)<br>Current project ID |
-| [uiState](ui-state.html) | [jvm]<br>abstract val [uiState](ui-state.html): StateFlow&lt;[NewSegmentUiState](../-new-segment-ui-state/index.html)&gt;<br>UI state |
+| [uiState](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/ui-state.html) | [jvm]<br>abstract val [uiState](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/ui-state.html): StateFlow&lt;[NewSegmentComponent.UiState](-ui-state/index.html)&gt; |
 
 
 ## Functions
@@ -32,8 +42,5 @@ New segment component.
 
 | Name | Summary |
 |---|---|
-| [close](close.html) | [jvm]<br>abstract fun [close](close.html)()<br>Close the dialog. |
-| [setKey](set-key.html) | [jvm]<br>abstract fun [setKey](set-key.html)(value: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html))<br>Set the message key. |
-| [setText](set-text.html) | [jvm]<br>abstract fun [setText](set-text.html)(value: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html))<br>Set the message text. |
-| [submit](submit.html) | [jvm]<br>abstract fun [submit](submit.html)()<br>Confirm creation of segment with current key and message. |
+| [reduce](index.html#905360120%2FFunctions%2F2137835383) | [jvm]<br>abstract fun [reduce](index.html#905360120%2FFunctions%2F2137835383)(intent: [NewSegmentComponent.Intent](-intent/index.html)) |
 

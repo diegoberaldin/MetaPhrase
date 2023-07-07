@@ -12,4 +12,6 @@ title: OpenError
 [jvm]\
 object [OpenError](index.html) : [ProjectListComponent.DialogConfiguration](../index.html)
 
+Error dialog
+
 

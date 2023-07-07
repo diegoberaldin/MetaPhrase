@@ -14,6 +14,5 @@ title: com.github.diegoberaldin.metaphrase.feature.main.presentation
 
 | Name | Summary |
 |---|---|
-| [RootComponent](-root-component/index.html) | [jvm]<br>interface [RootComponent](-root-component/index.html)<br>Root component. |
-| [RootUiState](-root-ui-state/index.html) | [jvm]<br>data class [RootUiState](-root-ui-state/index.html)(val activeProject: [ProjectModel](../com.github.diegoberaldin.metaphrase.domain.project.data/-project-model/index.html)? = null, val isEditing: [Boolean](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) = false, val currentLanguage: [LanguageModel](../com.github.diegoberaldin.metaphrase.domain.language.data/-language-model/index.html)? = null, val isLoading: [Boolean](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) = false, val isSaveEnabled: [Boolean](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) = false)<br>Root UI state. |
+| [RootComponent](-root-component/index.html) | [jvm]<br>interface [RootComponent](-root-component/index.html) : [MviModel](../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/index.html)&lt;[RootComponent.Intent](-root-component/-intent/index.html), [RootComponent.UiState](-root-component/-ui-state/index.html), [RootComponent.Effect](-root-component/-effect/index.html)&gt; <br>Root component. |
 

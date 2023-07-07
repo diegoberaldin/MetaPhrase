@@ -14,7 +14,5 @@ title: com.github.diegoberaldin.metaphrase.feature.translate.panel.validate.pres
 
 | Name | Summary |
 |---|---|
-| [InvalidSegmentUiState](-invalid-segment-ui-state/index.html) | [jvm]<br>data class [InvalidSegmentUiState](-invalid-segment-ui-state/index.html)(val content: [ValidationContent](-validation-content/index.html)? = null)<br>UI state of the validation panel. |
-| [ValidateComponent](-validate-component/index.html) | [jvm]<br>interface [ValidateComponent](-validate-component/index.html)<br>Validation component. |
-| [ValidationContent](-validation-content/index.html) | [jvm]<br>interface [ValidationContent](-validation-content/index.html)<br>Available validation panel content. |
+| [ValidateComponent](-validate-component/index.html) | [jvm]<br>interface [ValidateComponent](-validate-component/index.html) : [MviModel](../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/index.html)&lt;[ValidateComponent.Intent](-validate-component/-intent/index.html), [ValidateComponent.UiState](-validate-component/-ui-state/index.html), [ValidateComponent.Effect](-validate-component/-effect/index.html)&gt; <br>Validation component. |
 

@@ -14,6 +14,5 @@ title: com.github.diegoberaldin.metaphrase.feature.translate.panel.machinetransl
 
 | Name | Summary |
 |---|---|
-| [MachineTranslationComponent](-machine-translation-component/index.html) | [jvm]<br>interface [MachineTranslationComponent](-machine-translation-component/index.html)<br>Machine translation component. |
-| [MachineTranslationUiState](-machine-translation-ui-state/index.html) | [jvm]<br>data class [MachineTranslationUiState](-machine-translation-ui-state/index.html)(val isLoading: [Boolean](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) = false, val translation: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) = &quot;&quot;, val updateTextSwitch: [Boolean](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) = false)<br>Machine translation panel UI state. |
+| [MachineTranslationComponent](-machine-translation-component/index.html) | [jvm]<br>interface [MachineTranslationComponent](-machine-translation-component/index.html) : [MviModel](../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/index.html)&lt;[MachineTranslationComponent.Intent](-machine-translation-component/-intent/index.html), [MachineTranslationComponent.UiState](-machine-translation-component/-ui-state/index.html), [MachineTranslationComponent.Effect](-machine-translation-component/-effect/index.html)&gt; <br>Machine translation component contract. |
 

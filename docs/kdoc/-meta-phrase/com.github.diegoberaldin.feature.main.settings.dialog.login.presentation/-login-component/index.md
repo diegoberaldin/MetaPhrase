@@ -10,10 +10,20 @@ title: LoginComponent
 
 
 [jvm]\
-interface [LoginComponent](index.html)
+interface [LoginComponent](index.html) : [MviModel](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/index.html)&lt;[LoginComponent.Intent](-intent/index.html), [LoginComponent.UiState](-ui-state/index.html), [LoginComponent.Effect](-effect/index.html)&gt; 
 
-Login component.
+Login component contract.
 
+
+
+## Types
+
+
+| Name | Summary |
+|---|---|
+| [Effect](-effect/index.html) | [jvm]<br>interface [Effect](-effect/index.html)<br>Effects. |
+| [Intent](-intent/index.html) | [jvm]<br>interface [Intent](-intent/index.html)<br>View intents. |
+| [UiState](-ui-state/index.html) | [jvm]<br>data class [UiState](-ui-state/index.html)(val username: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) = &quot;&quot;, val usernameError: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) = &quot;&quot;, val password: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) = &quot;&quot;, val passwordError: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) = &quot;&quot;)<br>Login UI state. |
 
 
 ## Properties
@@ -21,8 +31,8 @@ Login component.
 
 | Name | Summary |
 |---|---|
-| [done](done.html) | [jvm]<br>abstract val [done](done.html): SharedFlow&lt;[Pair](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html)&lt;[String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html), [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)&gt;&gt;<br>Submission events (first element: username, second element: password). |
-| [uiState](ui-state.html) | [jvm]<br>abstract val [uiState](ui-state.html): StateFlow&lt;[LoginUiState](../-login-ui-state/index.html)&gt;<br>UI state. |
+| [effects](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/effects.html) | [jvm]<br>abstract val [effects](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/effects.html): SharedFlow&lt;[LoginComponent.Effect](-effect/index.html)&gt; |
+| [uiState](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/ui-state.html) | [jvm]<br>abstract val [uiState](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/ui-state.html): StateFlow&lt;[LoginComponent.UiState](-ui-state/index.html)&gt; |
 
 
 ## Functions
@@ -30,7 +40,5 @@ Login component.
 
 | Name | Summary |
 |---|---|
-| [setPassword](set-password.html) | [jvm]<br>abstract fun [setPassword](set-password.html)(value: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html))<br>Set password. |
-| [setUsername](set-username.html) | [jvm]<br>abstract fun [setUsername](set-username.html)(value: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html))<br>Set username. |
-| [submit](submit.html) | [jvm]<br>abstract fun [submit](submit.html)()<br>Submit the currently inserted values. |
+| [reduce](index.html#-1582160492%2FFunctions%2F2137835383) | [jvm]<br>abstract fun [reduce](index.html#-1582160492%2FFunctions%2F2137835383)(intent: [LoginComponent.Intent](-intent/index.html)) |
 

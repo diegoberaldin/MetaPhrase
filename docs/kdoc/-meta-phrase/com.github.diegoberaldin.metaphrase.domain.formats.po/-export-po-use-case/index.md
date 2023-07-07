@@ -18,7 +18,7 @@ Contract for the export PO resources use case.
 
 | |
 |---|
-| [DefaultExportPoResourcesUseCase](../-default-export-po-resources-use-case/index.html) |
+| [DefaultExportPoUseCase](../-default-export-po-use-case/index.html) |
 
 
 ## Functions

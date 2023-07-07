@@ -14,6 +14,5 @@ title: com.github.diegoberaldin.metaphrase.feature.translate.presentation
 
 | Name | Summary |
 |---|---|
-| [TranslateComponent](-translate-component/index.html) | [jvm]<br>interface [TranslateComponent](-translate-component/index.html)<br>Translate component. |
-| [TranslateUiState](-translate-ui-state/index.html) | [jvm]<br>data class [TranslateUiState](-translate-ui-state/index.html)(val project: [ProjectModel](../com.github.diegoberaldin.metaphrase.domain.project.data/-project-model/index.html)? = null, val unitCount: [Int](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html) = 0, val needsSaving: [Boolean](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) = false)<br>UI state for the translation editor. |
+| [TranslateComponent](-translate-component/index.html) | [jvm]<br>interface [TranslateComponent](-translate-component/index.html) : [MviModel](../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/index.html)&lt;[TranslateComponent.Intent](-translate-component/-intent/index.html), [TranslateComponent.UiState](-translate-component/-ui-state/index.html), [TranslateComponent.Effect](-translate-component/-effect/index.html)&gt; <br>Translate component. |
 

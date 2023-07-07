@@ -7,9 +7,6 @@ title: CoroutineDispatcherProvider
 
 # CoroutineDispatcherProvider
 
-
-
-[jvm]\
 interface [CoroutineDispatcherProvider](index.html)
 
 Injectable coroutine dispatcher provider to allow dynamic dispatcher replacement.

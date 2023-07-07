@@ -7,18 +7,13 @@ title: ExportArbUseCase
 
 # ExportArbUseCase
 
+
+
+[jvm]\
 interface [ExportArbUseCase](index.html)
 
 Contract for the export ARB resources use case.
 
-
-
-#### Inheritors
-
-
-| |
-|---|
-| [DefaultExportArbUseCase](../-default-export-arb-use-case/index.html) |
 
 
 ## Functions

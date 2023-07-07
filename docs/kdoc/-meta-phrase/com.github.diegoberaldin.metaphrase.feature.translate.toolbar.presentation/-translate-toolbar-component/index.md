@@ -10,7 +10,7 @@ title: TranslateToolbarComponent
 
 
 [jvm]\
-interface [TranslateToolbarComponent](index.html)
+interface [TranslateToolbarComponent](index.html) : [MviModel](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/index.html)&lt;[TranslateToolbarComponent.Intent](-intent/index.html), [TranslateToolbarComponent.UiState](-ui-state/index.html), [TranslateToolbarComponent.Effect](-effect/index.html)&gt; 
 
 Translation toolbar component.
 
@@ -21,7 +21,9 @@ Translation toolbar component.
 
 | Name | Summary |
 |---|---|
-| [Events](-events/index.html) | [jvm]<br>interface [Events](-events/index.html)<br>Events that can be emitted by the component. |
+| [Effect](-effect/index.html) | [jvm]<br>interface [Effect](-effect/index.html)<br>Events that can be emitted by the component. |
+| [Intent](-intent/index.html) | [jvm]<br>interface [Intent](-intent/index.html) |
+| [UiState](-ui-state/index.html) | [jvm]<br>data class [UiState](-ui-state/index.html)(val currentLanguage: [LanguageModel](../../com.github.diegoberaldin.metaphrase.domain.language.data/-language-model/index.html)? = null, val currentTypeFilter: [TranslationUnitTypeFilter](../../com.github.diegoberaldin.metaphrase.domain.project.data/-translation-unit-type-filter/index.html) = TranslationUnitTypeFilter.ALL, val availableFilters: [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)&lt;[TranslationUnitTypeFilter](../../com.github.diegoberaldin.metaphrase.domain.project.data/-translation-unit-type-filter/index.html)&gt; = emptyList(), val availableLanguages: [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)&lt;[LanguageModel](../../com.github.diegoberaldin.metaphrase.domain.language.data/-language-model/index.html)&gt; = emptyList(), val currentSearch: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) = &quot;&quot;, val isEditing: [Boolean](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) = false)<br>UI state for the translation toolbar |
 
 
 ## Properties
@@ -29,10 +31,9 @@ Translation toolbar component.
 
 | Name | Summary |
 |---|---|
-| [currentLanguage](current-language.html) | [jvm]<br>abstract val [currentLanguage](current-language.html): StateFlow&lt;[LanguageModel](../../com.github.diegoberaldin.metaphrase.domain.language.data/-language-model/index.html)?&gt;<br>Current language selected in the toolbar |
-| [events](events.html) | [jvm]<br>abstract val [events](events.html): SharedFlow&lt;[TranslateToolbarComponent.Events](-events/index.html)&gt;<br>Event flow |
+| [effects](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/effects.html) | [jvm]<br>abstract val [effects](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/effects.html): SharedFlow&lt;[TranslateToolbarComponent.Effect](-effect/index.html)&gt; |
 | [projectId](project-id.html) | [jvm]<br>abstract var [projectId](project-id.html): [Int](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)<br>Current project ID |
-| [uiState](ui-state.html) | [jvm]<br>abstract val [uiState](ui-state.html): StateFlow&lt;[TranslateToolbarUiState](../-translate-toolbar-ui-state/index.html)&gt;<br>UI state |
+| [uiState](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/ui-state.html) | [jvm]<br>abstract val [uiState](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/ui-state.html): StateFlow&lt;[TranslateToolbarComponent.UiState](-ui-state/index.html)&gt; |
 
 
 ## Functions
@@ -40,15 +41,5 @@ Translation toolbar component.
 
 | Name | Summary |
 |---|---|
-| [addUnit](add-unit.html) | [jvm]<br>abstract fun [addUnit](add-unit.html)()<br>Trigger the [Events.AddUnit](-events/-add-unit/index.html) event to be emitted in the [events](events.html) flow. |
-| [copyBase](copy-base.html) | [jvm]<br>abstract fun [copyBase](copy-base.html)()<br>Trigger the [Events.CopyBase](-events/-copy-base/index.html) event to be emitted in the [events](events.html) flow. |
-| [moveToNext](move-to-next.html) | [jvm]<br>abstract fun [moveToNext](move-to-next.html)()<br>Trigger the [Events.MoveToNext](-events/-move-to-next/index.html) event to be emitted in the [events](events.html) flow. |
-| [moveToPrevious](move-to-previous.html) | [jvm]<br>abstract fun [moveToPrevious](move-to-previous.html)()<br>Trigger the [Events.MoveToPrevious](-events/-move-to-previous/index.html) event to be emitted in the [events](events.html) flow. |
-| [onSearchFired](on-search-fired.html) | [jvm]<br>abstract fun [onSearchFired](on-search-fired.html)()<br>Trigger the [Events.Search](-events/-search/index.html) event to be emitted in the [events](events.html) flow with the last value passed to the [setSearch](set-search.html) method. |
-| [removeUnit](remove-unit.html) | [jvm]<br>abstract fun [removeUnit](remove-unit.html)()<br>Trigger the [Events.RemoveUnit](-events/-remove-unit/index.html) event to be emitted in the [events](events.html) flow. |
-| [setEditing](set-editing.html) | [jvm]<br>abstract fun [setEditing](set-editing.html)(value: [Boolean](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html))<br>Set the editing state. |
-| [setLanguage](set-language.html) | [jvm]<br>abstract fun [setLanguage](set-language.html)(value: [LanguageModel](../../com.github.diegoberaldin.metaphrase.domain.language.data/-language-model/index.html))<br>Change the current language. |
-| [setSearch](set-search.html) | [jvm]<br>abstract fun [setSearch](set-search.html)(value: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html))<br>Set a search query string |
-| [setTypeFilter](set-type-filter.html) | [jvm]<br>abstract fun [setTypeFilter](set-type-filter.html)(value: [TranslationUnitTypeFilter](../../com.github.diegoberaldin.metaphrase.domain.project.data/-translation-unit-type-filter/index.html))<br>Change the message filter. |
-| [validateUnits](validate-units.html) | [jvm]<br>abstract fun [validateUnits](validate-units.html)()<br>Trigger the [Events.ValidateUnits](-events/-validate-units/index.html) event to be emitted in the [events](events.html) flow. This is intended for placeholder validation. |
+| [reduce](index.html#735420124%2FFunctions%2F2137835383) | [jvm]<br>abstract fun [reduce](index.html#735420124%2FFunctions%2F2137835383)(intent: [TranslateToolbarComponent.Intent](-intent/index.html)) |
 

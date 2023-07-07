@@ -14,7 +14,6 @@ title: com.github.diegoberaldin.metaphrase.feature.projectsdialog.statistics.pre
 
 | Name | Summary |
 |---|---|
-| [StatisticsComponent](-statistics-component/index.html) | [jvm]<br>interface [StatisticsComponent](-statistics-component/index.html)<br>Statistics component. |
+| [StatisticsComponent](-statistics-component/index.html) | [jvm]<br>interface [StatisticsComponent](-statistics-component/index.html) : [MviModel](../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/index.html)&lt;[StatisticsComponent.Intent](-statistics-component/-intent/index.html), [StatisticsComponent.UiState](-statistics-component/-ui-state/index.html), [StatisticsComponent.Effect](-statistics-component/-effect/index.html)&gt; <br>Statistics component. |
 | [StatisticsItem](-statistics-item/index.html) | [jvm]<br>interface [StatisticsItem](-statistics-item/index.html)<br>Statistics row item. |
-| [StatisticsUiState](-statistics-ui-state/index.html) | [jvm]<br>data class [StatisticsUiState](-statistics-ui-state/index.html)(val items: [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)&lt;[StatisticsItem](-statistics-item/index.html)&gt; = emptyList()) |
 

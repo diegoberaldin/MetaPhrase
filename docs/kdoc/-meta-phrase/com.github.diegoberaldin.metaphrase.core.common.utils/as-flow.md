@@ -14,7 +14,7 @@ inline fun &lt;[T](as-flow.html)&gt; Value&lt;ChildSlot&lt;*, *&gt;&gt;.[asFlow]
 
 
 
-Observe a child slot as a flow.
+Observe the instance of a child slot as a flow.
 
 
 
@@ -22,7 +22,7 @@ Observe a child slot as a flow.
 
 
 
-Value original slot
+Value Original slot
 
 
 
@@ -30,7 +30,7 @@ Value original slot
 
 
 
-Flow
+Flow Flow of instance
 
 
 
@@ -42,7 +42,7 @@ jvm
 | | |
 |---|---|
 | T | Type of the result |
-| withNullsIfNotInstance | emits null if the active value is not of the correct type |
+| withNullsIfNotInstance | Emits null if the current value is not of the correct type |
 | timeout | Timeout to wait for emission |
 
 

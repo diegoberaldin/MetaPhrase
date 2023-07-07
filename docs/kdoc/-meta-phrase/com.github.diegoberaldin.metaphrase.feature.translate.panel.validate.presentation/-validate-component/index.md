@@ -10,10 +10,20 @@ title: ValidateComponent
 
 
 [jvm]\
-interface [ValidateComponent](index.html)
+interface [ValidateComponent](index.html) : [MviModel](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/index.html)&lt;[ValidateComponent.Intent](-intent/index.html), [ValidateComponent.UiState](-ui-state/index.html), [ValidateComponent.Effect](-effect/index.html)&gt; 
 
 Validation component.
 
+
+
+## Types
+
+
+| Name | Summary |
+|---|---|
+| [Effect](-effect/index.html) | [jvm]<br>interface [Effect](-effect/index.html)<br>Effects. |
+| [Intent](-intent/index.html) | [jvm]<br>interface [Intent](-intent/index.html)<br>View intents. |
+| [UiState](-ui-state/index.html) | [jvm]<br>data class [UiState](-ui-state/index.html)(val content: [ValidationContent](../../com.github.diegoberaldin.metaphrase.feature.translate.panel.validate.data/-validation-content/index.html)? = null)<br>UI state of the validation panel. |
 
 
 ## Properties
@@ -21,8 +31,8 @@ Validation component.
 
 | Name | Summary |
 |---|---|
-| [selectionEvents](selection-events.html) | [jvm]<br>abstract val [selectionEvents](selection-events.html): SharedFlow&lt;[String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)&gt;<br>Events triggered when a reference to a message is selected with the key of the message |
-| [uiState](ui-state.html) | [jvm]<br>abstract val [uiState](ui-state.html): StateFlow&lt;[InvalidSegmentUiState](../-invalid-segment-ui-state/index.html)&gt;<br>UI state |
+| [effects](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/effects.html) | [jvm]<br>abstract val [effects](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/effects.html): SharedFlow&lt;[ValidateComponent.Effect](-effect/index.html)&gt; |
+| [uiState](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/ui-state.html) | [jvm]<br>abstract val [uiState](../../com.github.diegoberaldin.metaphrase.core.common.architecture/-mvi-model/ui-state.html): StateFlow&lt;[ValidateComponent.UiState](-ui-state/index.html)&gt; |
 
 
 ## Functions
@@ -30,8 +40,5 @@ Validation component.
 
 | Name | Summary |
 |---|---|
-| [clear](clear.html) | [jvm]<br>abstract fun [clear](clear.html)()<br>Clear the panel content. |
-| [loadInvalidPlaceholders](load-invalid-placeholders.html) | [jvm]<br>abstract fun [loadInvalidPlaceholders](load-invalid-placeholders.html)(projectId: [Int](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html), languageId: [Int](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html), invalidKeys: [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)&lt;[String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)&gt;)<br>Load a list of invalid placeholder references. |
-| [loadSpellingMistakes](load-spelling-mistakes.html) | [jvm]<br>abstract fun [loadSpellingMistakes](load-spelling-mistakes.html)(errors: [Map](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html)&lt;[String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html), [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)&lt;[String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)&gt;&gt;)<br>Load a list of spelling mistake references. |
-| [selectItem](select-item.html) | [jvm]<br>abstract fun [selectItem](select-item.html)(value: [Int](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html))<br>Select an reference, triggering [selectionEvents](selection-events.html). |
+| [reduce](index.html#1275246274%2FFunctions%2F2137835383) | [jvm]<br>abstract fun [reduce](index.html#1275246274%2FFunctions%2F2137835383)(intent: [ValidateComponent.Intent](-intent/index.html)) |
 

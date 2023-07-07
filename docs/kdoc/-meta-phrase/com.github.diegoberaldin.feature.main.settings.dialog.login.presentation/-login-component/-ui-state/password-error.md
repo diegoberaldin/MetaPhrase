@@ -1,0 +1,17 @@
+---
+title: passwordError
+---
+//[MetaPhrase](../../../../index.html)/[com.github.diegoberaldin.feature.main.settings.dialog.login.presentation](../../index.html)/[LoginComponent](../index.html)/[UiState](index.html)/[passwordError](password-error.html)
+
+
+
+# passwordError
+
+
+
+[jvm]\
+val [passwordError](password-error.html): [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)
+
+
+
+
