@@ -155,7 +155,7 @@ fun TranslationMemoryContent(
                         CustomTooltipArea(text = "tooltip_copy_translation".localized()) {
                             Icon(
                                 modifier = Modifier.size(18.dp).padding(Spacing.xxs).onClick {
-                                    component.copyTranslation(idx)
+                                    component.reduce(TranslationMemoryComponent.ViewIntent.CopyTranslation(idx))
                                 },
                                 imageVector = Icons.Default.ContentCopy,
                                 contentDescription = null,

@@ -226,7 +226,8 @@ internal class DefaultTranslateComponent(
             val isEditing = segment != null
             toolbarComponent.reduce(TranslateToolbarComponent.ViewIntent.SetEditing(isEditing))
             if (!isEditing) {
-                panel.asFlow<TranslationMemoryComponent>().firstOrNull()?.clear()
+                panel.asFlow<TranslationMemoryComponent>().firstOrNull()
+                    ?.reduce(TranslationMemoryComponent.ViewIntent.Clear)
                 panel.asFlow<GlossaryComponent>().firstOrNull()?.reduce(GlossaryComponent.ViewIntent.Clear)
                 panel.asFlow<MachineTranslationComponent>().firstOrNull()
                     ?.reduce(MachineTranslationComponent.ViewIntent.Clear)
@@ -246,10 +247,12 @@ internal class DefaultTranslateComponent(
         }.launchIn(this)
         messageListComponent.editedSegment.filterNotNull().onEach { segment ->
             val key = segment.key
-            panel.asFlow<TranslationMemoryComponent>().firstOrNull()?.load(
-                key = key,
-                projectId = projectId,
-                languageId = getCurrentLanguage()?.id ?: 0,
+            panel.asFlow<TranslationMemoryComponent>().firstOrNull()?.reduce(
+                TranslationMemoryComponent.ViewIntent.Load(
+                    key = key,
+                    projectId = projectId,
+                    languageId = getCurrentLanguage()?.id ?: 0,
+                ),
             )
             panel.asFlow<GlossaryComponent>().firstOrNull()?.reduce(
                 GlossaryComponent.ViewIntent.Load(
@@ -405,9 +408,18 @@ internal class DefaultTranslateComponent(
         panel.asFlow<Any>(timeout = Duration.INFINITE).onEach { child ->
             when (child) {
                 is TranslationMemoryComponent -> {
-                    child.copyEvents.onEach { textToCopy ->
-                        val messageListComponent = messageList.asFlow<MessageListComponent>().firstOrNull()
-                        messageListComponent?.reduce(MessageListComponent.ViewIntent.ChangeSegmentText(textToCopy))
+                    child.effects.onEach { event ->
+                        when (event) {
+                            is TranslationMemoryComponent.Effect.Copy -> {
+                                val textToCopy = event.value
+                                val messageListComponent = messageList.asFlow<MessageListComponent>().firstOrNull()
+                                messageListComponent?.reduce(
+                                    MessageListComponent.ViewIntent.ChangeSegmentText(
+                                        textToCopy,
+                                    ),
+                                )
+                            }
+                        }
                     }.launchIn(this)
                 }
 
@@ -680,10 +692,12 @@ internal class DefaultTranslateComponent(
             delay(100)
             val currentKey = messageList.asFlow<MessageListComponent>().firstOrNull()?.editedSegment?.value?.key
             if (currentKey != null) {
-                panel.asFlow<TranslationMemoryComponent>().firstOrNull()?.load(
-                    key = currentKey,
-                    languageId = getCurrentLanguage()?.id ?: 0,
-                    projectId = projectId,
+                panel.asFlow<TranslationMemoryComponent>().firstOrNull()?.reduce(
+                    TranslationMemoryComponent.ViewIntent.Load(
+                        key = currentKey,
+                        languageId = getCurrentLanguage()?.id ?: 0,
+                        projectId = projectId,
+                    ),
                 )
             }
         }
@@ -744,7 +758,8 @@ internal class DefaultTranslateComponent(
 
     private fun insertBestMatch() {
         viewModelScope.launch(dispatchers.io) {
-            panel.asFlow<TranslationMemoryComponent>().firstOrNull()?.copyTranslation(0)
+            panel.asFlow<TranslationMemoryComponent>().firstOrNull()
+                ?.reduce(TranslationMemoryComponent.ViewIntent.CopyTranslation(0))
         }
     }
 
