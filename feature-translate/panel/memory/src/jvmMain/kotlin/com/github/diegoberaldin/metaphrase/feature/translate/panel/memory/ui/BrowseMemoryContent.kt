@@ -80,16 +80,16 @@ fun BrowseMemoryContent(
             availableTargetLanguages = uiState.availableTargetLanguages,
             currentSearch = uiState.currentSearch,
             onSourceLanguageSelected = {
-                component.setSourceLanguage(it)
+                component.reduce(BrowseMemoryComponent.ViewIntent.SetSourceLanguage(it))
             },
             onTargetLanguageSelected = {
-                component.setTargetLanguage(it)
+                component.reduce(BrowseMemoryComponent.ViewIntent.SetTargetLanguage(it))
             },
             onSearchChanged = {
-                component.setSearch(it)
+                component.reduce(BrowseMemoryComponent.ViewIntent.SetSearch(it))
             },
             onSearchFired = {
-                component.onSearchFired()
+                component.reduce(BrowseMemoryComponent.ViewIntent.OnSearchFired)
             },
         )
 
@@ -146,7 +146,7 @@ fun BrowseMemoryContent(
                         CustomTooltipArea(text = "tooltip_delete".localized()) {
                             Icon(
                                 modifier = Modifier.size(18.dp).padding(Spacing.xxs).onClick {
-                                    component.deleteEntry(idx)
+                                    component.reduce(BrowseMemoryComponent.ViewIntent.DeleteEntry(idx))
                                 },
                                 imageVector = Icons.Default.Delete,
                                 contentDescription = null,

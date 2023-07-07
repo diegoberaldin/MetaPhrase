@@ -41,7 +41,12 @@ class DefaultBrowseMemoryComponentTest {
         coEvery { mockMemoryEntryRepository.getEntries(any(), any(), any()) } returns emptyList()
         lifecycle.create()
 
-        sut.setLanguages(LanguageModel(code = "en"), LanguageModel(code = "it"))
+        sut.reduce(
+            BrowseMemoryComponent.ViewIntent.SetLanguages(
+                LanguageModel(code = "en"),
+                LanguageModel(code = "it"),
+            ),
+        )
 
         val uiState = sut.uiState.value
         assertEquals("en", uiState.sourceLanguage?.code)
@@ -71,7 +76,12 @@ class DefaultBrowseMemoryComponentTest {
         )
         lifecycle.create()
 
-        sut.setLanguages(LanguageModel(code = "en"), LanguageModel(code = "it"))
+        sut.reduce(
+            BrowseMemoryComponent.ViewIntent.SetLanguages(
+                LanguageModel(code = "en"),
+                LanguageModel(code = "it"),
+            ),
+        )
 
         val uiState = sut.uiState.value
         assertEquals("en", uiState.sourceLanguage?.code)
@@ -100,9 +110,14 @@ class DefaultBrowseMemoryComponentTest {
         coEvery { mockMemoryEntryRepository.getLanguageCodes() } returns listOf("en", "it", "es")
         coEvery { mockMemoryEntryRepository.getEntries(any(), any(), any()) } returns emptyList()
         lifecycle.create()
-        sut.setLanguages(LanguageModel(code = "en"), LanguageModel(code = "it"))
+        sut.reduce(
+            BrowseMemoryComponent.ViewIntent.SetLanguages(
+                LanguageModel(code = "en"),
+                LanguageModel(code = "it"),
+            ),
+        )
 
-        sut.setSourceLanguage(LanguageModel(code = "it"))
+        sut.reduce(BrowseMemoryComponent.ViewIntent.SetSourceLanguage(LanguageModel(code = "it")))
 
         val uiState = sut.uiState.value
         assertEquals("it", uiState.sourceLanguage?.code)
@@ -120,9 +135,14 @@ class DefaultBrowseMemoryComponentTest {
         coEvery { mockMemoryEntryRepository.getLanguageCodes() } returns listOf("en", "it", "es")
         coEvery { mockMemoryEntryRepository.getEntries(any(), any(), any()) } returns emptyList()
         lifecycle.create()
-        sut.setLanguages(LanguageModel(code = "en"), LanguageModel(code = "it"))
+        sut.reduce(
+            BrowseMemoryComponent.ViewIntent.SetLanguages(
+                LanguageModel(code = "en"),
+                LanguageModel(code = "it"),
+            ),
+        )
 
-        sut.setTargetLanguage(LanguageModel(code = "es"))
+        sut.reduce(BrowseMemoryComponent.ViewIntent.SetTargetLanguage(LanguageModel(code = "es")))
 
         val uiState = sut.uiState.value
         assertEquals("es", uiState.targetLanguage?.code)
@@ -140,9 +160,14 @@ class DefaultBrowseMemoryComponentTest {
         coEvery { mockMemoryEntryRepository.getLanguageCodes() } returns listOf("en", "it", "es")
         coEvery { mockMemoryEntryRepository.getEntries(any(), any(), any()) } returns emptyList()
         lifecycle.create()
-        sut.setLanguages(LanguageModel(code = "en"), LanguageModel(code = "it"))
+        sut.reduce(
+            BrowseMemoryComponent.ViewIntent.SetLanguages(
+                LanguageModel(code = "en"),
+                LanguageModel(code = "it"),
+            ),
+        )
 
-        sut.setSearch("search")
+        sut.reduce(BrowseMemoryComponent.ViewIntent.SetSearch("search"))
 
         val uiState = sut.uiState.value
         assertEquals("search", uiState.currentSearch)
@@ -167,10 +192,15 @@ class DefaultBrowseMemoryComponentTest {
             ),
         )
         lifecycle.create()
-        sut.setLanguages(LanguageModel(code = "en"), LanguageModel(code = "it"))
-        sut.setSearch("search")
+        sut.reduce(
+            BrowseMemoryComponent.ViewIntent.SetLanguages(
+                LanguageModel(code = "en"),
+                LanguageModel(code = "it"),
+            ),
+        )
+        sut.reduce(BrowseMemoryComponent.ViewIntent.SetSearch("search"))
 
-        sut.onSearchFired()
+        sut.reduce(BrowseMemoryComponent.ViewIntent.OnSearchFired)
 
         coVerify {
             mockMemoryEntryRepository.getEntries(
@@ -201,9 +231,14 @@ class DefaultBrowseMemoryComponentTest {
         )
         coEvery { mockMemoryEntryRepository.delete(any()) } returns Unit
         lifecycle.create()
-        sut.setLanguages(LanguageModel(code = "en"), LanguageModel(code = "it"))
+        sut.reduce(
+            BrowseMemoryComponent.ViewIntent.SetLanguages(
+                LanguageModel(code = "en"),
+                LanguageModel(code = "it"),
+            ),
+        )
 
-        sut.deleteEntry(0)
+        sut.reduce(BrowseMemoryComponent.ViewIntent.DeleteEntry(0))
 
         coVerify { mockMemoryEntryRepository.delete(withArg { assertEquals("key", it.identifier) }) }
     }

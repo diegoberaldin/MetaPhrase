@@ -363,9 +363,11 @@ internal class DefaultTranslateComponent(
                 // resets the current validation
                 panel.asFlow<ValidateComponent>().firstOrNull()?.clear()
                 // resets the TM
-                panel.asFlow<BrowseMemoryComponent>().firstOrNull()?.setLanguages(
-                    source = languageRepository.getBase(projectId),
-                    target = getCurrentLanguage(),
+                panel.asFlow<BrowseMemoryComponent>().firstOrNull()?.reduce(
+                    BrowseMemoryComponent.ViewIntent.SetLanguages(
+                        source = languageRepository.getBase(projectId),
+                        target = getCurrentLanguage(),
+                    ),
                 )
             }.launchIn(this)
         toolbarComponent.effects.onEach { evt ->
@@ -431,9 +433,11 @@ internal class DefaultTranslateComponent(
                 }
 
                 is BrowseMemoryComponent -> {
-                    child.setLanguages(
-                        source = languageRepository.getBase(projectId),
-                        target = getCurrentLanguage(),
+                    child.reduce(
+                        BrowseMemoryComponent.ViewIntent.SetLanguages(
+                            source = languageRepository.getBase(projectId),
+                            target = getCurrentLanguage(),
+                        ),
                     )
                 }
 

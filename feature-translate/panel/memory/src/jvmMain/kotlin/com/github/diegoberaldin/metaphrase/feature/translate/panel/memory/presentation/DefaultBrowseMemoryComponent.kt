@@ -3,6 +3,8 @@ package com.github.diegoberaldin.metaphrase.feature.translate.panel.memory.prese
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
+import com.github.diegoberaldin.metaphrase.core.common.architecture.DefaultMviModel
+import com.github.diegoberaldin.metaphrase.core.common.architecture.MviModel
 import com.github.diegoberaldin.metaphrase.core.common.coroutines.CoroutineDispatcherProvider
 import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
 import com.github.diegoberaldin.metaphrase.domain.language.usecase.GetCompleteLanguageUseCase
@@ -10,8 +12,6 @@ import com.github.diegoberaldin.metaphrase.domain.tm.repository.MemoryEntryRepos
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
@@ -19,13 +19,16 @@ internal class DefaultBrowseMemoryComponent(
     componentContext: ComponentContext,
     coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,
+    private val mvi: DefaultMviModel<BrowseMemoryComponent.ViewIntent, BrowseMemoryComponent.UiState, BrowseMemoryComponent.Effect> = DefaultMviModel(
+        BrowseMemoryComponent.UiState(),
+    ),
     private val memoryEntryRepository: MemoryEntryRepository,
     private val completeLanguage: GetCompleteLanguageUseCase,
-) : BrowseMemoryComponent, ComponentContext by componentContext {
+) : BrowseMemoryComponent,
+    MviModel<BrowseMemoryComponent.ViewIntent, BrowseMemoryComponent.UiState, BrowseMemoryComponent.Effect> by mvi,
+    ComponentContext by componentContext {
 
     private lateinit var viewModelScope: CoroutineScope
-
-    override val uiState = MutableStateFlow(BrowseMemoryUiState())
 
     init {
         with(lifecycle) {
@@ -39,8 +42,23 @@ internal class DefaultBrowseMemoryComponent(
         }
     }
 
-    override fun setLanguages(source: LanguageModel?, target: LanguageModel?) {
-        uiState.update {
+    override fun reduce(intent: BrowseMemoryComponent.ViewIntent) {
+        when (intent) {
+            is BrowseMemoryComponent.ViewIntent.DeleteEntry -> deleteEntry(intent.index)
+            BrowseMemoryComponent.ViewIntent.OnSearchFired -> onSearchFired()
+            is BrowseMemoryComponent.ViewIntent.SetLanguages -> setLanguages(
+                source = intent.source,
+                target = intent.target,
+            )
+
+            is BrowseMemoryComponent.ViewIntent.SetSearch -> setSearch(intent.value)
+            is BrowseMemoryComponent.ViewIntent.SetSourceLanguage -> setSourceLanguage(intent.value)
+            is BrowseMemoryComponent.ViewIntent.SetTargetLanguage -> setTargetLanguage(intent.value)
+        }
+    }
+
+    private fun setLanguages(source: LanguageModel?, target: LanguageModel?) {
+        mvi.updateState {
             it.copy(
                 sourceLanguage = source?.let { lang -> completeLanguage(lang) },
                 targetLanguage = target,
@@ -62,7 +80,7 @@ internal class DefaultBrowseMemoryComponent(
                 targetLanguage = tmLanguages.firstOrNull { it.code != sourceLanguage?.code }
             }
 
-            uiState.update {
+            mvi.updateState {
                 it.copy(
                     availableSourceLanguages = tmLanguages.filter { l -> l.code != targetLanguage?.code },
                     availableTargetLanguages = tmLanguages.filter { l -> l.code != sourceLanguage?.code },
@@ -83,30 +101,30 @@ internal class DefaultBrowseMemoryComponent(
             targetLang = targetLangCode,
             search = currentSearch,
         )
-        uiState.update { it.copy(entries = entries) }
+        mvi.updateState { it.copy(entries = entries) }
     }
 
-    override fun setSourceLanguage(value: LanguageModel?) {
-        uiState.update { it.copy(sourceLanguage = value) }
+    private fun setSourceLanguage(value: LanguageModel?) {
+        mvi.updateState { it.copy(sourceLanguage = value) }
         refreshLanguages()
     }
 
-    override fun setTargetLanguage(value: LanguageModel?) {
-        uiState.update { it.copy(targetLanguage = value) }
+    private fun setTargetLanguage(value: LanguageModel?) {
+        mvi.updateState { it.copy(targetLanguage = value) }
         refreshLanguages()
     }
 
-    override fun setSearch(value: String) {
-        uiState.update { it.copy(currentSearch = value) }
+    private fun setSearch(value: String) {
+        mvi.updateState { it.copy(currentSearch = value) }
     }
 
-    override fun onSearchFired() {
+    private fun onSearchFired() {
         viewModelScope.launch(dispatchers.io) {
             load()
         }
     }
 
-    override fun deleteEntry(index: Int) {
+    private fun deleteEntry(index: Int) {
         val entry = uiState.value.entries[index]
         viewModelScope.launch(dispatchers.io) {
             memoryEntryRepository.delete(entry)
