@@ -12,18 +12,18 @@ import com.github.diegoberaldin.metaphrase.domain.project.data.RecentProjectMode
  * Recent project list component contract.
  */
 interface ProjectListComponent :
-    MviModel<ProjectListComponent.ViewIntent, ProjectListComponent.UiState, ProjectListComponent.Effect> {
+    MviModel<ProjectListComponent.Intent, ProjectListComponent.UiState, ProjectListComponent.Effect> {
     /**
      * View intents.
      */
-    sealed interface ViewIntent {
+    sealed interface Intent {
         /**
          * Open a recent project.
          *
          * @property value project to open
          * @constructor Create [OpenRecent]
          */
-        data class OpenRecent(val value: RecentProjectModel) : ViewIntent
+        data class OpenRecent(val value: RecentProjectModel) : Intent
 
         /**
          * Remove an item from the recent project list .
@@ -31,12 +31,12 @@ interface ProjectListComponent :
          * @property value project to remove
          * @constructor Create [RemoveFromRecent]
          */
-        data class RemoveFromRecent(val value: RecentProjectModel) : ViewIntent
+        data class RemoveFromRecent(val value: RecentProjectModel) : Intent
 
         /**
          * Close the currently opened dialog.
          */
-        object CloseDialog : ViewIntent
+        object CloseDialog : Intent
     }
 
     /**

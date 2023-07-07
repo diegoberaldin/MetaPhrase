@@ -54,7 +54,7 @@ class DefaultTranslationMemoryComponentTest {
         )
         lifecycle.create()
 
-        sut.reduce(TranslationMemoryComponent.ViewIntent.Load(key = "key", projectId = 1, languageId = 1))
+        sut.reduce(TranslationMemoryComponent.Intent.Load(key = "key", projectId = 1, languageId = 1))
 
         val uiState = sut.uiState.value
         assertEquals(1, uiState.units.size)
@@ -87,9 +87,9 @@ class DefaultTranslationMemoryComponentTest {
             ),
         )
         lifecycle.create()
-        sut.reduce(TranslationMemoryComponent.ViewIntent.Load(key = "key", projectId = 1, languageId = 1))
+        sut.reduce(TranslationMemoryComponent.Intent.Load(key = "key", projectId = 1, languageId = 1))
 
-        sut.reduce(TranslationMemoryComponent.ViewIntent.Clear)
+        sut.reduce(TranslationMemoryComponent.Intent.Clear)
 
         val uiState = sut.uiState.value
         assertEquals(0, uiState.units.size)
@@ -114,10 +114,10 @@ class DefaultTranslationMemoryComponentTest {
             ),
         )
         lifecycle.create()
-        sut.reduce(TranslationMemoryComponent.ViewIntent.Load(key = "key", projectId = 1, languageId = 1))
+        sut.reduce(TranslationMemoryComponent.Intent.Load(key = "key", projectId = 1, languageId = 1))
 
         sut.effects.test {
-            sut.reduce(TranslationMemoryComponent.ViewIntent.CopyTranslation(0))
+            sut.reduce(TranslationMemoryComponent.Intent.CopyTranslation(0))
             val item = awaitItem()
             assertIs<TranslationMemoryComponent.Effect.Copy>(item)
             assertEquals("prova", item.value)

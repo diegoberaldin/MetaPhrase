@@ -5,19 +5,19 @@ import com.github.diegoberaldin.metaphrase.core.common.architecture.MviModel
 /**
  * Login component contract.
  */
-interface LoginComponent : MviModel<LoginComponent.ViewIntent, LoginComponent.UiState, LoginComponent.Effect> {
+interface LoginComponent : MviModel<LoginComponent.Intent, LoginComponent.UiState, LoginComponent.Effect> {
 
     /**
      * View intents.
      */
-    sealed interface ViewIntent {
+    sealed interface Intent {
         /**
          * Set username.
          *
          * @property value username value
          * @constructor Create [SetUsername]
          */
-        data class SetUsername(val value: String) : ViewIntent
+        data class SetUsername(val value: String) : Intent
 
         /**
          * Set password.
@@ -25,12 +25,12 @@ interface LoginComponent : MviModel<LoginComponent.ViewIntent, LoginComponent.Ui
          * @property value password value
          * @constructor Create [SetPassword]
          */
-        data class SetPassword(val value: String) : ViewIntent
+        data class SetPassword(val value: String) : Intent
 
         /**
          * Submit intent.
          */
-        object Submit : ViewIntent
+        object Submit : Intent
     }
 
     /**

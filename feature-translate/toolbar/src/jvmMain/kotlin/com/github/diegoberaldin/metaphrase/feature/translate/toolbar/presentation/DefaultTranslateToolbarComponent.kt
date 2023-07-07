@@ -23,13 +23,13 @@ internal class DefaultTranslateToolbarComponent(
     componentContext: ComponentContext,
     coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,
-    private val mvi: DefaultMviModel<TranslateToolbarComponent.ViewIntent, TranslateToolbarComponent.UiState, TranslateToolbarComponent.Effect> = DefaultMviModel(
+    private val mvi: DefaultMviModel<TranslateToolbarComponent.Intent, TranslateToolbarComponent.UiState, TranslateToolbarComponent.Effect> = DefaultMviModel(
         TranslateToolbarComponent.UiState(),
     ),
     private val languageRepository: LanguageRepository,
     private val completeLanguage: GetCompleteLanguageUseCase,
 ) : TranslateToolbarComponent,
-    MviModel<TranslateToolbarComponent.ViewIntent, TranslateToolbarComponent.UiState, TranslateToolbarComponent.Effect> by mvi,
+    MviModel<TranslateToolbarComponent.Intent, TranslateToolbarComponent.UiState, TranslateToolbarComponent.Effect> by mvi,
     ComponentContext by componentContext {
 
     override var projectId: Int = 0
@@ -59,19 +59,19 @@ internal class DefaultTranslateToolbarComponent(
         }
     }
 
-    override fun reduce(intent: TranslateToolbarComponent.ViewIntent) {
+    override fun reduce(intent: TranslateToolbarComponent.Intent) {
         when (intent) {
-            TranslateToolbarComponent.ViewIntent.AddUnit -> addUnit()
-            TranslateToolbarComponent.ViewIntent.CopyBase -> copyBase()
-            TranslateToolbarComponent.ViewIntent.MoveToNext -> moveToNext()
-            TranslateToolbarComponent.ViewIntent.MoveToPrevious -> moveToPrevious()
-            TranslateToolbarComponent.ViewIntent.OnSearchFired -> onSearchFired()
-            TranslateToolbarComponent.ViewIntent.RemoveUnit -> removeUnit()
-            is TranslateToolbarComponent.ViewIntent.SetEditing -> setEditing(intent.value)
-            is TranslateToolbarComponent.ViewIntent.SetLanguage -> setLanguage(intent.value)
-            is TranslateToolbarComponent.ViewIntent.SetSearch -> setSearch(intent.value)
-            is TranslateToolbarComponent.ViewIntent.SetTypeFilter -> setTypeFilter(intent.value)
-            TranslateToolbarComponent.ViewIntent.ValidateUnits -> validateUnits()
+            TranslateToolbarComponent.Intent.AddUnit -> addUnit()
+            TranslateToolbarComponent.Intent.CopyBase -> copyBase()
+            TranslateToolbarComponent.Intent.MoveToNext -> moveToNext()
+            TranslateToolbarComponent.Intent.MoveToPrevious -> moveToPrevious()
+            TranslateToolbarComponent.Intent.OnSearchFired -> onSearchFired()
+            TranslateToolbarComponent.Intent.RemoveUnit -> removeUnit()
+            is TranslateToolbarComponent.Intent.SetEditing -> setEditing(intent.value)
+            is TranslateToolbarComponent.Intent.SetLanguage -> setLanguage(intent.value)
+            is TranslateToolbarComponent.Intent.SetSearch -> setSearch(intent.value)
+            is TranslateToolbarComponent.Intent.SetTypeFilter -> setTypeFilter(intent.value)
+            TranslateToolbarComponent.Intent.ValidateUnits -> validateUnits()
         }
     }
 

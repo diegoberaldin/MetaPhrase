@@ -13,12 +13,12 @@ import kotlin.coroutines.CoroutineContext
 internal class DefaultIntroComponent(
     componentContext: ComponentContext,
     coroutineContext: CoroutineContext,
-    private val mvi: MviModel<IntroComponent.ViewIntent, IntroComponent.UiState, IntroComponent.Effect> = DefaultMviModel(
+    private val mvi: MviModel<IntroComponent.Intent, IntroComponent.UiState, IntroComponent.Effect> = DefaultMviModel(
         IntroComponent.UiState,
     ),
 ) :
     IntroComponent,
-    MviModel<IntroComponent.ViewIntent, IntroComponent.UiState, IntroComponent.Effect> by mvi,
+    MviModel<IntroComponent.Intent, IntroComponent.UiState, IntroComponent.Effect> by mvi,
     ComponentContext by componentContext {
     private lateinit var viewModelScope: CoroutineScope
 

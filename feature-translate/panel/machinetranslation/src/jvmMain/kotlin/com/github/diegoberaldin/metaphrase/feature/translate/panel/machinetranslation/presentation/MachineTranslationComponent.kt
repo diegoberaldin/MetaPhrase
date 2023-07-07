@@ -6,15 +6,15 @@ import com.github.diegoberaldin.metaphrase.core.common.architecture.MviModel
  * Machine translation component contract.
  */
 interface MachineTranslationComponent :
-    MviModel<MachineTranslationComponent.ViewIntent, MachineTranslationComponent.UiState, MachineTranslationComponent.Effect> {
+    MviModel<MachineTranslationComponent.Intent, MachineTranslationComponent.UiState, MachineTranslationComponent.Effect> {
     /**
      * View intents.
      */
-    sealed interface ViewIntent {
+    sealed interface Intent {
         /**
          * Clear the content of the panel.
          */
-        object Clear : ViewIntent
+        object Clear : Intent
 
         /**
          * Load the data for the message with a given key. No suggestion is retrieved until the [retrieve] method is called.
@@ -24,43 +24,43 @@ interface MachineTranslationComponent :
          * @param projectId Project ID
          * @param languageId Language ID
          */
-        data class Load(val key: String, val projectId: Int, val languageId: Int) : ViewIntent
+        data class Load(val key: String, val projectId: Int, val languageId: Int) : Intent
 
         /**
          * Retrieve a suggestion from the MT provider. The [load] method should be called to set the language and the source
          * message that will be translated.
          */
-        object Retrieve : ViewIntent
+        object Retrieve : Intent
 
         /**
          * Signal the user intention to copy the suggestion into the editor, triggering a [Effect.CopySource] event.
          */
-        object InsertTranslation : ViewIntent
+        object InsertTranslation : Intent
 
         /**
          * Signal the user intention to copy the content of the target field in the translation editor into the suggestion
          * field, triggering a [Effect.CopyTarget] event.
          */
-        object CopyTarget : ViewIntent
+        object CopyTarget : Intent
 
         /**
          * Set a value for the suggestion, when the event is initiated by the user.
          *
          * @param value suggestion to set
          */
-        data class SetTranslation(val value: String) : ViewIntent
+        data class SetTranslation(val value: String) : Intent
 
         /**
          * Programmatically update the value of the suggestion.
          *
          * @param value suggestion to set
          */
-        data class CopyTranslation(val value: String) : ViewIntent
+        data class CopyTranslation(val value: String) : Intent
 
         /**
          * Share the suggestion field content with the remote MT provider.
          */
-        object Share : ViewIntent
+        object Share : Intent
     }
 
     /**

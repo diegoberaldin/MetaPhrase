@@ -29,14 +29,14 @@ internal class DefaultProjectListComponent(
     componentContext: ComponentContext,
     coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,
-    private val mvi: DefaultMviModel<ProjectListComponent.ViewIntent, ProjectListComponent.UiState, ProjectListComponent.Effect> = DefaultMviModel(
+    private val mvi: DefaultMviModel<ProjectListComponent.Intent, ProjectListComponent.UiState, ProjectListComponent.Effect> = DefaultMviModel(
         ProjectListComponent.UiState(),
     ),
     private val projectRepository: RecentProjectRepository,
     private val openProject: OpenProjectUseCase,
     private val notificationCenter: NotificationCenter,
 ) : ProjectListComponent,
-    MviModel<ProjectListComponent.ViewIntent, ProjectListComponent.UiState, ProjectListComponent.Effect> by mvi,
+    MviModel<ProjectListComponent.Intent, ProjectListComponent.UiState, ProjectListComponent.Effect> by mvi,
     ComponentContext by componentContext {
 
     private lateinit var viewModelScope: CoroutineScope
@@ -68,11 +68,11 @@ internal class DefaultProjectListComponent(
         }
     }
 
-    override fun reduce(intent: ProjectListComponent.ViewIntent) {
+    override fun reduce(intent: ProjectListComponent.Intent) {
         when (intent) {
-            ProjectListComponent.ViewIntent.CloseDialog -> closeDialog()
-            is ProjectListComponent.ViewIntent.OpenRecent -> openRecent(intent.value)
-            is ProjectListComponent.ViewIntent.RemoveFromRecent -> removeFromRecent(intent.value)
+            ProjectListComponent.Intent.CloseDialog -> closeDialog()
+            is ProjectListComponent.Intent.OpenRecent -> openRecent(intent.value)
+            is ProjectListComponent.Intent.RemoveFromRecent -> removeFromRecent(intent.value)
         }
     }
 

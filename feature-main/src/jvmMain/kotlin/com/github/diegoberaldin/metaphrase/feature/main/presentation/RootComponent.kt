@@ -12,61 +12,61 @@ import com.github.diegoberaldin.metaphrase.domain.project.data.ResourceFileType
 /**
  * Root component.
  */
-interface RootComponent : MviModel<RootComponent.ViewIntent, RootComponent.UiState, RootComponent.Effect> {
+interface RootComponent : MviModel<RootComponent.Intent, RootComponent.UiState, RootComponent.Effect> {
     /**
      * View intents.
      */
-    sealed interface ViewIntent {
+    sealed interface Intent {
         /**
          * Open the "Open project" dialog.
          */
-        object OpenDialog : ViewIntent
+        object OpenDialog : Intent
 
         /**
          * Loads a translation project from disk.
          *
          * @param path path of the TMX file
          */
-        data class OpenProject(val path: String) : ViewIntent
+        data class OpenProject(val path: String) : Intent
 
         /**
          * Open the "Edit project" dialog.
          */
-        object OpenEditProject : ViewIntent
+        object OpenEditProject : Intent
 
         /**
          * Save the current project in the TMX at the specified path.
          */
-        object SaveCurrentProject : ViewIntent
+        object SaveCurrentProject : Intent
 
         /**
          * Opens the "Save as" project dialog.
          */
-        object SaveProjectAs : ViewIntent
+        object SaveProjectAs : Intent
 
         /**
          * Save the project as a TMX file at the given path.
          *
          * @param path path of the TMX to write
          */
-        data class SaveProject(val path: String) : ViewIntent
+        data class SaveProject(val path: String) : Intent
 
         /**
          * Open the "New project" dialog.
          */
-        object OpenNewDialog : ViewIntent
+        object OpenNewDialog : Intent
 
         /**
          * Close any opened dialog.
          */
-        object CloseDialog : ViewIntent
+        object CloseDialog : Intent
 
         /**
          * Displays the "Confirm project close" dialog.
          *
          * @param closeAfter if set to true, after confirmation the application will exit
          */
-        data class CloseCurrentProject(val closeAfter: Boolean = false) : ViewIntent
+        data class CloseCurrentProject(val closeAfter: Boolean = false) : Intent
 
         /**
          * Sends user confirmation to close the current project with an optional action afterwards.
@@ -75,31 +75,31 @@ interface RootComponent : MviModel<RootComponent.ViewIntent, RootComponent.UiSta
          * @param newAfter if set to true, after closing the "New project" dialog will be opened
          */
         data class ConfirmCloseCurrentProject(val openAfter: Boolean = false, val newAfter: Boolean = false) :
-            ViewIntent
+            Intent
 
         /**
          * Open the "Statistics" dialog.
          */
-        object OpenStatistics : ViewIntent
+        object OpenStatistics : Intent
 
         /**
          * Open the "Settings" dialog.
          */
-        object OpenSettings : ViewIntent
+        object OpenSettings : Intent
 
         /**
          * Open the import dialog for the current language.
          *
          * @param type resource file type
          */
-        data class OpenImportDialog(val type: ResourceFileType) : ViewIntent
+        data class OpenImportDialog(val type: ResourceFileType) : Intent
 
         /**
          * Open the export dialog for the current language.
          *
          * @param type resource file type
          */
-        data class OpenExportDialog(val type: ResourceFileType) : ViewIntent
+        data class OpenExportDialog(val type: ResourceFileType) : Intent
 
         /**
          * Import messages from a resource file.
@@ -107,7 +107,7 @@ interface RootComponent : MviModel<RootComponent.ViewIntent, RootComponent.UiSta
          * @param path file path
          * @param type resource type
          */
-        data class Import(val path: String, val type: ResourceFileType) : ViewIntent
+        data class Import(val path: String, val type: ResourceFileType) : Intent
 
         /**
          * Export messages to a resource file.
@@ -115,145 +115,145 @@ interface RootComponent : MviModel<RootComponent.ViewIntent, RootComponent.UiSta
          * @param path file path
          * @param type resource type
          */
-        data class Export(val path: String, val type: ResourceFileType) : ViewIntent
+        data class Export(val path: String, val type: ResourceFileType) : Intent
 
         /**
          * Navigate to the previous segment in the editor.
          */
-        object MoveToPreviousSegment : ViewIntent
+        object MoveToPreviousSegment : Intent
 
         /**
          * Navigate to the next segment in the editor.
          */
-        object MoveToNextSegment : ViewIntent
+        object MoveToNextSegment : Intent
 
         /**
          * End editing the current message.
          */
-        object EndEditing : ViewIntent
+        object EndEditing : Intent
 
         /**
          * Copy the base (source) message to the target message.
          */
-        object CopyBase : ViewIntent
+        object CopyBase : Intent
 
         /**
          * Open the "New segment" dialog.
          */
-        object AddSegment : ViewIntent
+        object AddSegment : Intent
 
         /**
          * Delete the current segment.
          */
-        object DeleteSegment : ViewIntent
+        object DeleteSegment : Intent
 
         /**
          * Open the dialog to export the current TM content to TMX.
          */
-        object OpenExportTmxDialog : ViewIntent
+        object OpenExportTmxDialog : Intent
 
         /**
          * Export the current TM content to a TMX file.
          *
          * @param path TMX file path
          */
-        data class ExportTmx(val path: String) : ViewIntent
+        data class ExportTmx(val path: String) : Intent
 
         /**
          * Open the import dialog to populate the TM.
          */
-        object OpenImportTmxDialog : ViewIntent
+        object OpenImportTmxDialog : Intent
 
         /**
          * Import a TMX file to the translation memory.
          *
          * @param path file path
          */
-        data class ImportTmx(val path: String) : ViewIntent
+        data class ImportTmx(val path: String) : Intent
 
         /**
          * Clear the content of the global Translation Memory.
          */
-        object ClearTm : ViewIntent
+        object ClearTm : Intent
 
         /**
          * Import all the messages of the current project into the global TM.
          */
-        object SyncTm : ViewIntent
+        object SyncTm : Intent
 
         /**
          * Starts the placeholder validation.
          */
-        object ValidatePlaceholders : ViewIntent
+        object ValidatePlaceholders : Intent
 
         /**
          * Insert the best TM match to the translation editor.
          */
-        object InsertBestMatch : ViewIntent
+        object InsertBestMatch : Intent
 
         /**
          * Start a global spellcheck validation.
          */
-        object GlobalSpellcheck : ViewIntent
+        object GlobalSpellcheck : Intent
 
         /**
          * Open the import glossary dialog.
          */
-        object OpenImportGlossaryDialog : ViewIntent
+        object OpenImportGlossaryDialog : Intent
 
         /**
          * Import a CSV file into the glossary.
          *
          * @param path file path
          */
-        data class ImportGlossary(val path: String) : ViewIntent
+        data class ImportGlossary(val path: String) : Intent
 
         /**
          * Open the export glossary dialog.
          */
-        object OpenExportGlossaryDialog : ViewIntent
+        object OpenExportGlossaryDialog : Intent
 
         /**
          * Export the global glossary to a CSV file.
          *
          * @param path file path
          */
-        data class ExportGlossary(val path: String) : ViewIntent
+        data class ExportGlossary(val path: String) : Intent
 
         /**
          * Clear the global glossary.
          */
-        object ClearGlossary : ViewIntent
+        object ClearGlossary : Intent
 
         /**
          * Retrieve a suggestion for the current message from the machine translation provider.
          */
-        object MachineTranslationRetrieve : ViewIntent
+        object MachineTranslationRetrieve : Intent
 
         /**
          * Insert the current suggestion from machine translation in the editor.
          */
-        object MachineTranslationInsert : ViewIntent
+        object MachineTranslationInsert : Intent
 
         /**
          * Copy the target message into the machine translation suggestion.
          */
-        object MachineTranslationCopyTarget : ViewIntent
+        object MachineTranslationCopyTarget : Intent
 
         /**
          * Share the current suggestion to the remote machine translation provider.
          */
-        object MachineTranslationShare : ViewIntent
+        object MachineTranslationShare : Intent
 
         /**
          * Share the whole project as a TM to the machine translation provider.
          */
-        object MachineTranslationContributeTm : ViewIntent
+        object MachineTranslationContributeTm : Intent
 
         /**
          * Open the user manual.
          */
-        object OpenManual : ViewIntent
+        object OpenManual : Intent
     }
 
     /**

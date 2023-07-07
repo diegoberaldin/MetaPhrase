@@ -21,13 +21,13 @@ internal class DefaultNewSegmentComponent(
     componentContext: ComponentContext,
     coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,
-    private val mvi: DefaultMviModel<NewSegmentComponent.ViewIntent, NewSegmentComponent.UiState, NewSegmentComponent.Effect> = DefaultMviModel(
+    private val mvi: DefaultMviModel<NewSegmentComponent.Intent, NewSegmentComponent.UiState, NewSegmentComponent.Effect> = DefaultMviModel(
         NewSegmentComponent.UiState(),
     ),
     private val languageRepository: LanguageRepository,
     private val segmentRepository: SegmentRepository,
 ) : NewSegmentComponent,
-    MviModel<NewSegmentComponent.ViewIntent, NewSegmentComponent.UiState, NewSegmentComponent.Effect> by mvi,
+    MviModel<NewSegmentComponent.Intent, NewSegmentComponent.UiState, NewSegmentComponent.Effect> by mvi,
     ComponentContext by componentContext {
 
     private lateinit var viewModelScope: CoroutineScope
@@ -46,12 +46,12 @@ internal class DefaultNewSegmentComponent(
         }
     }
 
-    override fun reduce(intent: NewSegmentComponent.ViewIntent) {
+    override fun reduce(intent: NewSegmentComponent.Intent) {
         when (intent) {
-            NewSegmentComponent.ViewIntent.Close -> close()
-            is NewSegmentComponent.ViewIntent.SetKey -> setKey(intent.value)
-            is NewSegmentComponent.ViewIntent.SetText -> setText(intent.value)
-            NewSegmentComponent.ViewIntent.Submit -> submit()
+            NewSegmentComponent.Intent.Close -> close()
+            is NewSegmentComponent.Intent.SetKey -> setKey(intent.value)
+            is NewSegmentComponent.Intent.SetText -> setText(intent.value)
+            NewSegmentComponent.Intent.Submit -> submit()
         }
     }
 

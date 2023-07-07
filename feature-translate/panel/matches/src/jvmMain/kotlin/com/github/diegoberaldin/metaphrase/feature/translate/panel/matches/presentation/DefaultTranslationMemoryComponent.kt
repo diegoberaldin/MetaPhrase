@@ -20,14 +20,14 @@ internal class DefaultTranslationMemoryComponent(
     componentContext: ComponentContext,
     coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,
-    private val mvi: DefaultMviModel<TranslationMemoryComponent.ViewIntent, TranslationMemoryComponent.UiState, TranslationMemoryComponent.Effect> = DefaultMviModel(
+    private val mvi: DefaultMviModel<TranslationMemoryComponent.Intent, TranslationMemoryComponent.UiState, TranslationMemoryComponent.Effect> = DefaultMviModel(
         TranslationMemoryComponent.UiState(),
     ),
     private val segmentRepository: SegmentRepository,
     private var getSimilarities: GetSimilaritiesUseCase,
     private val keyStore: TemporaryKeyStore,
 ) : TranslationMemoryComponent,
-    MviModel<TranslationMemoryComponent.ViewIntent, TranslationMemoryComponent.UiState, TranslationMemoryComponent.Effect> by mvi,
+    MviModel<TranslationMemoryComponent.Intent, TranslationMemoryComponent.UiState, TranslationMemoryComponent.Effect> by mvi,
     ComponentContext by componentContext {
     private lateinit var viewModelScope: CoroutineScope
 
@@ -42,11 +42,11 @@ internal class DefaultTranslationMemoryComponent(
         }
     }
 
-    override fun reduce(intent: TranslationMemoryComponent.ViewIntent) {
+    override fun reduce(intent: TranslationMemoryComponent.Intent) {
         when (intent) {
-            TranslationMemoryComponent.ViewIntent.Clear -> clear()
-            is TranslationMemoryComponent.ViewIntent.CopyTranslation -> copyTranslation(intent.index)
-            is TranslationMemoryComponent.ViewIntent.Load -> load(
+            TranslationMemoryComponent.Intent.Clear -> clear()
+            is TranslationMemoryComponent.Intent.CopyTranslation -> copyTranslation(intent.index)
+            is TranslationMemoryComponent.Intent.Load -> load(
                 key = intent.key,
                 projectId = intent.projectId,
                 languageId = intent.languageId,

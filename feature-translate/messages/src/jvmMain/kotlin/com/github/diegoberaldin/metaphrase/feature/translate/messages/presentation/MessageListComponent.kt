@@ -12,12 +12,12 @@ import kotlinx.coroutines.flow.StateFlow
  * Message list component contract.
  */
 interface MessageListComponent :
-    MviModel<MessageListComponent.ViewIntent, MessageListComponent.UiState, MessageListComponent.Effect> {
+    MviModel<MessageListComponent.Intent, MessageListComponent.UiState, MessageListComponent.Effect> {
 
     /**
      * View intents.
      */
-    sealed interface ViewIntent {
+    sealed interface Intent {
         /**
          * Reload the message list. It should be called for the first loading operation, for subsequent ones the
          * [Refresh] intent is enough
@@ -31,77 +31,77 @@ interface MessageListComponent :
             val language: LanguageModel,
             val filter: TranslationUnitTypeFilter,
             val projectId: Int,
-        ) : ViewIntent
+        ) : Intent
 
         /**
          * Reload the message list.
          */
-        object Refresh : ViewIntent
+        object Refresh : Intent
 
         /**
          * Load the next page of messages from the DB.
          */
-        object LoadNextPage : ViewIntent
+        object LoadNextPage : Intent
 
         /**
          * Search for messages matching the textual query.
          *
          * @param text text to search
          */
-        data class Search(val text: String) : ViewIntent
+        data class Search(val text: String) : Intent
 
         /**
          * Start editing a given message.
          *
          * @param index index of the message to edit
          */
-        data class StartEditing(val index: Int) : ViewIntent
+        data class StartEditing(val index: Int) : Intent
 
         /**
          * End the editing operation.
          */
-        object EndEditing : ViewIntent
+        object EndEditing : Intent
 
         /**
          * Move cursor to the previous message.
          */
-        object MoveToPrevious : ViewIntent
+        object MoveToPrevious : Intent
 
         /**
          * Move cursor to the next message.
          */
-        object MoveToNext : ViewIntent
+        object MoveToNext : Intent
 
         /**
          * Set the current segment text (intended for user initiated interaction).
          *
          * @param text string to set
          */
-        data class SetSegmentText(val text: String) : ViewIntent
+        data class SetSegmentText(val text: String) : Intent
 
         /**
          * Change segment text programmatically (intended for application initiated interaction).
          *
          * @param text string to set
          */
-        data class ChangeSegmentText(val text: String) : ViewIntent
+        data class ChangeSegmentText(val text: String) : Intent
 
         /**
          * Copy the base (source) message to the target field.
          */
-        object CopyBase : ViewIntent
+        object CopyBase : Intent
 
         /**
          * Delete the current segment.
          */
-        object DeleteSegment : ViewIntent
+        object DeleteSegment : Intent
 
         /**
          * Scroll to a given message.
          *
          * @param key identifier (key) of the message
          */
-        data class ScrollToMessage(val key: String) : ViewIntent
+        data class ScrollToMessage(val key: String) : Intent
 
         /**
          * Mark a segment as translatable.
@@ -109,19 +109,19 @@ interface MessageListComponent :
          * @param value translatable flag
          * @param key identifier (key) of the message
          */
-        data class MarkAsTranslatable(val value: Boolean, val key: String) : ViewIntent
+        data class MarkAsTranslatable(val value: Boolean, val key: String) : Intent
 
         /**
          * Enable or disable editing.
          *
          * @param value flag to enable editing
          */
-        data class SetEditingEnabled(val value: Boolean) : ViewIntent
+        data class SetEditingEnabled(val value: Boolean) : Intent
 
         /**
          * Clear the message list.
          */
-        object ClearMessages : ViewIntent
+        object ClearMessages : Intent
 
         /**
          * Opens the new glossary term dialog.
@@ -129,14 +129,14 @@ interface MessageListComponent :
          * @param lemma target term (prefilled in dialog)
          * @param lang language code
          */
-        data class AddToGlossarySource(val lemma: String, val lang: String) : ViewIntent
+        data class AddToGlossarySource(val lemma: String, val lang: String) : Intent
 
         /**
          * Ignore a given word in spelling for the current language adding it to a user defined dictionary.
          *
          * @param word word to ignore
          */
-        data class IgnoreWordInSpelling(val word: String) : ViewIntent
+        data class IgnoreWordInSpelling(val word: String) : Intent
     }
 
     /**

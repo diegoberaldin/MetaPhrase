@@ -41,7 +41,7 @@ class DefaultNewGlossaryTermComponentTest {
     @Test
     fun givenComponentCreatedWhenSubmitWithEmptyFieldsThenStateIsError() = runTest {
         lifecycle.create()
-        sut.reduce(NewGlossaryTermComponent.ViewIntent.Submit)
+        sut.reduce(NewGlossaryTermComponent.Intent.Submit)
 
         val uiState = sut.uiState.value
         assertEquals("message_missing_field".localized(), uiState.sourceTermError)
@@ -51,9 +51,9 @@ class DefaultNewGlossaryTermComponentTest {
     @Test
     fun givenComponentCreatedWhenSubmitWithEmptyTargetThenStateIsError() = runTest {
         lifecycle.create()
-        sut.reduce(NewGlossaryTermComponent.ViewIntent.SetSourceTerm("test"))
+        sut.reduce(NewGlossaryTermComponent.Intent.SetSourceTerm("test"))
 
-        sut.reduce(NewGlossaryTermComponent.ViewIntent.Submit)
+        sut.reduce(NewGlossaryTermComponent.Intent.Submit)
 
         val uiState = sut.uiState.value
         assertEquals("", uiState.sourceTermError)
@@ -63,9 +63,9 @@ class DefaultNewGlossaryTermComponentTest {
     @Test
     fun givenComponentCreatedWhenSubmitWithEmptySourceThenStateIsError() = runTest {
         lifecycle.create()
-        sut.reduce(NewGlossaryTermComponent.ViewIntent.SetTargetTerm("test"))
+        sut.reduce(NewGlossaryTermComponent.Intent.SetTargetTerm("test"))
 
-        sut.reduce(NewGlossaryTermComponent.ViewIntent.Submit)
+        sut.reduce(NewGlossaryTermComponent.Intent.Submit)
 
         val uiState = sut.uiState.value
         assertEquals("message_missing_field".localized(), uiState.sourceTermError)
@@ -75,11 +75,11 @@ class DefaultNewGlossaryTermComponentTest {
     @Test
     fun givenComponentCreatedWhenSubmitWithValidDataTheDoneIsEmitted() = runTest {
         lifecycle.create()
-        sut.reduce(NewGlossaryTermComponent.ViewIntent.SetSourceTerm("test source"))
-        sut.reduce(NewGlossaryTermComponent.ViewIntent.SetTargetTerm("test target"))
+        sut.reduce(NewGlossaryTermComponent.Intent.SetSourceTerm("test source"))
+        sut.reduce(NewGlossaryTermComponent.Intent.SetTargetTerm("test target"))
 
         sut.effects.test {
-            sut.reduce(NewGlossaryTermComponent.ViewIntent.Submit)
+            sut.reduce(NewGlossaryTermComponent.Intent.Submit)
             val item = awaitItem()
             assertIs<NewGlossaryTermComponent.Effect.Done>(item)
             val pair = item.pair

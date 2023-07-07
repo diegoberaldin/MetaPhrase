@@ -119,7 +119,7 @@ fun SettingsDialog(
                             current = uiState.currentLanguage?.name,
                             onValueChanged = {
                                 val language = availableLanguages[it]
-                                component.reduce(SettingsComponent.ViewIntent.SetLanguage(language))
+                                component.reduce(SettingsComponent.Intent.SetLanguage(language))
                             },
                         )
                     }
@@ -134,7 +134,7 @@ fun SettingsDialog(
                             modifier = Modifier.width(80.dp).height(26.dp),
                             value = uiState.similarityThreshold,
                             onValueChange = {
-                                component.reduce(SettingsComponent.ViewIntent.SetSimilarity(it))
+                                component.reduce(SettingsComponent.Intent.SetSimilarity(it))
                             },
                         )
                         Text(
@@ -154,7 +154,7 @@ fun SettingsDialog(
                         Checkbox(
                             checked = uiState.spellcheckEnabled,
                             onCheckedChange = {
-                                component.reduce(SettingsComponent.ViewIntent.SetSpellcheckEnabled(it))
+                                component.reduce(SettingsComponent.Intent.SetSpellcheckEnabled(it))
                             },
                             colors = CheckboxDefaults.colors(checkedColor = MaterialTheme.colors.primary),
                         )
@@ -177,7 +177,7 @@ fun SettingsDialog(
                             valueColor = MaterialTheme.colors.onBackground,
                             current = uiState.currentProvider?.readableName.orEmpty(),
                             onValueChanged = {
-                                component.reduce(SettingsComponent.ViewIntent.SetMachineTranslationProvider(it))
+                                component.reduce(SettingsComponent.Intent.SetMachineTranslationProvider(it))
                             },
                         )
                     }
@@ -198,7 +198,7 @@ fun SettingsDialog(
                                     modifier = Modifier.heightIn(max = 25.dp),
                                     contentPadding = PaddingValues(0.dp),
                                     onClick = {
-                                        component.reduce(SettingsComponent.ViewIntent.OpenLoginDialog)
+                                        component.reduce(SettingsComponent.Intent.OpenLoginDialog)
                                     },
                                 ) {
                                     Text(text = "button_generate".localized(), style = MaterialTheme.typography.button)
@@ -211,7 +211,7 @@ fun SettingsDialog(
                             value = uiState.key,
                             enabled = !keyGenerationEnabled,
                             onValueChange = {
-                                component.reduce(SettingsComponent.ViewIntent.SetMachineTranslationKey(it))
+                                component.reduce(SettingsComponent.Intent.SetMachineTranslationKey(it))
                             },
                         )
                     }
@@ -256,9 +256,9 @@ fun SettingsDialog(
                         component = child,
                         onClose = { u, p ->
                             if (u != null && p != null) {
-                                component.reduce(SettingsComponent.ViewIntent.GenerateMachineTranslationKey(username = u, password = p))
+                                component.reduce(SettingsComponent.Intent.GenerateMachineTranslationKey(username = u, password = p))
                             }
-                            component.reduce(SettingsComponent.ViewIntent.CloseDialog)
+                            component.reduce(SettingsComponent.Intent.CloseDialog)
                         },
                     )
                 }

@@ -104,7 +104,7 @@ class DefaultSettingsComponentTest {
         coEvery { mockKeyStore.save(any(), any<String>()) } returns Unit
         lifecycle.create()
 
-        sut.reduce(SettingsComponent.ViewIntent.SetLanguage(LanguageModel(code = "it")))
+        sut.reduce(SettingsComponent.Intent.SetLanguage(LanguageModel(code = "it")))
         val uiState = sut.uiState.value
         assertEquals("it", uiState.currentLanguage?.code)
         coVerify { mockKeyStore.save(KeyStoreKeys.AppLanguage, "it") }
@@ -124,7 +124,7 @@ class DefaultSettingsComponentTest {
         coEvery { mockKeyStore.save(any(), any<Int>()) } returns Unit
         lifecycle.create()
 
-        sut.reduce(SettingsComponent.ViewIntent.SetSimilarity("80"))
+        sut.reduce(SettingsComponent.Intent.SetSimilarity("80"))
         val uiState = sut.uiState.value
         assertEquals("80", uiState.similarityThreshold)
         coVerify { mockKeyStore.save(KeyStoreKeys.SimilarityThreshold, 80) }
@@ -144,7 +144,7 @@ class DefaultSettingsComponentTest {
         coEvery { mockKeyStore.save(any(), any<Boolean>()) } returns Unit
         lifecycle.create()
 
-        sut.reduce(SettingsComponent.ViewIntent.SetSpellcheckEnabled(false))
+        sut.reduce(SettingsComponent.Intent.SetSpellcheckEnabled(false))
         val uiState = sut.uiState.value
         assertEquals(false, uiState.spellcheckEnabled)
         coVerify { mockKeyStore.save(KeyStoreKeys.SpellcheckEnabled, false) }
@@ -165,7 +165,7 @@ class DefaultSettingsComponentTest {
         lifecycle.create()
 
         val index = 0
-        sut.reduce(SettingsComponent.ViewIntent.SetMachineTranslationProvider(index))
+        sut.reduce(SettingsComponent.Intent.SetMachineTranslationProvider(index))
         val uiState = sut.uiState.value
         assertEquals(MachineTranslationRepository.AVAILABLE_PROVIDERS[index], uiState.currentProvider)
         coVerify { mockKeyStore.save(KeyStoreKeys.MachineTranslationProvider, index) }
@@ -186,7 +186,7 @@ class DefaultSettingsComponentTest {
         lifecycle.create()
 
         val key = "key"
-        sut.reduce(SettingsComponent.ViewIntent.SetMachineTranslationKey(key))
+        sut.reduce(SettingsComponent.Intent.SetMachineTranslationKey(key))
         val uiState = sut.uiState.value
         assertEquals(key, uiState.key)
         coVerify { mockKeyStore.save(KeyStoreKeys.MachineTranslationKey, key) }
@@ -207,7 +207,7 @@ class DefaultSettingsComponentTest {
         coEvery { mockMachineTranslationRepository.generateKey(any(), any(), any()) } returns "new_key"
         lifecycle.create()
 
-        sut.reduce(SettingsComponent.ViewIntent.GenerateMachineTranslationKey("username", "password"))
+        sut.reduce(SettingsComponent.Intent.GenerateMachineTranslationKey("username", "password"))
         val uiState = sut.uiState.value
         assertEquals("new_key", uiState.key)
         coVerify { mockMachineTranslationRepository.generateKey(username = "username", password = "password") }
@@ -227,7 +227,7 @@ class DefaultSettingsComponentTest {
         lifecycle.create()
 
         runOnUiThread {
-            sut.reduce(SettingsComponent.ViewIntent.OpenLoginDialog)
+            sut.reduce(SettingsComponent.Intent.OpenLoginDialog)
         }
 
         sut.dialog.configAsFlow<SettingsComponent.DialogConfig>().test {
@@ -250,7 +250,7 @@ class DefaultSettingsComponentTest {
         lifecycle.create()
 
         runOnUiThread {
-            sut.reduce(SettingsComponent.ViewIntent.CloseDialog)
+            sut.reduce(SettingsComponent.Intent.CloseDialog)
         }
 
         sut.dialog.configAsFlow<SettingsComponent.DialogConfig>().test {

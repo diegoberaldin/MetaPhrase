@@ -60,7 +60,7 @@ fun ProjectsListContent(
                     )
                         .padding(horizontal = Spacing.s, vertical = Spacing.lHalf)
                         .onClick {
-                            component.reduce(ProjectListComponent.ViewIntent.OpenRecent(item))
+                            component.reduce(ProjectListComponent.Intent.OpenRecent(item))
                         },
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(Spacing.s),
@@ -85,7 +85,7 @@ fun ProjectsListContent(
                                 .size(24.dp)
                                 .padding(2.dp)
                                 .onClick {
-                                    component.reduce(ProjectListComponent.ViewIntent.RemoveFromRecent(item))
+                                    component.reduce(ProjectListComponent.Intent.RemoveFromRecent(item))
                                 },
                         )
                     }
@@ -100,7 +100,7 @@ fun ProjectsListContent(
             message = "message_open_error".localized(),
             buttonTexts = listOf("button_close".localized()),
             onClose = {
-                component.reduce(ProjectListComponent.ViewIntent.CloseDialog)
+                component.reduce(ProjectListComponent.Intent.CloseDialog)
             },
         )
 

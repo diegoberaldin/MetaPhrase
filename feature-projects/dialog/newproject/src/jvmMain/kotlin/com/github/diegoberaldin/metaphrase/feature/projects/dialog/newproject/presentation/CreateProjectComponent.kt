@@ -4,19 +4,19 @@ import com.github.diegoberaldin.metaphrase.core.common.architecture.MviModel
 import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
 
 interface CreateProjectComponent :
-    MviModel<CreateProjectComponent.ViewIntent, CreateProjectComponent.UiState, CreateProjectComponent.Effect> {
+    MviModel<CreateProjectComponent.Intent, CreateProjectComponent.UiState, CreateProjectComponent.Effect> {
 
     /**
      * View intents.
      */
-    sealed interface ViewIntent {
+    sealed interface Intent {
         /**
          * Set name.
          *
          * @property value project name
          * @constructor Create [SetName]
          */
-        data class SetName(val value: String) : ViewIntent
+        data class SetName(val value: String) : Intent
 
         /**
          * Add language.
@@ -24,7 +24,7 @@ interface CreateProjectComponent :
          * @property value language to add
          * @constructor Create [AddLanguage]
          */
-        data class AddLanguage(val value: LanguageModel) : ViewIntent
+        data class AddLanguage(val value: LanguageModel) : Intent
 
         /**
          * Set base language.
@@ -32,7 +32,7 @@ interface CreateProjectComponent :
          * @property value language to mark as base
          * @constructor Create [SetBaseLanguage]
          */
-        data class SetBaseLanguage(val value: LanguageModel) : ViewIntent
+        data class SetBaseLanguage(val value: LanguageModel) : Intent
 
         /**
          * Remove a language.
@@ -40,12 +40,12 @@ interface CreateProjectComponent :
          * @property value language to remove
          * @constructor Create [RemoveLanguage]
          */
-        data class RemoveLanguage(val value: LanguageModel) : ViewIntent
+        data class RemoveLanguage(val value: LanguageModel) : Intent
 
         /**
          * Submit the form.
          */
-        object Submit : ViewIntent
+        object Submit : Intent
     }
 
     /**

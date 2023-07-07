@@ -21,7 +21,7 @@ internal class DefaultMachineTranslationComponent(
     private val componentContext: ComponentContext,
     private val coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,
-    private val mvi: DefaultMviModel<MachineTranslationComponent.ViewIntent, MachineTranslationComponent.UiState, MachineTranslationComponent.Effect> = DefaultMviModel(
+    private val mvi: DefaultMviModel<MachineTranslationComponent.Intent, MachineTranslationComponent.UiState, MachineTranslationComponent.Effect> = DefaultMviModel(
         MachineTranslationComponent.UiState(),
     ),
     private val languageRepository: LanguageRepository,
@@ -29,7 +29,7 @@ internal class DefaultMachineTranslationComponent(
     private val machineTranslationRepository: MachineTranslationRepository,
     private val keyStore: TemporaryKeyStore,
 ) : MachineTranslationComponent,
-    MviModel<MachineTranslationComponent.ViewIntent, MachineTranslationComponent.UiState, MachineTranslationComponent.Effect> by mvi,
+    MviModel<MachineTranslationComponent.Intent, MachineTranslationComponent.UiState, MachineTranslationComponent.Effect> by mvi,
     ComponentContext by componentContext {
 
     private lateinit var viewModelScope: CoroutineScope
@@ -48,21 +48,21 @@ internal class DefaultMachineTranslationComponent(
         }
     }
 
-    override fun reduce(intent: MachineTranslationComponent.ViewIntent) {
+    override fun reduce(intent: MachineTranslationComponent.Intent) {
         when (intent) {
-            MachineTranslationComponent.ViewIntent.Clear -> clear()
-            MachineTranslationComponent.ViewIntent.CopyTarget -> copyTarget()
-            is MachineTranslationComponent.ViewIntent.CopyTranslation -> copyTranslation(intent.value)
-            MachineTranslationComponent.ViewIntent.InsertTranslation -> insertTranslation()
-            is MachineTranslationComponent.ViewIntent.Load -> load(
+            MachineTranslationComponent.Intent.Clear -> clear()
+            MachineTranslationComponent.Intent.CopyTarget -> copyTarget()
+            is MachineTranslationComponent.Intent.CopyTranslation -> copyTranslation(intent.value)
+            MachineTranslationComponent.Intent.InsertTranslation -> insertTranslation()
+            is MachineTranslationComponent.Intent.Load -> load(
                 key = intent.key,
                 projectId = intent.projectId,
                 languageId = intent.languageId,
             )
 
-            MachineTranslationComponent.ViewIntent.Retrieve -> retrieve()
-            is MachineTranslationComponent.ViewIntent.SetTranslation -> setTranslation(intent.value)
-            MachineTranslationComponent.ViewIntent.Share -> share()
+            MachineTranslationComponent.Intent.Retrieve -> retrieve()
+            is MachineTranslationComponent.Intent.SetTranslation -> setTranslation(intent.value)
+            MachineTranslationComponent.Intent.Share -> share()
         }
     }
 

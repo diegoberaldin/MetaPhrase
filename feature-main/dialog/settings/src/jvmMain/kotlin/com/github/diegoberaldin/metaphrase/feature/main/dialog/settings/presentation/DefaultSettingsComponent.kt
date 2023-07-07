@@ -9,8 +9,8 @@ import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import com.github.diegoberaldin.feature.main.settings.dialog.login.presentation.LoginComponent
-import com.github.diegoberaldin.metaphrase.core.common.architecture.MviModel
 import com.github.diegoberaldin.metaphrase.core.common.architecture.DefaultMviModel
+import com.github.diegoberaldin.metaphrase.core.common.architecture.MviModel
 import com.github.diegoberaldin.metaphrase.core.common.coroutines.CoroutineDispatcherProvider
 import com.github.diegoberaldin.metaphrase.core.common.keystore.KeyStoreKeys
 import com.github.diegoberaldin.metaphrase.core.common.keystore.TemporaryKeyStore
@@ -30,14 +30,14 @@ internal class DefaultSettingsComponent(
     componentContext: ComponentContext,
     coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,
-    private val mvi: DefaultMviModel<SettingsComponent.ViewIntent, SettingsComponent.UiState, SettingsComponent.Effect> = DefaultMviModel(
+    private val mvi: DefaultMviModel<SettingsComponent.Intent, SettingsComponent.UiState, SettingsComponent.Effect> = DefaultMviModel(
         SettingsComponent.UiState(),
     ),
     private val completeLanguage: GetCompleteLanguageUseCase,
     private val keyStore: TemporaryKeyStore,
     private val machineTranslationRepository: MachineTranslationRepository,
 ) : SettingsComponent,
-    MviModel<SettingsComponent.ViewIntent, SettingsComponent.UiState, SettingsComponent.Effect> by mvi,
+    MviModel<SettingsComponent.Intent, SettingsComponent.UiState, SettingsComponent.Effect> by mvi,
     ComponentContext by componentContext {
 
     companion object {
@@ -104,16 +104,16 @@ internal class DefaultSettingsComponent(
         }
     }
 
-    override fun reduce(intent: SettingsComponent.ViewIntent) {
+    override fun reduce(intent: SettingsComponent.Intent) {
         when (intent) {
-            is SettingsComponent.ViewIntent.SetLanguage -> setLanguage(intent.value)
-            is SettingsComponent.ViewIntent.SetSimilarity -> setSimilarity(intent.value)
-            is SettingsComponent.ViewIntent.SetSpellcheckEnabled -> setSpellcheckEnabled(intent.value)
-            is SettingsComponent.ViewIntent.SetMachineTranslationProvider -> setMachineTranslationProvider(intent.index)
-            is SettingsComponent.ViewIntent.SetMachineTranslationKey -> setMachineTranslationKey(intent.value)
-            SettingsComponent.ViewIntent.OpenLoginDialog -> openLoginDialog()
-            SettingsComponent.ViewIntent.CloseDialog -> closeDialog()
-            is SettingsComponent.ViewIntent.GenerateMachineTranslationKey -> generateMachineTranslationKey(
+            is SettingsComponent.Intent.SetLanguage -> setLanguage(intent.value)
+            is SettingsComponent.Intent.SetSimilarity -> setSimilarity(intent.value)
+            is SettingsComponent.Intent.SetSpellcheckEnabled -> setSpellcheckEnabled(intent.value)
+            is SettingsComponent.Intent.SetMachineTranslationProvider -> setMachineTranslationProvider(intent.index)
+            is SettingsComponent.Intent.SetMachineTranslationKey -> setMachineTranslationKey(intent.value)
+            SettingsComponent.Intent.OpenLoginDialog -> openLoginDialog()
+            SettingsComponent.Intent.CloseDialog -> closeDialog()
+            is SettingsComponent.Intent.GenerateMachineTranslationKey -> generateMachineTranslationKey(
                 username = intent.username,
                 password = intent.password,
             )

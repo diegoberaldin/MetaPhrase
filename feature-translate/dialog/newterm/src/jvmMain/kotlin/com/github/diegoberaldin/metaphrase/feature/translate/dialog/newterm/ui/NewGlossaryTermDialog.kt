@@ -50,7 +50,7 @@ fun NewGlossaryTermDialog(
     onClose: ((GlossaryTermPair?) -> Unit)? = null,
 ) {
     LaunchedEffect(component) {
-        component.reduce(NewGlossaryTermComponent.ViewIntent.SetTargetTerm(targetTerm.orEmpty()))
+        component.reduce(NewGlossaryTermComponent.Intent.SetTargetTerm(targetTerm.orEmpty()))
         component.effects.onEach {
             when (it) {
                 is NewGlossaryTermComponent.Effect.Done -> onClose?.invoke(it.pair)
@@ -81,7 +81,7 @@ fun NewGlossaryTermDialog(
                         label = "create_glossary_source_term".localized(),
                         value = uiState.sourceTerm,
                         onValueChange = {
-                            component.reduce(NewGlossaryTermComponent.ViewIntent.SetSourceTerm(targetTerm.orEmpty()))
+                            component.reduce(NewGlossaryTermComponent.Intent.SetSourceTerm(targetTerm.orEmpty()))
                         },
                     )
                     Text(
@@ -96,7 +96,7 @@ fun NewGlossaryTermDialog(
                         label = "create_glossary_target_term".localized(),
                         value = uiState.targetTerm,
                         onValueChange = {
-                            component.reduce(NewGlossaryTermComponent.ViewIntent.SetTargetTerm(targetTerm.orEmpty()))
+                            component.reduce(NewGlossaryTermComponent.Intent.SetTargetTerm(targetTerm.orEmpty()))
                         },
                     )
                     Text(
@@ -124,7 +124,7 @@ fun NewGlossaryTermDialog(
                             modifier = Modifier.heightIn(max = 25.dp),
                             contentPadding = PaddingValues(0.dp),
                             onClick = {
-                                component.reduce(NewGlossaryTermComponent.ViewIntent.Submit)
+                                component.reduce(NewGlossaryTermComponent.Intent.Submit)
                             },
                         ) {
                             Text(text = "button_ok".localized(), style = MaterialTheme.typography.button)

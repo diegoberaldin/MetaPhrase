@@ -15,18 +15,18 @@ import com.github.diegoberaldin.metaphrase.feature.translate.toolbar.presentatio
  * Translate component.
  */
 interface TranslateComponent :
-    MviModel<TranslateComponent.ViewIntent, TranslateComponent.UiState, TranslateComponent.Effect> {
+    MviModel<TranslateComponent.Intent, TranslateComponent.UiState, TranslateComponent.Effect> {
 
     /**
      * View intents.
      */
-    sealed interface ViewIntent {
+    sealed interface Intent {
         /**
          * Save the current project to a TMX file.
          *
          * @param path file path
          */
-        data class Save(val path: String) : ViewIntent
+        data class Save(val path: String) : Intent
 
         /**
          * Import a list of message for the current language from a resource file.
@@ -34,7 +34,7 @@ interface TranslateComponent :
          * @param path file path
          * @param type resource type
          */
-        data class Import(val path: String, val type: ResourceFileType) : ViewIntent
+        data class Import(val path: String, val type: ResourceFileType) : Intent
 
         /**
          * Export the current language messages to a resource file.
@@ -42,92 +42,92 @@ interface TranslateComponent :
          * @param path file path
          * @param type resource type
          */
-        data class Export(val path: String, val type: ResourceFileType) : ViewIntent
+        data class Export(val path: String, val type: ResourceFileType) : Intent
 
         /**
          * Moves the cursor to the previous message.
          */
-        object MoveToPrevious : ViewIntent
+        object MoveToPrevious : Intent
 
         /**
          * Moves the cursor to the next message.
          */
-        object MoveToNext : ViewIntent
+        object MoveToNext : Intent
 
         /**
          * End the current editing operation.
          */
-        object EndEditing : ViewIntent
+        object EndEditing : Intent
 
         /**
          * Copy the base (source) message to the translation field in the editor.
          */
-        object CopyBase : ViewIntent
+        object CopyBase : Intent
 
         /**
          * Add a new segment (opens dialog).
          */
-        object AddSegment : ViewIntent
+        object AddSegment : Intent
 
         /**
          * Delete the current segment.
          */
-        object DeleteSegment : ViewIntent
+        object DeleteSegment : Intent
 
         /**
          * Close any opened dialog.
          */
-        object CloseDialog : ViewIntent
+        object CloseDialog : Intent
 
         /**
          * Toggle a bottom panel for a given section)
          *
          * @param config section configuration
          */
-        data class TogglePanel(val config: PanelConfig) : ViewIntent
+        data class TogglePanel(val config: PanelConfig) : Intent
 
         /**
          * Try and load similarities from the translation memory for the currently opened message.
          */
-        object TryLoadSimilarities : ViewIntent
+        object TryLoadSimilarities : Intent
 
         /**
          * Try and load terms from the glossary for the currently opened message.
          */
-        object TryLoadGlossary : ViewIntent
+        object TryLoadGlossary : Intent
 
         /**
          * Loads the source version of the current message in machine translation component.
          * (This does not retrieve any result from the MT provider, use [MachineTranslationRetrieve] after having called this method)
          */
-        object TryLoadMachineTranslation : ViewIntent
+        object TryLoadMachineTranslation : Intent
 
         /**
          * Export the global TM as a TMX file.
          *
          * @param path destination path
          */
-        data class ExportTmx(val path: String) : ViewIntent
+        data class ExportTmx(val path: String) : Intent
 
         /**
          * Start a placeholder validation.
          */
-        object ValidatePlaceholders : ViewIntent
+        object ValidatePlaceholders : Intent
 
         /**
          * Insert the best match from translation memory in the translation field of the editor.
          */
-        object InsertBestMatch : ViewIntent
+        object InsertBestMatch : Intent
 
         /**
          * Start a global spellcheck validation.
          */
-        object GlobalSpellcheck : ViewIntent
+        object GlobalSpellcheck : Intent
 
         /**
          * Export all the segments of the current project to the global translation memory.
          */
-        object SyncWithTm : ViewIntent
+        object SyncWithTm : Intent
 
         /**
          * Add a new glossary term.
@@ -135,33 +135,33 @@ interface TranslateComponent :
          * @param source source term
          * @param target target term
          */
-        data class AddGlossaryTerm(val source: String?, val target: String?) : ViewIntent
+        data class AddGlossaryTerm(val source: String?, val target: String?) : Intent
 
         /**
          * Retrieve a suggestion for the current message from the machine translation provider.
          * In order for this to work, the [TryLoadMachineTranslation] intent should have been sent earlier.
          */
-        object MachineTranslationRetrieve : ViewIntent
+        object MachineTranslationRetrieve : Intent
 
         /**
          * Copy the MT suggestion into the translation editor.
          */
-        object MachineTranslationInsert : ViewIntent
+        object MachineTranslationInsert : Intent
 
         /**
          * Copy the current translation of the editor into the MT suggestion.
          */
-        object MachineTranslationCopyTarget : ViewIntent
+        object MachineTranslationCopyTarget : Intent
 
         /**
          * Share the current suggestion (after editing) with the machine translation provider.
          */
-        object MachineTranslationShare : ViewIntent
+        object MachineTranslationShare : Intent
 
         /**
          * Share the whole project content (all messages for all languages) with the machine translation provider.
          */
-        object MachineTranslationContributeTm : ViewIntent
+        object MachineTranslationContributeTm : Intent
     }
 
     /**
@@ -212,8 +212,8 @@ interface TranslateComponent :
      */
     var projectId: Int
 
-    /**data class   * Slot configuration for the translation toolbar. : _root_ide_package_.com.github.diegoberaldin.metaphrase.feature.translate.presentation.TranslateComponent.ViewIntent
-     * This is the only config value available in the [toolbar] slot.
+    /**
+     * Slot configuration for the translation toolbar. This is the only config value available in the [toolbar] slot.
      */
     @Parcelize
     object ToolbarConfig : Parcelable

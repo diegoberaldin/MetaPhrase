@@ -39,7 +39,7 @@ internal class DefaultMessageListComponent(
     componentContext: ComponentContext,
     coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,
-    private val mvi: DefaultMviModel<MessageListComponent.ViewIntent, MessageListComponent.UiState, MessageListComponent.Effect> = DefaultMviModel(
+    private val mvi: DefaultMviModel<MessageListComponent.Intent, MessageListComponent.UiState, MessageListComponent.Effect> = DefaultMviModel(
         MessageListComponent.UiState(),
     ),
     private val projectRepository: ProjectRepository,
@@ -49,7 +49,7 @@ internal class DefaultMessageListComponent(
     private val notificationCenter: NotificationCenter,
     private val keyStore: TemporaryKeyStore,
 ) : MessageListComponent,
-    MviModel<MessageListComponent.ViewIntent, MessageListComponent.UiState, MessageListComponent.Effect> by mvi,
+    MviModel<MessageListComponent.Intent, MessageListComponent.UiState, MessageListComponent.Effect> by mvi,
     ComponentContext by componentContext {
 
     companion object {
@@ -91,39 +91,39 @@ internal class DefaultMessageListComponent(
         }
     }
 
-    override fun reduce(intent: MessageListComponent.ViewIntent) {
+    override fun reduce(intent: MessageListComponent.Intent) {
         when (intent) {
-            is MessageListComponent.ViewIntent.AddToGlossarySource -> addToGlossarySource(
+            is MessageListComponent.Intent.AddToGlossarySource -> addToGlossarySource(
                 lemma = intent.lemma,
                 lang = intent.lang,
             )
 
-            is MessageListComponent.ViewIntent.ChangeSegmentText -> changeSegmentText(intent.text)
-            MessageListComponent.ViewIntent.ClearMessages -> clearMessages()
-            MessageListComponent.ViewIntent.CopyBase -> copyBase()
-            MessageListComponent.ViewIntent.DeleteSegment -> deleteSegment()
-            MessageListComponent.ViewIntent.EndEditing -> endEditing()
-            is MessageListComponent.ViewIntent.IgnoreWordInSpelling -> ignoreWordInSpelling(intent.word)
-            MessageListComponent.ViewIntent.LoadNextPage -> loadNextPage()
-            is MessageListComponent.ViewIntent.MarkAsTranslatable -> markAsTranslatable(
+            is MessageListComponent.Intent.ChangeSegmentText -> changeSegmentText(intent.text)
+            MessageListComponent.Intent.ClearMessages -> clearMessages()
+            MessageListComponent.Intent.CopyBase -> copyBase()
+            MessageListComponent.Intent.DeleteSegment -> deleteSegment()
+            MessageListComponent.Intent.EndEditing -> endEditing()
+            is MessageListComponent.Intent.IgnoreWordInSpelling -> ignoreWordInSpelling(intent.word)
+            MessageListComponent.Intent.LoadNextPage -> loadNextPage()
+            is MessageListComponent.Intent.MarkAsTranslatable -> markAsTranslatable(
                 value = intent.value,
                 key = intent.key,
             )
 
-            MessageListComponent.ViewIntent.MoveToNext -> moveToNext()
-            MessageListComponent.ViewIntent.MoveToPrevious -> moveToPrevious()
-            MessageListComponent.ViewIntent.Refresh -> refresh()
-            is MessageListComponent.ViewIntent.ReloadMessages -> reloadMessages(
+            MessageListComponent.Intent.MoveToNext -> moveToNext()
+            MessageListComponent.Intent.MoveToPrevious -> moveToPrevious()
+            MessageListComponent.Intent.Refresh -> refresh()
+            is MessageListComponent.Intent.ReloadMessages -> reloadMessages(
                 language = intent.language,
                 filter = intent.filter,
                 projectId = intent.projectId,
             )
 
-            is MessageListComponent.ViewIntent.ScrollToMessage -> scrollToMessage(intent.key)
-            is MessageListComponent.ViewIntent.Search -> search(intent.text)
-            is MessageListComponent.ViewIntent.SetEditingEnabled -> setEditingEnabled(intent.value)
-            is MessageListComponent.ViewIntent.SetSegmentText -> setSegmentText(intent.text)
-            is MessageListComponent.ViewIntent.StartEditing -> startEditing(intent.index)
+            is MessageListComponent.Intent.ScrollToMessage -> scrollToMessage(intent.key)
+            is MessageListComponent.Intent.Search -> search(intent.text)
+            is MessageListComponent.Intent.SetEditingEnabled -> setEditingEnabled(intent.value)
+            is MessageListComponent.Intent.SetSegmentText -> setSegmentText(intent.text)
+            is MessageListComponent.Intent.StartEditing -> startEditing(intent.index)
         }
     }
 

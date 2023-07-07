@@ -13,27 +13,27 @@ import com.github.diegoberaldin.metaphrase.domain.project.data.ResourceFileType
  * Projects component contract.
  */
 interface ProjectsComponent :
-    MviModel<ProjectsComponent.ViewIntent, ProjectsComponent.UiState, ProjectsComponent.Effect> {
+    MviModel<ProjectsComponent.Intent, ProjectsComponent.UiState, ProjectsComponent.Effect> {
 
-    sealed interface ViewIntent {
+    sealed interface Intent {
         /**
          * Open a project with a given ID.
          *
          * @param projectId Project ID
          */
-        data class Open(val projectId: Int) : ViewIntent
+        data class Open(val projectId: Int) : Intent
 
         /**
          * Close the current project.
          */
-        object CloseCurrentProject : ViewIntent
+        object CloseCurrentProject : Intent
 
         /**
          * Save the current project.
          *
          * @param path path of the TMX file
          */
-        data class SaveCurrentProject(val path: String) : ViewIntent
+        data class SaveCurrentProject(val path: String) : Intent
 
         /**
          * Import messages for the current language from a resource file.
@@ -41,7 +41,7 @@ interface ProjectsComponent :
          * @param path file source path
          * @param type resource type
          */
-        data class Import(val path: String, val type: ResourceFileType) : ViewIntent
+        data class Import(val path: String, val type: ResourceFileType) : Intent
 
         /**
          * Export the messages of the current language to a resource file.
@@ -49,89 +49,89 @@ interface ProjectsComponent :
          * @param path file destination path
          * @param type resource type
          */
-        data class Export(val path: String, val type: ResourceFileType) : ViewIntent
+        data class Export(val path: String, val type: ResourceFileType) : Intent
 
         /**
          * Move the cursor to the previous message.
          */
-        object MoveToPrevious : ViewIntent
+        object MoveToPrevious : Intent
 
         /**
          * Move the cursor to the next message.
          */
-        object MoveToNext : ViewIntent
+        object MoveToNext : Intent
 
         /**
          * Close the current editing operation.
          */
-        object EndEditing : ViewIntent
+        object EndEditing : Intent
 
         /**
          * Copy the base (source) message to the target editor field.
          */
-        object CopyBase : ViewIntent
+        object CopyBase : Intent
 
         /**
          * Add a new segment (trigger dialog)
          */
-        object AddSegment : ViewIntent
+        object AddSegment : Intent
 
         /**
          * Delete the current segment.
          */
-        object DeleteSegment : ViewIntent
+        object DeleteSegment : Intent
 
         /**
          * Export the TM content to a  TMX file.
          *
          * @param path Path
          */
-        data class ExportTmx(val path: String) : ViewIntent
+        data class ExportTmx(val path: String) : Intent
 
         /**
          * Start a placeholder validation.
          */
-        object ValidatePlaceholders : ViewIntent
+        object ValidatePlaceholders : Intent
 
         /**
          * Insert the best TM match into the translation editor.
          */
-        object InsertBestMatch : ViewIntent
+        object InsertBestMatch : Intent
 
         /**
          * Starts a global spellcheck validation.
          */
-        object GlobalSpellcheck : ViewIntent
+        object GlobalSpellcheck : Intent
 
         /**
          * Saves all the messages of the current project in the global TM.
          */
-        object SyncWithTm : ViewIntent
+        object SyncWithTm : Intent
 
         /**
          * Retrieve a suggestion from the MT provider.
          */
-        object MachineTranslationRetrieve : ViewIntent
+        object MachineTranslationRetrieve : Intent
 
         /**
          * Insert the MT suggestion in the translation editor field.
          */
-        object MachineTranslationInsert : ViewIntent
+        object MachineTranslationInsert : Intent
 
         /**
          * Copy the target message in the editor to the TM suggestion.
          */
-        object MachineTranslationCopyTarget : ViewIntent
+        object MachineTranslationCopyTarget : Intent
 
         /**
          * Share the current suggestion to the TM provider.
          */
-        object MachineTranslationShare : ViewIntent
+        object MachineTranslationShare : Intent
 
         /**
          * Share the whole content of the project with the TM provider.
          */
-        object MachineTranslationContributeTm : ViewIntent
+        object MachineTranslationContributeTm : Intent
     }
 
     /**

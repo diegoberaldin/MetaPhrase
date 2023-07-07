@@ -17,11 +17,11 @@ internal class DefaultLoginComponent(
     componentContext: ComponentContext,
     coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,
-    private val mvi: DefaultMviModel<LoginComponent.ViewIntent, LoginComponent.UiState, LoginComponent.Effect> = DefaultMviModel(
+    private val mvi: DefaultMviModel<LoginComponent.Intent, LoginComponent.UiState, LoginComponent.Effect> = DefaultMviModel(
         LoginComponent.UiState(),
     ),
 ) : LoginComponent,
-    MviModel<LoginComponent.ViewIntent, LoginComponent.UiState, LoginComponent.Effect> by mvi,
+    MviModel<LoginComponent.Intent, LoginComponent.UiState, LoginComponent.Effect> by mvi,
     ComponentContext by componentContext {
 
     private lateinit var viewModelScope: CoroutineScope
@@ -37,11 +37,11 @@ internal class DefaultLoginComponent(
         }
     }
 
-    override fun reduce(intent: LoginComponent.ViewIntent) {
+    override fun reduce(intent: LoginComponent.Intent) {
         when (intent) {
-            is LoginComponent.ViewIntent.SetUsername -> mvi.updateState { it.copy(username = intent.value) }
-            is LoginComponent.ViewIntent.SetPassword -> mvi.updateState { it.copy(password = intent.value) }
-            LoginComponent.ViewIntent.Submit -> submit()
+            is LoginComponent.Intent.SetUsername -> mvi.updateState { it.copy(username = intent.value) }
+            is LoginComponent.Intent.SetPassword -> mvi.updateState { it.copy(password = intent.value) }
+            LoginComponent.Intent.Submit -> submit()
         }
     }
 

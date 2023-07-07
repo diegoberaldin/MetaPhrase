@@ -7,12 +7,12 @@ import com.github.diegoberaldin.metaphrase.feature.translate.panel.validate.data
  * Validation component.
  */
 interface ValidateComponent :
-    MviModel<ValidateComponent.ViewIntent, ValidateComponent.UiState, ValidateComponent.Effect> {
+    MviModel<ValidateComponent.Intent, ValidateComponent.UiState, ValidateComponent.Effect> {
 
     /**
      * View intents.
      */
-    sealed interface ViewIntent {
+    sealed interface Intent {
         /**
          * Load a list of invalid placeholder references.
          *
@@ -21,26 +21,26 @@ interface ValidateComponent :
          * @param invalidKeys Invalid message keys
          */
         data class LoadInvalidPlaceholders(val projectId: Int, val languageId: Int, val invalidKeys: List<String>) :
-            ViewIntent
+            Intent
 
         /**
          * Load a list of spelling mistake references.
          *
          * @param errors list of spelling errors (message key to list of incorrect words)
          */
-        data class LoadSpellingMistakes(val errors: Map<String, List<String>>) : ViewIntent
+        data class LoadSpellingMistakes(val errors: Map<String, List<String>>) : Intent
 
         /**
          * Clear the panel content.
          */
-        object Clear : ViewIntent
+        object Clear : Intent
 
         /**
          * Select an reference, triggering [Effect.Selection].
          *
          * @param value index of the reference to select
          */
-        data class SelectItem(val value: Int) : ViewIntent
+        data class SelectItem(val value: Int) : Intent
     }
 
     /**

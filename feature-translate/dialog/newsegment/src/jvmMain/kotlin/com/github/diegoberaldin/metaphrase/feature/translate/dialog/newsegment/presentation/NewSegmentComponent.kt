@@ -8,35 +8,35 @@ import com.github.diegoberaldin.metaphrase.domain.project.data.SegmentModel
  * New segment component contract.
  */
 interface NewSegmentComponent :
-    MviModel<NewSegmentComponent.ViewIntent, NewSegmentComponent.UiState, NewSegmentComponent.Effect> {
+    MviModel<NewSegmentComponent.Intent, NewSegmentComponent.UiState, NewSegmentComponent.Effect> {
 
     /**
      * View intents.
      */
-    sealed interface ViewIntent {
+    sealed interface Intent {
         /**
          * Set the message key.
          *
          * @param value Value
          */
-        data class SetKey(val value: String) : ViewIntent
+        data class SetKey(val value: String) : Intent
 
         /**
          * Set the message text.
          *
          * @param value Value
          */
-        data class SetText(val value: String) : ViewIntent
+        data class SetText(val value: String) : Intent
 
         /**
          * Close the dialog.
          */
-        object Close : ViewIntent
+        object Close : Intent
 
         /**
          * Confirm creation of segment with current key and message.
          */
-        object Submit : ViewIntent
+        object Submit : Intent
     }
 
     /**

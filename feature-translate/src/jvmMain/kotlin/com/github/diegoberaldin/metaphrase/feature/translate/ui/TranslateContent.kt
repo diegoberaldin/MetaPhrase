@@ -111,7 +111,7 @@ fun TranslateContent(
                     PanelConfig.Matches -> {
                         if (uiState.currentLanguage?.isBase != false) {
                             EmptyPanelContent(onMinify = {
-                                component.reduce(TranslateComponent.ViewIntent.TogglePanel(PanelConfig.Matches))
+                                component.reduce(TranslateComponent.Intent.TogglePanel(PanelConfig.Matches))
                             })
                         } else {
                             val childComponent = panel.child?.instance as TranslationMemoryComponent
@@ -119,11 +119,11 @@ fun TranslateContent(
                                 modifier = Modifier.fillMaxWidth().weight(1f),
                                 component = childComponent,
                                 onMinify = {
-                                    component.reduce(TranslateComponent.ViewIntent.TogglePanel(PanelConfig.Matches))
+                                    component.reduce(TranslateComponent.Intent.TogglePanel(PanelConfig.Matches))
                                 },
                             )
                             LaunchedEffect(component) {
-                                component.reduce(TranslateComponent.ViewIntent.TryLoadSimilarities)
+                                component.reduce(TranslateComponent.Intent.TryLoadSimilarities)
                             }
                         }
                     }
@@ -134,7 +134,7 @@ fun TranslateContent(
                             modifier = Modifier.fillMaxWidth().weight(1f),
                             component = childComponent,
                             onMinify = {
-                                component.reduce(TranslateComponent.ViewIntent.TogglePanel(PanelConfig.Validation))
+                                component.reduce(TranslateComponent.Intent.TogglePanel(PanelConfig.Validation))
                             },
                         )
                     }
@@ -145,7 +145,7 @@ fun TranslateContent(
                             modifier = Modifier.fillMaxWidth().weight(1f),
                             component = childComponent,
                             onMinify = {
-                                component.reduce(TranslateComponent.ViewIntent.TogglePanel(PanelConfig.MemoryContent))
+                                component.reduce(TranslateComponent.Intent.TogglePanel(PanelConfig.MemoryContent))
                             },
                         )
                     }
@@ -153,7 +153,7 @@ fun TranslateContent(
                     PanelConfig.Glossary -> {
                         if (uiState.currentLanguage?.isBase != false) {
                             EmptyPanelContent(onMinify = {
-                                component.reduce(TranslateComponent.ViewIntent.TogglePanel(PanelConfig.Glossary))
+                                component.reduce(TranslateComponent.Intent.TogglePanel(PanelConfig.Glossary))
                             })
                         } else {
                             val childComponent = panel.child?.instance as GlossaryComponent
@@ -161,11 +161,11 @@ fun TranslateContent(
                                 modifier = Modifier.fillMaxWidth().weight(1f),
                                 component = childComponent,
                                 onMinify = {
-                                    component.reduce(TranslateComponent.ViewIntent.TogglePanel(PanelConfig.Glossary))
+                                    component.reduce(TranslateComponent.Intent.TogglePanel(PanelConfig.Glossary))
                                 },
                             )
                             LaunchedEffect(component) {
-                                component.reduce(TranslateComponent.ViewIntent.TryLoadGlossary)
+                                component.reduce(TranslateComponent.Intent.TryLoadGlossary)
                             }
                         }
                     }
@@ -173,7 +173,7 @@ fun TranslateContent(
                     PanelConfig.MachineTranslation -> {
                         if (uiState.currentLanguage?.isBase != false) {
                             EmptyPanelContent(onMinify = {
-                                component.reduce(TranslateComponent.ViewIntent.TogglePanel(PanelConfig.MachineTranslation))
+                                component.reduce(TranslateComponent.Intent.TogglePanel(PanelConfig.MachineTranslation))
                             })
                         } else {
                             val childComponent = panel.child?.instance as MachineTranslationComponent
@@ -181,11 +181,11 @@ fun TranslateContent(
                                 modifier = Modifier.fillMaxWidth().weight(1f),
                                 component = childComponent,
                                 onMinify = {
-                                    component.reduce(TranslateComponent.ViewIntent.TogglePanel(PanelConfig.MachineTranslation))
+                                    component.reduce(TranslateComponent.Intent.TogglePanel(PanelConfig.MachineTranslation))
                                 },
                             )
                             LaunchedEffect(component) {
-                                component.reduce(TranslateComponent.ViewIntent.TryLoadMachineTranslation)
+                                component.reduce(TranslateComponent.Intent.TryLoadMachineTranslation)
                             }
                         }
                     }
@@ -207,31 +207,31 @@ fun TranslateContent(
                     title = "panel_section_matches".localized(),
                     isActive = panel.child?.configuration == PanelConfig.Matches,
                 ) {
-                    component.reduce(TranslateComponent.ViewIntent.TogglePanel(PanelConfig.Matches))
+                    component.reduce(TranslateComponent.Intent.TogglePanel(PanelConfig.Matches))
                 }
                 PanelChip(
                     title = "panel_section_checks".localized(),
                     isActive = panel.child?.configuration == PanelConfig.Validation,
                 ) {
-                    component.reduce(TranslateComponent.ViewIntent.TogglePanel(PanelConfig.Validation))
+                    component.reduce(TranslateComponent.Intent.TogglePanel(PanelConfig.Validation))
                 }
                 PanelChip(
                     title = "panel_section_translation_memory".localized(),
                     isActive = panel.child?.configuration == PanelConfig.MemoryContent,
                 ) {
-                    component.reduce(TranslateComponent.ViewIntent.TogglePanel(PanelConfig.MemoryContent))
+                    component.reduce(TranslateComponent.Intent.TogglePanel(PanelConfig.MemoryContent))
                 }
                 PanelChip(
                     title = "panel_section_glossary".localized(),
                     isActive = panel.child?.configuration == PanelConfig.Glossary,
                 ) {
-                    component.reduce(TranslateComponent.ViewIntent.TogglePanel(PanelConfig.Glossary))
+                    component.reduce(TranslateComponent.Intent.TogglePanel(PanelConfig.Glossary))
                 }
                 PanelChip(
                     title = "panel_section_machine_translation".localized(),
                     isActive = panel.child?.configuration == PanelConfig.MachineTranslation,
                 ) {
-                    component.reduce(TranslateComponent.ViewIntent.TogglePanel(PanelConfig.MachineTranslation))
+                    component.reduce(TranslateComponent.Intent.TogglePanel(PanelConfig.MachineTranslation))
                 }
             }
 
@@ -267,7 +267,7 @@ fun TranslateContent(
             NewSegmentDialog(
                 component = childComponent,
                 onClose = {
-                    component.reduce(TranslateComponent.ViewIntent.CloseDialog)
+                    component.reduce(TranslateComponent.Intent.CloseDialog)
                 },
             )
         }
@@ -280,13 +280,13 @@ fun TranslateContent(
                 onClose = { termPair ->
                     if (termPair != null) {
                         component.reduce(
-                            TranslateComponent.ViewIntent.AddGlossaryTerm(
+                            TranslateComponent.Intent.AddGlossaryTerm(
                                 source = termPair.sourceLemma,
                                 target = termPair.targetLemma,
                             ),
                         )
                     }
-                    component.reduce(TranslateComponent.ViewIntent.CloseDialog)
+                    component.reduce(TranslateComponent.Intent.CloseDialog)
                 },
             )
         }

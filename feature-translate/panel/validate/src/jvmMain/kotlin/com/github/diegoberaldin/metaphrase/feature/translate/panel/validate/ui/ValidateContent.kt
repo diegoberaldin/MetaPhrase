@@ -78,7 +78,7 @@ fun ValidateContent(
                 InvalidPlaceholderValidateContent(
                     content = content,
                     onItemSelected = {
-                        component.reduce(ValidateComponent.ViewIntent.SelectItem(it))
+                        component.reduce(ValidateComponent.Intent.SelectItem(it))
                     },
                 )
             }
@@ -89,7 +89,7 @@ fun ValidateContent(
                 SpellingMistakesValidateContent(
                     content = content,
                     onItemSelected = {
-                        component.reduce(ValidateComponent.ViewIntent.SelectItem(it))
+                        component.reduce(ValidateComponent.Intent.SelectItem(it))
                     },
                 )
             }

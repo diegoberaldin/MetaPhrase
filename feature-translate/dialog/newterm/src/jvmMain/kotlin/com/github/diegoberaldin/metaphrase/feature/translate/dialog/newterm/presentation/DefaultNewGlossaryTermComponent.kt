@@ -17,11 +17,11 @@ class DefaultNewGlossaryTermComponent(
     componentContext: ComponentContext,
     coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,
-    private val mvi: DefaultMviModel<NewGlossaryTermComponent.ViewIntent, NewGlossaryTermComponent.UiState, NewGlossaryTermComponent.Effect> = DefaultMviModel(
+    private val mvi: DefaultMviModel<NewGlossaryTermComponent.Intent, NewGlossaryTermComponent.UiState, NewGlossaryTermComponent.Effect> = DefaultMviModel(
         NewGlossaryTermComponent.UiState(),
     ),
 ) : NewGlossaryTermComponent,
-    MviModel<NewGlossaryTermComponent.ViewIntent, NewGlossaryTermComponent.UiState, NewGlossaryTermComponent.Effect> by mvi,
+    MviModel<NewGlossaryTermComponent.Intent, NewGlossaryTermComponent.UiState, NewGlossaryTermComponent.Effect> by mvi,
     ComponentContext by componentContext {
 
     private lateinit var viewModelScope: CoroutineScope
@@ -37,11 +37,11 @@ class DefaultNewGlossaryTermComponent(
         }
     }
 
-    override fun reduce(intent: NewGlossaryTermComponent.ViewIntent) {
+    override fun reduce(intent: NewGlossaryTermComponent.Intent) {
         when (intent) {
-            is NewGlossaryTermComponent.ViewIntent.SetSourceTerm -> setSourceTerm(intent.value)
-            is NewGlossaryTermComponent.ViewIntent.SetTargetTerm -> setTargetTerm(intent.value)
-            NewGlossaryTermComponent.ViewIntent.Submit -> submit()
+            is NewGlossaryTermComponent.Intent.SetSourceTerm -> setSourceTerm(intent.value)
+            is NewGlossaryTermComponent.Intent.SetTargetTerm -> setTargetTerm(intent.value)
+            NewGlossaryTermComponent.Intent.Submit -> submit()
         }
     }
 

@@ -74,7 +74,7 @@ fun MessageListContent(
                 } else {
                     lazyListState.animateScrollToItem(index = (index - 1).coerceAtLeast(0))
                 }
-                component.reduce(MessageListComponent.ViewIntent.StartEditing(index))
+                component.reduce(MessageListComponent.Intent.StartEditing(index))
             }.launchIn(this)
     }
 
@@ -125,7 +125,7 @@ fun MessageListContent(
                                     .padding(4.dp)
                                     .onClick {
                                         component.reduce(
-                                            MessageListComponent.ViewIntent.MarkAsTranslatable(
+                                            MessageListComponent.Intent.MarkAsTranslatable(
                                                 value = !isTranslatable,
                                                 key = key,
                                             ),
@@ -162,14 +162,14 @@ fun MessageListContent(
                             enabled = uiState.editingEnabled,
                             spellingErrors = uiState.spellingErrors,
                             onStartEditing = {
-                                component.reduce(MessageListComponent.ViewIntent.StartEditing(idx))
+                                component.reduce(MessageListComponent.Intent.StartEditing(idx))
                             },
                             onTextChanged = {
-                                component.reduce(MessageListComponent.ViewIntent.SetSegmentText(it))
+                                component.reduce(MessageListComponent.Intent.SetSegmentText(it))
                             },
                             onAddToGlossary = { word ->
                                 component.reduce(
-                                    MessageListComponent.ViewIntent.AddToGlossarySource(
+                                    MessageListComponent.Intent.AddToGlossarySource(
                                         lemma = word,
                                         lang = uiState.currentLanguage?.code.orEmpty(),
                                     ),
@@ -177,7 +177,7 @@ fun MessageListContent(
                             },
                             onIgnoreWord = { word ->
                                 component.reduce(
-                                    MessageListComponent.ViewIntent.IgnoreWordInSpelling(
+                                    MessageListComponent.Intent.IgnoreWordInSpelling(
                                         word = word,
                                     ),
                                 )
@@ -216,14 +216,14 @@ fun MessageListContent(
                             enabled = uiState.editingEnabled,
                             spellingErrors = uiState.spellingErrors,
                             onStartEditing = {
-                                component.reduce(MessageListComponent.ViewIntent.StartEditing(idx))
+                                component.reduce(MessageListComponent.Intent.StartEditing(idx))
                             },
                             onTextChanged = {
-                                component.reduce(MessageListComponent.ViewIntent.SetSegmentText(it))
+                                component.reduce(MessageListComponent.Intent.SetSegmentText(it))
                             },
                             onAddToGlossary = { word ->
                                 component.reduce(
-                                    MessageListComponent.ViewIntent.AddToGlossarySource(
+                                    MessageListComponent.Intent.AddToGlossarySource(
                                         lemma = word,
                                         lang = uiState.currentLanguage?.code.orEmpty(),
                                     ),
@@ -231,7 +231,7 @@ fun MessageListContent(
                             },
                             onIgnoreWord = { word ->
                                 component.reduce(
-                                    MessageListComponent.ViewIntent.IgnoreWordInSpelling(
+                                    MessageListComponent.Intent.IgnoreWordInSpelling(
                                         word = word,
                                     ),
                                 )
@@ -252,7 +252,7 @@ fun MessageListContent(
                         color = MaterialTheme.colors.primary,
                     )
                     if (!uiState.isLoading) {
-                        component.reduce(MessageListComponent.ViewIntent.LoadNextPage)
+                        component.reduce(MessageListComponent.Intent.LoadNextPage)
                     }
                 }
             }

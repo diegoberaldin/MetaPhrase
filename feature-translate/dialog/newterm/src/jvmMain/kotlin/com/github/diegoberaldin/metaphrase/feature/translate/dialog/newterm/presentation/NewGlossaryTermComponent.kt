@@ -6,30 +6,30 @@ import com.github.diegoberaldin.metaphrase.core.common.architecture.MviModel
  * New glossary term component contract.
  */
 interface NewGlossaryTermComponent :
-    MviModel<NewGlossaryTermComponent.ViewIntent, NewGlossaryTermComponent.UiState, NewGlossaryTermComponent.Effect> {
+    MviModel<NewGlossaryTermComponent.Intent, NewGlossaryTermComponent.UiState, NewGlossaryTermComponent.Effect> {
 
     /**
      * View intents.
      */
-    sealed interface ViewIntent {
+    sealed interface Intent {
         /**
          * Set source term.
          *
          * @param value term to set
          */
-        data class SetSourceTerm(val value: String) : ViewIntent
+        data class SetSourceTerm(val value: String) : Intent
 
         /**
          * Set target term.
          *
          * @param value term to set
          */
-        data class SetTargetTerm(val value: String) : ViewIntent
+        data class SetTargetTerm(val value: String) : Intent
 
         /**
          * Confirm the inserted term pair.
          */
-        object Submit : ViewIntent
+        object Submit : Intent
     }
 
     /**

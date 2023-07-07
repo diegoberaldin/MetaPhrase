@@ -7,16 +7,16 @@ import com.github.diegoberaldin.metaphrase.domain.glossary.data.GlossaryTermMode
  * Glossary component.
  */
 interface GlossaryComponent :
-    MviModel<GlossaryComponent.ViewIntent, GlossaryComponent.UiState, GlossaryComponent.Effect> {
+    MviModel<GlossaryComponent.Intent, GlossaryComponent.UiState, GlossaryComponent.Effect> {
 
     /**
      * View intents.
      */
-    sealed interface ViewIntent {
+    sealed interface Intent {
         /**
          * Clear the section content.
          */
-        object Clear : ViewIntent
+        object Clear : Intent
 
         /**
          * Load the glossary terms for the message with a given key..
@@ -25,14 +25,14 @@ interface GlossaryComponent :
          * @param projectId Project ID
          * @param languageId Language ID
          */
-        data class Load(val key: String, val projectId: Int, val languageId: Int) : ViewIntent
+        data class Load(val key: String, val projectId: Int, val languageId: Int) : Intent
 
         /**
          * Add a source term.
          *
          * @param lemma source lemma
          */
-        data class AddSourceTerm(val lemma: String) : ViewIntent
+        data class AddSourceTerm(val lemma: String) : Intent
 
         /**
          * Add a target term.
@@ -40,14 +40,14 @@ interface GlossaryComponent :
          * @param lemma target lemma
          * @param source source term
          */
-        data class AddTargetTerm(val lemma: String, val source: GlossaryTermModel) : ViewIntent
+        data class AddTargetTerm(val lemma: String, val source: GlossaryTermModel) : Intent
 
         /**
          * Delete a term.
          *
          * @param term term to delete
          */
-        data class DeleteTerm(val term: GlossaryTermModel) : ViewIntent
+        data class DeleteTerm(val term: GlossaryTermModel) : Intent
     }
 
     /**

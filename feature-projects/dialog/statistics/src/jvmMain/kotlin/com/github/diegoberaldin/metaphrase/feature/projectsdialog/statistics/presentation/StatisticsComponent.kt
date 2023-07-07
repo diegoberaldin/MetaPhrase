@@ -6,11 +6,11 @@ import com.github.diegoberaldin.metaphrase.core.common.architecture.MviModel
  * Statistics component.
  */
 interface StatisticsComponent :
-    MviModel<StatisticsComponent.ViewIntent, StatisticsComponent.UiState, StatisticsComponent.Effect> {
+    MviModel<StatisticsComponent.Intent, StatisticsComponent.UiState, StatisticsComponent.Effect> {
     /**
      * View intents.
      */
-    sealed interface ViewIntent
+    sealed interface Intent
 
     /**
      * Effects.

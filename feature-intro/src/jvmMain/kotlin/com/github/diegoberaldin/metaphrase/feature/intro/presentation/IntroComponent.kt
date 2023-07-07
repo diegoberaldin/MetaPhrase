@@ -5,11 +5,11 @@ import com.github.diegoberaldin.metaphrase.core.common.architecture.MviModel
 /**
  * Intro component contract.
  */
-interface IntroComponent : MviModel<IntroComponent.ViewIntent, IntroComponent.UiState, IntroComponent.Effect> {
+interface IntroComponent : MviModel<IntroComponent.Intent, IntroComponent.UiState, IntroComponent.Effect> {
     /**
      * View intents.
      */
-    sealed interface ViewIntent
+    sealed interface Intent
 
     /**
      * Effects.

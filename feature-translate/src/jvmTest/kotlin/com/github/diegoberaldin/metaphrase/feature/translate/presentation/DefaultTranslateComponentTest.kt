@@ -169,7 +169,7 @@ class DefaultTranslateComponentTest {
         }
 
         runOnUiThread {
-            sut.reduce(TranslateComponent.ViewIntent.CloseDialog)
+            sut.reduce(TranslateComponent.Intent.CloseDialog)
         }
         sut.dialog.configAsFlow<TranslateComponent.DialogConfig>().test {
             val item = awaitItem()
@@ -188,7 +188,7 @@ class DefaultTranslateComponentTest {
         }
 
         runOnUiThread {
-            sut.reduce(TranslateComponent.ViewIntent.AddSegment)
+            sut.reduce(TranslateComponent.Intent.AddSegment)
         }
 
         sut.dialog.configAsFlow<TranslateComponent.DialogConfig>().test {
@@ -212,7 +212,7 @@ class DefaultTranslateComponentTest {
             lifecycle.resume()
         }
 
-        sut.reduce(TranslateComponent.ViewIntent.Save("path"))
+        sut.reduce(TranslateComponent.Intent.Save("path"))
 
         coVerify { mockSaveProject.invoke(any(), "path") }
     }
@@ -240,7 +240,7 @@ class DefaultTranslateComponentTest {
             lifecycle.resume()
         }
 
-        sut.reduce(TranslateComponent.ViewIntent.Import("path", ResourceFileType.ANDROID_XML))
+        sut.reduce(TranslateComponent.Intent.Import("path", ResourceFileType.ANDROID_XML))
 
         val uiState = sut.uiState.value
         assertEquals(2, uiState.unitCount)
@@ -260,7 +260,7 @@ class DefaultTranslateComponentTest {
             lifecycle.resume()
         }
 
-        sut.reduce(TranslateComponent.ViewIntent.Export("path", ResourceFileType.ANDROID_XML))
+        sut.reduce(TranslateComponent.Intent.Export("path", ResourceFileType.ANDROID_XML))
 
         coVerify {
             mockExportResources.invoke(
@@ -283,7 +283,7 @@ class DefaultTranslateComponentTest {
             lifecycle.resume()
         }
 
-        sut.reduce(TranslateComponent.ViewIntent.TogglePanel(TranslateComponent.PanelConfig.Validation))
+        sut.reduce(TranslateComponent.Intent.TogglePanel(TranslateComponent.PanelConfig.Validation))
 
         sut.panel.configAsFlow<TranslateComponent.PanelConfig>().test {
             val item = awaitItem()
@@ -304,7 +304,7 @@ class DefaultTranslateComponentTest {
             lifecycle.resume()
         }
 
-        sut.reduce(TranslateComponent.ViewIntent.ExportTmx("path"))
+        sut.reduce(TranslateComponent.Intent.ExportTmx("path"))
 
         coVerify { mockExportToTmx.invoke("en", "path") }
     }
@@ -322,7 +322,7 @@ class DefaultTranslateComponentTest {
             lifecycle.resume()
         }
 
-        sut.reduce(TranslateComponent.ViewIntent.SyncWithTm)
+        sut.reduce(TranslateComponent.Intent.SyncWithTm)
 
         coVerify { mockSyncProjectWithTm.invoke(any()) }
     }
@@ -341,7 +341,7 @@ class DefaultTranslateComponentTest {
             lifecycle.resume()
         }
 
-        sut.reduce(TranslateComponent.ViewIntent.ValidatePlaceholders)
+        sut.reduce(TranslateComponent.Intent.ValidatePlaceholders)
 
         coVerify { mockValidatePlaceholders.invoke(any()) }
     }
@@ -359,7 +359,7 @@ class DefaultTranslateComponentTest {
             lifecycle.resume()
         }
 
-        sut.reduce(TranslateComponent.ViewIntent.GlobalSpellcheck)
+        sut.reduce(TranslateComponent.Intent.GlobalSpellcheck)
 
         coVerify { mockValidateSpelling.invoke(any(), any()) }
     }
@@ -382,7 +382,7 @@ class DefaultTranslateComponentTest {
             lifecycle.resume()
         }
 
-        sut.reduce(TranslateComponent.ViewIntent.MachineTranslationContributeTm)
+        sut.reduce(TranslateComponent.Intent.MachineTranslationContributeTm)
 
         coVerify {
             mockMachineTranslationRepository.importTm(

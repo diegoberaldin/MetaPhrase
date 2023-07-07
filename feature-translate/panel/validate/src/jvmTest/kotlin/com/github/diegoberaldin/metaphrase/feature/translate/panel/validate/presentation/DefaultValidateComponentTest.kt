@@ -44,7 +44,7 @@ class DefaultValidateComponentTest {
         }
         lifecycle.create()
         sut.reduce(
-            ValidateComponent.ViewIntent.LoadInvalidPlaceholders(
+            ValidateComponent.Intent.LoadInvalidPlaceholders(
                 projectId = 1,
                 languageId = 2,
                 invalidKeys = listOf("key"),
@@ -73,14 +73,14 @@ class DefaultValidateComponentTest {
         }
         lifecycle.create()
         sut.reduce(
-            ValidateComponent.ViewIntent.LoadInvalidPlaceholders(
+            ValidateComponent.Intent.LoadInvalidPlaceholders(
                 projectId = 1,
                 languageId = 2,
                 invalidKeys = listOf("key"),
             ),
         )
 
-        sut.reduce(ValidateComponent.ViewIntent.Clear)
+        sut.reduce(ValidateComponent.Intent.Clear)
 
         val uiState = sut.uiState.value
         assertNull(uiState.content)
@@ -98,7 +98,7 @@ class DefaultValidateComponentTest {
         }
         lifecycle.create()
         sut.reduce(
-            ValidateComponent.ViewIntent.LoadInvalidPlaceholders(
+            ValidateComponent.Intent.LoadInvalidPlaceholders(
                 projectId = 1,
                 languageId = 2,
                 invalidKeys = listOf("key"),
@@ -106,7 +106,7 @@ class DefaultValidateComponentTest {
         )
 
         sut.effects.test {
-            sut.reduce(ValidateComponent.ViewIntent.SelectItem(0))
+            sut.reduce(ValidateComponent.Intent.SelectItem(0))
             val item = awaitItem()
             assertIs<ValidateComponent.Effect.Selection>(item)
             assertEquals("key", item.key)
@@ -117,7 +117,7 @@ class DefaultValidateComponentTest {
     fun givenComponentCreatedWhenLoadSpellingValidationThenStateIsUpdated() = runTest {
         lifecycle.create()
 
-        sut.reduce(ValidateComponent.ViewIntent.LoadSpellingMistakes(errors = mapOf("key" to listOf("error"))))
+        sut.reduce(ValidateComponent.Intent.LoadSpellingMistakes(errors = mapOf("key" to listOf("error"))))
 
         val uiState = sut.uiState.value
         val content = uiState.content
@@ -130,9 +130,9 @@ class DefaultValidateComponentTest {
     @Test
     fun givenComponentWithSpellingErrorsWhenClearedThenStateIsUpdated() = runTest {
         lifecycle.create()
-        sut.reduce(ValidateComponent.ViewIntent.LoadSpellingMistakes(errors = mapOf("key" to listOf("error"))))
+        sut.reduce(ValidateComponent.Intent.LoadSpellingMistakes(errors = mapOf("key" to listOf("error"))))
 
-        sut.reduce(ValidateComponent.ViewIntent.Clear)
+        sut.reduce(ValidateComponent.Intent.Clear)
 
         val uiState = sut.uiState.value
         assertNull(uiState.content)
@@ -141,10 +141,10 @@ class DefaultValidateComponentTest {
     @Test
     fun givenComponentWithSpellingErrorsWhenSelectItemThenStateIsUpdated() = runTest {
         lifecycle.create()
-        sut.reduce(ValidateComponent.ViewIntent.LoadSpellingMistakes(errors = mapOf("key" to listOf("error"))))
+        sut.reduce(ValidateComponent.Intent.LoadSpellingMistakes(errors = mapOf("key" to listOf("error"))))
 
         sut.effects.test {
-            sut.reduce(ValidateComponent.ViewIntent.SelectItem(0))
+            sut.reduce(ValidateComponent.Intent.SelectItem(0))
             val item = awaitItem()
             assertIs<ValidateComponent.Effect.Selection>(item)
             assertEquals("key", item.key)

@@ -95,9 +95,9 @@ fun RootContent(
                 nameFilter = { it.endsWith(".tmx") },
                 onCloseRequest = { path ->
                     if (path != null) {
-                        component.reduce(RootComponent.ViewIntent.OpenProject(path = path))
+                        component.reduce(RootComponent.Intent.OpenProject(path = path))
                     }
-                    component.reduce(RootComponent.ViewIntent.CloseDialog)
+                    component.reduce(RootComponent.Intent.CloseDialog)
                 },
             )
         }
@@ -113,14 +113,14 @@ fun RootContent(
                             onExitApplication()
                         } else {
                             component.reduce(
-                                RootComponent.ViewIntent.ConfirmCloseCurrentProject(
+                                RootComponent.Intent.ConfirmCloseCurrentProject(
                                     newAfter = config.newAfter,
                                     openAfter = config.openAfter,
                                 ),
                             )
                         }
                     }
-                    component.reduce(RootComponent.ViewIntent.CloseDialog)
+                    component.reduce(RootComponent.Intent.CloseDialog)
                 },
             )
         }
@@ -130,7 +130,7 @@ fun RootContent(
                 title = "dialog_title_create_project".localized(),
                 component = dialogState.child?.instance as CreateProjectComponent,
                 onClose = {
-                    component.reduce(RootComponent.ViewIntent.CloseDialog)
+                    component.reduce(RootComponent.Intent.CloseDialog)
                 },
             )
         }
@@ -140,7 +140,7 @@ fun RootContent(
                 title = "dialog_title_edit_project".localized(),
                 component = dialogState.child?.instance as CreateProjectComponent,
                 onClose = {
-                    component.reduce(RootComponent.ViewIntent.CloseDialog)
+                    component.reduce(RootComponent.Intent.CloseDialog)
                 },
             )
         }
@@ -150,9 +150,9 @@ fun RootContent(
                 title = "dialog_title_open_file".localized(),
                 initialFileName = "${config.name}.tmx",
                 onCloseRequest = { path ->
-                    component.reduce(RootComponent.ViewIntent.CloseDialog)
+                    component.reduce(RootComponent.Intent.CloseDialog)
                     if (path != null) {
-                        component.reduce(RootComponent.ViewIntent.SaveProject(path = path))
+                        component.reduce(RootComponent.Intent.SaveProject(path = path))
                     }
                 },
             )
@@ -175,9 +175,9 @@ fun RootContent(
                     }
                 },
                 onCloseRequest = { path ->
-                    component.reduce(RootComponent.ViewIntent.CloseDialog)
+                    component.reduce(RootComponent.Intent.CloseDialog)
                     if (path != null) {
-                        component.reduce(RootComponent.ViewIntent.Import(path = path, type = type))
+                        component.reduce(RootComponent.Intent.Import(path = path, type = type))
                     }
                 },
             )
@@ -198,9 +198,9 @@ fun RootContent(
                     else -> "strings"
                 },
                 onCloseRequest = { path ->
-                    component.reduce(RootComponent.ViewIntent.CloseDialog)
+                    component.reduce(RootComponent.Intent.CloseDialog)
                     if (path != null) {
-                        component.reduce(RootComponent.ViewIntent.Export(path = path, type = type))
+                        component.reduce(RootComponent.Intent.Export(path = path, type = type))
                     }
                 },
             )
@@ -210,7 +210,7 @@ fun RootContent(
             StatisticsDialog(
                 component = dialogState.child?.instance as StatisticsComponent,
                 onClose = {
-                    component.reduce(RootComponent.ViewIntent.CloseDialog)
+                    component.reduce(RootComponent.Intent.CloseDialog)
                 },
             )
         }
@@ -219,7 +219,7 @@ fun RootContent(
             SettingsDialog(
                 component = dialogState.child?.instance as SettingsComponent,
                 onClose = {
-                    component.reduce(RootComponent.ViewIntent.CloseDialog)
+                    component.reduce(RootComponent.Intent.CloseDialog)
                 },
             )
         }
@@ -229,9 +229,9 @@ fun RootContent(
                 title = "dialog_title_open_file".localized(),
                 initialFileName = "memory.tmx",
                 onCloseRequest = { path ->
-                    component.reduce(RootComponent.ViewIntent.CloseDialog)
+                    component.reduce(RootComponent.Intent.CloseDialog)
                     if (path != null) {
-                        component.reduce(RootComponent.ViewIntent.ExportTmx(path = path))
+                        component.reduce(RootComponent.Intent.ExportTmx(path = path))
                     }
                 },
             )
@@ -242,9 +242,9 @@ fun RootContent(
                 title = "dialog_title_open_file".localized(),
                 nameFilter = { it.endsWith(".tmx") },
                 onCloseRequest = { path ->
-                    component.reduce(RootComponent.ViewIntent.CloseDialog)
+                    component.reduce(RootComponent.Intent.CloseDialog)
                     if (path != null) {
-                        component.reduce(RootComponent.ViewIntent.ImportTmx(path = path))
+                        component.reduce(RootComponent.Intent.ImportTmx(path = path))
                     }
                 },
             )
@@ -255,9 +255,9 @@ fun RootContent(
                 title = "dialog_title_open_file".localized(),
                 nameFilter = { it.endsWith(".csv") },
                 onCloseRequest = { path ->
-                    component.reduce(RootComponent.ViewIntent.CloseDialog)
+                    component.reduce(RootComponent.Intent.CloseDialog)
                     if (path != null) {
-                        component.reduce(RootComponent.ViewIntent.ImportGlossary(path = path))
+                        component.reduce(RootComponent.Intent.ImportGlossary(path = path))
                     }
                 },
             )
@@ -268,9 +268,9 @@ fun RootContent(
                 title = "dialog_title_open_file".localized(),
                 initialFileName = "glossary.csv",
                 onCloseRequest = { path ->
-                    component.reduce(RootComponent.ViewIntent.CloseDialog)
+                    component.reduce(RootComponent.Intent.CloseDialog)
                     if (path != null) {
-                        component.reduce(RootComponent.ViewIntent.ExportGlossary(path = path))
+                        component.reduce(RootComponent.Intent.ExportGlossary(path = path))
                     }
                 },
             )

@@ -7,15 +7,15 @@ import com.github.diegoberaldin.metaphrase.domain.project.data.TranslationUnit
  * Translation memory component.
  */
 interface TranslationMemoryComponent :
-    MviModel<TranslationMemoryComponent.ViewIntent, TranslationMemoryComponent.UiState, TranslationMemoryComponent.Effect> {
+    MviModel<TranslationMemoryComponent.Intent, TranslationMemoryComponent.UiState, TranslationMemoryComponent.Effect> {
     /**
      * View intents.
      */
-    sealed interface ViewIntent {
+    sealed interface Intent {
         /**
          * Clear the content of the panel.
          */
-        object Clear : ViewIntent
+        object Clear : Intent
 
         /**
          * Load the TM matches for the message with a given key.
@@ -24,14 +24,14 @@ interface TranslationMemoryComponent :
          * @param projectId Project ID
          * @param languageId Language ID
          */
-        data class Load(val key: String, val projectId: Int, val languageId: Int) : ViewIntent
+        data class Load(val key: String, val projectId: Int, val languageId: Int) : Intent
 
         /**
          * Copy the match with a given index into the translation field.
          *
          * @param index match index
          */
-        data class CopyTranslation(val index: Int) : ViewIntent
+        data class CopyTranslation(val index: Int) : Intent
     }
 
     /**

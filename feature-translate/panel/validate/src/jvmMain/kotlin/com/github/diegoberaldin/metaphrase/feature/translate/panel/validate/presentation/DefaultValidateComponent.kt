@@ -22,13 +22,13 @@ internal class DefaultValidateComponent(
     componentContext: ComponentContext,
     coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,
-    private val mvi: DefaultMviModel<ValidateComponent.ViewIntent, ValidateComponent.UiState, ValidateComponent.Effect> = DefaultMviModel(
+    private val mvi: DefaultMviModel<ValidateComponent.Intent, ValidateComponent.UiState, ValidateComponent.Effect> = DefaultMviModel(
         ValidateComponent.UiState(),
     ),
     private val languageRepository: LanguageRepository,
     private val segmentRepository: SegmentRepository,
 ) : ValidateComponent,
-    MviModel<ValidateComponent.ViewIntent, ValidateComponent.UiState, ValidateComponent.Effect> by mvi,
+    MviModel<ValidateComponent.Intent, ValidateComponent.UiState, ValidateComponent.Effect> by mvi,
     ComponentContext by componentContext {
 
     private lateinit var viewModelScope: CoroutineScope
@@ -44,17 +44,17 @@ internal class DefaultValidateComponent(
         }
     }
 
-    override fun reduce(intent: ValidateComponent.ViewIntent) {
+    override fun reduce(intent: ValidateComponent.Intent) {
         when (intent) {
-            ValidateComponent.ViewIntent.Clear -> clear()
-            is ValidateComponent.ViewIntent.LoadInvalidPlaceholders -> loadInvalidPlaceholders(
+            ValidateComponent.Intent.Clear -> clear()
+            is ValidateComponent.Intent.LoadInvalidPlaceholders -> loadInvalidPlaceholders(
                 invalidKeys = intent.invalidKeys,
                 projectId = intent.projectId,
                 languageId = intent.languageId,
             )
 
-            is ValidateComponent.ViewIntent.LoadSpellingMistakes -> loadSpellingMistakes(intent.errors)
-            is ValidateComponent.ViewIntent.SelectItem -> selectItem(intent.value)
+            is ValidateComponent.Intent.LoadSpellingMistakes -> loadSpellingMistakes(intent.errors)
+            is ValidateComponent.Intent.SelectItem -> selectItem(intent.value)
         }
     }
 

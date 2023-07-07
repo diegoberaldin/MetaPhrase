@@ -23,7 +23,7 @@ internal class DefaultCreateProjectComponent(
     componentContext: ComponentContext,
     coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,
-    private val mvi: DefaultMviModel<CreateProjectComponent.ViewIntent, CreateProjectComponent.UiState, CreateProjectComponent.Effect> = DefaultMviModel(
+    private val mvi: DefaultMviModel<CreateProjectComponent.Intent, CreateProjectComponent.UiState, CreateProjectComponent.Effect> = DefaultMviModel(
         CreateProjectComponent.UiState(),
     ),
     private val languageRepository: LanguageRepository,
@@ -31,7 +31,7 @@ internal class DefaultCreateProjectComponent(
     private val segmentRepository: SegmentRepository,
     private val completeLanguage: GetCompleteLanguageUseCase,
 ) : CreateProjectComponent,
-    MviModel<CreateProjectComponent.ViewIntent, CreateProjectComponent.UiState, CreateProjectComponent.Effect> by mvi,
+    MviModel<CreateProjectComponent.Intent, CreateProjectComponent.UiState, CreateProjectComponent.Effect> by mvi,
     ComponentContext by componentContext {
 
     override var projectId: Int = 0
@@ -58,13 +58,13 @@ internal class DefaultCreateProjectComponent(
         }
     }
 
-    override fun reduce(intent: CreateProjectComponent.ViewIntent) {
+    override fun reduce(intent: CreateProjectComponent.Intent) {
         when (intent) {
-            is CreateProjectComponent.ViewIntent.AddLanguage -> addLanguage(intent.value)
-            is CreateProjectComponent.ViewIntent.RemoveLanguage -> removeLanguage(intent.value)
-            is CreateProjectComponent.ViewIntent.SetBaseLanguage -> setBaseLanguage(intent.value)
-            is CreateProjectComponent.ViewIntent.SetName -> setName(intent.value)
-            CreateProjectComponent.ViewIntent.Submit -> submit()
+            is CreateProjectComponent.Intent.AddLanguage -> addLanguage(intent.value)
+            is CreateProjectComponent.Intent.RemoveLanguage -> removeLanguage(intent.value)
+            is CreateProjectComponent.Intent.SetBaseLanguage -> setBaseLanguage(intent.value)
+            is CreateProjectComponent.Intent.SetName -> setName(intent.value)
+            CreateProjectComponent.Intent.Submit -> submit()
         }
     }
 

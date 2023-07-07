@@ -85,7 +85,7 @@ class DefaultProjectsComponentTest {
 
         val projectId = 1
         runOnUiThread {
-            sut.reduce(ProjectsComponent.ViewIntent.Open(projectId))
+            sut.reduce(ProjectsComponent.Intent.Open(projectId))
         }
 
         val uiState = sut.uiState.value
@@ -110,7 +110,7 @@ class DefaultProjectsComponentTest {
             lifecycle.create()
 
             runOnUiThread {
-                sut.reduce(ProjectsComponent.ViewIntent.CloseCurrentProject)
+                sut.reduce(ProjectsComponent.Intent.CloseCurrentProject)
             }
 
             val uiState = sut.uiState.value

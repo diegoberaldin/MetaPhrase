@@ -1,7 +1,6 @@
 package com.github.diegoberaldin.metaphrase.domain.project.persistence.dao
 
 import com.github.diegoberaldin.metaphrase.core.common.testutils.MockFileManager
-import com.github.diegoberaldin.metaphrase.core.persistence.AppDatabase
 import com.github.diegoberaldin.metaphrase.core.persistence.DefaultAppDatabase
 import com.github.diegoberaldin.metaphrase.domain.project.data.RecentProjectModel
 import kotlinx.coroutines.test.runTest

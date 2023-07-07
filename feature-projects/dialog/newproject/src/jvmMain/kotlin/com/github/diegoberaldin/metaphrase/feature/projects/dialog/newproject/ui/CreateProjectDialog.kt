@@ -84,7 +84,7 @@ fun CreateProjectDialog(
                         label = "create_project_field_name".localized(),
                         value = uiState.name,
                         onValueChange = {
-                            component.reduce(CreateProjectComponent.ViewIntent.SetName(it))
+                            component.reduce(CreateProjectComponent.Intent.SetName(it))
                         },
                     )
                     Text(
@@ -125,7 +125,7 @@ fun CreateProjectDialog(
                                     languageDropdownExpanded = false
                                 },
                                 onSelected = {
-                                    component.reduce(CreateProjectComponent.ViewIntent.AddLanguage(it))
+                                    component.reduce(CreateProjectComponent.Intent.AddLanguage(it))
                                     languageDropdownExpanded = false
                                 },
                             )
@@ -146,10 +146,10 @@ fun CreateProjectDialog(
                             LanguageCell(
                                 language = language,
                                 onSelected = {
-                                    component.reduce(CreateProjectComponent.ViewIntent.SetBaseLanguage(language))
+                                    component.reduce(CreateProjectComponent.Intent.SetBaseLanguage(language))
                                 },
                                 onDeleteClicked = {
-                                    component.reduce(CreateProjectComponent.ViewIntent.RemoveLanguage(language))
+                                    component.reduce(CreateProjectComponent.Intent.RemoveLanguage(language))
                                 },
                             )
                         }
@@ -178,7 +178,7 @@ fun CreateProjectDialog(
                             modifier = Modifier.heightIn(max = 25.dp),
                             contentPadding = PaddingValues(0.dp),
                             onClick = {
-                                component.reduce(CreateProjectComponent.ViewIntent.Submit)
+                                component.reduce(CreateProjectComponent.Intent.Submit)
                             },
                         ) {
                             Text(text = "button_ok".localized(), style = MaterialTheme.typography.button)

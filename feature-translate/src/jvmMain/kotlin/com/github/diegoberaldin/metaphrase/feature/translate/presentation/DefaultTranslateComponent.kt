@@ -78,7 +78,7 @@ internal class DefaultTranslateComponent(
     componentContext: ComponentContext,
     private val coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,
-    private val mvi: DefaultMviModel<TranslateComponent.ViewIntent, TranslateComponent.UiState, TranslateComponent.Effect> = DefaultMviModel(
+    private val mvi: DefaultMviModel<TranslateComponent.Intent, TranslateComponent.UiState, TranslateComponent.Effect> = DefaultMviModel(
         TranslateComponent.UiState(),
     ),
     private val projectRepository: ProjectRepository,
@@ -98,7 +98,7 @@ internal class DefaultTranslateComponent(
     private val notificationCenter: NotificationCenter,
     private val keyStore: TemporaryKeyStore,
 ) : TranslateComponent,
-    MviModel<TranslateComponent.ViewIntent, TranslateComponent.UiState, TranslateComponent.Effect> by mvi,
+    MviModel<TranslateComponent.Intent, TranslateComponent.UiState, TranslateComponent.Effect> by mvi,
     ComponentContext by componentContext {
 
     private val toolbarNavigation = SlotNavigation<ToolbarConfig>()
@@ -185,37 +185,37 @@ internal class DefaultTranslateComponent(
         }
     }
 
-    override fun reduce(intent: TranslateComponent.ViewIntent) {
+    override fun reduce(intent: TranslateComponent.Intent) {
         when (intent) {
-            is TranslateComponent.ViewIntent.AddGlossaryTerm -> addGlossaryTerm(
+            is TranslateComponent.Intent.AddGlossaryTerm -> addGlossaryTerm(
                 source = intent.source,
                 target = intent.target,
             )
 
-            TranslateComponent.ViewIntent.AddSegment -> addSegment()
-            TranslateComponent.ViewIntent.CloseDialog -> closeDialog()
-            TranslateComponent.ViewIntent.CopyBase -> copyBase()
-            TranslateComponent.ViewIntent.DeleteSegment -> deleteSegment()
-            TranslateComponent.ViewIntent.EndEditing -> endEditing()
-            is TranslateComponent.ViewIntent.Export -> export(path = intent.path, type = intent.type)
-            is TranslateComponent.ViewIntent.ExportTmx -> exportTmx(intent.path)
-            TranslateComponent.ViewIntent.GlobalSpellcheck -> globalSpellcheck()
-            is TranslateComponent.ViewIntent.Import -> import(path = intent.path, type = intent.type)
-            TranslateComponent.ViewIntent.InsertBestMatch -> insertBestMatch()
-            TranslateComponent.ViewIntent.MachineTranslationContributeTm -> machineTranslationContributeTm()
-            TranslateComponent.ViewIntent.MachineTranslationCopyTarget -> machineTranslationCopyTarget()
-            TranslateComponent.ViewIntent.MachineTranslationInsert -> machineTranslationInsert()
-            TranslateComponent.ViewIntent.MachineTranslationRetrieve -> machineTranslationRetrieve()
-            TranslateComponent.ViewIntent.MachineTranslationShare -> machineTranslationShare()
-            TranslateComponent.ViewIntent.MoveToNext -> moveToNext()
-            TranslateComponent.ViewIntent.MoveToPrevious -> moveToPrevious()
-            is TranslateComponent.ViewIntent.Save -> save(intent.path)
-            TranslateComponent.ViewIntent.SyncWithTm -> syncWithTm()
-            is TranslateComponent.ViewIntent.TogglePanel -> togglePanel(intent.config)
-            TranslateComponent.ViewIntent.TryLoadGlossary -> tryLoadGlossary()
-            TranslateComponent.ViewIntent.TryLoadMachineTranslation -> tryLoadMachineTranslation()
-            TranslateComponent.ViewIntent.TryLoadSimilarities -> tryLoadSimilarities()
-            TranslateComponent.ViewIntent.ValidatePlaceholders -> validatePlaceholders()
+            TranslateComponent.Intent.AddSegment -> addSegment()
+            TranslateComponent.Intent.CloseDialog -> closeDialog()
+            TranslateComponent.Intent.CopyBase -> copyBase()
+            TranslateComponent.Intent.DeleteSegment -> deleteSegment()
+            TranslateComponent.Intent.EndEditing -> endEditing()
+            is TranslateComponent.Intent.Export -> export(path = intent.path, type = intent.type)
+            is TranslateComponent.Intent.ExportTmx -> exportTmx(intent.path)
+            TranslateComponent.Intent.GlobalSpellcheck -> globalSpellcheck()
+            is TranslateComponent.Intent.Import -> import(path = intent.path, type = intent.type)
+            TranslateComponent.Intent.InsertBestMatch -> insertBestMatch()
+            TranslateComponent.Intent.MachineTranslationContributeTm -> machineTranslationContributeTm()
+            TranslateComponent.Intent.MachineTranslationCopyTarget -> machineTranslationCopyTarget()
+            TranslateComponent.Intent.MachineTranslationInsert -> machineTranslationInsert()
+            TranslateComponent.Intent.MachineTranslationRetrieve -> machineTranslationRetrieve()
+            TranslateComponent.Intent.MachineTranslationShare -> machineTranslationShare()
+            TranslateComponent.Intent.MoveToNext -> moveToNext()
+            TranslateComponent.Intent.MoveToPrevious -> moveToPrevious()
+            is TranslateComponent.Intent.Save -> save(intent.path)
+            TranslateComponent.Intent.SyncWithTm -> syncWithTm()
+            is TranslateComponent.Intent.TogglePanel -> togglePanel(intent.config)
+            TranslateComponent.Intent.TryLoadGlossary -> tryLoadGlossary()
+            TranslateComponent.Intent.TryLoadMachineTranslation -> tryLoadMachineTranslation()
+            TranslateComponent.Intent.TryLoadSimilarities -> tryLoadSimilarities()
+            TranslateComponent.Intent.ValidatePlaceholders -> validatePlaceholders()
         }
     }
 
@@ -224,13 +224,13 @@ internal class DefaultTranslateComponent(
         val toolbarComponent = toolbar.asFlow<TranslateToolbarComponent>().firstOrNull() ?: return
         messageListComponent.editedSegment.onEach { segment ->
             val isEditing = segment != null
-            toolbarComponent.reduce(TranslateToolbarComponent.ViewIntent.SetEditing(isEditing))
+            toolbarComponent.reduce(TranslateToolbarComponent.Intent.SetEditing(isEditing))
             if (!isEditing) {
                 panel.asFlow<TranslationMemoryComponent>().firstOrNull()
-                    ?.reduce(TranslationMemoryComponent.ViewIntent.Clear)
-                panel.asFlow<GlossaryComponent>().firstOrNull()?.reduce(GlossaryComponent.ViewIntent.Clear)
+                    ?.reduce(TranslationMemoryComponent.Intent.Clear)
+                panel.asFlow<GlossaryComponent>().firstOrNull()?.reduce(GlossaryComponent.Intent.Clear)
                 panel.asFlow<MachineTranslationComponent>().firstOrNull()
-                    ?.reduce(MachineTranslationComponent.ViewIntent.Clear)
+                    ?.reduce(MachineTranslationComponent.Intent.Clear)
             }
         }.launchIn(this)
         dialog.asFlow<NewSegmentComponent>(timeout = Duration.INFINITE).filterNotNull().onEach {
@@ -241,28 +241,28 @@ internal class DefaultTranslateComponent(
                 if (event.segment != null) {
                     projectRepository.setNeedsSaving(true)
                     updateUnitCount()
-                    messageListComponent.reduce(MessageListComponent.ViewIntent.Refresh)
+                    messageListComponent.reduce(MessageListComponent.Intent.Refresh)
                 }
             }.launchIn(this)
         }.launchIn(this)
         messageListComponent.editedSegment.filterNotNull().onEach { segment ->
             val key = segment.key
             panel.asFlow<TranslationMemoryComponent>().firstOrNull()?.reduce(
-                TranslationMemoryComponent.ViewIntent.Load(
+                TranslationMemoryComponent.Intent.Load(
                     key = key,
                     projectId = projectId,
                     languageId = getCurrentLanguage()?.id ?: 0,
                 ),
             )
             panel.asFlow<GlossaryComponent>().firstOrNull()?.reduce(
-                GlossaryComponent.ViewIntent.Load(
+                GlossaryComponent.Intent.Load(
                     key = key,
                     projectId = projectId,
                     languageId = getCurrentLanguage()?.id ?: 0,
                 ),
             )
             panel.asFlow<MachineTranslationComponent>().firstOrNull()?.reduce(
-                MachineTranslationComponent.ViewIntent.Load(
+                MachineTranslationComponent.Intent.Load(
                     key = key,
                     projectId = projectId,
                     languageId = getCurrentLanguage()?.id ?: 0,
@@ -292,7 +292,7 @@ internal class DefaultTranslateComponent(
                 val key = messageListComponent.editedSegment.value?.key
                 if (!key.isNullOrEmpty()) {
                     panel.asFlow<GlossaryComponent>().firstOrNull()?.reduce(
-                        GlossaryComponent.ViewIntent.Load(
+                        GlossaryComponent.Intent.Load(
                             key = key,
                             projectId = projectId,
                             languageId = getCurrentLanguage()?.id ?: 0,
@@ -334,7 +334,7 @@ internal class DefaultTranslateComponent(
             val key = messageList.asFlow<MessageListComponent>().firstOrNull()?.editedSegment?.value?.key
             if (!key.isNullOrEmpty()) {
                 panel.asFlow<GlossaryComponent>().firstOrNull()?.reduce(
-                    GlossaryComponent.ViewIntent.Load(
+                    GlossaryComponent.Intent.Load(
                         key = key,
                         projectId = projectId,
                         languageId = getCurrentLanguage()?.id ?: 0,
@@ -351,20 +351,20 @@ internal class DefaultTranslateComponent(
         toolbarComponent.uiState.mapLatest { it.currentLanguage to it.currentTypeFilter }.distinctUntilChanged()
             .onEach { (language, filter) ->
                 if (language == null) return@onEach
-                messageListComponent.reduce(MessageListComponent.ViewIntent.SetEditingEnabled(false))
+                messageListComponent.reduce(MessageListComponent.Intent.SetEditingEnabled(false))
                 messageListComponent.reduce(
-                    MessageListComponent.ViewIntent.ReloadMessages(
+                    MessageListComponent.Intent.ReloadMessages(
                         language = language,
                         filter = filter,
                         projectId = projectId,
                     ),
                 )
-                messageListComponent.reduce(MessageListComponent.ViewIntent.SetEditingEnabled(true))
+                messageListComponent.reduce(MessageListComponent.Intent.SetEditingEnabled(true))
                 // resets the current validation
-                panel.asFlow<ValidateComponent>().firstOrNull()?.reduce(ValidateComponent.ViewIntent.Clear)
+                panel.asFlow<ValidateComponent>().firstOrNull()?.reduce(ValidateComponent.Intent.Clear)
                 // resets the TM
                 panel.asFlow<BrowseMemoryComponent>().firstOrNull()?.reduce(
-                    BrowseMemoryComponent.ViewIntent.SetLanguages(
+                    BrowseMemoryComponent.Intent.SetLanguages(
                         source = languageRepository.getBase(projectId),
                         target = getCurrentLanguage(),
                     ),
@@ -382,7 +382,7 @@ internal class DefaultTranslateComponent(
 
                 is TranslateToolbarComponent.Effect.Search -> {
                     val searchText = evt.text
-                    messageListComponent.reduce(MessageListComponent.ViewIntent.Search(searchText))
+                    messageListComponent.reduce(MessageListComponent.Intent.Search(searchText))
                 }
 
                 TranslateToolbarComponent.Effect.CopyBase -> {
@@ -416,7 +416,7 @@ internal class DefaultTranslateComponent(
                                 val textToCopy = event.value
                                 val messageListComponent = messageList.asFlow<MessageListComponent>().firstOrNull()
                                 messageListComponent?.reduce(
-                                    MessageListComponent.ViewIntent.ChangeSegmentText(
+                                    MessageListComponent.Intent.ChangeSegmentText(
                                         textToCopy,
                                     ),
                                 )
@@ -431,7 +431,7 @@ internal class DefaultTranslateComponent(
                             is ValidateComponent.Effect.Selection -> {
                                 val key = event.key
                                 val messageListComponent = messageList.asFlow<MessageListComponent>().firstOrNull()
-                                messageListComponent?.reduce(MessageListComponent.ViewIntent.ScrollToMessage(key))
+                                messageListComponent?.reduce(MessageListComponent.Intent.ScrollToMessage(key))
                             }
                         }
                     }.launchIn(this)
@@ -439,7 +439,7 @@ internal class DefaultTranslateComponent(
 
                 is BrowseMemoryComponent -> {
                     child.reduce(
-                        BrowseMemoryComponent.ViewIntent.SetLanguages(
+                        BrowseMemoryComponent.Intent.SetLanguages(
                             source = languageRepository.getBase(projectId),
                             target = getCurrentLanguage(),
                         ),
@@ -453,7 +453,7 @@ internal class DefaultTranslateComponent(
                                 val textToCopy = it.value
                                 val messageListComponent = messageList.asFlow<MessageListComponent>().firstOrNull()
                                 messageListComponent?.reduce(
-                                    MessageListComponent.ViewIntent.ChangeSegmentText(
+                                    MessageListComponent.Intent.ChangeSegmentText(
                                         textToCopy,
                                     ),
                                 )
@@ -465,7 +465,7 @@ internal class DefaultTranslateComponent(
                                 if (segmentId != null) {
                                     val segment = segmentRepository.getById(segmentId)
                                     val text = segment?.text.orEmpty()
-                                    child.reduce(MachineTranslationComponent.ViewIntent.CopyTranslation(text))
+                                    child.reduce(MachineTranslationComponent.Intent.CopyTranslation(text))
                                 }
                             }
 
@@ -505,8 +505,8 @@ internal class DefaultTranslateComponent(
             updateUnitCount()
 
             messageList.asFlow<MessageListComponent>().firstOrNull()?.apply {
-                reduce(MessageListComponent.ViewIntent.ClearMessages)
-                reduce(MessageListComponent.ViewIntent.Refresh)
+                reduce(MessageListComponent.Intent.ClearMessages)
+                reduce(MessageListComponent.Intent.Refresh)
             }
             toolbar.asFlow<TranslateToolbarComponent>().firstOrNull()?.apply {
                 projectId = this@DefaultTranslateComponent.projectId
@@ -556,8 +556,8 @@ internal class DefaultTranslateComponent(
             projectRepository.setNeedsSaving(true)
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
             val messageListComponent = messageList.asFlow<MessageListComponent>().firstOrNull()
-            messageListComponent?.reduce(MessageListComponent.ViewIntent.SetEditingEnabled(false))
-            messageListComponent?.reduce(MessageListComponent.ViewIntent.ClearMessages)
+            messageListComponent?.reduce(MessageListComponent.Intent.SetEditingEnabled(false))
+            messageListComponent?.reduce(MessageListComponent.Intent.ClearMessages)
             val segments = importResources(path = path, type = type)
             importSegments(
                 segments = segments,
@@ -567,8 +567,8 @@ internal class DefaultTranslateComponent(
 
             delay(100)
             updateUnitCount()
-            messageListComponent?.reduce(MessageListComponent.ViewIntent.Refresh)
-            messageListComponent?.reduce(MessageListComponent.ViewIntent.SetEditingEnabled(true))
+            messageListComponent?.reduce(MessageListComponent.Intent.Refresh)
+            messageListComponent?.reduce(MessageListComponent.Intent.SetEditingEnabled(true))
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
         }
     }
@@ -604,25 +604,25 @@ internal class DefaultTranslateComponent(
     private fun moveToPrevious() {
         viewModelScope.launch(dispatchers.io) {
             messageList.asFlow<MessageListComponent>().firstOrNull()
-                ?.reduce(MessageListComponent.ViewIntent.MoveToPrevious)
+                ?.reduce(MessageListComponent.Intent.MoveToPrevious)
         }
     }
 
     private fun moveToNext() {
         viewModelScope.launch(dispatchers.io) {
-            messageList.asFlow<MessageListComponent>().firstOrNull()?.reduce(MessageListComponent.ViewIntent.MoveToNext)
+            messageList.asFlow<MessageListComponent>().firstOrNull()?.reduce(MessageListComponent.Intent.MoveToNext)
         }
     }
 
     private fun endEditing() {
         viewModelScope.launch(dispatchers.io) {
-            messageList.asFlow<MessageListComponent>().firstOrNull()?.reduce(MessageListComponent.ViewIntent.EndEditing)
+            messageList.asFlow<MessageListComponent>().firstOrNull()?.reduce(MessageListComponent.Intent.EndEditing)
         }
     }
 
     private fun copyBase() {
         viewModelScope.launch(dispatchers.io) {
-            messageList.asFlow<MessageListComponent>().firstOrNull()?.reduce(MessageListComponent.ViewIntent.CopyBase)
+            messageList.asFlow<MessageListComponent>().firstOrNull()?.reduce(MessageListComponent.Intent.CopyBase)
         }
     }
 
@@ -635,7 +635,7 @@ internal class DefaultTranslateComponent(
     private fun deleteSegment() {
         viewModelScope.launch(dispatchers.io) {
             messageList.asFlow<MessageListComponent>().firstOrNull()
-                ?.reduce(MessageListComponent.ViewIntent.DeleteSegment)
+                ?.reduce(MessageListComponent.Intent.DeleteSegment)
         }
     }
 
@@ -660,7 +660,7 @@ internal class DefaultTranslateComponent(
             when (result) {
                 ValidatePlaceholdersUseCase.Output.Valid -> {
                     child?.reduce(
-                        ValidateComponent.ViewIntent.LoadInvalidPlaceholders(
+                        ValidateComponent.Intent.LoadInvalidPlaceholders(
                             projectId,
                             language.id,
                             invalidKeys = emptyList(),
@@ -670,7 +670,7 @@ internal class DefaultTranslateComponent(
 
                 is ValidatePlaceholdersUseCase.Output.Invalid -> {
                     child?.reduce(
-                        ValidateComponent.ViewIntent.LoadInvalidPlaceholders(
+                        ValidateComponent.Intent.LoadInvalidPlaceholders(
                             projectId,
                             language.id,
                             invalidKeys = result.keys,
@@ -697,7 +697,7 @@ internal class DefaultTranslateComponent(
             }
 
             val child = panel.asFlow<ValidateComponent>().firstOrNull()
-            child?.reduce(ValidateComponent.ViewIntent.LoadSpellingMistakes(errorMap))
+            child?.reduce(ValidateComponent.Intent.LoadSpellingMistakes(errorMap))
         }
     }
 
@@ -714,7 +714,7 @@ internal class DefaultTranslateComponent(
             val currentKey = messageList.asFlow<MessageListComponent>().firstOrNull()?.editedSegment?.value?.key
             if (currentKey != null) {
                 panel.asFlow<TranslationMemoryComponent>().firstOrNull()?.reduce(
-                    TranslationMemoryComponent.ViewIntent.Load(
+                    TranslationMemoryComponent.Intent.Load(
                         key = currentKey,
                         languageId = getCurrentLanguage()?.id ?: 0,
                         projectId = projectId,
@@ -730,7 +730,7 @@ internal class DefaultTranslateComponent(
             val currentKey = messageList.asFlow<MessageListComponent>().firstOrNull()?.editedSegment?.value?.key
             if (currentKey != null) {
                 panel.asFlow<GlossaryComponent>().firstOrNull()?.reduce(
-                    GlossaryComponent.ViewIntent.Load(
+                    GlossaryComponent.Intent.Load(
                         key = currentKey,
                         languageId = getCurrentLanguage()?.id ?: 0,
                         projectId = projectId,
@@ -746,7 +746,7 @@ internal class DefaultTranslateComponent(
             val currentKey = messageList.asFlow<MessageListComponent>().firstOrNull()?.editedSegment?.value?.key
             if (currentKey != null) {
                 panel.asFlow<MachineTranslationComponent>().firstOrNull()?.reduce(
-                    MachineTranslationComponent.ViewIntent.Load(
+                    MachineTranslationComponent.Intent.Load(
                         key = currentKey,
                         languageId = getCurrentLanguage()?.id ?: 0,
                         projectId = projectId,
@@ -780,7 +780,7 @@ internal class DefaultTranslateComponent(
     private fun insertBestMatch() {
         viewModelScope.launch(dispatchers.io) {
             panel.asFlow<TranslationMemoryComponent>().firstOrNull()
-                ?.reduce(TranslationMemoryComponent.ViewIntent.CopyTranslation(0))
+                ?.reduce(TranslationMemoryComponent.Intent.CopyTranslation(0))
         }
     }
 
@@ -791,28 +791,28 @@ internal class DefaultTranslateComponent(
     private fun machineTranslationRetrieve() {
         viewModelScope.launch(dispatchers.io) {
             panel.asFlow<MachineTranslationComponent>().firstOrNull()
-                ?.reduce(MachineTranslationComponent.ViewIntent.Retrieve)
+                ?.reduce(MachineTranslationComponent.Intent.Retrieve)
         }
     }
 
     private fun machineTranslationInsert() {
         viewModelScope.launch(dispatchers.io) {
             panel.asFlow<MachineTranslationComponent>().firstOrNull()
-                ?.reduce(MachineTranslationComponent.ViewIntent.InsertTranslation)
+                ?.reduce(MachineTranslationComponent.Intent.InsertTranslation)
         }
     }
 
     private fun machineTranslationCopyTarget() {
         viewModelScope.launch(dispatchers.io) {
             panel.asFlow<MachineTranslationComponent>().firstOrNull()
-                ?.reduce(MachineTranslationComponent.ViewIntent.CopyTarget)
+                ?.reduce(MachineTranslationComponent.Intent.CopyTarget)
         }
     }
 
     private fun machineTranslationShare() {
         viewModelScope.launch(dispatchers.io) {
             panel.asFlow<MachineTranslationComponent>().firstOrNull()
-                ?.reduce(MachineTranslationComponent.ViewIntent.Share)
+                ?.reduce(MachineTranslationComponent.Intent.Share)
         }
     }
 

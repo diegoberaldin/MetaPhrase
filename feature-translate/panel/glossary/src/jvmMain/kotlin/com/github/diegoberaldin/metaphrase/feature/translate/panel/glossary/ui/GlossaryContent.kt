@@ -104,7 +104,7 @@ fun GlossaryContent(
                     TermChip(
                         term = term,
                         onDelete = {
-                            component.reduce(GlossaryComponent.ViewIntent.DeleteTerm(term))
+                            component.reduce(GlossaryComponent.Intent.DeleteTerm(term))
                         },
                     )
                 }
@@ -128,7 +128,7 @@ fun GlossaryContent(
                                 term = targetTerm,
                                 backgroundColor = Color(0xFF666666).copy(alpha = 0.75f),
                                 onDelete = {
-                                    component.reduce(GlossaryComponent.ViewIntent.DeleteTerm(targetTerm))
+                                    component.reduce(GlossaryComponent.Intent.DeleteTerm(targetTerm))
                                 },
                             )
                         }
@@ -148,7 +148,7 @@ fun GlossaryContent(
                                         backgroundColor = Color(0xFF666666).copy(alpha = 0.75f),
                                         onAddTerm = {
                                             val sourceTerm = uiState.terms[idx].first
-                                            component.reduce(GlossaryComponent.ViewIntent.AddTargetTerm(lemma = it, source = sourceTerm))
+                                            component.reduce(GlossaryComponent.Intent.AddTargetTerm(lemma = it, source = sourceTerm))
                                         },
                                     )
                                 }
@@ -167,7 +167,7 @@ fun GlossaryContent(
                     ) {
                         GlossaryAddButton(
                             onAddTerm = {
-                                component.reduce(GlossaryComponent.ViewIntent.AddSourceTerm(it))
+                                component.reduce(GlossaryComponent.Intent.AddSourceTerm(it))
                             },
                         )
                     }

@@ -8,51 +8,51 @@ import com.github.diegoberaldin.metaphrase.domain.tm.data.TranslationMemoryEntry
  * Browse memory component.
  */
 interface BrowseMemoryComponent :
-    MviModel<BrowseMemoryComponent.ViewIntent, BrowseMemoryComponent.UiState, BrowseMemoryComponent.Effect> {
+    MviModel<BrowseMemoryComponent.Intent, BrowseMemoryComponent.UiState, BrowseMemoryComponent.Effect> {
     /**
      * View intents.
      */
-    sealed interface ViewIntent {
+    sealed interface Intent {
         /**
          * Set the language pair.
          *
          * @param source Source language
          * @param target Target language
          */
-        data class SetLanguages(val source: LanguageModel? = null, val target: LanguageModel? = null) : ViewIntent
+        data class SetLanguages(val source: LanguageModel? = null, val target: LanguageModel? = null) : Intent
 
         /**
          * Set the source language.
          *
          * @param value language to set
          */
-        data class SetSourceLanguage(val value: LanguageModel?) : ViewIntent
+        data class SetSourceLanguage(val value: LanguageModel?) : Intent
 
         /**
          * Set the target language.
          *
          * @param value langauge to set
          */
-        data class SetTargetLanguage(val value: LanguageModel?) : ViewIntent
+        data class SetTargetLanguage(val value: LanguageModel?) : Intent
 
         /**
          * Set the search query.
          *
          * @param value search string to set
          */
-        data class SetSearch(val value: String) : ViewIntent
+        data class SetSearch(val value: String) : Intent
 
         /**
          * Start a search.
          */
-        object OnSearchFired : ViewIntent
+        object OnSearchFired : Intent
 
         /**
          * Delete an entry from the translation memory.
          *
          * @param index index of the entry to delete
          */
-        data class DeleteEntry(val index: Int) : ViewIntent
+        data class DeleteEntry(val index: Int) : Intent
     }
 
     /**

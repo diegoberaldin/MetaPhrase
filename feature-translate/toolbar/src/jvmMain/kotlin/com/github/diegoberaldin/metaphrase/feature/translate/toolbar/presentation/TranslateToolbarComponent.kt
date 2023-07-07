@@ -8,72 +8,72 @@ import com.github.diegoberaldin.metaphrase.domain.project.data.TranslationUnitTy
  * Translation toolbar component.
  */
 interface TranslateToolbarComponent :
-    MviModel<TranslateToolbarComponent.ViewIntent, TranslateToolbarComponent.UiState, TranslateToolbarComponent.Effect> {
+    MviModel<TranslateToolbarComponent.Intent, TranslateToolbarComponent.UiState, TranslateToolbarComponent.Effect> {
 
-    sealed interface ViewIntent {
+    sealed interface Intent {
         /**
          * Change the current language.
          *
          * @param value language to set
          */
-        data class SetLanguage(val value: LanguageModel) : ViewIntent
+        data class SetLanguage(val value: LanguageModel) : Intent
 
         /**
          * Change the message filter.
          *
          * @param value filter to set
          */
-        data class SetTypeFilter(val value: TranslationUnitTypeFilter) : ViewIntent
+        data class SetTypeFilter(val value: TranslationUnitTypeFilter) : Intent
 
         /**
          * Trigger the [Effect.Search] event to be emitted in the [effects] flow with the last value passed along in the the [SetSearch] intent.
          */
-        object OnSearchFired : ViewIntent
+        object OnSearchFired : Intent
 
         /**
          * Set a search query string
          *
          * @param value query to set
          */
-        data class SetSearch(val value: String) : ViewIntent
+        data class SetSearch(val value: String) : Intent
 
         /**
          * Trigger the [Effect.CopyBase] event to be emitted in the [effects] flow.
          */
-        object CopyBase : ViewIntent
+        object CopyBase : Intent
 
         /**
          * Trigger the [Effect.MoveToPrevious] event to be emitted in the [effects] flow.
          */
-        object MoveToPrevious : ViewIntent
+        object MoveToPrevious : Intent
 
         /**
          * Trigger the [Effect.MoveToNext] event to be emitted in the [effects] flow.
          */
-        object MoveToNext : ViewIntent
+        object MoveToNext : Intent
 
         /**
          * Trigger the [Effect.AddUnit] event to be emitted in the [effects] flow.
          */
-        object AddUnit : ViewIntent
+        object AddUnit : Intent
 
         /**
          * Trigger the [Effect.RemoveUnit] event to be emitted in the [effects] flow.
          */
-        object RemoveUnit : ViewIntent
+        object RemoveUnit : Intent
 
         /**
          * Trigger the [Effect.ValidateUnits] event to be emitted in the [effects] flow.
          * This is intended for placeholder validation.
          */
-        object ValidateUnits : ViewIntent
+        object ValidateUnits : Intent
 
         /**
          * Set the editing state.
          *
          * @param value state to set
          */
-        data class SetEditing(val value: Boolean) : ViewIntent
+        data class SetEditing(val value: Boolean) : Intent
     }
 
     /**

@@ -57,7 +57,7 @@ fun NewSegmentDialog(
             state = rememberWindowState(width = Dp.Unspecified, height = Dp.Unspecified),
             resizable = false,
             onCloseRequest = {
-                component.reduce(NewSegmentComponent.ViewIntent.Close)
+                component.reduce(NewSegmentComponent.Intent.Close)
             },
         ) {
             Surface(
@@ -84,7 +84,7 @@ fun NewSegmentDialog(
                         label = "create_segment_key".localized(),
                         value = uiState.key,
                         onValueChange = {
-                            component.reduce(NewSegmentComponent.ViewIntent.SetKey(it))
+                            component.reduce(NewSegmentComponent.Intent.SetKey(it))
                         },
                     )
                     Text(
@@ -99,7 +99,7 @@ fun NewSegmentDialog(
                         label = "create_segment_text".localized(),
                         value = uiState.text,
                         onValueChange = {
-                            component.reduce(NewSegmentComponent.ViewIntent.SetText(it))
+                            component.reduce(NewSegmentComponent.Intent.SetText(it))
                         },
                     )
                     Text(
@@ -118,7 +118,7 @@ fun NewSegmentDialog(
                             modifier = Modifier.heightIn(max = 25.dp),
                             contentPadding = PaddingValues(0.dp),
                             onClick = {
-                                component.reduce(NewSegmentComponent.ViewIntent.Close)
+                                component.reduce(NewSegmentComponent.Intent.Close)
                             },
                         ) {
                             Text(text = "button_cancel".localized(), style = MaterialTheme.typography.button)
@@ -127,7 +127,7 @@ fun NewSegmentDialog(
                             modifier = Modifier.heightIn(max = 25.dp),
                             contentPadding = PaddingValues(0.dp),
                             onClick = {
-                                component.reduce(NewSegmentComponent.ViewIntent.Submit)
+                                component.reduce(NewSegmentComponent.Intent.Submit)
                             },
                         ) {
                             Text(text = "button_ok".localized(), style = MaterialTheme.typography.button)

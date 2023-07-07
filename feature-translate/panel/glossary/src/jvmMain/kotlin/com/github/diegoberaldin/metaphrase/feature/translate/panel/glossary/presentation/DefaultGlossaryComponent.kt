@@ -23,7 +23,7 @@ internal class DefaultGlossaryComponent(
     componentContext: ComponentContext,
     coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,
-    private val mvi: DefaultMviModel<GlossaryComponent.ViewIntent, GlossaryComponent.UiState, GlossaryComponent.Effect> = DefaultMviModel(
+    private val mvi: DefaultMviModel<GlossaryComponent.Intent, GlossaryComponent.UiState, GlossaryComponent.Effect> = DefaultMviModel(
         GlossaryComponent.UiState(),
     ),
     private val languageRepository: LanguageRepository,
@@ -32,7 +32,7 @@ internal class DefaultGlossaryComponent(
     private val glossaryTermRepository: GlossaryTermRepository,
     private val getGlossaryTerms: GetGlossaryTermsUseCase,
 ) : GlossaryComponent,
-    MviModel<GlossaryComponent.ViewIntent, GlossaryComponent.UiState, GlossaryComponent.Effect> by mvi,
+    MviModel<GlossaryComponent.Intent, GlossaryComponent.UiState, GlossaryComponent.Effect> by mvi,
     ComponentContext by componentContext {
 
     private var lastSourceLanguage: LanguageModel? = null
@@ -51,13 +51,13 @@ internal class DefaultGlossaryComponent(
         }
     }
 
-    override fun reduce(intent: GlossaryComponent.ViewIntent) {
+    override fun reduce(intent: GlossaryComponent.Intent) {
         when (intent) {
-            is GlossaryComponent.ViewIntent.AddSourceTerm -> addSourceTerm(intent.lemma)
-            is GlossaryComponent.ViewIntent.AddTargetTerm -> addTargetTerm(lemma = intent.lemma, source = intent.source)
-            GlossaryComponent.ViewIntent.Clear -> clear()
-            is GlossaryComponent.ViewIntent.DeleteTerm -> deleteTerm(intent.term)
-            is GlossaryComponent.ViewIntent.Load -> load(
+            is GlossaryComponent.Intent.AddSourceTerm -> addSourceTerm(intent.lemma)
+            is GlossaryComponent.Intent.AddTargetTerm -> addTargetTerm(lemma = intent.lemma, source = intent.source)
+            GlossaryComponent.Intent.Clear -> clear()
+            is GlossaryComponent.Intent.DeleteTerm -> deleteTerm(intent.term)
+            is GlossaryComponent.Intent.Load -> load(
                 key = intent.key,
                 projectId = intent.projectId,
                 languageId = intent.languageId,

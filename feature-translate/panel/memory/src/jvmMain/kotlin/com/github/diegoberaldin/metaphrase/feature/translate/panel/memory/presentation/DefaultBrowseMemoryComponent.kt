@@ -19,13 +19,13 @@ internal class DefaultBrowseMemoryComponent(
     componentContext: ComponentContext,
     coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,
-    private val mvi: DefaultMviModel<BrowseMemoryComponent.ViewIntent, BrowseMemoryComponent.UiState, BrowseMemoryComponent.Effect> = DefaultMviModel(
+    private val mvi: DefaultMviModel<BrowseMemoryComponent.Intent, BrowseMemoryComponent.UiState, BrowseMemoryComponent.Effect> = DefaultMviModel(
         BrowseMemoryComponent.UiState(),
     ),
     private val memoryEntryRepository: MemoryEntryRepository,
     private val completeLanguage: GetCompleteLanguageUseCase,
 ) : BrowseMemoryComponent,
-    MviModel<BrowseMemoryComponent.ViewIntent, BrowseMemoryComponent.UiState, BrowseMemoryComponent.Effect> by mvi,
+    MviModel<BrowseMemoryComponent.Intent, BrowseMemoryComponent.UiState, BrowseMemoryComponent.Effect> by mvi,
     ComponentContext by componentContext {
 
     private lateinit var viewModelScope: CoroutineScope
@@ -42,18 +42,18 @@ internal class DefaultBrowseMemoryComponent(
         }
     }
 
-    override fun reduce(intent: BrowseMemoryComponent.ViewIntent) {
+    override fun reduce(intent: BrowseMemoryComponent.Intent) {
         when (intent) {
-            is BrowseMemoryComponent.ViewIntent.DeleteEntry -> deleteEntry(intent.index)
-            BrowseMemoryComponent.ViewIntent.OnSearchFired -> onSearchFired()
-            is BrowseMemoryComponent.ViewIntent.SetLanguages -> setLanguages(
+            is BrowseMemoryComponent.Intent.DeleteEntry -> deleteEntry(intent.index)
+            BrowseMemoryComponent.Intent.OnSearchFired -> onSearchFired()
+            is BrowseMemoryComponent.Intent.SetLanguages -> setLanguages(
                 source = intent.source,
                 target = intent.target,
             )
 
-            is BrowseMemoryComponent.ViewIntent.SetSearch -> setSearch(intent.value)
-            is BrowseMemoryComponent.ViewIntent.SetSourceLanguage -> setSourceLanguage(intent.value)
-            is BrowseMemoryComponent.ViewIntent.SetTargetLanguage -> setTargetLanguage(intent.value)
+            is BrowseMemoryComponent.Intent.SetSearch -> setSearch(intent.value)
+            is BrowseMemoryComponent.Intent.SetSourceLanguage -> setSourceLanguage(intent.value)
+            is BrowseMemoryComponent.Intent.SetTargetLanguage -> setTargetLanguage(intent.value)
         }
     }
 

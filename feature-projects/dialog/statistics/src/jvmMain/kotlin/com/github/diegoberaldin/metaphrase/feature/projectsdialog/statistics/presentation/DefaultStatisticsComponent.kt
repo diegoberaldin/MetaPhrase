@@ -21,14 +21,14 @@ internal class DefaultStatisticsComponent(
     componentContext: ComponentContext,
     coroutineContext: CoroutineContext,
     private val dispatchers: CoroutineDispatcherProvider,
-    private val mvi: DefaultMviModel<StatisticsComponent.ViewIntent, StatisticsComponent.UiState, StatisticsComponent.Effect> = DefaultMviModel(
+    private val mvi: DefaultMviModel<StatisticsComponent.Intent, StatisticsComponent.UiState, StatisticsComponent.Effect> = DefaultMviModel(
         StatisticsComponent.UiState(),
     ),
     private val languageRepository: LanguageRepository,
     private val segmentRepository: SegmentRepository,
     private val completeLanguage: GetCompleteLanguageUseCase,
 ) : StatisticsComponent,
-    MviModel<StatisticsComponent.ViewIntent, StatisticsComponent.UiState, StatisticsComponent.Effect> by mvi,
+    MviModel<StatisticsComponent.Intent, StatisticsComponent.UiState, StatisticsComponent.Effect> by mvi,
     ComponentContext by componentContext {
 
     private lateinit var viewModelScope: CoroutineScope

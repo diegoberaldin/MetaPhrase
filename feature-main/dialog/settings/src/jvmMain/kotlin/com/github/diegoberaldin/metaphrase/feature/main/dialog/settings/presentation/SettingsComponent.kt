@@ -12,56 +12,56 @@ import com.github.diegoberaldin.metaphrase.domain.mt.repository.data.MachineTran
  * Settings component contract.
  */
 interface SettingsComponent :
-    MviModel<SettingsComponent.ViewIntent, SettingsComponent.UiState, SettingsComponent.Effect> {
+    MviModel<SettingsComponent.Intent, SettingsComponent.UiState, SettingsComponent.Effect> {
 
     /**
      * View intents.
      */
-    sealed interface ViewIntent {
+    sealed interface Intent {
         /**
          * Set language.
          *
          * @param value language to set
          */
-        data class SetLanguage(val value: LanguageModel) : ViewIntent
+        data class SetLanguage(val value: LanguageModel) : Intent
 
         /**
          * Set similarity threshold
          *
          * @param value value to set
          */
-        data class SetSimilarity(val value: String) : ViewIntent
+        data class SetSimilarity(val value: String) : Intent
 
         /**
          * Enabled/disabled the spelling check.
          *
          * @param value true to enable, false otherwise
          */
-        data class SetSpellcheckEnabled(val value: Boolean) : ViewIntent
+        data class SetSpellcheckEnabled(val value: Boolean) : Intent
 
         /**
          * Set machine translation provider.
          *
          * @param index provider index.
          */
-        data class SetMachineTranslationProvider(val index: Int) : ViewIntent
+        data class SetMachineTranslationProvider(val index: Int) : Intent
 
         /**
          * Set machine translation API key.
          *
          * @param value API key to set
          */
-        data class SetMachineTranslationKey(val value: String) : ViewIntent
+        data class SetMachineTranslationKey(val value: String) : Intent
 
         /**
          * Open the login sub-dialog.
          */
-        object OpenLoginDialog : ViewIntent
+        object OpenLoginDialog : Intent
 
         /**
          * Close the current sub-dialog.
          */
-        object CloseDialog : ViewIntent
+        object CloseDialog : Intent
 
         /**
          * Generate a machine translation API key.
@@ -69,7 +69,7 @@ interface SettingsComponent :
          * @param username user's username
          * @param password user's password
          */
-        data class GenerateMachineTranslationKey(val username: String, val password: String) : ViewIntent
+        data class GenerateMachineTranslationKey(val username: String, val password: String) : Intent
     }
 
     /**

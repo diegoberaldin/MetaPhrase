@@ -86,7 +86,7 @@ class DefaultProjectListComponentTest {
         lifecycle.resume()
 
         runOnUiThread {
-            sut.reduce(ProjectListComponent.ViewIntent.CloseDialog)
+            sut.reduce(ProjectListComponent.Intent.CloseDialog)
         }
         sut.dialog.configAsFlow<ProjectListComponent.DialogConfiguration>().test {
             val item = awaitItem()
@@ -102,7 +102,7 @@ class DefaultProjectListComponentTest {
         lifecycle.resume()
 
         sut.effects.test {
-            sut.reduce(ProjectListComponent.ViewIntent.OpenRecent(RecentProjectModel(name = "test", path = "path")))
+            sut.reduce(ProjectListComponent.Intent.OpenRecent(RecentProjectModel(name = "test", path = "path")))
             val item = awaitItem()
             assertIs<ProjectListComponent.Effect.ProjectSelected>(item)
             assertEquals("test", item.value.name)
@@ -133,7 +133,7 @@ class DefaultProjectListComponentTest {
         lifecycle.resume()
 
         runOnUiThread {
-            sut.reduce(ProjectListComponent.ViewIntent.OpenRecent(RecentProjectModel(name = "test", path = "path")))
+            sut.reduce(ProjectListComponent.Intent.OpenRecent(RecentProjectModel(name = "test", path = "path")))
         }
         sut.dialog.configAsFlow<ProjectListComponent.DialogConfiguration>().test {
             val item = awaitItem()
@@ -164,7 +164,7 @@ class DefaultProjectListComponentTest {
         coEvery { mockNotificationCenter.send(any()) } returns Unit
         lifecycle.resume()
 
-        sut.reduce(ProjectListComponent.ViewIntent.RemoveFromRecent(RecentProjectModel(name = "test")))
+        sut.reduce(ProjectListComponent.Intent.RemoveFromRecent(RecentProjectModel(name = "test")))
 
         coVerify { mockProjectRepository.delete(withArg { assertEquals("test", it.name) }) }
         coVerifyOrder {

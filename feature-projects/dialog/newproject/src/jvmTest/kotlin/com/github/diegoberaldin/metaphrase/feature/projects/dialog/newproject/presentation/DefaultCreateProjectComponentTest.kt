@@ -89,7 +89,7 @@ class DefaultCreateProjectComponentTest {
         }
         lifecycle.create()
 
-        sut.reduce(CreateProjectComponent.ViewIntent.SetName("test"))
+        sut.reduce(CreateProjectComponent.Intent.SetName("test"))
 
         val uiState = sut.uiState.value
         assertEquals("test", uiState.name)
@@ -108,7 +108,7 @@ class DefaultCreateProjectComponentTest {
         }
         lifecycle.create()
 
-        sut.reduce(CreateProjectComponent.ViewIntent.AddLanguage(LanguageModel(code = "en")))
+        sut.reduce(CreateProjectComponent.Intent.AddLanguage(LanguageModel(code = "en")))
 
         val uiState = sut.uiState.value
         assertFalse(uiState.languages.isEmpty())
@@ -127,7 +127,7 @@ class DefaultCreateProjectComponentTest {
         }
         lifecycle.create()
 
-        sut.reduce(CreateProjectComponent.ViewIntent.Submit)
+        sut.reduce(CreateProjectComponent.Intent.Submit)
 
         val uiState = sut.uiState.value
         assertEquals("message_missing_field".localized(), uiState.nameError)
@@ -147,8 +147,8 @@ class DefaultCreateProjectComponentTest {
         }
         lifecycle.create()
 
-        sut.reduce(CreateProjectComponent.ViewIntent.AddLanguage(LanguageModel(code = "en")))
-        sut.reduce(CreateProjectComponent.ViewIntent.Submit)
+        sut.reduce(CreateProjectComponent.Intent.AddLanguage(LanguageModel(code = "en")))
+        sut.reduce(CreateProjectComponent.Intent.Submit)
 
         val uiState = sut.uiState.value
         assertEquals("message_missing_field".localized(), uiState.nameError)
@@ -168,8 +168,8 @@ class DefaultCreateProjectComponentTest {
         }
         lifecycle.create()
 
-        sut.reduce(CreateProjectComponent.ViewIntent.SetName("test"))
-        sut.reduce(CreateProjectComponent.ViewIntent.Submit)
+        sut.reduce(CreateProjectComponent.Intent.SetName("test"))
+        sut.reduce(CreateProjectComponent.Intent.Submit)
 
         val uiState = sut.uiState.value
         assertEquals("", uiState.nameError)
@@ -189,13 +189,13 @@ class DefaultCreateProjectComponentTest {
         }
         lifecycle.create()
 
-        sut.reduce(CreateProjectComponent.ViewIntent.AddLanguage(LanguageModel(code = "en")))
-        sut.reduce(CreateProjectComponent.ViewIntent.AddLanguage(LanguageModel(code = "it")))
+        sut.reduce(CreateProjectComponent.Intent.AddLanguage(LanguageModel(code = "en")))
+        sut.reduce(CreateProjectComponent.Intent.AddLanguage(LanguageModel(code = "it")))
 
         val stateBefore = sut.uiState.value
         assertEquals(2, stateBefore.languages.size)
 
-        sut.reduce(CreateProjectComponent.ViewIntent.RemoveLanguage(LanguageModel(code = "it")))
+        sut.reduce(CreateProjectComponent.Intent.RemoveLanguage(LanguageModel(code = "it")))
 
         val stateAfter = sut.uiState.value
         assertEquals(1, stateAfter.languages.size)
@@ -214,15 +214,15 @@ class DefaultCreateProjectComponentTest {
         }
         lifecycle.create()
 
-        sut.reduce(CreateProjectComponent.ViewIntent.AddLanguage(LanguageModel(code = "en")))
-        sut.reduce(CreateProjectComponent.ViewIntent.AddLanguage(LanguageModel(code = "it")))
+        sut.reduce(CreateProjectComponent.Intent.AddLanguage(LanguageModel(code = "en")))
+        sut.reduce(CreateProjectComponent.Intent.AddLanguage(LanguageModel(code = "it")))
 
         val stateBefore = sut.uiState.value
         assertEquals(2, stateBefore.languages.size)
         assertTrue(stateBefore.languages.first().isBase)
         assertFalse(stateBefore.languages[1].isBase)
 
-        sut.reduce(CreateProjectComponent.ViewIntent.SetBaseLanguage(LanguageModel(code = "it")))
+        sut.reduce(CreateProjectComponent.Intent.SetBaseLanguage(LanguageModel(code = "it")))
 
         val stateAfter = sut.uiState.value
         assertEquals(2, stateAfter.languages.size)
@@ -249,11 +249,11 @@ class DefaultCreateProjectComponentTest {
         coEvery { mockLanguageRepository.getByCode(any(), any()) } returns null
         lifecycle.create()
 
-        sut.reduce(CreateProjectComponent.ViewIntent.SetName("test"))
-        sut.reduce(CreateProjectComponent.ViewIntent.AddLanguage(LanguageModel(code = "en")))
+        sut.reduce(CreateProjectComponent.Intent.SetName("test"))
+        sut.reduce(CreateProjectComponent.Intent.AddLanguage(LanguageModel(code = "en")))
 
         sut.effects.test {
-            sut.reduce(CreateProjectComponent.ViewIntent.Submit)
+            sut.reduce(CreateProjectComponent.Intent.Submit)
             val item = awaitItem()
             assertNotNull(item)
         }
