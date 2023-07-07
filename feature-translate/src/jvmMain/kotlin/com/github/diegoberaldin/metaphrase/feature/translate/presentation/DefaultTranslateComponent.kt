@@ -361,7 +361,7 @@ internal class DefaultTranslateComponent(
                 )
                 messageListComponent.reduce(MessageListComponent.ViewIntent.SetEditingEnabled(true))
                 // resets the current validation
-                panel.asFlow<ValidateComponent>().firstOrNull()?.clear()
+                panel.asFlow<ValidateComponent>().firstOrNull()?.reduce(ValidateComponent.ViewIntent.Clear)
                 // resets the TM
                 panel.asFlow<BrowseMemoryComponent>().firstOrNull()?.reduce(
                     BrowseMemoryComponent.ViewIntent.SetLanguages(
@@ -426,9 +426,14 @@ internal class DefaultTranslateComponent(
                 }
 
                 is ValidateComponent -> {
-                    child.selectionEvents.onEach { key ->
-                        val messageListComponent = messageList.asFlow<MessageListComponent>().firstOrNull()
-                        messageListComponent?.reduce(MessageListComponent.ViewIntent.ScrollToMessage(key))
+                    child.effects.onEach { event ->
+                        when (event) {
+                            is ValidateComponent.Effect.Selection -> {
+                                val key = event.key
+                                val messageListComponent = messageList.asFlow<MessageListComponent>().firstOrNull()
+                                messageListComponent?.reduce(MessageListComponent.ViewIntent.ScrollToMessage(key))
+                            }
+                        }
                     }.launchIn(this)
                 }
 
@@ -654,11 +659,23 @@ internal class DefaultTranslateComponent(
             val child = panel.asFlow<ValidateComponent>().firstOrNull()
             when (result) {
                 ValidatePlaceholdersUseCase.Output.Valid -> {
-                    child?.loadInvalidPlaceholders(projectId, language.id, invalidKeys = emptyList())
+                    child?.reduce(
+                        ValidateComponent.ViewIntent.LoadInvalidPlaceholders(
+                            projectId,
+                            language.id,
+                            invalidKeys = emptyList(),
+                        ),
+                    )
                 }
 
                 is ValidatePlaceholdersUseCase.Output.Invalid -> {
-                    child?.loadInvalidPlaceholders(projectId, language.id, invalidKeys = result.keys)
+                    child?.reduce(
+                        ValidateComponent.ViewIntent.LoadInvalidPlaceholders(
+                            projectId,
+                            language.id,
+                            invalidKeys = result.keys,
+                        ),
+                    )
                 }
 
                 else -> Unit
@@ -680,7 +697,7 @@ internal class DefaultTranslateComponent(
             }
 
             val child = panel.asFlow<ValidateComponent>().firstOrNull()
-            child?.loadSpellingMistakes(errorMap)
+            child?.reduce(ValidateComponent.ViewIntent.LoadSpellingMistakes(errorMap))
         }
     }
 

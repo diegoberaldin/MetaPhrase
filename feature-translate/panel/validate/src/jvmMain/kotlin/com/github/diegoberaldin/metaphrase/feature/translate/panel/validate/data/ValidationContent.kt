@@ -1,17 +1,4 @@
-package com.github.diegoberaldin.metaphrase.feature.translate.panel.validate.presentation
-
-import com.github.diegoberaldin.metaphrase.feature.translate.panel.validate.data.InvalidPlaceholderReference
-import com.github.diegoberaldin.metaphrase.feature.translate.panel.validate.data.SpellingMistakeReference
-
-/**
- * UI state of the validation panel.
- *
- * @property content panel content
- * @constructor Create [InvalidSegmentUiState]
- */
-data class InvalidSegmentUiState(
-    val content: ValidationContent? = null,
-)
+package com.github.diegoberaldin.metaphrase.feature.translate.panel.validate.data
 
 /**
  * Available validation panel content.

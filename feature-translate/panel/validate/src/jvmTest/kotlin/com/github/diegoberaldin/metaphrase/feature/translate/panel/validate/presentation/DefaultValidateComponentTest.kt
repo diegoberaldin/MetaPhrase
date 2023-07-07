@@ -9,6 +9,7 @@ import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
 import com.github.diegoberaldin.metaphrase.domain.language.repository.LanguageRepository
 import com.github.diegoberaldin.metaphrase.domain.project.data.SegmentModel
 import com.github.diegoberaldin.metaphrase.domain.project.repository.SegmentRepository
+import com.github.diegoberaldin.metaphrase.feature.translate.panel.validate.data.ValidationContent
 import io.mockk.coEvery
 import io.mockk.mockk
 import io.mockk.slot
@@ -42,7 +43,13 @@ class DefaultValidateComponentTest {
             }
         }
         lifecycle.create()
-        sut.loadInvalidPlaceholders(1, 2, listOf("key"))
+        sut.reduce(
+            ValidateComponent.ViewIntent.LoadInvalidPlaceholders(
+                projectId = 1,
+                languageId = 2,
+                invalidKeys = listOf("key"),
+            ),
+        )
 
         val uiState = sut.uiState.value
         val content = uiState.content
@@ -65,9 +72,15 @@ class DefaultValidateComponentTest {
             }
         }
         lifecycle.create()
-        sut.loadInvalidPlaceholders(1, 2, listOf("key"))
+        sut.reduce(
+            ValidateComponent.ViewIntent.LoadInvalidPlaceholders(
+                projectId = 1,
+                languageId = 2,
+                invalidKeys = listOf("key"),
+            ),
+        )
 
-        sut.clear()
+        sut.reduce(ValidateComponent.ViewIntent.Clear)
 
         val uiState = sut.uiState.value
         assertNull(uiState.content)
@@ -84,12 +97,19 @@ class DefaultValidateComponentTest {
             }
         }
         lifecycle.create()
-        sut.loadInvalidPlaceholders(1, 2, listOf("key"))
+        sut.reduce(
+            ValidateComponent.ViewIntent.LoadInvalidPlaceholders(
+                projectId = 1,
+                languageId = 2,
+                invalidKeys = listOf("key"),
+            ),
+        )
 
-        sut.selectionEvents.test {
-            sut.selectItem(0)
+        sut.effects.test {
+            sut.reduce(ValidateComponent.ViewIntent.SelectItem(0))
             val item = awaitItem()
-            assertEquals("key", item)
+            assertIs<ValidateComponent.Effect.Selection>(item)
+            assertEquals("key", item.key)
         }
     }
 
@@ -97,7 +117,7 @@ class DefaultValidateComponentTest {
     fun givenComponentCreatedWhenLoadSpellingValidationThenStateIsUpdated() = runTest {
         lifecycle.create()
 
-        sut.loadSpellingMistakes(mapOf("key" to listOf("error")))
+        sut.reduce(ValidateComponent.ViewIntent.LoadSpellingMistakes(errors = mapOf("key" to listOf("error"))))
 
         val uiState = sut.uiState.value
         val content = uiState.content
@@ -110,9 +130,9 @@ class DefaultValidateComponentTest {
     @Test
     fun givenComponentWithSpellingErrorsWhenClearedThenStateIsUpdated() = runTest {
         lifecycle.create()
-        sut.loadSpellingMistakes(mapOf("key" to listOf("error")))
+        sut.reduce(ValidateComponent.ViewIntent.LoadSpellingMistakes(errors = mapOf("key" to listOf("error"))))
 
-        sut.clear()
+        sut.reduce(ValidateComponent.ViewIntent.Clear)
 
         val uiState = sut.uiState.value
         assertNull(uiState.content)
@@ -121,12 +141,13 @@ class DefaultValidateComponentTest {
     @Test
     fun givenComponentWithSpellingErrorsWhenSelectItemThenStateIsUpdated() = runTest {
         lifecycle.create()
-        sut.loadSpellingMistakes(mapOf("key" to listOf("error")))
+        sut.reduce(ValidateComponent.ViewIntent.LoadSpellingMistakes(errors = mapOf("key" to listOf("error"))))
 
-        sut.selectionEvents.test {
-            sut.selectItem(0)
+        sut.effects.test {
+            sut.reduce(ValidateComponent.ViewIntent.SelectItem(0))
             val item = awaitItem()
-            assertEquals("key", item)
+            assertIs<ValidateComponent.Effect.Selection>(item)
+            assertEquals("key", item.key)
         }
     }
 }
