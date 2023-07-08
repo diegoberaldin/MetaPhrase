@@ -12,10 +12,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -67,7 +67,7 @@ fun NewGlossaryTermDialog(
             },
         ) {
             Surface(
-                modifier = Modifier.size(400.dp, 200.dp).background(MaterialTheme.colors.background),
+                modifier = Modifier.size(400.dp, 200.dp).background(MaterialTheme.colorScheme.background),
             ) {
                 val uiState by component.uiState.collectAsState()
 
@@ -87,8 +87,8 @@ fun NewGlossaryTermDialog(
                     Text(
                         modifier = Modifier.padding(top = Spacing.xxs, start = Spacing.xxs),
                         text = uiState.sourceTermError,
-                        color = MaterialTheme.colors.error,
-                        style = MaterialTheme.typography.caption,
+                        color = MaterialTheme.colorScheme.error,
+                        style = MaterialTheme.typography.labelSmall,
                     )
                     Spacer(modifier = Modifier.height(Spacing.xs))
                     CustomTextField(
@@ -102,8 +102,8 @@ fun NewGlossaryTermDialog(
                     Text(
                         modifier = Modifier.padding(top = Spacing.xxs, start = Spacing.xxs),
                         text = uiState.targetTermError,
-                        color = MaterialTheme.colors.error,
-                        style = MaterialTheme.typography.caption,
+                        color = MaterialTheme.colorScheme.error,
+                        style = MaterialTheme.typography.labelSmall,
                     )
                     Spacer(modifier = Modifier.height(Spacing.xs))
                     Row(
@@ -118,7 +118,7 @@ fun NewGlossaryTermDialog(
                                 onClose?.invoke(null)
                             },
                         ) {
-                            Text(text = "button_cancel".localized(), style = MaterialTheme.typography.button)
+                            Text(text = "button_cancel".localized(), style = MaterialTheme.typography.labelLarge)
                         }
                         Button(
                             modifier = Modifier.heightIn(max = 25.dp),
@@ -127,7 +127,7 @@ fun NewGlossaryTermDialog(
                                 component.reduce(NewGlossaryTermComponent.Intent.Submit)
                             },
                         ) {
-                            Text(text = "button_ok".localized(), style = MaterialTheme.typography.button)
+                            Text(text = "button_ok".localized(), style = MaterialTheme.typography.labelLarge)
                         }
                     }
                 }

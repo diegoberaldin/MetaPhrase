@@ -7,10 +7,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.DropdownMenu
-import androidx.compose.material.DropdownMenuItem
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -23,7 +23,6 @@ import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.github.diegoberaldin.metaphrase.core.common.ui.theme.SelectedBackground
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Spacing
 import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
 
@@ -37,11 +36,11 @@ fun SelectLanguageDropDown(
 ) {
     DropdownMenu(
         modifier = Modifier.width(160.dp).height(250.dp)
-            .background(MaterialTheme.colors.background)
-            .background(SelectedBackground)
+            .background(MaterialTheme.colorScheme.background)
+            .background(Color.White.copy(alpha = 0.1f))
             .border(
                 width = Dp.Hairline,
-                color = MaterialTheme.colors.background,
+                color = MaterialTheme.colorScheme.background,
                 shape = RoundedCornerShape(4.dp),
             ),
         expanded = expanded,
@@ -55,7 +54,7 @@ fun SelectLanguageDropDown(
         languages.forEach { language ->
             DropdownMenuItem(
                 modifier = Modifier
-                    .background(color = if (language == hoveredValue) MaterialTheme.colors.primary else Color.Transparent)
+                    .background(color = if (language == hoveredValue) MaterialTheme.colorScheme.primary else Color.Transparent)
                     .fillMaxWidth().height(30.dp)
                     .onPointerEvent(PointerEventType.Enter) { hoveredValue = language }
                     .onPointerEvent(PointerEventType.Exit) { hoveredValue = null }
@@ -63,13 +62,14 @@ fun SelectLanguageDropDown(
                 onClick = {
                     onSelected(language)
                 },
-            ) {
-                Text(
-                    text = language.name,
-                    style = MaterialTheme.typography.caption,
-                    color = if (language == hoveredValue) MaterialTheme.colors.onPrimary else MaterialTheme.colors.onBackground,
-                )
-            }
+                text = {
+                    Text(
+                        text = language.name,
+                        style = MaterialTheme.typography.labelSmall,
+                        color = if (language == hoveredValue) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onBackground,
+                    )
+                },
+            )
         }
     }
 }

@@ -13,11 +13,11 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.onClick
-import androidx.compose.material.Button
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
@@ -36,7 +36,6 @@ import androidx.compose.ui.window.rememberWindowState
 import com.github.diegoberaldin.feature.main.settings.dialog.login.presentation.LoginComponent
 import com.github.diegoberaldin.metaphrase.core.common.ui.components.CustomTextField
 import com.github.diegoberaldin.metaphrase.core.common.ui.components.CustomTooltipArea
-import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Gray192330
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.MetaPhraseTheme
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Spacing
 import com.github.diegoberaldin.metaphrase.core.localization.localized
@@ -76,7 +75,7 @@ fun LoginDialog(
         ) {
             Surface(
                 modifier = Modifier.size(400.dp, 200.dp),
-                color = MaterialTheme.colors.background,
+                color = MaterialTheme.colorScheme.background,
             ) {
                 Column(
                     modifier = Modifier.fillMaxSize()
@@ -94,8 +93,8 @@ fun LoginDialog(
                     Text(
                         modifier = Modifier.padding(top = Spacing.xxs, start = Spacing.xxs),
                         text = uiState.usernameError,
-                        color = MaterialTheme.colors.error,
-                        style = MaterialTheme.typography.caption,
+                        color = MaterialTheme.colorScheme.error,
+                        style = MaterialTheme.typography.labelSmall,
                     )
                     Spacer(modifier = Modifier.height(Spacing.xs))
                     var passwordVisible by remember {
@@ -118,7 +117,7 @@ fun LoginDialog(
                                     modifier = Modifier.onClick {
                                         passwordVisible = !passwordVisible
                                     },
-                                    tint = Gray192330,
+                                    tint = MaterialTheme.colorScheme.onSurface,
                                     imageVector = if (passwordVisible) Icons.Default.VisibilityOff else Icons.Default.Visibility,
                                     contentDescription = null,
                                 )
@@ -128,8 +127,8 @@ fun LoginDialog(
                     Text(
                         modifier = Modifier.padding(top = Spacing.xxs, start = Spacing.xxs),
                         text = uiState.passwordError,
-                        color = MaterialTheme.colors.error,
-                        style = MaterialTheme.typography.caption,
+                        color = MaterialTheme.colorScheme.error,
+                        style = MaterialTheme.typography.labelSmall,
                     )
                     Spacer(modifier = Modifier.height(Spacing.xs))
                     Row(
@@ -144,7 +143,7 @@ fun LoginDialog(
                                 onClose(null, null)
                             },
                         ) {
-                            Text(text = "button_cancel".localized(), style = MaterialTheme.typography.button)
+                            Text(text = "button_cancel".localized(), style = MaterialTheme.typography.labelLarge)
                         }
                         Button(
                             modifier = Modifier.heightIn(max = 25.dp),
@@ -153,7 +152,7 @@ fun LoginDialog(
                                 component.reduce(LoginComponent.Intent.Submit)
                             },
                         ) {
-                            Text(text = "button_ok".localized(), style = MaterialTheme.typography.button)
+                            Text(text = "button_ok".localized(), style = MaterialTheme.typography.labelLarge)
                         }
                     }
                 }

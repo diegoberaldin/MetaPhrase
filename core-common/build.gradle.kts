@@ -21,7 +21,7 @@ kotlin {
         val jvmMain by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)
-
+                implementation(libs.compose.material3)
                 implementation(libs.koin)
                 implementation(libs.androidx.datastore)
                 implementation(libs.kotlinx.coroutines)

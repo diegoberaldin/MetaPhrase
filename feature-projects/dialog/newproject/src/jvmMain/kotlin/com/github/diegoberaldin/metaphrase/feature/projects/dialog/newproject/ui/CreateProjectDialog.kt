@@ -17,11 +17,11 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.onClick
-import androidx.compose.material.Button
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.runtime.Composable
@@ -62,7 +62,7 @@ fun CreateProjectDialog(
             },
         ) {
             Surface(
-                modifier = Modifier.size(600.dp, 400.dp).background(MaterialTheme.colors.background),
+                modifier = Modifier.size(600.dp, 400.dp).background(MaterialTheme.colorScheme.background),
             ) {
                 val uiState by component.uiState.collectAsState()
                 val pointerIcon by remember(uiState.isLoading) {
@@ -90,15 +90,15 @@ fun CreateProjectDialog(
                     Text(
                         modifier = Modifier.padding(top = Spacing.xxs, start = Spacing.xxs),
                         text = uiState.nameError,
-                        color = MaterialTheme.colors.error,
-                        style = MaterialTheme.typography.caption,
+                        color = MaterialTheme.colorScheme.error,
+                        style = MaterialTheme.typography.labelSmall,
                     )
                     Spacer(modifier = Modifier.height(Spacing.xs))
                     Row {
                         Text(
                             text = "create_project_languages".localized(),
-                            color = MaterialTheme.colors.onBackground,
-                            style = MaterialTheme.typography.caption,
+                            color = MaterialTheme.colorScheme.onBackground,
+                            style = MaterialTheme.typography.labelSmall,
                         )
                         Spacer(modifier = Modifier.weight(1f))
                         var languageDropdownExpanded by remember {
@@ -114,7 +114,7 @@ fun CreateProjectDialog(
                                             languageDropdownExpanded = true
                                         },
                                     imageVector = Icons.Default.AddCircle,
-                                    tint = MaterialTheme.colors.primary,
+                                    tint = MaterialTheme.colorScheme.primary,
                                     contentDescription = null,
                                 )
                             }
@@ -134,8 +134,8 @@ fun CreateProjectDialog(
                     Spacer(modifier = Modifier.height(Spacing.xs))
                     Text(
                         text = "create_project_languages_subtitle".localized(),
-                        color = MaterialTheme.colors.onBackground,
-                        style = MaterialTheme.typography.caption,
+                        color = MaterialTheme.colorScheme.onBackground,
+                        style = MaterialTheme.typography.labelSmall,
                     )
                     Spacer(modifier = Modifier.height(Spacing.s))
                     LazyColumn(
@@ -157,8 +157,8 @@ fun CreateProjectDialog(
                     Text(
                         modifier = Modifier.padding(top = Spacing.xxs, start = Spacing.xxs),
                         text = uiState.languagesError,
-                        color = MaterialTheme.colors.error,
-                        style = MaterialTheme.typography.caption,
+                        color = MaterialTheme.colorScheme.error,
+                        style = MaterialTheme.typography.labelSmall,
                     )
                     Row(
                         modifier = Modifier.padding(Spacing.s),
@@ -172,7 +172,7 @@ fun CreateProjectDialog(
                                 onClose()
                             },
                         ) {
-                            Text(text = "button_cancel".localized(), style = MaterialTheme.typography.button)
+                            Text(text = "button_cancel".localized(), style = MaterialTheme.typography.labelLarge)
                         }
                         Button(
                             modifier = Modifier.heightIn(max = 25.dp),
@@ -181,7 +181,7 @@ fun CreateProjectDialog(
                                 component.reduce(CreateProjectComponent.Intent.Submit)
                             },
                         ) {
-                            Text(text = "button_ok".localized(), style = MaterialTheme.typography.button)
+                            Text(text = "button_ok".localized(), style = MaterialTheme.typography.labelLarge)
                         }
                     }
                 }

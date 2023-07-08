@@ -15,11 +15,11 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Button
-import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.Divider
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -57,7 +57,7 @@ fun StatisticsDialog(
             },
         ) {
             Surface(
-                modifier = Modifier.size(600.dp, 400.dp).background(MaterialTheme.colors.background),
+                modifier = Modifier.size(600.dp, 400.dp).background(MaterialTheme.colorScheme.background),
             ) {
                 val uiState by component.uiState.collectAsState()
 
@@ -77,8 +77,8 @@ fun StatisticsDialog(
                                 is StatisticsItem.Header -> {
                                     Text(
                                         text = item.title,
-                                        style = MaterialTheme.typography.body1,
-                                        color = MaterialTheme.colors.onBackground,
+                                        style = MaterialTheme.typography.bodyLarge,
+                                        color = MaterialTheme.colorScheme.onBackground,
                                     )
                                 }
 
@@ -86,8 +86,8 @@ fun StatisticsDialog(
                                     Text(
                                         modifier = Modifier.padding(top = Spacing.s),
                                         text = item.name,
-                                        style = MaterialTheme.typography.body2,
-                                        color = MaterialTheme.colors.onBackground,
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = MaterialTheme.colorScheme.onBackground,
                                     )
                                 }
 
@@ -95,14 +95,14 @@ fun StatisticsDialog(
                                     Row {
                                         Text(
                                             text = item.title,
-                                            style = MaterialTheme.typography.body2,
-                                            color = MaterialTheme.colors.onBackground,
+                                            style = MaterialTheme.typography.bodySmall,
+                                            color = MaterialTheme.colorScheme.onBackground,
                                         )
                                         Spacer(modifier = Modifier.weight(1f))
                                         Text(
                                             text = item.value,
-                                            style = MaterialTheme.typography.caption,
-                                            color = MaterialTheme.colors.onBackground,
+                                            style = MaterialTheme.typography.labelSmall,
+                                            color = MaterialTheme.colorScheme.onBackground,
                                         )
                                     }
                                 }
@@ -114,8 +114,8 @@ fun StatisticsDialog(
                                     ) {
                                         Text(
                                             text = item.title,
-                                            style = MaterialTheme.typography.body2,
-                                            color = MaterialTheme.colors.onBackground,
+                                            style = MaterialTheme.typography.bodySmall,
+                                            color = MaterialTheme.colorScheme.onBackground,
                                         )
                                         Spacer(modifier = Modifier.width(Spacing.s))
                                         CustomProgressIndicator(
@@ -141,7 +141,7 @@ fun StatisticsDialog(
                         ) {
                             Text(
                                 text = "button_close".localized(),
-                                style = MaterialTheme.typography.button,
+                                style = MaterialTheme.typography.labelLarge,
                             )
                         }
                     }

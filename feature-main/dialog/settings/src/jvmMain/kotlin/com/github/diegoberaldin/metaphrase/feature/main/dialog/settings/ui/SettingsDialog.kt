@@ -13,11 +13,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.Checkbox
-import androidx.compose.material.CheckboxDefaults
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -26,6 +26,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.Dp
@@ -40,7 +41,6 @@ import com.github.diegoberaldin.metaphrase.core.common.ui.components.CustomSpinn
 import com.github.diegoberaldin.metaphrase.core.common.ui.components.CustomTextField
 import com.github.diegoberaldin.metaphrase.core.common.ui.components.CustomTooltipArea
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.MetaPhraseTheme
-import com.github.diegoberaldin.metaphrase.core.common.ui.theme.SelectedBackground
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Spacing
 import com.github.diegoberaldin.metaphrase.core.localization.L10n
 import com.github.diegoberaldin.metaphrase.core.localization.localized
@@ -83,7 +83,7 @@ fun SettingsDialog(
             Column(
                 modifier = Modifier.size(600.dp, 400.dp)
                     .pointerHoverIcon(pointerIcon)
-                    .background(MaterialTheme.colors.background)
+                    .background(MaterialTheme.colorScheme.background)
                     .padding(
                         start = Spacing.s,
                         end = Spacing.s,
@@ -103,19 +103,19 @@ fun SettingsDialog(
                     Row(modifier = Modifier.fillMaxWidth()) {
                         Text(
                             text = "dialog_settings_language".localized(),
-                            style = MaterialTheme.typography.caption,
-                            color = MaterialTheme.colors.onBackground,
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onBackground,
                         )
                         Spacer(modifier = Modifier.weight(1f))
                         val availableLanguages = uiState.availableLanguages
                         CustomSpinner(
                             modifier = Modifier.background(
-                                color = SelectedBackground,
+                                color = Color.White.copy(alpha = 0.1f),
                                 shape = RoundedCornerShape(4.dp),
                             ),
                             size = DpSize(width = 200.dp, height = 30.dp),
                             values = availableLanguages.map { it.name },
-                            valueColor = MaterialTheme.colors.onBackground,
+                            valueColor = MaterialTheme.colorScheme.onBackground,
                             current = uiState.currentLanguage?.name,
                             onValueChanged = {
                                 val language = availableLanguages[it]
@@ -126,8 +126,8 @@ fun SettingsDialog(
                     Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                         Text(
                             text = "dialog_settings_similarity_threshold".localized(),
-                            style = MaterialTheme.typography.caption,
-                            color = MaterialTheme.colors.onBackground,
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onBackground,
                         )
                         Spacer(modifier = Modifier.weight(1f))
                         CustomTextField(
@@ -140,15 +140,15 @@ fun SettingsDialog(
                         Text(
                             modifier = Modifier.padding(Spacing.s),
                             text = "%",
-                            style = MaterialTheme.typography.caption,
-                            color = MaterialTheme.colors.onBackground,
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onBackground,
                         )
                     }
                     Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                         Text(
                             text = "dialog_settings_spellcheck_enabled".localized(),
-                            style = MaterialTheme.typography.caption,
-                            color = MaterialTheme.colors.onBackground,
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onBackground,
                         )
                         Spacer(modifier = Modifier.weight(1f))
                         Checkbox(
@@ -156,25 +156,25 @@ fun SettingsDialog(
                             onCheckedChange = {
                                 component.reduce(SettingsComponent.Intent.SetSpellcheckEnabled(it))
                             },
-                            colors = CheckboxDefaults.colors(checkedColor = MaterialTheme.colors.primary),
+                            colors = CheckboxDefaults.colors(checkedColor = MaterialTheme.colorScheme.primary),
                         )
                     }
                     Row(modifier = Modifier.fillMaxWidth()) {
                         Text(
                             text = "dialog_settings_machine_translation_provider".localized(),
-                            style = MaterialTheme.typography.caption,
-                            color = MaterialTheme.colors.onBackground,
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onBackground,
                         )
                         Spacer(modifier = Modifier.weight(1f))
                         val providers = uiState.availableProviders
                         CustomSpinner(
                             modifier = Modifier.background(
-                                color = SelectedBackground,
+                                color = Color.White.copy(alpha = 0.1f),
                                 shape = RoundedCornerShape(4.dp),
                             ),
                             size = DpSize(width = 200.dp, height = 30.dp),
                             values = providers.map { it.readableName },
-                            valueColor = MaterialTheme.colors.onBackground,
+                            valueColor = MaterialTheme.colorScheme.onBackground,
                             current = uiState.currentProvider?.readableName.orEmpty(),
                             onValueChanged = {
                                 component.reduce(SettingsComponent.Intent.SetMachineTranslationProvider(it))
@@ -184,8 +184,8 @@ fun SettingsDialog(
                     Row(modifier = Modifier.fillMaxWidth()) {
                         Text(
                             text = "dialog_settings_machine_translation_key".localized(),
-                            style = MaterialTheme.typography.caption,
-                            color = MaterialTheme.colors.onBackground,
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onBackground,
                         )
                         Spacer(modifier = Modifier.weight(1f))
                         val keyGenerationEnabled =
@@ -196,12 +196,12 @@ fun SettingsDialog(
                             ) {
                                 Button(
                                     modifier = Modifier.heightIn(max = 25.dp),
-                                    contentPadding = PaddingValues(0.dp),
+                                    contentPadding = PaddingValues(vertical = 0.dp, horizontal = Spacing.s),
                                     onClick = {
                                         component.reduce(SettingsComponent.Intent.OpenLoginDialog)
                                     },
                                 ) {
-                                    Text(text = "button_generate".localized(), style = MaterialTheme.typography.button)
+                                    Text(text = "button_generate".localized(), style = MaterialTheme.typography.labelLarge)
                                 }
                             }
                             Spacer(modifier = Modifier.width(Spacing.s))
@@ -219,14 +219,14 @@ fun SettingsDialog(
                     Row(modifier = Modifier.fillMaxWidth()) {
                         Text(
                             text = "dialog_settings_version".localized(),
-                            style = MaterialTheme.typography.caption,
-                            color = MaterialTheme.colors.onBackground,
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onBackground,
                         )
                         Spacer(modifier = Modifier.weight(1f))
                         Text(
                             text = uiState.appVersion,
-                            style = MaterialTheme.typography.caption,
-                            color = MaterialTheme.colors.onBackground,
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onBackground,
                         )
                     }
                 }
@@ -243,7 +243,7 @@ fun SettingsDialog(
                             onClose()
                         },
                     ) {
-                        Text(text = "button_close".localized(), style = MaterialTheme.typography.button)
+                        Text(text = "button_close".localized(), style = MaterialTheme.typography.labelLarge)
                     }
                 }
             }

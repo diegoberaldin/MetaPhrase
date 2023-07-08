@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -44,7 +44,7 @@ import kotlin.math.sin
 @Composable
 fun CustomProgressIndicator(
     progress: Float,
-    progressColor: Color = MaterialTheme.colors.primary,
+    progressColor: Color = MaterialTheme.colorScheme.primary,
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -67,11 +67,13 @@ fun CustomProgressIndicator(
         val stripeWidth = 20.dp.toLocalPixel()
         val clipRectCornerRadius = 4.dp.toLocalPixel()
         val stripeRotateAngle = 45f
+        val progressLabelColor = MaterialTheme.colorScheme.onPrimary
+        val stripeColor = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.25f)
         Canvas(
             modifier = Modifier.fillMaxSize(),
         ) {
             val backgroundString = buildAnnotatedString {
-                withStyle(SpanStyle(color = progressColor)) {
+                withStyle(SpanStyle(color = progressLabelColor)) {
                     append(progressText)
                 }
             }
@@ -93,17 +95,8 @@ fun CustomProgressIndicator(
                     ),
                 )
             }
-            clipPath(path = pathToClip) {
-                drawText(
-                    textMeasurer = textMeasurer,
-                    text = buildAnnotatedString {
-                        withStyle(SpanStyle(color = Color.White)) {
-                            append(progressText)
-                        }
-                    },
-                    topLeft = Offset(x = textOffsetLeft, y = textOffsetTop),
-                )
 
+            clipPath(path = pathToClip) {
                 var stripeOffset = -stripeWidth
                 val stripeHeightDelta = stripeWidth * sin(stripeRotateAngle.toRadians())
                 while (stripeOffset < size.width * progress) {
@@ -116,13 +109,23 @@ fun CustomProgressIndicator(
                     )
                     rotate(degrees = stripeRotateAngle, pivot = rect.center) {
                         drawRect(
-                            color = Color.White.copy(alpha = 0.25f),
+                            color = stripeColor,
                             topLeft = rect.topLeft,
                             size = rect.size,
                         )
                     }
                     stripeOffset += stripeWidth
                 }
+
+                drawText(
+                    textMeasurer = textMeasurer,
+                    text = buildAnnotatedString {
+                        withStyle(SpanStyle(color = Color.White)) {
+                            append(progressText)
+                        }
+                    },
+                    topLeft = Offset(x = textOffsetLeft, y = textOffsetTop),
+                )
             }
         }
     }

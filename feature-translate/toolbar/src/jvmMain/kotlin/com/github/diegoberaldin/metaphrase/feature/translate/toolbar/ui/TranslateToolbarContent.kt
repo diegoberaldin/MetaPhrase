@@ -10,8 +10,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.onClick
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.ArrowCircleDown
@@ -36,7 +36,6 @@ import androidx.compose.ui.unit.dp
 import com.github.diegoberaldin.metaphrase.core.common.ui.components.CustomSpinner
 import com.github.diegoberaldin.metaphrase.core.common.ui.components.CustomTextField
 import com.github.diegoberaldin.metaphrase.core.common.ui.components.CustomTooltipArea
-import com.github.diegoberaldin.metaphrase.core.common.ui.theme.SelectedBackground
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Spacing
 import com.github.diegoberaldin.metaphrase.core.localization.localized
 import com.github.diegoberaldin.metaphrase.domain.project.data.TranslationUnitTypeFilter
@@ -71,7 +70,7 @@ fun TranslateToolbar(
                 modifier = buttonModifier.onClick { component.reduce(TranslateToolbarComponent.Intent.MoveToPrevious) },
                 imageVector = Icons.Default.ArrowCircleUp,
                 contentDescription = null,
-                tint = if (uiState.isEditing) MaterialTheme.colors.primary else Color.Gray,
+                tint = if (uiState.isEditing) MaterialTheme.colorScheme.primary else Color.Gray,
             )
         }
         CustomTooltipArea(
@@ -81,7 +80,7 @@ fun TranslateToolbar(
                 modifier = buttonModifier.onClick { component.reduce(TranslateToolbarComponent.Intent.MoveToNext) },
                 imageVector = Icons.Default.ArrowCircleDown,
                 contentDescription = null,
-                tint = if (uiState.isEditing) MaterialTheme.colors.primary else Color.Gray,
+                tint = if (uiState.isEditing) MaterialTheme.colorScheme.primary else Color.Gray,
             )
         }
         CustomTooltipArea(
@@ -91,7 +90,7 @@ fun TranslateToolbar(
                 modifier = buttonModifier.onClick { component.reduce(TranslateToolbarComponent.Intent.CopyBase) },
                 imageVector = Icons.Default.SwapHorizontalCircle,
                 contentDescription = null,
-                tint = if (uiState.currentLanguage?.isBase == false) MaterialTheme.colors.primary else Color.Gray,
+                tint = if (uiState.currentLanguage?.isBase == false) MaterialTheme.colorScheme.primary else Color.Gray,
             )
         }
         CustomTooltipArea(
@@ -101,7 +100,7 @@ fun TranslateToolbar(
                 modifier = buttonModifier.onClick { component.reduce(TranslateToolbarComponent.Intent.AddUnit) },
                 imageVector = Icons.Default.AddCircle,
                 contentDescription = null,
-                tint = MaterialTheme.colors.primary,
+                tint = MaterialTheme.colorScheme.primary,
             )
         }
         CustomTooltipArea(
@@ -111,7 +110,7 @@ fun TranslateToolbar(
                 modifier = buttonModifier.onClick { component.reduce(TranslateToolbarComponent.Intent.RemoveUnit) },
                 imageVector = Icons.Default.RemoveCircle,
                 contentDescription = null,
-                tint = if (uiState.isEditing) MaterialTheme.colors.primary else Color.Gray,
+                tint = if (uiState.isEditing) MaterialTheme.colorScheme.primary else Color.Gray,
             )
         }
         CustomTooltipArea(
@@ -121,17 +120,17 @@ fun TranslateToolbar(
                 modifier = buttonModifier.onClick { component.reduce(TranslateToolbarComponent.Intent.ValidateUnits) },
                 imageVector = Icons.Default.CheckCircle,
                 contentDescription = null,
-                tint = if (uiState.currentLanguage?.isBase == false) MaterialTheme.colors.primary else Color.Gray,
+                tint = if (uiState.currentLanguage?.isBase == false) MaterialTheme.colorScheme.primary else Color.Gray,
             )
         }
 
         // spinners
         val spinnerModifier = Modifier.width(140.dp)
             .height(elementHeight)
-            .background(color = SelectedBackground, shape = RoundedCornerShape(4.dp))
+            .background(color = Color.White.copy(alpha = 0.1f), shape = RoundedCornerShape(4.dp))
         CustomSpinner(
             modifier = spinnerModifier,
-            valueColor = MaterialTheme.colors.onBackground,
+            valueColor = MaterialTheme.colorScheme.onBackground,
             values = uiState.availableLanguages.map { it.name },
             current = uiState.currentLanguage?.name.orEmpty(),
             onValueChanged = {
@@ -141,7 +140,7 @@ fun TranslateToolbar(
         )
         CustomSpinner(
             modifier = spinnerModifier,
-            valueColor = MaterialTheme.colors.onBackground,
+            valueColor = MaterialTheme.colorScheme.onBackground,
             values = uiState.availableFilters.map { it.toReadableString() },
             current = uiState.currentTypeFilter.toReadableString(),
             onValueChanged = {
@@ -165,8 +164,8 @@ fun TranslateToolbar(
             hint = "toolbar_search_placeholder".localized(),
             singleLine = true,
             value = uiState.currentSearch,
-            backgroundColor = SelectedBackground,
-            textColor = MaterialTheme.colors.onBackground,
+            backgroundColor = Color.White.copy(alpha = 0.1f),
+            textColor = MaterialTheme.colorScheme.onBackground,
             onValueChange = {
                 component.reduce(TranslateToolbarComponent.Intent.SetSearch(it))
             },

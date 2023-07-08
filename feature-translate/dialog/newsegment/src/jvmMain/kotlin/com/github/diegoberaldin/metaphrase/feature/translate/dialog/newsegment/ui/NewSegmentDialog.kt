@@ -11,10 +11,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -62,7 +62,7 @@ fun NewSegmentDialog(
         ) {
             Surface(
                 modifier = Modifier.size(400.dp, 200.dp),
-                color = MaterialTheme.colors.background,
+                color = MaterialTheme.colorScheme.background,
             ) {
                 val uiState by component.uiState.collectAsState()
                 val pointerIcon by remember(uiState.isLoading) {
@@ -90,8 +90,8 @@ fun NewSegmentDialog(
                     Text(
                         modifier = Modifier.padding(top = Spacing.xxs, start = Spacing.xxs),
                         text = uiState.keyError,
-                        color = MaterialTheme.colors.error,
-                        style = MaterialTheme.typography.caption,
+                        color = MaterialTheme.colorScheme.error,
+                        style = MaterialTheme.typography.labelSmall,
                     )
                     Spacer(modifier = Modifier.height(Spacing.xs))
                     CustomTextField(
@@ -105,8 +105,8 @@ fun NewSegmentDialog(
                     Text(
                         modifier = Modifier.padding(top = Spacing.xxs, start = Spacing.xxs),
                         text = uiState.textError,
-                        color = MaterialTheme.colors.error,
-                        style = MaterialTheme.typography.caption,
+                        color = MaterialTheme.colorScheme.error,
+                        style = MaterialTheme.typography.labelSmall,
                     )
                     Spacer(modifier = Modifier.height(Spacing.xs))
                     Row(
@@ -121,7 +121,7 @@ fun NewSegmentDialog(
                                 component.reduce(NewSegmentComponent.Intent.Close)
                             },
                         ) {
-                            Text(text = "button_cancel".localized(), style = MaterialTheme.typography.button)
+                            Text(text = "button_cancel".localized(), style = MaterialTheme.typography.labelLarge)
                         }
                         Button(
                             modifier = Modifier.heightIn(max = 25.dp),
@@ -130,7 +130,7 @@ fun NewSegmentDialog(
                                 component.reduce(NewSegmentComponent.Intent.Submit)
                             },
                         ) {
-                            Text(text = "button_ok".localized(), style = MaterialTheme.typography.button)
+                            Text(text = "button_ok".localized(), style = MaterialTheme.typography.labelLarge)
                         }
                     }
                 }
