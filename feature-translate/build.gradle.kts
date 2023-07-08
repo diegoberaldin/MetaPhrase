@@ -21,7 +21,6 @@ kotlin {
         val jvmMain by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)
-                implementation(compose.materialIconsExtended)
 
                 implementation(libs.koin)
                 implementation(libs.decompose)
