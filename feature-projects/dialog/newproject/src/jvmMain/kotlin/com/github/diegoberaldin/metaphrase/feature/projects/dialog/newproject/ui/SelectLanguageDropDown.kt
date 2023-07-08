@@ -37,7 +37,7 @@ fun SelectLanguageDropDown(
     DropdownMenu(
         modifier = Modifier.width(160.dp).height(250.dp)
             .background(MaterialTheme.colorScheme.background)
-            .background(Color.White.copy(alpha = 0.1f))
+            .background(MaterialTheme.colorScheme.onBackground.copy(alpha = 0.1f))
             .border(
                 width = Dp.Hairline,
                 color = MaterialTheme.colorScheme.background,

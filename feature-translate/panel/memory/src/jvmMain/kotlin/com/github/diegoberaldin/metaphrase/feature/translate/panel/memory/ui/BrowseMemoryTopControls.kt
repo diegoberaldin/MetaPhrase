@@ -63,7 +63,7 @@ fun BrowseMemoryTopControls(
         // spinners
         val spinnerModifier = Modifier.width(140.dp)
             .height(elementHeight)
-            .background(color = Color.White.copy(alpha = 0.1f), shape = RoundedCornerShape(4.dp))
+            .background(color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.1f), shape = RoundedCornerShape(4.dp))
         CustomSpinner(
             modifier = spinnerModifier,
             valueColor = MaterialTheme.colorScheme.onBackground,
@@ -99,7 +99,7 @@ fun BrowseMemoryTopControls(
             hint = "toolbar_search_placeholder".localized(),
             singleLine = true,
             value = currentSearch,
-            backgroundColor = Color.White.copy(alpha = 0.1f),
+            backgroundColor = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.1f),
             textColor = MaterialTheme.colorScheme.onBackground,
             onValueChange = {
                 onSearchChanged(it)

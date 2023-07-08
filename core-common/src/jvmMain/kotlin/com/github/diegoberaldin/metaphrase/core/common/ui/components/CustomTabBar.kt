@@ -77,7 +77,7 @@ private fun Tab(
 ) {
     Row(
         modifier = modifier.background(
-            color = if (selected) Color.White.copy(alpha = 0.1f) else Color.Transparent,
+            color = if (selected) MaterialTheme.colorScheme.onBackground.copy(alpha = 0.1f) else Color.Transparent,
             shape = RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp),
         ).padding(horizontal = Spacing.s, vertical = Spacing.s),
         verticalAlignment = Alignment.Bottom,

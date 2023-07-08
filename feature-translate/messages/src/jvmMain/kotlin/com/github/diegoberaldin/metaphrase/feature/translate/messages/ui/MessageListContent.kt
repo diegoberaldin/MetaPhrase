@@ -17,13 +17,13 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.onClick
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.LockOpen
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material.icons.filled.LockOpen
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -103,12 +103,12 @@ fun MessageListContent(
                 ) {
                     Text(
                         modifier = Modifier.background(
-                            color = MaterialTheme.colorScheme.primary,
+                            color = MaterialTheme.colorScheme.secondary,
                             shape = RoundedCornerShape(topStart = 4.dp, topEnd = 4.dp),
                         ).padding(horizontal = Spacing.xs, vertical = Spacing.xxs),
                         text = key,
                         style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.onPrimary,
+                        color = MaterialTheme.colorScheme.onSecondary,
                     )
                     // only segments in the base language can be marked as untranslatable
                     if (uiState.currentLanguage?.isBase == true) {
@@ -137,18 +137,9 @@ fun MessageListContent(
                     }
                 }
                 // Source segment
-                Box(
-                    modifier = Modifier.fillMaxWidth()
-                        .background(
-                            color = MaterialTheme.colorScheme.primary,
-                            shape = RoundedCornerShape(topEnd = 4.dp, bottomStart = 4.dp, bottomEnd = 4.dp),
-                        )
-                        .padding(
-                            start = Spacing.xs,
-                            top = Spacing.xs + Spacing.xxs,
-                            end = Spacing.xs,
-                            bottom = Spacing.s,
-                        ),
+                TranslateBox(
+                    color = MaterialTheme.colorScheme.secondary,
+                    squareTopLeft = true,
                 ) {
                     if (uiState.currentLanguage?.isBase == true) {
                         TranslateEditableField(
@@ -157,7 +148,7 @@ fun MessageListContent(
                             active = idx == uiState.editingIndex,
                             updateTextSwitch = uiState.updateTextSwitch,
                             enabled = uiState.editingEnabled,
-                            textColor = MaterialTheme.colorScheme.onPrimary,
+                            textColor = MaterialTheme.colorScheme.onBackground,
                             spellingErrors = uiState.spellingErrors,
                             onStartEditing = {
                                 component.reduce(MessageListComponent.Intent.StartEditing(idx))
@@ -185,26 +176,16 @@ fun MessageListContent(
                         Text(
                             text = unit.original?.text.orEmpty(),
                             style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onPrimary,
+                            color = MaterialTheme.colorScheme.onBackground,
                         )
                     }
                 }
                 // target segment
                 if (uiState.currentLanguage?.isBase == false) {
-                    Spacer(modifier = Modifier.height(Spacing.xxs))
+                    Spacer(modifier = Modifier.height(Spacing.xs))
 
-                    Box(
-                        modifier = Modifier.fillMaxWidth()
-                            .background(
-                                color = MaterialTheme.colorScheme.secondary,
-                                shape = RoundedCornerShape(4.dp),
-                            )
-                            .padding(
-                                start = Spacing.xs,
-                                top = Spacing.s,
-                                end = Spacing.xs,
-                                bottom = Spacing.s,
-                            ),
+                    TranslateBox(
+                        color = MaterialTheme.colorScheme.primary,
                     ) {
                         TranslateEditableField(
                             unit = unit,
@@ -212,7 +193,7 @@ fun MessageListContent(
                             active = idx == uiState.editingIndex,
                             updateTextSwitch = uiState.updateTextSwitch,
                             enabled = uiState.editingEnabled,
-                            textColor = MaterialTheme.colorScheme.onSecondary,
+                            textColor = MaterialTheme.colorScheme.onBackground,
                             spellingErrors = uiState.spellingErrors,
                             onStartEditing = {
                                 component.reduce(MessageListComponent.Intent.StartEditing(idx))
@@ -258,3 +239,4 @@ fun MessageListContent(
         }
     }
 }
+

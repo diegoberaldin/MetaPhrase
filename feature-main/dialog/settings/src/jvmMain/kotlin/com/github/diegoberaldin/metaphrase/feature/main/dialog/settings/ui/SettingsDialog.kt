@@ -110,7 +110,7 @@ fun SettingsDialog(
                         val availableLanguages = uiState.availableLanguages
                         CustomSpinner(
                             modifier = Modifier.background(
-                                color = Color.White.copy(alpha = 0.1f),
+                                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.1f),
                                 shape = RoundedCornerShape(4.dp),
                             ),
                             size = DpSize(width = 200.dp, height = 30.dp),
@@ -169,7 +169,7 @@ fun SettingsDialog(
                         val providers = uiState.availableProviders
                         CustomSpinner(
                             modifier = Modifier.background(
-                                color = Color.White.copy(alpha = 0.1f),
+                                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.1f),
                                 shape = RoundedCornerShape(4.dp),
                             ),
                             size = DpSize(width = 200.dp, height = 30.dp),

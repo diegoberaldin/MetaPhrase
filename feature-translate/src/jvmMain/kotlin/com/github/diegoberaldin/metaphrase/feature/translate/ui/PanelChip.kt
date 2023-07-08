@@ -30,7 +30,7 @@ internal fun PanelChip(
 ) {
     Text(
         modifier = Modifier.background(
-            color = Color.White.copy(alpha = 0.1f),
+            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.1f),
             shape = RoundedCornerShape(4.dp),
         )
             .padding(vertical = Spacing.xs, horizontal = Spacing.s)

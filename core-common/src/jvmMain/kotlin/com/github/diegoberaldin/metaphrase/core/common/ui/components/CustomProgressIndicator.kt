@@ -67,13 +67,14 @@ fun CustomProgressIndicator(
         val stripeWidth = 20.dp.toLocalPixel()
         val clipRectCornerRadius = 4.dp.toLocalPixel()
         val stripeRotateAngle = 45f
+        val progressLabelColorBg = MaterialTheme.colorScheme.primary
         val progressLabelColor = MaterialTheme.colorScheme.onPrimary
         val stripeColor = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.25f)
         Canvas(
             modifier = Modifier.fillMaxSize(),
         ) {
             val backgroundString = buildAnnotatedString {
-                withStyle(SpanStyle(color = progressLabelColor)) {
+                withStyle(SpanStyle(color = progressLabelColorBg)) {
                     append(progressText)
                 }
             }
@@ -120,7 +121,7 @@ fun CustomProgressIndicator(
                 drawText(
                     textMeasurer = textMeasurer,
                     text = buildAnnotatedString {
-                        withStyle(SpanStyle(color = Color.White)) {
+                        withStyle(SpanStyle(color = progressLabelColor)) {
                             append(progressText)
                         }
                     },

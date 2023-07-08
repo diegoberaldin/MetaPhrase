@@ -55,7 +55,7 @@ fun ProjectsListContent(
             items(uiState.projects) { item ->
                 Row(
                     modifier = Modifier.background(
-                        color = Color.White.copy(alpha = 0.1f),
+                        color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.1f),
                         shape = RoundedCornerShape(4.dp),
                     )
                         .padding(horizontal = Spacing.s, vertical = Spacing.lHalf)

@@ -55,7 +55,7 @@ fun CustomTextField(
     enabled: Boolean = true,
     secure: Boolean = false,
     labelColor: Color = MaterialTheme.colorScheme.onBackground,
-    backgroundColor: Color = Color.White.copy(alpha = 0.1f),
+    backgroundColor: Color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.1f),
     textColor: Color = MaterialTheme.colorScheme.onBackground,
     labelExtraSpacing: Dp = 0.dp,
     labelStyle: TextStyle = MaterialTheme.typography.labelSmall,
