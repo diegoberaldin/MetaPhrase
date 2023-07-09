@@ -1,7 +1,9 @@
 package com.github.diegoberaldin.metaphrase.feature.main.dialog.settings.ui
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -12,10 +14,15 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.onClick
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -53,6 +60,7 @@ import java.awt.Cursor
  * @param component component
  * @param onClose on close callback
  */
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun SettingsDialog(
     component: SettingsComponent,
@@ -230,6 +238,49 @@ fun SettingsDialog(
                                 component.reduce(SettingsComponent.Intent.SetDarkMode(it))
                             },
                             colors = CheckboxDefaults.colors(checkedColor = MaterialTheme.colorScheme.primary),
+                        )
+                    }
+                    Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                        Text(
+                            text = "dialog_settings_editor_font_size".localized(),
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onBackground,
+                        )
+                        Spacer(modifier = Modifier.weight(1f))
+                        Box {
+                            CustomTextField(
+                                modifier = Modifier.width(80.dp).height(26.dp),
+                                value = uiState.editorFontSize,
+                                enabled = false,
+                                onValueChange = {},
+                            )
+                            Column(
+                                modifier = Modifier.matchParentSize().padding(top = Spacing.xxs),
+                                horizontalAlignment = Alignment.End,
+                            ) {
+                                Icon(
+                                    modifier = Modifier.weight(1f).padding(horizontal = Spacing.xxs).onClick {
+                                        val newSize = uiState.editorFontSize.toInt() + 1
+                                        component.reduce(SettingsComponent.Intent.SetEditorFontSize(newSize))
+                                    },
+                                    imageVector = Icons.Default.KeyboardArrowUp,
+                                    contentDescription = null,
+                                )
+                                Icon(
+                                    modifier = Modifier.weight(1f).padding(horizontal = Spacing.xxs).onClick {
+                                        val newSize = (uiState.editorFontSize.toInt() - 1).coerceAtLeast(10)
+                                        component.reduce(SettingsComponent.Intent.SetEditorFontSize(newSize))
+                                    },
+                                    imageVector = Icons.Default.KeyboardArrowDown,
+                                    contentDescription = null,
+                                )
+                            }
+                        }
+                        Text(
+                            modifier = Modifier.padding(Spacing.s),
+                            text = "pt",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onBackground,
                         )
                     }
                     Spacer(modifier = Modifier.weight(1f))

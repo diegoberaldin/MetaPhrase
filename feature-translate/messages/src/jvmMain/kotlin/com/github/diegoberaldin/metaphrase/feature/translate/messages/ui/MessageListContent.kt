@@ -36,6 +36,8 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import com.github.diegoberaldin.metaphrase.core.common.ui.components.CustomTooltipArea
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Spacing
+import com.github.diegoberaldin.metaphrase.core.common.ui.theme.TranslationThemeRepository
+import com.github.diegoberaldin.metaphrase.core.common.utils.getByInjection
 import com.github.diegoberaldin.metaphrase.core.localization.localized
 import com.github.diegoberaldin.metaphrase.feature.translate.messages.presentation.MessageListComponent
 import kotlinx.coroutines.FlowPreview
@@ -60,6 +62,8 @@ fun MessageListContent(
     val uiState by component.uiState.collectAsState()
     val lazyListState = rememberLazyListState()
     val focusManager = LocalFocusManager.current
+    val translationThemeRepository: TranslationThemeRepository = getByInjection()
+    val textStyle by translationThemeRepository.textStyle.collectAsState()
 
     LaunchedEffect(component) {
         component.effects.filterIsInstance<MessageListComponent.Effect.Selection>()
@@ -107,7 +111,7 @@ fun MessageListContent(
                             shape = RoundedCornerShape(topStart = 4.dp, topEnd = 4.dp),
                         ).padding(horizontal = Spacing.xs, vertical = Spacing.xxs),
                         text = key,
-                        style = MaterialTheme.typography.labelSmall,
+                        style = MaterialTheme.typography.labelSmall.copy(fontSize = textStyle.fontSize * 0.66f),
                         color = MaterialTheme.colorScheme.onSecondary,
                     )
                     // only segments in the base language can be marked as untranslatable
@@ -149,6 +153,7 @@ fun MessageListContent(
                             updateTextSwitch = uiState.updateTextSwitch,
                             enabled = uiState.editingEnabled,
                             textColor = MaterialTheme.colorScheme.onBackground,
+                            textStyle = textStyle,
                             spellingErrors = uiState.spellingErrors,
                             onStartEditing = {
                                 component.reduce(MessageListComponent.Intent.StartEditing(idx))
@@ -175,7 +180,7 @@ fun MessageListContent(
                     } else {
                         Text(
                             text = unit.original?.text.orEmpty(),
-                            style = MaterialTheme.typography.bodySmall,
+                            style = textStyle,
                             color = MaterialTheme.colorScheme.onBackground,
                         )
                     }
@@ -194,6 +199,7 @@ fun MessageListContent(
                             updateTextSwitch = uiState.updateTextSwitch,
                             enabled = uiState.editingEnabled,
                             textColor = MaterialTheme.colorScheme.onBackground,
+                            textStyle = textStyle,
                             spellingErrors = uiState.spellingErrors,
                             onStartEditing = {
                                 component.reduce(MessageListComponent.Intent.StartEditing(idx))
@@ -239,4 +245,3 @@ fun MessageListContent(
         }
     }
 }
-
