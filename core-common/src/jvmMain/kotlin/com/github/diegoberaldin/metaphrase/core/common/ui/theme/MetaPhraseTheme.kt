@@ -1,20 +1,23 @@
 package com.github.diegoberaldin.metaphrase.core.common.ui.theme
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import com.github.diegoberaldin.metaphrase.core.common.utils.getByInjection
 
 @Composable
 fun MetaPhraseTheme(
-    useDarkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit,
 ) {
-    val colors = if (!useDarkTheme) {
-        LightColors
-    } else {
-        DarkColors
+    val repository = getByInjection<ThemeRepository>()
+
+    val themeState by repository.theme.collectAsState()
+    val colors = when (themeState) {
+        ThemeState.Light -> LightColors
+        else -> DarkColors
     }
 
     MaterialTheme(

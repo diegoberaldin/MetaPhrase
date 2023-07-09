@@ -841,6 +841,38 @@
 				</seg>
 			</tuv>
 		</tu>
+		<tu tuid="dialog_settings_dark_mode">
+			<tuv xml:lang="en">
+				<seg>
+					Apply dark theme for app UI
+				</seg>
+			</tuv>
+			<tuv xml:lang="it">
+				<seg>
+					Applica tema scuro alla UI
+				</seg>
+			</tuv>
+			<tuv xml:lang="de">
+				<seg>
+					Dunkles Design für die App-Benutzeroberfläche anwenden
+				</seg>
+			</tuv>
+			<tuv xml:lang="fr">
+				<seg>
+					Appliquer un thème sombre pour l&apos;interface utilisateur de l&apos;application
+				</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>
+					Aplicar tema oscuro para la interfaz de usuario de la aplicación
+				</seg>
+			</tuv>
+			<tuv xml:lang="pt">
+				<seg>
+					Aplicar tema escuro para a interface do aplicativo
+				</seg>
+			</tuv>
+		</tu>
 		<tu tuid="dialog_settings_language">
 			<tuv xml:lang="en">
 				<seg>

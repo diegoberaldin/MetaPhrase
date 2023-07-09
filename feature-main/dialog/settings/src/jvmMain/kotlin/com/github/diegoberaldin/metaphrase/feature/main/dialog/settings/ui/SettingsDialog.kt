@@ -26,7 +26,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.Dp
@@ -201,7 +200,10 @@ fun SettingsDialog(
                                         component.reduce(SettingsComponent.Intent.OpenLoginDialog)
                                     },
                                 ) {
-                                    Text(text = "button_generate".localized(), style = MaterialTheme.typography.labelLarge)
+                                    Text(
+                                        text = "button_generate".localized(),
+                                        style = MaterialTheme.typography.labelLarge,
+                                    )
                                 }
                             }
                             Spacer(modifier = Modifier.width(Spacing.s))
@@ -213,6 +215,21 @@ fun SettingsDialog(
                             onValueChange = {
                                 component.reduce(SettingsComponent.Intent.SetMachineTranslationKey(it))
                             },
+                        )
+                    }
+                    Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                        Text(
+                            text = "dialog_settings_dark_mode".localized(),
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onBackground,
+                        )
+                        Spacer(modifier = Modifier.weight(1f))
+                        Checkbox(
+                            checked = uiState.darkModeEnabled,
+                            onCheckedChange = {
+                                component.reduce(SettingsComponent.Intent.SetDarkMode(it))
+                            },
+                            colors = CheckboxDefaults.colors(checkedColor = MaterialTheme.colorScheme.primary),
                         )
                     }
                     Spacer(modifier = Modifier.weight(1f))
@@ -256,7 +273,12 @@ fun SettingsDialog(
                         component = child,
                         onClose = { u, p ->
                             if (u != null && p != null) {
-                                component.reduce(SettingsComponent.Intent.GenerateMachineTranslationKey(username = u, password = p))
+                                component.reduce(
+                                    SettingsComponent.Intent.GenerateMachineTranslationKey(
+                                        username = u,
+                                        password = p,
+                                    ),
+                                )
                             }
                             component.reduce(SettingsComponent.Intent.CloseDialog)
                         },

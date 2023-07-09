@@ -1,4 +1,5 @@
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -24,6 +25,8 @@ import com.github.diegoberaldin.metaphrase.core.common.keystore.KeyStoreKeys
 import com.github.diegoberaldin.metaphrase.core.common.keystore.TemporaryKeyStore
 import com.github.diegoberaldin.metaphrase.core.common.log.LogManager
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.MetaPhraseTheme
+import com.github.diegoberaldin.metaphrase.core.common.ui.theme.ThemeRepository
+import com.github.diegoberaldin.metaphrase.core.common.ui.theme.ThemeState
 import com.github.diegoberaldin.metaphrase.core.common.utils.getByInjection
 import com.github.diegoberaldin.metaphrase.core.common.utils.runOnUiThread
 import com.github.diegoberaldin.metaphrase.core.localization.L10n
@@ -95,6 +98,18 @@ fun main() {
         // ties component lifecycle to the window
         val windowState = rememberWindowState()
         LifecycleController(lifecycle, windowState)
+
+        // theme management
+        val useDarkTheme = isSystemInDarkTheme()
+        runBlocking {
+            val keystore: TemporaryKeyStore = getByInjection()
+            if (!keystore.containsKey(KeyStoreKeys.DarkThemeEnabled)) {
+                keystore.save(KeyStoreKeys.DarkThemeEnabled, useDarkTheme)
+            }
+            val darkModeEnabled = keystore.get(KeyStoreKeys.DarkThemeEnabled, false)
+            val themeRepository: ThemeRepository = getByInjection()
+            themeRepository.changeTheme(if (darkModeEnabled) ThemeState.Dark else ThemeState.Light)
+        }
 
         Window(
             onCloseRequest = {
