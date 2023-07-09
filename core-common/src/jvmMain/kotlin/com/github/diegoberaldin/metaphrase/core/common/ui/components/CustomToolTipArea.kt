@@ -9,7 +9,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Spacing
 
@@ -33,11 +33,18 @@ fun CustomTooltipArea(
         tooltip = {
             Text(
                 modifier = Modifier
-                    .background(color = Color.DarkGray, shape = RoundedCornerShape(4.dp))
+                    .shadow(
+                        elevation = 3.dp,
+                        shape = RoundedCornerShape(4.dp),
+                    )
+                    .background(
+                        color = MaterialTheme.colorScheme.surface,
+                        shape = RoundedCornerShape(4.dp),
+                    )
                     .padding(Spacing.s),
                 text = text,
                 style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onBackground,
+                color = MaterialTheme.colorScheme.onSurface,
             )
         },
         content = content,
