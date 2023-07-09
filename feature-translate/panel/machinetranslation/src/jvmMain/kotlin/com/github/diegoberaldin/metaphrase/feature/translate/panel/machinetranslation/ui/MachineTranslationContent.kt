@@ -2,6 +2,7 @@ package com.github.diegoberaldin.metaphrase.feature.translate.panel.machinetrans
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,16 +17,16 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.onClick
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Download
 import androidx.compose.material.icons.filled.Minimize
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Share
+import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -34,7 +35,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
@@ -96,8 +97,18 @@ fun MachineTranslationContent(
             Box(
                 modifier = Modifier.fillMaxWidth()
                     .weight(1f)
-                    .background(
+                    .shadow(
+                        elevation = 3.dp,
+                        ambientColor = MaterialTheme.colorScheme.secondary,
+                        spotColor = MaterialTheme.colorScheme.secondary,
+                    )
+                    .border(
                         color = MaterialTheme.colorScheme.secondary,
+                        width = 1.dp,
+                        shape = RoundedCornerShape(4.dp),
+                    )
+                    .background(
+                        color = MaterialTheme.colorScheme.background,
                         shape = RoundedCornerShape(4.dp),
                     )
                     .padding(

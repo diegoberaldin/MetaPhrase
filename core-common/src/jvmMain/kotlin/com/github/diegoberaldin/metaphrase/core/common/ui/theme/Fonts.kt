@@ -149,7 +149,7 @@ val Typography = Typography(
         fontFamily = AppFontFamily,
         fontWeight = FontWeight.Medium,
         fontSize = 14.sp,
-        letterSpacing = (0.25).sp, // original: 1.25
+        letterSpacing = (0.15).sp, // original: 1.25
     ),
     // caption
     bodySmall = TextStyle(
