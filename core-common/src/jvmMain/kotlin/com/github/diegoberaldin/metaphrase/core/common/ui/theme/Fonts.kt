@@ -73,94 +73,96 @@ val AppFontFamily = FontFamily(
     ),
 )
 
-val Typography = Typography(
+fun getTypography(
+    fontFamily: FontFamily = AppFontFamily,
+): Typography = Typography(
     // h1
     displayLarge = TextStyle(
-        fontFamily = AppFontFamily,
+        fontFamily = fontFamily,
         fontWeight = FontWeight.Light,
         fontSize = 96.sp,
         letterSpacing = (-1.5).sp,
     ),
     // h2
     displayMedium = TextStyle(
-        fontFamily = AppFontFamily,
+        fontFamily = fontFamily,
         fontWeight = FontWeight.Light,
         fontSize = 60.sp,
         letterSpacing = (-0.5).sp,
     ),
     // h3
     displaySmall = TextStyle(
-        fontFamily = AppFontFamily,
+        fontFamily = fontFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 38.sp,
         letterSpacing = 0.sp,
     ),
     // h4
     headlineMedium = TextStyle(
-        fontFamily = AppFontFamily,
+        fontFamily = fontFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 34.sp,
         letterSpacing = (0.25).sp,
     ),
     // h5
     headlineSmall = TextStyle(
-        fontFamily = AppFontFamily,
+        fontFamily = fontFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 24.sp,
         letterSpacing = 0.sp,
     ),
     // h6
     titleLarge = TextStyle(
-        fontFamily = AppFontFamily,
+        fontFamily = fontFamily,
         fontWeight = FontWeight.Medium,
         fontSize = 16.sp,
         letterSpacing = (0.15).sp,
     ),
     // subtitle1
     titleMedium = TextStyle(
-        fontFamily = AppFontFamily,
+        fontFamily = fontFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
         letterSpacing = (0.15).sp,
     ),
     // subtitle2
     titleSmall = TextStyle(
-        fontFamily = AppFontFamily,
+        fontFamily = fontFamily,
         fontWeight = FontWeight.Medium,
         fontSize = 14.sp,
         letterSpacing = (0.1).sp,
     ),
     // body1
     bodyLarge = TextStyle(
-        fontFamily = AppFontFamily,
+        fontFamily = fontFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
         letterSpacing = (0.5).sp,
     ),
     // body2
     bodyMedium = TextStyle(
-        fontFamily = AppFontFamily,
+        fontFamily = fontFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 14.sp,
         letterSpacing = (0.25).sp,
     ),
     // button
     labelLarge = TextStyle(
-        fontFamily = AppFontFamily,
+        fontFamily = fontFamily,
         fontWeight = FontWeight.Medium,
         fontSize = 14.sp,
         letterSpacing = (0.15).sp, // original: 1.25
     ),
     // caption
     bodySmall = TextStyle(
-        fontFamily = AppFontFamily,
+        fontFamily = fontFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 12.sp,
         letterSpacing = (0.4).sp,
     ),
     // overline
     labelSmall = TextStyle(
-        fontFamily = AppFontFamily,
+        fontFamily = fontFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 10.sp,
         letterSpacing = (0.5).sp, // original: 1.5

@@ -19,10 +19,12 @@ fun MetaPhraseTheme(
         ThemeState.Light -> LightColors
         else -> DarkColors
     }
+    val fontFamily by repository.fontFamily.collectAsState()
+    val typography = getTypography(fontFamily)
 
     MaterialTheme(
         colorScheme = colors,
-        typography = Typography,
+        typography = typography,
         content = content,
     )
 }
