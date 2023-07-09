@@ -9,16 +9,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.onClick
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.StarBorder
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Flag
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.github.diegoberaldin.metaphrase.core.common.ui.components.CustomTooltipArea
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Spacing
@@ -48,27 +48,32 @@ fun LanguageCell(
         )
         Spacer(modifier = Modifier.weight(1f))
         if (language.isBase) {
-            Icon(
-                imageVector = Icons.Default.Flag,
-                contentDescription = null,
-                modifier = Modifier
-                    .size(24.dp)
-                    .padding(2.dp),
-                tint = MaterialTheme.colorScheme.primary,
-            )
+            CustomTooltipArea(
+                text = "tooltip_base_language".localized(),
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Star,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(24.dp)
+                        .padding(2.dp),
+                    tint = MaterialTheme.colorScheme.primary,
+                )
+            }
         }
         CustomTooltipArea(
             text = "tooltip_delete".localized(),
         ) {
             Icon(
-                imageVector = Icons.Default.Delete,
-                contentDescription = null,
                 modifier = Modifier
                     .size(24.dp)
                     .padding(2.dp)
                     .onClick {
                         onDeleteClicked()
                     },
+                imageVector = Icons.Default.Delete,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.primary,
             )
         }
     }

@@ -4017,6 +4017,38 @@
 				</seg>
 			</tuv>
 		</tu>
+		<tu tuid="tooltip_base_language">
+			<tuv xml:lang="en">
+				<seg>
+					Base language
+				</seg>
+			</tuv>
+			<tuv xml:lang="it">
+				<seg>
+					Lingua base
+				</seg>
+			</tuv>
+			<tuv xml:lang="de">
+				<seg>
+					Basissprache
+				</seg>
+			</tuv>
+			<tuv xml:lang="fr">
+				<seg>
+					Langue de base
+				</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>
+					Idioma de base
+				</seg>
+			</tuv>
+			<tuv xml:lang="pt">
+				<seg>
+					Idioma base
+				</seg>
+			</tuv>
+		</tu>
 		<tu tuid="tooltip_copy_base">
 			<tuv xml:lang="en">
 				<seg>

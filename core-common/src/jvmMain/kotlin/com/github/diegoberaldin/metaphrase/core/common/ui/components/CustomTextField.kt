@@ -114,7 +114,7 @@ fun CustomTextField(
                         Text(
                             text = hint,
                             style = MaterialTheme.typography.labelSmall,
-                            color = Color.Gray,
+                            color =  MaterialTheme.colorScheme.onSurfaceVariant,
                         )
                     }
                     if (endButton != null) {

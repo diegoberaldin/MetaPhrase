@@ -70,7 +70,7 @@ fun TranslateToolbar(
                 modifier = buttonModifier.onClick { component.reduce(TranslateToolbarComponent.Intent.MoveToPrevious) },
                 imageVector = Icons.Default.ArrowCircleUp,
                 contentDescription = null,
-                tint = if (uiState.isEditing) MaterialTheme.colorScheme.primary else Color.Gray,
+                tint = if (uiState.isEditing) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
         CustomTooltipArea(
@@ -80,7 +80,7 @@ fun TranslateToolbar(
                 modifier = buttonModifier.onClick { component.reduce(TranslateToolbarComponent.Intent.MoveToNext) },
                 imageVector = Icons.Default.ArrowCircleDown,
                 contentDescription = null,
-                tint = if (uiState.isEditing) MaterialTheme.colorScheme.primary else Color.Gray,
+                tint = if (uiState.isEditing) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
         CustomTooltipArea(
@@ -90,7 +90,7 @@ fun TranslateToolbar(
                 modifier = buttonModifier.onClick { component.reduce(TranslateToolbarComponent.Intent.CopyBase) },
                 imageVector = Icons.Default.SwapHorizontalCircle,
                 contentDescription = null,
-                tint = if (uiState.currentLanguage?.isBase == false) MaterialTheme.colorScheme.primary else Color.Gray,
+                tint = if (uiState.currentLanguage?.isBase == false) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
         CustomTooltipArea(
@@ -110,7 +110,7 @@ fun TranslateToolbar(
                 modifier = buttonModifier.onClick { component.reduce(TranslateToolbarComponent.Intent.RemoveUnit) },
                 imageVector = Icons.Default.RemoveCircle,
                 contentDescription = null,
-                tint = if (uiState.isEditing) MaterialTheme.colorScheme.primary else Color.Gray,
+                tint = if (uiState.isEditing) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
         CustomTooltipArea(
@@ -120,7 +120,7 @@ fun TranslateToolbar(
                 modifier = buttonModifier.onClick { component.reduce(TranslateToolbarComponent.Intent.ValidateUnits) },
                 imageVector = Icons.Default.CheckCircle,
                 contentDescription = null,
-                tint = if (uiState.currentLanguage?.isBase == false) MaterialTheme.colorScheme.primary else Color.Gray,
+                tint = if (uiState.currentLanguage?.isBase == false) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
 

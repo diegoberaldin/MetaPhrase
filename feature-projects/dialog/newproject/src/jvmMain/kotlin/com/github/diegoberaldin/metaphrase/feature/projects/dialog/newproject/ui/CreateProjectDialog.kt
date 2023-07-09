@@ -106,7 +106,7 @@ fun CreateProjectDialog(
                         }
                         Box {
                             CustomTooltipArea(
-                                text = "tooltip_add",
+                                text = "tooltip_add".localized(),
                             ) {
                                 Icon(
                                     modifier = Modifier.size(24.dp)
