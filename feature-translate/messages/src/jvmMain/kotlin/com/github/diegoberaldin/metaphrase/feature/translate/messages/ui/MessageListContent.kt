@@ -17,13 +17,13 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.onClick
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.LockOpen
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -32,12 +32,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import com.github.diegoberaldin.metaphrase.core.common.ui.components.CustomTooltipArea
-import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Indigo800
-import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Purple800
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Spacing
 import com.github.diegoberaldin.metaphrase.core.localization.localized
 import com.github.diegoberaldin.metaphrase.feature.translate.messages.presentation.MessageListComponent
@@ -106,12 +103,12 @@ fun MessageListContent(
                 ) {
                     Text(
                         modifier = Modifier.background(
-                            color = Purple800,
+                            color = MaterialTheme.colorScheme.secondary,
                             shape = RoundedCornerShape(topStart = 4.dp, topEnd = 4.dp),
                         ).padding(horizontal = Spacing.xs, vertical = Spacing.xxs),
                         text = key,
-                        style = MaterialTheme.typography.caption,
-                        color = MaterialTheme.colors.onBackground,
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.onSecondary,
                     )
                     // only segments in the base language can be marked as untranslatable
                     if (uiState.currentLanguage?.isBase == true) {
@@ -133,25 +130,16 @@ fun MessageListContent(
                                     },
                                 imageVector = if (isTranslatable) Icons.Default.LockOpen else Icons.Default.Lock,
                                 contentDescription = null,
-                                tint = MaterialTheme.colors.onBackground,
+                                tint = MaterialTheme.colorScheme.onBackground,
                             )
                         }
                         Spacer(modifier = Modifier.width(Spacing.xxxs))
                     }
                 }
                 // Source segment
-                Box(
-                    modifier = Modifier.fillMaxWidth()
-                        .background(
-                            color = Purple800,
-                            shape = RoundedCornerShape(topEnd = 4.dp, bottomStart = 4.dp, bottomEnd = 4.dp),
-                        )
-                        .padding(
-                            start = Spacing.xs,
-                            top = Spacing.xs + Spacing.xxs,
-                            end = Spacing.xs,
-                            bottom = Spacing.s,
-                        ),
+                TranslateBox(
+                    color = MaterialTheme.colorScheme.secondary,
+                    squareTopLeft = true,
                 ) {
                     if (uiState.currentLanguage?.isBase == true) {
                         TranslateEditableField(
@@ -160,6 +148,7 @@ fun MessageListContent(
                             active = idx == uiState.editingIndex,
                             updateTextSwitch = uiState.updateTextSwitch,
                             enabled = uiState.editingEnabled,
+                            textColor = MaterialTheme.colorScheme.onBackground,
                             spellingErrors = uiState.spellingErrors,
                             onStartEditing = {
                                 component.reduce(MessageListComponent.Intent.StartEditing(idx))
@@ -186,27 +175,17 @@ fun MessageListContent(
                     } else {
                         Text(
                             text = unit.original?.text.orEmpty(),
-                            style = MaterialTheme.typography.caption,
-                            color = Color.White,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onBackground,
                         )
                     }
                 }
                 // target segment
                 if (uiState.currentLanguage?.isBase == false) {
-                    Spacer(modifier = Modifier.height(Spacing.xxs))
+                    Spacer(modifier = Modifier.height(Spacing.xs))
 
-                    Box(
-                        modifier = Modifier.fillMaxWidth()
-                            .background(
-                                color = Indigo800,
-                                shape = RoundedCornerShape(4.dp),
-                            )
-                            .padding(
-                                start = Spacing.xs,
-                                top = Spacing.s,
-                                end = Spacing.xs,
-                                bottom = Spacing.s,
-                            ),
+                    TranslateBox(
+                        color = MaterialTheme.colorScheme.primary,
                     ) {
                         TranslateEditableField(
                             unit = unit,
@@ -214,6 +193,7 @@ fun MessageListContent(
                             active = idx == uiState.editingIndex,
                             updateTextSwitch = uiState.updateTextSwitch,
                             enabled = uiState.editingEnabled,
+                            textColor = MaterialTheme.colorScheme.onBackground,
                             spellingErrors = uiState.spellingErrors,
                             onStartEditing = {
                                 component.reduce(MessageListComponent.Intent.StartEditing(idx))
@@ -249,7 +229,7 @@ fun MessageListContent(
                 if (uiState.canFetchMore && !uiState.isShowingGlobalProgress) {
                     CircularProgressIndicator(
                         modifier = Modifier.size(20.dp),
-                        color = MaterialTheme.colors.primary,
+                        color = MaterialTheme.colorScheme.primary,
                     )
                     if (!uiState.isLoading) {
                         component.reduce(MessageListComponent.Intent.LoadNextPage)
@@ -259,3 +239,4 @@ fun MessageListContent(
         }
     }
 }
+

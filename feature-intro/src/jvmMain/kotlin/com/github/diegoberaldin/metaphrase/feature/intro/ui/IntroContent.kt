@@ -5,8 +5,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Spacing
@@ -28,12 +28,12 @@ fun MainEmptyContent(
     ) {
         Text(
             text = "app_intro_title".localized(),
-            style = MaterialTheme.typography.h3,
+            style = MaterialTheme.typography.headlineSmall,
         )
         Spacer(Modifier.height(Spacing.s))
         Text(
             text = "app_intro_empty".localized(),
-            style = MaterialTheme.typography.h6,
+            style = MaterialTheme.typography.titleSmall,
         )
     }
 }

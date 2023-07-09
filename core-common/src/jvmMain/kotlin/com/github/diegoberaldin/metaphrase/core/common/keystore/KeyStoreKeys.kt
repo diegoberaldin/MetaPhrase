@@ -10,4 +10,5 @@ object KeyStoreKeys {
     const val LastOpenedProject = "lastOpenedProject"
     const val MachineTranslationProvider = "machineTranslationProvider"
     const val MachineTranslationKey = "machineTranslationKey"
+    const val DarkThemeEnabled = "darkThemeEnabled"
 }

@@ -9,8 +9,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -54,11 +54,11 @@ fun CustomTextField(
     hint: String = "",
     enabled: Boolean = true,
     secure: Boolean = false,
-    labelColor: Color = Color.White,
-    backgroundColor: Color = Color.White,
-    textColor: Color = Color.Black,
+    labelColor: Color = MaterialTheme.colorScheme.onBackground,
+    backgroundColor: Color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.1f),
+    textColor: Color = MaterialTheme.colorScheme.onBackground,
     labelExtraSpacing: Dp = 0.dp,
-    labelStyle: TextStyle = MaterialTheme.typography.caption,
+    labelStyle: TextStyle = MaterialTheme.typography.labelSmall,
     value: String,
     singleLine: Boolean = false,
     onValueChange: (String) -> Unit,
@@ -101,7 +101,7 @@ fun CustomTextField(
                 onValueChange(it.text)
             },
             cursorBrush = SolidColor(textColor),
-            textStyle = MaterialTheme.typography.caption.copy(color = textColor),
+            textStyle = MaterialTheme.typography.labelSmall.copy(color = textColor),
             singleLine = singleLine,
             enabled = enabled,
             visualTransformation = if (secure) PasswordVisualTransformation() else VisualTransformation.None,
@@ -113,7 +113,7 @@ fun CustomTextField(
                     if (hint.isNotEmpty() && textFieldValue.text.isEmpty()) {
                         Text(
                             text = hint,
-                            style = MaterialTheme.typography.caption,
+                            style = MaterialTheme.typography.labelSmall,
                             color = Color.Gray,
                         )
                     }

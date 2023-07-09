@@ -12,9 +12,9 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.onClick
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,7 +23,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.github.diegoberaldin.metaphrase.core.common.ui.theme.SelectedBackground
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Spacing
 
 /**
@@ -78,15 +77,15 @@ private fun Tab(
 ) {
     Row(
         modifier = modifier.background(
-            color = if (selected) SelectedBackground else Color.Transparent,
+            color = if (selected) MaterialTheme.colorScheme.onBackground.copy(alpha = 0.1f) else Color.Transparent,
             shape = RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp),
         ).padding(horizontal = Spacing.s, vertical = Spacing.s),
         verticalAlignment = Alignment.Bottom,
     ) {
         Text(
             text = label,
-            style = MaterialTheme.typography.body2.copy(fontSize = 13.sp),
-            color = Color.White,
+            style = MaterialTheme.typography.bodySmall.copy(fontSize = 13.sp),
+            color = MaterialTheme.colorScheme.onBackground,
         )
         if (rightIcon != null) {
             Spacer(Modifier.width(Spacing.m))
@@ -99,7 +98,7 @@ private fun Tab(
                     },
                 imageVector = rightIcon,
                 contentDescription = null,
-                tint = Color.White,
+                tint = MaterialTheme.colorScheme.onBackground,
             )
         }
     }

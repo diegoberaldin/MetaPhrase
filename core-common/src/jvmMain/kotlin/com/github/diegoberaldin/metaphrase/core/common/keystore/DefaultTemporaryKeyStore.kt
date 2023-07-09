@@ -28,16 +28,21 @@ internal class DefaultTemporaryKeyStore(
     private val scope = CoroutineScope(Dispatchers.Default)
     private val dataStore: DataStore<Preferences> = createDataStore()
 
-    private fun createDataStore(): DataStore<Preferences> =
-        PreferenceDataStoreFactory.create(
-            corruptionHandler = null,
-            migrations = emptyList(),
-            scope = scope,
-            produceFile = {
-                val path = fileManager.getFilePath(FILE_NAME)
-                File(path)
-            },
-        )
+    private fun createDataStore(): DataStore<Preferences> = PreferenceDataStoreFactory.create(
+        corruptionHandler = null,
+        migrations = emptyList(),
+        scope = scope,
+        produceFile = {
+            val path = fileManager.getFilePath(FILE_NAME)
+            File(path)
+        },
+    )
+
+    override suspend fun containsKey(key: String): Boolean = withTimeoutOrNull(500) {
+        dataStore.data.map {
+            it.asMap().keys.any { k -> k.name == key }
+        }.first()
+    } ?: false
 
     override suspend fun save(key: String, value: Boolean) {
         dataStore.edit {

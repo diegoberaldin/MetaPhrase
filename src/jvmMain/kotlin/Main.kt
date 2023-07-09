@@ -1,7 +1,8 @@
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -24,6 +25,8 @@ import com.github.diegoberaldin.metaphrase.core.common.keystore.KeyStoreKeys
 import com.github.diegoberaldin.metaphrase.core.common.keystore.TemporaryKeyStore
 import com.github.diegoberaldin.metaphrase.core.common.log.LogManager
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.MetaPhraseTheme
+import com.github.diegoberaldin.metaphrase.core.common.ui.theme.ThemeRepository
+import com.github.diegoberaldin.metaphrase.core.common.ui.theme.ThemeState
 import com.github.diegoberaldin.metaphrase.core.common.utils.getByInjection
 import com.github.diegoberaldin.metaphrase.core.common.utils.runOnUiThread
 import com.github.diegoberaldin.metaphrase.core.localization.L10n
@@ -96,6 +99,18 @@ fun main() {
         val windowState = rememberWindowState()
         LifecycleController(lifecycle, windowState)
 
+        // theme management
+        val useDarkTheme = isSystemInDarkTheme()
+        runBlocking {
+            val keystore: TemporaryKeyStore = getByInjection()
+            if (!keystore.containsKey(KeyStoreKeys.DarkThemeEnabled)) {
+                keystore.save(KeyStoreKeys.DarkThemeEnabled, useDarkTheme)
+            }
+            val darkModeEnabled = keystore.get(KeyStoreKeys.DarkThemeEnabled, false)
+            val themeRepository: ThemeRepository = getByInjection()
+            themeRepository.changeTheme(if (darkModeEnabled) ThemeState.Dark else ThemeState.Light)
+        }
+
         Window(
             onCloseRequest = {
                 if (rootComponent.hasUnsavedChanges()) {
@@ -118,7 +133,7 @@ fun main() {
             MetaPhraseTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize()
-                        .background(MaterialTheme.colors.background),
+                        .background(MaterialTheme.colorScheme.background),
                 ) {
                     RootContent(
                         component = rootComponent,

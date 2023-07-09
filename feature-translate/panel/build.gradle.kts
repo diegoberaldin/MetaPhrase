@@ -23,6 +23,8 @@ kotlin {
                 implementation(compose.desktop.currentOs)
                 implementation(compose.materialIconsExtended)
 
+                implementation(libs.compose.material3)
+
                 implementation(projects.coreCommon)
                 implementation(projects.coreLocalization)
             }

@@ -14,6 +14,8 @@ import com.github.diegoberaldin.metaphrase.core.common.architecture.MviModel
 import com.github.diegoberaldin.metaphrase.core.common.coroutines.CoroutineDispatcherProvider
 import com.github.diegoberaldin.metaphrase.core.common.keystore.KeyStoreKeys
 import com.github.diegoberaldin.metaphrase.core.common.keystore.TemporaryKeyStore
+import com.github.diegoberaldin.metaphrase.core.common.ui.theme.ThemeRepository
+import com.github.diegoberaldin.metaphrase.core.common.ui.theme.ThemeState
 import com.github.diegoberaldin.metaphrase.core.common.utils.getByInjection
 import com.github.diegoberaldin.metaphrase.core.localization.L10n
 import com.github.diegoberaldin.metaphrase.core.localization.localized
@@ -36,6 +38,7 @@ internal class DefaultSettingsComponent(
     private val completeLanguage: GetCompleteLanguageUseCase,
     private val keyStore: TemporaryKeyStore,
     private val machineTranslationRepository: MachineTranslationRepository,
+    private val themeRepository: ThemeRepository,
 ) : SettingsComponent,
     MviModel<SettingsComponent.Intent, SettingsComponent.UiState, SettingsComponent.Effect> by mvi,
     ComponentContext by componentContext {
@@ -83,6 +86,7 @@ internal class DefaultSettingsComponent(
                         completeLanguage(LanguageModel(code = l))
                     }
                     val currentProvider = MachineTranslationRepository.AVAILABLE_PROVIDERS[providerIndex]
+                    val darkModeEnabled = keyStore.get(KeyStoreKeys.DarkThemeEnabled, false)
                     mvi.updateState {
                         it.copy(
                             currentLanguage = currentLanguage,
@@ -94,6 +98,7 @@ internal class DefaultSettingsComponent(
                             availableLanguages = languages,
                             appVersion = version,
                             isLoading = false,
+                            darkModeEnabled = darkModeEnabled,
                         )
                     }
                 }
@@ -117,6 +122,8 @@ internal class DefaultSettingsComponent(
                 username = intent.username,
                 password = intent.password,
             )
+
+            is SettingsComponent.Intent.SetDarkMode -> setDarkMode(intent.value)
         }
     }
 
@@ -186,5 +193,17 @@ internal class DefaultSettingsComponent(
             setMachineTranslationKey(key)
             mvi.updateState { it.copy(isLoading = false) }
         }
+    }
+
+    private fun setDarkMode(enabled: Boolean) {
+        if (enabled) {
+            themeRepository.changeTheme(ThemeState.Dark)
+        } else {
+            themeRepository.changeTheme(ThemeState.Light)
+        }
+        viewModelScope.launch(dispatchers.io) {
+            keyStore.save(KeyStoreKeys.DarkThemeEnabled, enabled)
+        }
+        mvi.updateState { it.copy(darkModeEnabled = enabled) }
     }
 }

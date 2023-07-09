@@ -5,6 +5,14 @@ package com.github.diegoberaldin.metaphrase.core.common.keystore
  */
 interface TemporaryKeyStore {
     /**
+     * Determines whether the key store contains a given key.
+     *
+     * @param key Key to check
+     * @return true if the key store contains the key, false otherwise
+     */
+    suspend fun containsKey(key: String): Boolean
+
+    /**
      * Save a boolean value in the keystore under a given key.
      *
      * @param key Key

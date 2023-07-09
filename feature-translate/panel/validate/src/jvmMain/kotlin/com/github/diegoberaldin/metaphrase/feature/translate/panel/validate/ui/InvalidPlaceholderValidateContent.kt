@@ -10,8 +10,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.onClick
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
@@ -35,8 +35,8 @@ internal fun InvalidPlaceholderValidateContent(
     if (content.references.isEmpty()) {
         Text(
             text = "message_validation_valid".localized(),
-            style = MaterialTheme.typography.caption,
-            color = MaterialTheme.colors.onBackground,
+            style = MaterialTheme.typography.labelSmall,
+            color = MaterialTheme.colorScheme.onBackground,
         )
     } else {
         Column(
@@ -44,8 +44,8 @@ internal fun InvalidPlaceholderValidateContent(
         ) {
             Text(
                 text = "message_validation_invalid".localized(),
-                style = MaterialTheme.typography.caption,
-                color = MaterialTheme.colors.onBackground,
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.onBackground,
             )
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
@@ -58,20 +58,20 @@ internal fun InvalidPlaceholderValidateContent(
                         Text(
                             modifier = Modifier.weight(0.75f),
                             text = "column_invalid_key".localized(),
-                            style = MaterialTheme.typography.caption.copy(fontSize = 9.sp),
-                            color = MaterialTheme.colors.onBackground.copy(alpha = 0.9f),
+                            style = MaterialTheme.typography.labelSmall.copy(fontSize = 9.sp),
+                            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.9f),
                         )
                         Text(
                             modifier = Modifier.weight(1f),
                             text = "column_invalid_missing".localized(),
-                            style = MaterialTheme.typography.caption.copy(fontSize = 9.sp),
-                            color = MaterialTheme.colors.onBackground.copy(alpha = 0.9f),
+                            style = MaterialTheme.typography.labelSmall.copy(fontSize = 9.sp),
+                            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.9f),
                         )
                         Text(
                             modifier = Modifier.weight(1f),
                             text = "column_invalid_extra".localized(),
-                            style = MaterialTheme.typography.caption.copy(fontSize = 9.sp),
-                            color = MaterialTheme.colors.onBackground.copy(alpha = 0.9f),
+                            style = MaterialTheme.typography.labelSmall.copy(fontSize = 9.sp),
+                            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.9f),
                         )
                     }
                 }
@@ -87,21 +87,21 @@ internal fun InvalidPlaceholderValidateContent(
                         Text(
                             modifier = Modifier.weight(0.75f),
                             text = reference.key,
-                            style = MaterialTheme.typography.caption,
-                            color = MaterialTheme.colors.onBackground,
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onBackground,
                         )
                         Text(
                             modifier = Modifier.weight(1f),
                             text = reference.missingPlaceholders.joinToString(", "),
-                            style = MaterialTheme.typography.caption,
-                            color = MaterialTheme.colors.onBackground,
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onBackground,
                             overflow = TextOverflow.Ellipsis,
                         )
                         Text(
                             modifier = Modifier.weight(1f),
                             text = reference.extraPlaceholders.joinToString(", "),
-                            style = MaterialTheme.typography.caption,
-                            color = MaterialTheme.colors.onBackground,
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onBackground,
                             overflow = TextOverflow.Ellipsis,
                         )
                     }

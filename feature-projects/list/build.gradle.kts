@@ -23,6 +23,7 @@ kotlin {
                 implementation(compose.desktop.currentOs)
                 implementation(compose.materialIconsExtended)
 
+                implementation(libs.compose.material3)
                 implementation(libs.koin)
                 implementation(libs.decompose)
                 implementation(libs.decompose.extensions)

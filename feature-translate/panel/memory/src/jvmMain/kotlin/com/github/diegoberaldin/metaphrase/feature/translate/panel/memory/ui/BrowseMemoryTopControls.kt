@@ -8,14 +8,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.onClick
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.key
@@ -24,7 +25,6 @@ import androidx.compose.ui.input.key.type
 import androidx.compose.ui.unit.dp
 import com.github.diegoberaldin.metaphrase.core.common.ui.components.CustomSpinner
 import com.github.diegoberaldin.metaphrase.core.common.ui.components.CustomTextField
-import com.github.diegoberaldin.metaphrase.core.common.ui.theme.SelectedBackground
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Spacing
 import com.github.diegoberaldin.metaphrase.core.localization.localized
 import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
@@ -63,10 +63,10 @@ fun BrowseMemoryTopControls(
         // spinners
         val spinnerModifier = Modifier.width(140.dp)
             .height(elementHeight)
-            .background(color = SelectedBackground, shape = RoundedCornerShape(4.dp))
+            .background(color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.1f), shape = RoundedCornerShape(4.dp))
         CustomSpinner(
             modifier = spinnerModifier,
-            valueColor = MaterialTheme.colors.onBackground,
+            valueColor = MaterialTheme.colorScheme.onBackground,
             values = availableSourceLanguages.map { it.name },
             current = sourceLanguage?.name.orEmpty(),
             onValueChanged = {
@@ -76,7 +76,7 @@ fun BrowseMemoryTopControls(
         )
         CustomSpinner(
             modifier = spinnerModifier,
-            valueColor = MaterialTheme.colors.onBackground,
+            valueColor = MaterialTheme.colorScheme.onBackground,
             values = availableTargetLanguages.map { it.name },
             current = targetLanguage?.name.orEmpty(),
             onValueChanged = {
@@ -99,8 +99,8 @@ fun BrowseMemoryTopControls(
             hint = "toolbar_search_placeholder".localized(),
             singleLine = true,
             value = currentSearch,
-            backgroundColor = SelectedBackground,
-            textColor = MaterialTheme.colors.onBackground,
+            backgroundColor = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.1f),
+            textColor = MaterialTheme.colorScheme.onBackground,
             onValueChange = {
                 onSearchChanged(it)
             },

@@ -16,9 +16,9 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.onClick
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Minimize
 import androidx.compose.runtime.Composable
@@ -70,8 +70,8 @@ fun GlossaryContent(
             Text(
                 modifier = Modifier.align(Alignment.CenterStart),
                 text = "glossary_title".localized(),
-                style = MaterialTheme.typography.caption,
-                color = MaterialTheme.colors.onBackground,
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.onBackground,
             )
             CustomTooltipArea(
                 modifier = Modifier.align(Alignment.TopEnd),
@@ -98,7 +98,7 @@ fun GlossaryContent(
                     if (uiState.sourceFlag.isNotEmpty()) {
                         Text(
                             text = uiState.sourceFlag,
-                            style = MaterialTheme.typography.caption,
+                            style = MaterialTheme.typography.labelSmall,
                         )
                     }
                     TermChip(
@@ -119,7 +119,7 @@ fun GlossaryContent(
                         if (uiState.targetFlag.isNotEmpty()) {
                             Text(
                                 text = uiState.targetFlag,
-                                style = MaterialTheme.typography.caption,
+                                style = MaterialTheme.typography.labelSmall,
                             )
                         }
 

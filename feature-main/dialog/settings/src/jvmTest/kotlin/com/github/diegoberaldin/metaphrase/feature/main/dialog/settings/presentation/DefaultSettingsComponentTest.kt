@@ -9,6 +9,8 @@ import com.github.diegoberaldin.metaphrase.core.common.di.commonModule
 import com.github.diegoberaldin.metaphrase.core.common.keystore.KeyStoreKeys
 import com.github.diegoberaldin.metaphrase.core.common.keystore.TemporaryKeyStore
 import com.github.diegoberaldin.metaphrase.core.common.testutils.MockCoroutineDispatcherProvider
+import com.github.diegoberaldin.metaphrase.core.common.ui.theme.ThemeRepository
+import com.github.diegoberaldin.metaphrase.core.common.ui.theme.ThemeState
 import com.github.diegoberaldin.metaphrase.core.common.utils.configAsFlow
 import com.github.diegoberaldin.metaphrase.core.common.utils.runOnUiThread
 import com.github.diegoberaldin.metaphrase.core.localization.L10n
@@ -48,6 +50,7 @@ class DefaultSettingsComponentTest {
     private val mockCompleteLanguage = mockk<GetCompleteLanguageUseCase>()
     private val mockKeyStore = mockk<TemporaryKeyStore>()
     private val mockMachineTranslationRepository = mockk<MachineTranslationRepository>()
+    private val mockThemeRepository = mockk<ThemeRepository>()
     private val sut = DefaultSettingsComponent(
         componentContext = DefaultComponentContext(lifecycle = lifecycle),
         coroutineContext = TestScope().coroutineContext,
@@ -55,6 +58,7 @@ class DefaultSettingsComponentTest {
         completeLanguage = mockCompleteLanguage,
         keyStore = mockKeyStore,
         machineTranslationRepository = mockMachineTranslationRepository,
+        themeRepository = mockThemeRepository,
     )
 
     init {
@@ -77,6 +81,7 @@ class DefaultSettingsComponentTest {
         coEvery { mockKeyStore.get(KeyStoreKeys.SimilarityThreshold, any<Int>()) } returns 70
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationProvider, any<Int>()) } returns 0
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationKey, any<String>()) } returns "key"
+        coEvery { mockKeyStore.get(KeyStoreKeys.DarkThemeEnabled, any<Boolean>()) } returns true
         lifecycle.create()
 
         val uiState = sut.uiState.value
@@ -88,10 +93,11 @@ class DefaultSettingsComponentTest {
         assertTrue(uiState.availableLanguages.isNotEmpty())
         assertNotNull(uiState.currentLanguage)
         assertEquals("en", uiState.currentLanguage?.code)
+        assertTrue(uiState.darkModeEnabled)
     }
 
     @Test
-    fun givenComponentCreatedWhenSetLanguageThenValuesAreRetrieved() = runTest {
+    fun givenComponentCreatedWhenSetLanguageThenValueIsUpdated() = runTest {
         val languageSlot = slot<LanguageModel>()
         every { mockCompleteLanguage.invoke(capture(languageSlot)) } answers {
             val original = languageSlot.captured
@@ -101,6 +107,7 @@ class DefaultSettingsComponentTest {
         coEvery { mockKeyStore.get(KeyStoreKeys.SimilarityThreshold, any<Int>()) } returns 70
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationProvider, any<Int>()) } returns 0
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationKey, any<String>()) } returns "key"
+        coEvery { mockKeyStore.get(KeyStoreKeys.DarkThemeEnabled, any<Boolean>()) } returns true
         coEvery { mockKeyStore.save(any(), any<String>()) } returns Unit
         lifecycle.create()
 
@@ -111,7 +118,7 @@ class DefaultSettingsComponentTest {
     }
 
     @Test
-    fun givenComponentCreatedWhenSetSimilarityThenValuesAreRetrieved() = runTest {
+    fun givenComponentCreatedWhenSetSimilarityThenValueIsUpdated() = runTest {
         val languageSlot = slot<LanguageModel>()
         every { mockCompleteLanguage.invoke(capture(languageSlot)) } answers {
             val original = languageSlot.captured
@@ -121,6 +128,7 @@ class DefaultSettingsComponentTest {
         coEvery { mockKeyStore.get(KeyStoreKeys.SimilarityThreshold, any<Int>()) } returns 70
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationProvider, any<Int>()) } returns 0
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationKey, any<String>()) } returns "key"
+        coEvery { mockKeyStore.get(KeyStoreKeys.DarkThemeEnabled, any<Boolean>()) } returns true
         coEvery { mockKeyStore.save(any(), any<Int>()) } returns Unit
         lifecycle.create()
 
@@ -131,7 +139,7 @@ class DefaultSettingsComponentTest {
     }
 
     @Test
-    fun givenComponentCreatedWhenSetSpellcheckEnabledThenValuesAreRetrieved() = runTest {
+    fun givenComponentCreatedWhenSetSpellcheckEnabledThenValueIsUpdated() = runTest {
         val languageSlot = slot<LanguageModel>()
         every { mockCompleteLanguage.invoke(capture(languageSlot)) } answers {
             val original = languageSlot.captured
@@ -141,6 +149,7 @@ class DefaultSettingsComponentTest {
         coEvery { mockKeyStore.get(KeyStoreKeys.SimilarityThreshold, any<Int>()) } returns 70
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationProvider, any<Int>()) } returns 0
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationKey, any<String>()) } returns "key"
+        coEvery { mockKeyStore.get(KeyStoreKeys.DarkThemeEnabled, any<Boolean>()) } returns true
         coEvery { mockKeyStore.save(any(), any<Boolean>()) } returns Unit
         lifecycle.create()
 
@@ -151,7 +160,7 @@ class DefaultSettingsComponentTest {
     }
 
     @Test
-    fun givenComponentCreatedWhenSetMachineTranslationProviderThenValuesAreRetrieved() = runTest {
+    fun givenComponentCreatedWhenSetMachineTranslationProviderThenValueIsUpdated() = runTest {
         val languageSlot = slot<LanguageModel>()
         every { mockCompleteLanguage.invoke(capture(languageSlot)) } answers {
             val original = languageSlot.captured
@@ -161,6 +170,7 @@ class DefaultSettingsComponentTest {
         coEvery { mockKeyStore.get(KeyStoreKeys.SimilarityThreshold, any<Int>()) } returns 70
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationProvider, any<Int>()) } returns 0
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationKey, any<String>()) } returns "key"
+        coEvery { mockKeyStore.get(KeyStoreKeys.DarkThemeEnabled, any<Boolean>()) } returns true
         coEvery { mockKeyStore.save(any(), any<Int>()) } returns Unit
         lifecycle.create()
 
@@ -172,7 +182,7 @@ class DefaultSettingsComponentTest {
     }
 
     @Test
-    fun givenComponentCreatedWhenSetMachineTranslationKeyThenValuesAreRetrieved() = runTest {
+    fun givenComponentCreatedWhenSetMachineTranslationKeyThenValueIsUpdated() = runTest {
         val languageSlot = slot<LanguageModel>()
         every { mockCompleteLanguage.invoke(capture(languageSlot)) } answers {
             val original = languageSlot.captured
@@ -182,6 +192,7 @@ class DefaultSettingsComponentTest {
         coEvery { mockKeyStore.get(KeyStoreKeys.SimilarityThreshold, any<Int>()) } returns 70
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationProvider, any<Int>()) } returns 0
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationKey, any<String>()) } returns "key"
+        coEvery { mockKeyStore.get(KeyStoreKeys.DarkThemeEnabled, any<Boolean>()) } returns true
         coEvery { mockKeyStore.save(any(), any<String>()) } returns Unit
         lifecycle.create()
 
@@ -193,7 +204,7 @@ class DefaultSettingsComponentTest {
     }
 
     @Test
-    fun givenComponentCreatedWhenGenerateMachineTranslationKeyThenValuesAreRetrieved() = runTest {
+    fun givenComponentCreatedWhenGenerateMachineTranslationKeyThenValueIsUpdated() = runTest {
         val languageSlot = slot<LanguageModel>()
         every { mockCompleteLanguage.invoke(capture(languageSlot)) } answers {
             val original = languageSlot.captured
@@ -203,6 +214,7 @@ class DefaultSettingsComponentTest {
         coEvery { mockKeyStore.get(KeyStoreKeys.SimilarityThreshold, any<Int>()) } returns 70
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationProvider, any<Int>()) } returns 0
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationKey, any<String>()) } returns "key"
+        coEvery { mockKeyStore.get(KeyStoreKeys.DarkThemeEnabled, any<Boolean>()) } returns true
         coEvery { mockKeyStore.save(any(), any<String>()) } returns Unit
         coEvery { mockMachineTranslationRepository.generateKey(any(), any(), any()) } returns "new_key"
         lifecycle.create()
@@ -224,6 +236,7 @@ class DefaultSettingsComponentTest {
         coEvery { mockKeyStore.get(KeyStoreKeys.SimilarityThreshold, any<Int>()) } returns 70
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationProvider, any<Int>()) } returns 0
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationKey, any<String>()) } returns "key"
+        coEvery { mockKeyStore.get(KeyStoreKeys.DarkThemeEnabled, any<Boolean>()) } returns true
         lifecycle.create()
 
         runOnUiThread {
@@ -247,6 +260,7 @@ class DefaultSettingsComponentTest {
         coEvery { mockKeyStore.get(KeyStoreKeys.SimilarityThreshold, any<Int>()) } returns 70
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationProvider, any<Int>()) } returns 0
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationKey, any<String>()) } returns "key"
+        coEvery { mockKeyStore.get(KeyStoreKeys.DarkThemeEnabled, any<Boolean>()) } returns true
         lifecycle.create()
 
         runOnUiThread {
@@ -257,5 +271,28 @@ class DefaultSettingsComponentTest {
             val item = awaitItem()
             assertIs<SettingsComponent.DialogConfig.None>(item)
         }
+    }
+
+    @Test
+    fun givenComponentCreatedWhenSetDarkModeDisabledThenValueIsUpdated() = runTest {
+        val languageSlot = slot<LanguageModel>()
+        every { mockCompleteLanguage.invoke(capture(languageSlot)) } answers {
+            val original = languageSlot.captured
+            original.copy(name = original.code)
+        }
+        coEvery { mockKeyStore.get(KeyStoreKeys.SpellcheckEnabled, any<Boolean>()) } returns true
+        coEvery { mockKeyStore.get(KeyStoreKeys.SimilarityThreshold, any<Int>()) } returns 70
+        coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationProvider, any<Int>()) } returns 0
+        coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationKey, any<String>()) } returns "key"
+        coEvery { mockKeyStore.get(KeyStoreKeys.DarkThemeEnabled, any<Boolean>()) } returns true
+        coEvery { mockKeyStore.save(any(), any<Boolean>()) } returns Unit
+        coEvery { mockThemeRepository.changeTheme(any()) } returns Unit
+        lifecycle.create()
+
+        sut.reduce(SettingsComponent.Intent.SetDarkMode(false))
+        val uiState = sut.uiState.value
+        assertEquals(false, uiState.darkModeEnabled)
+        coVerify { mockKeyStore.save(KeyStoreKeys.DarkThemeEnabled, false) }
+        coVerify { mockThemeRepository.changeTheme(ThemeState.Light) }
     }
 }

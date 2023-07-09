@@ -15,9 +15,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.onClick
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Minimize
@@ -57,8 +57,8 @@ fun BrowseMemoryContent(
             Text(
                 modifier = Modifier.align(Alignment.CenterStart),
                 text = "memory_content_title".localized(),
-                style = MaterialTheme.typography.caption,
-                color = MaterialTheme.colors.onBackground,
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.onBackground,
             )
             CustomTooltipArea(
                 modifier = Modifier.align(Alignment.TopEnd),
@@ -110,8 +110,8 @@ fun BrowseMemoryContent(
                     ) {
                         Text(
                             text = entry.sourceText,
-                            style = MaterialTheme.typography.caption,
-                            color = Color.White,
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onBackground,
                         )
                     }
 
@@ -126,8 +126,8 @@ fun BrowseMemoryContent(
                     ) {
                         Text(
                             text = entry.targetText,
-                            style = MaterialTheme.typography.caption,
-                            color = Color.White,
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onBackground,
                         )
                     }
 
@@ -137,8 +137,8 @@ fun BrowseMemoryContent(
                     ) {
                         Text(
                             text = "translation_memory_origin".localized(entry.origin),
-                            style = MaterialTheme.typography.caption.copy(fontSize = 10.sp),
-                            color = MaterialTheme.colors.onBackground.copy(alpha = 0.9f),
+                            style = MaterialTheme.typography.labelSmall.copy(fontSize = 10.sp),
+                            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.9f),
                         )
                         Spacer(modifier = Modifier.weight(1f))
 

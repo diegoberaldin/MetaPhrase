@@ -10,9 +10,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -48,15 +48,15 @@ fun CustomDialog(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(color = MaterialTheme.colors.background)
+                .background(color = MaterialTheme.colorScheme.background)
                 .padding(Spacing.s),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
                 text = message,
                 textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.body2,
-                color = MaterialTheme.colors.onBackground,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onBackground,
             )
             Spacer(modifier = Modifier.height(Spacing.xs))
             Row(
@@ -73,7 +73,7 @@ fun CustomDialog(
                     ) {
                         Text(
                             text = text,
-                            style = MaterialTheme.typography.button,
+                            style = MaterialTheme.typography.labelLarge,
                         )
                     }
                 }

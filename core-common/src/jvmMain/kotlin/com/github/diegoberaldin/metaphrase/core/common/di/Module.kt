@@ -7,6 +7,8 @@ import com.github.diegoberaldin.metaphrase.core.common.log.DefaultLogManager
 import com.github.diegoberaldin.metaphrase.core.common.log.LogManager
 import com.github.diegoberaldin.metaphrase.core.common.notification.DefaultNotificationCenter
 import com.github.diegoberaldin.metaphrase.core.common.notification.NotificationCenter
+import com.github.diegoberaldin.metaphrase.core.common.ui.theme.DefaultThemeRepository
+import com.github.diegoberaldin.metaphrase.core.common.ui.theme.ThemeRepository
 import org.koin.dsl.module
 
 /**
@@ -27,5 +29,8 @@ val commonModule = module {
     }
     single<LogManager> {
         DefaultLogManager(fileManager = get())
+    }
+    single<ThemeRepository> {
+        DefaultThemeRepository()
     }
 }

@@ -16,12 +16,12 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.onClick
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.Minimize
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -72,8 +72,8 @@ fun TranslationMemoryContent(
             Text(
                 modifier = Modifier.align(Alignment.CenterStart),
                 text = "translation_memory_title".localized(),
-                style = MaterialTheme.typography.caption,
-                color = MaterialTheme.colors.onBackground,
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.onBackground,
             )
             CustomTooltipArea(
                 modifier = Modifier.align(Alignment.TopEnd),
@@ -93,8 +93,8 @@ fun TranslationMemoryContent(
                 item {
                     Text(
                         text = "message_no_item_to_display".localized(),
-                        style = MaterialTheme.typography.caption,
-                        color = MaterialTheme.colors.onBackground,
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.onBackground,
                     )
                 }
             }
@@ -111,8 +111,8 @@ fun TranslationMemoryContent(
                     ) {
                         Text(
                             text = unit.original?.text.orEmpty(),
-                            style = MaterialTheme.typography.caption,
-                            color = Color.White,
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onBackground,
                         )
                     }
 
@@ -127,8 +127,8 @@ fun TranslationMemoryContent(
                     ) {
                         Text(
                             text = unit.segment.text,
-                            style = MaterialTheme.typography.caption,
-                            color = Color.White,
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onBackground,
                         )
                     }
 
@@ -138,15 +138,15 @@ fun TranslationMemoryContent(
                     ) {
                         Text(
                             text = "translation_memory_similarity".localized(unit.similarity),
-                            style = MaterialTheme.typography.caption.copy(fontSize = 10.sp),
-                            color = MaterialTheme.colors.onBackground.copy(alpha = 0.9f),
+                            style = MaterialTheme.typography.labelSmall.copy(fontSize = 10.sp),
+                            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.9f),
                         )
                         if (unit.origin.isNotEmpty()) {
                             Spacer(modifier = Modifier.width(Spacing.xs))
                             Text(
                                 text = "translation_memory_origin".localized(unit.origin),
-                                style = MaterialTheme.typography.caption.copy(fontSize = 10.sp),
-                                color = MaterialTheme.colors.onBackground.copy(alpha = 0.9f),
+                                style = MaterialTheme.typography.labelSmall.copy(fontSize = 10.sp),
+                                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.9f),
                             )
                         }
                         Spacer(modifier = Modifier.weight(1f))

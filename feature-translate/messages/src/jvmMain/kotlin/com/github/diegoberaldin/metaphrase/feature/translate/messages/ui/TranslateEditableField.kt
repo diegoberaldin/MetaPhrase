@@ -2,7 +2,7 @@ package com.github.diegoberaldin.metaphrase.feature.translate.messages.ui
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -31,6 +31,7 @@ import com.github.diegoberaldin.metaphrase.domain.spellcheck.data.SpellCheckCorr
  * @param active flag indicating whether this is the currently edited segment
  * @param updateTextSwitch flag to trigger text updates programmatically
  * @param enabled flag indicating whether this field should be enabled
+ * @param textColor color of the text and cursor
  * @param spellingErrors list of spelling errors detected
  * @param onStartEditing on start editing callback
  * @param onTextChanged on text changed callback
@@ -44,6 +45,7 @@ fun TranslateEditableField(
     active: Boolean = false,
     updateTextSwitch: Boolean = false,
     enabled: Boolean = true,
+    textColor: Color = MaterialTheme.colorScheme.onPrimary,
     spellingErrors: List<SpellCheckCorrection> = emptyList(),
     onStartEditing: () -> Unit = {},
     onTextChanged: (String) -> Unit = {},
@@ -108,8 +110,8 @@ fun TranslateEditableField(
                     }
                 },
             enabled = enabled,
-            textStyle = MaterialTheme.typography.caption.copy(color = Color.White),
-            cursorBrush = SolidColor(Color.White),
+            textStyle = MaterialTheme.typography.bodySmall.copy(color = textColor),
+            cursorBrush = SolidColor(textColor),
             value = value,
             onValueChange = {
                 value = value.copy(

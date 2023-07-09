@@ -13,13 +13,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.onClick
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material.DropdownMenu
-import androidx.compose.material.DropdownMenuItem
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowDropDown
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -55,7 +55,7 @@ fun CustomSpinner(
     modifier: Modifier = Modifier,
     size: DpSize = DpSize(width = 150.dp, height = 20.dp),
     onValueChanged: ((Int) -> Unit)? = null,
-    valueColor: Color = Color.Black,
+    valueColor: Color = MaterialTheme.colorScheme.onBackground,
 ) {
     var expanded by remember {
         mutableStateOf(false)
@@ -67,7 +67,7 @@ fun CustomSpinner(
         BasicTextField(
             modifier = Modifier.matchParentSize(),
             value = current ?: "",
-            textStyle = MaterialTheme.typography.caption.copy(color = valueColor),
+            textStyle = MaterialTheme.typography.labelSmall.copy(color = valueColor),
             readOnly = true,
             onValueChange = {},
             decorationBox = { innerTextField ->
@@ -86,10 +86,10 @@ fun CustomSpinner(
         )
         DropdownMenu(
             modifier = Modifier.width(size.width)
-                .background(Color.White)
+                .background(MaterialTheme.colorScheme.background)
                 .border(
                     width = Dp.Hairline,
-                    color = MaterialTheme.colors.background,
+                    color = MaterialTheme.colorScheme.background,
                     shape = RoundedCornerShape(4.dp),
                 ),
             expanded = expanded,
@@ -103,7 +103,7 @@ fun CustomSpinner(
             values.forEachIndexed { idx, value ->
                 DropdownMenuItem(
                     modifier = Modifier
-                        .background(color = if (value == hoveredValue) Color.Blue else Color.Transparent)
+                        .background(color = if (value == hoveredValue) MaterialTheme.colorScheme.secondary else Color.Transparent)
                         .fillMaxWidth().height(24.dp)
                         .onPointerEvent(PointerEventType.Enter) { hoveredValue = value }
                         .onPointerEvent(PointerEventType.Exit) { hoveredValue = null }
@@ -112,13 +112,14 @@ fun CustomSpinner(
                         onValueChanged?.invoke(idx)
                         expanded = false
                     },
-                ) {
-                    Text(
-                        text = value,
-                        style = MaterialTheme.typography.caption,
-                        color = if (value == hoveredValue) Color.White else Color.Black,
-                    )
-                }
+                    text = {
+                        Text(
+                            text = value,
+                            style = MaterialTheme.typography.labelSmall,
+                            color = if (value == hoveredValue) MaterialTheme.colorScheme.onSecondary else valueColor,
+                        )
+                    },
+                )
             }
         }
         Spacer(

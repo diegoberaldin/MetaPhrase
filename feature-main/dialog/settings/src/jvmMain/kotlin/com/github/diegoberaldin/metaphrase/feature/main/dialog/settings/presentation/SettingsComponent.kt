@@ -70,6 +70,8 @@ interface SettingsComponent :
          * @param password user's password
          */
         data class GenerateMachineTranslationKey(val username: String, val password: String) : Intent
+
+        data class SetDarkMode(val value: Boolean) : Intent
     }
 
     /**
@@ -97,6 +99,7 @@ interface SettingsComponent :
         val isLoading: Boolean = false,
         val similarityThreshold: String = "",
         val spellcheckEnabled: Boolean = false,
+        val darkModeEnabled: Boolean = false,
         val appVersion: String = "",
         val availableProviders: List<MachineTranslationProvider> = emptyList(),
         val currentProvider: MachineTranslationProvider? = null,

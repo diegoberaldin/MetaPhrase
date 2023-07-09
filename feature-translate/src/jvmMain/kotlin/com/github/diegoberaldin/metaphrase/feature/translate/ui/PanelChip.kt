@@ -5,12 +5,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.onClick
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.github.diegoberaldin.metaphrase.core.common.ui.theme.SelectedBackground
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Spacing
 
 /**
@@ -30,7 +30,7 @@ internal fun PanelChip(
 ) {
     Text(
         modifier = Modifier.background(
-            color = SelectedBackground,
+            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.1f),
             shape = RoundedCornerShape(4.dp),
         )
             .padding(vertical = Spacing.xs, horizontal = Spacing.s)
@@ -38,8 +38,8 @@ internal fun PanelChip(
                 onActivate()
             },
         text = title,
-        style = MaterialTheme.typography.caption,
-        color = MaterialTheme.colors.onBackground.copy(
+        style = MaterialTheme.typography.labelSmall,
+        color = MaterialTheme.colorScheme.onBackground.copy(
             alpha = if (isActive) 1f else 0.7f,
         ),
     )

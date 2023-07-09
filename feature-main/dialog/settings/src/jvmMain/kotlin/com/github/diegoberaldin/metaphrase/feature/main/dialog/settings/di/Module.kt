@@ -16,6 +16,7 @@ val dialogSettingsModule = module {
             completeLanguage = get(),
             machineTranslationRepository = get(),
             keyStore = get(),
+            themeRepository = get(),
         )
     }
 }
