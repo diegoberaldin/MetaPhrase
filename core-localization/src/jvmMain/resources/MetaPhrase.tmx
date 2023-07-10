@@ -3953,6 +3953,102 @@
 				</seg>
 			</tuv>
 		</tu>
+		<tu tuid="settings_tab_appearance">
+			<tuv xml:lang="en">
+				<seg>
+					Appearance
+				</seg>
+			</tuv>
+			<tuv xml:lang="it">
+				<seg>
+					Aspetto
+				</seg>
+			</tuv>
+			<tuv xml:lang="de">
+				<seg>
+					Aussehen
+				</seg>
+			</tuv>
+			<tuv xml:lang="fr">
+				<seg>
+					Apparence
+				</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>
+					Aspecto
+				</seg>
+			</tuv>
+			<tuv xml:lang="pt">
+				<seg>
+					Aparência
+				</seg>
+			</tuv>
+		</tu>
+		<tu tuid="settings_tab_general">
+			<tuv xml:lang="en">
+				<seg>
+					General
+				</seg>
+			</tuv>
+			<tuv xml:lang="it">
+				<seg>
+					Generali
+				</seg>
+			</tuv>
+			<tuv xml:lang="de">
+				<seg>
+					Allgemein
+				</seg>
+			</tuv>
+			<tuv xml:lang="fr">
+				<seg>
+					Généralités
+				</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>
+					Generales
+				</seg>
+			</tuv>
+			<tuv xml:lang="pt">
+				<seg>
+					Gerais
+				</seg>
+			</tuv>
+		</tu>
+		<tu tuid="settings_tab_general_machine_translation">
+			<tuv xml:lang="en">
+				<seg>
+					Machine translation
+				</seg>
+			</tuv>
+			<tuv xml:lang="it">
+				<seg>
+					Trad. automatica
+				</seg>
+			</tuv>
+			<tuv xml:lang="de">
+				<seg>
+					Maschinelle Übersetzung
+				</seg>
+			</tuv>
+			<tuv xml:lang="fr">
+				<seg>
+					Traduction automatique
+				</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>
+					Traducción automática
+				</seg>
+			</tuv>
+			<tuv xml:lang="pt">
+				<seg>
+					Tradução automática
+				</seg>
+			</tuv>
+		</tu>
 		<tu tuid="status_bar_units">
 			<tuv xml:lang="en">
 				<seg>
@@ -4782,6 +4878,13 @@
 			<tuv xml:lang="pt">
 				<seg>
 					Não traduzido
+				</seg>
+			</tuv>
+		</tu>
+		<tu tuid="unit_pt">
+			<tuv xml:lang="en">
+				<seg>
+					pt
 				</seg>
 			</tuv>
 		</tu>

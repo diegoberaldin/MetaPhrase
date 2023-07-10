@@ -84,7 +84,7 @@ private fun Tab(
     ) {
         Text(
             text = label,
-            style = MaterialTheme.typography.bodySmall.copy(fontSize = 13.sp),
+            style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onBackground,
         )
         if (rightIcon != null) {

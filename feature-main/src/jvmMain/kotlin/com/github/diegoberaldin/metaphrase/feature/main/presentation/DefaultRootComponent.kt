@@ -27,7 +27,7 @@ import com.github.diegoberaldin.metaphrase.domain.project.usecase.OpenProjectUse
 import com.github.diegoberaldin.metaphrase.domain.tm.usecase.ClearTmUseCase
 import com.github.diegoberaldin.metaphrase.domain.tm.usecase.ImportTmxUseCase
 import com.github.diegoberaldin.metaphrase.feature.intro.presentation.IntroComponent
-import com.github.diegoberaldin.metaphrase.feature.main.dialog.settings.presentation.SettingsComponent
+import com.github.diegoberaldin.metaphrase.feature.main.dialog.settings.main.presentation.SettingsComponent
 import com.github.diegoberaldin.metaphrase.feature.projects.dialog.newproject.presentation.CreateProjectComponent
 import com.github.diegoberaldin.metaphrase.feature.projects.presentation.ProjectsComponent
 import com.github.diegoberaldin.metaphrase.feature.projectsdialog.statistics.presentation.StatisticsComponent
