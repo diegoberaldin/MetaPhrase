@@ -46,6 +46,7 @@ kotlin {
                 implementation(libs.mockk)
                 implementation(libs.turbine)
                 implementation(projects.coreCommon.testutils)
+                implementation(projects.domainLanguage)
             }
         }
     }
