@@ -1,5 +1,6 @@
 package com.github.diegoberaldin.metaphrase.feature.main.dialog.settings.presentation
 
+import androidx.compose.ui.unit.sp
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.slot.ChildSlot
 import com.arkivanov.decompose.router.slot.SlotNavigation
@@ -16,6 +17,7 @@ import com.github.diegoberaldin.metaphrase.core.common.keystore.KeyStoreKeys
 import com.github.diegoberaldin.metaphrase.core.common.keystore.TemporaryKeyStore
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.ThemeRepository
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.ThemeState
+import com.github.diegoberaldin.metaphrase.core.common.ui.theme.TranslationThemeRepository
 import com.github.diegoberaldin.metaphrase.core.common.utils.getByInjection
 import com.github.diegoberaldin.metaphrase.core.localization.L10n
 import com.github.diegoberaldin.metaphrase.core.localization.localized
@@ -39,6 +41,7 @@ internal class DefaultSettingsComponent(
     private val keyStore: TemporaryKeyStore,
     private val machineTranslationRepository: MachineTranslationRepository,
     private val themeRepository: ThemeRepository,
+    private val translationThemeRepository: TranslationThemeRepository,
 ) : SettingsComponent,
     MviModel<SettingsComponent.Intent, SettingsComponent.UiState, SettingsComponent.Effect> by mvi,
     ComponentContext by componentContext {
@@ -87,6 +90,7 @@ internal class DefaultSettingsComponent(
                     }
                     val currentProvider = MachineTranslationRepository.AVAILABLE_PROVIDERS[providerIndex]
                     val darkModeEnabled = keyStore.get(KeyStoreKeys.DarkThemeEnabled, false)
+                    val editorFontSize = keyStore.get(KeyStoreKeys.TranslationEditorFontSize, 14).toString()
                     mvi.updateState {
                         it.copy(
                             currentLanguage = currentLanguage,
@@ -99,6 +103,7 @@ internal class DefaultSettingsComponent(
                             appVersion = version,
                             isLoading = false,
                             darkModeEnabled = darkModeEnabled,
+                            editorFontSize = editorFontSize,
                         )
                     }
                 }
@@ -124,6 +129,7 @@ internal class DefaultSettingsComponent(
             )
 
             is SettingsComponent.Intent.SetDarkMode -> setDarkMode(intent.value)
+            is SettingsComponent.Intent.SetEditorFontSize -> setEditorFontSize(intent.value)
         }
     }
 
@@ -205,5 +211,16 @@ internal class DefaultSettingsComponent(
             keyStore.save(KeyStoreKeys.DarkThemeEnabled, enabled)
         }
         mvi.updateState { it.copy(darkModeEnabled = enabled) }
+    }
+
+    private fun setEditorFontSize(value: Int) {
+        val newStyle = translationThemeRepository.textStyle.value.copy(
+            fontSize = value.sp,
+        )
+        translationThemeRepository.changeTextStyle(newStyle)
+        viewModelScope.launch(dispatchers.io) {
+            keyStore.save(KeyStoreKeys.TranslationEditorFontSize, value)
+        }
+        mvi.updateState { it.copy(editorFontSize = value.toString()) }
     }
 }

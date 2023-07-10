@@ -1,5 +1,8 @@
 package com.github.diegoberaldin.metaphrase.feature.main.dialog.settings.presentation
 
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 import app.cash.turbine.test
 import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
@@ -9,8 +12,10 @@ import com.github.diegoberaldin.metaphrase.core.common.di.commonModule
 import com.github.diegoberaldin.metaphrase.core.common.keystore.KeyStoreKeys
 import com.github.diegoberaldin.metaphrase.core.common.keystore.TemporaryKeyStore
 import com.github.diegoberaldin.metaphrase.core.common.testutils.MockCoroutineDispatcherProvider
+import com.github.diegoberaldin.metaphrase.core.common.ui.theme.AppFontFamily
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.ThemeRepository
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.ThemeState
+import com.github.diegoberaldin.metaphrase.core.common.ui.theme.TranslationThemeRepository
 import com.github.diegoberaldin.metaphrase.core.common.utils.configAsFlow
 import com.github.diegoberaldin.metaphrase.core.common.utils.runOnUiThread
 import com.github.diegoberaldin.metaphrase.core.localization.L10n
@@ -23,6 +28,7 @@ import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.slot
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
 import org.koin.core.context.startKoin
@@ -51,6 +57,7 @@ class DefaultSettingsComponentTest {
     private val mockKeyStore = mockk<TemporaryKeyStore>()
     private val mockMachineTranslationRepository = mockk<MachineTranslationRepository>()
     private val mockThemeRepository = mockk<ThemeRepository>()
+    private val mockTranslationThemeRepository = mockk<TranslationThemeRepository>()
     private val sut = DefaultSettingsComponent(
         componentContext = DefaultComponentContext(lifecycle = lifecycle),
         coroutineContext = TestScope().coroutineContext,
@@ -59,6 +66,7 @@ class DefaultSettingsComponentTest {
         keyStore = mockKeyStore,
         machineTranslationRepository = mockMachineTranslationRepository,
         themeRepository = mockThemeRepository,
+        translationThemeRepository = mockTranslationThemeRepository,
     )
 
     init {
@@ -82,6 +90,7 @@ class DefaultSettingsComponentTest {
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationProvider, any<Int>()) } returns 0
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationKey, any<String>()) } returns "key"
         coEvery { mockKeyStore.get(KeyStoreKeys.DarkThemeEnabled, any<Boolean>()) } returns true
+        coEvery { mockKeyStore.get(KeyStoreKeys.TranslationEditorFontSize, any<Int>()) } returns 14
         lifecycle.create()
 
         val uiState = sut.uiState.value
@@ -108,6 +117,7 @@ class DefaultSettingsComponentTest {
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationProvider, any<Int>()) } returns 0
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationKey, any<String>()) } returns "key"
         coEvery { mockKeyStore.get(KeyStoreKeys.DarkThemeEnabled, any<Boolean>()) } returns true
+        coEvery { mockKeyStore.get(KeyStoreKeys.TranslationEditorFontSize, any<Int>()) } returns 14
         coEvery { mockKeyStore.save(any(), any<String>()) } returns Unit
         lifecycle.create()
 
@@ -129,6 +139,7 @@ class DefaultSettingsComponentTest {
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationProvider, any<Int>()) } returns 0
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationKey, any<String>()) } returns "key"
         coEvery { mockKeyStore.get(KeyStoreKeys.DarkThemeEnabled, any<Boolean>()) } returns true
+        coEvery { mockKeyStore.get(KeyStoreKeys.TranslationEditorFontSize, any<Int>()) } returns 14
         coEvery { mockKeyStore.save(any(), any<Int>()) } returns Unit
         lifecycle.create()
 
@@ -150,6 +161,7 @@ class DefaultSettingsComponentTest {
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationProvider, any<Int>()) } returns 0
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationKey, any<String>()) } returns "key"
         coEvery { mockKeyStore.get(KeyStoreKeys.DarkThemeEnabled, any<Boolean>()) } returns true
+        coEvery { mockKeyStore.get(KeyStoreKeys.TranslationEditorFontSize, any<Int>()) } returns 14
         coEvery { mockKeyStore.save(any(), any<Boolean>()) } returns Unit
         lifecycle.create()
 
@@ -171,6 +183,7 @@ class DefaultSettingsComponentTest {
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationProvider, any<Int>()) } returns 0
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationKey, any<String>()) } returns "key"
         coEvery { mockKeyStore.get(KeyStoreKeys.DarkThemeEnabled, any<Boolean>()) } returns true
+        coEvery { mockKeyStore.get(KeyStoreKeys.TranslationEditorFontSize, any<Int>()) } returns 14
         coEvery { mockKeyStore.save(any(), any<Int>()) } returns Unit
         lifecycle.create()
 
@@ -193,6 +206,7 @@ class DefaultSettingsComponentTest {
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationProvider, any<Int>()) } returns 0
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationKey, any<String>()) } returns "key"
         coEvery { mockKeyStore.get(KeyStoreKeys.DarkThemeEnabled, any<Boolean>()) } returns true
+        coEvery { mockKeyStore.get(KeyStoreKeys.TranslationEditorFontSize, any<Int>()) } returns 14
         coEvery { mockKeyStore.save(any(), any<String>()) } returns Unit
         lifecycle.create()
 
@@ -215,6 +229,7 @@ class DefaultSettingsComponentTest {
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationProvider, any<Int>()) } returns 0
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationKey, any<String>()) } returns "key"
         coEvery { mockKeyStore.get(KeyStoreKeys.DarkThemeEnabled, any<Boolean>()) } returns true
+        coEvery { mockKeyStore.get(KeyStoreKeys.TranslationEditorFontSize, any<Int>()) } returns 14
         coEvery { mockKeyStore.save(any(), any<String>()) } returns Unit
         coEvery { mockMachineTranslationRepository.generateKey(any(), any(), any()) } returns "new_key"
         lifecycle.create()
@@ -237,6 +252,7 @@ class DefaultSettingsComponentTest {
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationProvider, any<Int>()) } returns 0
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationKey, any<String>()) } returns "key"
         coEvery { mockKeyStore.get(KeyStoreKeys.DarkThemeEnabled, any<Boolean>()) } returns true
+        coEvery { mockKeyStore.get(KeyStoreKeys.TranslationEditorFontSize, any<Int>()) } returns 14
         lifecycle.create()
 
         runOnUiThread {
@@ -261,6 +277,7 @@ class DefaultSettingsComponentTest {
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationProvider, any<Int>()) } returns 0
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationKey, any<String>()) } returns "key"
         coEvery { mockKeyStore.get(KeyStoreKeys.DarkThemeEnabled, any<Boolean>()) } returns true
+        coEvery { mockKeyStore.get(KeyStoreKeys.TranslationEditorFontSize, any<Int>()) } returns 14
         lifecycle.create()
 
         runOnUiThread {
@@ -285,6 +302,7 @@ class DefaultSettingsComponentTest {
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationProvider, any<Int>()) } returns 0
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationKey, any<String>()) } returns "key"
         coEvery { mockKeyStore.get(KeyStoreKeys.DarkThemeEnabled, any<Boolean>()) } returns true
+        coEvery { mockKeyStore.get(KeyStoreKeys.TranslationEditorFontSize, any<Int>()) } returns 14
         coEvery { mockKeyStore.save(any(), any<Boolean>()) } returns Unit
         coEvery { mockThemeRepository.changeTheme(any()) } returns Unit
         lifecycle.create()
@@ -294,5 +312,37 @@ class DefaultSettingsComponentTest {
         assertEquals(false, uiState.darkModeEnabled)
         coVerify { mockKeyStore.save(KeyStoreKeys.DarkThemeEnabled, false) }
         coVerify { mockThemeRepository.changeTheme(ThemeState.Light) }
+    }
+
+    @Test
+    fun givenComponentCreatedWhenSetEditorFontSizeThenValueIsUpdated() = runTest {
+        val languageSlot = slot<LanguageModel>()
+        every { mockCompleteLanguage.invoke(capture(languageSlot)) } answers {
+            val original = languageSlot.captured
+            original.copy(name = original.code)
+        }
+        coEvery { mockKeyStore.get(KeyStoreKeys.SpellcheckEnabled, any<Boolean>()) } returns true
+        coEvery { mockKeyStore.get(KeyStoreKeys.SimilarityThreshold, any<Int>()) } returns 70
+        coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationProvider, any<Int>()) } returns 0
+        coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationKey, any<String>()) } returns "key"
+        coEvery { mockKeyStore.get(KeyStoreKeys.DarkThemeEnabled, any<Boolean>()) } returns true
+        coEvery { mockKeyStore.get(KeyStoreKeys.TranslationEditorFontSize, any<Int>()) } returns 14
+        coEvery { mockKeyStore.save(any(), any<Int>()) } returns Unit
+        coEvery { mockTranslationThemeRepository.textStyle } returns MutableStateFlow(
+            TextStyle(
+                fontFamily = AppFontFamily,
+                fontWeight = FontWeight.Normal,
+                fontSize = 14.sp,
+                letterSpacing = (0.4).sp,
+            ),
+        )
+        coEvery { mockTranslationThemeRepository.changeTextStyle(any()) } returns Unit
+        lifecycle.create()
+
+        sut.reduce(SettingsComponent.Intent.SetEditorFontSize(12))
+        val uiState = sut.uiState.value
+        assertEquals("12", uiState.editorFontSize)
+        coVerify { mockKeyStore.save(KeyStoreKeys.TranslationEditorFontSize, 12) }
+        coVerify { mockTranslationThemeRepository.changeTextStyle(withArg { assertEquals(12.sp, it.fontSize) }) }
     }
 }

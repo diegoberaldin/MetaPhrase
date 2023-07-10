@@ -8,7 +8,9 @@ import com.github.diegoberaldin.metaphrase.core.common.log.LogManager
 import com.github.diegoberaldin.metaphrase.core.common.notification.DefaultNotificationCenter
 import com.github.diegoberaldin.metaphrase.core.common.notification.NotificationCenter
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.DefaultThemeRepository
+import com.github.diegoberaldin.metaphrase.core.common.ui.theme.DefaultTranslationThemeRepository
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.ThemeRepository
+import com.github.diegoberaldin.metaphrase.core.common.ui.theme.TranslationThemeRepository
 import org.koin.dsl.module
 
 /**
@@ -32,5 +34,8 @@ val commonModule = module {
     }
     single<ThemeRepository> {
         DefaultThemeRepository()
+    }
+    single<TranslationThemeRepository> {
+        DefaultTranslationThemeRepository()
     }
 }

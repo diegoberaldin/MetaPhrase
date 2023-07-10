@@ -11,6 +11,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.KeyShortcut
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.MenuBar
 import androidx.compose.ui.window.MenuBarScope
 import androidx.compose.ui.window.Window
@@ -27,6 +28,7 @@ import com.github.diegoberaldin.metaphrase.core.common.log.LogManager
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.MetaPhraseTheme
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.ThemeRepository
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.ThemeState
+import com.github.diegoberaldin.metaphrase.core.common.ui.theme.TranslationThemeRepository
 import com.github.diegoberaldin.metaphrase.core.common.utils.getByInjection
 import com.github.diegoberaldin.metaphrase.core.common.utils.runOnUiThread
 import com.github.diegoberaldin.metaphrase.core.localization.L10n
@@ -106,9 +108,18 @@ fun main() {
             if (!keystore.containsKey(KeyStoreKeys.DarkThemeEnabled)) {
                 keystore.save(KeyStoreKeys.DarkThemeEnabled, useDarkTheme)
             }
+
             val darkModeEnabled = keystore.get(KeyStoreKeys.DarkThemeEnabled, false)
             val themeRepository: ThemeRepository = getByInjection()
             themeRepository.changeTheme(if (darkModeEnabled) ThemeState.Dark else ThemeState.Light)
+
+            if (!keystore.containsKey(KeyStoreKeys.TranslationEditorFontSize)) {
+                keystore.save(KeyStoreKeys.TranslationEditorFontSize, 14)
+            }
+            val translationThemeRepository: TranslationThemeRepository = getByInjection()
+            val currentStyle = translationThemeRepository.textStyle.value
+            val translationFontSize = keystore.get(KeyStoreKeys.TranslationEditorFontSize, 14).sp
+            translationThemeRepository.changeTextStyle(currentStyle.copy(fontSize = translationFontSize))
         }
 
         Window(

@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextDecoration
@@ -45,6 +46,7 @@ fun TranslateEditableField(
     active: Boolean = false,
     updateTextSwitch: Boolean = false,
     enabled: Boolean = true,
+    textStyle: TextStyle = MaterialTheme.typography.bodySmall,
     textColor: Color = MaterialTheme.colorScheme.onPrimary,
     spellingErrors: List<SpellCheckCorrection> = emptyList(),
     onStartEditing: () -> Unit = {},
@@ -110,7 +112,7 @@ fun TranslateEditableField(
                     }
                 },
             enabled = enabled,
-            textStyle = MaterialTheme.typography.bodySmall.copy(color = textColor),
+            textStyle = textStyle.copy(color = textColor),
             cursorBrush = SolidColor(textColor),
             value = value,
             onValueChange = {

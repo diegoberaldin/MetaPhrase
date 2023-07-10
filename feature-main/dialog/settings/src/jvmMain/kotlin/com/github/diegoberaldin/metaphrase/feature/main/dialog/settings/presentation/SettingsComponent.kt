@@ -71,7 +71,21 @@ interface SettingsComponent :
          */
         data class GenerateMachineTranslationKey(val username: String, val password: String) : Intent
 
+        /**
+         * Enable/disable the dark UI theme.
+         *
+         * @property value true to enable dark mode, false to use light mode
+         * @constructor Create [SetDarkMode]
+         */
         data class SetDarkMode(val value: Boolean) : Intent
+
+        /**
+         * Set the font size used in the translation editor.
+         *
+         * @property value font size to set
+         * @constructor Create [SetEditorFontSize]
+         */
+        data class SetEditorFontSize(val value: Int) : Intent
     }
 
     /**
@@ -87,11 +101,13 @@ interface SettingsComponent :
      * @property isLoading true if there is a background operation in progress
      * @property similarityThreshold current similarity threshold
      * @property spellcheckEnabled true if spelling check is enabled
+     * @property darkModeEnabled true if dark UI theme is enabled
      * @property appVersion application version
      * @property availableProviders available Machine Translation providers
      * @property currentProvider current MT provider
      * @property key API key
-     * @constructor Create [SettingsUiState]
+     * @property editorFontSize font size used in the translation editor
+     * @constructor Create [UiState]
      */
     data class UiState(
         val availableLanguages: List<LanguageModel> = emptyList(),
@@ -104,6 +120,7 @@ interface SettingsComponent :
         val availableProviders: List<MachineTranslationProvider> = emptyList(),
         val currentProvider: MachineTranslationProvider? = null,
         val key: String = "",
+        val editorFontSize: String = "",
     )
 
     /**

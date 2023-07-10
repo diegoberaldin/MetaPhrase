@@ -86,7 +86,8 @@ fun CustomTextField(
             if (textFieldValue.text.isEmpty() && value.isNotEmpty() && initial) {
                 initial = false
                 textFieldValue = TextFieldValue(value)
-            } else if (value.isEmpty()) {
+            } else if (value.isEmpty() || !enabled) {
+                // for disabled fields the value coming from outside has always the precedence
                 textFieldValue = TextFieldValue(value)
             }
         }
@@ -114,7 +115,7 @@ fun CustomTextField(
                         Text(
                             text = hint,
                             style = MaterialTheme.typography.labelSmall,
-                            color =  MaterialTheme.colorScheme.onSurfaceVariant,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
                     }
                     if (endButton != null) {
