@@ -16,7 +16,9 @@ import com.github.diegoberaldin.metaphrase.core.localization.di.localizationModu
 import com.github.diegoberaldin.metaphrase.domain.mt.repository.MachineTranslationRepository
 import io.mockk.coEvery
 import io.mockk.coVerify
+import io.mockk.every
 import io.mockk.mockk
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.AfterAll
@@ -70,6 +72,7 @@ class DefaultMachineTranslationSettingsComponentTest {
     fun givenComponentCreatedWhenInitialStateThenValuesAreRetrieved() = runTest {
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationProvider, any<Int>()) } returns 0
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationKey, any<String>()) } returns "key"
+        every { mockMachineTranslationRepository.supportsKeyGeneration } returns MutableStateFlow(false)
         lifecycle.create()
 
         val uiState = sut.uiState.value
@@ -82,7 +85,10 @@ class DefaultMachineTranslationSettingsComponentTest {
     fun givenComponentCreatedWhenSetMachineTranslationProviderThenValueIsUpdated() = runTest {
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationProvider, any<Int>()) } returns 0
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationKey, any<String>()) } returns "key"
-        coEvery { mockKeyStore.save(any(), any<Int>()) } returns Unit
+        coEvery { mockKeyStore.save(KeyStoreKeys.MachineTranslationProvider, any<Int>()) } returns Unit
+        coEvery { mockKeyStore.save(KeyStoreKeys.MachineTranslationKey, any<String>()) } returns Unit
+        every { mockMachineTranslationRepository.setProvider(any()) } returns Unit
+        every { mockMachineTranslationRepository.supportsKeyGeneration } returns MutableStateFlow(false)
         lifecycle.create()
 
         val index = 0
@@ -97,6 +103,7 @@ class DefaultMachineTranslationSettingsComponentTest {
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationProvider, any<Int>()) } returns 0
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationKey, any<String>()) } returns "key"
         coEvery { mockKeyStore.save(any(), any<String>()) } returns Unit
+        every { mockMachineTranslationRepository.supportsKeyGeneration } returns MutableStateFlow(false)
         lifecycle.create()
 
         val key = "key"
@@ -111,7 +118,8 @@ class DefaultMachineTranslationSettingsComponentTest {
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationProvider, any<Int>()) } returns 0
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationKey, any<String>()) } returns "key"
         coEvery { mockKeyStore.save(any(), any<String>()) } returns Unit
-        coEvery { mockMachineTranslationRepository.generateKey(any(), any(), any()) } returns "new_key"
+        coEvery { mockMachineTranslationRepository.generateKey(any(), any()) } returns "new_key"
+        every { mockMachineTranslationRepository.supportsKeyGeneration } returns MutableStateFlow(true)
         lifecycle.create()
 
         sut.reduce(MachineTranslationSettingsComponent.Intent.GenerateMachineTranslationKey("username", "password"))
@@ -124,6 +132,7 @@ class DefaultMachineTranslationSettingsComponentTest {
     fun givenComponentCreatedWhenOpenLoginDialogThenDialogConfigIsChangedAccordingly() = runTest {
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationProvider, any<Int>()) } returns 0
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationKey, any<String>()) } returns "key"
+        every { mockMachineTranslationRepository.supportsKeyGeneration } returns MutableStateFlow(false)
         lifecycle.create()
 
         runOnUiThread {
@@ -140,6 +149,7 @@ class DefaultMachineTranslationSettingsComponentTest {
     fun givenComponentCreatedWhenCloseDialogThenDialogConfigIsChangedAccordingly() = runTest {
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationProvider, any<Int>()) } returns 0
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationKey, any<String>()) } returns "key"
+        every { mockMachineTranslationRepository.supportsKeyGeneration } returns MutableStateFlow(false)
         lifecycle.create()
 
         runOnUiThread {

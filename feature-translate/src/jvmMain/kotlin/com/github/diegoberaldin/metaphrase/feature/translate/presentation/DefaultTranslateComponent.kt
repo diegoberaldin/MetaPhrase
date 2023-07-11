@@ -824,11 +824,7 @@ internal class DefaultTranslateComponent(
 
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = true))
             val key = keyStore.get(KeyStoreKeys.MachineTranslationKey, "").takeIf { it.isNotEmpty() }
-            val provider = keyStore.get(KeyStoreKeys.MachineTranslationProvider, 0).let {
-                MachineTranslationRepository.AVAILABLE_PROVIDERS[it]
-            }
             machineTranslationRepository.importTm(
-                provider = provider,
                 key = key,
                 file = file,
             )

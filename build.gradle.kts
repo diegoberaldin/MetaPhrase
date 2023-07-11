@@ -44,6 +44,7 @@ kotlin {
                 implementation(projects.domainProject)
                 implementation(projects.domainLanguage.data)
                 implementation(projects.domainProject.data)
+                implementation(projects.domainMt.repository)
 
                 implementation(projects.featureMain)
             }

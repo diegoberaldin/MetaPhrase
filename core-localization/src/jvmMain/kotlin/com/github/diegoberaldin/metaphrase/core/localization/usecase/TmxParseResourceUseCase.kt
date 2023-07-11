@@ -28,19 +28,25 @@ class TmxParseResourceUseCase : ParseResourceUseCase {
                     val variant =
                         unit.children.firstOrNull {
                             (it as? Node)?.nodeName == ELEM_VARIANT && (it.attributes[ATTR_LANGUAGE] as? String) == lang
-                        } as Node
-                    val segment = variant.children.firstOrNull {
+                        } as? Node
+                    val segment = variant?.children?.firstOrNull {
                         (it as? Node)?.nodeName == ELEM_SEGMENT
                     } as? Node
-                    val text = (segment?.children?.firstOrNull() as? TextElement)?.text.orEmpty()
-                    res += LocalizableString(
-                        key = key,
-                        value = text,
-                    )
+                    val text = (segment?.children?.firstOrNull() as? TextElement)?.text
+                    if (text != null) {
+                        res += LocalizableString(
+                            key = key,
+                            value = text,
+                        )
+                    }
                 }
             }
 
             res
+        }.also {
+            it.exceptionOrNull()?.also { exc ->
+                exc.printStackTrace()
+            }
         }.getOrElse { emptyList() }
     }
 }

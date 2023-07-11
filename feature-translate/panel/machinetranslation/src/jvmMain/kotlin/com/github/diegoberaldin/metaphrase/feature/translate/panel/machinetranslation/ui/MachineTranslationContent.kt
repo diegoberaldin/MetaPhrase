@@ -137,6 +137,7 @@ fun MachineTranslationContent(
             ButtonBar(
                 modifier = Modifier.fillMaxWidth(),
                 isEmpty = uiState.translation.isEmpty(),
+                supportsContributions = uiState.supportsContributions,
                 onShare = {
                     component.reduce(MachineTranslationComponent.Intent.Share)
                 },
@@ -159,6 +160,7 @@ fun MachineTranslationContent(
 private fun ButtonBar(
     modifier: Modifier = Modifier,
     isEmpty: Boolean = false,
+    supportsContributions: Boolean = false,
     onShare: () -> Unit = {},
     onAccept: () -> Unit = {},
     onCopyTarget: () -> Unit = {},
@@ -169,52 +171,54 @@ private fun ButtonBar(
         modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(Spacing.s),
     ) {
-        // insert button
-        Button(
-            modifier = Modifier.heightIn(max = 25.dp),
-            contentPadding = PaddingValues(0.dp),
-            onClick = {
-                onCopyTarget()
-            },
-        ) {
-            Row(
-                modifier = Modifier.padding(horizontal = Spacing.s),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(Spacing.xs),
+        if (supportsContributions) {
+            // insert button
+            Button(
+                modifier = Modifier.heightIn(max = 25.dp),
+                contentPadding = PaddingValues(0.dp),
+                onClick = {
+                    onCopyTarget()
+                },
             ) {
-                Text(
-                    text = "button_copy_target".localized(),
-                    style = MaterialTheme.typography.labelLarge,
-                )
-                Icon(
-                    modifier = iconModifier,
-                    imageVector = Icons.Default.Check,
-                    contentDescription = null,
-                )
+                Row(
+                    modifier = Modifier.padding(horizontal = Spacing.s),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(Spacing.xs),
+                ) {
+                    Text(
+                        text = "button_copy_target".localized(),
+                        style = MaterialTheme.typography.labelLarge,
+                    )
+                    Icon(
+                        modifier = iconModifier,
+                        imageVector = Icons.Default.Check,
+                        contentDescription = null,
+                    )
+                }
             }
-        }
-        // share button
-        Button(
-            modifier = Modifier.heightIn(max = 25.dp),
-            contentPadding = PaddingValues(0.dp),
-            onClick = {
-                onShare()
-            },
-        ) {
-            Row(
-                modifier = Modifier.padding(horizontal = Spacing.s),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(Spacing.xs),
+            // share button
+            Button(
+                modifier = Modifier.heightIn(max = 25.dp),
+                contentPadding = PaddingValues(0.dp),
+                onClick = {
+                    onShare()
+                },
             ) {
-                Text(
-                    text = "button_share".localized(),
-                    style = MaterialTheme.typography.labelLarge,
-                )
-                Icon(
-                    modifier = iconModifier,
-                    imageVector = Icons.Default.Share,
-                    contentDescription = null,
-                )
+                Row(
+                    modifier = Modifier.padding(horizontal = Spacing.s),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(Spacing.xs),
+                ) {
+                    Text(
+                        text = "button_share".localized(),
+                        style = MaterialTheme.typography.labelLarge,
+                    )
+                    Icon(
+                        modifier = iconModifier,
+                        imageVector = Icons.Default.Share,
+                        contentDescription = null,
+                    )
+                }
             }
         }
 

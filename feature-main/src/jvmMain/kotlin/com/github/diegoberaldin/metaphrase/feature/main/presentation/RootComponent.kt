@@ -277,6 +277,7 @@ interface RootComponent : MviModel<RootComponent.Intent, RootComponent.UiState, 
         val currentLanguage: LanguageModel? = null,
         val isLoading: Boolean = false,
         val isSaveEnabled: Boolean = false,
+        val machineTranslationSupportsContributions: Boolean = false,
     )
 
     /**

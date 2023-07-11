@@ -3,6 +3,7 @@ package com.github.diegoberaldin.metaphrase.core.localization
 import com.github.diegoberaldin.metaphrase.core.localization.repository.Localization
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.channelFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.isActive
 import org.koin.java.KoinJavaComponent.inject
 
@@ -16,15 +17,16 @@ object L10n {
     /**
      * Exposes the ISO 693-1 code of the current language as an observable flow.
      */
-    val currentLanguage = channelFlow<String> {
+    val currentLanguage = channelFlow {
         while (true) {
             if (!isActive) {
                 break
             }
-            trySend(get("lang"))
+            val value = get("lang")
+            trySend(value)
             delay(1_000)
         }
-    }
+    }.distinctUntilChanged()
 
     /**
      * Set the app language.

@@ -75,6 +75,7 @@ interface MachineTranslationComponent :
         val isLoading: Boolean = false,
         val translation: String = "",
         val updateTextSwitch: Boolean = false,
+        val supportsContributions: Boolean = false,
     )
 
     /**

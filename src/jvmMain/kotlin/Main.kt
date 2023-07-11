@@ -36,6 +36,7 @@ import com.github.diegoberaldin.metaphrase.core.localization.di.localizationModu
 import com.github.diegoberaldin.metaphrase.core.localization.localized
 import com.github.diegoberaldin.metaphrase.core.persistence.di.persistenceModule
 import com.github.diegoberaldin.metaphrase.domain.language.di.languageModule
+import com.github.diegoberaldin.metaphrase.domain.mt.repository.MachineTranslationRepository
 import com.github.diegoberaldin.metaphrase.domain.project.data.ResourceFileType
 import com.github.diegoberaldin.metaphrase.domain.project.di.projectModule
 import com.github.diegoberaldin.metaphrase.feature.main.di.mainModule
@@ -83,15 +84,22 @@ fun main() {
         )
     }
 
-    // init l10n
     runBlocking {
-        val keystore: TemporaryKeyStore = getByInjection()
+        // init l10n
+        val keyStore: TemporaryKeyStore = getByInjection()
         val systemLanguage = Locale.getDefault().language
-        val lang = keystore.get(KeyStoreKeys.AppLanguage, "")
+        val lang = keyStore.get(KeyStoreKeys.AppLanguage, "")
         L10n.setLanguage(lang.ifEmpty { systemLanguage })
         if (lang.isEmpty()) {
-            keystore.save(KeyStoreKeys.AppLanguage, "lang".localized())
+            keyStore.save(KeyStoreKeys.AppLanguage, "lang".localized())
         }
+
+        // init machine translation
+        val provider = keyStore.get(KeyStoreKeys.MachineTranslationProvider, 0).let {
+            MachineTranslationRepository.AVAILABLE_PROVIDERS[it]
+        }
+        val machineTranslationRepository: MachineTranslationRepository = getByInjection()
+        machineTranslationRepository.setProvider(provider)
     }
 
     application {
@@ -104,25 +112,23 @@ fun main() {
         // theme management
         val useDarkTheme = isSystemInDarkTheme()
         runBlocking {
-            val keystore: TemporaryKeyStore = getByInjection()
-            if (!keystore.containsKey(KeyStoreKeys.DarkThemeEnabled)) {
-                keystore.save(KeyStoreKeys.DarkThemeEnabled, useDarkTheme)
+            val keyStore: TemporaryKeyStore = getByInjection()
+            if (!keyStore.containsKey(KeyStoreKeys.DarkThemeEnabled)) {
+                keyStore.save(KeyStoreKeys.DarkThemeEnabled, useDarkTheme)
             }
-
-            val darkModeEnabled = keystore.get(KeyStoreKeys.DarkThemeEnabled, false)
+            val darkModeEnabled = keyStore.get(KeyStoreKeys.DarkThemeEnabled, false)
             val themeRepository: ThemeRepository = getByInjection()
             themeRepository.changeTheme(if (darkModeEnabled) ThemeState.Dark else ThemeState.Light)
-
-            if (!keystore.containsKey(KeyStoreKeys.TranslationEditorFontSize)) {
-                keystore.save(KeyStoreKeys.TranslationEditorFontSize, 14)
+            if (!keyStore.containsKey(KeyStoreKeys.TranslationEditorFontSize)) {
+                keyStore.save(KeyStoreKeys.TranslationEditorFontSize, 14)
             }
-            if (!keystore.containsKey(KeyStoreKeys.TranslationEditorFontType)) {
-                keystore.save(KeyStoreKeys.TranslationEditorFontType, 0)
+            if (!keyStore.containsKey(KeyStoreKeys.TranslationEditorFontType)) {
+                keyStore.save(KeyStoreKeys.TranslationEditorFontType, 0)
             }
             val translationThemeRepository: TranslationThemeRepository = getByInjection()
             val currentStyle = translationThemeRepository.textStyle.value
-            val translationFontSize = keystore.get(KeyStoreKeys.TranslationEditorFontSize, 14).sp
-            val fontTypeIndex = keystore.get(KeyStoreKeys.TranslationEditorFontType, 0)
+            val translationFontSize = keyStore.get(KeyStoreKeys.TranslationEditorFontSize, 14).sp
+            val fontTypeIndex = keyStore.get(KeyStoreKeys.TranslationEditorFontType, 0)
             val availableFontFamilies = translationThemeRepository.getAvailableFontFamilies()
             val fontFamily = availableFontFamilies.getOrNull(fontTypeIndex) ?: availableFontFamilies.first()
             translationThemeRepository.changeTextStyle(
@@ -460,20 +466,21 @@ private fun MenuBarScope.resourcesMenu(component: RootComponent) {
         Item(
             text = "menu_machine_translation_copy_translation".localized(),
             shortcut = KeyShortcut(Key.H, meta = true, shift = true),
-            enabled = rootUiState.isEditing && rootUiState.currentLanguage?.isBase == false,
+            enabled = rootUiState.isEditing && rootUiState.currentLanguage?.isBase == false && rootUiState.machineTranslationSupportsContributions,
         ) {
             component.reduce(RootComponent.Intent.MachineTranslationCopyTarget)
         }
         Item(
             text = "menu_machine_translation_copy_share".localized(),
             shortcut = KeyShortcut(Key.L, meta = true, shift = true),
-            enabled = rootUiState.isEditing && rootUiState.currentLanguage?.isBase == false,
+            enabled = rootUiState.isEditing && rootUiState.currentLanguage?.isBase == false && rootUiState.machineTranslationSupportsContributions,
         ) {
             component.reduce(RootComponent.Intent.MachineTranslationShare)
         }
         Item(
             text = "menu_machine_translation_contribute_memory".localized(),
             shortcut = KeyShortcut(Key.M, meta = true, shift = true),
+            enabled = rootUiState.machineTranslationSupportsContributions,
         ) {
             component.reduce(RootComponent.Intent.MachineTranslationContributeTm)
         }

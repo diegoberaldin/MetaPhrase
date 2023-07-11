@@ -22,7 +22,6 @@ import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
 import com.github.diegoberaldin.metaphrase.domain.language.di.languageModule
 import com.github.diegoberaldin.metaphrase.domain.language.repository.LanguageRepository
 import com.github.diegoberaldin.metaphrase.domain.mt.repository.MachineTranslationRepository
-import com.github.diegoberaldin.metaphrase.domain.mt.repository.data.MachineTranslationProvider
 import com.github.diegoberaldin.metaphrase.domain.project.data.ProjectModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.RecentProjectModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.ResourceFileType
@@ -377,7 +376,15 @@ class DefaultTranslateComponentTest {
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationProvider, any<Int>()) } returns 0
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationKey, any<String>()) } returns "key"
         coEvery { mockNotificationCenter.send(any()) } returns Unit
-        coEvery { mockMachineTranslationRepository.importTm(any(), any(), any(), any(), any(), any()) } returns Unit
+        coEvery {
+            mockMachineTranslationRepository.importTm(
+                file = any(),
+                key = any(),
+                private = any(),
+                name = any(),
+                subject = any(),
+            )
+        } returns Unit
         runOnUiThread {
             lifecycle.resume()
         }
@@ -386,12 +393,11 @@ class DefaultTranslateComponentTest {
 
         coVerify {
             mockMachineTranslationRepository.importTm(
-                provider = MachineTranslationProvider.MY_MEMORY,
-                any(),
+                file = any(),
                 key = "key",
-                any(),
-                any(),
-                any(),
+                private = any(),
+                name = any(),
+                subject = any(),
             )
         }
         MockFileManager.teardown()

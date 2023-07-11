@@ -19,6 +19,7 @@ import com.github.diegoberaldin.metaphrase.core.common.utils.getByInjection
 import com.github.diegoberaldin.metaphrase.domain.glossary.usecase.ClearGlossaryUseCase
 import com.github.diegoberaldin.metaphrase.domain.glossary.usecase.ExportGlossaryUseCase
 import com.github.diegoberaldin.metaphrase.domain.glossary.usecase.ImportGlossaryUseCase
+import com.github.diegoberaldin.metaphrase.domain.mt.repository.MachineTranslationRepository
 import com.github.diegoberaldin.metaphrase.domain.project.data.RecentProjectModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.ResourceFileType
 import com.github.diegoberaldin.metaphrase.domain.project.repository.ProjectRepository
@@ -66,6 +67,7 @@ internal class DefaultRootComponent(
     private val clearGlossaryTerms: ClearGlossaryUseCase,
     private val openProjectUseCase: OpenProjectUseCase,
     private val notificationCenter: NotificationCenter,
+    private val machineTranslationRepository: MachineTranslationRepository,
 ) : RootComponent,
     MviModel<RootComponent.Intent, RootComponent.UiState, RootComponent.Effect> by mvi,
     ComponentContext by componentContext {
@@ -138,6 +140,15 @@ internal class DefaultRootComponent(
                     launch {
                         projectRepository.observeNeedsSaving().onEach { needsSaving ->
                             mvi.updateState { it.copy(isSaveEnabled = needsSaving) }
+                        }.launchIn(this)
+                    }
+                    launch {
+                        machineTranslationRepository.supportsContributions.onEach { supported ->
+                            mvi.updateState {
+                                it.copy(
+                                    machineTranslationSupportsContributions = supported,
+                                )
+                            }
                         }.launchIn(this)
                     }
                 }

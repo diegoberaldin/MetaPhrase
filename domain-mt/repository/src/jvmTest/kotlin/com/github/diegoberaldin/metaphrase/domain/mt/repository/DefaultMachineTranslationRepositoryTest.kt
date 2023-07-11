@@ -1,5 +1,7 @@
 package com.github.diegoberaldin.metaphrase.domain.mt.repository
 
+import com.github.diegoberaldin.metaphrase.domain.mt.repository.data.MachineTranslationProvider
+import com.github.diegoberaldin.metaphrase.domain.mt.repository.datasource.deepl.DeeplDataSource
 import com.github.diegoberaldin.metaphrase.domain.mt.repository.datasource.mymemory.MyMemoryDataSource
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -11,8 +13,10 @@ import kotlin.test.assertEquals
 
 class DefaultMachineTranslationRepositoryTest {
     private val mockMyMemoryDataSource = mockk<MyMemoryDataSource>()
+    private val mockDeeplDataSource = mockk<DeeplDataSource>()
     private val sut = DefaultMachineTranslationRepository(
         myMemoryDataSource = mockMyMemoryDataSource,
+        deeplDataSource = mockDeeplDataSource,
     )
 
     @Test
@@ -31,6 +35,7 @@ class DefaultMachineTranslationRepositoryTest {
             )
         } returns targetMessage
 
+        sut.setProvider(MachineTranslationProvider.MY_MEMORY)
         val res = sut.getTranslation(
             key = key,
             sourceMessage = sourceMessage,
@@ -66,6 +71,7 @@ class DefaultMachineTranslationRepositoryTest {
                     targetLang = any(),
                 )
             } returns targetMessage
+            sut.setProvider(MachineTranslationProvider.MY_MEMORY)
             val res = sut.getTranslation(
                 key = key,
                 sourceMessage = sourceMessage,
@@ -109,6 +115,7 @@ class DefaultMachineTranslationRepositoryTest {
                 targetLang = any(),
             )
         } returns Unit
+        sut.setProvider(MachineTranslationProvider.MY_MEMORY)
 
         sut.shareTranslation(
             key = key,
@@ -137,6 +144,7 @@ class DefaultMachineTranslationRepositoryTest {
         coEvery {
             mockMyMemoryDataSource.generateKey(any(), any())
         } returns key
+        sut.setProvider(MachineTranslationProvider.MY_MEMORY)
 
         val res = sut.generateKey(
             username = username,
@@ -154,6 +162,7 @@ class DefaultMachineTranslationRepositoryTest {
             mockMyMemoryDataSource.import(file = any(), key = any(), private = any())
         } returns Unit
         val file = File.createTempFile("test", ".txt")
+        sut.setProvider(MachineTranslationProvider.MY_MEMORY)
 
         sut.importTm(
             key = key,

@@ -33,6 +33,7 @@ val mainModule = module {
             exportGlossaryTerms = get(),
             clearGlossaryTerms = get(),
             openProjectUseCase = get(),
+            machineTranslationRepository = get(),
         )
     }
 }
