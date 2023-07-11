@@ -68,6 +68,7 @@ fun GeneralSettingsContent(
                 },
             )
         }
+
         Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             Text(
                 text = "dialog_settings_similarity_threshold".localized(),
@@ -89,6 +90,7 @@ fun GeneralSettingsContent(
                 color = MaterialTheme.colorScheme.onBackground,
             )
         }
+
         Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             Text(
                 text = "dialog_settings_spellcheck_enabled".localized(),
@@ -104,7 +106,9 @@ fun GeneralSettingsContent(
                 colors = CheckboxDefaults.colors(checkedColor = MaterialTheme.colorScheme.primary),
             )
         }
+
         Spacer(modifier = Modifier.weight(1f))
+
         Row(modifier = Modifier.fillMaxWidth()) {
             Text(
                 text = "dialog_settings_version".localized(),

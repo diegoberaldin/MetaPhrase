@@ -876,17 +876,17 @@
 		<tu tuid="dialog_settings_editor_font_size">
 			<tuv xml:lang="en">
 				<seg>
-					Editor font size
+					Translation editor font size
 				</seg>
 			</tuv>
 			<tuv xml:lang="it">
 				<seg>
-					Dimensione font editor
+					Dimensione font editor di traduzione
 				</seg>
 			</tuv>
 			<tuv xml:lang="de">
 				<seg>
-					Schriftart im Editor
+					Schriftgröße des Übersetzungseditors
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
@@ -896,12 +896,44 @@
 			</tuv>
 			<tuv xml:lang="es">
 				<seg>
-					Tipo de letra del editor
+					Tipo de letra del editor de traducción
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
 				<seg>
-					Tamanho da fonte no editor
+					Tamanho da fonte no editor de tradução
+				</seg>
+			</tuv>
+		</tu>
+		<tu tuid="dialog_settings_editor_font_type">
+			<tuv xml:lang="en">
+				<seg>
+					Translation editor font face
+				</seg>
+			</tuv>
+			<tuv xml:lang="it">
+				<seg>
+					Tipo di carattere editor di traduzione
+				</seg>
+			</tuv>
+			<tuv xml:lang="de">
+				<seg>
+					Schriftart des Übersetzungseditors
+				</seg>
+			</tuv>
+			<tuv xml:lang="fr">
+				<seg>
+					Police de l&apos;éditeur de traduction
+				</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>
+					Fuente del editor de traducción
+				</seg>
+			</tuv>
+			<tuv xml:lang="pt">
+				<seg>
+					Face da fonte do editor de tradução
 				</seg>
 			</tuv>
 		</tu>
