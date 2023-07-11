@@ -12,6 +12,7 @@ import com.github.diegoberaldin.metaphrase.core.common.keystore.KeyStoreKeys
 import com.github.diegoberaldin.metaphrase.core.common.keystore.TemporaryKeyStore
 import com.github.diegoberaldin.metaphrase.core.common.testutils.MockCoroutineDispatcherProvider
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.OpenSansFontFamily
+import com.github.diegoberaldin.metaphrase.core.common.ui.theme.RobotoFontFamily
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.ThemeRepository
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.ThemeState
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.TranslationThemeRepository
@@ -19,7 +20,9 @@ import com.github.diegoberaldin.metaphrase.core.localization.L10n
 import com.github.diegoberaldin.metaphrase.core.localization.di.localizationModule
 import io.mockk.coEvery
 import io.mockk.coVerify
+import io.mockk.every
 import io.mockk.mockk
+import io.mockk.slot
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
@@ -76,16 +79,42 @@ class DefaultAppearanceSettingsComponentTest {
     fun givenComponentCreatedWhenInitialStateThenValuesAreRetrieved() = runTest {
         coEvery { mockKeyStore.get(KeyStoreKeys.DarkThemeEnabled, any<Boolean>()) } returns true
         coEvery { mockKeyStore.get(KeyStoreKeys.TranslationEditorFontSize, any<Int>()) } returns 14
+        coEvery { mockKeyStore.get(KeyStoreKeys.TranslationEditorFontType, any<Int>()) } returns 0
+        every { mockTranslationThemeRepository.getAvailableFontFamilies() } returns listOf(
+            OpenSansFontFamily,
+            RobotoFontFamily,
+        )
+        val fontIndexSlot = slot<Int>()
+        every { mockTranslationThemeRepository.getFamilyName(capture(fontIndexSlot)) } answers {
+            when (fontIndexSlot.captured) {
+                1 -> "Roboto"
+                else -> "Open Sans"
+            }
+        }
         lifecycle.create()
 
         val uiState = sut.uiState.value
         assertTrue(uiState.darkModeEnabled)
+        assertEquals("14", uiState.editorFontSize)
+        assertEquals("Open Sans", uiState.editorFontType)
     }
 
     @Test
     fun givenComponentCreatedWhenSetDarkModeDisabledThenValueIsUpdated() = runTest {
         coEvery { mockKeyStore.get(KeyStoreKeys.DarkThemeEnabled, any<Boolean>()) } returns true
         coEvery { mockKeyStore.get(KeyStoreKeys.TranslationEditorFontSize, any<Int>()) } returns 14
+        coEvery { mockKeyStore.get(KeyStoreKeys.TranslationEditorFontType, any<Int>()) } returns 0
+        every { mockTranslationThemeRepository.getAvailableFontFamilies() } returns listOf(
+            OpenSansFontFamily,
+            RobotoFontFamily,
+        )
+        val fontIndexSlot = slot<Int>()
+        every { mockTranslationThemeRepository.getFamilyName(capture(fontIndexSlot)) } answers {
+            when (fontIndexSlot.captured) {
+                1 -> "Roboto"
+                else -> "Open Sans"
+            }
+        }
         coEvery { mockKeyStore.save(any(), any<Boolean>()) } returns Unit
         coEvery { mockThemeRepository.changeTheme(any()) } returns Unit
         lifecycle.create()
@@ -101,6 +130,18 @@ class DefaultAppearanceSettingsComponentTest {
     fun givenComponentCreatedWhenSetEditorFontSizeThenValueIsUpdated() = runTest {
         coEvery { mockKeyStore.get(KeyStoreKeys.DarkThemeEnabled, any<Boolean>()) } returns true
         coEvery { mockKeyStore.get(KeyStoreKeys.TranslationEditorFontSize, any<Int>()) } returns 14
+        coEvery { mockKeyStore.get(KeyStoreKeys.TranslationEditorFontType, any<Int>()) } returns 0
+        every { mockTranslationThemeRepository.getAvailableFontFamilies() } returns listOf(
+            OpenSansFontFamily,
+            RobotoFontFamily,
+        )
+        val fontIndexSlot = slot<Int>()
+        every { mockTranslationThemeRepository.getFamilyName(capture(fontIndexSlot)) } answers {
+            when (fontIndexSlot.captured) {
+                1 -> "Roboto"
+                else -> "Open Sans"
+            }
+        }
         coEvery { mockKeyStore.save(any(), any<Int>()) } returns Unit
         coEvery { mockTranslationThemeRepository.textStyle } returns MutableStateFlow(
             TextStyle(
@@ -118,5 +159,49 @@ class DefaultAppearanceSettingsComponentTest {
         assertEquals("12", uiState.editorFontSize)
         coVerify { mockKeyStore.save(KeyStoreKeys.TranslationEditorFontSize, 12) }
         coVerify { mockTranslationThemeRepository.changeTextStyle(withArg { assertEquals(12.sp, it.fontSize) }) }
+    }
+
+    @Test
+    fun givenComponentCreatedWhenSetEditorFontTypeThenValueIsUpdated() = runTest {
+        coEvery { mockKeyStore.get(KeyStoreKeys.DarkThemeEnabled, any<Boolean>()) } returns true
+        coEvery { mockKeyStore.get(KeyStoreKeys.TranslationEditorFontSize, any<Int>()) } returns 14
+        coEvery { mockKeyStore.get(KeyStoreKeys.TranslationEditorFontType, any<Int>()) } returns 0
+        every { mockTranslationThemeRepository.getAvailableFontFamilies() } returns listOf(
+            OpenSansFontFamily,
+            RobotoFontFamily,
+        )
+        val fontIndexSlot = slot<Int>()
+        every { mockTranslationThemeRepository.getFamilyName(capture(fontIndexSlot)) } answers {
+            when (fontIndexSlot.captured) {
+                1 -> "Roboto"
+                else -> "Open Sans"
+            }
+        }
+        coEvery { mockKeyStore.save(any(), any<Int>()) } returns Unit
+        coEvery { mockTranslationThemeRepository.textStyle } returns MutableStateFlow(
+            TextStyle(
+                fontFamily = OpenSansFontFamily,
+                fontWeight = FontWeight.Normal,
+                fontSize = 14.sp,
+                letterSpacing = (0.4).sp,
+            ),
+        )
+        coEvery { mockTranslationThemeRepository.changeTextStyle(any()) } returns Unit
+        lifecycle.create()
+
+        sut.reduce(AppearanceSettingsComponent.Intent.SetEditorFontType(1))
+        val uiState = sut.uiState.value
+        assertEquals("Roboto", uiState.editorFontType)
+        coVerify { mockKeyStore.save(KeyStoreKeys.TranslationEditorFontType, 1) }
+        coVerify {
+            mockTranslationThemeRepository.changeTextStyle(
+                withArg {
+                    assertEquals(
+                        RobotoFontFamily,
+                        it.fontFamily,
+                    )
+                },
+            )
+        }
     }
 }
