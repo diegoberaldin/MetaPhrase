@@ -70,6 +70,7 @@ fun MachineTranslationSettingsContent(
                 },
             )
         }
+
         Row(modifier = Modifier.fillMaxWidth()) {
             Text(
                 text = "dialog_settings_machine_translation_key".localized(),
@@ -108,6 +109,7 @@ fun MachineTranslationSettingsContent(
             )
         }
     }
+
     val dialog by component.dialog.subscribeAsState()
     when (dialog.child?.configuration) {
         MachineTranslationSettingsComponent.DialogConfig.Login -> {

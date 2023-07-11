@@ -23,6 +23,14 @@ interface AppearanceSettingsComponent :
          * @constructor Create [SetEditorFontSize]
          */
         data class SetEditorFontSize(val value: Int) : Intent
+
+        /**
+         * Set editor font type.
+         *
+         * @property index index of the font
+         * @constructor Create [SetEditorFontType]
+         */
+        data class SetEditorFontType(val index: Int) : Intent
     }
 
     /**
@@ -36,11 +44,15 @@ interface AppearanceSettingsComponent :
      * @property isLoading true if there is a background operation in progress
      * @property darkModeEnabled true if dark UI theme is enabled
      * @property editorFontSize font size used in the translation editor
+     * @property availableFontTypes available font types
+     * @property editorFontType type of font used in the translation editor
      * @constructor Create [UiState]
      */
     data class UiState(
         val isLoading: Boolean = false,
         val darkModeEnabled: Boolean = false,
         val editorFontSize: String = "",
+        val availableFontTypes: List<String> = emptyList(),
+        val editorFontType: String = "",
     )
 }

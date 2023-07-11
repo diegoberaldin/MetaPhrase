@@ -12,4 +12,5 @@ object KeyStoreKeys {
     const val MachineTranslationKey = "machineTranslationKey"
     const val DarkThemeEnabled = "darkThemeEnabled"
     const val TranslationEditorFontSize = "translationEditorFontSize"
+    const val TranslationEditorFontType = "translationEditorFontType"
 }

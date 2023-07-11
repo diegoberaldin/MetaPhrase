@@ -11,7 +11,7 @@ import com.github.diegoberaldin.metaphrase.core.common.di.commonModule
 import com.github.diegoberaldin.metaphrase.core.common.keystore.KeyStoreKeys
 import com.github.diegoberaldin.metaphrase.core.common.keystore.TemporaryKeyStore
 import com.github.diegoberaldin.metaphrase.core.common.testutils.MockCoroutineDispatcherProvider
-import com.github.diegoberaldin.metaphrase.core.common.ui.theme.AppFontFamily
+import com.github.diegoberaldin.metaphrase.core.common.ui.theme.OpenSansFontFamily
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.ThemeRepository
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.ThemeState
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.TranslationThemeRepository
@@ -104,7 +104,7 @@ class DefaultAppearanceSettingsComponentTest {
         coEvery { mockKeyStore.save(any(), any<Int>()) } returns Unit
         coEvery { mockTranslationThemeRepository.textStyle } returns MutableStateFlow(
             TextStyle(
-                fontFamily = AppFontFamily,
+                fontFamily = OpenSansFontFamily,
                 fontWeight = FontWeight.Normal,
                 fontSize = 14.sp,
                 letterSpacing = (0.4).sp,

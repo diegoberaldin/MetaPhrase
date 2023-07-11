@@ -7,7 +7,7 @@ class DefaultThemeRepository : ThemeRepository {
 
     override val theme = MutableStateFlow<ThemeState>(ThemeState.Light)
 
-    override val fontFamily = MutableStateFlow(AppFontFamily)
+    override val fontFamily = MutableStateFlow(OpenSansFontFamily)
 
     override fun changeTheme(value: ThemeState) {
         theme.value = value

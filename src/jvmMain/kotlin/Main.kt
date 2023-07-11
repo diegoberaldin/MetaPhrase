@@ -116,10 +116,21 @@ fun main() {
             if (!keystore.containsKey(KeyStoreKeys.TranslationEditorFontSize)) {
                 keystore.save(KeyStoreKeys.TranslationEditorFontSize, 14)
             }
+            if (!keystore.containsKey(KeyStoreKeys.TranslationEditorFontType)) {
+                keystore.save(KeyStoreKeys.TranslationEditorFontType, 0)
+            }
             val translationThemeRepository: TranslationThemeRepository = getByInjection()
             val currentStyle = translationThemeRepository.textStyle.value
             val translationFontSize = keystore.get(KeyStoreKeys.TranslationEditorFontSize, 14).sp
-            translationThemeRepository.changeTextStyle(currentStyle.copy(fontSize = translationFontSize))
+            val fontTypeIndex = keystore.get(KeyStoreKeys.TranslationEditorFontType, 0)
+            val availableFontFamilies = translationThemeRepository.getAvailableFontFamilies()
+            val fontFamily = availableFontFamilies.getOrNull(fontTypeIndex) ?: availableFontFamilies.first()
+            translationThemeRepository.changeTextStyle(
+                currentStyle.copy(
+                    fontFamily = fontFamily,
+                    fontSize = translationFontSize,
+                ),
+            )
         }
 
         Window(

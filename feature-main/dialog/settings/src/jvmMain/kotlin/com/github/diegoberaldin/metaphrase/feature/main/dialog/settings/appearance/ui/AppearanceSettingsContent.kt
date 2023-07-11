@@ -1,6 +1,7 @@
 package com.github.diegoberaldin.metaphrase.feature.main.dialog.settings.appearance.ui
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.onClick
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
@@ -24,7 +26,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
+import com.github.diegoberaldin.metaphrase.core.common.ui.components.CustomSpinner
 import com.github.diegoberaldin.metaphrase.core.common.ui.components.CustomTextField
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Spacing
 import com.github.diegoberaldin.metaphrase.core.localization.localized
@@ -62,6 +66,30 @@ fun AppearanceSettingsContent(
                 colors = CheckboxDefaults.colors(checkedColor = MaterialTheme.colorScheme.primary),
             )
         }
+
+        Row(modifier = Modifier.fillMaxWidth()) {
+            Text(
+                text = "dialog_settings_editor_font_type".localized(),
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.onBackground,
+            )
+            Spacer(modifier = Modifier.weight(1f))
+            val fontTypes = uiState.availableFontTypes
+            CustomSpinner(
+                modifier = Modifier.background(
+                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.1f),
+                    shape = RoundedCornerShape(4.dp),
+                ),
+                size = DpSize(width = 200.dp, height = 30.dp),
+                values = fontTypes,
+                valueColor = MaterialTheme.colorScheme.onBackground,
+                current = uiState.editorFontType,
+                onValueChanged = {
+                    component.reduce(AppearanceSettingsComponent.Intent.SetEditorFontType(it))
+                },
+            )
+        }
+
         Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             Text(
                 text = "dialog_settings_editor_font_size".localized(),

@@ -42,11 +42,19 @@ class DefaultAppearanceSettingsComponent(
                     mvi.updateState { it.copy(isLoading = true) }
                     val darkModeEnabled = keyStore.get(KeyStoreKeys.DarkThemeEnabled, false)
                     val editorFontSize = keyStore.get(KeyStoreKeys.TranslationEditorFontSize, 14).toString()
+                    val fontIndex = keyStore.get(KeyStoreKeys.TranslationEditorFontType, 0)
+                    val availableFonts = translationThemeRepository.getAvailableFontFamilies()
+                    val fontFamily = availableFonts.getOrNull(fontIndex) ?: availableFonts.first()
+                    val familyNames = List(availableFonts.size) { idx ->
+                        translationThemeRepository.getFamilyName(idx)
+                    }
                     mvi.updateState {
                         it.copy(
                             isLoading = false,
                             darkModeEnabled = darkModeEnabled,
                             editorFontSize = editorFontSize,
+                            availableFontTypes = familyNames,
+                            editorFontType = familyNames[fontIndex],
                         )
                     }
                 }
@@ -61,6 +69,7 @@ class DefaultAppearanceSettingsComponent(
         when (intent) {
             is AppearanceSettingsComponent.Intent.SetDarkMode -> setDarkMode(intent.value)
             is AppearanceSettingsComponent.Intent.SetEditorFontSize -> setEditorFontSize(intent.value)
+            is AppearanceSettingsComponent.Intent.SetEditorFontType -> setEditorFontType(intent.index)
         }
     }
 
@@ -85,5 +94,19 @@ class DefaultAppearanceSettingsComponent(
             keyStore.save(KeyStoreKeys.TranslationEditorFontSize, value)
         }
         mvi.updateState { it.copy(editorFontSize = value.toString()) }
+    }
+
+    private fun setEditorFontType(index: Int) {
+        val availableFonts = translationThemeRepository.getAvailableFontFamilies()
+        val fontFamily = availableFonts.getOrNull(index) ?: availableFonts.first()
+        val newStyle = translationThemeRepository.textStyle.value.copy(
+            fontFamily = fontFamily,
+        )
+        translationThemeRepository.changeTextStyle(newStyle)
+        viewModelScope.launch(dispatchers.io) {
+            keyStore.save(KeyStoreKeys.TranslationEditorFontType, index)
+        }
+        val fontName = translationThemeRepository.getFamilyName(index)
+        mvi.updateState { it.copy(editorFontType = fontName) }
     }
 }
