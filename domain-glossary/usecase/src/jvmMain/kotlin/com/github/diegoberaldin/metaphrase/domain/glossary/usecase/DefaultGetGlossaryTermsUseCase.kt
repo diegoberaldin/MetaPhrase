@@ -13,7 +13,7 @@ internal class DefaultGetGlossaryTermsUseCase(
 ) : GetGlossaryTermsUseCase {
     override suspend fun invoke(message: String, lang: String): List<GlossaryTermModel> {
         return withContext(dispatchers.io) {
-            val sanitizedMessage = message.replace("\\n", "  ")
+            val sanitizedMessage = message.replace("\\n", "##")
             val res = mutableSetOf<GlossaryTermModel>()
             spelling.setLanguage(lang)
             val lemmata = spelling.getLemmata(sanitizedMessage).takeIf { it.isNotEmpty() }

@@ -18,7 +18,7 @@ class DefaultValidateSpellingUseCase(
             val result = mutableMapOf<String, List<String>>()
 
             for ((key, message) in input) {
-                val sanitizedMessage = message.replace("\\n", "  ")
+                val sanitizedMessage = message.replace("\\n", "##")
                 val corrections = repository.check(sanitizedMessage)
                 if (corrections.isNotEmpty()) {
                     val mistakenWords = corrections.map { it.value }
