@@ -32,7 +32,7 @@ class TmxParseResourceUseCase : ParseResourceUseCase {
                     val segment = variant?.children?.firstOrNull {
                         (it as? Node)?.nodeName == ELEM_SEGMENT
                     } as? Node
-                    val text = (segment?.children?.firstOrNull() as? TextElement)?.text
+                    val text = (segment?.children?.firstOrNull() as? TextElement)?.text?.sanitize()
                     if (text != null) {
                         res += LocalizableString(
                             key = key,
@@ -48,5 +48,14 @@ class TmxParseResourceUseCase : ParseResourceUseCase {
                 exc.printStackTrace()
             }
         }.getOrElse { emptyList() }
+    }
+
+    private fun String.sanitize(): String {
+        val substitutionList = listOf(
+            "\\n" to "\n",
+        )
+        return substitutionList.fold(this) { res, it ->
+            res.replace(it.first, it.second)
+        }
     }
 }
