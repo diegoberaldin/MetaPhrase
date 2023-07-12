@@ -29,10 +29,14 @@ The application main screen is the translation editor, where localizers can inse
 <div align="center">
   <table>
     <tr>
-      <td><img width="900" alt="main_language" src="https://github.com/diegoberaldin/MetaPhrase/assets/2738294/c8fd14e4-779d-4c6c-bf20-9faa3a0b0dd8" /></td>
+      <td>
+        <img width="978" alt="base_language" src="https://github.com/diegoberaldin/MetaPhrase/assets/2738294/fb29316e-8661-4ef3-a3f0-6a77718b2b2b" />
+      </td>
     </tr>
     <tr>
-      <td><img width="900" alt="local_version" src="https://github.com/diegoberaldin/MetaPhrase/assets/2738294/58c5cd1d-8bab-45a3-af99-0db7e4393634" /></td>
+      <td>
+         <img width="978" alt="target_language" src="https://github.com/diegoberaldin/MetaPhrase/assets/2738294/2dc54e9b-b26d-4f34-a33d-91addab1921f" />
+      </td>
     </tr>
   </table>
 </div>
@@ -45,7 +49,7 @@ The bottom part of the main screen contains an expandable panel which gives acce
 - machine translation
 
 <div align="center">
-  <img width="900" alt="validation" src="https://github.com/diegoberaldin/MetaPhrase/assets/2738294/5b670105-60b5-44e1-bc60-3c45b747a740">
+  <img width="978" alt="panel_validation_placeholders_full" src="https://github.com/diegoberaldin/MetaPhrase/assets/2738294/c54001ab-227e-41ea-95b9-c3bb97592dd7">
 </div>
 
 Currently supported files:
