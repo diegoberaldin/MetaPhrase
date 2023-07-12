@@ -43,6 +43,8 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.github.diegoberaldin.metaphrase.core.common.ui.components.CustomTooltipArea
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Spacing
+import com.github.diegoberaldin.metaphrase.core.common.ui.theme.TranslationThemeRepository
+import com.github.diegoberaldin.metaphrase.core.common.utils.getByInjection
 import com.github.diegoberaldin.metaphrase.core.localization.localized
 import com.github.diegoberaldin.metaphrase.feature.translate.panel.machinetranslation.presentation.MachineTranslationComponent
 import java.awt.Cursor
@@ -70,6 +72,8 @@ fun MachineTranslationContent(
             mutableStateOf(PointerIcon(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR)))
         }
     }
+    val translationThemeRepository: TranslationThemeRepository = getByInjection()
+    val textStyle by translationThemeRepository.textStyle.collectAsState()
 
     Column(
         modifier = modifier.pointerHoverIcon(pointerIcon),
@@ -121,9 +125,10 @@ fun MachineTranslationContent(
                 var textFieldValue by remember(uiState.updateTextSwitch) {
                     mutableStateOf(TextFieldValue(uiState.translation))
                 }
+
                 BasicTextField(
                     modifier = Modifier.fillMaxWidth(),
-                    textStyle = MaterialTheme.typography.labelSmall.copy(color = MaterialTheme.colorScheme.onBackground),
+                    textStyle = textStyle.copy(color = MaterialTheme.colorScheme.onBackground),
                     cursorBrush = SolidColor(MaterialTheme.colorScheme.onBackground),
                     value = textFieldValue,
                     maxLines = 5,
