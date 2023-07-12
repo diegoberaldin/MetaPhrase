@@ -32,7 +32,7 @@ This page contains some notes about the development of MetaPhrase, organized in 
 
 ## Code documentation
 
-You can find the classes documentation, generated with Dokka by KDoc comments, [here](../kdoc/index.md)
+You can find the classes documentation, generated with Dokka by KDoc comments, [here](../kdoc/index.md).
 
 <div align="right">
 <a href="#top">🔝</a>

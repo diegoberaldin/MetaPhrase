@@ -3,7 +3,7 @@
 The statistics dialog can be accessed via the "Project" > "Statistics…" menu item. It displays a set of overall statistics for the project (all languages) as well as some language-dependant information.
 
 <div align="center">
-    <img src="images/statistics.png" />
+    <img src="images/dialog_statistics.png" />
 </div>
 
 The general statistics being displayed are the following:

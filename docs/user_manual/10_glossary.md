@@ -2,7 +2,7 @@
 
 The glossary panel is updated every time a message is opened for translation. The source variant is scanned word-by-word and each word is first stemmed according to the rules of the source language, then it is looked for in the internal glossary for matches against the target language. If you are working with the editor in "source mode", then only source terms are displayed and there are no target counterparts.
 
-![glossary](images/glossary_panel.png)
+![glossary](images/panel_glossary_full.png)
 
 It is possible to have _m:n_ associations between terms so multiple target entries can exist for a single source term. By using the "+" button it possible to add both source terms and target terms, whereas by right-clicking on a term it is possible to delete it permanently.
 

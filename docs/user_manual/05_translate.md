@@ -6,7 +6,7 @@ The translation editor is made up by two parts: the [translate toolbar](#transla
 
 ### Translation toolbar
 
-![translate_toolbar](images/translate_toolbar.png)
+![translate_toolbar](images/toolbar.png)
 
 In the first place, the translation toolbar contains some shortcuts for the main functions of the editor: 
 - Move to previous segment: moves the focus to the previous segment, if any
@@ -36,7 +36,7 @@ The message list displays a set of messages that can be modified or translated. 
 
 When the source language is selected, the editor allows to modify the source variant of each translation unit. Additionally, some messages can be marked as untranslatable using the lock icon on the right side of each item, implying that they will not be displayed for translation in the editor target mode.
 
-![base_language](images/base_language.png)
+![base_language](images/main_base.png)
 
 Whenever a message is being edited its spelling is checked and errors are displayed in red. By right-clicking on an error it is possible to insert a suggestion.
 
@@ -44,7 +44,7 @@ Whenever a message is being edited its spelling is checked and errors are displa
 
 When a non-base language is selected in the toolbar, messages are edited in their localized version and the base message is displayed as the source text and can not be changed.
 
-![target_language](images/target_language.png)
+![target_language](images/main_localized.png)
 
 Whenever a message is being edited, apart from spelling mistakes, the source language is matched against the content of the translation memory (TM) and the matches above the similarity threshold are displayed in the Matches panel (more on this [here](#matches-panel)). Any term present in the glossary is displayed in the Glossary panel (more on this [here](#glossary)).
 
@@ -53,5 +53,5 @@ Whenever a message is being edited, apart from spelling mistakes, the source lan
 It is possible to add new messages specifying a key and the source message. This is more useful to project managers or developers than to individual translators, but is offers a handy shortcut to insert new messages without having to re-import resource files.
 
 <div align="center">
-    <img src="images/new_segment.png" />
+    <img src="images/dialog_new_segment.png" />
 </div>
