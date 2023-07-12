@@ -18,7 +18,7 @@ internal class DefaultSpellCheckRepository(
         if (!spelling.isInitialized) return emptyList()
 
         return withContext(dispatchers.io) {
-            val sanitizedMessage = message.replace("\\n", "  ")
+            val sanitizedMessage = message.replace("\\n", "##")
             spelling.checkSentence(sanitizedMessage)
         }
     }
