@@ -81,7 +81,7 @@ fun NewGlossaryTermDialog(
                         label = "create_glossary_source_term".localized(),
                         value = uiState.sourceTerm,
                         onValueChange = {
-                            component.reduce(NewGlossaryTermComponent.Intent.SetSourceTerm(targetTerm.orEmpty()))
+                            component.reduce(NewGlossaryTermComponent.Intent.SetSourceTerm(it))
                         },
                     )
                     Text(
@@ -96,7 +96,7 @@ fun NewGlossaryTermDialog(
                         label = "create_glossary_target_term".localized(),
                         value = uiState.targetTerm,
                         onValueChange = {
-                            component.reduce(NewGlossaryTermComponent.Intent.SetTargetTerm(targetTerm.orEmpty()))
+                            component.reduce(NewGlossaryTermComponent.Intent.SetTargetTerm(it))
                         },
                     )
                     Text(
