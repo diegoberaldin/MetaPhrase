@@ -19,6 +19,8 @@ import com.github.diegoberaldin.metaphrase.domain.mt.repository.MachineTranslati
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
@@ -70,6 +72,13 @@ class DefaultMachineTranslationSettingsComponent(
                             isLoading = false,
                         )
                     }
+                    machineTranslationRepository.supportsKeyGeneration.onEach { supported ->
+                        mvi.updateState {
+                            it.copy(
+                                supportsKeyGeneration = supported,
+                            )
+                        }
+                    }.launchIn(viewModelScope)
                 }
             }
             doOnDestroy {
@@ -98,9 +107,17 @@ class DefaultMachineTranslationSettingsComponent(
         if (index !in MachineTranslationRepository.AVAILABLE_PROVIDERS.indices) return
 
         val provider = MachineTranslationRepository.AVAILABLE_PROVIDERS[index]
-        mvi.updateState { it.copy(currentProvider = provider) }
+        machineTranslationRepository.setProvider(provider)
+        // changing provider also invalidates the key
+        mvi.updateState {
+            it.copy(
+                currentProvider = provider,
+                key = "",
+            )
+        }
         viewModelScope.launch(dispatchers.io) {
             keyStore.save(KeyStoreKeys.MachineTranslationProvider, index)
+            keyStore.save(KeyStoreKeys.MachineTranslationKey, "")
         }
     }
 
@@ -124,11 +141,9 @@ class DefaultMachineTranslationSettingsComponent(
     }
 
     private fun generateMachineTranslationKey(username: String, password: String) {
-        val provider = uiState.value.currentProvider ?: return
         viewModelScope.launch(dispatchers.io) {
             mvi.updateState { it.copy(isLoading = true) }
             val key = machineTranslationRepository.generateKey(
-                provider = provider,
                 username = username,
                 password = password,
             )

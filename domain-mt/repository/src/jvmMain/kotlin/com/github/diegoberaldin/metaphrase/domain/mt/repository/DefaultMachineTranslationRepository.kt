@@ -2,16 +2,43 @@ package com.github.diegoberaldin.metaphrase.domain.mt.repository
 
 import com.github.diegoberaldin.metaphrase.core.common.utils.LruCache
 import com.github.diegoberaldin.metaphrase.domain.mt.repository.data.MachineTranslationProvider
+import com.github.diegoberaldin.metaphrase.domain.mt.repository.datasource.MachineTranslationDataSource
+import com.github.diegoberaldin.metaphrase.domain.mt.repository.datasource.deepl.DeeplDataSource
 import com.github.diegoberaldin.metaphrase.domain.mt.repository.datasource.mymemory.MyMemoryDataSource
+import kotlinx.coroutines.flow.MutableStateFlow
 import java.io.File
 
 internal class DefaultMachineTranslationRepository(
     private val myMemoryDataSource: MyMemoryDataSource,
+    private val deeplDataSource: DeeplDataSource,
 ) : MachineTranslationRepository {
 
+    private lateinit var provider: MachineTranslationProvider
     private val cache = LruCache<String>(size = 50)
+
+    override val supportsContributions = MutableStateFlow(false)
+    override val supportsKeyGeneration = MutableStateFlow(false)
+
+    init {
+        setProvider(MachineTranslationProvider.MY_MEMORY)
+    }
+
+    override fun setProvider(provider: MachineTranslationProvider) {
+        this.provider = provider
+        when (provider) {
+            MachineTranslationProvider.MY_MEMORY -> {
+                supportsContributions.value = true
+                supportsKeyGeneration.value = true
+            }
+
+            else -> {
+                supportsContributions.value = false
+                supportsKeyGeneration.value = false
+            }
+        }
+    }
+
     override suspend fun getTranslation(
-        provider: MachineTranslationProvider,
         key: String?,
         sourceMessage: String,
         sourceLang: String,
@@ -25,16 +52,17 @@ internal class DefaultMachineTranslationRepository(
             return cached
         }
 
-        val remote = when (provider) {
-            MachineTranslationProvider.MY_MEMORY -> {
-                myMemoryDataSource.getTranslation(
-                    key = key,
-                    sourceMessage = sourceMessage,
-                    sourceLang = sourceLang,
-                    targetLang = targetLang,
-                )
+        val dataSource: MachineTranslationDataSource =
+            when (provider) {
+                MachineTranslationProvider.MY_MEMORY -> myMemoryDataSource
+                MachineTranslationProvider.DEEPL -> deeplDataSource
             }
-        }
+        val remote = dataSource.getTranslation(
+            key = key,
+            sourceMessage = sourceMessage,
+            sourceLang = sourceLang,
+            targetLang = targetLang,
+        )
 
         // save result in cache
         cache[cacheKey] = remote
@@ -42,7 +70,6 @@ internal class DefaultMachineTranslationRepository(
     }
 
     override suspend fun shareTranslation(
-        provider: MachineTranslationProvider,
         key: String?,
         sourceMessage: String,
         sourceLang: String,
@@ -59,18 +86,21 @@ internal class DefaultMachineTranslationRepository(
                     targetLang = targetLang,
                 )
             }
+
+            else -> Unit
         }
     }
 
-    override suspend fun generateKey(provider: MachineTranslationProvider, username: String, password: String): String =
+    override suspend fun generateKey(username: String, password: String): String =
         when (provider) {
             MachineTranslationProvider.MY_MEMORY -> {
                 myMemoryDataSource.generateKey(username = username, password = password)
             }
+
+            else -> ""
         }
 
     override suspend fun importTm(
-        provider: MachineTranslationProvider,
         file: File,
         key: String?,
         private: Boolean,
@@ -87,6 +117,8 @@ internal class DefaultMachineTranslationRepository(
                     subject = subject,
                 )
             }
+
+            else -> Unit
         }
     }
 }

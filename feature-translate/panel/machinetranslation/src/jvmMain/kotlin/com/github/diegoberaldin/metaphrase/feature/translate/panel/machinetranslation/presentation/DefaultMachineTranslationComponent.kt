@@ -14,6 +14,8 @@ import com.github.diegoberaldin.metaphrase.domain.project.repository.SegmentRepo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
@@ -41,6 +43,13 @@ internal class DefaultMachineTranslationComponent(
         with(lifecycle) {
             doOnCreate {
                 viewModelScope = CoroutineScope(coroutineContext + SupervisorJob())
+                machineTranslationRepository.supportsContributions.onEach { supported ->
+                    mvi.updateState {
+                        it.copy(
+                            supportsContributions = supported,
+                        )
+                    }
+                }.launchIn(viewModelScope)
             }
             doOnDestroy {
                 viewModelScope.cancel()
@@ -104,11 +113,7 @@ internal class DefaultMachineTranslationComponent(
         viewModelScope.launch(dispatchers.io) {
             mvi.updateState { it.copy(isLoading = true) }
             val key = keyStore.get(KeyStoreKeys.MachineTranslationKey, "").takeIf { it.isNotEmpty() }
-            val provider = keyStore.get(KeyStoreKeys.MachineTranslationProvider, 0).let {
-                MachineTranslationRepository.AVAILABLE_PROVIDERS[it]
-            }
             val mtResult = machineTranslationRepository.getTranslation(
-                provider = provider,
                 key = key,
                 sourceMessage = lastMessage,
                 sourceLang = lastSourceLang,
@@ -158,12 +163,8 @@ internal class DefaultMachineTranslationComponent(
         viewModelScope.launch(dispatchers.io) {
             mvi.updateState { it.copy(isLoading = true) }
             val key = keyStore.get(KeyStoreKeys.MachineTranslationKey, "").takeIf { it.isNotEmpty() }
-            val provider = keyStore.get(KeyStoreKeys.MachineTranslationProvider, 0).let {
-                MachineTranslationRepository.AVAILABLE_PROVIDERS[it]
-            }
             val success = runCatching {
                 machineTranslationRepository.shareTranslation(
-                    provider = provider,
                     key = key,
                     sourceMessage = sourceMessage,
                     sourceLang = sourceLang,

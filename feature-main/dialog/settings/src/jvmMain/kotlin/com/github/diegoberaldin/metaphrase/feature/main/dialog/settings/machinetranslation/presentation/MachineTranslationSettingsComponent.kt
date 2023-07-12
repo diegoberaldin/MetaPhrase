@@ -58,6 +58,7 @@ interface MachineTranslationSettingsComponent :
      * @property availableProviders available Machine Translation providers
      * @property currentProvider current MT provider
      * @property key API key
+     * @property supportsKeyGeneration true if the machine translation provider supports generating keys
      * @constructor Create [UiState]
      */
     data class UiState(
@@ -65,6 +66,7 @@ interface MachineTranslationSettingsComponent :
         val availableProviders: List<MachineTranslationProvider> = emptyList(),
         val currentProvider: MachineTranslationProvider? = null,
         val key: String = "",
+        val supportsKeyGeneration: Boolean = false,
     )
 
     /**

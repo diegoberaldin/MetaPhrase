@@ -28,6 +28,7 @@ kotlin {
                 implementation(libs.ktor.cio)
                 implementation(libs.ktor.negotiation)
                 implementation(libs.ktor.serialization.json)
+                implementation(libs.deepl)
 
                 implementation(projects.coreCommon)
             }

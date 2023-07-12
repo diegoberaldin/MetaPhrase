@@ -7,10 +7,12 @@ package com.github.diegoberaldin.metaphrase.domain.mt.repository.data
  */
 enum class MachineTranslationProvider {
     MY_MEMORY,
+    DEEPL,
     ;
 
     val readableName: String
         get() = when (this) {
             MY_MEMORY -> "MyMemory"
+            DEEPL -> "DeepL"
         }
 }

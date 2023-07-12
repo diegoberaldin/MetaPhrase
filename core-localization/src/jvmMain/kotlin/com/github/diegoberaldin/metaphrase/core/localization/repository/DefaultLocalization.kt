@@ -22,7 +22,9 @@ internal class DefaultLocalization(
 
     override fun getLanguage(): String = "lang".localized()
 
-    override fun get(key: String) = localizables.firstOrNull { it.key == key }?.value
+    override fun get(key: String) = localizables.firstOrNull {
+        it.key == key
+    }?.value.takeIf { !it.isNullOrEmpty() }
         ?: defaultValues.firstOrNull { it.key == key }?.value
         ?: key
 }

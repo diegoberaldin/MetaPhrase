@@ -16,6 +16,7 @@ import com.github.diegoberaldin.metaphrase.domain.glossary.usecase.ClearGlossary
 import com.github.diegoberaldin.metaphrase.domain.glossary.usecase.ExportGlossaryUseCase
 import com.github.diegoberaldin.metaphrase.domain.glossary.usecase.ImportGlossaryUseCase
 import com.github.diegoberaldin.metaphrase.domain.language.di.languageModule
+import com.github.diegoberaldin.metaphrase.domain.mt.repository.MachineTranslationRepository
 import com.github.diegoberaldin.metaphrase.domain.project.data.ProjectModel
 import com.github.diegoberaldin.metaphrase.domain.project.data.ResourceFileType
 import com.github.diegoberaldin.metaphrase.domain.project.di.projectModule
@@ -68,6 +69,7 @@ class DefaultRootComponentTest {
     private val mockExportGlossaryTerms = mockk<ExportGlossaryUseCase>()
     private val mockNotificationCenter = mockk<NotificationCenter>(relaxUnitFun = true)
     private val lifecycle = LifecycleRegistry()
+    private val mockMachineTranslationRepository = mockk<MachineTranslationRepository>(relaxUnitFun = true)
     private val sut = DefaultRootComponent(
         dispatchers = MockCoroutineDispatcherProvider,
         componentContext = DefaultComponentContext(lifecycle = lifecycle),
@@ -81,6 +83,7 @@ class DefaultRootComponentTest {
         exportGlossaryTerms = mockExportGlossaryTerms,
         openProjectUseCase = mockOpenProjectUseCase,
         notificationCenter = mockNotificationCenter,
+        machineTranslationRepository = mockMachineTranslationRepository,
     )
 
     init {

@@ -29,7 +29,6 @@ import com.github.diegoberaldin.metaphrase.core.common.ui.components.CustomTextF
 import com.github.diegoberaldin.metaphrase.core.common.ui.components.CustomTooltipArea
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Spacing
 import com.github.diegoberaldin.metaphrase.core.localization.localized
-import com.github.diegoberaldin.metaphrase.domain.mt.repository.data.MachineTranslationProvider
 import com.github.diegoberaldin.metaphrase.feature.main.dialog.settings.machinetranslation.presentation.MachineTranslationSettingsComponent
 
 @Composable
@@ -78,8 +77,7 @@ fun MachineTranslationSettingsContent(
                 color = MaterialTheme.colorScheme.onBackground,
             )
             Spacer(modifier = Modifier.weight(1f))
-            val keyGenerationEnabled =
-                uiState.currentProvider == MachineTranslationProvider.MY_MEMORY
+            val keyGenerationEnabled = uiState.supportsKeyGeneration
             if (keyGenerationEnabled) {
                 CustomTooltipArea(
                     text = "tooltip_login".localized(),

@@ -10,12 +10,13 @@ import com.github.diegoberaldin.metaphrase.core.common.testutils.MockCoroutineDi
 import com.github.diegoberaldin.metaphrase.domain.language.data.LanguageModel
 import com.github.diegoberaldin.metaphrase.domain.language.repository.LanguageRepository
 import com.github.diegoberaldin.metaphrase.domain.mt.repository.MachineTranslationRepository
-import com.github.diegoberaldin.metaphrase.domain.mt.repository.data.MachineTranslationProvider
 import com.github.diegoberaldin.metaphrase.domain.project.data.SegmentModel
 import com.github.diegoberaldin.metaphrase.domain.project.repository.SegmentRepository
 import io.mockk.coEvery
 import io.mockk.coVerify
+import io.mockk.every
 import io.mockk.mockk
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Test
@@ -48,13 +49,13 @@ class DefaultMachineTranslationComponentTest {
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationProvider, any<Int>()) } returns 0
         coEvery {
             mockMachineTranslationRepository.getTranslation(
-                provider = any(),
                 key = any(),
                 sourceMessage = any(),
                 sourceLang = any(),
                 targetLang = any(),
             )
         } returns "suggestion"
+        every { mockMachineTranslationRepository.supportsContributions } returns MutableStateFlow(true)
         lifecycle.create()
 
         sut.reduce(MachineTranslationComponent.Intent.Load(key = "key", projectId = 1, languageId = 1))
@@ -64,7 +65,6 @@ class DefaultMachineTranslationComponentTest {
         assertEquals("suggestion", uiState.translation)
         coVerify {
             mockMachineTranslationRepository.getTranslation(
-                provider = MachineTranslationProvider.MY_MEMORY,
                 key = "key",
                 sourceMessage = "text",
                 sourceLang = "en",
@@ -80,13 +80,13 @@ class DefaultMachineTranslationComponentTest {
         coEvery { mockSegmentRepository.getByKey(any(), any()) } returns SegmentModel(text = "text")
         coEvery {
             mockMachineTranslationRepository.getTranslation(
-                provider = any(),
                 key = any(),
                 sourceMessage = any(),
                 sourceLang = any(),
                 targetLang = any(),
             )
         } returns "suggestion"
+        every { mockMachineTranslationRepository.supportsContributions } returns MutableStateFlow(true)
         lifecycle.create()
         sut.reduce(MachineTranslationComponent.Intent.Load(key = "key", projectId = 1, languageId = 1))
 
@@ -103,13 +103,13 @@ class DefaultMachineTranslationComponentTest {
         coEvery { mockSegmentRepository.getByKey(any(), any()) } returns SegmentModel(text = "text")
         coEvery {
             mockMachineTranslationRepository.getTranslation(
-                provider = any(),
                 key = any(),
                 sourceMessage = any(),
                 sourceLang = any(),
                 targetLang = any(),
             )
         } returns "suggestion"
+        every { mockMachineTranslationRepository.supportsContributions } returns MutableStateFlow(true)
         lifecycle.create()
         sut.reduce(MachineTranslationComponent.Intent.Load(key = "key", projectId = 1, languageId = 1))
 
@@ -127,13 +127,13 @@ class DefaultMachineTranslationComponentTest {
         coEvery { mockSegmentRepository.getByKey(any(), any()) } returns SegmentModel(text = "text")
         coEvery {
             mockMachineTranslationRepository.getTranslation(
-                provider = any(),
                 key = any(),
                 sourceMessage = any(),
                 sourceLang = any(),
                 targetLang = any(),
             )
         } returns "suggestion"
+        every { mockMachineTranslationRepository.supportsContributions } returns MutableStateFlow(true)
         lifecycle.create()
         sut.reduce(MachineTranslationComponent.Intent.Load(key = "key", projectId = 1, languageId = 1))
         val stateBefore = sut.uiState.value
@@ -152,13 +152,13 @@ class DefaultMachineTranslationComponentTest {
         coEvery { mockSegmentRepository.getByKey(any(), any()) } returns SegmentModel(text = "text")
         coEvery {
             mockMachineTranslationRepository.getTranslation(
-                provider = any(),
                 key = any(),
                 sourceMessage = any(),
                 sourceLang = any(),
                 targetLang = any(),
             )
         } returns "suggestion"
+        every { mockMachineTranslationRepository.supportsContributions } returns MutableStateFlow(true)
         lifecycle.create()
         sut.reduce(MachineTranslationComponent.Intent.Load(key = "key", projectId = 1, languageId = 1))
 
@@ -181,7 +181,6 @@ class DefaultMachineTranslationComponentTest {
         coEvery { mockKeyStore.get(KeyStoreKeys.MachineTranslationProvider, any<Int>()) } returns 0
         coEvery {
             mockMachineTranslationRepository.shareTranslation(
-                provider = any(),
                 key = any(),
                 sourceMessage = any(),
                 sourceLang = any(),
@@ -189,6 +188,7 @@ class DefaultMachineTranslationComponentTest {
                 targetMessage = any(),
             )
         } returns Unit
+        every { mockMachineTranslationRepository.supportsContributions } returns MutableStateFlow(true)
         lifecycle.create()
         sut.reduce(MachineTranslationComponent.Intent.Load(key = "key", projectId = 1, languageId = 1))
         sut.reduce(MachineTranslationComponent.Intent.SetTranslation("translation"))
@@ -201,7 +201,6 @@ class DefaultMachineTranslationComponentTest {
 
         coVerify {
             mockMachineTranslationRepository.shareTranslation(
-                provider = MachineTranslationProvider.MY_MEMORY,
                 key = "key",
                 sourceMessage = "text",
                 sourceLang = "en",
