@@ -29,9 +29,10 @@ import com.github.diegoberaldin.metaphrase.domain.tm.usecase.ClearTmUseCase
 import com.github.diegoberaldin.metaphrase.domain.tm.usecase.ImportTmxUseCase
 import com.github.diegoberaldin.metaphrase.feature.intro.presentation.IntroComponent
 import com.github.diegoberaldin.metaphrase.feature.main.dialog.settings.main.presentation.SettingsComponent
+import com.github.diegoberaldin.metaphrase.feature.projects.dialog.export.presentation.ExportDialogComponent
 import com.github.diegoberaldin.metaphrase.feature.projects.dialog.newproject.presentation.CreateProjectComponent
+import com.github.diegoberaldin.metaphrase.feature.projects.dialog.statistics.presentation.StatisticsComponent
 import com.github.diegoberaldin.metaphrase.feature.projects.presentation.ProjectsComponent
-import com.github.diegoberaldin.metaphrase.feature.projectsdialog.statistics.presentation.StatisticsComponent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.SupervisorJob
@@ -209,6 +210,7 @@ internal class DefaultRootComponent(
             RootComponent.Intent.OpenDialog -> openDialog()
             RootComponent.Intent.OpenEditProject -> openEditProject()
             is RootComponent.Intent.OpenExportDialog -> openExportDialog(intent.type)
+            is RootComponent.Intent.OpenExportDialogV2 -> openExportDialogV2()
             RootComponent.Intent.OpenExportGlossaryDialog -> openExportGlossaryDialog()
             RootComponent.Intent.OpenExportTmxDialog -> openExportTmxDialog()
             is RootComponent.Intent.OpenImportDialog -> openImportDialog(intent.type)
@@ -281,6 +283,12 @@ internal class DefaultRootComponent(
 
             is RootComponent.DialogConfig.SettingsDialog -> {
                 getByInjection<SettingsComponent>(componentContext, coroutineContext)
+            }
+
+            is RootComponent.DialogConfig.ExportDialogV2 -> {
+                getByInjection<ExportDialogComponent>(componentContext, coroutineContext).apply {
+                    projectId = mvi.uiState.value.activeProject?.id ?: 0
+                }
             }
 
             else -> Unit
@@ -413,6 +421,12 @@ internal class DefaultRootComponent(
     private fun openExportDialog(type: ResourceFileType) {
         viewModelScope.launch(dispatchers.main) {
             dialogNavigation.activate(RootComponent.DialogConfig.ExportDialog(type))
+        }
+    }
+
+    private fun openExportDialogV2() {
+        viewModelScope.launch(dispatchers.main) {
+            dialogNavigation.activate(RootComponent.DialogConfig.ExportDialogV2)
         }
     }
 

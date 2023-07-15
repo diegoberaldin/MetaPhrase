@@ -1,7 +1,7 @@
-package com.github.diegoberaldin.metaphrase.feature.projectsdialog.statistics.di
+package com.github.diegoberaldin.metaphrase.feature.projects.dialog.statistics.di
 
-import com.github.diegoberaldin.metaphrase.feature.projectsdialog.statistics.presentation.DefaultStatisticsComponent
-import com.github.diegoberaldin.metaphrase.feature.projectsdialog.statistics.presentation.StatisticsComponent
+import com.github.diegoberaldin.metaphrase.feature.projects.dialog.statistics.presentation.DefaultStatisticsComponent
+import com.github.diegoberaldin.metaphrase.feature.projects.dialog.statistics.presentation.StatisticsComponent
 import org.koin.dsl.module
 
 /**

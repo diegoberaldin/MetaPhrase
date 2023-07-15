@@ -1,4 +1,4 @@
-package com.github.diegoberaldin.metaphrase.feature.projectsdialog.statistics.ui
+package com.github.diegoberaldin.metaphrase.feature.projects.dialog.statistics.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -33,8 +33,8 @@ import com.github.diegoberaldin.metaphrase.core.common.ui.components.CustomProgr
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.MetaPhraseTheme
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Spacing
 import com.github.diegoberaldin.metaphrase.core.localization.localized
-import com.github.diegoberaldin.metaphrase.feature.projectsdialog.statistics.presentation.StatisticsComponent
-import com.github.diegoberaldin.metaphrase.feature.projectsdialog.statistics.presentation.StatisticsItem
+import com.github.diegoberaldin.metaphrase.feature.projects.dialog.statistics.presentation.StatisticsComponent
+import com.github.diegoberaldin.metaphrase.feature.projects.dialog.statistics.presentation.StatisticsItem
 
 /**
  * UI content of the statistics dialog.

@@ -1481,6 +1481,38 @@
 				</seg>
 			</tuv>
 		</tu>
+		<tu tuid="dialog_title_export">
+			<tuv xml:lang="en">
+				<seg>
+					Export resources
+				</seg>
+			</tuv>
+			<tuv xml:lang="it">
+				<seg>
+					Esporta risorse
+				</seg>
+			</tuv>
+			<tuv xml:lang="de">
+				<seg>
+					Ressource exportieren
+				</seg>
+			</tuv>
+			<tuv xml:lang="fr">
+				<seg>
+					Choisir un fichier
+				</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>
+					Exportar recursos
+				</seg>
+			</tuv>
+			<tuv xml:lang="pt">
+				<seg>
+					Exporta recursos
+				</seg>
+			</tuv>
+		</tu>
 		<tu tuid="dialog_title_generic_message">
 			<tuv xml:lang="en">
 				<seg>
@@ -1702,6 +1734,70 @@
 			<tuv xml:lang="pt">
 				<seg>
 					Aviso
+				</seg>
+			</tuv>
+		</tu>
+		<tu tuid="export_select_destination_path">
+			<tuv xml:lang="en">
+				<seg>
+					Destination archive
+				</seg>
+			</tuv>
+			<tuv xml:lang="it">
+				<seg>
+					Archivio di destinazione
+				</seg>
+			</tuv>
+			<tuv xml:lang="de">
+				<seg>
+					Zielpfad Archiv
+				</seg>
+			</tuv>
+			<tuv xml:lang="fr">
+				<seg>
+					Exporter les ressources
+				</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>
+					Archivo de destino
+				</seg>
+			</tuv>
+			<tuv xml:lang="pt">
+				<seg>
+					Arquivo de destino
+				</seg>
+			</tuv>
+		</tu>
+		<tu tuid="export_select_resource_type">
+			<tuv xml:lang="en">
+				<seg>
+					Resource type
+				</seg>
+			</tuv>
+			<tuv xml:lang="it">
+				<seg>
+					Tipo file di risorse
+				</seg>
+			</tuv>
+			<tuv xml:lang="de">
+				<seg>
+					Ressourcentyp
+				</seg>
+			</tuv>
+			<tuv xml:lang="fr">
+				<seg>
+					Archives de destination
+				</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>
+					Tipo de recurso
+				</seg>
+			</tuv>
+			<tuv xml:lang="pt">
+				<seg>
+					Tipo de recurso
 				</seg>
 			</tuv>
 		</tu>
@@ -2484,32 +2580,32 @@
 		<tu tuid="menu_project_export">
 			<tuv xml:lang="en">
 				<seg>
-					Export
+					Export…
 				</seg>
 			</tuv>
 			<tuv xml:lang="it">
 				<seg>
-					Esporta
+					Esporta…
 				</seg>
 			</tuv>
 			<tuv xml:lang="de">
 				<seg>
-					Exportieren
+					Exportieren…
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
-					Exporter
+					Exporter…
 				</seg>
 			</tuv>
 			<tuv xml:lang="es">
 				<seg>
-					Exportar
+					Exportar…
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
 				<seg>
-					Exportar
+					Exportar…
 				</seg>
 			</tuv>
 		</tu>
@@ -2548,128 +2644,128 @@
 		<tu tuid="menu_project_import_android">
 			<tuv xml:lang="en">
 				<seg>
-					Android XML…
+					Android XML
 				</seg>
 			</tuv>
 			<tuv xml:lang="it">
 				<seg>
-					XML Android…
+					XML Android
 				</seg>
 			</tuv>
 			<tuv xml:lang="de">
 				<seg>
-					Android XML…
+					Android XML
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
-					XML Android…
+					XML Android
 				</seg>
 			</tuv>
 			<tuv xml:lang="es">
 				<seg>
-					XML Android…
+					XML Android
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
 				<seg>
-					XML do Android…
+					XML do Android
 				</seg>
 			</tuv>
 		</tu>
 		<tu tuid="menu_project_import_arb">
 			<tuv xml:lang="en">
 				<seg>
-					Flutter ARB…
+					Flutter ARB
 				</seg>
 			</tuv>
 			<tuv xml:lang="it">
 				<seg>
-					ARB Flutter…
+					ARB Flutter
 				</seg>
 			</tuv>
 			<tuv xml:lang="de">
 				<seg>
-					Flutter ARB…
+					Flutter ARB
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
-					ARB Flutter…
+					ARB Flutter
 				</seg>
 			</tuv>
 			<tuv xml:lang="es">
 				<seg>
-					ARB Flutter…
+					ARB Flutter
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
 				<seg>
-					ARB do Flutter…
+					ARB do Flutter
 				</seg>
 			</tuv>
 		</tu>
 		<tu tuid="menu_project_import_ios">
 			<tuv xml:lang="en">
 				<seg>
-					iOS stringtable…
+					iOS stringtable
 				</seg>
 			</tuv>
 			<tuv xml:lang="it">
 				<seg>
-					stringtable iOS…
+					stringtable iOS
 				</seg>
 			</tuv>
 			<tuv xml:lang="de">
 				<seg>
-					iOS stringtable…
+					iOS stringtable
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
-					stringtable iOS…
+					stringtable iOS
 				</seg>
 			</tuv>
 			<tuv xml:lang="es">
 				<seg>
-					stringtable iOS…
+					stringtable iOS
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
 				<seg>
-					stringtable do iOS…
+					stringtable do iOS
 				</seg>
 			</tuv>
 		</tu>
 		<tu tuid="menu_project_import_json">
 			<tuv xml:lang="en">
 				<seg>
-					JSON…
+					JSON
 				</seg>
 			</tuv>
 			<tuv xml:lang="it">
 				<seg>
-					JSON…
+					JSON
 				</seg>
 			</tuv>
 			<tuv xml:lang="de">
 				<seg>
-					JSON…
+					JSON
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
-					JSON…
+					JSON
 				</seg>
 			</tuv>
 			<tuv xml:lang="es">
 				<seg>
-					JSON…
+					JSON
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
 				<seg>
-					JSON…
+					JSON
 				</seg>
 			</tuv>
 		</tu>
@@ -2701,29 +2797,29 @@
 			</tuv>
 			<tuv xml:lang="pt">
 				<seg>
-					PO do Gettext…
+					PO do Gettext
 				</seg>
 			</tuv>
 		</tu>
 		<tu tuid="menu_project_import_properties">
 			<tuv xml:lang="en">
 				<seg>
-					Java properties…
+					Java properties
 				</seg>
 			</tuv>
 			<tuv xml:lang="it">
 				<seg>
-					properties Java…
+					properties Java
 				</seg>
 			</tuv>
 			<tuv xml:lang="de">
 				<seg>
-					Java properties…
+					Java properties
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
-					properties Java…
+					properties Java
 				</seg>
 			</tuv>
 			<tuv xml:lang="es">
@@ -2733,39 +2829,39 @@
 			</tuv>
 			<tuv xml:lang="pt">
 				<seg>
-					properties do Java…
+					properties do Java
 				</seg>
 			</tuv>
 		</tu>
 		<tu tuid="menu_project_import_windows">
 			<tuv xml:lang="en">
 				<seg>
-					Windows resx…
+					Windows resx
 				</seg>
 			</tuv>
 			<tuv xml:lang="it">
 				<seg>
-					resx Windows…
+					resx Windows
 				</seg>
 			</tuv>
 			<tuv xml:lang="de">
 				<seg>
-					Windows resx…
+					Windows resx
 				</seg>
 			</tuv>
 			<tuv xml:lang="fr">
 				<seg>
-					resx Windows…
+					resx Windows
 				</seg>
 			</tuv>
 			<tuv xml:lang="es">
 				<seg>
-					resx Windows…
+					resx Windows
 				</seg>
 			</tuv>
 			<tuv xml:lang="pt">
 				<seg>
-					resx do Windows…
+					resx do Windows
 				</seg>
 			</tuv>
 		</tu>
@@ -3982,6 +4078,38 @@
 			<tuv xml:lang="pt">
 				<seg>
 					Memória
+				</seg>
+			</tuv>
+		</tu>
+		<tu tuid="placeholder_select_file">
+			<tuv xml:lang="en">
+				<seg>
+					Select a file
+				</seg>
+			</tuv>
+			<tuv xml:lang="it">
+				<seg>
+					Seleziona un file
+				</seg>
+			</tuv>
+			<tuv xml:lang="de">
+				<seg>
+					Datei auswählen
+				</seg>
+			</tuv>
+			<tuv xml:lang="fr">
+				<seg>
+					Type de ressource
+				</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>
+					Elegir un archivo
+				</seg>
+			</tuv>
+			<tuv xml:lang="pt">
+				<seg>
+					Selecione um ficheiro
 				</seg>
 			</tuv>
 		</tu>

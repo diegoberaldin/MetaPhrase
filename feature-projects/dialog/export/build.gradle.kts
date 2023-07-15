@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.compose")
 }
 
-group = "com.github.diegoberaldin.metaphrase.feature.main"
+group = "com.github.diegoberaldin.metaphrase.feature.projects.dialog.export"
 version = libs.versions.appVersion.get()
 
 repositories {
@@ -21,6 +21,7 @@ kotlin {
         val jvmMain by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)
+                implementation(compose.materialIconsExtended)
 
                 implementation(libs.compose.material3)
                 implementation(libs.koin)
@@ -31,20 +32,11 @@ kotlin {
                 implementation(projects.coreLocalization)
 
                 implementation(projects.domainLanguage.data)
+                implementation(projects.domainLanguage.repository)
+                implementation(projects.domainLanguage.usecase)
                 implementation(projects.domainProject.data)
                 implementation(projects.domainProject.repository)
-                implementation(projects.domainProject.usecase)
-                implementation(projects.domainTm.usecase)
-                implementation(projects.domainGlossary.usecase)
-                implementation(projects.domainMt.repository)
-
-                implementation(projects.featureIntro)
-                implementation(projects.featureProjects)
-
-                implementation(projects.featureProjects.dialog.newproject)
-                implementation(projects.featureProjects.dialog.statistics)
-                implementation(projects.featureProjects.dialog.export)
-                implementation(projects.featureMain.dialog.settings)
+                implementation(projects.domainFormats)
             }
         }
         val jvmTest by getting {
@@ -54,9 +46,6 @@ kotlin {
                 implementation(libs.mockk)
                 implementation(libs.turbine)
                 implementation(projects.coreCommon.testutils)
-                implementation(projects.corePersistence)
-                implementation(projects.domainLanguage)
-                implementation(projects.domainProject)
             }
         }
     }
