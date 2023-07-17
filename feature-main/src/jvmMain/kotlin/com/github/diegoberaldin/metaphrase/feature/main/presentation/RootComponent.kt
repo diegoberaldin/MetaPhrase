@@ -101,6 +101,8 @@ interface RootComponent : MviModel<RootComponent.Intent, RootComponent.UiState, 
          */
         data class OpenExportDialog(val type: ResourceFileType) : Intent
 
+        object OpenExportDialogV2 : Intent
+
         /**
          * Import messages from a resource file.
          *
@@ -383,6 +385,12 @@ interface RootComponent : MviModel<RootComponent.Intent, RootComponent.UiState, 
          */
         @Parcelize
         data class ExportDialog(val type: ResourceFileType) : DialogConfig
+
+        /**
+         * Export wizard dialog.
+         */
+        @Parcelize
+        object ExportDialogV2 : DialogConfig
 
         /**
          * Statistics dialog.

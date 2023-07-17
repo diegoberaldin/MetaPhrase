@@ -25,12 +25,14 @@ import com.github.diegoberaldin.metaphrase.feature.intro.ui.MainEmptyContent
 import com.github.diegoberaldin.metaphrase.feature.main.dialog.settings.main.presentation.SettingsComponent
 import com.github.diegoberaldin.metaphrase.feature.main.dialog.settings.main.ui.SettingsDialog
 import com.github.diegoberaldin.metaphrase.feature.main.presentation.RootComponent
+import com.github.diegoberaldin.metaphrase.feature.projects.dialog.export.presentation.ExportDialogComponent
+import com.github.diegoberaldin.metaphrase.feature.projects.dialog.export.ui.ExportDialog
 import com.github.diegoberaldin.metaphrase.feature.projects.dialog.newproject.presentation.CreateProjectComponent
 import com.github.diegoberaldin.metaphrase.feature.projects.dialog.newproject.ui.CreateProjectDialog
+import com.github.diegoberaldin.metaphrase.feature.projects.dialog.statistics.presentation.StatisticsComponent
+import com.github.diegoberaldin.metaphrase.feature.projects.dialog.statistics.ui.StatisticsDialog
 import com.github.diegoberaldin.metaphrase.feature.projects.presentation.ProjectsComponent
 import com.github.diegoberaldin.metaphrase.feature.projects.ui.ProjectsContent
-import com.github.diegoberaldin.metaphrase.feature.projectsdialog.statistics.presentation.StatisticsComponent
-import com.github.diegoberaldin.metaphrase.feature.projectsdialog.statistics.ui.StatisticsDialog
 import java.awt.Cursor
 
 /**
@@ -202,6 +204,15 @@ fun RootContent(
                     if (path != null) {
                         component.reduce(RootComponent.Intent.Export(path = path, type = type))
                     }
+                },
+            )
+        }
+
+        is RootComponent.DialogConfig.ExportDialogV2 -> {
+            ExportDialog(
+                component = dialogState.child?.instance as ExportDialogComponent,
+                onClose = {
+                    component.reduce(RootComponent.Intent.CloseDialog)
                 },
             )
         }

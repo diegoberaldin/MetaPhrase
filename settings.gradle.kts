@@ -63,6 +63,7 @@ include(
     ":feature-projects:list",
     ":feature-projects:dialog:newproject",
     ":feature-projects:dialog:statistics",
+    ":feature-projects:dialog:export",
 
     ":feature-translate",
     ":feature-translate:dialog:newsegment",

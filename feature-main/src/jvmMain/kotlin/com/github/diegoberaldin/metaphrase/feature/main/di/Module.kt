@@ -5,8 +5,9 @@ import com.github.diegoberaldin.metaphrase.feature.main.dialog.settings.di.dialo
 import com.github.diegoberaldin.metaphrase.feature.main.presentation.DefaultRootComponent
 import com.github.diegoberaldin.metaphrase.feature.main.presentation.RootComponent
 import com.github.diegoberaldin.metaphrase.feature.projects.di.projectsModule
+import com.github.diegoberaldin.metaphrase.feature.projects.dialog.export.di.dialogExportModule
 import com.github.diegoberaldin.metaphrase.feature.projects.dialog.newproject.di.dialogNewProjectModule
-import com.github.diegoberaldin.metaphrase.feature.projectsdialog.statistics.di.dialogStatisticsModule
+import com.github.diegoberaldin.metaphrase.feature.projects.dialog.statistics.di.dialogStatisticsModule
 import org.koin.dsl.module
 
 /**
@@ -18,6 +19,7 @@ val mainModule = module {
     includes(dialogSettingsModule)
     includes(dialogNewProjectModule)
     includes(dialogStatisticsModule)
+    includes(dialogExportModule)
 
     factory<RootComponent> { params ->
         DefaultRootComponent(

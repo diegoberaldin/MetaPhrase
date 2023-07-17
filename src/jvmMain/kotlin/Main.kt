@@ -285,45 +285,12 @@ private fun MenuBarScope.projectMenu(component: RootComponent) {
                 component.reduce(RootComponent.Intent.OpenImportDialog(ResourceFileType.PROPERTIES))
             }
         }
-        Menu(
+        Item(
             text = "menu_project_export".localized(),
             enabled = rootUiState.activeProject != null,
+            shortcut = KeyShortcut(Key.E, meta = true),
         ) {
-            Item(
-                text = "menu_project_import_android".localized(),
-            ) {
-                component.reduce(RootComponent.Intent.OpenExportDialog(ResourceFileType.ANDROID_XML))
-            }
-            Item(
-                text = "menu_project_import_ios".localized(),
-            ) {
-                component.reduce(RootComponent.Intent.OpenExportDialog(ResourceFileType.IOS_STRINGS))
-            }
-            Item(
-                text = "menu_project_import_windows".localized(),
-            ) {
-                component.reduce(RootComponent.Intent.OpenExportDialog(ResourceFileType.RESX))
-            }
-            Item(
-                text = "menu_project_import_po".localized(),
-            ) {
-                component.reduce(RootComponent.Intent.OpenExportDialog(ResourceFileType.PO))
-            }
-            Item(
-                text = "menu_project_import_json".localized(),
-            ) {
-                component.reduce(RootComponent.Intent.OpenExportDialog(ResourceFileType.JSON))
-            }
-            Item(
-                text = "menu_project_import_arb".localized(),
-            ) {
-                component.reduce(RootComponent.Intent.OpenExportDialog(ResourceFileType.ARB))
-            }
-            Item(
-                text = "menu_project_import_properties".localized(),
-            ) {
-                component.reduce(RootComponent.Intent.OpenExportDialog(ResourceFileType.PROPERTIES))
-            }
+            component.reduce(RootComponent.Intent.OpenExportDialogV2)
         }
         Separator()
         Item(

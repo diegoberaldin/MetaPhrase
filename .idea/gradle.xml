@@ -43,6 +43,7 @@
             <option value="$PROJECT_DIR$/feature-main/dialog/settings" />
             <option value="$PROJECT_DIR$/feature-projects" />
             <option value="$PROJECT_DIR$/feature-projects/dialog" />
+            <option value="$PROJECT_DIR$/feature-projects/dialog/export" />
             <option value="$PROJECT_DIR$/feature-projects/dialog/newproject" />
             <option value="$PROJECT_DIR$/feature-projects/dialog/statistics" />
             <option value="$PROJECT_DIR$/feature-projects/list" />

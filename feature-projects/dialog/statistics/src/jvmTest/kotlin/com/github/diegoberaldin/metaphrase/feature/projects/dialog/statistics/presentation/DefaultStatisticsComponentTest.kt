@@ -1,4 +1,4 @@
-package com.github.diegoberaldin.metaphrase.feature.projectsdialog.statistics.presentation
+package com.github.diegoberaldin.metaphrase.feature.projects.dialog.statistics.presentation
 
 import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
