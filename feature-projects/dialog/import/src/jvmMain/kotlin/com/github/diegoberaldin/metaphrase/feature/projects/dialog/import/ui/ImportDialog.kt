@@ -1,4 +1,4 @@
-package com.github.diegoberaldin.metaphrase.feature.projects.dialog.export.ui
+package com.github.diegoberaldin.metaphrase.feature.projects.dialog.import.ui
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -21,8 +21,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FolderZip
 import androidx.compose.material3.Button
-import androidx.compose.material3.Checkbox
-import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -43,14 +41,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.rememberWindowState
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
-import com.github.diegoberaldin.metaphrase.core.common.ui.components.CustomSaveFileDialog
+import com.github.diegoberaldin.metaphrase.core.common.ui.components.CustomOpenFileDialog
 import com.github.diegoberaldin.metaphrase.core.common.ui.components.CustomSpinner
 import com.github.diegoberaldin.metaphrase.core.common.ui.components.CustomTextField
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.MetaPhraseTheme
 import com.github.diegoberaldin.metaphrase.core.common.ui.theme.Spacing
 import com.github.diegoberaldin.metaphrase.core.localization.localized
 import com.github.diegoberaldin.metaphrase.domain.project.data.ResourceFileType
-import com.github.diegoberaldin.metaphrase.feature.projects.dialog.export.presentation.ExportDialogComponent
+import com.github.diegoberaldin.metaphrase.feature.projects.dialog.import.presentation.ImportDialogComponent
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import java.awt.Cursor
@@ -63,24 +61,24 @@ import java.awt.Cursor
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ExportDialog(
-    component: ExportDialogComponent,
-    onClose: () -> Unit,
+fun ImportDialog(
+    component: ImportDialogComponent,
+    onClose: (refresh: Boolean) -> Unit,
 ) {
     LaunchedEffect(component) {
         component.effects.onEach {
             when (it) {
-                ExportDialogComponent.Effect.Done -> onClose()
+                ImportDialogComponent.Effect.Done -> onClose(true)
             }
         }.launchIn(this)
     }
     MetaPhraseTheme {
         Window(
-            title = "dialog_title_export".localized(),
+            title = "dialog_title_import".localized(),
             state = rememberWindowState(width = Dp.Unspecified, height = Dp.Unspecified),
             resizable = false,
             onCloseRequest = {
-                onClose()
+                onClose(false)
             },
         ) {
             Surface(
@@ -118,7 +116,7 @@ fun ExportDialog(
                             current = uiState.selectedResourceType?.toReadableName(),
                             onValueChanged = {
                                 val type = availableTypes[it]
-                                component.reduce(ExportDialogComponent.Intent.SelectType(type))
+                                component.reduce(ImportDialogComponent.Intent.SelectType(type))
                             },
                         )
                     }
@@ -130,68 +128,45 @@ fun ExportDialog(
                     )
                     Spacer(modifier = Modifier.height(Spacing.xs))
 
-                    Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                        Text(
-                            text = "export_select_destination_path".localized(),
-                            style = MaterialTheme.typography.labelSmall,
-                            color = MaterialTheme.colorScheme.onBackground,
-                        )
-                        Spacer(modifier = Modifier.width(Spacing.m))
-                        CustomTextField(
-                            modifier = Modifier.weight(1f).height(26.dp).onClick {
-                                component.reduce(ExportDialogComponent.Intent.OpenFileDialog)
-                            },
-                            enabled = false,
-                            hint = "placeholder_select_file".localized(),
-                            singleLine = true,
-                            value = uiState.outputPath,
-                            onValueChange = {},
-                            endButton = {
-                                Icon(
-                                    imageVector = Icons.Default.FolderZip,
-                                    contentDescription = null,
-                                )
-                            },
-                        )
-                    }
-                    Text(
-                        modifier = Modifier.padding(top = Spacing.xxs, start = Spacing.xxs),
-                        text = uiState.outputPathError,
-                        color = MaterialTheme.colorScheme.error,
-                        style = MaterialTheme.typography.labelSmall,
-                    )
-                    Spacer(modifier = Modifier.height(Spacing.xs))
-
                     Text(
                         text = "create_project_languages".localized(),
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.onBackground,
                     )
                     Spacer(modifier = Modifier.height(Spacing.xs))
+
+                    val languages = uiState.languages.keys.toList()
                     LazyColumn(
                         modifier = Modifier.weight(1f).fillMaxWidth(),
-                        verticalArrangement = Arrangement.spacedBy(Spacing.xxs),
+                        verticalArrangement = Arrangement.spacedBy(Spacing.xs),
                     ) {
-                        items(uiState.availableLanguages) { language ->
-                            Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                        items(languages) { language ->
+                            val path = uiState.languages[language].orEmpty()
+                            Column(
+                                modifier = Modifier.fillMaxWidth(),
+                                verticalArrangement = Arrangement.spacedBy(Spacing.xxs),
+                            ) {
                                 Text(
                                     text = language.name,
                                     style = MaterialTheme.typography.labelSmall,
                                     color = MaterialTheme.colorScheme.onBackground,
                                 )
-                                Spacer(modifier = Modifier.weight(1f))
-                                val isSelected = uiState.selectedLanguages.contains(language)
-                                Checkbox(
-                                    modifier = Modifier.size(20.dp).padding(2.dp),
-                                    checked = isSelected,
-                                    onCheckedChange = {
-                                        if (isSelected) {
-                                            component.reduce(ExportDialogComponent.Intent.RemoveLanguage(language))
-                                        } else {
-                                            component.reduce(ExportDialogComponent.Intent.AddLanguage(language))
-                                        }
+                                Spacer(modifier = Modifier.width(Spacing.xxxs))
+                                CustomTextField(
+                                    modifier = Modifier.fillMaxWidth().height(26.dp).onClick {
+                                        component.reduce(ImportDialogComponent.Intent.OpenFileDialog(language.code))
                                     },
-                                    colors = CheckboxDefaults.colors(checkedColor = MaterialTheme.colorScheme.primary),
+                                    enabled = false,
+                                    hint = "placeholder_select_file".localized(),
+                                    singleLine = true,
+                                    value = path,
+                                    onValueChange = {},
+                                    endButton = {
+                                        Icon(
+                                            imageVector = Icons.Default.FolderZip,
+                                            contentDescription = null,
+                                        )
+                                    },
                                 )
                             }
                         }
@@ -212,7 +187,7 @@ fun ExportDialog(
                             modifier = Modifier.heightIn(max = 25.dp),
                             contentPadding = PaddingValues(0.dp),
                             onClick = {
-                                onClose()
+                                onClose(false)
                             },
                         ) {
                             Text(text = "button_cancel".localized(), style = MaterialTheme.typography.labelLarge)
@@ -221,7 +196,7 @@ fun ExportDialog(
                             modifier = Modifier.heightIn(max = 25.dp),
                             contentPadding = PaddingValues(0.dp),
                             onClick = {
-                                component.reduce(ExportDialogComponent.Intent.Submit)
+                                component.reduce(ImportDialogComponent.Intent.Submit)
                             },
                         ) {
                             Text(text = "button_ok".localized(), style = MaterialTheme.typography.labelLarge)
@@ -233,17 +208,31 @@ fun ExportDialog(
     }
 
     val dialog by component.dialog.subscribeAsState()
-    when (dialog.child?.configuration) {
-        is ExportDialogComponent.DialogConfig.SelectOutputFile -> {
-            CustomSaveFileDialog(
-                title = "",
-                nameFilter = { it.endsWith(".zip") },
-                initialFileName = "resources.zip",
-                onCloseRequest = { path ->
-                    if (!path.isNullOrEmpty()) {
-                        component.reduce(ExportDialogComponent.Intent.SetOutputPath(path))
+    when (val config = dialog.child?.configuration) {
+        is ImportDialogComponent.DialogConfig.OpenFile -> {
+            val uiState by component.uiState.collectAsState()
+            CustomOpenFileDialog(
+                title = "dialog_title_open_file".localized(),
+                nameFilter = {
+                    when (uiState.selectedResourceType) {
+                        ResourceFileType.ANDROID_XML -> it.endsWith(".xml")
+                        ResourceFileType.IOS_STRINGS -> it.endsWith(".strings")
+                        ResourceFileType.RESX -> it.endsWith(".resx")
+                        ResourceFileType.PO -> it.endsWith(".po")
+                        ResourceFileType.JSON -> it.endsWith(".json")
+                        ResourceFileType.ARB -> it.endsWith(".arb")
+                        ResourceFileType.PROPERTIES -> it.endsWith(".properties")
+                        else -> false
                     }
-                    component.reduce(ExportDialogComponent.Intent.CloseDialog)
+                },
+                onCloseRequest = { path ->
+                    component.reduce(
+                        ImportDialogComponent.Intent.SetInputPath(
+                            lang = config.lang,
+                            path = path.orEmpty(),
+                        ),
+                    )
+                    component.reduce(ImportDialogComponent.Intent.CloseDialog)
                 },
             )
         }

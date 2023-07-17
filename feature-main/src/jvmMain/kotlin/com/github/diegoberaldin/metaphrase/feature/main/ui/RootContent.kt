@@ -27,6 +27,8 @@ import com.github.diegoberaldin.metaphrase.feature.main.dialog.settings.main.ui.
 import com.github.diegoberaldin.metaphrase.feature.main.presentation.RootComponent
 import com.github.diegoberaldin.metaphrase.feature.projects.dialog.export.presentation.ExportDialogComponent
 import com.github.diegoberaldin.metaphrase.feature.projects.dialog.export.ui.ExportDialog
+import com.github.diegoberaldin.metaphrase.feature.projects.dialog.import.presentation.ImportDialogComponent
+import com.github.diegoberaldin.metaphrase.feature.projects.dialog.import.ui.ImportDialog
 import com.github.diegoberaldin.metaphrase.feature.projects.dialog.newproject.presentation.CreateProjectComponent
 import com.github.diegoberaldin.metaphrase.feature.projects.dialog.newproject.ui.CreateProjectDialog
 import com.github.diegoberaldin.metaphrase.feature.projects.dialog.statistics.presentation.StatisticsComponent
@@ -213,6 +215,18 @@ fun RootContent(
                 component = dialogState.child?.instance as ExportDialogComponent,
                 onClose = {
                     component.reduce(RootComponent.Intent.CloseDialog)
+                },
+            )
+        }
+
+        is RootComponent.DialogConfig.ImportDialogV2 -> {
+            ImportDialog(
+                component = dialogState.child?.instance as ImportDialogComponent,
+                onClose = { refresh ->
+                    component.reduce(RootComponent.Intent.CloseDialog)
+                    if (refresh) {
+                        component.reduce(RootComponent.Intent.RefreshProject)
+                    }
                 },
             )
         }

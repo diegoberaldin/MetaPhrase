@@ -3,9 +3,11 @@ package com.github.diegoberaldin.metaphrase.domain.formats.di
 import com.github.diegoberaldin.metaphrase.domain.formats.DefaultExportResourcesUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.DefaultExportResourcesV2UseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.DefaultImportResourcesUseCase
+import com.github.diegoberaldin.metaphrase.domain.formats.DefaultImportResourcesV2UseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.ExportResourcesUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.ExportResourcesV2UseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.ImportResourcesUseCase
+import com.github.diegoberaldin.metaphrase.domain.formats.ImportResourcesV2UseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.android.DefaultExportAndroidResourcesUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.android.DefaultParseAndroidResourcesUseCase
 import com.github.diegoberaldin.metaphrase.domain.formats.android.ExportAndroidResourcesUseCase
@@ -165,6 +167,13 @@ val formatsModule = module {
     single<ExportResourcesV2UseCase> {
         DefaultExportResourcesV2UseCase(
             baseUseCase = get(),
+        )
+    }
+    single<ImportResourcesV2UseCase> {
+        DefaultImportResourcesV2UseCase(
+            baseUseCase = get(),
+            languageRepository = get(),
+            segmentRepository = get(),
         )
     }
 }

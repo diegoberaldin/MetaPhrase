@@ -43,6 +43,7 @@ kotlin {
 
                 implementation(projects.featureProjects.dialog.newproject)
                 implementation(projects.featureProjects.dialog.statistics)
+                implementation(projects.featureProjects.dialog.import)
                 implementation(projects.featureProjects.dialog.export)
                 implementation(projects.featureMain.dialog.settings)
             }

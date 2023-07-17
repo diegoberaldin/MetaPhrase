@@ -30,6 +30,7 @@ import com.github.diegoberaldin.metaphrase.domain.tm.usecase.ImportTmxUseCase
 import com.github.diegoberaldin.metaphrase.feature.intro.presentation.IntroComponent
 import com.github.diegoberaldin.metaphrase.feature.main.dialog.settings.main.presentation.SettingsComponent
 import com.github.diegoberaldin.metaphrase.feature.projects.dialog.export.presentation.ExportDialogComponent
+import com.github.diegoberaldin.metaphrase.feature.projects.dialog.import.presentation.ImportDialogComponent
 import com.github.diegoberaldin.metaphrase.feature.projects.dialog.newproject.presentation.CreateProjectComponent
 import com.github.diegoberaldin.metaphrase.feature.projects.dialog.statistics.presentation.StatisticsComponent
 import com.github.diegoberaldin.metaphrase.feature.projects.presentation.ProjectsComponent
@@ -214,6 +215,7 @@ internal class DefaultRootComponent(
             RootComponent.Intent.OpenExportGlossaryDialog -> openExportGlossaryDialog()
             RootComponent.Intent.OpenExportTmxDialog -> openExportTmxDialog()
             is RootComponent.Intent.OpenImportDialog -> openImportDialog(intent.type)
+            is RootComponent.Intent.OpenImportDialogV2 -> openImportDialogV2()
             RootComponent.Intent.OpenImportGlossaryDialog -> openImportGlossaryDialog()
             RootComponent.Intent.OpenImportTmxDialog -> openImportTmxDialog()
             RootComponent.Intent.OpenManual -> openManual()
@@ -226,6 +228,7 @@ internal class DefaultRootComponent(
             RootComponent.Intent.SaveProjectAs -> saveProjectAs()
             RootComponent.Intent.SyncTm -> syncTm()
             RootComponent.Intent.ValidatePlaceholders -> validatePlaceholders()
+            RootComponent.Intent.RefreshProject -> refreshProject()
         }
     }
 
@@ -287,6 +290,12 @@ internal class DefaultRootComponent(
 
             is RootComponent.DialogConfig.ExportDialogV2 -> {
                 getByInjection<ExportDialogComponent>(componentContext, coroutineContext).apply {
+                    projectId = mvi.uiState.value.activeProject?.id ?: 0
+                }
+            }
+
+            is RootComponent.DialogConfig.ImportDialogV2 -> {
+                getByInjection<ImportDialogComponent>(componentContext, coroutineContext).apply {
                     projectId = mvi.uiState.value.activeProject?.id ?: 0
                 }
             }
@@ -430,6 +439,12 @@ internal class DefaultRootComponent(
         }
     }
 
+    private fun openImportDialogV2() {
+        viewModelScope.launch(dispatchers.main) {
+            dialogNavigation.activate(RootComponent.DialogConfig.ImportDialogV2)
+        }
+    }
+
     private fun import(path: String, type: ResourceFileType) {
         viewModelScope.launch(dispatchers.io) {
             main.asFlow<ProjectsComponent>().firstOrNull()?.reduce(
@@ -546,6 +561,12 @@ internal class DefaultRootComponent(
         }
     }
 
+    private fun refreshProject() {
+        viewModelScope.launch(dispatchers.io) {
+            main.asFlow<ProjectsComponent>().firstOrNull()?.reduce(ProjectsComponent.Intent.Refresh)
+        }
+    }
+
     private fun insertBestMatch() {
         viewModelScope.launch(dispatchers.io) {
             main.asFlow<ProjectsComponent>().firstOrNull()?.reduce(ProjectsComponent.Intent.InsertBestMatch)
@@ -590,15 +611,13 @@ internal class DefaultRootComponent(
 
     private fun machineTranslationRetrieve() {
         viewModelScope.launch(dispatchers.io) {
-            main.asFlow<ProjectsComponent>().firstOrNull()
-                ?.reduce(ProjectsComponent.Intent.MachineTranslationRetrieve)
+            main.asFlow<ProjectsComponent>().firstOrNull()?.reduce(ProjectsComponent.Intent.MachineTranslationRetrieve)
         }
     }
 
     private fun machineTranslationInsert() {
         viewModelScope.launch(dispatchers.io) {
-            main.asFlow<ProjectsComponent>().firstOrNull()
-                ?.reduce(ProjectsComponent.Intent.MachineTranslationInsert)
+            main.asFlow<ProjectsComponent>().firstOrNull()?.reduce(ProjectsComponent.Intent.MachineTranslationInsert)
         }
     }
 

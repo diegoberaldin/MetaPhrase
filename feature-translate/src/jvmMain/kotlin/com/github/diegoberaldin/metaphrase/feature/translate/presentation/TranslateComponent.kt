@@ -29,6 +29,11 @@ interface TranslateComponent :
         data class Save(val path: String) : Intent
 
         /**
+         * Refresh the messages list and unit count.
+         */
+        object Refresh : Intent
+
+        /**
          * Import a list of message for the current language from a resource file.
          *
          * @param path file path

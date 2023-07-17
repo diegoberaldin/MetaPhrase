@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.compose")
 }
 
-group = "com.github.diegoberaldin.metaphrase.domain.formats"
+group = "com.github.diegoberaldin.metaphrase.feature.projects.dialog.import"
 version = libs.versions.appVersion.get()
 
 repositories {
@@ -21,16 +21,22 @@ kotlin {
         val jvmMain by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)
+                implementation(compose.materialIconsExtended)
 
+                implementation(libs.compose.material3)
                 implementation(libs.koin)
-                implementation(libs.redundent)
-                implementation(libs.kotlinx.serialization.json)
+                implementation(libs.decompose)
+                implementation(libs.decompose.extensions)
 
                 implementation(projects.coreCommon)
-                implementation(projects.domainProject.data)
-                implementation(projects.domainProject.repository)
+                implementation(projects.coreLocalization)
+
                 implementation(projects.domainLanguage.data)
                 implementation(projects.domainLanguage.repository)
+                implementation(projects.domainLanguage.usecase)
+                implementation(projects.domainProject.data)
+                implementation(projects.domainProject.repository)
+                implementation(projects.domainFormats)
             }
         }
         val jvmTest by getting {
@@ -38,13 +44,13 @@ kotlin {
                 implementation(libs.kotlinx.coroutines.test)
                 implementation(kotlin("test-junit5"))
                 implementation(libs.mockk)
+                implementation(libs.turbine)
                 implementation(projects.coreCommon.testutils)
-                implementation(projects.domainProject.data)
             }
         }
     }
 }
 
-tasks.withType<Test>() {
+tasks.withType<Test> {
     useJUnitPlatform()
 }
