@@ -4,11 +4,11 @@ import com.github.diegoberaldin.metaphrase.domain.project.data.ResourceFileType
 import com.github.diegoberaldin.metaphrase.domain.project.data.SegmentModel
 
 /**
- * Contracf for the export resources use case.
+ * Contracf for the export resources "all-in-one" use case.
  */
 interface ExportResourcesV2UseCase {
     /**
-     * Export a list of segments as a resouce file in a given fromat.
+     * Export a list of segments as a resource file in a given format.
      *
      * @param data Map containing the language code as keys and the list of segments for that language
      * @param path Destination path
@@ -20,4 +20,3 @@ interface ExportResourcesV2UseCase {
         type: ResourceFileType,
     )
 }
-

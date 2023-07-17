@@ -94,6 +94,11 @@ interface ProjectsComponent :
         object ValidatePlaceholders : Intent
 
         /**
+         * Refresh the translation UI.
+         */
+        object Refresh : Intent
+
+        /**
          * Insert the best TM match into the translation editor.
          */
         object InsertBestMatch : Intent

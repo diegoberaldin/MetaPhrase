@@ -216,6 +216,7 @@ internal class DefaultTranslateComponent(
             TranslateComponent.Intent.TryLoadMachineTranslation -> tryLoadMachineTranslation()
             TranslateComponent.Intent.TryLoadSimilarities -> tryLoadSimilarities()
             TranslateComponent.Intent.ValidatePlaceholders -> validatePlaceholders()
+            TranslateComponent.Intent.Refresh -> refresh()
         }
     }
 
@@ -372,35 +373,17 @@ internal class DefaultTranslateComponent(
             }.launchIn(this)
         toolbarComponent.effects.onEach { evt ->
             when (evt) {
-                TranslateToolbarComponent.Effect.MoveToPrevious -> {
-                    moveToPrevious()
-                }
-
-                TranslateToolbarComponent.Effect.MoveToNext -> {
-                    moveToNext()
-                }
-
+                TranslateToolbarComponent.Effect.MoveToPrevious -> moveToPrevious()
+                TranslateToolbarComponent.Effect.MoveToNext -> moveToNext()
                 is TranslateToolbarComponent.Effect.Search -> {
                     val searchText = evt.text
                     messageListComponent.reduce(MessageListComponent.Intent.Search(searchText))
                 }
 
-                TranslateToolbarComponent.Effect.CopyBase -> {
-                    copyBase()
-                }
-
-                TranslateToolbarComponent.Effect.AddUnit -> {
-                    addSegment()
-                }
-
-                TranslateToolbarComponent.Effect.RemoveUnit -> {
-                    deleteSegment()
-                }
-
-                TranslateToolbarComponent.Effect.ValidateUnits -> {
-                    startPlaceholderValidation()
-                }
-
+                TranslateToolbarComponent.Effect.CopyBase -> copyBase()
+                TranslateToolbarComponent.Effect.AddUnit -> addSegment()
+                TranslateToolbarComponent.Effect.RemoveUnit -> deleteSegment()
+                TranslateToolbarComponent.Effect.ValidateUnits -> startPlaceholderValidation()
                 else -> Unit
             }
         }.launchIn(this)
@@ -570,6 +553,14 @@ internal class DefaultTranslateComponent(
             messageListComponent?.reduce(MessageListComponent.Intent.Refresh)
             messageListComponent?.reduce(MessageListComponent.Intent.SetEditingEnabled(true))
             notificationCenter.send(NotificationCenter.Event.ShowProgress(visible = false))
+        }
+    }
+
+    private fun refresh() {
+        viewModelScope.launch(dispatchers.io) {
+            updateUnitCount()
+            val messageListComponent = messageList.asFlow<MessageListComponent>().firstOrNull()
+            messageListComponent?.reduce(MessageListComponent.Intent.Refresh)
         }
     }
 

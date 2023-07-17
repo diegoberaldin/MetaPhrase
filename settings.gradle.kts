@@ -64,6 +64,7 @@ include(
     ":feature-projects:dialog:newproject",
     ":feature-projects:dialog:statistics",
     ":feature-projects:dialog:export",
+    ":feature-projects:dialog:import",
 
     ":feature-translate",
     ":feature-translate:dialog:newsegment",

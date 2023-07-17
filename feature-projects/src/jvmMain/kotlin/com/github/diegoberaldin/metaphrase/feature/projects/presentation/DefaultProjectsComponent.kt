@@ -123,6 +123,7 @@ internal class DefaultProjectsComponent(
             is ProjectsComponent.Intent.SaveCurrentProject -> saveCurrentProject(intent.path)
             ProjectsComponent.Intent.SyncWithTm -> syncWithTm()
             ProjectsComponent.Intent.ValidatePlaceholders -> validatePlaceholders()
+            ProjectsComponent.Intent.Refresh -> refresh()
         }
     }
 
@@ -231,6 +232,14 @@ internal class DefaultProjectsComponent(
                     path = path,
                     type = type,
                 ),
+            )
+        }
+    }
+
+    private fun refresh() {
+        viewModelScope.launch(dispatchers.io) {
+            childStack.activeAsFlow<TranslateComponent>().firstOrNull()?.reduce(
+                TranslateComponent.Intent.Refresh,
             )
         }
     }

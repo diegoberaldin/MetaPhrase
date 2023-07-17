@@ -1545,6 +1545,38 @@
 				</seg>
 			</tuv>
 		</tu>
+		<tu tuid="dialog_title_import">
+			<tuv xml:lang="en">
+				<seg>
+					Import resources
+				</seg>
+			</tuv>
+			<tuv xml:lang="it">
+				<seg>
+					Importa risorse
+				</seg>
+			</tuv>
+			<tuv xml:lang="de">
+				<seg>
+					Ressourcen importieren
+				</seg>
+			</tuv>
+			<tuv xml:lang="fr">
+				<seg>
+					Ressources d’importation
+				</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>
+					Importar recursos
+				</seg>
+			</tuv>
+			<tuv xml:lang="pt">
+				<seg>
+					Importar recursos
+				</seg>
+			</tuv>
+		</tu>
 		<tu tuid="dialog_title_invalid_segments">
 			<tuv xml:lang="en">
 				<seg>
@@ -3758,6 +3790,38 @@
 			<tuv xml:lang="pt">
 				<seg>
 					Este recurso está disponível apenas para os idiomas de destino 🙅
+				</seg>
+			</tuv>
+		</tu>
+		<tu tuid="message_select_one_file">
+			<tuv xml:lang="en">
+				<seg>
+					Please select at least one file
+				</seg>
+			</tuv>
+			<tuv xml:lang="it">
+				<seg>
+					Seleziona almeno un file
+				</seg>
+			</tuv>
+			<tuv xml:lang="de">
+				<seg>
+					Bitte wähle mindestens eine Datei.
+				</seg>
+			</tuv>
+			<tuv xml:lang="fr">
+				<seg>
+					Veuillez sélectionner au moins un fichier.
+				</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>
+					Seleccionar al menos un archivo
+				</seg>
+			</tuv>
+			<tuv xml:lang="pt">
+				<seg>
+					Selecione pelo menos um ficheiro.
 				</seg>
 			</tuv>
 		</tu>

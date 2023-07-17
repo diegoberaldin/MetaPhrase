@@ -37,7 +37,6 @@ import com.github.diegoberaldin.metaphrase.core.localization.localized
 import com.github.diegoberaldin.metaphrase.core.persistence.di.persistenceModule
 import com.github.diegoberaldin.metaphrase.domain.language.di.languageModule
 import com.github.diegoberaldin.metaphrase.domain.mt.repository.MachineTranslationRepository
-import com.github.diegoberaldin.metaphrase.domain.project.data.ResourceFileType
 import com.github.diegoberaldin.metaphrase.domain.project.di.projectModule
 import com.github.diegoberaldin.metaphrase.feature.main.di.mainModule
 import com.github.diegoberaldin.metaphrase.feature.main.presentation.RootComponent
@@ -245,45 +244,12 @@ private fun MenuBarScope.projectMenu(component: RootComponent) {
             component.reduce(RootComponent.Intent.OpenSettings)
         }
         Separator()
-        Menu(
+        Item(
             text = "menu_project_import".localized(),
             enabled = rootUiState.activeProject != null,
+            shortcut = KeyShortcut(Key.I, meta = true),
         ) {
-            Item(
-                text = "menu_project_import_android".localized(),
-            ) {
-                component.reduce(RootComponent.Intent.OpenImportDialog(ResourceFileType.ANDROID_XML))
-            }
-            Item(
-                text = "menu_project_import_ios".localized(),
-            ) {
-                component.reduce(RootComponent.Intent.OpenImportDialog(ResourceFileType.IOS_STRINGS))
-            }
-            Item(
-                text = "menu_project_import_windows".localized(),
-            ) {
-                component.reduce(RootComponent.Intent.OpenImportDialog(ResourceFileType.RESX))
-            }
-            Item(
-                text = "menu_project_import_po".localized(),
-            ) {
-                component.reduce(RootComponent.Intent.OpenImportDialog(ResourceFileType.PO))
-            }
-            Item(
-                text = "menu_project_import_json".localized(),
-            ) {
-                component.reduce(RootComponent.Intent.OpenImportDialog(ResourceFileType.JSON))
-            }
-            Item(
-                text = "menu_project_import_arb".localized(),
-            ) {
-                component.reduce(RootComponent.Intent.OpenImportDialog(ResourceFileType.ARB))
-            }
-            Item(
-                text = "menu_project_import_properties".localized(),
-            ) {
-                component.reduce(RootComponent.Intent.OpenImportDialog(ResourceFileType.PROPERTIES))
-            }
+            component.reduce(RootComponent.Intent.OpenImportDialogV2)
         }
         Item(
             text = "menu_project_export".localized(),

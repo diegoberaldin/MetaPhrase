@@ -15,7 +15,7 @@ import java.util.zip.ZipOutputStream
 import kotlin.io.path.ExperimentalPathApi
 import kotlin.io.path.deleteRecursively
 
-class DefaultExportResourcesV2UseCase(
+internal class DefaultExportResourcesV2UseCase(
     private val baseUseCase: ExportResourcesUseCase,
 ) : ExportResourcesV2UseCase {
     @OptIn(ExperimentalPathApi::class)

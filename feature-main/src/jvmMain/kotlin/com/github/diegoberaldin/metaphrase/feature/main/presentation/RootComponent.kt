@@ -62,6 +62,11 @@ interface RootComponent : MviModel<RootComponent.Intent, RootComponent.UiState, 
         object CloseDialog : Intent
 
         /**
+         * Refresh the current project
+         */
+        object RefreshProject : Intent
+
+        /**
          * Displays the "Confirm project close" dialog.
          *
          * @param closeAfter if set to true, after confirmation the application will exit
@@ -101,7 +106,15 @@ interface RootComponent : MviModel<RootComponent.Intent, RootComponent.UiState, 
          */
         data class OpenExportDialog(val type: ResourceFileType) : Intent
 
+        /**
+         * Open the all-in-one export dialog.
+         */
         object OpenExportDialogV2 : Intent
+
+        /**
+         * Open the all-in-one import dialog.
+         */
+        object OpenImportDialogV2 : Intent
 
         /**
          * Import messages from a resource file.
@@ -387,10 +400,16 @@ interface RootComponent : MviModel<RootComponent.Intent, RootComponent.UiState, 
         data class ExportDialog(val type: ResourceFileType) : DialogConfig
 
         /**
-         * Export wizard dialog.
+         * All-in-one export dialog.
          */
         @Parcelize
         object ExportDialogV2 : DialogConfig
+
+        /**
+         * All-in-one import dialog.
+         */
+        @Parcelize
+        object ImportDialogV2 : DialogConfig
 
         /**
          * Statistics dialog.

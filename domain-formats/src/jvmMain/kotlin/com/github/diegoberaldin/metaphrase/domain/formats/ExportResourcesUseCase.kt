@@ -8,7 +8,7 @@ import com.github.diegoberaldin.metaphrase.domain.project.data.SegmentModel
  */
 interface ExportResourcesUseCase {
     /**
-     * Export a list of segments as a resouce file in a given fromat.
+     * Export a list of segments as a resoruce file in a given format.
      *
      * @param segments Segments to export
      * @param path Destination path
