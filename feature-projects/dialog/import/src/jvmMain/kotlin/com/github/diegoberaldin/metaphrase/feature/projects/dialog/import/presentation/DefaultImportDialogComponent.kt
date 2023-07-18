@@ -129,7 +129,7 @@ internal class DefaultImportDialogComponent(
         val languagesToExport = currentState.languages.filter { it.value.isNotEmpty() }
         if (languagesToExport.isEmpty()) {
             valid = false
-            mvi.updateState { it.copy(languagesError = "Please select at least one file".localized()) }
+            mvi.updateState { it.copy(languagesError = "message_select_one_file".localized()) }
         }
         if (!valid) {
             return
