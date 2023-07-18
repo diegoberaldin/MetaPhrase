@@ -4,7 +4,7 @@ import com.github.diegoberaldin.metaphrase.domain.project.data.ResourceFileType
 import com.github.diegoberaldin.metaphrase.domain.project.data.SegmentModel
 
 /**
- * Contracf for the export resources "all-in-one" use case.
+ * Contract for the export resources "all-in-one" use case.
  */
 interface ExportResourcesV2UseCase {
     /**
