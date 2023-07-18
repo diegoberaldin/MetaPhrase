@@ -18,12 +18,51 @@ interface ExportDialogComponent :
      * View intents.
      */
     sealed interface Intent {
+        /**
+         * Add a language.
+         *
+         * @property value language to add
+         * @constructor Create [AddLanguage]
+         */
         data class AddLanguage(val value: LanguageModel) : Intent
+
+        /**
+         * Remove a language.
+         *
+         * @property value language to remove
+         * @constructor Create [RemoveLanguage]
+         */
         data class RemoveLanguage(val value: LanguageModel) : Intent
+
+        /**
+         * Select resource file type.
+         *
+         * @property value resource type
+         * @constructor Create [SelectType]
+         */
         data class SelectType(val value: ResourceFileType) : Intent
+
+        /**
+         * Set the output path (must be a zip file).
+         *
+         * @property value path to write the messages.
+         * @constructor Create [SetOutputPath]
+         */
         data class SetOutputPath(val value: String) : Intent
+
+        /**
+         * Open a dialog to select a destination path.
+         */
         object OpenFileDialog : Intent
+
+        /**
+         * Close any currently open dialog.
+         */
         object CloseDialog : Intent
+
+        /**
+         * Submit the data.
+         */
         object Submit : Intent
     }
 
