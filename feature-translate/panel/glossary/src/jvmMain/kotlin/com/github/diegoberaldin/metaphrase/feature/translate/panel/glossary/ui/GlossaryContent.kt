@@ -114,7 +114,7 @@ fun GlossaryContent(
                     // target terms
                     FlowRow(
                         modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically,
+                        verticalArrangement = Arrangement.Center,
                     ) {
                         if (uiState.targetFlag.isNotEmpty()) {
                             Text(
