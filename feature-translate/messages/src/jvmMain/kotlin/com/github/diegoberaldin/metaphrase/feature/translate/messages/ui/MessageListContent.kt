@@ -17,6 +17,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.onClick
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.LockOpen
@@ -178,11 +179,13 @@ fun MessageListContent(
                             },
                         )
                     } else {
-                        Text(
-                            text = unit.original?.text.orEmpty(),
-                            style = textStyle,
-                            color = MaterialTheme.colorScheme.onBackground,
-                        )
+                        SelectionContainer {
+                            Text(
+                                text = unit.original?.text.orEmpty(),
+                                style = textStyle,
+                                color = MaterialTheme.colorScheme.onBackground,
+                            )
+                        }
                     }
                 }
                 // target segment
